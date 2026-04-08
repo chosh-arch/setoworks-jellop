@@ -2,7 +2,7 @@ export type Language = 'ko' | 'en' | 'ja' | 'zh';
 
 export type Platform = 'Wadiz' | 'Kickstarter' | 'Indiegogo';
 export type CampaignStatus = 'success' | 'failed' | 'ongoing';
-export type SocialPlatform = 'YouTube' | 'Instagram' | 'TikTok';
+export type SocialPlatform = 'YouTube' | 'Instagram' | 'TikTok' | 'Facebook' | 'Threads' | 'Dcard';
 export type Category = 'tech' | 'lifestyle' | 'beauty' | 'food' | 'game' | 'fashion';
 
 export interface Product {

@@ -317,7 +317,7 @@ export default function App() {
                 <span className="text-gray-300 self-center">|</span>
 
                 {/* Platform Filters */}
-                {(['YouTube', 'Instagram', 'TikTok'] as SocialPlatform[]).map((platform) => (
+                {(['YouTube', 'Instagram', 'TikTok', 'Facebook', 'Threads', 'Dcard'] as SocialPlatform[]).map((platform) => (
                   <button
                     key={platform}
                     onClick={() => setPlatformFilter(platformFilter === platform ? 'all' : platform)}

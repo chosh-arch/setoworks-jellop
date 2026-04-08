@@ -710,22 +710,39 @@ body{
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div class="dir-hero" style="flex:none;">
               <div class="dir-tag">STEP 1 — 인플루언서 발굴</div>
-              <div class="dir-h" style="font-size:22px;">글로벌 인플루언서를 <em>자동으로 매일 수집</em></div>
-              <div class="dir-d">사람이 하면 1주일, AI가 하면 매일 새벽 자동 실행. 3개 채널에서 동시에 크리에이터를 찾아 DB에 적재.</div>
+              <div class="dir-h" style="font-size:22px;">6개 플랫폼에서 인플루언서를 <em>자동으로 매일 수집</em></div>
+              <div class="dir-d">4개 무료 + 2개 유료 백업. Phase 1 완전 무료 시작 → Phase 4 월 20,000명 수집 체계.</div>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;flex:none;justify-content:center;">
-              <div style="background:var(--blue);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">TikTok<br>Creator API</div>
-              <div style="color:var(--mu);font-size:20px;">+</div>
-              <div style="background:var(--purple);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">Instagram<br>Crawl4AI</div>
-              <div style="color:var(--mu);font-size:20px;">+</div>
-              <div style="background:var(--brand-red);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">YouTube<br>Apify/Bright Data</div>
-              <div style="color:var(--brand-red);font-size:24px;font-weight:800;margin:0 10px;">→</div>
-              <div style="background:var(--charcoal);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">Qdrant DB<br>일 100명+ 적재</div>
+            <!-- Row 1: FREE (4 platforms) -->
+            <div style="flex:none;">
+              <div style="text-align:center;margin-bottom:6px;"><span style="background:#059669;color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;">FREE — 4개 플랫폼</span></div>
+              <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;">
+                <div style="background:var(--brand-red);color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">YouTube<br><span style="font-size:10px;opacity:.8;">Data API v3</span></div>
+                <div style="color:var(--mu);font-size:16px;">+</div>
+                <div style="background:#000;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">TikTok<br><span style="font-size:10px;opacity:.8;">TikTokApi</span></div>
+                <div style="color:var(--mu);font-size:16px;">+</div>
+                <div style="background:var(--purple);color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Instagram<br><span style="font-size:10px;opacity:.8;">Instaloader</span></div>
+                <div style="color:var(--mu);font-size:16px;">+</div>
+                <div style="background:#0d9488;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Dcard<br><span style="font-size:10px;opacity:.8;">공개 API 자체개발</span></div>
+                <div style="color:var(--brand-red);font-size:22px;font-weight:800;margin:0 8px;">→</div>
+                <div style="background:var(--charcoal);color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;" rowspan="2">Qdrant DB<br>일 100명+ 적재</div>
+              </div>
+            </div>
+            <!-- Row 2: PAID BACKUP (2 platforms) -->
+            <div style="flex:none;">
+              <div style="text-align:center;margin-bottom:6px;"><span style="background:#d97706;color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;">PAID BACKUP — 2개 플랫폼</span></div>
+              <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+                <div style="background:#000;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Threads<br><span style="font-size:10px;opacity:.8;">Apify $2/1K</span></div>
+                <div style="color:var(--mu);font-size:16px;">+</div>
+                <div style="background:#1d4ed8;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Facebook<br><span style="font-size:10px;opacity:.8;">Apify $10/1K</span></div>
+                <div style="color:var(--brand-red);font-size:22px;font-weight:800;margin:0 8px;">→</div>
+                <div style="background:var(--charcoal);color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">DB</div>
+              </div>
             </div>
             <div class="g3" style="flex:1;">
-              <div class="card"><div class="ctitle">수집 데이터</div><div class="clist"><div class="ci"><strong>프로필:</strong> 팔로워 수, ER, 카테고리, 국가, 언어</div><div class="ci"><strong>콘텐츠:</strong> 최근 30개 영상/이미지, 조회수, 좋아요, 댓글 수</div><div class="ci"><strong>연락처:</strong> bio 이메일, 미디어킷 링크, 비즈니스 계정 여부</div></div></div>
-              <div class="card"><div class="ctitle">자동화 방식</div><div class="clist"><div class="ci"><strong>n8n 스케줄:</strong> 매일 새벽 3시 자동 실행 (cron)</div><div class="ci"><strong>분산 프록시:</strong> Bright Data 잔류 IP → 차단 우회</div><div class="ci"><strong>중복 제거:</strong> 플랫폼 ID 기준 upsert → 깨끗한 DB 유지</div></div></div>
-              <div class="card"><div class="ctitle">산출물</div><div class="clist"><div class="ci"><strong>일 100명+</strong> 신규 크리에이터 DB 적재</div><div class="ci"><strong>주 700명+</strong> 누적 — 90일 후 6,000명+ 풀</div><div class="ci">Gemma 임베딩 자동 생성 → Step 3 매칭 준비 완료</div></div></div>
+              <div class="card"><div class="ctitle">무료 수집 (4개 플랫폼)</div><div class="clist"><div class="ci"><strong>YouTube API v3:</strong> 일 10,000 쿼터 무료</div><div class="ci"><strong>TikTokApi:</strong> 프로필+영상 무료 (차단 시 Apify $0.30/1K)</div><div class="ci"><strong>Instaloader:</strong> 공개 프로필 무료 (차단 시 Apify $2.30/1K)</div><div class="ci"><strong>Dcard:</strong> 공개 API 자체 개발 무료</div></div></div>
+              <div class="card"><div class="ctitle">유료 수집 (2개 플랫폼)</div><div class="clist"><div class="ci"><strong>Threads Apify:</strong> $2/1K건</div><div class="ci"><strong>Facebook Apify:</strong> $10/1K건</div><div class="ci"><strong>최소 월 5만원 ~ 현실 30~50만원</strong></div></div></div>
+              <div class="card"><div class="ctitle">산출물</div><div class="clist"><div class="ci"><strong>일 100명+</strong> → 주 700명+ → 90일 6,000명+</div><div class="ci">Phase 1 완전 무료 시작 → Phase 4 월 20,000명 수집</div><div class="ci"><strong>전체 비용:</strong> 수집 월 5~150만원 + 인프라 월 15~100만원</div></div></div>
             </div>
           </div>
         </div>
@@ -747,7 +764,7 @@ body{
             </div>
             <div class="g2" style="flex:1;">
               <div class="card"><div class="ctitle">분류 기준 (Gemma 자동)</div><div class="clist"><div class="ci"><strong>1차:</strong> 팔로워 수 → Tier 경계 자동 매핑</div><div class="ci"><strong>2차:</strong> ER(참여율) 기반 퀄리티 보정 — 팔로워 많아도 ER 낮으면 하향</div><div class="ci"><strong>3차:</strong> 콘텐츠 분석 — 최근 10개 영상/이미지 Vision 모델 분석, 카테고리 일치도 점수</div><div class="ci"><strong>4차:</strong> 이전 캠페인 성과 (DB 누적 후) → 실제 전환율 기반 재분류</div></div></div>
-              <div class="card"><div class="ctitle">핵심 인사이트</div><div class="clist"><div class="ci"><strong>나노 (1K~10K)가 핵심 타겟</strong> — 비용 0, 높은 ER, 대량 시딩 가능. 요즘 급부상하는 크리에이터들</div><div class="ci"><strong>분류는 고정이 아님</strong> — 3개월마다 성과 데이터 기반 재분류. 나노가 마이크로로 성장하면 자동 업그레이드</div><div class="ci"><strong>비용 대비 효과:</strong> 나노 50명 시딩 ROI > 메가 1명 (비용 0 vs 1,000만+)</div></div></div>
+              <div class="card"><div class="ctitle">핵심 인사이트</div><div class="clist"><div class="ci"><strong>나노 (1K~10K)가 핵심 타겟</strong> — 비용 0, 높은 ER, 대량 시딩 가능. 요즘 급부상하는 크리에이터들</div><div class="ci"><strong>분류는 고정이 아님</strong> — 3개월마다 성과 데이터 기반 재분류. 나노가 마이크로로 성장하면 자동 업그레이드</div><div class="ci"><strong>비용 대비 효과:</strong> 나노 50명 시딩 ROI > 메가 1명 (비용 0 vs 1,000만+)</div><div class="ci" style="margin-top:6px;padding:8px;background:#eff6ff;border-radius:8px;border-left:3px solid #3b82f6;"><strong>🎯 퓨어 인플루언서 필터:</strong> 영상을 주기적으로 올리면서 조회수를 꾸준히 확보하는 크리에이터를 우선 식별</div></div></div>
             </div>
           </div>
         </div>

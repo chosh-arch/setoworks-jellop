@@ -33,6 +33,9 @@ export function InfluencerCard({
     YouTube: { color: 'bg-red-600', icon: '▶' },
     Instagram: { color: 'bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400', icon: '📷' },
     TikTok: { color: 'bg-black', icon: '♪' },
+    Facebook: { color: 'bg-blue-600', icon: 'f' },
+    Threads: { color: 'bg-black', icon: '@' },
+    Dcard: { color: 'bg-teal-500', icon: 'D' },
   };
 
   const categoryLabels = {
