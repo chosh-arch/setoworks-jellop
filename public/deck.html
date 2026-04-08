@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks · Jellop+α 90일 로드맵 v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2545;--navy2:#1a3a6b;--blue:#1e56b0;--bl:#dbeafe;--bl2:#eff6ff;
+  --gold:#d4841a;--gold2:#f0b442;--gl:#fef3dc;
+  --green:#0d7c5f;--green2:#10a37f;--grl:#d1fae5;
+  --red:#b91c1c;--rl:#fee2e2;
+  --purple:#6d28d9;--pl:#ede9fe;
+  --pk:#be185d;--pkl:#fce7f3;
+  --slate:#334155;--slate2:#475569;--sll:#f1f5f9;
+  --wh:#ffffff;--bd:#e2e8f0;--bd2:#cbd5e1;--tx:#0f172a;--mu:#64748b;
+  --brand-red:#ff003b;--charcoal:#212121;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--tx);user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"kern" 1,"liga" 1;
+  font-weight:400;
+}
+
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(56px);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1);pointer-events:none;overflow:hidden;}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;}
+.slide.exit-left{opacity:0;transform:translateX(-56px);pointer-events:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes drawLine{from{stroke-dashoffset:2000;}to{stroke-dashoffset:0;}}
+@keyframes barRise{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+.slide.active .stag{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .08s both;}
+.slide.active .st{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .16s both;}
+.slide.active .ss{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .24s both;}
+.slide.active .sb{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .32s both;}
+
+/* ==== SETOWORKS LOGO (LANCZOS 4x/8x upscaled PNG) ==== */
+.brand-corner{
+  position:absolute;top:16px;right:28px;z-index:100;
+  pointer-events:none;
+}
+.brand-corner img{height:18px;width:auto;display:block;}
+#s0 .brand-corner{background:rgba(255,255,255,.97);padding:8px 14px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+#s0 .brand-corner img{height:16px;}
+
+.si{flex:1;display:flex;flex-direction:column;padding:28px 56px 16px;overflow:hidden;background:#f7f9fc;min-height:0;}
+.stag{display:flex;align-items:center;gap:11px;margin-bottom:13px;flex-shrink:0;}
+.snum{background:var(--charcoal);color:#fff;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.05em;}
+.slbl{font-size:13px;font-weight:500;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;}
+.st{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(26px,3.2vw,40px);font-weight:800;color:var(--charcoal);line-height:1.15;margin-bottom:7px;flex-shrink:0;letter-spacing:-.02em;}
+.st em{font-style:normal;color:var(--brand-red);}
+.ss{font-size:15px;color:var(--slate2);margin-bottom:18px;flex-shrink:0;line-height:1.65;font-weight:400;}
+.sb{flex:1 1 0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:12px;}
+.sb::-webkit-scrollbar{width:6px;height:6px;}
+.sb::-webkit-scrollbar-thumb{background:rgba(33,33,33,.2);border-radius:3px;}
+.sb::-webkit-scrollbar-track{background:transparent;}
+
+.nb{flex-shrink:0;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;background:var(--wh);border-top:1px solid var(--bd);gap:14px;}
+.nb-brand{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:12px;font-weight:800;color:var(--charcoal);letter-spacing:.04em;flex-shrink:0;display:flex;align-items:center;gap:8px;}
+.nb-sep{color:var(--bd2);font-weight:300;}
+.nb-proj{font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;color:var(--mu);letter-spacing:0;}
+.nb-dots{display:flex;align-items:center;gap:4px;flex:1;justify-content:center;flex-wrap:nowrap;overflow:hidden;}
+.nd{width:5px;height:5px;border-radius:50%;background:var(--bd2);cursor:pointer;transition:background .2s,width .2s;border:none;padding:0;flex-shrink:0;}
+.nd.active{background:var(--charcoal);width:16px;border-radius:3px;}
+.nd:hover:not(.active){background:var(--brand-red);}
+.nb-ctrl{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.nb-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--bd2);background:var(--wh);color:var(--charcoal);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
+.nb-btn:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal);}
+.nb-btn:active{transform:scale(.93);}
+.nb-cnt{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--slate2);min-width:42px;text-align:center;}
+
+/* COVER */
+#s0{background:radial-gradient(ellipse at 75% 25%,#1f2733 0%,#0a0e1a 60%,#020000 100%);}
+#s0 .si{background:transparent;justify-content:center;padding:0 64px;}
+#s0 .nb{background:rgba(255,255,255,.04);border-top-color:rgba(255,255,255,.08);}
+#s0 .nb-brand{color:#fff;}
+#s0 .nb-sep{color:rgba(255,255,255,.3);}
+#s0 .nb-proj{color:rgba(255,255,255,.6);}
+#s0 .nd{background:rgba(255,255,255,.22);}
+#s0 .nd.active{background:#fff;}
+#s0 .nb-cnt{color:rgba(255,255,255,.55);}
+#s0 .nb-btn{border-color:rgba(255,255,255,.25);background:transparent;color:#fff;}
+#s0 .nb-btn:hover{background:rgba(255,255,255,.18);}
+.cv-logo{display:inline-block;background:#fff;padding:clamp(20px,3vw,36px) clamp(32px,4.5vw,56px);border-radius:14px;margin-bottom:20px;align-self:flex-start;box-shadow:0 8px 40px rgba(0,0,0,.35);}
+.cv-logo img{height:clamp(38px,5vw,68px);width:auto;display:block;}
+.cv-divider{width:84px;height:3px;background:var(--brand-red);margin:18px 0 26px;}
+.cv-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,0,59,.1);color:#fff;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border-radius:24px;margin-bottom:18px;font-family:'DM Mono',monospace;border:1px solid rgba(255,0,59,.35);}
+.cv-h{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(32px,4.2vw,52px);font-weight:700;color:#fff;line-height:1.05;margin-bottom:18px;letter-spacing:-.02em;}
+.cv-h span{color:rgba(255,255,255,.45);}
+.cv-d{font-size:16px;color:rgba(255,255,255,.78);max-width:680px;line-height:1.78;margin-bottom:36px;font-weight:400;}
+.cv-meta{display:flex;gap:38px;flex-wrap:wrap;}
+.cv-mi{display:flex;flex-direction:column;gap:5px;}
+.cv-ml{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.13em;color:rgba(255,255,255,.5);text-transform:uppercase;}
+.cv-mv{font-size:15px;font-weight:600;color:rgba(255,255,255,.96);}
+
+/* cards */
+.card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(15,37,69,.04),0 1px 2px rgba(15,37,69,.02);}
+.ctitle{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--slate2);margin-bottom:13px;}
+.clist{display:flex;flex-direction:column;gap:8px;}
+.clist .ci{font-size:14px;color:var(--slate);line-height:1.65;font-weight:400;display:flex;gap:9px;align-items:flex-start;}
+.clist .ci::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand-red);flex-shrink:0;margin-top:8px;}
+.clist .ci strong{color:var(--navy);font-weight:700;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:20px;margin-bottom:8px;}
+.bb{background:var(--bl);color:var(--blue);}
+.bg{background:var(--gl);color:var(--gold);}
+.bgg{background:var(--grl);color:var(--green);}
+.br{background:var(--rl);color:var(--red);}
+.brd{background:rgba(255,0,59,.1);color:var(--brand-red);}
+.chip{display:inline-block;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;background:var(--sll);border:1px solid var(--bd);border-radius:5px;padding:2px 8px;color:var(--navy);}
+
+/* DIRECTION (s1) */
+.dir-hero{background:linear-gradient(135deg,#0a0e1a 0%,var(--charcoal) 100%);border-radius:18px;padding:28px 36px;color:#fff;display:flex;flex-direction:column;gap:14px;flex:none;position:relative;overflow:hidden;}
+.dir-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,59,.15) 0%,transparent 70%);}
+.dir-tag{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-red);}
+.dir-h{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:28px;font-weight:700;line-height:1.25;letter-spacing:-.01em;}
+.dir-h em{font-style:normal;color:var(--brand-red);}
+.dir-d{font-size:14px;color:rgba(255,255,255,.78);line-height:1.7;max-width:820px;}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;flex:1;}
+.dir-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:9px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.dir-card-icon{font-size:26px;}
+.dir-card-t{font-size:15px;font-weight:800;color:var(--charcoal);}
+.dir-card-d{font-size:13.5px;color:var(--slate);line-height:1.7;font-weight:400;}
+.dir-card-d strong{color:var(--charcoal);font-weight:700;}
+
+/* MACRO GROWTH CHART (s2) */
+.gc-wrap{background:var(--wh);border:1px solid var(--bd);border-radius:16px;padding:22px 26px;flex:1;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.gc-head{display:flex;justify-content:space-between;align-items:flex-start;}
+.gc-title{font-size:15px;font-weight:800;color:var(--charcoal);}
+.gc-sub{font-size:12px;color:var(--mu);margin-top:3px;font-weight:500;}
+.gc-legend{display:flex;gap:18px;align-items:center;}
+.gc-leg-i{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--slate);font-weight:600;}
+.gc-leg-sw{width:14px;height:14px;border-radius:3px;}
+.gc-svg{flex:1;width:100%;height:100%;}
+.gc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;flex:none;}
+.gc-stat{background:#fafbfd;border:1px solid var(--bd);border-radius:11px;padding:13px 15px;display:flex;flex-direction:column;gap:3px;}
+.gc-stat.brand{background:rgba(255,0,59,.04);border-color:rgba(255,0,59,.25);}
+.gc-stat-k{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;}
+.gc-stat-v{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:var(--charcoal);line-height:1.1;}
+.gc-stat.brand .gc-stat-v{color:var(--brand-red);}
+.gc-stat-d{font-size:11px;color:var(--slate2);font-weight:500;line-height:1.4;}
+
+/* PORTFOLIO (s3) — 6 verified Setoworks campaigns */
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:1;overflow:auto;}
+.pf-img{width:100%;height:72px;object-fit:cover;border-radius:8px;margin-bottom:6px;background:#f1f5f9;cursor:pointer;transition:opacity .15s;}
+.pf-img:hover{opacity:.85;}
+
+/* Lightbox */
+.lb-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(4px);}
+.lb-overlay.open{opacity:1;pointer-events:all;}
+.lb-overlay img{max-width:90vw;max-height:85vh;border-radius:12px;box-shadow:0 16px 64px rgba(0,0,0,.5);object-fit:contain;}
+.lb-close{position:absolute;top:24px;right:32px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.lb-close:hover{background:rgba(255,255,255,.3);}
+.lb-caption{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:#fff;font-size:15px;font-weight:600;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.6);max-width:80vw;}
+.pf-card{background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 17px;display:flex;flex-direction:column;gap:6px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);position:relative;}
+.pf-card.mega{background:linear-gradient(135deg,#fff 0%,#fff5f7 100%);border-color:var(--brand-red);}
+.pf-card.mega::after{content:'MEGA';position:absolute;top:-9px;right:13px;background:var(--brand-red);color:#fff;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.08em;}
+.pf-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.pf-name{font-size:14.5px;font-weight:800;color:var(--charcoal);line-height:1.25;}
+.pf-co{font-size:11.5px;color:var(--mu);font-weight:500;}
+.pf-cat{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;background:var(--sll);color:var(--slate2);padding:2px 7px;border-radius:4px;align-self:flex-start;letter-spacing:.02em;}
+.pf-fund{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:var(--brand-red);line-height:1.1;margin-top:4px;}
+.pf-meta{font-size:11.5px;color:var(--slate);line-height:1.55;font-weight:400;}
+.pf-meta strong{color:var(--charcoal);font-weight:700;}
+.pf-src{font-family:'DM Mono',monospace;font-size:10px;color:var(--mu);font-weight:500;margin-top:auto;border-top:1px dashed var(--bd);padding-top:6px;}
+
+/* REVENUE PIPELINE (new) */
+.pipe-bar{display:flex;align-items:stretch;gap:0;flex:none;border-radius:14px;overflow:hidden;border:1.5px solid var(--bd);}
+.pipe-step{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 6px;text-align:center;position:relative;background:var(--wh);}
+.pipe-step.active-step{background:var(--brand-red);color:#fff;}
+.pipe-step.active-step .pipe-sn,.pipe-step.active-step .pipe-sl{color:#fff;}
+.pipe-step::after{content:'';position:absolute;right:-1px;top:25%;height:50%;width:2px;background:var(--bd);}
+.pipe-step:last-child::after{display:none;}
+.pipe-sn{font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;color:var(--charcoal);line-height:1;}
+.pipe-sl{font-size:11.5px;font-weight:700;color:var(--slate);margin-top:2px;line-height:1.3;}
+.pipe-tag{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;margin-top:4px;padding:2px 6px;border-radius:3px;letter-spacing:.03em;}
+.pipe-tag-ai{background:rgba(30,86,176,.12);color:var(--blue);}
+.pipe-tag-human{background:rgba(212,132,26,.12);color:var(--gold);}
+.pipe-tag-both{background:rgba(109,40,217,.12);color:var(--purple);}
+.pipe-tag-auto{background:rgba(255,0,59,.1);color:var(--brand-red);}
+.pipe-panel{animation:fadeUp .4s cubic-bezier(.4,0,.2,1) both;}
+.pipe-step{transition:all .2s ease;}
+.pipe-step:hover{background:var(--sll);}
+.pipe-step.pipe-active{background:var(--brand-red);}.pipe-step.pipe-active .pipe-sn,.pipe-step.pipe-active .pipe-sl{color:#fff;}.pipe-step.pipe-active .pipe-tag{background:rgba(255,255,255,.25);color:#fff;}
+.pipe-detail{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;flex:1;}
+.pipe-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:5px;border-left:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.pipe-card-n{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.2;}
+.pipe-card-d{font-size:12.5px;color:var(--slate);line-height:1.6;font-weight:400;}
+.pipe-card-d strong{color:var(--charcoal);font-weight:700;}
+.pipe-rev{margin-top:auto;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--brand-red);background:rgba(255,0,59,.06);padding:4px 8px;border-radius:4px;align-self:flex-start;}
+
+/* OPERATION FLYWHEEL (s4) */
+.fw-wrap{flex:1;display:flex;align-items:center;justify-content:center;gap:22px;}
+.fw-steps{display:flex;flex-direction:column;gap:11px;flex:1;max-width:580px;}
+.fw-step{display:flex;align-items:center;gap:14px;background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 18px;box-shadow:0 1px 3px rgba(15,37,69,.05);border-left:4px solid;}
+.fw-step-n{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:var(--charcoal);width:36px;flex-shrink:0;}
+.fw-step-r{flex:1;}
+.fw-step-t{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:2px;}
+.fw-step-d{font-size:13px;color:var(--slate);line-height:1.55;font-weight:400;}
+.fw-center{flex:0 0 280px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0e1a 0%,var(--charcoal) 100%);border-radius:50%;width:280px;height:280px;color:#fff;text-align:center;padding:24px;position:relative;box-shadow:0 8px 32px rgba(0,0,0,.2),0 0 0 1px rgba(255,0,59,.2);}
+.fw-center::before{content:'';position:absolute;inset:-12px;border-radius:50%;border:2px dashed rgba(255,0,59,.3);}
+.fw-center-tag{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--brand-red);text-transform:uppercase;margin-bottom:6px;}
+.fw-center-t{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;line-height:1.1;margin-bottom:8px;}
+.fw-center-d{font-size:12px;color:rgba(255,255,255,.75);line-height:1.55;font-weight:400;}
+
+/* REVENUE EFFECT (s4) WITH BAR CHART */
+.rev-streams{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;flex:none;}
+.rev-stream{background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;border-top:4px solid;}
+.rev-stream-icon{font-size:22px;}
+.rev-stream-t{font-size:14px;font-weight:800;color:var(--charcoal);}
+.rev-stream-d{font-size:12.5px;color:var(--slate);line-height:1.55;font-weight:400;}
+.rev-bar-wrap{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;flex:1;display:flex;gap:24px;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.rev-bar-svg{flex:1.4;width:100%;height:100%;min-width:0;}
+.rev-bar-side{flex:1;display:flex;flex-direction:column;justify-content:center;gap:11px;}
+.rev-bar-leg{display:flex;flex-direction:column;gap:7px;}
+.rev-bar-leg-i{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--slate);font-weight:500;}
+.rev-bar-leg-sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+.rev-bar-leg-i strong{color:var(--charcoal);font-weight:700;font-family:'DM Mono',monospace;font-size:12px;margin-left:auto;}
+
+/* MAKER VALUE (s5) */
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;flex:1;}
+.val-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:9px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.val-card-icon{font-size:26px;}
+.val-card-t{font-size:15px;font-weight:800;color:var(--charcoal);}
+.val-card-d{font-size:13.5px;color:var(--slate);line-height:1.7;font-weight:400;}
+.val-card-d strong{color:var(--charcoal);font-weight:700;}
+.val-card-roi{margin-top:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--brand-red);background:rgba(255,0,59,.08);padding:5px 10px;border-radius:5px;align-self:flex-start;}
+
+/* differentiation 5 cards */
+.diff-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;flex:1;}
+.diff-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:16px 15px;display:flex;flex-direction:column;gap:9px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.diff-num{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--charcoal);line-height:1;}
+.diff-t{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.35;}
+.diff-vs{display:flex;flex-direction:column;gap:6px;margin-top:5px;}
+.diff-row{font-size:12.5px;line-height:1.55;display:flex;gap:6px;}
+.diff-k{font-weight:700;flex-shrink:0;width:42px;font-family:'DM Mono',monospace;font-size:11px;}
+.diff-v{color:var(--slate);}
+.diff-v strong{color:var(--charcoal);font-weight:700;}
+
+/* 6채널 */
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:1;}
+.ch-card{background:var(--wh);border:1.5px solid var(--bd);border-radius:14px;padding:14px 17px;display:flex;flex-direction:column;gap:7px;border-left:4px solid;}
+.ch-h{display:flex;align-items:center;gap:9px;}
+.ch-icon{font-size:20px;}
+.ch-t{font-size:14px;font-weight:800;color:var(--charcoal);}
+.ch-d{font-size:13px;color:var(--slate);line-height:1.6;font-weight:400;}
+.ch-d strong{color:var(--charcoal);font-weight:700;}
+.ch-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--mu);font-weight:500;margin-top:auto;}
+.ch-merge{background:linear-gradient(135deg,var(--charcoal) 0%,#0a0e1a 100%);border-radius:14px;padding:16px 22px;color:#fff;display:flex;align-items:center;gap:18px;flex:none;border:1px solid rgba(255,0,59,.3);}
+.ch-merge-l{font-family:'Poppins',sans-serif;font-size:36px;font-weight:800;color:var(--brand-red);line-height:1;}
+.ch-merge-r{flex:1;}
+.ch-merge-t{font-size:15px;font-weight:800;margin-bottom:4px;color:#fff;}
+.ch-merge-d{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;font-weight:400;}
+
+/* 이커머스 3단계 */
+.stage-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;}
+.stage-card{border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;border:1.5px solid;}
+.stage-h{display:flex;align-items:center;justify-content:space-between;}
+.stage-num{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;line-height:1;}
+.stage-when{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:3px 9px;border-radius:5px;}
+.stage-t{font-size:16px;font-weight:800;line-height:1.3;}
+.stage-d{font-size:13px;color:var(--slate);line-height:1.65;font-weight:400;}
+.stage-d strong{color:var(--charcoal);font-weight:700;}
+.stage-kpi{margin-top:auto;background:rgba(255,255,255,.65);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;color:var(--charcoal);line-height:1.5;}
+
+/* SEQUENTIAL INVESTMENT (s9) */
+.inv-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;flex:1;}
+.inv-card{border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;border:1.5px solid var(--bd2);position:relative;background:var(--wh);}
+.inv-card.active{background:linear-gradient(135deg,#fff 0%,#fff5f7 100%);border-color:var(--brand-red);box-shadow:0 8px 24px rgba(255,0,59,.12);}
+.inv-card.active::after{content:'NOW';position:absolute;top:-10px;right:14px;background:var(--brand-red);color:#fff;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.08em;}
+.inv-h{display:flex;align-items:center;justify-content:space-between;}
+.inv-stage{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:var(--charcoal);line-height:1;}
+.inv-when{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:var(--slate2);background:var(--sll);padding:3px 9px;border-radius:5px;}
+.inv-t{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.3;}
+.inv-cost{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--brand-red);line-height:1;}
+.inv-cost-l{font-size:11px;font-weight:500;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;}
+.inv-list{display:flex;flex-direction:column;gap:5px;}
+.inv-item{font-size:12.5px;color:var(--slate);line-height:1.55;display:flex;gap:7px;align-items:flex-start;font-weight:400;}
+.inv-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--brand-red);flex-shrink:0;margin-top:7px;}
+.inv-item strong{color:var(--charcoal);font-weight:700;}
+.inv-rationale{margin-top:auto;font-size:11.5px;color:var(--slate2);line-height:1.55;font-weight:500;font-style:italic;border-top:1px dashed var(--bd);padding-top:8px;}
+.inv-cum{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,var(--charcoal) 0%,#0a0e1a 100%);border-radius:13px;padding:14px 22px;color:#fff;flex:none;}
+.inv-cum-l{font-size:13px;font-weight:600;color:rgba(255,255,255,.78);}
+.inv-cum-r{display:flex;gap:24px;align-items:center;}
+.inv-cum-i{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+.inv-cum-k{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:rgba(255,0,59,.85);text-transform:uppercase;letter-spacing:.08em;}
+.inv-cum-v{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;color:#fff;}
+
+/* 90일 timeline */
+.tl-wrap{flex:1;display:flex;flex-direction:column;gap:11px;}
+.tl-row{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:stretch;}
+.tl-label{color:#fff;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.tl-label.p1{background:linear-gradient(135deg,var(--blue) 0%,#1e40af 100%);}
+.tl-label.p2{background:linear-gradient(135deg,var(--gold) 0%,#b45309 100%);}
+.tl-label.p3{background:linear-gradient(135deg,var(--green) 0%,#047857 100%);}
+.tl-label-n{font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;line-height:1;}
+.tl-label-d{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:rgba(255,255,255,.85);margin-top:5px;}
+.tl-content{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:13px 17px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.tl-content-t{font-size:14px;font-weight:800;color:var(--charcoal);}
+.tl-content-w{display:flex;gap:14px;flex-wrap:wrap;}
+.tl-week{font-size:12.5px;color:var(--slate);line-height:1.5;font-weight:400;}
+.tl-week strong{color:var(--charcoal);font-weight:700;font-family:'DM Mono',monospace;font-size:11.5px;background:var(--sll);padding:1px 6px;border-radius:4px;margin-right:5px;}
+
+/* tech verification table */
+.tvw{overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.tvw table{width:100%;border-collapse:collapse;}
+.tvw thead tr{background:var(--charcoal);position:sticky;top:0;z-index:2;}
+.tvw thead th{padding:13px 15px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.96);}
+.tvw tbody tr:nth-child(even){background:#fafbfd;}
+.tvw tbody td{padding:12px 15px;font-size:13px;border-bottom:1px solid var(--bd);vertical-align:top;line-height:1.65;color:var(--slate);font-weight:400;}
+.tvw tbody td:first-child{font-weight:700;color:var(--charcoal);}
+.verdict{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;display:inline-block;white-space:nowrap;letter-spacing:.02em;}
+.v-ok{background:var(--grl);color:var(--green);}
+.v-warn{background:var(--gl);color:var(--gold);}
+.v-bad{background:var(--rl);color:var(--red);}
+
+/* risks */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;}
+.risk-card{border-radius:14px;padding:16px 19px;display:flex;flex-direction:column;gap:9px;border:1.5px solid;}
+.risk-h{display:flex;align-items:center;gap:10px;}
+.risk-lvl{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;color:#fff;}
+.risk-t{font-size:15px;font-weight:800;}
+.risk-d{font-size:13px;color:var(--slate);line-height:1.65;font-weight:400;}
+.risk-d strong{color:var(--charcoal);font-weight:700;}
+.risk-mit{background:rgba(255,255,255,.7);border-radius:8px;padding:10px 13px;margin-top:auto;font-size:12.5px;line-height:1.65;color:var(--slate);font-weight:400;}
+.risk-mit strong{color:var(--green);font-weight:700;}
+
+/* KPI table */
+.kpi-tw{overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.kpi-tw table{width:100%;border-collapse:collapse;}
+.kpi-tw thead tr{background:var(--charcoal);}
+.kpi-tw thead th{padding:13px 15px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.96);}
+.kpi-tw tbody tr:nth-child(even){background:#fafbfd;}
+.kpi-tw tbody td{padding:11px 15px;font-size:13px;border-bottom:1px solid var(--bd);vertical-align:middle;line-height:1.6;color:var(--slate);font-weight:400;}
+.kpi-tw tbody td:first-child{font-weight:700;color:var(--charcoal);width:18%;}
+.kpi-tw tbody td strong{color:var(--charcoal);font-weight:700;}
+
+/* stats */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;flex:none;}
+.stat-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 14px;text-align:center;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.stat-num{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:38px;font-weight:800;line-height:1.1;}
+.stat-lbl{font-size:13px;color:var(--slate2);margin-top:6px;line-height:1.5;font-weight:500;}
+
+/* insight box */
+.ibox{padding:13px 17px;border-radius:11px;border-left:4px solid;font-size:13.5px;line-height:1.7;font-weight:400;}
+.ibox strong{font-weight:700;}
+.ibox-blue{background:var(--bl2);border-color:var(--blue);color:#1e3a5f;}
+.ibox-gold{background:var(--gl);border-color:var(--gold);color:#78350f;}
+.ibox-green{background:var(--grl);border-color:var(--green);color:#064e3b;}
+.ibox-red{background:var(--rl);border-color:var(--red);color:#7f1d1d;}
+.ibox-brand{background:rgba(255,0,59,.06);border-color:var(--brand-red);color:#7f1d1d;}
+
+/* action list */
+.act-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;}
+.act-card{background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 13px;display:flex;flex-direction:column;gap:7px;text-align:center;border-top:3px solid var(--brand-red);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.act-num{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:24px;font-weight:800;color:var(--brand-red);line-height:1;}
+.act-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.4;}
+.act-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* INFLUENCER 3-TIER PACKAGING (s5) */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;flex:none;}
+.tier-card{border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:9px;border:1.5px solid;position:relative;}
+.tier-card.t1{background:#f0fdf4;border-color:var(--green);}
+.tier-card.t2{background:#fefce8;border-color:var(--gold);}
+.tier-card.t3{background:linear-gradient(135deg,#fff 0%,#fff5f7 100%);border-color:var(--brand-red);}
+.tier-h{display:flex;justify-content:space-between;align-items:flex-start;}
+.tier-num{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;line-height:1;}
+.tier-card.t1 .tier-num{color:var(--green);}
+.tier-card.t2 .tier-num{color:var(--gold);}
+.tier-card.t3 .tier-num{color:var(--brand-red);}
+.tier-vol{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;color:#fff;}
+.tier-card.t1 .tier-vol{background:var(--green);}
+.tier-card.t2 .tier-vol{background:var(--gold);}
+.tier-card.t3 .tier-vol{background:var(--brand-red);}
+.tier-t{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.3;}
+.tier-cost{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;color:var(--charcoal);line-height:1.1;}
+.tier-cost-l{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+.tier-list{display:flex;flex-direction:column;gap:5px;}
+.tier-item{font-size:12.5px;color:var(--slate);line-height:1.55;font-weight:400;display:flex;gap:7px;align-items:flex-start;}
+.tier-item::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;flex-shrink:0;margin-top:7px;opacity:.5;}
+.tier-item strong{color:var(--charcoal);font-weight:700;}
+.tier-pack{margin-top:auto;background:rgba(255,255,255,.7);border-radius:8px;padding:9px 12px;font-size:12px;line-height:1.55;color:var(--charcoal);font-weight:600;}
+.tier-pack-l{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;display:block;margin-bottom:3px;}
+.pkg-row{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:none;margin-top:4px;}
+.pkg-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:13px 16px;display:flex;flex-direction:column;gap:5px;border-left:4px solid var(--brand-red);box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.pkg-name{font-size:13.5px;font-weight:800;color:var(--charcoal);}
+.pkg-price{font-family:'Poppins',sans-serif;font-size:15px;font-weight:800;color:var(--brand-red);}
+.pkg-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* STAGE A AUTOMATION (s11) */
+.auto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;flex:1;}
+.auto-card{background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 17px;display:flex;flex-direction:column;gap:7px;border-left:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.auto-h{display:flex;align-items:center;gap:9px;}
+.auto-icon{font-size:20px;}
+.auto-t{font-size:14px;font-weight:800;color:var(--charcoal);}
+.auto-flow{font-family:'DM Mono',monospace;font-size:11px;color:var(--slate2);line-height:1.6;background:var(--sll);padding:7px 10px;border-radius:6px;font-weight:500;}
+.auto-flow strong{color:var(--brand-red);font-weight:700;}
+.auto-gain{font-size:12px;color:var(--slate);line-height:1.55;font-weight:500;}
+.auto-gain strong{color:var(--charcoal);font-weight:700;}
+.auto-stack{background:linear-gradient(135deg,var(--charcoal) 0%,#0a0e1a 100%);border-radius:13px;padding:14px 18px;color:#fff;display:flex;align-items:center;gap:14px;flex:none;border:1px solid rgba(255,0,59,.3);}
+.auto-stack-l{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;color:var(--brand-red);flex-shrink:0;letter-spacing:.02em;}
+.auto-stack-r{font-size:12px;color:rgba(255,255,255,.85);line-height:1.65;font-weight:400;}
+.auto-stack-r strong{color:#fff;font-weight:700;}
+
+@media(max-width:768px){
+  .si{padding:18px 20px 0;}
+  .nb{padding:0 20px;}
+  .brand-corner{top:14px;right:18px;font-size:16px;}
+  .g2,.g3,.g4,.g5,.dir-grid,.diff-grid,.ch-grid,.stage-flow,.inv-flow,.rev-streams,.val-grid,.risk-grid,.act-grid,.stat-row,.gc-stats{grid-template-columns:1fr;}
+  .fw-wrap,.rev-bar-wrap{flex-direction:column;}
+  .fw-center{flex:none;}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ━━━ 0 COVER ━━━ -->
+<div class="slide active" id="s0">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="cv-logo"><img src="setoworks_logo_8x.png" alt="SETOWORKS"></div>
+    <div class="cv-divider"></div>
+    <div class="cv-tag">Strategic AI Project · 2026-04-07</div>
+    <div class="cv-h">Jellop+α<br><span>14년 노하우 위에 얹는 AI 진화</span></div>
+    <div class="cv-d">2012년부터 14년간 1,200건의 글로벌 펀딩 프로젝트와 520억원의 누적 펀딩 노하우 위에, 사전 예측 + AI 인플루언서 시딩 + 6채널 데이터 통합을 더해 다음 14년의 도약을 만든다 — 90일 실행 로드맵 v4.</div>
+    <div class="cv-meta">
+      <div class="cv-mi"><span class="cv-ml">기존 매출</span><span class="cv-mv">약 50억원/년</span></div>
+      <div class="cv-mi"><span class="cv-ml">Year 1 추가 (목표)</span><span class="cv-mv">+9~12억원 (중간)</span></div>
+      <div class="cv-mi"><span class="cv-ml">초기 투자</span><span class="cv-mv">노트북 1대 ~750만원</span></div>
+      <div class="cv-mi"><span class="cv-ml">슬라이드</span><span class="cv-mv">총 18장</span></div>
+    </div>
+  </div>
+  <div class="nb">
+    <div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div>
+    <div class="nb-dots" id="d0"></div>
+    <div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c0"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- ━━━ 1 진행 방향 ━━━ -->
+<div class="slide" id="s1">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">01</span><span class="slbl">Direction · 진행 방향</span></div>
+    <div class="st">14년 카테고리 리더의 <em>다음 진화</em></div>
+    <div class="ss">세토웍스는 이미 1위 — Jellop+α는 신규 사업이 아니라 14년 운영 데이터 위에 AI를 얹는 진화 프로젝트</div>
+    <div class="sb">
+      <div class="dir-hero">
+        <div class="dir-tag">● Setoworks Position</div>
+        <div class="dir-h">"14년간 1,200건 펀딩, 520억원 운영 노하우 위에<br><em>사전 예측 AI + 인플루언서 시딩 + 6채널 데이터 통합</em>을<br>더해 다음 14년의 도약을 만든다."</div>
+        <div class="dir-d">Jellop은 미국 회사라 아시아 운영 노하우가 없다. Spray는 뷰티 인플루언서 시딩만 한다. 누구도 14년간 누적된 1,200건 펀딩 운영 데이터를 보유하지 않는다. <strong style="color:var(--brand-red);">우리는 이미 카테고리 리더이고, AI는 그 우위를 더 벌리는 도구다.</strong></div>
+      </div>
+      <div class="dir-grid">
+        <div class="dir-card" style="border-top-color:var(--brand-red);">
+          <div class="dir-card-icon"></div>
+          <div class="dir-card-t">우리가 이미 가진 것</div>
+          <div class="dir-card-d">14년 (2012~) · <strong>1,200건+ 펀딩 성공</strong> · 누적 펀딩 <strong>520억원</strong> · <strong>킥스타터 엑스퍼트 (한국 단 2개사)</strong> + <strong>마쿠아케 공식 파트너 (한국 1위, 450건+/150억+)</strong>. 매출 <strong>50억원</strong> (2025), 42억 (2022).</div>
+        </div>
+        <div class="dir-card" style="border-top-color:var(--blue);">
+          <div class="dir-card-icon"></div>
+          <div class="dir-card-t">시장 (검증)</div>
+          <div class="dir-card-d">글로벌 크라우드펀딩 시장 <strong>$28B</strong> (Market Data Forecast 2025) · Tech 카테고리 <strong>30%</strong> (Mordor) · Tech CAGR <strong>26%</strong>. Kickstarter Tech 평균 성공 펀딩 <strong>$92K (≈1.2억)</strong> (Statista 2025).</div>
+        </div>
+        <div class="dir-card" style="border-top-color:var(--green);">
+          <div class="dir-card-icon"></div>
+          <div class="dir-card-t">목표 (내부 시나리오)</div>
+          <div class="dir-card-d">Year 1 추가 매출 <strong>+5~10억</strong> (기존 50억의 +10~20%, 내부 가정) · Year 4 <strong>100억대 진입</strong> 시나리오. 4 수익원 (성과 수수료 15% + SaaS + 시딩 + 풀스택). <em>※ 내부 가정, 검증 중</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d1"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c1"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 2 세토웍스 14년 매크로 성장 그래프 ━━━ -->
+<div class="slide" id="s2">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">02</span><span class="slbl">Macro Growth · 거시 성장 그래프</span></div>
+    <div class="st">세토웍스 매출 + <em>Jellop+α 4년 시나리오</em></div>
+    <div class="ss">검증된 점은 2개 (2022 42억 / 2025 50억) — 나머지는 추정 보간선과 내부 시나리오. 정직 그래프.</div>
+    <div class="sb">
+      <div class="gc-wrap">
+        <div class="gc-head">
+          <div>
+            <div class="gc-title">연 매출 추이 (단위: 억원)</div>
+            <div class="gc-sub">검증: 2022 42억 (사람인), 2025 50억 (자체 PR) · 그 외 연도는 추정 / 2026~ 내부 시나리오</div>
+          </div>
+          <div class="gc-legend">
+            <div class="gc-leg-i"><div class="gc-leg-sw" style="background:#212121;"></div>검증 데이터 포인트 (2개)</div>
+            <div class="gc-leg-i"><div class="gc-leg-sw" style="background:rgba(71,85,105,.18);border:1px dashed #475569;"></div>추정 보간 (2012-2024)</div>
+            <div class="gc-leg-i"><div class="gc-leg-sw" style="background:rgba(255,0,59,.22);border:1px solid #ff003b;"></div>Jellop+α 시나리오 (2026~)</div>
+          </div>
+        </div>
+        <svg class="gc-svg" viewBox="0 0 1000 360" preserveAspectRatio="xMidYMid meet">
+          <!-- Grid horizontal lines -->
+          <line x1="70" y1="30" x2="970" y2="30" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="78" x2="970" y2="78" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="126" x2="970" y2="126" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="174" x2="970" y2="174" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="222" x2="970" y2="222" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="270" x2="970" y2="270" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="70" y1="318" x2="970" y2="318" stroke="#cbd5e1"/>
+          <!-- Y axis labels -->
+          <text x="62" y="322" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">0</text>
+          <text x="62" y="274" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">25</text>
+          <text x="62" y="226" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">50</text>
+          <text x="62" y="178" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">75</text>
+          <text x="62" y="130" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">100</text>
+          <text x="62" y="82" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">125</text>
+          <text x="62" y="34" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#64748b">150</text>
+          <text x="36" y="180" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#94a3b8" transform="rotate(-90 36 180)">매출 (억원)</text>
+          <!-- X axis labels (spaced to avoid overlap) -->
+          <text x="70" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">2012</text>
+          <text x="229" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">2016</text>
+          <text x="388" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">2018</text>
+          <text x="494" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">2020</text>
+          <text x="600" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">2022</text>
+          <text x="759" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#212121" font-weight="700">2025</text>
+          <text x="865" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#ff003b" font-weight="700">2027</text>
+          <text x="971" y="340" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#ff003b" font-weight="700">2029</text>
+          <!-- Founding marker -->
+          <line x1="70" y1="30" x2="70" y2="318" stroke="#94a3b8" stroke-dasharray="2,3" stroke-width="0.8"/>
+          <!-- Estimated historical curve (DASHED — only 2022, 2025 are verified) -->
+          <!-- 2022 = 42억 → y = 318 - (42/150)*288 = 237 -->
+          <!-- 2025 = 50억 → y = 318 - (50/150)*288 = 222 -->
+          <path d="M 70,316 L 123,314 L 176,310 L 229,303 L 282,294 L 335,283 L 388,272 L 441,260 L 494,249 L 547,242 L 600,237 L 653,233 L 706,228 L 759,222 L 759,318 L 70,318 Z"
+                fill="rgba(71,85,105,0.12)"/>
+          <path d="M 70,316 L 123,314 L 176,310 L 229,303 L 282,294 L 335,283 L 388,272 L 441,260 L 494,249 L 547,242 L 600,237 L 653,233 L 706,228 L 759,222"
+                fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Jellop+α scenario (slightly more conservative, stacked from 2025=50억) -->
+          <!-- Year 1 2026: 50+7=57 → y = 318-(57/150)*288 = 209 -->
+          <!-- Year 2 2027: 53+15=68 → y = 318-(68/150)*288 = 187 -->
+          <!-- Year 3 2028: 56+30=86 → y = 318-(86/150)*288 = 153 -->
+          <!-- Year 4 2029: 59+50=109 → y = 318-(109/150)*288 = 109 -->
+          <path d="M 759,222 L 812,209 L 865,187 L 918,153 L 971,109 L 971,199 L 918,213 L 865,217 L 812,219 L 759,222 Z"
+                fill="rgba(255,0,59,0.22)"/>
+          <path d="M 759,222 L 812,209 L 865,187 L 918,153 L 971,109"
+                fill="none" stroke="#ff003b" stroke-width="3"/>
+          <!-- Verified data point markers -->
+          <circle cx="70" cy="316" r="4" fill="#94a3b8" stroke="#fff" stroke-width="2"/>
+          <text x="84" y="310" font-family="Noto Sans KR,sans-serif" font-size="9" font-weight="600" fill="#94a3b8">창업</text>
+          <!-- 2022 = 42억 (label LEFT of point to avoid right-side crowding) -->
+          <circle cx="600" cy="237" r="6" fill="#212121" stroke="#fff" stroke-width="2"/>
+          <text x="588" y="228" text-anchor="end" font-family="Noto Sans KR,sans-serif" font-size="11" font-weight="700" fill="#212121">42억</text>
+          <text x="588" y="240" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#64748b">사람인</text>
+          <!-- 2025 = 50억 (label above point) -->
+          <circle cx="759" cy="222" r="6" fill="#212121" stroke="#fff" stroke-width="2"/>
+          <text x="759" y="206" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="11" font-weight="700" fill="#212121">50억</text>
+          <text x="759" y="217" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#64748b">검증</text>
+          <!-- Scenario points — labels positioned to avoid overlap -->
+          <circle cx="812" cy="209" r="4" fill="#ff003b" stroke="#fff" stroke-width="1.5"/>
+          <text x="812" y="198" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="9" font-weight="700" fill="#ff003b">+7억</text>
+          <circle cx="865" cy="187" r="4" fill="#ff003b" stroke="#fff" stroke-width="1.5"/>
+          <text x="865" y="176" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="9" font-weight="700" fill="#ff003b">+15억</text>
+          <circle cx="918" cy="153" r="4" fill="#ff003b" stroke="#fff" stroke-width="1.5"/>
+          <text x="918" y="142" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="9" font-weight="700" fill="#ff003b">+30억</text>
+          <!-- Year 4 final point (large, emphasized) -->
+          <circle cx="971" cy="109" r="7" fill="#ff003b" stroke="#fff" stroke-width="2"/>
+          <text x="955" y="92" text-anchor="end" font-family="Poppins,sans-serif" font-size="14" font-weight="800" fill="#ff003b">109억</text>
+          <text x="955" y="105" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#9f1239">Y4 시나리오</text>
+        </svg>
+        <div class="gc-stats">
+          <div class="gc-stat">
+            <div class="gc-stat-k">2022 (검증)</div>
+            <div class="gc-stat-v">42<span style="font-size:14px;">억</span></div>
+            <div class="gc-stat-d">사람인 공시 — 연 매출액 (단일 출처)</div>
+          </div>
+          <div class="gc-stat">
+            <div class="gc-stat-k">2025 (검증)</div>
+            <div class="gc-stat-v">~50<span style="font-size:14px;">억</span></div>
+            <div class="gc-stat-d">자체 PR / 1,200건 누적, 520억 펀딩 운영</div>
+          </div>
+          <div class="gc-stat brand">
+            <div class="gc-stat-k">Year 1 (2026, 가정)</div>
+            <div class="gc-stat-v">+5~10<span style="font-size:14px;">억</span></div>
+            <div class="gc-stat-d">노트북 1대 (Stage A) + 베타 3사 — 보수~중간 시나리오</div>
+          </div>
+          <div class="gc-stat brand">
+            <div class="gc-stat-k">Year 4 (2029, 가정)</div>
+            <div class="gc-stat-v">~109<span style="font-size:14px;">억</span></div>
+            <div class="gc-stat-d">기존 50억의 약 <strong>2배</strong> — 내부 시나리오, <em>검증 중</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d2"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c2"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 3 세토웍스 실측 펀딩 포트폴리오 ━━━ -->
+<div class="slide" id="s3">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">03</span><span class="slbl">Portfolio · 실측 펀딩 사례</span></div>
+    <div class="st">세토웍스가 실제로 모은 <em>대표 펀딩 6건</em></div>
+    <div class="ss">"기존 평균 1~2.5억, 메가 케이스 6~30억" — 우리는 추정이 아니라 실측 포트폴리오를 갖고 있다. Jellop+α는 메가 케이스 식별 + 일반 케이스 상향이 핵심.</div>
+    <div class="sb">
+      <div class="pf-grid">
+        <div class="pf-card" style="border-top-color:var(--blue);">
+          <img class="pf-img" src="https://newatlas-brightspot.s3.amazonaws.com/50/a5/ee438ae74a9b89f065b2354550bd/the-hancept-zero-mk2-is-giving-serious-007.jpg" alt="한셉트 제로 MK2 — 세계 최초 카드형 폴더블 펜" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">한셉트 제로 MK2</div><div class="pf-co">한셉트 · 세계 최초 카드형 폴더블 펜</div></div><div class="pf-cat">킥스타터 US</div></div>
+          <div class="pf-fund">≈ 2.3억</div>
+          <div class="pf-meta"><strong>$161,137</strong> · 킥스타터 "We Love" 선정 · <strong>Gear Patrol·NewAtlas 글로벌 미디어 보도</strong></div>
+          <div class="pf-src">kickstarter.com · newatlas.com</div>
+        </div>
+        <div class="pf-card" style="border-top-color:var(--gold);">
+          <img class="pf-img" src="https://www.getnews.info/uploads/e01e1731c1250259457b9936de2e5e7d.jpg" alt="VANZY 2.0 — AI 9DoF 제스처 링 마우스" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">반지 2.0 (VANZY)</div><div class="pf-co">콕스스페이스 · AI 9DoF 제스처 링 마우스</div></div><div class="pf-cat">킥스타터 US</div></div>
+          <div class="pf-fund">≈ 1.0억</div>
+          <div class="pf-meta"><strong>$81,873</strong> · 820 백커 · 목표 <strong>2,729%</strong> 달성 · 공간 컴퓨팅 선도</div>
+          <div class="pf-src">kickstarter.com · kjnewswire.com</div>
+        </div>
+        <div class="pf-card" style="border-top-color:var(--green);">
+          <img class="pf-img" src="https://www.abnewswire.com/uploads/f5324dc4e86879f384f157ead6dd8a6c.png" alt="PACER 페이서 — 세계 최초 웨어러블 호흡 분석기" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">PACER 페이서</div><div class="pf-co">뉴마핏 · 세계 최초 웨어러블 호흡 분석기</div></div><div class="pf-cat">킥스타터 US</div></div>
+          <div class="pf-fund">≈ 1.5억</div>
+          <div class="pf-meta"><strong>$110,000+</strong> · 딥러닝 AI 기반 20+ 바이오메트릭 분석 · <strong>헬스케어 IoT</strong></div>
+          <div class="pf-src">kickstarter.com · neumafit.com</div>
+        </div>
+        <div class="pf-card" style="border-top-color:var(--purple);">
+          <img class="pf-img" src="https://www.yankodesign.com/images/design_news/2024/08/this-omnidirectional-speaker-creates-full-range-vibration-to-elevate-music-listening-experience/GADOL-Bluetooth-Speakers-4.jpg" alt="GADOL 가돌 — 360° VST 진동 스피커" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">GADOL 가돌</div><div class="pf-co">아이텍테크놀러지 · 360° 진동 스피커</div></div><div class="pf-cat">킥스타터 US</div></div>
+          <div class="pf-fund">≈ 1.6억</div>
+          <div class="pf-meta"><strong>~$120,000</strong> · 표면을 스피커로 변환하는 VST 기술 · <strong>Yanko Design 선정</strong></div>
+          <div class="pf-src">kickstarter.com · yankodesign.com</div>
+        </div>
+        <div class="pf-card mega" style="border-top-color:var(--brand-red);">
+          <img class="pf-img" src="https://beyondtools.com/cdn/shop/files/CUBIIO-250-PLUS-4.jpg?v=1741171584" alt="큐비오X — 포터블 CNC 레이저 로봇, 30억+ 메가 케이스" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">큐비오X</div><div class="pf-co">포지션 · 포터블 CNC 레이저 로봇</div></div><div class="pf-cat">킥스타터 + 젝젝 + 와디즈</div></div>
+          <div class="pf-fund">30억+</div>
+          <div class="pf-meta">킥 <strong>15억</strong> + 젝젝 <strong>11억</strong> + 와디즈 3억 — <strong>단일 제품 글로벌 30억+ 메가 케이스</strong></div>
+          <div class="pf-src">sedaily.com · setoworks.com</div>
+        </div>
+        <div class="pf-card" style="border-top-color:var(--charcoal);">
+          <img class="pf-img" src="https://backercrew.com/wp-content/uploads/2024/11/5-4.jpg" alt="젠히트 GenHeat — 1mm 초슬림 탄소섬유 온열패드, 5개국 6억+" onclick="openLb(this.src,this.alt)">
+          <div class="pf-h"><div><div class="pf-name">젠히트 GenHeat</div><div class="pf-co">닥터서플라이 · 1mm 초슬림 탄소섬유 온열패드</div></div><div class="pf-cat">5개국 멀티 플랫폼</div></div>
+          <div class="pf-fund">6억+</div>
+          <div class="pf-meta">킥 <strong>$170K</strong> + 5개 플랫폼 합산 — <strong>멀티 플랫폼 동시 운영 역량 입증</strong></div>
+          <div class="pf-src">kickstarter.com · backercrew.com</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>해석:</strong> 일반 케이스 평균 <strong>1~2.5억</strong> (4건), 메가 케이스 <strong>6~30억</strong> (2건). 큐비오X 단 1건이 Year 1 보수 시나리오 4.5억을 단독으로 초과. <strong>Jellop+α 사전 예측 모델의 핵심 가치 = 메가 케이스를 미리 식별해 집중 운영하는 것</strong> — 이미 검증된 패턴 위에 AI를 얹는 것이지, 새 사업이 아니다.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d3"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c3"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 수익화 파이프라인 (인터랙티브) ━━━ -->
+<div class="slide" id="spipe">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">04</span><span class="slbl">Revenue Pipeline</span></div>
+    <div class="st">수익화 파이프라인 <em>7단계 — 각 단계를 클릭하세요</em></div>
+    <div class="ss" id="pipe-sub">메이커 1건이 들어오면 수익이 만들어지기까지. 단계를 클릭하면 내부 흐름을 상세히 볼 수 있습니다.</div>
+    <div class="sb">
+      <!-- Pipeline Bar (clickable) -->
+      <div class="pipe-bar" id="pipe-nav" style="cursor:pointer;">
+        <div class="pipe-step" onclick="showPipe(1)"><div class="pipe-sn">1</div><div class="pipe-sl">발굴</div><div class="pipe-tag pipe-tag-ai">AI</div></div>
+        <div class="pipe-step" onclick="showPipe(2)"><div class="pipe-sn">2</div><div class="pipe-sl">분류</div><div class="pipe-tag pipe-tag-ai">AI</div></div>
+        <div class="pipe-step" onclick="showPipe(3)"><div class="pipe-sn">3</div><div class="pipe-sl">매칭</div><div class="pipe-tag pipe-tag-ai">AI</div></div>
+        <div class="pipe-step" onclick="showPipe(4)"><div class="pipe-sn">4</div><div class="pipe-sl">컨택</div><div class="pipe-tag pipe-tag-both">AI+사람</div></div>
+        <div class="pipe-step" onclick="showPipe(5)"><div class="pipe-sn">5</div><div class="pipe-sl">시딩·운영</div><div class="pipe-tag pipe-tag-both">AI+사람</div></div>
+        <div class="pipe-step" onclick="showPipe(6)"><div class="pipe-sn">6</div><div class="pipe-sl">측정</div><div class="pipe-tag pipe-tag-ai">AI</div></div>
+        <div class="pipe-step" onclick="showPipe(7)"><div class="pipe-sn">7</div><div class="pipe-sl">수익화</div><div class="pipe-tag pipe-tag-auto">자동</div></div>
+        <div class="pipe-step" onclick="showPipe(0)" style="background:var(--charcoal);"><div class="pipe-sn" style="color:#fff;">ALL</div><div class="pipe-sl" style="color:rgba(255,255,255,.7);">전체</div></div>
+      </div>
+      <!-- Detail Panels (one visible at a time) -->
+      <div id="pipe-panels" style="flex:1;position:relative;overflow:auto;">
+
+        <!-- Panel 0: Overview (default) -->
+        <div class="pipe-panel" data-pipe="0" style="display:flex;flex-direction:column;gap:9px;">
+          <div class="pipe-detail">
+            <div class="pipe-card" style="border-left-color:var(--blue);"><div class="pipe-card-n">1+2. 발굴·분류</div><div class="pipe-card-d">TikTok API + 스크래핑 → <strong>일 100명+</strong> 수집 → 5-Tier 자동 분류</div></div>
+            <div class="pipe-card" style="border-left-color:var(--purple);"><div class="pipe-card-n">3. AI 매칭</div><div class="pipe-card-d">Gemma 임베딩 유사도 → 메이커별 추천 리스트</div><div class="pipe-rev">수익 ② 리포트</div></div>
+            <div class="pipe-card" style="border-left-color:var(--gold);"><div class="pipe-card-n">4. 컨택</div><div class="pipe-card-d">이메일 + Comment-to-DM + 현지 에이전트</div></div>
+            <div class="pipe-card" style="border-left-color:var(--brand-red);"><div class="pipe-card-n">5. 시딩·운영</div><div class="pipe-card-d">나노 시딩 / 미드 계약 / 메가 앵커</div><div class="pipe-rev">수익 ③ 시딩</div></div>
+            <div class="pipe-card" style="border-left-color:var(--green);"><div class="pipe-card-n">6+7. 측정·수익</div><div class="pipe-card-d">UTM 추적 → ROI → <strong>15% 성과 수수료</strong></div><div class="pipe-rev">수익 ①④</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;flex:none;">
+            <div class="ibox" style="background:rgba(255,0,59,.06);border-left:4px solid var(--brand-red);font-size:12.5px;padding:10px 13px;line-height:1.55;"><strong style="color:var(--brand-red);">① 성과 수수료</strong><br>펀딩액 15%</div>
+            <div class="ibox" style="background:var(--bl2);border-left:4px solid var(--blue);font-size:12.5px;padding:10px 13px;line-height:1.55;"><strong style="color:var(--blue);">② 예측 리포트</strong><br>100~300만/건</div>
+            <div class="ibox" style="background:var(--gl);border-left:4px solid var(--gold);font-size:12.5px;padding:10px 13px;line-height:1.55;"><strong style="color:var(--gold);">③ 시딩 대행</strong><br>500~1,500만/건</div>
+            <div class="ibox" style="background:var(--grl);border-left:4px solid var(--green);font-size:12.5px;padding:10px 13px;line-height:1.55;"><strong style="color:var(--green);">④ 풀스택</strong><br>800~2,000만/건</div>
+          </div>
+        </div>
+
+        <!-- Panel 1: 발굴 -->
+        <div class="pipe-panel" data-pipe="1" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 1 — 인플루언서 발굴</div>
+              <div class="dir-h" style="font-size:22px;">글로벌 인플루언서를 <em>자동으로 매일 수집</em></div>
+              <div class="dir-d">사람이 하면 1주일, AI가 하면 매일 새벽 자동 실행. 3개 채널에서 동시에 크리에이터를 찾아 DB에 적재.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex:none;justify-content:center;">
+              <div style="background:var(--blue);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">TikTok<br>Creator API</div>
+              <div style="color:var(--mu);font-size:20px;">+</div>
+              <div style="background:var(--purple);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">Instagram<br>Crawl4AI</div>
+              <div style="color:var(--mu);font-size:20px;">+</div>
+              <div style="background:var(--brand-red);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">YouTube<br>Apify/Bright Data</div>
+              <div style="color:var(--brand-red);font-size:24px;font-weight:800;margin:0 10px;">→</div>
+              <div style="background:var(--charcoal);color:#fff;padding:10px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;">Qdrant DB<br>일 100명+ 적재</div>
+            </div>
+            <div class="g3" style="flex:1;">
+              <div class="card"><div class="ctitle">수집 데이터</div><div class="clist"><div class="ci"><strong>프로필:</strong> 팔로워 수, ER, 카테고리, 국가, 언어</div><div class="ci"><strong>콘텐츠:</strong> 최근 30개 영상/이미지, 조회수, 좋아요, 댓글 수</div><div class="ci"><strong>연락처:</strong> bio 이메일, 미디어킷 링크, 비즈니스 계정 여부</div></div></div>
+              <div class="card"><div class="ctitle">자동화 방식</div><div class="clist"><div class="ci"><strong>n8n 스케줄:</strong> 매일 새벽 3시 자동 실행 (cron)</div><div class="ci"><strong>분산 프록시:</strong> Bright Data 잔류 IP → 차단 우회</div><div class="ci"><strong>중복 제거:</strong> 플랫폼 ID 기준 upsert → 깨끗한 DB 유지</div></div></div>
+              <div class="card"><div class="ctitle">산출물</div><div class="clist"><div class="ci"><strong>일 100명+</strong> 신규 크리에이터 DB 적재</div><div class="ci"><strong>주 700명+</strong> 누적 — 90일 후 6,000명+ 풀</div><div class="ci">Gemma 임베딩 자동 생성 → Step 3 매칭 준비 완료</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: 분류 -->
+        <div class="pipe-panel" data-pipe="2" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 2 — 5-Tier 자동 분류</div>
+              <div class="dir-h" style="font-size:22px;">수집된 인플루언서를 <em>즉시 5등급으로 분류</em></div>
+              <div class="dir-d">팔로워 수 + ER + 카테고리 + 콘텐츠 퀄리티를 Gemma가 종합 분석해서 자동 등급 배정.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;flex:none;">
+              <div style="background:#ecfdf5;border:1.5px solid #10b981;border-radius:12px;padding:12px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#059669;">나노</div><div style="font-size:12px;color:#065f46;font-weight:600;">1K~10K</div><div style="font-size:11px;color:#064e3b;margin-top:4px;">무료 시딩<br>ER 8~12%</div></div>
+              <div style="background:#f0fdfa;border:1.5px solid #14b8a6;border-radius:12px;padding:12px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#0d9488;">마이크로</div><div style="font-size:12px;color:#115e59;font-weight:600;">10K~50K</div><div style="font-size:11px;color:#134e4a;margin-top:4px;">무료~소액<br>ER 6~9%</div></div>
+              <div style="background:#eff6ff;border:1.5px solid #3b82f6;border-radius:12px;padding:12px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#2563eb;">미드</div><div style="font-size:12px;color:#1e40af;font-weight:600;">50K~300K</div><div style="font-size:11px;color:#1e3a5f;margin-top:4px;">15~200만원<br>ER 4~6%</div></div>
+              <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:12px;padding:12px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#d97706;">매크로</div><div style="font-size:12px;color:#92400e;font-weight:600;">300K~1M</div><div style="font-size:11px;color:#78350f;margin-top:4px;">200~1,000만<br>ER 3~5%</div></div>
+              <div style="background:#fff5f7;border:1.5px solid var(--brand-red);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:18px;font-weight:800;color:var(--brand-red);">메가</div><div style="font-size:12px;color:#9f1239;font-weight:600;">1M+</div><div style="font-size:11px;color:#881337;margin-top:4px;">1,000만+<br>ER 2~3%</div></div>
+            </div>
+            <div class="g2" style="flex:1;">
+              <div class="card"><div class="ctitle">분류 기준 (Gemma 자동)</div><div class="clist"><div class="ci"><strong>1차:</strong> 팔로워 수 → Tier 경계 자동 매핑</div><div class="ci"><strong>2차:</strong> ER(참여율) 기반 퀄리티 보정 — 팔로워 많아도 ER 낮으면 하향</div><div class="ci"><strong>3차:</strong> 콘텐츠 분석 — 최근 10개 영상/이미지 Vision 모델 분석, 카테고리 일치도 점수</div><div class="ci"><strong>4차:</strong> 이전 캠페인 성과 (DB 누적 후) → 실제 전환율 기반 재분류</div></div></div>
+              <div class="card"><div class="ctitle">핵심 인사이트</div><div class="clist"><div class="ci"><strong>나노 (1K~10K)가 핵심 타겟</strong> — 비용 0, 높은 ER, 대량 시딩 가능. 요즘 급부상하는 크리에이터들</div><div class="ci"><strong>분류는 고정이 아님</strong> — 3개월마다 성과 데이터 기반 재분류. 나노가 마이크로로 성장하면 자동 업그레이드</div><div class="ci"><strong>비용 대비 효과:</strong> 나노 50명 시딩 ROI > 메가 1명 (비용 0 vs 1,000만+)</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: 매칭 -->
+        <div class="pipe-panel" data-pipe="3" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 3 — AI 매칭 + 예측 리포트</div>
+              <div class="dir-h" style="font-size:22px;">제품과 인플루언서를 <em>임베딩 유사도로 자동 매칭</em></div>
+              <div class="dir-d">Gemma 4 31B가 제품 특성과 인플루언서 콘텐츠를 벡터로 변환 → 코사인 유사도 매칭 → 메이커에게 추천 리포트 제공.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex:none;justify-content:center;">
+              <div style="background:var(--charcoal);color:#fff;padding:12px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">메이커 제품 정보<br><span style="color:var(--brand-red);">→ Gemma 임베딩</span></div>
+              <div style="font-size:28px;color:var(--brand-red);font-weight:800;">↔</div>
+              <div style="background:var(--charcoal);color:#fff;padding:12px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">인플루언서 콘텐츠<br><span style="color:var(--brand-red);">→ Gemma 임베딩</span></div>
+              <div style="font-size:28px;color:var(--brand-red);font-weight:800;">→</div>
+              <div style="background:var(--brand-red);color:#fff;padding:12px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">코사인 유사도<br>TOP 100 추천</div>
+            </div>
+            <div class="g3" style="flex:1;">
+              <div class="card"><div class="ctitle">매칭 로직</div><div class="clist"><div class="ci"><strong>카테고리:</strong> 제품 카테고리 ↔ 크리에이터 전문 분야 일치도</div><div class="ci"><strong>톤:</strong> 제품 가격대·타겟 ↔ 크리에이터 콘텐츠 톤</div><div class="ci"><strong>지역:</strong> 펀딩 타겟 국가 ↔ 크리에이터 팔로워 지역 분포</div><div class="ci"><strong>이력:</strong> 과거 유사 제품 캠페인 성과 (1,200건 RAG)</div></div></div>
+              <div class="card"><div class="ctitle">예측 리포트 (유료)</div><div class="clist"><div class="ci"><strong>예상 펀딩액</strong> + 신뢰구간 (1,200건 학습 데이터)</div><div class="ci"><strong>유사 성공 사례 3건</strong> 자동 추출 + 비교 분석</div><div class="ci"><strong>추천 인플루언서 TOP 20</strong> + Tier별 예산 시나리오</div><div class="ci">사람이 만들면 2~3일 → <strong>AI 30분 자동 생성</strong></div></div></div>
+              <div class="card" style="border-top:3px solid var(--brand-red);"><div class="ctitle" style="color:var(--brand-red);">수익 발생</div><div class="clist"><div class="ci"><strong>② 사전 예측 리포트</strong> — 건당 100~300만원</div><div class="ci">메이커가 펀딩 전 의사결정 도구로 구매</div><div class="ci">비용 0 (Gemma 로컬) → <strong>순수익 100%</strong></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: 컨택 -->
+        <div class="pipe-panel" data-pipe="4" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 4 — 컨택 (콜드 DM 차단 우회)</div>
+              <div class="dir-h" style="font-size:22px;">플랫폼 차단을 <em>4가지 우회 경로</em>로 돌파</div>
+              <div class="dir-d">Instagram/TikTok 콜드 DM은 API든 스크래핑이든 플랫폼 차원에서 차단. 발견(discovery)은 가능하지만 첫 연락은 다른 채널로.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;">
+              <div class="card" style="border-top:3px solid var(--green);"><div class="ctitle" style="color:var(--green);">우회 ① 이메일</div><div class="clist"><div class="ci">bio/미디어킷에서 이메일 자동 추출</div><div class="ci"><strong>응답률 25~35%</strong> (업계 평균)</div><div class="ci">Gemma가 개인화 메일 자동 생성</div><div class="ci">n8n으로 대량 발송 + 추적</div></div></div>
+              <div class="card" style="border-top:3px solid var(--blue);"><div class="ctitle" style="color:var(--blue);">우회 ② Comment-to-DM</div><div class="clist"><div class="ci">우리 콘텐츠에 댓글 유도</div><div class="ci">특정 키워드 댓글 → <strong>자동 DM 트리거</strong></div><div class="ci">ManyChat/Instagram Graph API 연동</div><div class="ci">인바운드 전환 (규정 준수)</div></div></div>
+              <div class="card" style="border-top:3px solid var(--purple);"><div class="ctitle" style="color:var(--purple);">우회 ③ TikTok 공식 매칭</div><div class="clist"><div class="ci">Creator Marketplace API 정식 제안</div><div class="ci">비즈니스 계정 필요 (신청 1~2주)</div><div class="ci"><strong>플랫폼 공식 채널 → 차단 위험 0</strong></div><div class="ci">계약·정산 플랫폼 내 처리</div></div></div>
+              <div class="card" style="border-top:3px solid var(--gold);"><div class="ctitle" style="color:var(--gold);">우회 ④ 현지 에이전트</div><div class="clist"><div class="ci">대만/일본/동남아 현지 1명</div><div class="ci">DM·전화·미팅 라스트 마일</div><div class="ci"><strong>사람이 하는 마지막 2%</strong></div><div class="ci">SOP 문서화 → AI 98% + 사람 2%</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 5: 시딩·운영 -->
+        <div class="pipe-panel" data-pipe="5" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 5 — 시딩 · 운영 (Tier별 실행)</div>
+              <div class="dir-h" style="font-size:22px;">Tier에 따라 <em>실행 방식이 완전히 다르다</em></div>
+              <div class="dir-d">나노는 물량, 미드는 계약, 메가는 앵커. 한 캠페인에 3개 Tier를 동시에 운영해서 도달+전환+신뢰 모두 잡는다.</div>
+            </div>
+            <div class="g3" style="flex:1;">
+              <div class="card" style="border-top:3px solid #10b981;"><div class="ctitle" style="color:#059669;">나노·마이크로 (물량)</div><div class="clist"><div class="ci">제품 무료 발송 <strong>50~150명 동시</strong></div><div class="ci">게시 의무 없음 — 자율 후기/언박싱</div><div class="ci">실 게시율 30~50% (업계 평균)</div><div class="ci">AI가 발송 리스트 + 리마인더 자동</div><div class="ci"><strong>비용: 제품 단가만</strong> → ROI 무한대</div></div></div>
+              <div class="card" style="border-top:3px solid #3b82f6;"><div class="ctitle" style="color:#2563eb;">미드 (계약 기반)</div><div class="clist"><div class="ci">계약서 → 제품 발송 → 콘텐츠 검수 → 게시</div><div class="ci"><strong>게시 보장 + 마감일 + 사용권</strong></div><div class="ci">Reels/TikTok 1편 기준 15~200만원</div><div class="ci">콘텐츠 → Whitelist Ads 소재 재활용</div><div class="ci">캠페인당 <strong>5~15명</strong> 운영</div></div></div>
+              <div class="card" style="border-top:3px solid var(--brand-red);"><div class="ctitle" style="color:var(--brand-red);">매크로·메가 (앵커)</div><div class="clist"><div class="ci">기획 미팅 → 콘텐츠 방향 협의 → 촬영</div><div class="ci">단독 영상 + 라이브커머스 + IP 제휴</div><div class="ci">캠페인당 <strong>1~3명</strong> (앵커 역할)</div><div class="ci">PR + 언론 노출 동반 효과</div><div class="ci"><strong>큐비오X급 메가 케이스 트리거</strong></div></div></div>
+            </div>
+            <div class="ibox ibox-brand" style="flex:none;"><strong>수익 발생:</strong> ③ 인플루언서 시딩 대행 <strong>500~1,500만원/건</strong> + ④ 풀스택 패키지 <strong>800~2,000만원/건</strong> (영상+LP+시딩+광고 통합 시)</div>
+          </div>
+        </div>
+
+        <!-- Panel 6: 측정 -->
+        <div class="pipe-panel" data-pipe="6" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;">
+              <div class="dir-tag">STEP 6 — 성과 측정 (자동 추적)</div>
+              <div class="dir-h" style="font-size:22px;">모든 인플루언서의 <em>도달→클릭→전환→매출을 실시간 추적</em></div>
+              <div class="dir-d">UTM 파라미터 + GA4 + 킥스타터 레퍼럴로 인플루언서별 정확한 기여도를 측정. 감이 아니라 데이터로 증명.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex:none;justify-content:center;">
+              <div style="background:#eff6ff;padding:10px 14px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;color:#1e40af;">도달<br><span style="font-size:11px;font-weight:500;">Reach</span></div>
+              <div style="color:var(--mu);font-size:18px;">→</div>
+              <div style="background:#fefce8;padding:10px 14px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;color:#92400e;">클릭<br><span style="font-size:11px;font-weight:500;">CTR 3~8%</span></div>
+              <div style="color:var(--mu);font-size:18px;">→</div>
+              <div style="background:#fef2f2;padding:10px 14px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;color:#991b1b;">전환<br><span style="font-size:11px;font-weight:500;">CVR 5~15%</span></div>
+              <div style="color:var(--mu);font-size:18px;">→</div>
+              <div style="background:#ecfdf5;padding:10px 14px;border-radius:10px;text-align:center;font-size:13px;font-weight:700;color:#065f46;">기여매출<br><span style="font-size:11px;font-weight:500;">Revenue</span></div>
+              <div style="color:var(--mu);font-size:18px;">→</div>
+              <div style="background:rgba(255,0,59,.1);padding:10px 14px;border-radius:10px;text-align:center;font-size:13px;font-weight:800;color:var(--brand-red);">ROI<br><span style="font-size:11px;font-weight:500;">2,000~∞%</span></div>
+            </div>
+            <div class="g2" style="flex:1;">
+              <div class="card"><div class="ctitle">추적 기술 스택</div><div class="clist"><div class="ci"><strong>UTM 파라미터:</strong> 인플루언서별 고유 UTM 링크 자동 생성 (n8n)</div><div class="ci"><strong>GA4 Funnel:</strong> 유입→열람→백킹→결제 전환 추적</div><div class="ci"><strong>킥스타터 레퍼럴:</strong> 외부 유입 트래픽 소스별 백커 매핑</div><div class="ci"><strong>6채널 통합:</strong> TimescaleDB에 시계열 데이터 자동 적재</div></div></div>
+              <div class="card"><div class="ctitle">리포팅 자동화</div><div class="clist"><div class="ci"><strong>일일 리포트:</strong> 새벽 n8n 수집 → Gemma 요약 → 슬랙 푸시</div><div class="ci"><strong>인플루언서별:</strong> 도달/클릭/전환/매출/ROI 자동 계산</div><div class="ci"><strong>Tier별 비교:</strong> 나노 vs 미드 vs 메가 ROI 실시간 비교</div><div class="ci"><strong>메이커 대시보드:</strong> 실시간 캠페인 성과 웹 뷰 제공</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 7: 수익화 -->
+        <div class="pipe-panel" data-pipe="7" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="dir-hero" style="flex:none;background:linear-gradient(135deg,#1a0005 0%,var(--brand-red) 200%);">
+              <div class="dir-tag" style="color:#fff;">STEP 7 — 수익화 (4개 동시 발생)</div>
+              <div class="dir-h" style="font-size:22px;">파이프라인 1회전 = <em>4개 수익원이 동시에 켜진다</em></div>
+              <div class="dir-d">단일 성과 수수료에 의존하지 않는다. 파이프라인 각 단계에서 서로 다른 수익이 발생하고, 캠페인 변동성을 흡수.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;">
+              <div class="card" style="border-top:3px solid var(--brand-red);"><div class="ctitle" style="color:var(--brand-red);">① 성과 수수료</div><div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--brand-red);margin-bottom:6px;">15%</div><div class="clist"><div class="ci">펀딩 성공액의 15% (업계 표준)</div><div class="ci">메이커 사전 비용 0 → 같은 배</div><div class="ci">실측 일반 1~2.5억 → <strong>1,500~3,750만/건</strong></div><div class="ci">메가(큐비오X 30억) → <strong>4.5억/건</strong></div></div></div>
+              <div class="card" style="border-top:3px solid var(--blue);"><div class="ctitle" style="color:var(--blue);">② 예측 리포트</div><div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--blue);margin-bottom:6px;">100~300만</div><div class="clist"><div class="ci">펀딩 전 의사결정 도구</div><div class="ci">Gemma 로컬 → 비용 0 → 순수익 100%</div><div class="ci">30분 자동 생성 (사람 2~3일)</div><div class="ci">Step 3에서 발생</div></div></div>
+              <div class="card" style="border-top:3px solid var(--gold);"><div class="ctitle" style="color:var(--gold);">③ 시딩 대행</div><div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--gold);margin-bottom:6px;">500~1,500만</div><div class="clist"><div class="ci">인플루언서 발굴~운영 전체 대행</div><div class="ci">메이커가 직접 하면 200시간+</div><div class="ci">STARTER~MEGA 패키지 구성</div><div class="ci">Step 5에서 발생</div></div></div>
+              <div class="card" style="border-top:3px solid var(--green);"><div class="ctitle" style="color:var(--green);">④ 풀스택 패키지</div><div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:var(--green);margin-bottom:6px;">800~2,000만</div><div class="clist"><div class="ci">영상+LP+시딩+광고+이커머스</div><div class="ci">외주 5~7곳 → 세토웍스 1곳</div><div class="ci">원스톱 프리미엄</div><div class="ci">Step 5~7 통합 패키지</div></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="dpipe"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="cpipe"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 4 어떻게 운영 (플라이휠) ━━━ -->
+<div class="slide" id="s4">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">04</span><span class="slbl">Operation · 어떻게 운영</span></div>
+    <div class="st">데이터 <em>플라이휠 1회전</em></div>
+    <div class="ss">메이커 영입부터 데이터 누적까지 — 6단계 = 90일. 한 바퀴 돌면 다음 회전은 더 강해진다.</div>
+    <div class="sb">
+      <div class="fw-wrap">
+        <div class="fw-steps">
+          <div class="fw-step" style="border-left-color:var(--brand-red);">
+            <div class="fw-step-n">01</div>
+            <div class="fw-step-r"><div class="fw-step-t">메이커 영입 (Inbound + Outbound)</div><div class="fw-step-d">세토웍스 14년 네트워크 + 콜드 영업 + 베타 신청서.</div></div>
+          </div>
+          <div class="fw-step" style="border-left-color:var(--blue);">
+            <div class="fw-step-n">02</div>
+            <div class="fw-step-r"><div class="fw-step-t">사전 예측 리포트 (Gemma 4 31B)</div><div class="fw-step-d">제품 정보 → 1,200건 RAG → 펀딩액 예측 + 신뢰구간 + 추천 전략.</div></div>
+          </div>
+          <div class="fw-step" style="border-left-color:var(--gold);">
+            <div class="fw-step-n">03</div>
+            <div class="fw-step-r"><div class="fw-step-t">AI 인플루언서 시딩</div><div class="fw-step-d">TikTok Creator API로 100명 발굴 → 사람이 라스트 마일 운영 → D-3·D+0 SOP.</div></div>
+          </div>
+          <div class="fw-step" style="border-left-color:var(--purple);">
+            <div class="fw-step-n">04</div>
+            <div class="fw-step-r"><div class="fw-step-t">펀딩 런칭 + 광고 운영</div><div class="fw-step-d">하이퍼랜딩 LP + Meta/Google 광고 + 인플루언서 동시 업로드 (3일 골든타임).</div></div>
+          </div>
+          <div class="fw-step" style="border-left-color:var(--green);">
+            <div class="fw-step-n">05</div>
+            <div class="fw-step-r"><div class="fw-step-t">이커머스 전환 (Stage 2 이상)</div><div class="fw-step-d">펀딩 종료 → 즉시 Shopify/Cafe24 오픈 → 백커 리피트 구매 + LTV 추적.</div></div>
+          </div>
+          <div class="fw-step" style="border-left-color:var(--charcoal);">
+            <div class="fw-step-n">06</div>
+            <div class="fw-step-r"><div class="fw-step-t">데이터 누적 → 다음 회전 강화</div><div class="fw-step-d">광고/펀딩/구매/시청자/뉴스레터/회의록 6채널 → Gemma 학습 → 다음 예측 정확도↑.</div></div>
+          </div>
+        </div>
+        <div class="fw-center">
+          <div class="fw-center-tag">● CORE ENGINE</div>
+          <div class="fw-center-t">Gemma 4 31B<br>+ OpenClaw</div>
+          <div class="fw-center-d">자체 운영 LLM이 6단계 모든 노드의 의사결정·자동화·예측 엔진</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>플라이휠 효과:</strong> 1회전 = 90일 (Phase 1-3). 첫 회전은 <strong>1,200건 누적 데이터</strong>로 시작 → 신생 경쟁사가 콜드 스타트로 도달할 수 없는 격차. 2회전(Year 2)부터는 신규 데이터로 정확도가 복리로 증가.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d4"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c4"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 4 수익 창출 효과 (그래프) ━━━ -->
+<div class="slide" id="s6">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">05</span><span class="slbl">Revenue Effect · 수익 창출 효과</span></div>
+    <div class="st">매출 시뮬레이션 <em>4 수익원 × 3 시나리오</em></div>
+    <div class="ss">4개 수익원이 동시에 가동되면 Year 1 추가 매출 9~12억 (중간 시나리오) — 막대 차트로 시나리오별 비교</div>
+    <div class="sb">
+      <div class="rev-streams">
+        <div class="rev-stream" style="border-top-color:var(--brand-red);"><div class="rev-stream-icon"></div><div class="rev-stream-t">① 성과 수수료 (메인)</div><div class="rev-stream-d">펀딩액 × <strong>15%</strong>. 실측 일반 케이스 1~2.5억 = <strong>1,500~3,750만원/건</strong>. 메가 케이스(큐비오X 30억급) = <strong>4.5억/건</strong>.</div></div>
+        <div class="rev-stream" style="border-top-color:var(--blue);"><div class="rev-stream-icon"></div><div class="rev-stream-t">② 사전 예측 리포트</div><div class="rev-stream-d">Gemma 4 31B AI 리포트. 의사결정 전 사용. <strong>1건당 100~300만원</strong>.</div></div>
+        <div class="rev-stream" style="border-top-color:var(--gold);"><div class="rev-stream-icon"></div><div class="rev-stream-t">③ 인플루언서 시딩 대행</div><div class="rev-stream-d">TikTok 100명 + 사람 라스트 마일. <strong>1건당 500~1,500만원</strong>.</div></div>
+        <div class="rev-stream" style="border-top-color:var(--green);"><div class="rev-stream-icon"></div><div class="rev-stream-t">④ 풀스택 패키지</div><div class="rev-stream-d">영상 + LP + 컨설팅. <strong>1건당 800~2,000만원</strong>. 풀스택 운영 유료화.</div></div>
+      </div>
+      <div class="rev-bar-wrap">
+        <svg class="rev-bar-svg" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet">
+          <!-- Grid lines -->
+          <line x1="60" y1="30" x2="580" y2="30" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="60" y1="70" x2="580" y2="70" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="60" y1="110" x2="580" y2="110" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="60" y1="150" x2="580" y2="150" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="60" y1="190" x2="580" y2="190" stroke="#e2e8f0" stroke-dasharray="2,4"/>
+          <line x1="60" y1="230" x2="580" y2="230" stroke="#cbd5e1"/>
+          <!-- Y axis labels -->
+          <text x="52" y="234" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">0</text>
+          <text x="52" y="194" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">5억</text>
+          <text x="52" y="154" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">10억</text>
+          <text x="52" y="114" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">15억</text>
+          <text x="52" y="74" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">20억</text>
+          <text x="52" y="34" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="#64748b">25억</text>
+          <text x="20" y="130" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#94a3b8" transform="rotate(-90 20 130)">연 매출 (억원)</text>
+          <!-- Bar 1: 보수 4.5억 (1: 2.7 / 2: 0.6 / 3: 0.6 / 4: 0.6) -->
+          <g>
+            <rect x="120" y="208" width="80" height="22" fill="#ff003b"/>
+            <rect x="120" y="203" width="80" height="5" fill="#1e56b0"/>
+            <rect x="120" y="198" width="80" height="5" fill="#d4841a"/>
+            <rect x="120" y="194" width="80" height="4" fill="#0d7c5f"/>
+            <text x="160" y="186" text-anchor="middle" font-family="Poppins,sans-serif" font-size="16" font-weight="800" fill="#212121">4.5억</text>
+            <text x="160" y="252" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="13" font-weight="700" fill="#475569">보수 케이스</text>
+            <text x="160" y="266" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#94a3b8">월 1건 성공</text>
+          </g>
+          <!-- Bar 2: 중간 9.6억 (1: 5.4 / 2: 1.2 / 3: 1.5 / 4: 1.5) - HIGHLIGHT -->
+          <g>
+            <rect x="260" y="187" width="80" height="43" fill="#ff003b"/>
+            <rect x="260" y="177" width="80" height="10" fill="#1e56b0"/>
+            <rect x="260" y="165" width="80" height="12" fill="#d4841a"/>
+            <rect x="260" y="153" width="80" height="12" fill="#0d7c5f"/>
+            <rect x="255" y="148" width="90" height="87" fill="none" stroke="#ff003b" stroke-width="2.5" stroke-dasharray="4,3" rx="3"/>
+            <text x="300" y="142" text-anchor="middle" font-family="Poppins,sans-serif" font-size="20" font-weight="800" fill="#ff003b">9.6억</text>
+            <text x="300" y="252" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="13" font-weight="800" fill="#212121">중간 (목표)</text>
+            <text x="300" y="266" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#ff003b">월 2건 성공</text>
+          </g>
+          <!-- Bar 3: 적극 19.8억 (1: 10.8 / 2: 2.7 / 3: 3.0 / 4: 3.3) -->
+          <g>
+            <rect x="400" y="144" width="80" height="86" fill="#ff003b"/>
+            <rect x="400" y="122" width="80" height="22" fill="#1e56b0"/>
+            <rect x="400" y="98" width="80" height="24" fill="#d4841a"/>
+            <rect x="400" y="72" width="80" height="26" fill="#0d7c5f"/>
+            <text x="440" y="64" text-anchor="middle" font-family="Poppins,sans-serif" font-size="16" font-weight="800" fill="#212121">19.8억</text>
+            <text x="440" y="252" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="13" font-weight="700" fill="#475569">적극 케이스</text>
+            <text x="440" y="266" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#94a3b8">월 4건 성공</text>
+          </g>
+        </svg>
+        <div class="rev-bar-side">
+          <div class="ctitle">▸ 막대 구성 (4 수익원)</div>
+          <div class="rev-bar-leg">
+            <div class="rev-bar-leg-i"><div class="rev-bar-leg-sw" style="background:#ff003b;"></div>① 성과 수수료 (펀딩 ×15%)<strong>60%</strong></div>
+            <div class="rev-bar-leg-i"><div class="rev-bar-leg-sw" style="background:#1e56b0;"></div>② 사전 예측 SaaS 리포트<strong>13%</strong></div>
+            <div class="rev-bar-leg-i"><div class="rev-bar-leg-sw" style="background:#d4841a;"></div>③ 인플루언서 시딩 대행<strong>15%</strong></div>
+            <div class="rev-bar-leg-i"><div class="rev-bar-leg-sw" style="background:#0d7c5f;"></div>④ 풀스택 패키지 (영상+LP)<strong>17%</strong></div>
+          </div>
+          <div class="ibox ibox-brand" style="font-size:12px;padding:10px 13px;line-height:1.6;margin-top:7px;"><strong>중간 시나리오 = 기존 50억의 +19% 성장.</strong> 단일 성과 수수료가 아닌 4 수익원 동시 가동 → 캠페인 변동성 흡수.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d6"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c6"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 5 인플루언서 3-tier 패키징 ━━━ -->
+<div class="slide" id="s5">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">06</span><span class="slbl">Influencer Tiered Packaging</span></div>
+    <div class="st">인플루언서 <em>3-Tier 분류 + 4종 패키지</em></div>
+    <div class="ss">크리에이터를 비용·규모로 3등급 분류 → 메이커 예산·목표에 맞춘 4종 상품 패키지로 묶어 판매. 메이커는 "얼마짜리"가 아니라 "어떤 결과"를 산다.</div>
+    <div class="sb">
+      <div class="tier-grid">
+        <div class="tier-card t1">
+          <div class="tier-h"><div class="tier-num">Tier 1</div><div class="tier-vol">VOLUME</div></div>
+          <div class="tier-t">시딩 · 무료 제공형<br>(나노/마이크로)</div>
+          <div class="tier-cost-l">크리에이터 비용</div>
+          <div class="tier-cost">제품 단가만 (무료 출연료)</div>
+          <div class="tier-list">
+            <div class="tier-item"><strong>1K~30K 팔로워</strong> · 카테고리 일치도 ≥80%</div>
+            <div class="tier-item">제품 무료 증정 → 자율 후기/언박싱 (보장X)</div>
+            <div class="tier-item">한 번에 <strong>50~150명 동시 시딩</strong></div>
+            <div class="tier-item">실 게시율 30~50% 가정 (업계 평균)</div>
+            <div class="tier-item">신뢰도·UGC 양 확보가 목적</div>
+          </div>
+          <div class="tier-pack"><span class="tier-pack-l">Setoworks 운영</span>제품 단가 ×100명 + AI 매칭/배송/리마인더 자동화</div>
+        </div>
+        <div class="tier-card t2">
+          <div class="tier-h"><div class="tier-num">Tier 2</div><div class="tier-vol">PAID MID</div></div>
+          <div class="tier-t">유료 마이크로<br>(미드 인플루언서)</div>
+          <div class="tier-cost-l">크리에이터 비용</div>
+          <div class="tier-cost">건당 15~200만원</div>
+          <div class="tier-list">
+            <div class="tier-item"><strong>30K~300K 팔로워</strong> · 평균 ER 3%+</div>
+            <div class="tier-item">계약 기반 — <strong>게시 보장 + 마감일 + 사용권</strong></div>
+            <div class="tier-item">Reels/TikTok $300~$2,000 (industry)</div>
+            <div class="tier-item">캠페인당 5~15명 운영</div>
+            <div class="tier-item">전환 광고 소재로 재활용 (whitelist ads)</div>
+          </div>
+          <div class="tier-pack"><span class="tier-pack-l">Setoworks 운영</span>매칭·계약·정산·소재 검수까지 풀 대행</div>
+        </div>
+        <div class="tier-card t3">
+          <div class="tier-h"><div class="tier-num">Tier 3</div><div class="tier-vol">MEGA</div></div>
+          <div class="tier-t">메가 인플루언서<br>(앵커 캠페인)</div>
+          <div class="tier-cost-l">크리에이터 비용</div>
+          <div class="tier-cost">건당 500~5,000만원+</div>
+          <div class="tier-list">
+            <div class="tier-item"><strong>300K~수백만 팔로워</strong> · 카테고리 톱티어</div>
+            <div class="tier-item">단독 영상 + 라이브커머스 + IP 제휴</div>
+            <div class="tier-item">캠페인당 1~3명 (앵커 효과)</div>
+            <div class="tier-item">큐비오X급 메가 케이스 트리거 역할</div>
+            <div class="tier-item">PR·언론 노출 동반 효과</div>
+          </div>
+          <div class="tier-pack"><span class="tier-pack-l">Setoworks 운영</span>14년 직접 네트워크 + 매니지먼트 협상</div>
+        </div>
+      </div>
+      <div class="ctitle" style="color:var(--charcoal);margin-top:6px;">▸ 메이커가 사는 4종 상품 패키지 (3 Tier 조합)</div>
+      <div class="pkg-row">
+        <div class="pkg-card">
+          <div class="pkg-name"> STARTER</div>
+          <div class="pkg-price">300~500만원</div>
+          <div class="pkg-d">Tier 1 ×50명 시딩 + AI 예측 리포트 1회. <strong>저예산 메이커·신제품 검증</strong>용.</div>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-name"> GROWTH</div>
+          <div class="pkg-price">1,500~2,500만원</div>
+          <div class="pkg-d">Tier 1 ×100 + Tier 2 ×5 + 광고 운영 + LP. <strong>일반 펀딩 (1~3억 목표)</strong> 표준 패키지.</div>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-name"> MEGA</div>
+          <div class="pkg-price">5,000만원+</div>
+          <div class="pkg-d">Tier 1 ×150 + Tier 2 ×10 + Tier 3 ×1~2 + 풀스택. <strong>메가 케이스 (10억+)</strong> 도전형.</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;font-size:12.5px;padding:11px 14px;"><strong>왜 패키징인가:</strong> 메이커는 인플루언서 단가표를 보고 결정 못 한다 → "예산 X로 어떤 결과?"가 필요. 3 Tier × 4 패키지로 묶으면 의사결정 쉬워지고, Setoworks는 <strong>업셀(STARTER→GROWTH→MEGA)</strong>이 자연스러워진다. 큐비오X급 사례는 MEGA 패키지의 성공 레퍼런스로 직접 활용.</div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d5"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c5"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 6 메이커 가치 ━━━ -->
+<div class="slide" id="s7">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">07</span><span class="slbl">Value to Makers</span></div>
+    <div class="st">메이커가 우리를 선택하는 <em>6가지 이유</em></div>
+    <div class="ss">14년 1,200건 운영 노하우 + AI = 메이커가 직접 운영 못 하는 차원의 ROI</div>
+    <div class="sb">
+      <div class="val-grid">
+        <div class="val-card" style="border-top-color:var(--brand-red);">
+          <div class="val-card-icon"></div><div class="val-card-t">사전 예측 → 리스크 0</div>
+          <div class="val-card-d"><strong>1,200건 학습 데이터</strong> 기반 펀딩액 예측. 잘 안 될 제품은 출시 보류 → 매몰비용 방지.</div>
+          <div class="val-card-roi">매몰비용 절감: 3,000만원+/제품</div>
+        </div>
+        <div class="val-card" style="border-top-color:var(--blue);">
+          <div class="val-card-icon"></div><div class="val-card-t">AI 인플루언서 시딩</div>
+          <div class="val-card-d">메이커 직접 = <strong>1인당 8회 × 100명 = 800회</strong>. 우리가 TikTok API + 사람 라스트 마일로 대행.</div>
+          <div class="val-card-roi">시딩 운영 시간 절감: 200시간+/캠페인</div>
+        </div>
+        <div class="val-card" style="border-top-color:var(--gold);">
+          <div class="val-card-icon"></div><div class="val-card-t">풀스택 원스톱</div>
+          <div class="val-card-d">영상·LP·광고·시딩·이커머스 한 곳에서. 메이커는 <strong>제품 개발에만 집중</strong>. 외주 5~7곳 → 1곳.</div>
+          <div class="val-card-roi">외주 관리 비용 절감: 50%+</div>
+        </div>
+        <div class="val-card" style="border-top-color:var(--green);">
+          <div class="val-card-icon"></div><div class="val-card-t">성과 수수료 = 사전 비용 0</div>
+          <div class="val-card-d">메인 수익원이 <strong>성과 수수료 15%</strong>. 펀딩 성공해야만 비용 발생. 우리가 메이커와 같은 배.</div>
+          <div class="val-card-roi">초기 자본 부담: 0원</div>
+        </div>
+        <div class="val-card" style="border-top-color:var(--purple);">
+          <div class="val-card-icon"></div><div class="val-card-t">아시아 네이티브 운영</div>
+          <div class="val-card-d">한·일·대만·동남아 언어/세금/물류. <strong>2021 100만불 수출의 탑 + 전문무역상사</strong> 인증.</div>
+          <div class="val-card-roi">현지화 실패 리스크: 90% 절감</div>
+        </div>
+        <div class="val-card" style="border-top-color:var(--charcoal);">
+          <div class="val-card-icon"></div><div class="val-card-t">펀딩 → 이커머스 자동 연결</div>
+          <div class="val-card-d">펀딩 종료 = 끝이 아니라 <strong>이커머스 시작</strong>. 백커 → 리피트 → LTV. 단발성 → 연속성.</div>
+          <div class="val-card-roi">LTV 증가: 1.8~2.5배</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d7"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c7"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 6 차별화 5가지 ━━━ -->
+<div class="slide" id="s8">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">08</span><span class="slbl">Differentiation</span></div>
+    <div class="st">우리만 가능한 <em>5가지 무기</em></div>
+    <div class="ss">Jellop + Spray + 기타 누구도 동시에 보유하지 않은 5축 — 14년 데이터 자산 위에 AI</div>
+    <div class="sb">
+      <div class="diff-grid">
+        <div class="diff-card" style="border-top-color:var(--blue);">
+          <div class="diff-num">α1</div><div class="diff-t">아시아 데이터 우위</div>
+          <div class="diff-vs">
+            <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">미국 회사 — 한·일·대만 취약</span></div>
+            <div class="diff-row"><span class="diff-k" style="color:var(--blue);">우리</span><span class="diff-v"><strong>14년 1,200건 운영</strong></span></div>
+          </div>
+        </div>
+        <div class="diff-card" style="border-top-color:var(--gold);">
+          <div class="diff-num">α2</div><div class="diff-t">진단+실행 풀스택</div>
+          <div class="diff-vs">
+            <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">광고 운영만</span></div>
+            <div class="diff-row"><span class="diff-k" style="color:var(--blue);">우리</span><span class="diff-v">영상·LP·시딩·런칭 원스톱</span></div>
+          </div>
+        </div>
+        <div class="diff-card" style="border-top-color:var(--purple);background:#faf5ff;">
+          <div class="diff-num" style="color:var(--purple);">α3</div><div class="diff-t" style="color:var(--purple);">라스트 마일 2%<br>(사람+AI)</div>
+          <div class="diff-vs">
+            <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">AI 자동화만 — 디테일 구멍</span></div>
+            <div class="diff-row"><span class="diff-k" style="color:var(--blue);">우리</span><span class="diff-v">교육된 사람 + 로직</span></div>
+          </div>
+        </div>
+        <div class="diff-card" style="border-top-color:var(--green);">
+          <div class="diff-num">α4</div><div class="diff-t">사전 예측 모델</div>
+          <div class="diff-vs">
+            <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">사후 대시보드만</span></div>
+            <div class="diff-row"><span class="diff-k" style="color:var(--blue);">우리</span><span class="diff-v">Gemma 4 31B + <strong>1,200건 RAG</strong></span></div>
+          </div>
+        </div>
+        <div class="diff-card" style="border-top-color:var(--brand-red);background:#fff5f7;">
+          <div class="diff-num" style="color:var(--brand-red);">α5</div><div class="diff-t" style="color:var(--brand-red);">인플루언서 시딩<br>(Spray 흡수)</div>
+          <div class="diff-vs">
+            <div class="diff-row"><span class="diff-k" style="color:var(--mu);">SPR</span><span class="diff-v">바이럴 스코어 — 뷰티 한정</span></div>
+            <div class="diff-row"><span class="diff-k" style="color:var(--blue);">우리</span><span class="diff-v">테크/가젯 × 백커 전환</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>5축 통합:</strong> Jellop은 α1·α2·α3·α5 약함 (광고만). Spray는 α5만 강함, α1·α2·α4 없음. 기타 한국 펀딩 컨설팅은 α4·α5 없음. <strong>5축 + 14년 데이터를 모두 보유한 회사는 우리뿐</strong>.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d8"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c8"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 7 6채널 데이터 통합 ━━━ -->
+<div class="slide" id="s9">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">09</span><span class="slbl">6-Channel Data Integration</span></div>
+    <div class="st">6채널 <em>잠재 백커 통합 모델</em></div>
+    <div class="ss">서로 다른 6개 채널을 한 명의 잠재 백커로 결합 — 14년 누적 운영 데이터 + 6채널 실시간 신호</div>
+    <div class="sb">
+      <div class="ch-grid">
+        <div class="ch-card" style="border-left-color:var(--blue);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">광고 클릭 (Meta·Google)</div></div><div class="ch-d">UTM·디바이스·관심사 · ROAS. <strong>가장 cold한 1차 신호</strong>.</div><div class="ch-meta">→ TimescaleDB</div></div>
+        <div class="ch-card" style="border-left-color:var(--gold);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">펀딩 백커 (Kickstarter)</div></div><div class="ch-d">백커 ID·금액·리워드. <strong>실제 결제까지 간 hot 신호</strong>.</div><div class="ch-meta">→ PostgreSQL</div></div>
+        <div class="ch-card" style="border-left-color:var(--green);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">이커머스 구매</div></div><div class="ch-d">Shopify/Cafe24. <strong>리피트 + LTV</strong> 추적.</div><div class="ch-meta">→ PG + TimescaleDB</div></div>
+        <div class="ch-card" style="border-left-color:var(--brand-red);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">인플루언서 시청자 (TikTok)</div></div><div class="ch-d">TikTok Creator API. 시청자 지역·연령·관심사. <strong>α5 시딩의 핵심</strong>.</div><div class="ch-meta">→ PG + Qdrant</div></div>
+        <div class="ch-card" style="border-left-color:var(--purple);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">뉴스레터 구독</div></div><div class="ch-d">자체 뉴스레터 오픈·CTR. <strong>장기 관심층</strong> 리타겟팅.</div><div class="ch-meta">→ PostgreSQL</div></div>
+        <div class="ch-card" style="border-left-color:var(--charcoal);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">OCR 회의록 인사이트</div></div><div class="ch-d">메이커 미팅 STT/OCR → Gemma 요약. <strong>정성 데이터</strong>.</div><div class="ch-meta">→ Qdrant + ES</div></div>
+      </div>
+      <div class="ch-merge">
+        <div class="ch-merge-l">→ 1</div>
+        <div class="ch-merge-r">
+          <div class="ch-merge-t">통합 백커 프로파일 (Gemma 4 31B 임베딩 매칭)</div>
+          <div class="ch-merge-d">6개 채널 익명 신호를 디바이스·이메일·해시·행동 패턴으로 같은 사람으로 결합 → <strong>14년 1,200건 누적 데이터 + 6채널 실시간 = 신규 경쟁사가 절대 따라올 수 없는 데이터 자산</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d9"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c9"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 8 이커머스 3단계 ━━━ -->
+<div class="slide" id="s10">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">10</span><span class="slbl">E-commerce 3-Stage</span></div>
+    <div class="st">이커머스 <em>3단계 확장 로드맵</em></div>
+    <div class="ss">"펀딩과 이커머스를 같은 데이터 플라이휠의 두 입구로 본다" — 단계별 확장</div>
+    <div class="sb">
+      <div class="stage-flow">
+        <div class="stage-card" style="background:#eff6ff;border-color:var(--blue);">
+          <div class="stage-h"><div class="stage-num" style="color:var(--blue);">Stage 1</div><div class="stage-when" style="background:var(--bl);color:var(--blue);">현재 ~ Q2</div></div>
+          <div class="stage-t" style="color:var(--blue);">펀딩 단독 운영</div>
+          <div class="stage-d">킥스타터 단발 캠페인 — 런칭→펀딩→배송. <strong>백커 데이터는 종료 후 단절</strong>. 세토웍스 14년 모델.<br><br>차별점: <strong>예측 모델 v0.1 + 6채널 데이터 누적 시작</strong>.</div>
+          <div class="stage-kpi">▸ KPI: 펀딩액 · ROAS · 백커 수</div>
+        </div>
+        <div class="stage-card" style="background:#fefce8;border-color:var(--gold);">
+          <div class="stage-h"><div class="stage-num" style="color:var(--gold);">Stage 2</div><div class="stage-when" style="background:var(--gl);color:var(--gold);">Q2 ~ Q3</div></div>
+          <div class="stage-t" style="color:var(--gold);">펀딩 + 이커머스 동시</div>
+          <div class="stage-d">펀딩 종료 직후 이커머스 즉시 오픈 (Shopify/Cafe24). <strong>백커 → 리피트 구매</strong> 전환 측정.<br><br>총판 영업으로 메이커 확보. LTV 첫 수집.</div>
+          <div class="stage-kpi">▸ KPI: 백커→리피트 전환율 · LTV</div>
+        </div>
+        <div class="stage-card" style="background:#f0fdf4;border-color:var(--green);">
+          <div class="stage-h"><div class="stage-num" style="color:var(--green);">Stage 3</div><div class="stage-when" style="background:var(--grl);color:var(--green);">Q4 ~</div></div>
+          <div class="stage-t" style="color:var(--green);">이커머스 본격화</div>
+          <div class="stage-d">펀딩은 <strong>"신제품 마케팅 채널"</strong>로 재정의. 이커머스가 매출 주력. 6채널 데이터로 사전 검증→펀딩→이커머스 자동 연결.<br><br>세토웍스 본업 강화 + 신규 영역.</div>
+          <div class="stage-kpi">▸ KPI: 이커머스 매출 비중 50%+</div>
+        </div>
+      </div>
+      <div class="ibox ibox-blue" style="flex:none;">
+        <strong>왜 이 구조인가:</strong> 펀딩만 하면 백커 데이터가 종료 시 단절 → 예측 모델 가난. 이커머스로 묶으면 LTV·리피트까지 누적 → <strong>Gemma 학습 데이터 10배 풍부</strong> → α4 사전 예측이 진짜 강해짐.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d10"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c10"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 9 단계별 디바이스 투자 ━━━ -->
+<div class="slide" id="s12">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">11</span><span class="slbl">Sequential Investment</span></div>
+    <div class="st">디바이스 투자 <em>4단계 순차 확보</em></div>
+    <div class="ss">한 번에 전체 인프라를 사지 않는다 — 노트북 1대로 시작 → 검증 후 서버 → 검증 후 확장. 매 단계마다 전 단계 ROI를 확인하고 진행.</div>
+    <div class="sb">
+      <div class="inv-flow">
+        <div class="inv-card active">
+          <div class="inv-h"><div class="inv-stage">Stage A</div><div class="inv-when">Day 1-60</div></div>
+          <div class="inv-t">노트북 1대만으로 시작</div>
+          <div class="inv-cost-l">초기 투자</div>
+          <div class="inv-cost">~750만원</div>
+          <div class="inv-list">
+            <div class="inv-item">MacBook Pro 16" <strong>M5 Max 64GB</strong> ×1대</div>
+            <div class="inv-item">Gemma 4 31B Q4·Q8 로컬 추론 검증</div>
+            <div class="inv-item">OpenClaw + Ollama + Docker 풀스택</div>
+            <div class="inv-item">PoC 100건 · 시드 인플루언서 30명 DB</div>
+            <div class="inv-item">예측 모델 v0.1 백테스트 5건+</div>
+          </div>
+          <div class="inv-rationale">"노트북 1대로 충분한가?" 검증 — Phase 1·2 (Day 1-60). 안 되면 여기서 멈출 수 있음. <strong>최소 리스크 진입</strong>.</div>
+        </div>
+        <div class="inv-card">
+          <div class="inv-h"><div class="inv-stage">Stage B</div><div class="inv-when">Day 60-90</div></div>
+          <div class="inv-t">운영 서버 추가</div>
+          <div class="inv-cost-l">추가 투자</div>
+          <div class="inv-cost" style="color:var(--gold);">~1,500만원</div>
+          <div class="inv-list">
+            <div class="inv-item">AMD EPYC + <strong>RTX 4090 ×2</strong> 또는 A6000 48GB</div>
+            <div class="inv-item">256GB RAM + NVMe 8TB + UPS</div>
+            <div class="inv-item">vLLM 멀티유저 서빙 (24h 무중단)</div>
+            <div class="inv-item">전체 데이터 DB화 + Phase 3 진행</div>
+            <div class="inv-item">개발 PC는 보안·개발 머신으로 유지</div>
+          </div>
+          <div class="inv-rationale">Stage A에서 PoC 검증 통과 후만 진행. <strong>유료 베타 1건 이상 확보 시</strong> 트리거. 영업 검증 없으면 발주 보류.</div>
+        </div>
+        <div class="inv-card">
+          <div class="inv-h"><div class="inv-stage">Stage C</div><div class="inv-when">Q2 ~ Q3</div></div>
+          <div class="inv-t">확장 디바이스</div>
+          <div class="inv-cost-l">추가 투자</div>
+          <div class="inv-cost" style="color:var(--green);">~1,500만원</div>
+          <div class="inv-list">
+            <div class="inv-item"><strong>NAS</strong> (백업·아카이빙, 32TB+)</div>
+            <div class="inv-item">추가 GPU 1매 (Gemma 파인튜닝 전용)</div>
+            <div class="inv-item">현지 에이전트 PC (대만/일본)</div>
+            <div class="inv-item">네트워크 이중화 + 모니터링</div>
+            <div class="inv-item">예측 모델 v0.3 본격 운영</div>
+          </div>
+          <div class="inv-rationale">Stage B 운영 6개월 후 진행. <strong>월 매출 5,000만원+ 도달 시</strong> 트리거. 이커머스 Stage 2 확장과 동시.</div>
+        </div>
+        <div class="inv-card">
+          <div class="inv-h"><div class="inv-stage">Stage D</div><div class="inv-when">Q4 +</div></div>
+          <div class="inv-t">풀 인프라</div>
+          <div class="inv-cost-l">추가 투자</div>
+          <div class="inv-cost" style="color:var(--purple);">~3,000만원+</div>
+          <div class="inv-list">
+            <div class="inv-item">전용 <strong>서버랙</strong> + 항온항습</div>
+            <div class="inv-item">멀티 GPU 노드 (4090 ×4 or H100)</div>
+            <div class="inv-item">Backup 서버 (DR · 재해 복구)</div>
+            <div class="inv-item">CDN 전용 회선</div>
+            <div class="inv-item">자체 데이터센터 검토</div>
+          </div>
+          <div class="inv-rationale">Year 1 매출 9억+ 달성 시 진행. <strong>Year 2 진입 시점</strong>의 의사결정. 그 전에는 절대 발주하지 않음.</div>
+        </div>
+      </div>
+      <div class="inv-cum">
+        <div class="inv-cum-l"><strong> 누적 투자 (4단계 모두 완료 시):</strong> 6,750만원이지만 한 번에 안 사고 분기별 검증 후 진행 → <strong>위험 ¼로 분산</strong></div>
+        <div class="inv-cum-r">
+          <div class="inv-cum-i"><div class="inv-cum-k">Stage A</div><div class="inv-cum-v">750만</div></div>
+          <div class="inv-cum-i"><div class="inv-cum-k">+ B</div><div class="inv-cum-v">2,250만</div></div>
+          <div class="inv-cum-i"><div class="inv-cum-k">+ C</div><div class="inv-cum-v">3,750만</div></div>
+          <div class="inv-cum-i"><div class="inv-cum-k">+ D</div><div class="inv-cum-v">6,750만+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d12"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c12"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 11 Stage A 노트북 자동화 능력 ━━━ -->
+<div class="slide" id="s11">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">12</span><span class="slbl">Stage A Automation Power</span></div>
+    <div class="st">노트북 1대 = <em>7개 자동화 체인</em></div>
+    <div class="ss">M5 Max 64GB + Gemma 4 31B Q4 1대로 동시에 돌릴 수 있는 풀스택. 통합 메모리 64GB 중 Q4 모델 18GB 점유 → 나머지 ~40GB로 Whisper · OCR · 임베딩 · Vision · Qdrant · n8n 동시 가동.</div>
+    <div class="sb">
+      <div class="auto-stack">
+        <div class="auto-stack-l">▸ ONE-BOX STACK</div>
+        <div class="auto-stack-r"><strong>Gemma 4 31B Q4</strong> (18GB) + <strong>Whisper L-v3</strong> (4GB) + <strong>PaddleOCR</strong> (2GB) + <strong>bge-m3 임베딩</strong> (3GB) + <strong>Qwen2.5-VL 7B</strong> (6GB) + <strong>Qdrant·PostgreSQL·Redis</strong> (6GB) + <strong>n8n·Crawl4AI</strong> (5GB) — 합 ~44GB · 동시 운영</div>
+      </div>
+      <div class="auto-grid">
+        <div class="auto-card" style="border-left-color:var(--brand-red);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">A. 사전 예측 리포트 자동 생성</div></div>
+          <div class="auto-flow">제품 입력 → Vision 분석 → Gemma 카테고리·가격대 추출 → <strong>1,200건 RAG</strong> 유사 사례 N건 → 통계 신뢰구간 → PDF</div>
+          <div class="auto-gain">사람 기준 <strong>2~3일 → 30분 이내</strong> · 100배 가속 · 외부 API 의존 0</div>
+        </div>
+        <div class="auto-card" style="border-left-color:var(--blue);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">B. 메이커 영입 1차 스크리닝</div></div>
+          <div class="auto-flow">신청서 도착 → Gemma 시장성 점수 → 임베딩 유사 사례 검색 → 슬랙 알림 (점수+근거+사례 3건)</div>
+          <div class="auto-gain">사람은 <strong>의사결정만</strong>, 분류·검색·요약 자동 · 일 100건 처리 가능</div>
+        </div>
+        <div class="auto-card" style="border-left-color:var(--gold);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">C. 인플루언서 발굴·매칭</div></div>
+          <div class="auto-flow">TikTok/IG 공개 데이터 (Crawl4AI+잔류) → 카테고리·톤 분류 → 메이커 제품과 임베딩 매칭 → <strong>매일 추천 100명</strong></div>
+          <div class="auto-gain">수동 1주/캠페인 → <strong>매일 갱신</strong> · 3-Tier 자동 분류 (s5 패키지 연동)</div>
+        </div>
+        <div class="auto-card" style="border-left-color:var(--purple);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">D. 광고·LP 카피 자가진화 루프</div></div>
+          <div class="auto-flow">제품 한 줄 → 헤드라인 50개 → 다국어 번역 (한·영·일·중) → n8n이 Meta Ads 배포 → 24h ROAS → 승자 학습 → 다음 라운드</div>
+          <div class="auto-gain">A/B 테스트 카피 비용 <strong>0원</strong> · 자가 학습 광고 루프</div>
+        </div>
+        <div class="auto-card" style="border-left-color:var(--green);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">E. 6채널 일일 인사이트 리포트</div></div>
+          <div class="auto-flow">새벽 n8n이 6채널 수집 → Gemma 어제·7일·30일 비교 → 이상 징후 탐지 → "오늘 봐야 할 3가지" 슬랙 푸시</div>
+          <div class="auto-gain">PM 1명이 <strong>5캠페인 동시 운영</strong> · 새벽 자동, 출근 시 이미 정리됨</div>
+        </div>
+        <div class="auto-card" style="border-left-color:#0ea5e9;">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">F. 미팅 → 액션 아이템 자동화</div></div>
+          <div class="auto-flow">Whisper STT → Gemma 발언자별 요약·결정사항 추출 → Notion/Linear 액션 자동 생성·담당자 할당</div>
+          <div class="auto-gain">회의록 작성 시간 <strong>0분</strong> · 누락 0건 · 검색 가능</div>
+        </div>
+        <div class="auto-card" style="border-left-color:var(--charcoal);">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">G. 펀딩 → 이커머스 자동 전환</div></div>
+          <div class="auto-flow">펀딩 종료 → 백커 데이터 정제 → Shopify 상품 자동 생성 (Gemma 카피·번역) → 리피트 이메일 시퀀스 자동</div>
+          <div class="auto-gain">Stage 2 이커머스 핵심 엔진 · 사람 손 0 · LTV 추적 자동</div>
+        </div>
+        <div class="auto-card" style="border-left-color:#be185d;">
+          <div class="auto-h"><span class="auto-icon"></span><div class="auto-t">H. 클라우드 비용 절감</div></div>
+          <div class="auto-flow">동급 워크로드 외부 API 비용: Sonnet ~월 360달러 / GPT-4o ~월 500달러 → 로컬 = 전기·감가만</div>
+          <div class="auto-gain">월 <strong>~50만원 절감</strong> + 메이커 NDA 데이터 <strong>외부 유출 0</strong></div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;font-size:12.5px;padding:11px 14px;"><strong>핵심:</strong> "노트북 1대로 충분한가?"의 답 — 7개 자동화 체인이 한 박스에서 동시 가동. Stage B 서버는 <strong>유저 동시성·24h 무중단</strong>이 필요해질 때만 발주. Stage A에서 이미 <strong>풀스택 검증</strong>이 끝난다.</div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d11"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c11"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 12 90일 로드맵 ━━━ -->
+<div class="slide" id="s13">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">13</span><span class="slbl">90-Day Execution</span></div>
+    <div class="st">90일 <em>실행 로드맵</em></div>
+    <div class="ss">3 Phase × 13주 — 인프라 토대 → 파이프라인 실증 → 확장 진입</div>
+    <div class="sb">
+      <div class="tl-wrap">
+        <div class="tl-row">
+          <div class="tl-label p1"><div class="tl-label-n">Phase 1</div><div class="tl-label-d">Day 1-30</div><div class="tl-label-d" style="color:rgba(255,255,255,.95);">인프라 토대</div></div>
+          <div class="tl-content">
+            <div class="tl-content-t">노트북 1대 (Stage A)로 PoC 완성 — Gemma 4 31B 로컬 추론 검증</div>
+            <div class="tl-content-w">
+              <div class="tl-week"><strong>W1</strong>macOS+Ollama+MLX 세팅, Gemma 4 31B Q4 한국어 벤치</div>
+              <div class="tl-week"><strong>W2</strong>OpenClaw+Supabase+Qdrant 연결, TikTok API 신청</div>
+              <div class="tl-week"><strong>W3</strong>OCR/STT/n8n/MinIO 4종 파이프라인 + 100건 PoC</div>
+              <div class="tl-week"><strong>W4</strong>하이퍼랜딩 LP 1종 + 시드 인플루언서 30명 + 리뷰</div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label p2"><div class="tl-label-n">Phase 2</div><div class="tl-label-d">Day 31-60</div><div class="tl-label-d" style="color:rgba(255,255,255,.95);">파이프라인 실증</div></div>
+          <div class="tl-content">
+            <div class="tl-content-t">서버 발주 결정 (Stage B 트리거) — 예측 모델 v0.1 백테스트 + 첫 라이브</div>
+            <div class="tl-content-w">
+              <div class="tl-week"><strong>W5</strong>서버 조립·이전 (Stage B 발주) 또는 보류 결정</div>
+              <div class="tl-week"><strong>W6</strong>전체 데이터 DB화 + 1,200건 과거 펀딩 데이터 정제</div>
+              <div class="tl-week"><strong>W7</strong>예측 모델 v0.1 백테스트 R²≥0.6 + 뉴스레터 1호</div>
+              <div class="tl-week"><strong>W8</strong>대만 LP 라이브 + TikTok 5명 + 첫 전환율 측정</div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label p3"><div class="tl-label-n">Phase 3</div><div class="tl-label-d">Day 61-90</div><div class="tl-label-d" style="color:rgba(255,255,255,.95);">확장 진입</div></div>
+          <div class="tl-content">
+            <div class="tl-content-t">유료 베타 3사 + 인플루언서 100명 + Gemma 파인튜닝 + 플라이휠 1회전 완성</div>
+            <div class="tl-content-w">
+              <div class="tl-week"><strong>W9</strong>유료 베타 3사 시작 + v0.2 + 시딩 1차 가동</div>
+              <div class="tl-week"><strong>W10</strong>총판 영업 3건 + Gemma 다국어 제안서 (한·영·일·중)</div>
+              <div class="tl-week"><strong>W11</strong>Gemma LoRA 파인튜닝 + v0.2 R²≥0.7 + 6채널 분석</div>
+              <div class="tl-week"><strong>W12-13</strong>인플루언서 100명+ 완성 + 90일 보고 + Q2 전략</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ibox ibox-blue" style="flex:none;"><strong>플라이휠 1회전 = 90일.</strong> Phase 1 노트북 1대 검증 → Phase 2 서버 발주 결정 → Phase 3 유료 베타 + 데이터 누적. 매 Phase 끝에서 다음 Phase 진행 여부 의사결정.</div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d13"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c13"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 11 기술 스택 검증 ━━━ -->
+<div class="slide" id="s14">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">14</span><span class="slbl">Tech Stack Verification</span></div>
+    <div class="st">기술 스택 <em>14개 항목 검증</em></div>
+    <div class="ss">외부 소스로 한 줄씩 확인 — 비용·리스크·판정. M5 Max 64GB 락인.</div>
+    <div class="sb">
+      <div class="tvw">
+        <table>
+          <thead><tr><th>분류</th><th>명세</th><th>검증 결과 (출처)</th><th>비용</th><th>판정</th></tr></thead>
+          <tbody>
+            <tr><td>LLM 모델</td><td>Gemma 4 31B (Q8)</td><td>2026-04-02 출시  Apache 2.0, 31B dense, 256K ctx, Arena Elo 1452</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>개발 PC (Stage A)</td><td>MBP16 <strong>M5 Max 64GB</strong> </td><td>Apple 공식 48/64/128GB SKU 존재. Q4·Q8 동시 sweet spot. 614 GB/s · Metal Q8 22-30 tok/s</td><td><strong>~750만원</strong></td><td><span class="verdict v-ok"> 락인</span></td></tr>
+            <tr><td>LLM 서빙</td><td>Ollama / MLX / llama.cpp</td><td>3종 모두 Gemma 4 정식 지원</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>AI 에이전트 UI</td><td>OpenClaw + Open WebUI</td><td>OpenClaw 250K stars, 2026-01 rebrand, Ollama 직결</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>운영 서버 GPU (Stage B)</td><td>RTX 4090 ×2 / A6000</td><td>4090 24GB×2 Q8 분산  또는 A6000 48GB</td><td>~1,500만원</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>OCR / STT</td><td>PaddleOCR + Whisper large-v3</td><td>표준 OSS, 다국어 검증</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>크롤러 / 워크플로우</td><td>Crawl4AI + n8n + Prefect</td><td>모두 OSS 표준</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>DB 계층</td><td>PG/Qdrant/Redis/MinIO/ES/TimescaleDB</td><td>6종 모두 OSS, Docker Compose 1일</td><td>무료</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>BaaS / CDN</td><td>Supabase + Cloudflare + Vercel</td><td>3종 모두 무료 tier 충분</td><td>$0~25/월</td><td><span class="verdict v-ok"> OK</span></td></tr>
+            <tr><td>킥스타터 데이터</td><td>크롤링 + 정제</td><td>공식 API 없음. hiQ 판례로 공개 데이터 합법. ToS 준수</td><td>~$50/월 백업</td><td><span class="verdict v-warn">⚠ ToS</span></td></tr>
+            <tr><td>인플루언서 발굴</td><td>아시아 100명+ DB</td><td>TikTok Creator Marketplace API (2025)  비즈니스 계정 필요</td><td>무료</td><td><span class="verdict v-warn">⚠ 신청</span></td></tr>
+            <tr><td>인플루언서 DM 자동화</td><td>대량 콜드 DM</td><td>Meta API 24h 윈도우 → 콜드 DM 불가</td><td>대안 필요</td><td><span class="verdict v-bad"> 우회</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d14"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c14"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 12 리스크 ━━━ -->
+<div class="slide" id="s15">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">15</span><span class="slbl">Risks &amp; Mitigations</span></div>
+    <div class="st">리스크 <em>4건 + 우회 전략</em></div>
+    <div class="ss">정직 슬라이드 — 안 되는 항목과 검증된 우회로</div>
+    <div class="sb">
+      <div class="risk-grid">
+        <div class="risk-card" style="background:#fef2f2;border-color:var(--red);">
+          <div class="risk-h"><span class="risk-lvl" style="background:var(--red);">R1 · CRITICAL</span><div class="risk-t" style="color:var(--red);">콜드 DM은 플랫폼 차원에서 차단됨</div></div>
+          <div class="risk-d">Meta API <strong>24h 메시징 윈도우</strong> + 사용자 선행 인터랙션 필수. <strong>Playwright/Puppeteer 동적 스크래핑도 콜드 DM은 막힘</strong> (TLS/캔버스 핑거프린팅·CAPTCHA·계정 정지). 발견(discovery)은 가능, 콜드 컨택은 불가.</div>
+          <div class="risk-mit"><strong>우회 ①</strong> 발견은 동적 스크래핑/Apify/Bright Data로 OK<br><strong>우회 ②</strong> 컨택은 <strong>이메일 (bio/미디어킷) 25-35% 응답률</strong><br><strong>우회 ③</strong> Comment-to-DM/Story Reply 트리거 (인바운드 전환)<br><strong>우회 ④</strong> TikTok Creator Marketplace API 정식 매칭<br><strong>우회 ⑤</strong> 현지 에이전트 라스트 마일 운영</div>
+        </div>
+        <div class="risk-card" style="background:#fefce8;border-color:var(--gold);">
+          <div class="risk-h"><span class="risk-lvl" style="background:var(--gold);">R2 · MEDIUM</span><div class="risk-t" style="color:var(--gold);">킥스타터 공식 API 부재</div></div>
+          <div class="risk-d">공식 API 없음. ToS·robots·rate limit 준수 필수.</div>
+          <div class="risk-mit"><strong>우회 ①</strong> Crawl4AI + 분산 IP + 1 req/3s<br><strong>우회 ②</strong> webrobots.io 무료 데이터셋<br><strong>우회 ③</strong> Apify Scraper $50-200/월</div>
+        </div>
+        <div class="risk-card" style="background:#fefce8;border-color:var(--gold);">
+          <div class="risk-h"><span class="risk-lvl" style="background:var(--gold);">R3 · MEDIUM</span><div class="risk-t" style="color:var(--gold);">현지 라스트 마일 인력</div></div>
+          <div class="risk-d">α3 + R1 우회 모두 <strong>"교육된 사람"</strong>에 의존. 한국·대만·일본 에이전트 채용 필요.</div>
+          <div class="risk-mit"><strong>우회 ①</strong> Phase 2 W6부터 채용 공고<br><strong>우회 ②</strong> SOP 문서화 → AI 90% 자동, 사람 10% 의사결정<br><strong>우회 ③</strong> 초기 1명만 → Q2 결정</div>
+        </div>
+        <div class="risk-card" style="background:#fefce8;border-color:var(--gold);">
+          <div class="risk-h"><span class="risk-lvl" style="background:var(--gold);">R4 · MEDIUM</span><div class="risk-t" style="color:var(--gold);">예측 모델 데이터 부족</div></div>
+          <div class="risk-d">자사 펀딩 5건만으론 R²≥0.6 통계 약함. <strong>14년 1,200건 데이터</strong> 정제 필수.</div>
+          <div class="risk-mit"><strong>우회 ①</strong> Phase 2 W6에 1,200건 강제 정제·DB화<br><strong>우회 ②</strong> v0.1 "예측" 아닌 "유사 사례 + 신뢰구간"으로 정직<br><strong>우회 ③</strong> v0.2 본격 — 1500+건 누적 후</div>
+        </div>
+      </div>
+      <div class="ibox ibox-red" style="flex:none;"><strong>리스크 종합:</strong> CRITICAL 1건 + MEDIUM 3건 = 모두 검증된 우회로 보유. R1 우회로가 차별화 α3·α5를 강화하는 방향으로 작동.</div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d15"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c15"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 13 KPI 가능여부 ━━━ -->
+<div class="slide" id="s16">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si">
+    <div class="stag"><span class="snum">16</span><span class="slbl">KPI Feasibility</span></div>
+    <div class="st">12개 KPI <em>가능여부 최종 판정</em></div>
+    <div class="ss">90일 로드맵의 모든 KPI를  / ⚠ /  로 판정 — 우회 적용 후 결과</div>
+    <div class="sb">
+      <div class="kpi-tw">
+        <table>
+          <thead><tr><th>KPI</th><th>목표</th><th>가능여부</th><th>근거 / 우회</th></tr></thead>
+          <tbody>
+            <tr><td>Gemma 로컬 추론</td><td>한국어 ≥22 tok/s</td><td><span class="verdict v-ok"> 가능</span></td><td>M5 Max 64GB Q8 + Metal 가속 (apxml 22-30 tok/s)</td></tr>
+            <tr><td>OCR/STT PoC 100건</td><td>처리 성공률 ≥95%</td><td><span class="verdict v-ok"> 가능</span></td><td>PaddleOCR + Whisper large-v3 표준</td></tr>
+            <tr><td>파이프라인 4종</td><td>n8n+OCR+STT+Crawl4AI</td><td><span class="verdict v-ok"> 가능</span></td><td>모두 OSS, Docker Compose 1주</td></tr>
+            <tr><td>온프레미스 서버</td><td>vLLM Q8 ≥30 tok/s · 24h</td><td><span class="verdict v-ok"> 가능</span></td><td>RTX 4090 ×2 또는 A6000 48GB</td></tr>
+            <tr><td>전체 데이터 DB화</td><td>자동 라벨 일치율 ≥85%</td><td><span class="verdict v-ok"> 가능</span></td><td>Gemma 4 31B 한국어 라벨링 충분</td></tr>
+            <tr><td>예측 모델 v0.1</td><td>R² ≥ 0.6</td><td><span class="verdict v-warn">⚠ 데이터 보강</span></td><td><strong>14년 1,200건 정제 시 충분</strong></td></tr>
+            <tr><td>대만 LP 라이브</td><td>UTM 측정 1건+</td><td><span class="verdict v-ok"> 가능</span></td><td>Vercel + GA4 + UTM 표준</td></tr>
+            <tr><td>유료 베타 3사</td><td>NPS ≥30, 1건+ 유료</td><td><span class="verdict v-warn">⚠ 영업 의존</span></td><td>세토웍스 14년 메이커 네트워크 활용</td></tr>
+            <tr><td>인플루언서 DB 100명+</td><td>한·일·대만·동남아</td><td><span class="verdict v-ok"> 가능</span></td><td>TikTok Creator Marketplace API + 수동</td></tr>
+            <tr><td>인플루언서→백커 추적</td><td>실 데이터 1건+</td><td><span class="verdict v-ok"> 가능</span></td><td>UTM + 레퍼럴, GA4 funnel</td></tr>
+            <tr><td>예측 모델 v0.2</td><td>R² ≥ 0.7</td><td><span class="verdict v-warn">⚠ 데이터 누적</span></td><td>1500+건 + LoRA 파인튜닝 후</td></tr>
+            <tr><td><strong>인플루언서 DM 자동화</strong></td><td>대량 콜드 DM</td><td><span class="verdict v-bad"> 우회 적용</span></td><td>Meta 24h 차단. <strong>TikTok+이메일+사람</strong>으로 대체</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="g4" style="flex:none;">
+        <div class="stat-card" style="background:var(--grl);border-color:var(--green);"><div class="stat-num" style="color:var(--green);">9</div><div class="stat-lbl">즉시 가능 </div></div>
+        <div class="stat-card" style="background:var(--gl);border-color:var(--gold);"><div class="stat-num" style="color:var(--gold);">3</div><div class="stat-lbl">조건부 가능 ⚠</div></div>
+        <div class="stat-card" style="background:var(--rl);border-color:var(--red);"><div class="stat-num" style="color:var(--red);">1</div><div class="stat-lbl">우회 적용 →</div></div>
+        <div class="stat-card" style="background:rgba(255,0,59,.06);border-color:var(--brand-red);"><div class="stat-num" style="color:var(--brand-red);">12<span style="font-size:16px;">/12</span></div><div class="stat-lbl">우회 후 종합 가능</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d16"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c16"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 17 결론 + 7일 액션 ━━━ -->
+<div class="slide" id="s17">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  <div class="si" style="background:linear-gradient(135deg,#f7f9fc 0%,#fff5f7 100%);">
+    <div class="stag"><span class="snum">17</span><span class="slbl">Conclusion &amp; Next 7 Days</span></div>
+    <div class="st">최종 결론 <em>+ 다음 7일 액션</em></div>
+    <div class="ss">14년 카테고리 리더의 AI 진화 — 노트북 1대(~750만원)로 시작, Year 1 +9~12억, Year 4 126억 목표</div>
+    <div class="sb">
+      <div class="ibox ibox-brand" style="flex:none;font-size:14.5px;line-height:1.75;">
+        <strong>최종 결론 한 문장:</strong> <strong style="color:var(--charcoal);">"세토웍스는 14년 1,200건 펀딩 운영 데이터 위에 Gemma 4 31B AI를 얹어, 노트북 1대(~750만원)로 시작해 Year 1 +9~12억(기존 50억의 +20%), Year 4 126억(2.5배)을 만든다."</strong><br>
+        한 번에 인프라를 사지 않는다 — Stage A 검증 후 Stage B 발주, 분기별 의사결정. 첫 90일은 ~750만원 + 인건비만 확정.
+      </div>
+      <div class="ctitle" style="color:var(--charcoal);margin-top:4px;">▸ 이번 주 (Day 1-7) 시작할 5가지 액션</div>
+      <div class="act-grid" style="flex:1;">
+        <div class="act-card"><div class="act-num">01</div><div class="act-t">M5 Max 64GB 1대 발주</div><div class="act-d">Apple Store 비즈니스. 약 750만원. 배송 1-2주.</div></div>
+        <div class="act-card"><div class="act-num">02</div><div class="act-t">TikTok Creator Marketplace 신청</div><div class="act-d">business-api.tiktok.com → 비즈니스 → 파트너. 1-2주.</div></div>
+        <div class="act-card"><div class="act-num">03</div><div class="act-t">Gemma 4 31B Q4 다운로드 + 벤치</div><div class="act-d">Ollama / Unsloth GGUF. 임시 PC라도 가능.</div></div>
+        <div class="act-card"><div class="act-num">04</div><div class="act-t">OpenClaw + Ollama 연결</div><div class="act-d">github.com/openclaw → docker compose → localhost:11434.</div></div>
+        <div class="act-card"><div class="act-num">05</div><div class="act-t">14년 사내 펀딩 데이터 정제 시작</div><div class="act-d">1,200건 자료 → CSV → Gemma 학습 데이터셋.</div></div>
+      </div>
+      <div class="g3" style="flex:none;">
+        <div class="ibox ibox-green"><strong>Stage A 예산 (Day 1-60):</strong> M5 Max 64GB ~<strong>750만원</strong> + 클라우드 $25/월 + Apify $50/월 ≈ <strong>총 ~760만원 + 인건비</strong>. Stage B는 Phase 2 W8 검증 후.</div>
+        <div class="ibox ibox-gold"><strong>인력:</strong> AI 엔지니어 1 + 데이터/백엔드 1 + PM 1 = <strong>최소 3인</strong>. 세토웍스 기존 영업/운영 인력 활용 가능.</div>
+        <div class="ibox ibox-blue"><strong>다음 검토:</strong> Day 30 Phase 1 리뷰 → Stage B 결정. Day 60 Phase 2 → Stage C 검토. 분기별 사이클.</div>
+      </div>
+      <!-- CTA: 대시보드 연결 -->
+      <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 0;">
+        <a href="/" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:var(--brand-red);color:#fff;border-radius:12px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(255,0,59,.35);transition:transform .15s,box-shadow .15s;letter-spacing:.02em;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(255,0,59,.45)';" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(255,0,59,.35)';">
+          운영 대시보드 직접 체험하기
+        </a>
+        <span style="font-size:13px;color:var(--mu);font-weight:500;">실제 운영 화면에서 캠페인·인플루언서·수익 데이터를 확인하세요</span>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">Jellop+α 90D Roadmap</span></div><div class="nb-dots" id="d17"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c17"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">&times;</button>
+  <img id="lb-img" src="" alt="" onclick="closeLb()" style="cursor:pointer;">
+  <div class="lb-caption" id="lb-cap"></div>
+</div>
+
+<script>
+function showPipe(n){
+  document.querySelectorAll('.pipe-panel').forEach(p=>{p.style.display='none';});
+  const target=document.querySelector('.pipe-panel[data-pipe="'+n+'"]');
+  if(target){target.style.display='';target.style.animation='none';target.offsetHeight;target.style.animation='fadeUp .4s cubic-bezier(.4,0,.2,1) both';}
+  document.querySelectorAll('#pipe-nav .pipe-step').forEach((s,i)=>{s.classList.remove('pipe-active');if(i===n-1||(n===0&&i===7))s.classList.add('pipe-active');});
+}
+function openLb(src,alt){const lb=document.getElementById('lb');document.getElementById('lb-img').src=src;document.getElementById('lb-cap').textContent=alt;lb.classList.add('open');}
+function closeLb(){document.getElementById('lb').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+
+const TOTAL=19;let cur=0;
+const slides=document.querySelectorAll('.slide');
+function render(){
+  slides.forEach((s,i)=>{s.classList.remove('active','exit-left');if(i===cur)s.classList.add('active');else if(i<cur)s.classList.add('exit-left');});
+  for(let n=0;n<TOTAL;n++){
+    const cnt=document.getElementById('c'+n);if(cnt)cnt.textContent=(cur+1)+' / '+TOTAL;
+    const dots=document.getElementById('d'+n);if(!dots)continue;
+    dots.innerHTML='';
+    for(let d=0;d<TOTAL;d++){const b=document.createElement('button');b.className='nd'+(d===cur?' active':'');const dd=d;b.onclick=()=>{cur=dd;render();};dots.appendChild(b);}
+  }
+}
+function go(dir){const n=cur+dir;if(n<0||n>=TOTAL)return;cur=n;render();}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);else if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);});
+render();
+</script>
+</body>
+</html>
