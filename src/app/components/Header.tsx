@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, X, Bookmark, Presentation } from 'lucide-react';
+import { Search, X, Bookmark, Presentation, ExternalLink } from 'lucide-react';
 import { Language, Translations } from '../types';
 
 interface HeaderProps {
@@ -134,6 +134,16 @@ export function Header({
               </div>
             )}
           </div>
+
+          {/* Setoworks Website */}
+          <a
+            href="https://setoworks.com"
+            target="_blank"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold text-gray-600 border border-gray-200 hover:border-[#ff003b] hover:text-[#ff003b] transition-all"
+          >
+            <ExternalLink className="w-4 h-4" />
+            웹페이지
+          </a>
 
           {/* Strategy Deck Link */}
           <a
