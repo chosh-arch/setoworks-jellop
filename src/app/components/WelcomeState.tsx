@@ -1,4 +1,4 @@
-import { Search, Sparkles, Clock, TrendingUp, Flame } from 'lucide-react';
+import { Search, Sparkles, Clock, TrendingUp, Flame, Zap } from 'lucide-react';
 import { Language } from '../types';
 
 interface NewLaunch {
@@ -37,6 +37,19 @@ const trendingProducts: TrendingProduct[] = [
   { name: 'PetCam 360 반려동물 카메라', platform: 'Indiegogo', imageUrl: 'https://images.unsplash.com/photo-1583337130417-13104dec14a3?w=400&h=240&fit=crop', growthRate: 980, currentAmount: '$98,000', backerCount: 876, daysLive: 3 },
   { name: 'EcoWrap 재사용 실리콘 랩', platform: 'Wadiz', imageUrl: 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=400&h=240&fit=crop', growthRate: 720, currentAmount: '7,200만원', backerCount: 1230, daysLive: 2 },
   { name: 'LumiDesk RGB 게이밍 데스크', platform: 'Kickstarter', imageUrl: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400&h=240&fit=crop', growthRate: 560, currentAmount: '$84,000', backerCount: 612, daysLive: 3 },
+];
+
+const risingInfluencers = [
+  { name: '미니멀테크_도윤', photo: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop', platform: 'TikTok', followers: '3.2K', growth: 340, er: 14.2, category: '테크·가젯' },
+  { name: 'daily_mika', photo: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&h=200&fit=crop', platform: 'Instagram', followers: '5.8K', growth: 280, er: 11.5, category: '라이프스타일' },
+  { name: '공돌이_재혁', photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop', platform: 'YouTube', followers: '8.1K', growth: 195, er: 9.8, category: 'DIY·메이커' },
+  { name: 'gadget_yuna', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop', platform: 'TikTok', followers: '12K', growth: 175, er: 10.3, category: '언박싱' },
+  { name: 'smart_living_jp', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop', platform: 'YouTube', followers: '4.5K', growth: 220, er: 12.8, category: '스마트홈' },
+  { name: '헬스핏_수아', photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop', platform: 'Instagram', followers: '7.3K', growth: 160, er: 8.9, category: '헬스·웨어러블' },
+  { name: 'outdoor_kevin', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop', platform: 'TikTok', followers: '9.6K', growth: 310, er: 13.1, category: '아웃도어' },
+  { name: 'キッチン_yuki', photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop', platform: 'YouTube', followers: '6.2K', growth: 185, er: 10.7, category: '주방·가전' },
+  { name: '에코리빙_하늘', photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop', platform: 'Instagram', followers: '2.9K', growth: 410, er: 15.6, category: '친환경' },
+  { name: 'tech_twins_tw', photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop', platform: 'TikTok', followers: '11K', growth: 250, er: 11.2, category: '대만 테크' },
 ];
 
 const platformColors: Record<string, string> = {
@@ -219,6 +232,45 @@ export function WelcomeState({ language, onSampleSearch }: WelcomeStateProps) {
                     <div className="text-base font-bold text-[#ff003b]">{item.currentAmount}</div>
                     <div className="text-sm text-gray-600">{item.backerCount.toLocaleString()}{language === 'ko' ? '명' : ''}</div>
                     <div className="text-sm font-bold text-green-600">D+{item.daysLive}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Rising Influencers — Marquee */}
+      <div className="w-full max-w-[1280px] mx-auto pb-12">
+        <div className="flex items-center gap-3 mb-4 px-2">
+          <Zap className="w-5 h-5 text-[#ff003b]" />
+          <h3 className="text-lg font-bold text-gray-900">{language === 'ko' ? '급등 인플루언서' : 'Rising Influencers'}</h3>
+          <span className="text-sm text-gray-500">{language === 'ko' ? '최근 7일 팔로워 급증 + 높은 참여율 크리에이터' : 'Fast-growing creators in the last 7 days'}</span>
+        </div>
+        <div className="overflow-hidden relative">
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#F5F7FA] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#F5F7FA] to-transparent z-10 pointer-events-none" />
+          <div className="flex gap-4 w-max" style={{ animation: 'marqueeScroll 50s linear infinite' }}>
+            {[...risingInfluencers, ...risingInfluencers].map((inf, idx) => (
+              <div key={idx} className="flex-shrink-0 w-[240px] bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+                <div className="flex items-start gap-3">
+                  <div className="relative">
+                    <img src={inf.photo} alt={inf.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-200" />
+                    <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-white text-[8px] font-bold shadow ${
+                      inf.platform === 'TikTok' ? 'bg-black' : inf.platform === 'YouTube' ? 'bg-red-600' : 'bg-gradient-to-r from-purple-500 to-pink-500'
+                    }`}>{inf.platform === 'TikTok' ? '♪' : inf.platform === 'YouTube' ? '▶' : '📷'}</div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-gray-900 text-sm truncate">{inf.name}</div>
+                    <div className="text-xs text-gray-500">{inf.followers} {language === 'ko' ? '팔로워' : 'followers'}</div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="flex items-center gap-0.5 text-xs font-bold text-green-600">
+                        <TrendingUp className="w-3 h-3" />+{inf.growth}%
+                      </span>
+                      <span className="text-xs text-gray-400">7d</span>
+                      <span className="text-xs font-semibold text-[#ff003b]">ER {inf.er}%</span>
+                    </div>
+                    <div className="text-[11px] text-gray-400 mt-1">{inf.category}</div>
                   </div>
                 </div>
               </div>
