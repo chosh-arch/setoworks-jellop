@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { CampaignCard } from './components/CampaignCard';
@@ -12,11 +12,37 @@ import { BookmarkDrawer } from './components/BookmarkDrawer';
 import { SkeletonCard } from './components/SkeletonCard';
 import { EmptyState } from './components/EmptyState';
 import { WelcomeState } from './components/WelcomeState';
+import { GTMForm } from './components/GTMForm';
 import { mockProducts, mockCampaigns, mockInfluencers } from './mockData';
 import { translations } from './translations';
 import { Language, Product, Campaign, Influencer, SocialPlatform, Category } from './types';
 
 type AppState = 'welcome' | 'loading' | 'results' | 'empty';
+
+function matchProduct(p: Product, q: string): boolean {
+  return (
+    p.name.toLowerCase().includes(q) ||
+    p.description.toLowerCase().includes(q) ||
+    p.tags.some((tag) => tag.toLowerCase().includes(q))
+  );
+}
+
+function matchCampaign(c: Campaign, q: string): boolean {
+  return (
+    c.name.toLowerCase().includes(q) ||
+    c.description.toLowerCase().includes(q) ||
+    c.tags.some((tag) => tag.toLowerCase().includes(q))
+  );
+}
+
+function matchInfluencer(inf: Influencer, q: string): boolean {
+  return (
+    inf.name.toLowerCase().includes(q) ||
+    inf.category.toLowerCase().includes(q) ||
+    inf.platform.toLowerCase().includes(q) ||
+    (inf.campaigns?.some((cam) => cam.name.toLowerCase().includes(q)) ?? false)
+  );
+}
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('ko');
@@ -73,14 +99,23 @@ export default function App() {
     );
   }, [bookmarkedProducts, bookmarkedCampaigns, bookmarkedInfluencers]);
 
+  const [showGTMForm, setShowGTMForm] = useState(false);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     setAppState('loading');
-    
+
     // Simulate loading
     setTimeout(() => {
-      // For demo purposes, always show results
-      setAppState('results');
+      const q = query.toLowerCase().trim();
+      const hasProducts = mockProducts.some((p) => matchProduct(p, q));
+      const hasCampaigns = mockCampaigns.some((c) => matchCampaign(c, q));
+      const hasInfluencers = mockInfluencers.some((inf) => matchInfluencer(inf, q));
+      if (hasProducts || hasCampaigns || hasInfluencers) {
+        setAppState('results');
+      } else {
+        setAppState('empty');
+      }
     }, 1500);
   };
 
@@ -118,15 +153,21 @@ export default function App() {
     }
   };
 
-  const filteredInfluencers = mockInfluencers.filter((inf) => {
+  // Search-based filtering
+  const q = searchQuery.toLowerCase().trim();
+  const searchedProducts = q ? mockProducts.filter((p) => matchProduct(p, q)) : mockProducts;
+  const searchedCampaigns = q ? mockCampaigns.filter((c) => matchCampaign(c, q)) : mockCampaigns;
+  const searchedInfluencers = q ? mockInfluencers.filter((inf) => matchInfluencer(inf, q)) : mockInfluencers;
+
+  const filteredInfluencers = searchedInfluencers.filter((inf) => {
     if (platformFilter !== 'all' && inf.platform !== platformFilter) return false;
     if (tierFilter !== 'all' && inf.tier !== tierFilter) return false;
     if (categoryFilter !== 'all' && inf.category !== categoryFilter) return false;
     return true;
   });
 
-  const displayProducts = expandedSections.products ? mockProducts : mockProducts.slice(0, 4);
-  const displayCampaigns = expandedSections.campaigns ? mockCampaigns : mockCampaigns.slice(0, 4);
+  const displayProducts = expandedSections.products ? searchedProducts : searchedProducts.slice(0, 4);
+  const displayCampaigns = expandedSections.campaigns ? searchedCampaigns : searchedCampaigns.slice(0, 4);
   const displayInfluencers = expandedSections.influencers ? filteredInfluencers : filteredInfluencers.slice(0, 6);
 
   return (
@@ -194,11 +235,14 @@ export default function App() {
         {appState === 'results' && (
           <div className="space-y-12">
             {/* Section 1: Similar Funded Products */}
+            {searchedProducts.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">{t.section1Title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {q ? `'${searchQuery}' 검색 결과 — ${t.section1Title}` : t.section1Title}
+                </h2>
                 <span className="px-3 py-1 bg-[#ff003b] text-white rounded-full text-sm">
-                  {t.totalCount.replace('{count}', mockProducts.length.toString())}
+                  {t.totalCount.replace('{count}', searchedProducts.length.toString())}
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -214,7 +258,7 @@ export default function App() {
                   />
                 ))}
               </div>
-              {mockProducts.length > 4 && (
+              {searchedProducts.length > 4 && (
                 <div className="flex justify-center mt-6">
                   <button
                     onClick={() =>
@@ -229,13 +273,17 @@ export default function App() {
                 </div>
               )}
             </section>
+            )}
 
             {/* Section 2: Our Past Campaigns */}
+            {searchedCampaigns.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">{t.section2Title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {q ? `'${searchQuery}' 검색 결과 — ${t.section2Title}` : t.section2Title}
+                </h2>
                 <span className="px-3 py-1 bg-[#ff003b] text-white rounded-full text-sm">
-                  {t.totalCount.replace('{count}', mockCampaigns.length.toString())}
+                  {t.totalCount.replace('{count}', searchedCampaigns.length.toString())}
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -251,7 +299,7 @@ export default function App() {
                   />
                 ))}
               </div>
-              {mockCampaigns.length > 4 && (
+              {searchedCampaigns.length > 4 && (
                 <div className="flex justify-center mt-6">
                   <button
                     onClick={() =>
@@ -266,11 +314,15 @@ export default function App() {
                 </div>
               )}
             </section>
+            )}
 
             {/* Section 3: Related Influencers */}
+            {filteredInfluencers.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">{t.section3Title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {q ? `'${searchQuery}' 검색 결과 — ${t.section3Title}` : t.section3Title}
+                </h2>
                 <span className="px-3 py-1 bg-[#ff003b] text-white rounded-full text-sm">
                   {t.totalCount.replace('{count}', filteredInfluencers.length.toString())}
                 </span>
@@ -377,6 +429,12 @@ export default function App() {
                 </div>
               )}
             </section>
+            )}
+
+            {/* Empty results after filtering */}
+            {searchedProducts.length === 0 && searchedCampaigns.length === 0 && filteredInfluencers.length === 0 && (
+              <EmptyState language={language} onReset={() => setAppState('welcome')} />
+            )}
           </div>
         )}
       </main>
@@ -418,6 +476,22 @@ export default function App() {
           />
         )}
       </AnimatePresence>
+
+      {/* GTM Form Floating Button */}
+      {(appState === 'results' || appState === 'welcome') && !showGTMForm && (
+        <button
+          onClick={() => setShowGTMForm(true)}
+          className="fixed bottom-8 right-8 z-40 flex items-center gap-2 px-6 py-4 bg-[#ff003b] text-white rounded-full shadow-lg hover:bg-[#cc0030] transition-all hover:scale-105"
+        >
+          <FileText className="w-5 h-5" />
+          <span className="font-bold">크라우드펀딩 요청 시작하기</span>
+        </button>
+      )}
+
+      {/* GTM Form Overlay */}
+      {showGTMForm && (
+        <GTMForm onClose={() => setShowGTMForm(false)} />
+      )}
 
       {/* Bookmark Drawer */}
       <BookmarkDrawer
