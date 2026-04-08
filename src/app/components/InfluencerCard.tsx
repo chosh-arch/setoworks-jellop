@@ -167,6 +167,26 @@ export function InfluencerCard({
               </div>
             </div>
           )}
+
+          {/* Participated Campaigns */}
+          {influencer.campaigns && influencer.campaigns.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-gray-100">
+              <div className="text-[11px] font-semibold text-gray-500 mb-1.5">
+                {language === 'ko' ? '참여 캠페인' : 'Campaigns'}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {influencer.campaigns.map((camp, idx) => (
+                  <div key={idx} className="flex items-center gap-1.5 px-2 py-1 bg-gray-50 rounded-lg border border-gray-100">
+                    <img src={camp.imageUrl} alt={camp.name} className="w-5 h-5 rounded object-cover" />
+                    <div className="text-[11px]">
+                      <span className="font-semibold text-gray-800">{camp.name}</span>
+                      <span className="text-gray-400 ml-1">· {camp.role}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

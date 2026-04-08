@@ -126,6 +126,11 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 78200000,
     setoworksAmount: 151800000,
+    influencers: [
+      { influencerId:'i3', name:'테크쟁이_현우', profilePhoto:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop', platform:'YouTube', tier:'nano', contribution:'언박싱 영상 2건, 조회수 12K' },
+      { influencerId:'i5', name:'가젯걸_소영', profilePhoto:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop', platform:'TikTok', tier:'micro', contribution:'EDC 리뷰 1건, 전환 84건' },
+      { influencerId:'i7', name:'TechNote_민수', profilePhoto:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop', platform:'YouTube', tier:'mid', contribution:'상세 리뷰 영상, 전환 210건' },
+    ],
   },
   {
     id: 'c2',
@@ -150,6 +155,11 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 35000000,
     setoworksAmount: 65000000,
+    influencers: [
+      { influencerId:'i1', name:'가젯덕후_소율', profilePhoto:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop', platform:'TikTok', tier:'nano', contribution:'제스처 시연 숏폼, 조회수 8K' },
+      { influencerId:'i4', name:'언박싱마스터_준형', profilePhoto:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop', platform:'YouTube', tier:'micro', contribution:'언박싱+비교 리뷰, 전환 52건' },
+      { influencerId:'i9', name:'gadget_holic_JP', profilePhoto:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop', platform:'Instagram', tier:'mid', contribution:'일본 타겟 릴스, 전환 180건' },
+    ],
   },
   {
     id: 'c3',
@@ -174,6 +184,10 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 52500000,
     setoworksAmount: 97500000,
+    influencers: [
+      { influencerId:'i2', name:'일상템리뷰_지민', profilePhoto:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop', platform:'Instagram', tier:'nano', contribution:'웨어러블 착용 후기, 전환 28건' },
+      { influencerId:'i8', name:'리뷰요정_다인', profilePhoto:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop', platform:'TikTok', tier:'mid', contribution:'운동 중 실사용 영상, 전환 420건' },
+    ],
   },
   {
     id: 'c4',
@@ -198,6 +212,10 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 56000000,
     setoworksAmount: 104000000,
+    influencers: [
+      { influencerId:'i6', name:'daily_hana', profilePhoto:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop', platform:'Instagram', tier:'micro', contribution:'오디오 감성 릴스, 전환 65건' },
+      { influencerId:'i7', name:'TechNote_민수', profilePhoto:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop', platform:'YouTube', tier:'mid', contribution:'음질 비교 리뷰, 전환 340건' },
+    ],
   },
   {
     id: 'c5',
@@ -222,6 +240,12 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 900000000,
     setoworksAmount: 2100000000,
+    influencers: [
+      { influencerId:'i12', name:'TechGuru_Alex', profilePhoto:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop', platform:'YouTube', tier:'mega', contribution:'앵커 리뷰 영상 520K 조회, 전환 3,200건' },
+      { influencerId:'i10', name:'잇섭_itsuB', profilePhoto:'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop', platform:'YouTube', tier:'macro', contribution:'CNC 작업 시연 영상, 전환 890건' },
+      { influencerId:'i8', name:'리뷰요정_다인', profilePhoto:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop', platform:'TikTok', tier:'mid', contribution:'DIY 숏폼 시리즈 3편, 전환 1,100건' },
+      { influencerId:'i3', name:'테크쟁이_현우', profilePhoto:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop', platform:'YouTube', tier:'nano', contribution:'조립 과정 브이로그, 전환 45건' },
+    ],
   },
   {
     id: 'c6',
@@ -246,6 +270,11 @@ export const mockCampaigns: Campaign[] = [
     ],
     organicAmount: 198000000,
     setoworksAmount: 402000000,
+    influencers: [
+      { influencerId:'i11', name:'라이프해커_수진', profilePhoto:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop', platform:'TikTok', tier:'macro', contribution:'온열패드 리뷰 시리즈, 전환 620건' },
+      { influencerId:'i13', name:'뷰티테크_지수', profilePhoto:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop', platform:'Instagram', tier:'mega', contribution:'겨울 필수템 릴스, 전환 1,800건' },
+      { influencerId:'i2', name:'일상템리뷰_지민', profilePhoto:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop', platform:'Instagram', tier:'nano', contribution:'일상 사용 후기, 전환 35건' },
+    ],
   },
 ];
 
@@ -257,6 +286,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'nano', costPerPost:0,
     adMetrics:{reach:8400,clicks:672,conversions:47,attributedRevenue:4700000,roi:Infinity,costPerAcquisition:0},
     content:[{id:'i1-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop',viewCount:4200,likeCount:504,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c2',name:'콕스스페이스 반지 2.0',imageUrl:'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=120&fit=crop',role:'제스처 시연 숏폼'}],
   },
   { id:'i2', name:'일상템리뷰_지민',
     profilePhoto:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop',
@@ -264,6 +294,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'nano', costPerPost:0,
     adMetrics:{reach:12600,clicks:882,conversions:62,attributedRevenue:5580000,roi:Infinity,costPerAcquisition:0},
     content:[{id:'i2-1',type:'image',thumbnailUrl:'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=400&h=300&fit=crop',viewCount:3100,likeCount:372,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c3',name:'뉴마핏 PACER',imageUrl:'https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=200&h=120&fit=crop',role:'웨어러블 착용 후기'},{campaignId:'c6',name:'닥터서플라이 젠히트',imageUrl:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&h=120&fit=crop',role:'일상 사용 후기'}],
   },
   { id:'i3', name:'테크쟁이_현우',
     profilePhoto:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
@@ -271,6 +302,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'nano', costPerPost:0,
     adMetrics:{reach:19500,clicks:1365,conversions:95,attributedRevenue:8550000,roi:Infinity,costPerAcquisition:0},
     content:[{id:'i3-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=400&h=300&fit=crop',viewCount:6500,likeCount:780,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c1',name:'한셉트 제로 MK2',imageUrl:'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=200&h=120&fit=crop',role:'언박싱 영상'},{campaignId:'c5',name:'큐비오X',imageUrl:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=120&fit=crop',role:'조립 브이로그'}],
   },
   // ===== MICRO (10K~50K) =====
   { id:'i4', name:'언박싱마스터_준형',
@@ -279,6 +311,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'micro', costPerPost:0,
     adMetrics:{reach:42000,clicks:2940,conversions:176,attributedRevenue:15840000,roi:Infinity,costPerAcquisition:0},
     content:[{id:'i4-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop',viewCount:12000,likeCount:1440,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c2',name:'콕스스페이스 반지 2.0',imageUrl:'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=120&fit=crop',role:'언박싱+비교 리뷰'}],
   },
   { id:'i5', name:'가젯걸_소영',
     profilePhoto:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop',
@@ -286,6 +319,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'micro', costPerPost:200000,
     adMetrics:{reach:78000,clicks:5460,conversions:273,attributedRevenue:21840000,roi:10820,costPerAcquisition:732},
     content:[{id:'i5-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop',viewCount:28000,likeCount:3360,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c1',name:'한셉트 제로 MK2',imageUrl:'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=200&h=120&fit=crop',role:'EDC 리뷰'}],
   },
   { id:'i6', name:'daily_hana',
     profilePhoto:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
@@ -293,6 +327,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'micro', costPerPost:300000,
     adMetrics:{reach:95000,clicks:5700,conversions:228,attributedRevenue:18240000,roi:5980,costPerAcquisition:1316},
     content:[{id:'i6-1',type:'image',thumbnailUrl:'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop',viewCount:18000,likeCount:2160,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c4',name:'가돌 진동 스피커',imageUrl:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=200&h=120&fit=crop',role:'오디오 감성 릴스'}],
   },
   // ===== MID (50K~300K) =====
   { id:'i7', name:'TechNote_민수',
@@ -301,6 +336,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'mid', costPerPost:800000,
     adMetrics:{reach:280000,clicks:14000,conversions:700,attributedRevenue:63000000,roi:7775,costPerAcquisition:1143},
     content:[{id:'i7-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=400&h=300&fit=crop',viewCount:45000,likeCount:5400,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c1',name:'한셉트 제로 MK2',imageUrl:'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=200&h=120&fit=crop',role:'상세 리뷰'},{campaignId:'c4',name:'가돌 진동 스피커',imageUrl:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=200&h=120&fit=crop',role:'음질 비교 리뷰'}],
   },
   { id:'i8', name:'리뷰요정_다인',
     profilePhoto:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop',
@@ -308,6 +344,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'mid', costPerPost:1500000,
     adMetrics:{reach:520000,clicks:31200,conversions:1248,attributedRevenue:99840000,roi:6556,costPerAcquisition:1202},
     content:[{id:'i8-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',viewCount:85000,likeCount:10200,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c3',name:'뉴마핏 PACER',imageUrl:'https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=200&h=120&fit=crop',role:'실사용 영상'},{campaignId:'c5',name:'큐비오X',imageUrl:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=120&fit=crop',role:'DIY 숏폼 시리즈'}],
   },
   { id:'i9', name:'gadget_holic_JP',
     profilePhoto:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop',
@@ -315,6 +352,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'mid', costPerPost:1200000,
     adMetrics:{reach:410000,clicks:20500,conversions:820,attributedRevenue:65600000,roi:5367,costPerAcquisition:1463},
     content:[{id:'i9-1',type:'image',thumbnailUrl:'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=300&fit=crop',viewCount:35000,likeCount:4200,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c2',name:'콕스스페이스 반지 2.0',imageUrl:'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=120&fit=crop',role:'일본 타겟 릴스'}],
   },
   // ===== MACRO (300K~1M) =====
   { id:'i10', name:'잇섭_itsuB',
@@ -323,6 +361,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'macro', costPerPost:5000000,
     adMetrics:{reach:1500000,clicks:52500,conversions:1575,attributedRevenue:157500000,roi:3050,costPerAcquisition:3175},
     content:[{id:'i10-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop',viewCount:180000,likeCount:21600,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c5',name:'큐비오X',imageUrl:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=120&fit=crop',role:'CNC 작업 시연'}],
   },
   { id:'i11', name:'라이프해커_수진',
     profilePhoto:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
@@ -330,6 +369,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'macro', costPerPost:3500000,
     adMetrics:{reach:980000,clicks:39200,conversions:1176,attributedRevenue:105840000,roi:2924,costPerAcquisition:2976},
     content:[{id:'i11-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop',viewCount:120000,likeCount:14400,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c6',name:'닥터서플라이 젠히트',imageUrl:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&h=120&fit=crop',role:'온열패드 리뷰 시리즈'}],
   },
   // ===== MEGA (1M+) =====
   { id:'i12', name:'TechGuru_Alex',
@@ -338,6 +378,7 @@ export const mockInfluencers: Influencer[] = [
     tier:'mega', costPerPost:15000000,
     adMetrics:{reach:6500000,clicks:195000,conversions:3900,attributedRevenue:390000000,roi:2500,costPerAcquisition:3846},
     content:[{id:'i12-1',type:'video',thumbnailUrl:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop',viewCount:450000,likeCount:54000,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c5',name:'큐비오X',imageUrl:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=120&fit=crop',role:'앵커 리뷰 영상'}],
   },
   { id:'i13', name:'뷰티테크_지수',
     profilePhoto:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop',
@@ -345,5 +386,6 @@ export const mockInfluencers: Influencer[] = [
     tier:'mega', costPerPost:12000000,
     adMetrics:{reach:4200000,clicks:126000,conversions:2520,attributedRevenue:252000000,roi:2000,costPerAcquisition:4762},
     content:[{id:'i13-1',type:'image',thumbnailUrl:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=300&fit=crop',viewCount:280000,likeCount:33600,datePosted:'2024.04.01',url:'#'}],
+    campaigns:[{campaignId:'c6',name:'닥터서플라이 젠히트',imageUrl:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&h=120&fit=crop',role:'겨울 필수템 릴스'}],
   },
 ];

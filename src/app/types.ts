@@ -31,6 +31,15 @@ export interface ChannelAttribution {
   percentage: number;
 }
 
+export interface CampaignInfluencer {
+  influencerId: string;
+  name: string;
+  profilePhoto: string;
+  platform: SocialPlatform;
+  tier: 'nano' | 'micro' | 'mid' | 'macro' | 'mega';
+  contribution: string;
+}
+
 export interface Campaign {
   id: string;
   name: string;
@@ -48,6 +57,7 @@ export interface Campaign {
   channelAttribution: ChannelAttribution[];
   organicAmount: number;
   setoworksAmount: number;
+  influencers?: CampaignInfluencer[];
 }
 
 export interface ContentItem {
@@ -82,6 +92,7 @@ export interface Influencer {
   adMetrics?: AdMetrics;
   tier: 'nano' | 'micro' | 'mid' | 'macro' | 'mega';
   costPerPost: number;
+  campaigns?: { campaignId: string; name: string; imageUrl: string; role: string }[];
 }
 
 export interface Translations {

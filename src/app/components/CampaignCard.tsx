@@ -161,6 +161,44 @@ export function CampaignCard({
             <span className="text-[#ff003b] font-semibold">{language === 'ko' ? '세토웍스 마케팅' : 'Setoworks'}</span>
           </div>
         </div>
+
+        {/* Participating Influencers */}
+        {campaign.influencers && campaign.influencers.length > 0 && (
+          <div className="pt-2 border-t border-gray-100">
+            <div className="text-xs font-semibold text-gray-500 mb-2">
+              {language === 'ko' ? '참여 인플루언서' : 'Influencers'}
+            </div>
+            <div className="flex items-center gap-1.5">
+              {campaign.influencers.slice(0, 4).map((inf, idx) => (
+                <div key={idx} className="relative group/inf">
+                  <img
+                    src={inf.profilePhoto}
+                    alt={inf.name}
+                    className="w-8 h-8 rounded-full object-cover ring-2 ring-white shadow-sm"
+                  />
+                  <div className={`absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center text-white text-[7px] font-bold shadow ${
+                    inf.tier === 'nano' || inf.tier === 'micro' ? 'bg-emerald-500' :
+                    inf.tier === 'mid' ? 'bg-blue-500' :
+                    inf.tier === 'macro' ? 'bg-amber-500' : 'bg-red-500'
+                  }`}>
+                    {inf.tier === 'nano' ? 'N' : inf.tier === 'micro' ? 'μ' : inf.tier === 'mid' ? 'M' : inf.tier === 'macro' ? 'A' : '★'}
+                  </div>
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 bg-gray-900 text-white text-[11px] rounded-lg whitespace-nowrap opacity-0 group-hover/inf:opacity-100 transition-opacity pointer-events-none z-20 shadow-lg">
+                    <div className="font-bold">{inf.name}</div>
+                    <div className="text-gray-300">{inf.contribution}</div>
+                  </div>
+                </div>
+              ))}
+              {campaign.influencers.length > 4 && (
+                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500">
+                  +{campaign.influencers.length - 4}
+                </div>
+              )}
+              <span className="text-xs text-gray-400 ml-1">{campaign.influencers.length}명</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
