@@ -14,6 +14,7 @@ import { WelcomeState } from './components/WelcomeState';
 import { GTMForm } from './components/GTMForm';
 import { MyApplications } from './components/MyApplications';
 import { AdminTracker } from './components/AdminTracker';
+import { InfluencerBrowse } from './components/InfluencerBrowse';
 import { mockProducts, mockCampaigns, mockInfluencers } from './mockData';
 import { translations } from './translations';
 import { Language, Product, Campaign, Influencer } from './types';
@@ -119,6 +120,7 @@ export default function App() {
   const [showGTMForm, setShowGTMForm] = useState(false);
   const [showMyApplications, setShowMyApplications] = useState(false);
   const [showAdminTracker, setShowAdminTracker] = useState(false);
+  const [showInfluencerBrowse, setShowInfluencerBrowse] = useState(false);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -525,12 +527,21 @@ export default function App() {
 
       {/* Footer with admin + my applications */}
       <footer className="max-w-[1280px] mx-auto px-6 py-6 flex items-center justify-between">
-        <button
-          onClick={() => setShowMyApplications(true)}
-          className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          내 신청 내역
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowMyApplications(true)}
+            className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            내 신청 내역
+          </button>
+          <button
+            onClick={() => setShowInfluencerBrowse(true)}
+            className="flex items-center gap-1 text-xs text-gray-400 hover:text-[#ff003b] transition-colors"
+          >
+            <Users className="w-3.5 h-3.5" />
+            인플루언서 DB
+          </button>
+        </div>
         <button
           onClick={() => setShowAdminTracker(true)}
           className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
@@ -547,6 +558,11 @@ export default function App() {
       {/* Admin Tracker Overlay */}
       {showAdminTracker && (
         <AdminTracker onClose={() => setShowAdminTracker(false)} />
+      )}
+
+      {/* Influencer Browse Overlay */}
+      {showInfluencerBrowse && (
+        <InfluencerBrowse onClose={() => setShowInfluencerBrowse(false)} />
       )}
 
       {/* Bookmark Drawer */}

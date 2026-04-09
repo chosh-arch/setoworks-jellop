@@ -3,7 +3,7 @@ export type Language = 'ko' | 'en' | 'ja' | 'zh';
 export type Platform = 'Wadiz' | 'Kickstarter' | 'Indiegogo';
 export type CampaignStatus = 'success' | 'failed' | 'ongoing';
 export type SocialPlatform = 'YouTube' | 'Instagram' | 'TikTok' | 'Facebook' | 'Threads' | 'Dcard';
-export type Category = 'tech' | 'lifestyle' | 'beauty' | 'food' | 'game' | 'fashion';
+export type Category = 'tech' | 'lifestyle' | 'beauty' | 'food' | 'game' | 'fashion' | 'camping';
 
 export interface Product {
   id: string;
@@ -93,6 +93,7 @@ export interface Influencer {
   tier: 'nano' | 'micro' | 'mid' | 'macro' | 'mega';
   costPerPost: number;
   campaigns?: { campaignId: string; name: string; imageUrl: string; role: string }[];
+  source?: 'real' | 'mock';
 }
 
 export interface Translations {
