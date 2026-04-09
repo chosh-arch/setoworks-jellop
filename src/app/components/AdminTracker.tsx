@@ -3,11 +3,22 @@ import { X, Lock, ChevronRight, Save, LogOut } from 'lucide-react';
 
 interface Application {
   id: string;
-  projectName: string;
-  pm: string;
+  companyName?: string;
+  productName?: string;
+  contactName?: string;
+  email?: string;
+  projectName?: string;
+  pm?: string;
   submitDate: string;
   status: string;
-  formData: Record<string, unknown>;
+  platforms?: string[];
+  countries?: string[];
+  services?: string[];
+  category?: string;
+  budget?: string;
+  fundingGoal?: string;
+  timeline?: string;
+  formData?: Record<string, unknown>;
 }
 
 interface AdminData {
@@ -242,9 +253,9 @@ export function AdminTracker({ onClose }: AdminTrackerProps) {
                   <div className="px-6 py-5 border-b border-gray-100">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900">{app.projectName}</h3>
+                        <h3 className="text-lg font-bold text-gray-900">{app.companyName || app.projectName || '미입력'} — {app.productName || ''}</h3>
                         <p className="text-sm text-gray-500">
-                          PM: {app.pm} &middot; 신청일: {app.submitDate}
+                          담당자: {app.contactName || app.pm || '-'} &middot; {app.email || ''} &middot; 신청일: {app.submitDate}
                         </p>
                       </div>
                       <select
@@ -308,29 +319,35 @@ export function AdminTracker({ onClose }: AdminTrackerProps) {
                   </div>
 
                   {/* Details */}
-                  <div className="px-6 py-4 grid grid-cols-3 gap-4 text-sm border-b border-gray-100">
+                  <div className="px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm border-b border-gray-100">
                     <div>
-                      <span className="text-gray-500">GTM 채널</span>
-                      <p className="text-gray-900">
-                        {Array.isArray(app.formData?.channels)
-                          ? (app.formData.channels as string[]).join(', ')
+                      <span className="text-gray-500">희망 플랫폼</span>
+                      <p className="text-gray-900 font-medium">
+                        {Array.isArray(app.platforms) && app.platforms.length > 0
+                          ? app.platforms.join(', ')
                           : '-'}
                       </p>
                     </div>
                     <div>
                       <span className="text-gray-500">대상 국가</span>
-                      <p className="text-gray-900">
-                        {Array.isArray(app.formData?.countries)
-                          ? (app.formData.countries as string[]).join(', ')
+                      <p className="text-gray-900 font-medium">
+                        {Array.isArray(app.countries) && app.countries.length > 0
+                          ? app.countries.join(', ')
                           : '-'}
                       </p>
                     </div>
                     <div>
-                      <span className="text-gray-500">산업군</span>
-                      <p className="text-gray-900">
-                        {Array.isArray(app.formData?.industries)
-                          ? (app.formData.industries as string[]).join(', ')
+                      <span className="text-gray-500">필요 서비스</span>
+                      <p className="text-gray-900 font-medium">
+                        {Array.isArray(app.services) && app.services.length > 0
+                          ? app.services.join(', ')
                           : '-'}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">예산 / 목표액</span>
+                      <p className="text-gray-900 font-medium">
+                        {app.budget || '-'} / {app.fundingGoal || '-'}
                       </p>
                     </div>
                   </div>
