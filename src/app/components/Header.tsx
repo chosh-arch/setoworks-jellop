@@ -79,19 +79,20 @@ export function Header({
           <div className="flex-1 max-w-2xl relative" ref={searchRef}>
             <form onSubmit={handleSubmit}>
               <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => setShowRecentSearches(true)}
                   placeholder={translations.searchPlaceholder}
-                  className="w-full px-4 py-3 pr-12 rounded-full border-2 border-gray-200 focus:border-[#ff003b] focus:outline-none transition-colors"
+                  className="w-full pl-12 pr-24 py-3.5 rounded-2xl border-2 border-gray-200 focus:border-[#ff003b] focus:outline-none transition-all text-base shadow-sm focus:shadow-md"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#ff003b] text-white hover:bg-[#3d5dd9] transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-5 py-2 rounded-xl bg-[#ff003b] text-white text-sm font-bold hover:bg-[#cc002f] transition-colors"
                 >
-                  <Search className="w-5 h-5" />
+                  검색
                 </button>
               </div>
             </form>

@@ -256,6 +256,32 @@ export default function App() {
               </section>
             )}
 
+            {/* ========== Comparison Banner ========== */}
+            {searchedProducts.length > 0 && searchedCampaigns.length > 0 && (() => {
+              const avgMarket = Math.round(searchedProducts.reduce((s, p) => s + p.percentage, 0) / searchedProducts.length);
+              const avgSeto = Math.round(searchedCampaigns.reduce((s, c) => s + c.achievementRate, 0) / searchedCampaigns.length);
+              const diff = avgSeto - avgMarket;
+              return (
+                <div className="bg-gradient-to-r from-[#212121] to-[#3a3a3a] rounded-2xl p-6 flex items-center justify-between gap-6 text-white">
+                  <div className="flex items-center gap-8">
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400 mb-1">시장 평균 달성률</div>
+                      <div className="text-3xl font-bold">{avgMarket}%</div>
+                    </div>
+                    <div className="text-2xl text-gray-500">vs</div>
+                    <div className="text-center">
+                      <div className="text-sm text-[#ff003b] font-semibold mb-1">세토웍스 평균 달성률</div>
+                      <div className="text-3xl font-bold text-[#ff003b]">{avgSeto.toLocaleString()}%</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl font-extrabold text-[#ff003b]">+{diff.toLocaleString()}%p</div>
+                    <div className="text-sm text-gray-400">세토웍스와 함께하면</div>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* ========== Section 2: Setoworks Portfolio ========== */}
             {searchedCampaigns.length > 0 && (
               <section>
@@ -533,13 +559,6 @@ export default function App() {
             className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
           >
             내 신청 내역
-          </button>
-          <button
-            onClick={() => setShowInfluencerBrowse(true)}
-            className="flex items-center gap-1 text-xs text-gray-400 hover:text-[#ff003b] transition-colors"
-          >
-            <Users className="w-3.5 h-3.5" />
-            인플루언서 DB
           </button>
         </div>
         <button
