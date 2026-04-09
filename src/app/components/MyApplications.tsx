@@ -3,11 +3,16 @@ import { X, ChevronDown, ChevronUp, FileText, Inbox } from 'lucide-react';
 
 interface Application {
   id: string;
-  projectName: string;
-  pm: string;
+  companyName: string;
+  productName: string;
+  contactName: string;
+  email: string;
   submitDate: string;
   status: string;
-  formData: Record<string, unknown>;
+  platforms: string[];
+  countries: string[];
+  services: string[];
+  [key: string]: unknown;
 }
 
 interface MyApplicationsProps {
@@ -24,37 +29,27 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 const demoApplications: Application[] = [
   {
     id: '1',
-    projectName: '한셉트 제로 MK3 킥스타터 US',
-    pm: '김세토',
+    companyName: '한셉트',
+    productName: '제로 MK3 폴더블 펜',
+    contactName: '이한셉',
+    email: 'contact@hancept.com',
     submitDate: '2026-04-05',
     status: 'reviewing',
-    formData: {
-      channels: ['크라우드펀딩 -- Kickstarter'],
-      countries: ['미국'],
-      industries: ['IT·전자기기·IoT'],
-      companySize: '스타트업(초기)',
-      evaluation: '',
-      bestThing: '',
-      worstThing: '',
-      lesson: '',
-    },
+    platforms: ['Kickstarter'],
+    countries: ['미국'],
+    services: ['풀스택 패키지'],
   },
   {
     id: '2',
-    projectName: '스마트 온열패드 일본 마쿠아케',
-    pm: '박운영',
+    companyName: '닥터서플라이',
+    productName: '젠히트 프로 온열패드',
+    contactName: '박닥터',
+    email: 'biz@doctorsupply.kr',
     submitDate: '2026-04-08',
     status: 'submitted',
-    formData: {
-      channels: ['크라우드펀딩 -- 기타'],
-      countries: ['일본'],
-      industries: ['소비재·라이프스타일'],
-      companySize: '중소기업(~100억)',
-      evaluation: '',
-      bestThing: '',
-      worstThing: '',
-      lesson: '',
-    },
+    platforms: ['Makuake', 'Wadiz'],
+    countries: ['일본', '한국'],
+    services: ['인플루언서 시딩', '광고 운영'],
   },
 ];
 
@@ -80,15 +75,8 @@ export function MyApplications({ onClose }: MyApplicationsProps) {
 
   const getStatus = (status: string) => statusConfig[status] || statusConfig.submitted;
 
-  const getSummary = (app: Application) => {
-    const fd = app.formData || {};
-    const channels = Array.isArray(fd.channels) ? (fd.channels as string[]).join(', ') : '';
-    const countries = Array.isArray(fd.countries) ? (fd.countries as string[]).join(', ') : '';
-    const parts: string[] = [];
-    if (channels) parts.push(channels);
-    if (countries) parts.push(countries);
-    return parts.join(' | ') || '-';
-  };
+  const formatList = (arr: unknown) =>
+    Array.isArray(arr) && arr.length > 0 ? (arr as string[]).join(', ') : '-';
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 flex items-start justify-center overflow-y-auto py-10">
@@ -134,14 +122,14 @@ export function MyApplications({ onClose }: MyApplicationsProps) {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-1">
                           <span className="font-bold text-gray-900 truncate">
-                            {app.projectName}
+                            {app.companyName} - {app.productName}
                           </span>
-                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${st.color}`}>
+                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${st.color}`}>
                             {st.label}
                           </span>
                         </div>
                         <div className="text-sm text-gray-500">
-                          신청일: {app.submitDate} &middot; {getSummary(app)}
+                          신청일: {app.submitDate} &middot; {formatList(app.platforms)} &middot; {formatList(app.countries)}
                         </div>
                       </div>
                       {isExpanded ? (
@@ -155,42 +143,32 @@ export function MyApplications({ onClose }: MyApplicationsProps) {
                       <div className="px-6 pb-5 border-t border-gray-100">
                         <div className="grid grid-cols-2 gap-4 pt-4 text-sm">
                           <div>
-                            <span className="text-gray-500 font-medium">프로젝트명</span>
-                            <p className="text-gray-900">{app.projectName}</p>
+                            <span className="text-gray-500 font-medium">회사명</span>
+                            <p className="text-gray-900">{app.companyName || '-'}</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 font-medium">담당 PM</span>
-                            <p className="text-gray-900">{app.pm}</p>
+                            <span className="text-gray-500 font-medium">제품명</span>
+                            <p className="text-gray-900">{app.productName || '-'}</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 font-medium">GTM 채널</span>
-                            <p className="text-gray-900">
-                              {Array.isArray(app.formData?.channels)
-                                ? (app.formData.channels as string[]).join(', ')
-                                : '-'}
-                            </p>
+                            <span className="text-gray-500 font-medium">담당자</span>
+                            <p className="text-gray-900">{app.contactName || '-'}</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 font-medium">대상 국가</span>
-                            <p className="text-gray-900">
-                              {Array.isArray(app.formData?.countries)
-                                ? (app.formData.countries as string[]).join(', ')
-                                : '-'}
-                            </p>
+                            <span className="text-gray-500 font-medium">이메일</span>
+                            <p className="text-gray-900">{app.email || '-'}</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 font-medium">산업군</span>
-                            <p className="text-gray-900">
-                              {Array.isArray(app.formData?.industries)
-                                ? (app.formData.industries as string[]).join(', ')
-                                : '-'}
-                            </p>
+                            <span className="text-gray-500 font-medium">희망 플랫폼</span>
+                            <p className="text-gray-900">{formatList(app.platforms)}</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 font-medium">기업 규모</span>
-                            <p className="text-gray-900">
-                              {(app.formData?.companySize as string) || '-'}
-                            </p>
+                            <span className="text-gray-500 font-medium">희망 국가</span>
+                            <p className="text-gray-900">{formatList(app.countries)}</p>
+                          </div>
+                          <div className="col-span-2">
+                            <span className="text-gray-500 font-medium">희망 서비스</span>
+                            <p className="text-gray-900">{formatList(app.services)}</p>
                           </div>
                         </div>
                       </div>
