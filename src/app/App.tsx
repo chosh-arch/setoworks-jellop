@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { FileText, TrendingUp, Users, ArrowRight, BarChart3 } from 'lucide-react';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { ProductModal } from './components/ProductModal';
@@ -256,27 +256,63 @@ export default function App() {
               </section>
             )}
 
-            {/* ========== Comparison Banner ========== */}
+            {/* ========== Comparison Chart ========== */}
             {searchedProducts.length > 0 && searchedCampaigns.length > 0 && (() => {
               const avgMarket = Math.round(searchedProducts.reduce((s, p) => s + p.percentage, 0) / searchedProducts.length);
               const avgSeto = Math.round(searchedCampaigns.reduce((s, c) => s + c.achievementRate, 0) / searchedCampaigns.length);
               const diff = avgSeto - avgMarket;
+
+              // 개별 비교 데이터
+              const compareData = [
+                ...searchedProducts.slice(0, 3).map(p => ({
+                  name: p.name.length > 10 ? p.name.slice(0, 10) + '...' : p.name,
+                  value: p.percentage,
+                  type: 'market'
+                })),
+                ...searchedCampaigns.slice(0, 3).map(c => ({
+                  name: c.name.length > 10 ? c.name.slice(0, 10) + '...' : c.name,
+                  value: c.achievementRate,
+                  type: 'setoworks'
+                }))
+              ];
+
               return (
-                <div className="bg-gradient-to-r from-[#212121] to-[#3a3a3a] rounded-2xl p-6 flex items-center justify-between gap-6 text-white">
-                  <div className="flex items-center gap-8">
-                    <div className="text-center">
-                      <div className="text-sm text-gray-400 mb-1">시장 평균 달성률</div>
-                      <div className="text-3xl font-bold">{avgMarket}%</div>
+                <div className="bg-gradient-to-r from-[#212121] to-[#2d2d2d] rounded-2xl overflow-hidden">
+                  <div className="flex">
+                    {/* Left: Chart */}
+                    <div className="flex-1 p-6">
+                      <div className="text-sm text-gray-400 mb-3 font-semibold">달성률 비교 (%)</div>
+                      <div style={{ height: 180 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={compareData} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
+                            <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 12 }} axisLine={false} tickLine={false} />
+                            <YAxis type="category" dataKey="name" width={90} tick={{ fill: '#e2e8f0', fontSize: 11 }} axisLine={false} tickLine={false} />
+                            <Tooltip
+                              formatter={(v: number) => [`${v.toLocaleString()}%`, '달성률']}
+                              contentStyle={{ background: '#1a1a1a', border: 'none', borderRadius: 8, fontSize: 13 }}
+                              labelStyle={{ color: '#fff' }}
+                              itemStyle={{ color: '#ff003b' }}
+                            />
+                            <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={20}>
+                              {compareData.map((entry, idx) => (
+                                <Cell key={idx} fill={entry.type === 'setoworks' ? '#ff003b' : '#475569'} />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="flex gap-4 mt-2">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-400"><div className="w-3 h-3 rounded bg-[#475569]" />시장 제품</div>
+                        <div className="flex items-center gap-1.5 text-xs text-[#ff003b]"><div className="w-3 h-3 rounded bg-[#ff003b]" />세토웍스</div>
+                      </div>
                     </div>
-                    <div className="text-2xl text-gray-500">vs</div>
-                    <div className="text-center">
-                      <div className="text-sm text-[#ff003b] font-semibold mb-1">세토웍스 평균 달성률</div>
-                      <div className="text-3xl font-bold text-[#ff003b]">{avgSeto.toLocaleString()}%</div>
+                    {/* Right: Key stat */}
+                    <div className="w-[220px] bg-[#ff003b] flex flex-col items-center justify-center p-6 text-white text-center">
+                      <div className="text-sm font-medium opacity-80 mb-2">세토웍스와 함께하면</div>
+                      <div className="text-5xl font-extrabold leading-none mb-1">+{diff.toLocaleString()}</div>
+                      <div className="text-lg font-bold opacity-90">%p 더 높은 달성률</div>
+                      <div className="mt-4 text-xs opacity-70 leading-relaxed">시장 평균 {avgMarket}% → 세토웍스 {avgSeto.toLocaleString()}%</div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-4xl font-extrabold text-[#ff003b]">+{diff.toLocaleString()}%p</div>
-                    <div className="text-sm text-gray-400">세토웍스와 함께하면</div>
                   </div>
                 </div>
               );
