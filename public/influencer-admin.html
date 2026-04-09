@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks - 인플루언서 관리 시스템</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root {
+  --brand: #ff003b;
+  --charcoal: #212121;
+  --bg: #f7f9fc;
+  --card: #fff;
+  --sidebar-w: 240px;
+  --text: #1a1a2e;
+  --muted: #64748b;
+  --border: #eee;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100vh; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--charcoal);
+  display: flex; flex-direction: column;
+  z-index: 100;
+  transition: transform .3s ease;
+}
+.sidebar-brand {
+  padding: 28px 24px 8px;
+}
+.sidebar-brand h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px; font-weight: 800;
+  color: #fff; letter-spacing: .04em;
+  margin-bottom: 4px;
+}
+.sidebar-brand p {
+  font-size: 12px; color: #888;
+  font-weight: 400;
+}
+.sidebar-nav {
+  flex: 1; padding: 20px 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 24px;
+  color: #aaa; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .15s;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,.04); }
+.nav-item.active {
+  color: #fff;
+  background: rgba(255,0,59,.08);
+  border-left-color: var(--brand);
+}
+.nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.sidebar-footer .internal {
+  font-size: 11px; color: #555;
+  margin-bottom: 12px;
+}
+.sidebar-footer .back-link {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #888;
+  text-decoration: none; transition: color .15s;
+}
+.sidebar-footer .back-link:hover { color: var(--brand); }
+.sidebar-footer .back-link svg { width: 14px; height: 14px; }
+
+/* Mobile hamburger */
+.mobile-toggle {
+  display: none;
+  position: fixed; top: 12px; left: 12px; z-index: 200;
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--charcoal); border: none; color: #fff;
+  cursor: pointer; align-items: center; justify-content: center;
+}
+.mobile-toggle svg { width: 22px; height: 22px; }
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  z-index: 99;
+}
+
+/* Main */
+.main {
+  margin-left: var(--sidebar-w);
+  padding: 32px 36px;
+  min-height: 100vh;
+}
+.main-header {
+  margin-bottom: 28px;
+}
+.main-header h2 {
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--charcoal);
+}
+.main-header p {
+  font-size: 13px; color: var(--muted); margin-top: 4px;
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  padding: 20px 24px;
+}
+
+/* KPI Row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.kpi-card { text-align: center; }
+.kpi-card .kpi-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.2;
+}
+.kpi-card .kpi-label {
+  font-size: 13px; color: var(--muted);
+  margin-top: 4px; font-weight: 500;
+}
+.kpi-card .kpi-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+}
+.kpi-card .kpi-icon svg { width: 20px; height: 20px; }
+
+/* Chart Grid */
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.chart-card { min-height: 320px; }
+.chart-card h3 {
+  font-size: 15px; font-weight: 600;
+  color: var(--charcoal); margin-bottom: 16px;
+}
+.chart-wrap { position: relative; width: 100%; }
+
+/* Tables */
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+thead { background: var(--charcoal); color: #fff; }
+thead th {
+  padding: 10px 12px;
+  font-weight: 600; text-align: left;
+  white-space: nowrap; cursor: pointer;
+  user-select: none;
+}
+thead th:hover { background: #333; }
+thead th .sort-arrow { font-size: 10px; margin-left: 4px; opacity: .5; }
+thead th.sorted .sort-arrow { opacity: 1; }
+tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .1s; }
+tbody tr:hover { background: #fff5f7; }
+tbody td { padding: 10px 12px; vertical-align: middle; }
+
+/* Badges */
+.badge {
+  display: inline-block; padding: 2px 8px;
+  border-radius: 4px; font-size: 11px;
+  font-weight: 600; white-space: nowrap;
+}
+.badge-youtube { background: #fee2e2; color: #dc2626; }
+.badge-instagram { background: #f3e8ff; color: #7c3aed; }
+.badge-facebook { background: #dbeafe; color: #2563eb; }
+.badge-tiktok { background: #f1f5f9; color: #0f172a; }
+.badge-nano { background: #dcfce7; color: #16a34a; }
+.badge-micro { background: #ccfbf1; color: #0d9488; }
+.badge-mid { background: #dbeafe; color: #2563eb; }
+.badge-macro { background: #fef3c7; color: #d97706; }
+.badge-mega { background: #fee2e2; color: #dc2626; }
+
+/* Filters */
+.filters-bar {
+  display: flex; gap: 12px; align-items: center;
+  margin-bottom: 20px; flex-wrap: wrap;
+}
+.filters-bar select, .filters-bar input {
+  padding: 8px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 13px;
+  font-family: inherit; background: #fff;
+  outline: none; transition: border-color .15s;
+}
+.filters-bar select:focus, .filters-bar input:focus {
+  border-color: var(--brand);
+}
+.filters-bar input { min-width: 200px; }
+
+/* Expand row */
+.expand-row td { padding: 0; }
+.expand-content {
+  padding: 16px 24px;
+  background: #fafbfd; border-left: 3px solid var(--brand);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  font-size: 13px;
+}
+.expand-content .detail-item label {
+  font-size: 11px; color: var(--muted); font-weight: 500;
+  display: block; margin-bottom: 2px;
+}
+.expand-content .detail-item span {
+  font-weight: 600; color: var(--charcoal);
+}
+
+/* Category Grid */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.cat-card {
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  border-top: 4px solid #ccc;
+}
+.cat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.cat-card h4 {
+  font-size: 16px; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 12px;
+}
+.cat-card .cat-stat {
+  display: flex; justify-content: space-between;
+  font-size: 13px; color: var(--muted);
+  padding: 4px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+.cat-card .cat-stat:last-child { border-bottom: none; }
+.cat-card .cat-stat strong {
+  font-family: 'Poppins', sans-serif;
+  color: var(--charcoal); font-weight: 600;
+}
+
+/* View sections */
+.view-section { display: none; }
+.view-section.active { display: block; }
+
+/* Log table special */
+.status-success { color: #16a34a; font-weight: 600; }
+.status-error { color: #dc2626; font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .chart-row { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .mobile-toggle { display: flex; }
+  .main { margin-left: 0; padding: 24px 16px; padding-top: 60px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .expand-content { grid-template-columns: 1fr 1fr; }
+  .filters-bar input { min-width: 140px; }
+}
+@media (max-width: 480px) {
+  .kpi-row { grid-template-columns: 1fr; }
+  .expand-content { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-toggle" onclick="toggleSidebar()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <h1>SETOWORKS</h1>
+    <p>인플루언서 관리 시스템</p>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-item active" data-view="dashboard" onclick="switchView('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      대시보드
+    </a>
+    <a class="nav-item" data-view="ranking" onclick="switchView('ranking', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      채널 랭킹
+    </a>
+    <a class="nav-item" data-view="categories" onclick="switchView('categories', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      카테고리
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="internal">SETOWORKS 내부 운영</div>
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      메인 페이지
+    </a>
+  </div>
+</aside>
+
+<main class="main">
+  <!-- Dashboard View -->
+  <section id="view-dashboard" class="view-section active">
+    <div class="main-header">
+      <h2>대시보드</h2>
+      <p>인플루언서 채널 현황 및 수집 데이터 요약</p>
+    </div>
+    <div class="kpi-row" id="kpi-row"></div>
+    <div class="chart-row">
+      <div class="card chart-card">
+        <h3>채널별 구독자 수</h3>
+        <div class="chart-wrap"><canvas id="chart-followers"></canvas></div>
+      </div>
+      <div class="card chart-card">
+        <h3>카테고리별 분포</h3>
+        <div class="chart-wrap"><canvas id="chart-categories"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="card chart-card">
+        <h3>채널별 평균 조회수 vs 평균 좋아요</h3>
+        <div class="chart-wrap"><canvas id="chart-views-likes"></canvas></div>
+      </div>
+      <div class="card chart-card">
+        <h3>최근 수집 현황</h3>
+        <div id="logs-table-wrap"></div>
+      </div>
+    </div>
+    <!-- Influencer Compare Radar -->
+    <div class="card" style="margin-top:20px;">
+      <h3 style="display:flex;align-items:center;justify-content:space-between;">
+        인플루언서 비교 (선택)
+        <span style="font-size:12px;color:#787878;font-weight:400;">최대 5명 선택 가능</span>
+      </h3>
+      <div id="compare-select" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+      <div style="height:360px;"><canvas id="chart-radar"></canvas></div>
+    </div>
+  </section>
+
+  <!-- Ranking View -->
+  <section id="view-ranking" class="view-section">
+    <div class="main-header">
+      <h2>채널 랭킹</h2>
+      <p>인플루언서 채널 상세 정보 및 순위</p>
+    </div>
+    <div class="filters-bar" id="filters-bar"></div>
+    <div class="card" style="padding:0;overflow:auto;">
+      <table id="ranking-table">
+        <thead id="ranking-thead"></thead>
+        <tbody id="ranking-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Categories View -->
+  <section id="view-categories" class="view-section">
+    <div class="main-header">
+      <h2>카테고리</h2>
+      <p>카테고리별 인플루언서 분포 및 통계</p>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </section>
+</main>
+
+<script>
+const CHART_COLORS = ['#ff003b','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
+const categoryNames = {
+  'lifestyle': '라이프스타일',
+  'camping_outdoor': '캠핑/아웃도어',
+  'food': '푸드/요리',
+  'motorcycle': '모터사이클',
+  'tech_unboxing': '테크/언박싱',
+  'tech': '테크',
+  'beauty': '뷰티',
+  'fashion': '패션',
+};
+const catColors = {
+  'lifestyle': '#6d28d9',
+  'camping_outdoor': '#0d7c5f',
+  'food': '#d4841a',
+  'motorcycle': '#ff003b',
+  'tech_unboxing': '#1e56b0',
+  'tech': '#0ea5e9',
+  'beauty': '#be185d',
+  'fashion': '#f59e0b',
+};
+const tierOrder = { nano: 0, micro: 1, mid: 2, macro: 3, mega: 4 };
+
+let DATA = null;
+let sortCol = 'followers';
+let sortDir = -1;
+let expandedId = null;
+let charts = {};
+
+function fmt(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return Math.round(n).toLocaleString();
+}
+
+function pct(n) { return (n * 100).toFixed(2) + '%'; }
+
+function switchView(view, el) {
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) toggleSidebar(false);
+}
+
+function toggleSidebar(force) {
+  const sb = document.querySelector('.sidebar');
+  const ov = document.querySelector('.sidebar-overlay');
+  const isOpen = typeof force === 'boolean' ? !force : sb.classList.contains('open');
+  sb.classList.toggle('open', !isOpen);
+  ov.classList.toggle('open', !isOpen);
+}
+
+function renderKPI() {
+  const inf = DATA.influencers;
+  const total = inf.length;
+  const contentSum = inf.reduce((s, i) => s + (i.content_count || 0), 0);
+  const ytInf = inf.filter(i => i.platform === 'youtube' && i.followers > 0);
+  const avgFollowers = ytInf.length ? ytInf.reduce((s, i) => s + i.followers, 0) / ytInf.length : 0;
+  const engInf = inf.filter(i => i.avg_views > 0);
+  const avgEng = engInf.length
+    ? engInf.reduce((s, i) => s + (i.avg_likes + i.avg_comments) / i.avg_views, 0) / engInf.length
+    : 0;
+
+  const kpis = [
+    { label: '총 인플루언서', value: total, color: '#ff003b', bg: '#fff0f3',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+    { label: '수집 콘텐츠', value: fmt(contentSum), color: '#1e56b0', bg: '#eff6ff',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' },
+    { label: '평균 구독자 (YT)', value: fmt(avgFollowers), color: '#0d7c5f', bg: '#ecfdf5',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>' },
+    { label: '평균 참여율', value: pct(avgEng), color: '#d4841a', bg: '#fef7ed',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' },
+  ];
+
+  document.getElementById('kpi-row').innerHTML = kpis.map(k => `
+    <div class="card kpi-card">
+      <div class="kpi-icon" style="background:${k.bg};color:${k.color}">${k.icon}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-label">${k.label}</div>
+    </div>
+  `).join('');
+}
+
+function renderCharts() {
+  const inf = DATA.influencers.filter(i => i.followers > 0 && i.content_count > 0);
+  const sorted = [...inf].sort((a, b) => b.followers - a.followers);
+
+  // Followers bar
+  charts.followers = new Chart(document.getElementById('chart-followers'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(i => i.display_name),
+      datasets: [{
+        label: '구독자',
+        data: sorted.map(i => i.followers),
+        backgroundColor: sorted.map((_, idx) => CHART_COLORS[idx % CHART_COLORS.length]),
+        borderRadius: 6,
+        barThickness: 24,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx => fmt(ctx.raw) + ' 명' } }
+      },
+      scales: {
+        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#f0f0f0' } },
+        y: { grid: { display: false }, ticks: { font: { size: 12 } } }
+      }
+    }
+  });
+
+  // Category doughnut
+  const cats = DATA.categories;
+  charts.categories = new Chart(document.getElementById('chart-categories'), {
+    type: 'doughnut',
+    data: {
+      labels: cats.map(c => categoryNames[c.category] || c.category),
+      datasets: [{
+        data: cats.map(c => c.cnt),
+        backgroundColor: cats.map((c, i) => catColors[c.category] || CHART_COLORS[i % CHART_COLORS.length]),
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 16, font: { size: 12 } } }
+      },
+      cutout: '55%',
+    }
+  });
+
+  // Views vs Likes grouped bar
+  const vl = [...inf].sort((a, b) => b.avg_views - a.avg_views);
+  charts.viewsLikes = new Chart(document.getElementById('chart-views-likes'), {
+    type: 'bar',
+    data: {
+      labels: vl.map(i => i.display_name),
+      datasets: [
+        {
+          label: '평균 조회수',
+          data: vl.map(i => i.avg_views),
+          backgroundColor: '#1e56b0',
+          borderRadius: 4,
+        },
+        {
+          label: '평균 좋아요',
+          data: vl.map(i => i.avg_likes),
+          backgroundColor: '#ff003b',
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12 } } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmt(ctx.raw) } }
+      },
+      scales: {
+        x: { ticks: { maxRotation: 45, font: { size: 11 } }, grid: { display: false } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#f0f0f0' } }
+      }
+    }
+  });
+
+  // Logs table
+  const logs = DATA.logs;
+  document.getElementById('logs-table-wrap').innerHTML = `
+    <table>
+      <thead>
+        <tr><th>플랫폼</th><th>상태</th><th>프로필</th><th>콘텐츠</th><th>시작 시간</th></tr>
+      </thead>
+      <tbody>
+        ${logs.map(l => `<tr>
+          <td><span class="badge badge-${l.platform}">${l.platform}</span></td>
+          <td><span class="status-${l.status}">${l.status === 'success' ? '성공' : '실패'}</span></td>
+          <td>${l.profiles_collected}</td>
+          <td>${l.contents_collected}</td>
+          <td style="font-size:12px;color:var(--muted)">${l.started_at ? l.started_at.slice(0, 19) : '-'}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+// ===== Compare Radar =====
+let selectedCompare = new Set();
+
+function renderCompareSelect() {
+  const yt = DATA.influencers.filter(i => i.content_count > 0).sort((a,b) => b.followers - a.followers);
+  // Default: top 3
+  if (selectedCompare.size === 0) yt.slice(0, 3).forEach(i => selectedCompare.add(i.id));
+  const wrap = document.getElementById('compare-select');
+  wrap.innerHTML = yt.map(i => {
+    const sel = selectedCompare.has(i.id);
+    return `<button onclick="toggleCompare(${i.id})" style="padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid ${sel ? '#ff003b' : '#ddd'};background:${sel ? '#fff5f7' : '#fff'};color:${sel ? '#ff003b' : '#666'};cursor:pointer;transition:all .15s;">${i.display_name}</button>`;
+  }).join('');
+}
+
+function toggleCompare(id) {
+  if (selectedCompare.has(id)) { selectedCompare.delete(id); }
+  else if (selectedCompare.size < 5) { selectedCompare.add(id); }
+  renderCompareSelect();
+  renderRadar();
+}
+
+function renderRadar() {
+  if (charts.radar) charts.radar.destroy();
+  const selected = DATA.influencers.filter(i => selectedCompare.has(i.id));
+  if (selected.length === 0) return;
+
+  // Normalize to 0-100: 도달력/참여율/콘텐츠양/평균조회/성장성
+  const maxFollowers = Math.max(...DATA.influencers.map(i => i.followers || 1));
+  const maxViews = Math.max(...DATA.influencers.map(i => i.avg_views || 1));
+  const maxContent = Math.max(...DATA.influencers.map(i => i.content_count || 1));
+
+  const datasets = selected.map((inf, idx) => {
+    const er = inf.avg_views > 0 ? (inf.avg_likes + inf.avg_comments) / inf.avg_views : 0;
+    return {
+      label: inf.display_name,
+      data: [
+        Math.min((inf.followers / maxFollowers) * 100, 100),        // 도달력
+        Math.min(er * 1000, 100),                                    // 참여율
+        Math.min((inf.content_count / maxContent) * 100, 100),       // 콘텐츠 양
+        Math.min((inf.avg_views / maxViews) * 100, 100),             // 평균 조회수
+        Math.min(inf.total_views > 0 ? (inf.avg_views / (inf.total_views / Math.max(inf.content_count,1))) * 50 : 50, 100) // 성장성 (proxy)
+      ],
+      borderColor: CHART_COLORS[idx % CHART_COLORS.length],
+      backgroundColor: CHART_COLORS[idx % CHART_COLORS.length] + '18',
+      borderWidth: 2,
+      pointRadius: 4,
+      pointBackgroundColor: CHART_COLORS[idx % CHART_COLORS.length],
+    };
+  });
+
+  const ctx = document.getElementById('chart-radar');
+  charts.radar = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['도달력', '참여율', '콘텐츠 양', '평균 조회수', '성장성'],
+      datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { stepSize: 20, font: { size: 10 }, display: false },
+          pointLabels: { font: { size: 13, weight: '600' }, color: '#212121' },
+          grid: { color: '#e5e7eb' },
+          angleLines: { color: '#e5e7eb' }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16, usePointStyle: true, pointStyle: 'circle' } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw.toFixed(0) + '점' } }
+      }
+    }
+  });
+}
+
+function renderFilters() {
+  const platforms = [...new Set(DATA.influencers.map(i => i.platform))];
+  const tiers = [...new Set(DATA.influencers.map(i => i.tier).filter(Boolean))];
+  const cats = [...new Set(DATA.influencers.map(i => i.category).filter(Boolean))];
+
+  document.getElementById('filters-bar').innerHTML = `
+    <select id="filter-platform" onchange="renderRanking()">
+      <option value="">전체 플랫폼</option>
+      ${platforms.map(p => `<option value="${p}">${p}</option>`).join('')}
+    </select>
+    <select id="filter-tier" onchange="renderRanking()">
+      <option value="">전체 Tier</option>
+      ${tiers.map(t => `<option value="${t}">${t}</option>`).join('')}
+    </select>
+    <select id="filter-category" onchange="renderRanking()">
+      <option value="">전체 카테고리</option>
+      ${cats.map(c => `<option value="${c}">${categoryNames[c] || c}</option>`).join('')}
+    </select>
+    <input type="text" id="filter-search" placeholder="이름 검색..." oninput="renderRanking()">
+  `;
+}
+
+function renderRanking(catFilter) {
+  const cols = [
+    { key: 'rank', label: '#', sortable: false },
+    { key: 'display_name', label: '이름' },
+    { key: 'platform', label: '플랫폼' },
+    { key: 'followers', label: '구독자' },
+    { key: 'avg_views', label: '평균 조회수' },
+    { key: 'engagement', label: '참여율' },
+    { key: 'content_count', label: '콘텐츠 수' },
+    { key: 'tier', label: 'Tier' },
+    { key: 'category', label: '카테고리' },
+  ];
+
+  document.getElementById('ranking-thead').innerHTML = '<tr>' + cols.map(c =>
+    `<th class="${c.key === sortCol ? 'sorted' : ''}" ${c.sortable !== false ? `onclick="changeSort('${c.key}')"` : ''}>
+      ${c.label}${c.sortable !== false ? `<span class="sort-arrow">${c.key === sortCol ? (sortDir === 1 ? '&#9650;' : '&#9660;') : '&#9660;'}</span>` : ''}
+    </th>`
+  ).join('') + '</tr>';
+
+  let list = [...DATA.influencers];
+
+  // Filters
+  const fp = document.getElementById('filter-platform');
+  const ft = document.getElementById('filter-tier');
+  const fc = document.getElementById('filter-category');
+  const fs = document.getElementById('filter-search');
+
+  if (fp && fp.value) list = list.filter(i => i.platform === fp.value);
+  if (ft && ft.value) list = list.filter(i => i.tier === ft.value);
+  if (catFilter) {
+    list = list.filter(i => i.category === catFilter);
+    if (fc) fc.value = catFilter;
+  } else if (fc && fc.value) {
+    list = list.filter(i => i.category === fc.value);
+  }
+  if (fs && fs.value) {
+    const q = fs.value.toLowerCase();
+    list = list.filter(i => (i.display_name || '').toLowerCase().includes(q) || (i.username || '').toLowerCase().includes(q));
+  }
+
+  // Compute engagement
+  list = list.map(i => ({
+    ...i,
+    engagement: i.avg_views > 0 ? (i.avg_likes + i.avg_comments) / i.avg_views : 0,
+  }));
+
+  // Sort
+  list.sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (typeof va === 'string') va = va.toLowerCase();
+    if (typeof vb === 'string') vb = vb.toLowerCase();
+    if (va == null) va = sortDir === 1 ? Infinity : -Infinity;
+    if (vb == null) vb = sortDir === 1 ? Infinity : -Infinity;
+    if (va < vb) return -1 * sortDir;
+    if (va > vb) return 1 * sortDir;
+    return 0;
+  });
+
+  const tbody = document.getElementById('ranking-tbody');
+  let html = '';
+  list.forEach((inf, idx) => {
+    const eng = inf.engagement;
+    const isExpanded = expandedId === inf.id;
+    html += `<tr onclick="toggleExpand(${inf.id})" style="cursor:pointer">
+      <td>${idx + 1}</td>
+      <td style="font-weight:600">${inf.display_name || inf.username}</td>
+      <td><span class="badge badge-${inf.platform}">${inf.platform}</span></td>
+      <td style="font-family:'Poppins',sans-serif;font-weight:600">${fmt(inf.followers)}</td>
+      <td style="font-family:'Poppins',sans-serif">${fmt(inf.avg_views)}</td>
+      <td style="font-family:'Poppins',sans-serif">${pct(eng)}</td>
+      <td>${inf.content_count}</td>
+      <td>${inf.tier ? `<span class="badge badge-${inf.tier}">${inf.tier}</span>` : '-'}</td>
+      <td>${categoryNames[inf.category] || inf.category || '-'}</td>
+    </tr>`;
+    if (isExpanded) {
+      html += `<tr class="expand-row"><td colspan="9"><div class="expand-content">
+        <div class="detail-item"><label>프로필 URL</label><span><a href="${inf.profile_url}" target="_blank" style="color:var(--brand)">${inf.profile_url ? '열기' : '-'}</a></span></div>
+        <div class="detail-item"><label>총 조회수</label><span>${fmt(inf.total_views)}</span></div>
+        <div class="detail-item"><label>평균 댓글</label><span>${fmt(inf.avg_comments)}</span></div>
+        <div class="detail-item"><label>국가</label><span>${inf.country || '-'}</span></div>
+        <div class="detail-item"><label>등급</label><span>${inf.grade || '-'}</span></div>
+        <div class="detail-item"><label>이메일</label><span>${inf.contact_email || '-'}</span></div>
+        <div class="detail-item"><label>총 게시물</label><span>${inf.total_posts || '-'}</span></div>
+        <div class="detail-item"><label>Pure Score</label><span>${inf.pure_score || 0}</span></div>
+        <div class="detail-item"><label>메모</label><span>${inf.note || '-'}</span></div>
+      </div></td></tr>`;
+    }
+  });
+  tbody.innerHTML = html;
+}
+
+function changeSort(col) {
+  if (sortCol === col) { sortDir *= -1; }
+  else { sortCol = col; sortDir = -1; }
+  renderRanking();
+}
+
+function toggleExpand(id) {
+  expandedId = expandedId === id ? null : id;
+  renderRanking();
+}
+
+function renderCategories() {
+  const inf = DATA.influencers;
+  const cats = DATA.categories;
+  const grid = document.getElementById('cat-grid');
+
+  grid.innerHTML = cats.map((c, idx) => {
+    const members = inf.filter(i => i.category === c.category);
+    const withFollowers = members.filter(i => i.followers > 0);
+    const avgF = withFollowers.length ? withFollowers.reduce((s, i) => s + i.followers, 0) / withFollowers.length : 0;
+    const withViews = members.filter(i => i.avg_views > 0);
+    const avgV = withViews.length ? withViews.reduce((s, i) => s + i.avg_views, 0) / withViews.length : 0;
+    const color = catColors[c.category] || CHART_COLORS[idx % CHART_COLORS.length];
+    return `<div class="card cat-card" style="border-top-color:${color}" onclick="goToCategory('${c.category}')">
+      <h4>${categoryNames[c.category] || c.category}</h4>
+      <div class="cat-stat"><span>인플루언서</span><strong>${c.cnt}명</strong></div>
+      <div class="cat-stat"><span>평균 구독자</span><strong>${fmt(avgF)}</strong></div>
+      <div class="cat-stat"><span>평균 조회수</span><strong>${fmt(avgV)}</strong></div>
+    </div>`;
+  }).join('');
+}
+
+function goToCategory(cat) {
+  switchView('ranking', document.querySelector('[data-view="ranking"]'));
+  // Reset other filters
+  const fp = document.getElementById('filter-platform');
+  const ft = document.getElementById('filter-tier');
+  const fs = document.getElementById('filter-search');
+  if (fp) fp.value = '';
+  if (ft) ft.value = '';
+  if (fs) fs.value = '';
+  renderRanking(cat);
+}
+
+async function init() {
+  try {
+    const res = await fetch('/influencer_data.json');
+    DATA = await res.json();
+  } catch (e) {
+    document.querySelector('.main').innerHTML = '<div class="card" style="text-align:center;padding:60px"><h3 style="color:#dc2626">데이터 로드 실패</h3><p style="color:var(--muted);margin-top:8px">influencer_data.json을 확인해 주세요.</p></div>';
+    return;
+  }
+  renderKPI();
+  renderCharts();
+  renderCompareSelect();
+  renderRadar();
+  renderFilters();
+  renderRanking();
+  renderCategories();
+}
+
+init();
+</script>
+</body>
+</html>
