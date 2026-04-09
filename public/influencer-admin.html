@@ -873,49 +873,86 @@ function renderChannelTable() {
 }
 
 function renderExpandContent(inf) {
-  const contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id).slice(0, 5);
+  const contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id);
   const memo = localStorage.getItem('memo_' + inf.id) || '';
+  const er = inf.avg_views > 0 ? ((inf.avg_likes + inf.avg_comments) / inf.avg_views * 100).toFixed(2) : '0.00';
+  const totalEng = Math.round(inf.avg_likes * inf.content_count + inf.avg_comments * inf.content_count);
+  const viewPerSub = inf.followers > 0 ? (inf.total_views / inf.followers).toFixed(1) : '-';
+  const likeRate = inf.avg_views > 0 ? (inf.avg_likes / inf.avg_views * 100).toFixed(2) : '0';
+  const commentRate = inf.avg_views > 0 ? (inf.avg_comments / inf.avg_views * 100).toFixed(2) : '0';
+  const subViewRatio = inf.content_count > 0 && inf.avg_views > 0 ? (inf.followers / inf.avg_views).toFixed(2) : '-';
 
-  let html = '<div class="expand-content">';
+  let html = '<div class="expand-content" onclick="event.stopPropagation()">';
+
+  // Row 1: Profile + 성과 요약표 (Performance Statement)
   html += '<div class="detail-grid">';
 
-  // Profile info
   html += '<div class="detail-section">';
   html += '<h4>프로필 정보</h4>';
   html += `<p><strong>국가:</strong> ${inf.country || '-'} &nbsp; <strong>언어:</strong> ${inf.language || '-'}</p>`;
   html += `<p><strong>등급:</strong> ${inf.grade || '-'} &nbsp; <strong>Pure Score:</strong> ${inf.pure_score != null ? inf.pure_score : '-'}</p>`;
   if (inf.bio) html += `<p><strong>소개:</strong> ${inf.bio}</p>`;
-  if (inf.contact_email) html += `<p><strong>이메일:</strong> ${inf.contact_email}</p>`;
-  if (inf.profile_url) html += `<p><a href="${inf.profile_url}" target="_blank">프로필 링크 열기 →</a></p>`;
+  if (inf.contact_email) html += `<p><strong>이메일:</strong> <span style="color:var(--brand)">${inf.contact_email}</span></p>`;
+  if (inf.profile_url) html += `<p><a href="${inf.profile_url}" target="_blank" style="color:var(--brand)">프로필 링크 열기 →</a></p>`;
   html += '</div>';
 
-  // Quick stats
+  // 성과 요약표 (Financial Statement Style)
   html += '<div class="detail-section">';
-  html += '<h4>주요 지표</h4>';
-  html += `<p><strong>총 조회수:</strong> ${fmtFull(inf.total_views)}</p>`;
-  html += `<p><strong>평균 좋아요:</strong> ${fmtFull(inf.avg_likes)}</p>`;
-  html += `<p><strong>평균 댓글:</strong> ${fmtFull(inf.avg_comments)}</p>`;
-  html += `<p><strong>콘텐츠 수:</strong> ${inf.content_count}</p>`;
+  html += '<h4>성과 요약표 (Performance Statement)</h4>';
+  html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;">';
+  html += `<thead><tr><th colspan="2" style="text-align:center;background:var(--charcoal);color:#fff;font-size:12px;">구독자: ${fmtFull(inf.followers)} · 콘텐츠: ${inf.content_count}건</th></tr></thead>`;
+  html += '<tbody>';
+  html += `<tr><td style="padding-left:16px">총 조회수 (Total Views)</td><td class="num" style="font-weight:600">${fmtFull(inf.total_views)}</td></tr>`;
+  html += `<tr><td style="padding-left:16px">총 좋아요 (Total Likes)</td><td class="num">${fmtFull(Math.round(inf.avg_likes * inf.content_count))}</td></tr>`;
+  html += `<tr><td style="padding-left:16px">총 댓글 (Total Comments)</td><td class="num">${fmtFull(Math.round(inf.avg_comments * inf.content_count))}</td></tr>`;
+  html += `<tr style="border-top:2px solid var(--charcoal);font-weight:700"><td style="padding-left:16px">총 참여 (Total Engagements)</td><td class="num">${fmtFull(totalEng)}</td></tr>`;
+  html += '<tr><td colspan="2" style="height:6px;border:none"></td></tr>';
+  html += `<tr><td style="padding-left:16px">평균 조회수 / 영상</td><td class="num">${fmtFull(Math.round(inf.avg_views))}</td></tr>`;
+  html += `<tr><td style="padding-left:16px">평균 좋아요 / 영상</td><td class="num">${fmtFull(Math.round(inf.avg_likes))}</td></tr>`;
+  html += `<tr><td style="padding-left:16px">평균 댓글 / 영상</td><td class="num">${fmtFull(Math.round(inf.avg_comments))}</td></tr>`;
+  html += `<tr style="border-top:2px solid var(--charcoal);border-bottom:3px double var(--charcoal);font-weight:800"><td style="padding-left:16px">평균 참여율 (Avg ER)</td><td class="num" style="color:var(--brand)">${er}%</td></tr>`;
+  html += '</tbody></table>';
   html += '</div>';
   html += '</div>';
 
-  // Top contents table
+  // Row 2: 효율성 지표
+  html += '<div style="margin-top:12px">';
+  html += '<h4 style="margin-bottom:6px">효율성 지표 (Efficiency Ratios)</h4>';
+  html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;">';
+  html += '<tbody>';
+  html += `<tr><td style="padding-left:16px">구독자 대비 총 조회수 (Views / Subscriber)</td><td class="num" style="font-weight:600">${viewPerSub}x</td></tr>`;
+  html += `<tr><td style="padding-left:16px">영상당 평균 조회수 (Views / Video)</td><td class="num">${fmtFull(Math.round(inf.avg_views))}</td></tr>`;
+  html += `<tr><td style="padding-left:16px">좋아요율 (Likes / Views)</td><td class="num">${likeRate}%</td></tr>`;
+  html += `<tr><td style="padding-left:16px">댓글율 (Comments / Views)</td><td class="num">${commentRate}%</td></tr>`;
+  html += `<tr style="border-top:2px solid var(--charcoal);border-bottom:3px double var(--charcoal);font-weight:800"><td style="padding-left:16px">구독자/영상조회 비율 (Sub-to-View)</td><td class="num">${subViewRatio}</td></tr>`;
+  html += '</tbody></table>';
+  html += `<p style="font-size:11px;color:var(--muted);margin-top:4px">* Sub-to-View &lt; 1.0 → 바이럴 성향 / &gt; 1.0 → 구독자 대비 조회수 부족</p>`;
+  html += '</div>';
+
+  // Row 3: 콘텐츠 원장
   if (contents.length) {
-    html += '<h4 style="margin-bottom:6px">인기 콘텐츠 TOP 5</h4>';
-    html += '<table class="inner-table"><thead><tr><th>제목</th><th style="text-align:right">조회수</th><th style="text-align:right">좋아요</th><th style="text-align:right">댓글</th><th>유형</th><th>날짜</th></tr></thead><tbody>';
-    contents.forEach(c => {
+    html += '<div style="margin-top:12px">';
+    html += `<h4 style="margin-bottom:6px">콘텐츠 원장 (Content Ledger) — ${contents.length}건</h4>`;
+    html += '<div style="max-height:300px;overflow:auto"><table class="inner-table"><thead><tr><th>#</th><th>제목</th><th>유형</th><th style="text-align:right">조회수</th><th style="text-align:right">좋아요</th><th style="text-align:right">댓글</th><th style="text-align:right">참여율</th><th>날짜</th></tr></thead><tbody>';
+    contents.sort((a,b) => (b.views||0) - (a.views||0)).forEach((c, i) => {
+      const cEr = c.views > 0 ? ((c.likes + c.comments) / c.views * 100).toFixed(2) : '0';
+      const avgER = parseFloat(er);
+      const erStyle = parseFloat(cEr) > avgER * 1.5 ? 'color:#059669;font-weight:700' : parseFloat(cEr) < avgER * 0.5 ? 'color:#dc2626' : '';
       html += `<tr>
-        <td><a href="${c.content_url}" target="_blank" style="color:var(--brand);text-decoration:none;font-size:12px">${c.title ? c.title.substring(0, 50) : '-'}${c.title && c.title.length > 50 ? '...' : ''}</a></td>
-        <td class="num">${fmt(c.views)}</td>
-        <td class="num">${fmt(c.likes)}</td>
-        <td class="num">${fmt(c.comments)}</td>
+        <td>${i + 1}</td>
+        <td><a href="${c.content_url || '#'}" target="_blank" style="color:var(--brand);text-decoration:none;font-size:12px">${c.title ? c.title.substring(0, 45) : '-'}${c.title && c.title.length > 45 ? '...' : ''}</a></td>
         <td><span class="badge badge-unset">${c.content_type || '-'}</span></td>
+        <td class="num">${fmtFull(c.views)}</td>
+        <td class="num">${fmtFull(c.likes)}</td>
+        <td class="num">${fmtFull(c.comments)}</td>
+        <td class="num" style="${erStyle}">${cEr}%</td>
         <td style="font-size:11px;color:var(--muted)">${c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-'}</td>
       </tr>`;
     });
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
+    html += '</div>';
   } else {
-    html += '<p style="font-size:12px;color:var(--muted);margin-top:8px">수집된 콘텐츠가 없습니다</p>';
+    html += '<p style="font-size:12px;color:var(--muted);margin-top:12px">수집된 콘텐츠가 없습니다</p>';
   }
 
   // Memo
@@ -929,7 +966,8 @@ function renderExpandContent(inf) {
 }
 
 function toggleExpand(id) {
-  expandedRow = expandedRow === id ? null : id;
+  const nid = Number(id);
+  expandedRow = expandedRow === nid ? null : nid;
   renderChannelTable();
 }
 
@@ -1035,9 +1073,8 @@ let compareSelected = [];
 
 function renderCompare() {
   const infs = DATA.influencers;
-  // Default: top 3 by followers
   if (!compareSelected.length) {
-    compareSelected = [...infs].sort((a, b) => b.followers - a.followers).slice(0, 3).map(i => i.id);
+    compareSelected = [...infs].sort((a, b) => b.followers - a.followers).slice(0, 3).map(i => String(i.id));
   }
   renderCompareSelector();
   renderCompareCharts();
@@ -1047,8 +1084,9 @@ function renderCompareSelector() {
   const infs = DATA.influencers;
   let html = '<label>비교 대상 선택 (최대 5개):</label>';
   infs.forEach(inf => {
-    const sel = compareSelected.includes(inf.id);
-    html += `<div class="compare-chip ${sel?'selected':''}" onclick="toggleCompare('${inf.id}')">
+    const sid = String(inf.id);
+    const sel = compareSelected.includes(sid);
+    html += `<div class="compare-chip ${sel?'selected':''}" onclick="toggleCompare('${sid}')">
       <span>${inf.display_name}</span>
     </div>`;
   });
@@ -1056,13 +1094,14 @@ function renderCompareSelector() {
 }
 
 function toggleCompare(id) {
-  const idx = compareSelected.indexOf(id);
+  const sid = String(id);
+  const idx = compareSelected.indexOf(sid);
   if (idx >= 0) {
-    if (compareSelected.length <= 1) return; // min 1
+    if (compareSelected.length <= 1) return;
     compareSelected.splice(idx, 1);
   } else {
-    if (compareSelected.length >= 5) return; // max 5
-    compareSelected.push(id);
+    if (compareSelected.length >= 5) return;
+    compareSelected.push(sid);
   }
   renderCompareSelector();
   renderCompareCharts();
@@ -1070,7 +1109,7 @@ function toggleCompare(id) {
 
 function renderCompareCharts() {
   const infs = DATA.influencers;
-  const sel = infs.filter(i => compareSelected.includes(i.id));
+  const sel = infs.filter(i => compareSelected.includes(String(i.id)));
 
   // Normalize values for radar
   const maxF = Math.max(...infs.map(i => i.followers)) || 1;

@@ -135,14 +135,14 @@ export function Header({
             )}
           </div>
 
-          {/* Setoworks Website */}
+          {/* Influencer Admin DB */}
           <a
-            href="https://setoworks.com"
+            href="/influencer-admin.html"
             target="_blank"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold text-gray-600 border border-gray-200 hover:border-[#ff003b] hover:text-[#ff003b] transition-all"
           >
             <ExternalLink className="w-4 h-4" />
-            웹페이지
+            인플루언서 DB
           </a>
 
           {/* Strategy Deck Link */}
