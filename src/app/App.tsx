@@ -21,14 +21,52 @@ import { Language, Product, Campaign, Influencer, Platform } from './types';
 
 type AppState = 'welcome' | 'loading' | 'results' | 'empty';
 
+// Cross-language search mapping
+const SEARCH_DICT: Record<string, string[]> = {
+  '선풍기': ['fan', 'electric fan', 'bldc', '扇風機', '풍기', 'circulator'],
+  '키보드': ['keyboard', 'キーボード', '鍵盤', 'mechanical'],
+  '스피커': ['speaker', 'スピーカー', '音箱', 'audio', 'sound', '오디오'],
+  '이어폰': ['earphone', 'earbuds', 'イヤホン', '耳機', 'headphone', 'wireless'],
+  '충전기': ['charger', '充電器', 'charging', 'battery', 'power bank'],
+  '로봇': ['robot', 'ロボット', '機器人', 'robotic'],
+  '카메라': ['camera', 'カメラ', '相機', 'photo', 'video'],
+  '시계': ['watch', '時計', '手錶', 'smartwatch', 'clock'],
+  '조명': ['light', 'lamp', 'ライト', '燈', 'led', 'lighting'],
+  '가방': ['bag', 'バッグ', '包', 'backpack', 'travel'],
+  '가전': ['appliance', 'home', '家電', 'household', 'kitchen'],
+  '게임': ['game', 'gaming', 'ゲーム', '遊戲'],
+  '디자인': ['design', 'デザイン', '設計', 'art'],
+  '펜': ['pen', 'ペン', '筆', 'stylus', 'writing'],
+  '온열': ['heating', 'heat', 'warm', '暖房', '加熱', 'heated'],
+  '마우스': ['mouse', 'マウス', '滑鼠', 'gesture', 'input'],
+  '프린터': ['printer', 'プリンター', '打印', '3d print'],
+  '공기청정': ['air purifier', '空気清浄', '空氣清淨', 'purifier'],
+  '텀블러': ['tumbler', 'タンブラー', 'bottle', 'cup'],
+  'cnc': ['cnc', 'laser', 'engraver', 'mill', '레이저', 'carving'],
+  'fan': ['선풍기', 'bldc', '扇風機', 'circulator'],
+  'speaker': ['스피커', 'スピーカー', '音箱', 'audio'],
+  'keyboard': ['키보드', 'キーボード', '鍵盤', 'mechanical'],
+  'robot': ['로봇', 'ロボット', '機器人'],
+  'game': ['게임', 'gaming', 'ゲーム', '遊戲'],
+  'design': ['디자인', 'デザイン', '設計'],
+  'camera': ['카메라', 'カメラ', '相機'],
+};
+
+function expandQuery(q: string): string[] {
+  const lower = q.toLowerCase().trim();
+  const expanded = [lower];
+  for (const [key, synonyms] of Object.entries(SEARCH_DICT)) {
+    if (key.toLowerCase() === lower || synonyms.some(s => s.toLowerCase() === lower)) {
+      expanded.push(key.toLowerCase(), ...synonyms.map(s => s.toLowerCase()));
+    }
+  }
+  return [...new Set(expanded)];
+}
+
 function matchProduct(p: Product, q: string): boolean {
-  return (
-    p.name.toLowerCase().includes(q) ||
-    p.description.toLowerCase().includes(q) ||
-    p.tags.some((tag) => tag.toLowerCase().includes(q)) ||
-    (p.category ? p.category.toLowerCase().includes(q) : false) ||
-    p.platform.toLowerCase().includes(q)
-  );
+  const queries = expandQuery(q);
+  const fields = [p.name, p.description, ...p.tags, p.category || '', p.platform].map(f => f.toLowerCase());
+  return queries.some(query => fields.some(field => field.includes(query)));
 }
 
 const VALID_PLATFORMS: Platform[] = ['Wadiz', 'Kickstarter', 'Indiegogo', 'Makuake'];
@@ -55,20 +93,15 @@ function normalizeCrawledProduct(raw: any): Product {
 }
 
 function matchCampaign(c: Campaign, q: string): boolean {
-  return (
-    c.name.toLowerCase().includes(q) ||
-    c.description.toLowerCase().includes(q) ||
-    c.tags.some((tag) => tag.toLowerCase().includes(q))
-  );
+  const queries = expandQuery(q);
+  const fields = [c.name, c.description, ...c.tags].map(f => f.toLowerCase());
+  return queries.some(query => fields.some(field => field.includes(query)));
 }
 
 function matchInfluencer(inf: Influencer, q: string): boolean {
-  return (
-    inf.name.toLowerCase().includes(q) ||
-    inf.category.toLowerCase().includes(q) ||
-    inf.platform.toLowerCase().includes(q) ||
-    (inf.campaigns?.some((cam) => cam.name.toLowerCase().includes(q)) ?? false)
-  );
+  const queries = expandQuery(q);
+  const fields = [inf.name, inf.category, inf.platform, ...(inf.campaigns?.map(c => c.name) || [])].map(f => f.toLowerCase());
+  return queries.some(query => fields.some(field => field.includes(query)));
 }
 
 function formatKoreanAmount(num: number): string {
