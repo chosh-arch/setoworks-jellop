@@ -307,6 +307,23 @@ export function GTMForm({ onClose }: GTMFormProps) {
       alert(error);
       return;
     }
+
+    // Save application to localStorage
+    try {
+      const appId = Date.now().toString();
+      const application = {
+        id: appId,
+        projectName: formData.projectName,
+        pm: formData.pm,
+        submitDate: new Date().toISOString().split('T')[0],
+        status: 'submitted',
+        formData: { ...formData },
+      };
+      const existing = JSON.parse(localStorage.getItem('gtm_applications') || '[]');
+      existing.push(application);
+      localStorage.setItem('gtm_applications', JSON.stringify(existing));
+    } catch { /* ignore storage errors */ }
+
     setShowSuccess(true);
     successTimer.current = setTimeout(() => {
       setShowSuccess(false);

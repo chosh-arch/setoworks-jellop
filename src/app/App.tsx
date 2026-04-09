@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { FileText } from 'lucide-react';
+import { FileText, ClipboardList } from 'lucide-react';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { CampaignCard } from './components/CampaignCard';
@@ -13,6 +13,8 @@ import { SkeletonCard } from './components/SkeletonCard';
 import { EmptyState } from './components/EmptyState';
 import { WelcomeState } from './components/WelcomeState';
 import { GTMForm } from './components/GTMForm';
+import { MyApplications } from './components/MyApplications';
+import { AdminTracker } from './components/AdminTracker';
 import { mockProducts, mockCampaigns, mockInfluencers } from './mockData';
 import { translations } from './translations';
 import { Language, Product, Campaign, Influencer, SocialPlatform, Category } from './types';
@@ -100,6 +102,8 @@ export default function App() {
   }, [bookmarkedProducts, bookmarkedCampaigns, bookmarkedInfluencers]);
 
   const [showGTMForm, setShowGTMForm] = useState(false);
+  const [showMyApplications, setShowMyApplications] = useState(false);
+  const [showAdminTracker, setShowAdminTracker] = useState(false);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -180,6 +184,17 @@ export default function App() {
         translations={t}
         searchQuery={searchQuery}
       />
+
+      {/* Sub-header action bar */}
+      <div className="max-w-[1280px] mx-auto px-6 pt-3 flex justify-end">
+        <button
+          onClick={() => setShowMyApplications(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium text-gray-500 border border-gray-200 hover:border-[#ff003b] hover:text-[#ff003b] transition-all"
+        >
+          <ClipboardList className="w-4 h-4" />
+          내 신청 내역
+        </button>
+      </div>
 
       <main className="max-w-[1280px] mx-auto px-6 py-8">
         {appState === 'welcome' && (
@@ -491,6 +506,26 @@ export default function App() {
       {/* GTM Form Overlay */}
       {showGTMForm && (
         <GTMForm onClose={() => setShowGTMForm(false)} />
+      )}
+
+      {/* Footer with admin link */}
+      <footer className="max-w-[1280px] mx-auto px-6 py-8 text-center">
+        <button
+          onClick={() => setShowAdminTracker(true)}
+          className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          내부 관리
+        </button>
+      </footer>
+
+      {/* My Applications Overlay */}
+      {showMyApplications && (
+        <MyApplications onClose={() => setShowMyApplications(false)} />
+      )}
+
+      {/* Admin Tracker Overlay */}
+      {showAdminTracker && (
+        <AdminTracker onClose={() => setShowAdminTracker(false)} />
       )}
 
       {/* Bookmark Drawer */}
