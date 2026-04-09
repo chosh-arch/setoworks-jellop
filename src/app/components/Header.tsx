@@ -70,8 +70,8 @@ export function Header({
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-[1280px] mx-auto px-6 py-4">
         <div className="flex items-center gap-6">
-          {/* Logo */}
-          <div className="flex-shrink-0">
+          {/* Logo — click to go home */}
+          <div className="flex-shrink-0 cursor-pointer" onClick={() => window.location.reload()}>
             <img src="/setoworks_logo.png" alt="SETOWORKS" className="h-6" />
           </div>
 
