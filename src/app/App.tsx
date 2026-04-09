@@ -256,82 +256,6 @@ export default function App() {
               </section>
             )}
 
-            {/* ========== Comparison Chart — S-curve growth ========== */}
-            {searchedProducts.length > 0 && searchedCampaigns.length > 0 && (() => {
-              const avgMarket = Math.round(searchedProducts.reduce((s, p) => s + p.percentage, 0) / searchedProducts.length);
-              const avgSeto = Math.round(searchedCampaigns.reduce((s, c) => s + c.achievementRate, 0) / searchedCampaigns.length);
-              const setoFinal = searchedCampaigns[0]?.finalAmount || 100000000;
-              const marketFinal = Math.round(setoFinal * (avgMarket / Math.max(avgSeto, 1)));
-              const diff = avgSeto - avgMarket;
-
-              // S-curve 30일 데이터 생성
-              const curveData = Array.from({ length: 30 }, (_, i) => {
-                const t = (i + 1) / 30;
-                const sigmoid = 1 / (1 + Math.exp(-12 * (t - 0.4)));
-                const marketSigmoid = 1 / (1 + Math.exp(-8 * (t - 0.5)));
-                return {
-                  day: `${i + 1}일`,
-                  setoworks: Math.round(setoFinal * sigmoid),
-                  market: Math.round(marketFinal * marketSigmoid),
-                };
-              });
-
-              const fmtAmt = (v: number) => {
-                if (v >= 100000000) return (v / 100000000).toFixed(1) + '억';
-                if (v >= 10000) return (v / 10000).toFixed(0) + '만';
-                return v.toLocaleString();
-              };
-
-              return (
-                <div className="bg-gradient-to-r from-[#212121] to-[#2d2d2d] rounded-2xl overflow-hidden">
-                  <div className="flex">
-                    <div className="flex-1 p-6">
-                      <div className="text-sm text-gray-400 mb-1 font-semibold">30일 펀딩 성장 곡선 비교</div>
-                      <div className="text-xs text-gray-500 mb-4">같은 카테고리 제품의 펀딩 추이 — 세토웍스 마케팅 유무에 따른 차이</div>
-                      <div style={{ height: 200 }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                          <AreaChart data={curveData} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
-                            <defs>
-                              <linearGradient id="grad-seto" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#ff003b" stopOpacity={0.35} />
-                                <stop offset="100%" stopColor="#ff003b" stopOpacity={0.02} />
-                              </linearGradient>
-                              <linearGradient id="grad-market" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#475569" stopOpacity={0.2} />
-                                <stop offset="100%" stopColor="#475569" stopOpacity={0.02} />
-                              </linearGradient>
-                            </defs>
-                            <XAxis dataKey="day" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} interval={4} />
-                            <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => fmtAmt(v)} width={55} />
-                            <Tooltip
-                              contentStyle={{ background: '#1a1a1a', border: 'none', borderRadius: 8, fontSize: 13 }}
-                              labelStyle={{ color: '#fff' }}
-                              formatter={(v: number, name: string) => [fmtAmt(v) + '원', name === 'setoworks' ? '세토웍스' : '시장 평균']}
-                            />
-                            <Area type="monotone" dataKey="market" stroke="#475569" strokeWidth={2} fill="url(#grad-market)" strokeDasharray="6 3" />
-                            <Area type="monotone" dataKey="setoworks" stroke="#ff003b" strokeWidth={2.5} fill="url(#grad-seto)" />
-                          </AreaChart>
-                        </ResponsiveContainer>
-                      </div>
-                      <div className="flex gap-5 mt-2">
-                        <div className="flex items-center gap-1.5 text-xs text-gray-400"><div className="w-6 h-0.5 bg-[#475569]" style={{ borderTop: '2px dashed #475569' }} />시장 평균 ({avgMarket}% 달성)</div>
-                        <div className="flex items-center gap-1.5 text-xs text-[#ff003b]"><div className="w-6 h-0.5 bg-[#ff003b]" />세토웍스 ({avgSeto.toLocaleString()}% 달성)</div>
-                      </div>
-                    </div>
-                    <div className="w-[200px] bg-[#ff003b] flex flex-col items-center justify-center p-5 text-white text-center">
-                      <div className="text-xs font-medium opacity-75 mb-2">세토웍스와 함께하면</div>
-                      <div className="text-5xl font-extrabold leading-none mb-1">+{diff.toLocaleString()}</div>
-                      <div className="text-base font-bold opacity-90">%p</div>
-                      <div className="mt-3 text-xs opacity-65 leading-relaxed">{avgMarket}% → {avgSeto.toLocaleString()}%</div>
-                      <div className="mt-3 w-full h-px bg-white/20" />
-                      <div className="mt-3 text-xs opacity-75">최종 펀딩액</div>
-                      <div className="text-xl font-bold mt-1">{fmtAmt(setoFinal)}원</div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
-
             {/* ========== Section 2: Setoworks Portfolio ========== */}
             {searchedCampaigns.length > 0 && (
               <section>
@@ -422,6 +346,82 @@ export default function App() {
                 </div>
               </section>
             )}
+
+            {/* ========== Comparison Chart — S-curve growth ========== */}
+            {searchedProducts.length > 0 && searchedCampaigns.length > 0 && (() => {
+              const avgMarket = Math.round(searchedProducts.reduce((s, p) => s + p.percentage, 0) / searchedProducts.length);
+              const avgSeto = Math.round(searchedCampaigns.reduce((s, c) => s + c.achievementRate, 0) / searchedCampaigns.length);
+              const setoFinal = searchedCampaigns[0]?.finalAmount || 100000000;
+              const marketFinal = Math.round(setoFinal * (avgMarket / Math.max(avgSeto, 1)));
+              const diff = avgSeto - avgMarket;
+
+              // S-curve 30일 데이터 생성
+              const curveData = Array.from({ length: 30 }, (_, i) => {
+                const t = (i + 1) / 30;
+                const sigmoid = 1 / (1 + Math.exp(-12 * (t - 0.4)));
+                const marketSigmoid = 1 / (1 + Math.exp(-8 * (t - 0.5)));
+                return {
+                  day: `${i + 1}일`,
+                  setoworks: Math.round(setoFinal * sigmoid),
+                  market: Math.round(marketFinal * marketSigmoid),
+                };
+              });
+
+              const fmtAmt = (v: number) => {
+                if (v >= 100000000) return (v / 100000000).toFixed(1) + '억';
+                if (v >= 10000) return (v / 10000).toFixed(0) + '만';
+                return v.toLocaleString();
+              };
+
+              return (
+                <div className="bg-gradient-to-r from-[#212121] to-[#2d2d2d] rounded-2xl overflow-hidden">
+                  <div className="flex">
+                    <div className="flex-1 p-6">
+                      <div className="text-sm text-gray-400 mb-1 font-semibold">30일 펀딩 성장 곡선 비교</div>
+                      <div className="text-xs text-gray-500 mb-4">같은 카테고리 제품의 펀딩 추이 — 세토웍스 마케팅 유무에 따른 차이</div>
+                      <div style={{ height: 200 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart data={curveData} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
+                            <defs>
+                              <linearGradient id="grad-seto" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#ff003b" stopOpacity={0.35} />
+                                <stop offset="100%" stopColor="#ff003b" stopOpacity={0.02} />
+                              </linearGradient>
+                              <linearGradient id="grad-market" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#475569" stopOpacity={0.2} />
+                                <stop offset="100%" stopColor="#475569" stopOpacity={0.02} />
+                              </linearGradient>
+                            </defs>
+                            <XAxis dataKey="day" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} interval={4} />
+                            <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => fmtAmt(v)} width={55} />
+                            <Tooltip
+                              contentStyle={{ background: '#1a1a1a', border: 'none', borderRadius: 8, fontSize: 13 }}
+                              labelStyle={{ color: '#fff' }}
+                              formatter={(v: number, name: string) => [fmtAmt(v) + '원', name === 'setoworks' ? '세토웍스' : '시장 평균']}
+                            />
+                            <Area type="monotone" dataKey="market" stroke="#475569" strokeWidth={2} fill="url(#grad-market)" strokeDasharray="6 3" />
+                            <Area type="monotone" dataKey="setoworks" stroke="#ff003b" strokeWidth={2.5} fill="url(#grad-seto)" />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="flex gap-5 mt-2">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-400"><div className="w-6 h-0.5 bg-[#475569]" style={{ borderTop: '2px dashed #475569' }} />시장 평균 ({avgMarket}% 달성)</div>
+                        <div className="flex items-center gap-1.5 text-xs text-[#ff003b]"><div className="w-6 h-0.5 bg-[#ff003b]" />세토웍스 ({avgSeto.toLocaleString()}% 달성)</div>
+                      </div>
+                    </div>
+                    <div className="w-[200px] bg-[#ff003b] flex flex-col items-center justify-center p-5 text-white text-center">
+                      <div className="text-xs font-medium opacity-75 mb-2">세토웍스와 함께하면</div>
+                      <div className="text-5xl font-extrabold leading-none mb-1">+{diff.toLocaleString()}</div>
+                      <div className="text-base font-bold opacity-90">%p</div>
+                      <div className="mt-3 text-xs opacity-65 leading-relaxed">{avgMarket}% → {avgSeto.toLocaleString()}%</div>
+                      <div className="mt-3 w-full h-px bg-white/20" />
+                      <div className="mt-3 text-xs opacity-75">최종 펀딩액</div>
+                      <div className="text-xl font-bold mt-1">{fmtAmt(setoFinal)}원</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* ========== Section 3: Influencer Effect ========== */}
             {searchedInfluencers.length > 0 && (
