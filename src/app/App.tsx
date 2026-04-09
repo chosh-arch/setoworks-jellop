@@ -17,7 +17,7 @@ import { AdminTracker } from './components/AdminTracker';
 import { InfluencerBrowse } from './components/InfluencerBrowse';
 import { mockProducts, mockCampaigns, mockInfluencers } from './mockData';
 import { translations } from './translations';
-import { Language, Product, Campaign, Influencer } from './types';
+import { Language, Product, Campaign, Influencer, Platform } from './types';
 
 type AppState = 'welcome' | 'loading' | 'results' | 'empty';
 
@@ -25,8 +25,33 @@ function matchProduct(p: Product, q: string): boolean {
   return (
     p.name.toLowerCase().includes(q) ||
     p.description.toLowerCase().includes(q) ||
-    p.tags.some((tag) => tag.toLowerCase().includes(q))
+    p.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+    (p.category ? p.category.toLowerCase().includes(q) : false) ||
+    p.platform.toLowerCase().includes(q)
   );
+}
+
+const VALID_PLATFORMS: Platform[] = ['Wadiz', 'Kickstarter', 'Indiegogo', 'Makuake'];
+
+function normalizeCrawledProduct(raw: any): Product {
+  const platform = VALID_PLATFORMS.includes(raw.platform) ? raw.platform : 'Kickstarter';
+  return {
+    id: raw.id || `crawled-${Math.random()}`,
+    name: raw.name || '',
+    description: raw.description || '',
+    imageUrl: raw.imageUrl || '',
+    platform,
+    fundingGoal: raw.fundingGoal || 0,
+    currentAmount: raw.currentAmount || 0,
+    percentage: raw.percentage || 0,
+    backerCount: raw.backerCount || 0,
+    daysLeft: raw.daysLeft || 0,
+    tags: raw.tags || [],
+    fullDescription: raw.fullDescription || raw.description || '',
+    category: raw.category || '',
+    url: raw.url || '',
+    source: 'crawled',
+  };
 }
 
 function matchCampaign(c: Campaign, q: string): boolean {
@@ -79,6 +104,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [appState, setAppState] = useState<AppState>('welcome');
   const [bookmarkDrawerOpen, setBookmarkDrawerOpen] = useState(false);
+  const [crawledProducts, setCrawledProducts] = useState<Product[]>([]);
 
   // Bookmarks
   const [bookmarkedProducts, setBookmarkedProducts] = useState<Set<string>>(new Set());
@@ -107,6 +133,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    fetch('/crawled_products.json')
+      .then((res) => res.json())
+      .then((data: any[]) => {
+        setCrawledProducts(data.map(normalizeCrawledProduct));
+      })
+      .catch(() => {
+        // silently fail - will use mockProducts as fallback
+      });
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem(
       'bookmarks',
       JSON.stringify({
@@ -129,9 +166,10 @@ export default function App() {
     setTimeout(() => {
       const q = query.toLowerCase().trim();
       const hasProducts = mockProducts.some((p) => matchProduct(p, q));
+      const hasCrawled = crawledProducts.some((p) => matchProduct(p, q));
       const hasCampaigns = mockCampaigns.some((c) => matchCampaign(c, q));
       const hasInfluencers = mockInfluencers.some((inf) => matchInfluencer(inf, q));
-      if (hasProducts || hasCampaigns || hasInfluencers) {
+      if (hasProducts || hasCrawled || hasCampaigns || hasInfluencers) {
         setAppState('results');
       } else {
         setAppState('empty');
@@ -163,9 +201,18 @@ export default function App() {
 
   // Search-based filtering
   const q = searchQuery.toLowerCase().trim();
-  const searchedProducts = q ? mockProducts.filter((p) => matchProduct(p, q)) : mockProducts;
+  const searchedCrawled = q ? crawledProducts.filter((p) => matchProduct(p, q)) : crawledProducts;
+  const searchedMockProducts = q ? mockProducts.filter((p) => matchProduct(p, q)) : mockProducts;
+  // Crawled (real data) first, then mock as fallback
+  const searchedProducts = [...searchedCrawled, ...searchedMockProducts];
   const searchedCampaigns = q ? mockCampaigns.filter((c) => matchCampaign(c, q)) : mockCampaigns;
   const searchedInfluencers = q ? mockInfluencers.filter((inf) => matchInfluencer(inf, q)) : mockInfluencers;
+
+  // Platform breakdown for crawled products
+  const crawledPlatformBreakdown = searchedCrawled.reduce<Record<string, number>>((acc, p) => {
+    acc[p.platform] = (acc[p.platform] || 0) + 1;
+    return acc;
+  }, {});
 
   // Group influencers by tier group
   const groupedInfluencers = searchedInfluencers.reduce<Record<string, Influencer[]>>((acc, inf) => {
@@ -233,15 +280,31 @@ export default function App() {
             {/* ========== Section 1: Market - Funded Products ========== */}
             {searchedProducts.length > 0 && (
               <section>
-                <div className="flex items-center gap-3 mb-5">
+                <div className="flex items-center gap-3 mb-3">
                   <div className="w-1 h-6 bg-[#ff003b] rounded-full" />
                   <h2 className="text-xl font-bold text-gray-900">
                     '{searchQuery}' 관련 펀딩 중인 제품
                   </h2>
+                  {searchedCrawled.length > 0 && (
+                    <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-500 border border-red-200">
+                      실시간 데이터
+                    </span>
+                  )}
                   <span className="text-sm text-gray-400">{t.section1Title}</span>
                 </div>
+                {searchedCrawled.length > 0 && (
+                  <div className="flex items-center gap-2 mb-5 text-xs text-gray-500">
+                    <span className="font-medium text-gray-600">4개 플랫폼 {searchedCrawled.length}건</span>
+                    <span className="text-gray-300">|</span>
+                    {Object.entries(crawledPlatformBreakdown).map(([platform, count], idx) => (
+                      <span key={platform}>
+                        {platform} {count}건{idx < Object.entries(crawledPlatformBreakdown).length - 1 ? ' · ' : ''}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {searchedProducts.slice(0, 4).map((product) => (
+                  {searchedProducts.slice(0, 8).map((product) => (
                     <ProductCard
                       key={product.id}
                       product={product}
@@ -638,7 +701,7 @@ export default function App() {
       <BookmarkDrawer
         isOpen={bookmarkDrawerOpen}
         onClose={() => setBookmarkDrawerOpen(false)}
-        bookmarkedProducts={mockProducts.filter((p) => bookmarkedProducts.has(p.id))}
+        bookmarkedProducts={[...mockProducts, ...crawledProducts].filter((p) => bookmarkedProducts.has(p.id))}
         bookmarkedCampaigns={mockCampaigns.filter((c) => bookmarkedCampaigns.has(c.id))}
         bookmarkedInfluencers={mockInfluencers.filter((i) => bookmarkedInfluencers.has(i.id))}
         onRemoveBookmark={handleBookmark}

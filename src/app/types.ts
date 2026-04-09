@@ -1,6 +1,6 @@
 export type Language = 'ko' | 'en' | 'ja' | 'zh';
 
-export type Platform = 'Wadiz' | 'Kickstarter' | 'Indiegogo';
+export type Platform = 'Wadiz' | 'Kickstarter' | 'Indiegogo' | 'Makuake';
 export type CampaignStatus = 'success' | 'failed' | 'ongoing';
 export type SocialPlatform = 'YouTube' | 'Instagram' | 'TikTok' | 'Facebook' | 'Threads' | 'Dcard';
 export type Category = 'tech' | 'lifestyle' | 'beauty' | 'food' | 'game' | 'fashion' | 'camping';
@@ -17,7 +17,10 @@ export interface Product {
   backerCount: number;
   daysLeft: number;
   tags: string[];
-  fullDescription: string;
+  fullDescription?: string;
+  category?: string;
+  url?: string;
+  source?: 'crawled' | 'mock';
 }
 
 export interface FundingDay {
