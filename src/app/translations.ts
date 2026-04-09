@@ -3,9 +3,9 @@ import { Language, Translations } from './types';
 export const translations: Record<Language, Translations> = {
   ko: {
     searchPlaceholder: '제품명을 검색하세요',
-    section1Title: '현재 펀딩 중인 유사 제품',
-    section2Title: '우리가 진행했던 제품',
-    section3Title: '연관 인플루언서',
+    section1Title: '펀딩 중인 유사 제품',
+    section2Title: '세토웍스 포트폴리오',
+    section3Title: '참여 인플루언서 효과',
     ctaButton: '해당 사이트에서 확인하기',
     filterAll: '전체',
     emptyState: '검색 결과가 없습니다',
