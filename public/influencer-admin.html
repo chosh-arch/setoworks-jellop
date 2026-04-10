@@ -94,7 +94,7 @@ th.sort-asc .sort-arrow::after { content: '\25B2'; }
 th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 /* Tabular nums in tables */
-.num { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; }
+.num { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .table th.sortable { cursor: pointer; user-select: none; }
 .table th.sortable:hover { background: rgba(0,0,0,.05); }
 
@@ -944,20 +944,31 @@ function renderContentLedger(inf, contents, avgER) {
   html += '</div></div>';
   html += '</div>';
 
-  html += '<div class="table-responsive" style="max-height:400px;overflow:auto"><table class="table table-vcenter table-sm"><thead><tr><th>#</th><th>제목</th><th>유형</th><th class="num">조회수</th><th class="num">좋아요</th><th class="num">댓글</th><th class="num">참여율</th><th>날짜</th></tr></thead><tbody>';
+  html += '<div class="table-responsive" style="max-height:400px;overflow:auto">';
+  html += '<table class="table table-vcenter" style="font-size:13px;min-width:700px">';
+  html += '<thead><tr>';
+  html += '<th style="width:40px;text-align:center">#</th>';
+  html += '<th style="min-width:250px">제목</th>';
+  html += '<th style="width:60px;text-align:center">유형</th>';
+  html += '<th style="width:80px;text-align:right">조회수</th>';
+  html += '<th style="width:70px;text-align:right">좋아요</th>';
+  html += '<th style="width:60px;text-align:right">댓글</th>';
+  html += '<th style="width:70px;text-align:right">참여율</th>';
+  html += '<th style="width:90px;text-align:right">날짜</th>';
+  html += '</tr></thead><tbody>';
   displayItems.forEach((c, i) => {
     var cEr = c.views > 0 ? ((c.likes + c.comments) / c.views * 100).toFixed(2) : '0';
     var avgERVal = parseFloat(avgER);
     var erCls = parseFloat(cEr) > avgERVal * 1.5 ? 'text-success fw-bold' : parseFloat(cEr) < avgERVal * 0.5 ? 'text-danger' : '';
     html += '<tr>';
-    html += '<td class="text-muted">' + (i + 1) + '</td>';
-    html += '<td><a href="' + (c.content_url || '#') + '" target="_blank" class="text-primary text-decoration-none" style="font-size:12px">' + (c.title ? escHtml(c.title.substring(0, 45)) : '-') + (c.title && c.title.length > 45 ? '...' : '') + '</a></td>';
-    html += '<td><span class="badge bg-secondary-lt">' + (c.content_type || '-') + '</span></td>';
-    html += '<td class="num">' + fmtFull(c.views) + '</td>';
-    html += '<td class="num">' + fmtFull(c.likes) + '</td>';
-    html += '<td class="num">' + fmtFull(c.comments) + '</td>';
-    html += '<td class="num ' + erCls + '">' + cEr + '%</td>';
-    html += '<td class="text-muted" style="font-size:11px">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td>';
+    html += '<td style="text-align:center" class="text-muted">' + (i + 1) + '</td>';
+    html += '<td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="' + (c.content_url || '#') + '" target="_blank" class="text-primary text-decoration-none">' + (c.title ? escHtml(c.title.substring(0, 50)) : '-') + (c.title && c.title.length > 50 ? '...' : '') + '</a></td>';
+    html += '<td style="text-align:center"><span class="badge bg-secondary-lt">' + (c.content_type || '-') + '</span></td>';
+    html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.views) + '</td>';
+    html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.likes) + '</td>';
+    html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.comments) + '</td>';
+    html += '<td style="text-align:right" class="' + erCls + '">' + cEr + '%</td>';
+    html += '<td style="text-align:right;font-size:12px" class="text-muted">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td>';
     html += '</tr>';
   });
   html += '</tbody></table></div>';
@@ -1327,7 +1338,6 @@ function toggleCompare(id) {
   var sid = String(id);
   var idx = compareSelected.indexOf(sid);
   if (idx >= 0) {
-    if (compareSelected.length <= 1) return;
     compareSelected.splice(idx, 1);
   } else {
     if (compareSelected.length >= 5) return;
@@ -1340,6 +1350,16 @@ function toggleCompare(id) {
 function renderCompareCharts() {
   var infs = DATA.influencers;
   var sel = infs.filter(i => compareSelected.indexOf(String(i.id)) >= 0);
+
+  if (sel.length === 0) {
+    ['chart-radar','chart-cmp-country','chart-cmp-type'].forEach(id => {
+      var el = document.getElementById(id);
+      if (el) { var ctx = el.getContext('2d'); ctx.clearRect(0,0,el.width,el.height); }
+    });
+    var tb = document.getElementById('compare-table');
+    if (tb) tb.innerHTML = '<p class="text-muted text-center py-4">비교할 인플루언서를 선택하세요</p>';
+    return;
+  }
 
   var maxF = Math.max(...infs.map(i => i.followers)) || 1;
   var maxER = Math.max(...infs.filter(i => i.avg_views > 0).map(i => calcER(i))) || 1;
