@@ -315,7 +315,18 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
           <div class="row mt-3">
             <div class="col-12">
               <div class="card">
-                <div class="card-header"><h3 class="card-title">카테고리별 비교 (평균 구독자 vs 평균 조회수)</h3></div>
+                <div class="card-header">
+                  <h3 class="card-title">카테고리별 비교 (평균 구독자 vs 평균 조회수)</h3>
+                  <div class="card-actions">
+                    <select class="form-select form-select-sm" style="width:auto" onchange="setCatChartMetric(this.value)">
+                      <option value="both">구독자 + 조회수</option>
+                      <option value="followers">구독자만</option>
+                      <option value="views">조회수만</option>
+                      <option value="engagement">참여율</option>
+                      <option value="score">Pure Score</option>
+                    </select>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="chart-wrap"><canvas id="chart-cat-compare" height="300"></canvas></div>
                 </div>
@@ -967,19 +978,20 @@ function renderContentLedger(inf, contents, avgER) {
   var html = '<div class="card mt-3"><div class="card-body">';
   html += '<h4 class="mb-2">콘텐츠 원장 (Content Ledger) &mdash; 총 ' + contents.length + '건' + (st.typeFilter !== 'all' ? ' (필터: ' + st.typeFilter + ' ' + filtered.length + '건)' : '') + '</h4>';
 
-  // Controls
+  // Controls — dropdowns
   html += '<div class="d-flex flex-wrap gap-3 align-items-center mb-2">';
-  html += '<div><label class="form-label mb-0 text-muted small">유형</label><div class="btn-group ms-2" role="group">';
-  ['all','video','short'].forEach(t => {
-    var label = t === 'all' ? '전체' : t;
-    html += '<button class="btn btn-sm ' + (st.typeFilter===t?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(\'' + inf.id + '\',\'typeFilter\',\'' + t + '\')">' + label + '</button>';
+  html += '<div class="d-flex align-items-center gap-2"><label class="form-label mb-0 text-muted small">유형</label>';
+  html += '<select class="form-select form-select-sm" style="width:auto" onchange="setLedgerFilter(\'' + inf.id + '\',\'typeFilter\',this.value)">';
+  [['all','전체'],['video','video'],['short','short']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (st.typeFilter===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
-  html += '<div><label class="form-label mb-0 text-muted small">정렬</label><div class="btn-group ms-2" role="group">';
+  html += '</select></div>';
+  html += '<div class="d-flex align-items-center gap-2"><label class="form-label mb-0 text-muted small">정렬</label>';
+  html += '<select class="form-select form-select-sm" style="width:auto" onchange="setLedgerFilter(\'' + inf.id + '\',\'sort\',this.value)">';
   [['date','날짜순'],['views','조회수순'],['likes','좋아요순']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (st.sort===v?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(\'' + inf.id + '\',\'sort\',\'' + v + '\')">' + l + '</button>';
+    html += '<option value="' + v + '"' + (st.sort===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
   html += '</div>';
 
   html += '<div class="table-responsive" style="max-height:400px;overflow:auto">';
@@ -1230,6 +1242,13 @@ function renderCatCards() {
   document.getElementById('cat-cards').innerHTML = cardsHtml;
 }
 
+var catChartMetric = 'both';
+
+function setCatChartMetric(metric) {
+  catChartMetric = metric;
+  renderCatChart();
+}
+
 function renderCatChart() {
   var infs = getFilteredCatInfluencers();
   var catMap = {};
@@ -1240,6 +1259,7 @@ function renderCatChart() {
 
   var catKeys = Object.keys(catMap);
   var labels = catKeys.map(c => CAT_KR[c]||c);
+
   var avgFollowers = catKeys.map(cat => {
     var ci = catMap[cat];
     return ci.length ? Math.round(ci.reduce((s,i) => s+i.followers, 0) / ci.length) : 0;
@@ -1248,25 +1268,41 @@ function renderCatChart() {
     var ci = catMap[cat];
     return ci.length ? Math.round(ci.reduce((s,i) => s+(i.avg_views||0), 0) / ci.length) : 0;
   });
+  var avgER = catKeys.map(cat => {
+    var ci = catMap[cat].filter(i => i.avg_views > 0);
+    return ci.length ? parseFloat((ci.reduce((s,i) => s+calcER(i), 0) / ci.length).toFixed(2)) : 0;
+  });
+  var avgScore = catKeys.map(cat => {
+    var ci = catMap[cat];
+    return ci.length ? parseFloat((ci.reduce((s,i) => s+(i.pure_score||0), 0) / ci.length).toFixed(1)) : 0;
+  });
+
+  var datasets = [];
+  if (catChartMetric === 'both' || catChartMetric === 'followers') {
+    datasets.push({ label: '평균 구독자', data: avgFollowers, backgroundColor: '#ff003b', borderRadius: 6, barPercentage: 0.4 });
+  }
+  if (catChartMetric === 'both' || catChartMetric === 'views') {
+    datasets.push({ label: '평균 조회수', data: avgViews, backgroundColor: '#1e56b0', borderRadius: 6, barPercentage: 0.4 });
+  }
+  if (catChartMetric === 'engagement') {
+    datasets.push({ label: '평균 참여율 (%)', data: avgER, backgroundColor: '#0d7c5f', borderRadius: 6, barPercentage: 0.5 });
+  }
+  if (catChartMetric === 'score') {
+    datasets.push({ label: '평균 Pure Score', data: avgScore, backgroundColor: '#6d28d9', borderRadius: 6, barPercentage: 0.5 });
+  }
 
   if (charts.catCompare) charts.catCompare.destroy();
   charts.catCompare = new Chart(document.getElementById('chart-cat-compare'), {
     type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        { label: '평균 구독자', data: avgFollowers, backgroundColor: '#ff003b', borderRadius: 6, barPercentage: 0.4 },
-        { label: '평균 조회수', data: avgViews, backgroundColor: '#1e56b0', borderRadius: 6, barPercentage: 0.4 }
-      ]
-    },
+    data: { labels: labels, datasets: datasets },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { position: 'top', labels: { font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, padding: 16 } },
-        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmtFull(ctx.raw) } }
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + (catChartMetric === 'engagement' ? ctx.raw + '%' : catChartMetric === 'score' ? ctx.raw + '점' : fmtFull(ctx.raw)) } }
       },
       scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => fmt(v) }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => catChartMetric === 'engagement' ? v + '%' : catChartMetric === 'score' ? v : fmt(v) }, grid: { color: '#f1f5f9' } },
         y: { ticks: { font: { family: 'Noto Sans KR', size: 12 } }, grid: { display: false } }
       }
     }
