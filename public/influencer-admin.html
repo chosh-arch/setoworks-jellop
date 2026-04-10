@@ -141,9 +141,25 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 /* Active category filter indicator */
 .active-cat-filter { background: #fff5f7; border: 1px dashed var(--tblr-primary); border-radius: 8px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+
+/* Loading spinner */
+.loading-spinner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; }
+
+@media print {
+  .navbar-vertical, .page-header .btn, .btn-group, .form-control { display: none !important; }
+  .page-wrapper { margin: 0 !important; }
+  .card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
+}
 </style>
 </head>
 <body>
+<script>
+// Dark mode: restore saved theme on load
+(function() {
+  var savedTheme = localStorage.getItem('theme');
+  if (savedTheme) document.documentElement.setAttribute('data-bs-theme', savedTheme);
+})();
+</script>
 <div class="page">
   <!-- Sidebar -->
   <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark" style="width:240px;">
@@ -185,8 +201,9 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
             </a>
           </li>
         </ul>
-        <div class="mt-auto pt-3 border-top border-secondary">
+        <div class="mt-auto pt-3 border-top border-secondary d-flex align-items-center justify-content-between">
           <a href="/" class="sidebar-footer-link">&larr; 메인으로</a>
+          <button class="btn btn-sm btn-ghost-secondary" onclick="toggleDark()" title="다크모드">&#127769;</button>
         </div>
       </div>
     </div>
@@ -194,12 +211,18 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
   <!-- Main content -->
   <div class="page-wrapper">
+    <!-- Loading spinner (shown until data loads) -->
+    <div id="loading-spinner" class="loading-spinner">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-muted">데이터 로딩 중...</p>
+    </div>
     <!-- View 1: Dashboard -->
     <section id="view-dashboard" class="view active">
       <div class="page-header d-print-none">
         <div class="container-xl">
           <div class="page-pretitle">Setoworks</div>
           <h2 class="page-title">인플루언서 대시보드</h2>
+          <div id="last-update" class="text-muted small mt-1"></div>
         </div>
       </div>
       <div class="page-body">
@@ -489,17 +512,30 @@ function handleGlobalSearch(q) {
 }
 
 // ─── Load data ───
+// Show loading spinner, hide views until loaded
+document.querySelectorAll('.view').forEach(function(v) { v.style.display = 'none'; });
 fetch('/influencer_data.json')
   .then(r => r.json())
   .then(data => {
     DATA = data;
+    // Remove spinner and show active view
+    var spinner = document.getElementById('loading-spinner');
+    if (spinner) spinner.remove();
+    document.querySelectorAll('.view').forEach(function(v) { v.style.display = ''; });
     renderDashboard();
     renderChannels();
     renderCategories();
     renderCompare();
+    // Animate KPI numbers
+    animateKPIs();
+    // Show last update timestamp
+    showLastUpdate();
   })
-  .catch(err => {
-    document.querySelector('.page-wrapper').innerHTML = '<div class="container-xl mt-4"><div class="card"><div class="card-body text-center py-5"><h3>데이터 로드 실패</h3><p class="text-muted mt-2">' + err.message + '</p></div></div></div>';
+  .catch(function(err) {
+    var spinner = document.getElementById('loading-spinner');
+    if (spinner) spinner.remove();
+    document.querySelectorAll('.view').forEach(function(v) { v.style.display = ''; });
+    document.querySelector('.page-wrapper').innerHTML = '<div class="container-xl mt-4"><div class="alert alert-danger">데이터를 불러올 수 없습니다. 새로고침해 주세요.</div></div>';
   });
 
 // =============================================
@@ -592,7 +628,7 @@ function renderDashboard() {
 
   // Log table
   var logs = DATA.logs || [];
-  var logHtml = '<table class="table table-vcenter card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th></tr></thead><tbody>';
+  var logHtml = '<table class="table table-vcenter table-hover card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th></tr></thead><tbody>';
   logs.forEach(l => {
     var statusBadge = l.status === 'completed' ? '<span class="badge bg-success-lt">completed</span>' : l.status === 'running' ? '<span class="badge bg-warning-lt">running</span>' : '<span class="badge bg-danger-lt">' + l.status + '</span>';
     logHtml += '<tr><td>' + platformBadge(l.platform) + '</td><td>' + statusBadge + '</td><td class="num">' + l.profiles_collected + '</td><td class="num">' + l.contents_collected + '</td><td class="text-muted" style="font-size:12px">' + new Date(l.started_at).toLocaleString('ko-KR') + '</td></tr>';
@@ -667,8 +703,9 @@ function renderChannelFilters() {
   // Search (will be wired with composition-safe events after render)
   html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="ch-search-input" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '"></div>';
 
-  // Reset all filters button
-  html += '<div><button class="btn btn-sm btn-outline-danger" onclick="resetChFilters()">필터 초기화</button></div>';
+  // Reset all filters button + CSV export
+  html += '<div class="d-flex gap-2"><button class="btn btn-sm btn-outline-danger" onclick="resetChFilters()">필터 초기화</button>';
+  html += '<button class="btn btn-sm btn-outline-primary" onclick="exportCSV()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><polyline points="7 11 12 16 17 11"/><line x1="12" y1="4" x2="12" y2="16"/></svg> CSV 내보내기</button></div>';
 
   html += '</div>';
 
@@ -945,7 +982,7 @@ function renderContentLedger(inf, contents, avgER) {
   html += '</div>';
 
   html += '<div class="table-responsive" style="max-height:400px;overflow:auto">';
-  html += '<table class="table table-vcenter" style="font-size:13px;min-width:700px">';
+  html += '<table class="table table-vcenter table-hover" style="font-size:13px;min-width:700px">';
   html += '<thead><tr>';
   html += '<th style="width:40px;text-align:center">#</th>';
   html += '<th style="min-width:250px">제목</th>';
@@ -1427,7 +1464,7 @@ function renderCompareCharts() {
     { label: '국가', key: 'country', fmt: v => COUNTRY_KR[v]||v||'-' }
   ];
 
-  var tHtml = '<table class="table table-vcenter"><thead><tr><th>지표</th>';
+  var tHtml = '<table class="table table-vcenter table-hover"><thead><tr><th>지표</th>';
   sel.forEach(inf => { tHtml += '<th class="num">' + escHtml(inf.display_name) + '</th>'; });
   tHtml += '</tr></thead><tbody>';
   metrics.forEach(m => {
@@ -1483,6 +1520,106 @@ function renderCompareCharts() {
   } else {
     document.getElementById('chart-content-type').parentElement.innerHTML = '<p class="text-muted small p-3">콘텐츠 유형 데이터가 없습니다</p>';
   }
+}
+
+// ─── KPI Number Animation ───
+function animateNumber(el, target, duration) {
+  var start = 0;
+  var step = function(timestamp) {
+    if (!start) start = timestamp;
+    var progress = Math.min((timestamp - start) / duration, 1);
+    el.textContent = Math.floor(progress * target).toLocaleString('ko-KR');
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString('ko-KR');
+  };
+  requestAnimationFrame(step);
+}
+
+function animateKPIs() {
+  var kpiEls = document.querySelectorAll('#kpi-row .kpi-number');
+  kpiEls.forEach(function(el) {
+    var text = el.textContent.trim();
+    // Parse numbers: handle M/K suffixes and plain numbers
+    var num = 0;
+    if (text.indexOf('M') >= 0) {
+      num = parseFloat(text.replace(/,/g, '')) * 1000000;
+    } else if (text.indexOf('K') >= 0) {
+      num = parseFloat(text.replace(/,/g, '')) * 1000;
+    } else {
+      num = parseFloat(text.replace(/,/g, ''));
+    }
+    if (isNaN(num) || num === 0) return;
+    // Store original formatted text to restore at end
+    var originalText = text;
+    var fakeTarget = Math.round(num);
+    var startTs = 0;
+    var duration = 1000;
+    var stepFn = function(timestamp) {
+      if (!startTs) startTs = timestamp;
+      var progress = Math.min((timestamp - startTs) / duration, 1);
+      var current = Math.floor(progress * fakeTarget);
+      // Format like original
+      if (text.indexOf('M') >= 0) {
+        el.textContent = (current / 1000000).toFixed(1) + 'M';
+      } else if (text.indexOf('K') >= 0) {
+        el.textContent = (current / 1000).toFixed(1) + 'K';
+      } else if (text.indexOf('.') >= 0) {
+        el.textContent = (progress * parseFloat(text.replace(/,/g, ''))).toFixed(1);
+      } else {
+        el.textContent = current.toLocaleString('ko-KR');
+      }
+      if (progress < 1) requestAnimationFrame(stepFn);
+      else el.textContent = originalText;
+    };
+    requestAnimationFrame(stepFn);
+  });
+}
+
+// ─── Last Update Timestamp ───
+function showLastUpdate() {
+  if (!DATA || !DATA.logs || !DATA.logs.length) return;
+  // Find most recent log entry
+  var latest = DATA.logs.reduce(function(a, b) {
+    return new Date(a.started_at) > new Date(b.started_at) ? a : b;
+  });
+  if (latest && latest.started_at) {
+    var d = new Date(latest.started_at);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    var h = String(d.getHours()).padStart(2, '0');
+    var min = String(d.getMinutes()).padStart(2, '0');
+    var el = document.getElementById('last-update');
+    if (el) el.textContent = '마지막 업데이트: ' + y + '-' + m + '-' + day + ' ' + h + ':' + min;
+  }
+}
+
+// ─── CSV Export ───
+function exportCSV() {
+  var filteredChannels = getFilteredInfluencers();
+  var headers = ['이름','플랫폼','국가','구독자','콘텐츠','평균조회','참여율','Score','등급'];
+  var rows = filteredChannels.map(function(i) {
+    return [i.display_name, i.platform, i.country, i.followers, i.content_count, Math.round(i.avg_views), calcER(i).toFixed(2)+'%', i.pure_score, i.grade];
+  });
+  var csv = [headers].concat(rows).map(function(r) { return r.join(','); }).join('\n');
+  var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'influencers_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── Dark Mode Toggle ───
+function toggleDark() {
+  var html = document.documentElement;
+  var isDark = html.getAttribute('data-bs-theme') === 'dark';
+  html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  // Sidebar should always stay dark
+  var sidebar = document.querySelector('.navbar-vertical');
+  if (sidebar) sidebar.setAttribute('data-bs-theme', 'dark');
 }
 </script>
 </body>
