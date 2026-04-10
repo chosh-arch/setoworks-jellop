@@ -141,6 +141,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 /* Tabular nums in tables */
 .num { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.search-result-item:hover { background: #fff5f7; }
 .table th.sortable { cursor: pointer; user-select: none; }
 .table th.sortable:hover { background: rgba(0,0,0,.05); }
 
@@ -217,9 +218,10 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
         <span class="brand-red">S</span>ETOWORKS
       </h1>
       <div class="collapse navbar-collapse" id="sidebar-menu">
-        <!-- Global search -->
-        <div class="my-2 px-1">
-          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색..." aria-label="통합 검색" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;">
+        <!-- Global search with results dropdown -->
+        <div class="my-2 px-1" style="position:relative">
+          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색 (인플루언서/콘텐츠/카테고리)" aria-label="통합 검색" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" autocomplete="off">
+          <div id="global-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);max-height:400px;overflow-y:auto;z-index:1100;color:#1a1a2e;font-size:13px"></div>
         </div>
         <ul class="navbar-nav flex-column pt-2" aria-label="네비게이션">
           <li class="nav-item">
@@ -677,14 +679,117 @@ function escHtml(s) {
 
 // ─── Global Search (sidebar) ───
 function handleGlobalSearch(q) {
-  if (!DATA) return;
-  if (!q.trim()) return;
-  chFilters.search = q;
+  var resultsEl = document.getElementById('global-search-results');
+  if (!resultsEl) return;
+  if (!DATA || !q.trim()) {
+    resultsEl.style.display = 'none';
+    return;
+  }
+  var query = q.toLowerCase().trim();
+
+  // Search influencers
+  var infResults = DATA.influencers.filter(i => {
+    return (i.display_name||'').toLowerCase().includes(query) ||
+           (i.username||'').toLowerCase().includes(query) ||
+           (i.bio||'').toLowerCase().includes(query) ||
+           (CAT_KR[i.category]||i.category||'').toLowerCase().includes(query);
+  }).slice(0, 5);
+
+  // Search contents
+  var contentResults = (DATA.top_contents || []).filter(c => {
+    return (c.title||'').toLowerCase().includes(query);
+  }).slice(0, 5);
+
+  // Search categories
+  var catResults = Object.entries(CAT_KR).filter(([key, label]) => {
+    return label.toLowerCase().includes(query) || key.toLowerCase().includes(query);
+  }).map(([key, label]) => {
+    var count = DATA.influencers.filter(i => i.category === key).length;
+    return { key, label, count };
+  }).filter(c => c.count > 0).slice(0, 5);
+
+  var total = infResults.length + contentResults.length + catResults.length;
+
+  if (total === 0) {
+    resultsEl.innerHTML = '<div class="p-3 text-muted text-center">검색 결과가 없습니다</div>';
+    resultsEl.style.display = 'block';
+    return;
+  }
+
+  var html = '<div class="p-2 border-bottom small text-muted">총 ' + total + '건 결과</div>';
+
+  if (infResults.length) {
+    html += '<div class="px-2 pt-2 pb-1 small text-muted fw-bold">인플루언서 (' + infResults.length + ')</div>';
+    infResults.forEach(i => {
+      html += '<div class="px-3 py-2 search-result-item" style="cursor:pointer;border-bottom:1px solid #f1f5f9" onclick="globalSearchClickInfluencer(\'' + i.id + '\')">';
+      html += '<div class="fw-bold">' + escHtml(i.display_name) + ' <span class="badge bg-secondary-lt" style="font-size:9px">' + (i.country||'-') + '</span></div>';
+      html += '<div class="text-muted" style="font-size:11px">' + (CAT_KR[i.category]||i.category||'-') + ' · 구독자 ' + fmtFull(i.followers) + '</div>';
+      html += '</div>';
+    });
+  }
+
+  if (contentResults.length) {
+    html += '<div class="px-2 pt-2 pb-1 small text-muted fw-bold">콘텐츠 (' + contentResults.length + ')</div>';
+    contentResults.forEach(c => {
+      var inf = DATA.influencers.find(i => i.id === c.influencer_id);
+      var infName = inf ? inf.display_name : '-';
+      html += '<div class="px-3 py-2 search-result-item" style="cursor:pointer;border-bottom:1px solid #f1f5f9" onclick="globalSearchClickContent(' + c.influencer_id + ')">';
+      html += '<div style="font-size:12px">' + escHtml((c.title||'').substring(0, 60)) + '</div>';
+      html += '<div class="text-muted" style="font-size:11px">' + escHtml(infName) + ' · 조회수 ' + fmtFull(c.views) + '</div>';
+      html += '</div>';
+    });
+  }
+
+  if (catResults.length) {
+    html += '<div class="px-2 pt-2 pb-1 small text-muted fw-bold">카테고리 (' + catResults.length + ')</div>';
+    catResults.forEach(c => {
+      html += '<div class="px-3 py-2 search-result-item" style="cursor:pointer;border-bottom:1px solid #f1f5f9" onclick="globalSearchClickCategory(\'' + c.key + '\')">';
+      html += '<div class="fw-bold">' + c.label + '</div>';
+      html += '<div class="text-muted" style="font-size:11px">' + c.count + '개 채널</div>';
+      html += '</div>';
+    });
+  }
+
+  resultsEl.innerHTML = html;
+  resultsEl.style.display = 'block';
+}
+
+function globalSearchClickInfluencer(id) {
+  document.getElementById('global-search-results').style.display = 'none';
+  document.getElementById('sidebar-search').value = '';
+  resetChFilters();
   switchToView('channels');
-  expandedRow = null;
+  expandedRow = Number(id);
+  renderChannelTable();
+  setTimeout(() => {
+    var row = document.querySelector('.expand-row');
+    if (row) row.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 100);
+}
+
+function globalSearchClickContent(infId) {
+  globalSearchClickInfluencer(infId);
+}
+
+function globalSearchClickCategory(key) {
+  document.getElementById('global-search-results').style.display = 'none';
+  document.getElementById('sidebar-search').value = '';
+  resetChFilters();
+  chFilters.category = key;
+  switchToView('channels');
   renderChannelFilters();
   renderChannelTable();
 }
+
+// Close global search dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  var resultsEl = document.getElementById('global-search-results');
+  var searchEl = document.getElementById('sidebar-search');
+  if (!resultsEl || !searchEl) return;
+  if (!resultsEl.contains(e.target) && e.target !== searchEl) {
+    resultsEl.style.display = 'none';
+  }
+});
 
 // ─── Load data ───
 // Show loading spinner, hide views until loaded
@@ -1149,6 +1254,9 @@ function renderExpandContent(inf) {
   html += '<p class="text-muted small mt-1">* Sub-to-View &lt; 1.0 &rarr; 바이럴 성향 / &gt; 1.0 &rarr; 구독자 대비 조회수 부족</p>';
   html += '</div></div>';
 
+  // Setoworks 협업 영상 (위치: 콘텐츠 원장 위)
+  html += renderCollabSection(inf);
+
   // Content Ledger
   html += renderContentLedger(inf, contents, er);
 
@@ -1156,6 +1264,103 @@ function renderExpandContent(inf) {
   html += renderMemoSystem(inf);
 
   html += '</div>';
+  return html;
+}
+
+// ─── Collab videos ───
+function getCollabs(infId) {
+  try { return JSON.parse(localStorage.getItem('collabs_' + infId) || '[]'); } catch(e) { return []; }
+}
+function saveCollabs(infId, collabs) {
+  localStorage.setItem('collabs_' + infId, JSON.stringify(collabs));
+}
+function addCollab(infId, contentIdx) {
+  // Find the content from current ledger state
+  var inf = DATA.influencers.find(i => String(i.id) === String(infId));
+  if (!inf) return;
+  var contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id);
+  if (!contents.length) return;
+  var st = window._ledgerState && window._ledgerState[inf.id];
+  var filtered = contents;
+  if (st && st.typeFilter !== 'all') filtered = contents.filter(c => c.content_type === st.typeFilter);
+  filtered = filtered.slice();
+  if (st && st.sort === 'date') filtered.sort((a,b) => new Date(b.published_at||0) - new Date(a.published_at||0));
+  else if (st && st.sort === 'views') filtered.sort((a,b) => (b.views||0) - (a.views||0));
+  else if (st && st.sort === 'likes') filtered.sort((a,b) => (b.likes||0) - (a.likes||0));
+  var c = filtered[contentIdx];
+  if (!c) return;
+  var collabs = getCollabs(infId);
+  if (collabs.find(x => x.url === c.content_url)) return; // already added
+  collabs.unshift({
+    id: Date.now(),
+    url: c.content_url,
+    title: c.title || '제목 없음',
+    addedAt: new Date().toISOString(),
+    comments: []
+  });
+  saveCollabs(infId, collabs);
+  expandedRow = inf.id;
+  renderChannelTable();
+}
+function removeCollab(infId, collabId) {
+  if (!confirm('이 협업 영상을 제거하시겠습니까?')) return;
+  var collabs = getCollabs(infId).filter(c => c.id !== collabId);
+  saveCollabs(infId, collabs);
+  renderChannelTable();
+}
+function addCollabComment(infId, collabId) {
+  var ta = document.getElementById('collab-comment-input-' + collabId);
+  if (!ta || !ta.value.trim()) return;
+  var collabs = getCollabs(infId);
+  var col = collabs.find(c => c.id === collabId);
+  if (!col) return;
+  if (!col.comments) col.comments = [];
+  col.comments.push({ id: Date.now(), text: ta.value.trim(), createdAt: new Date().toISOString() });
+  saveCollabs(infId, collabs);
+  renderChannelTable();
+}
+function deleteCollabComment(infId, collabId, commentId) {
+  if (!confirm('이 코멘트를 삭제하시겠습니까?')) return;
+  var collabs = getCollabs(infId);
+  var col = collabs.find(c => c.id === collabId);
+  if (!col) return;
+  col.comments = (col.comments || []).filter(c => c.id !== commentId);
+  saveCollabs(infId, collabs);
+  renderChannelTable();
+}
+function renderCollabSection(inf) {
+  var collabs = getCollabs(inf.id);
+  var html = '<div class="card mt-3" style="border-left:4px solid var(--tblr-primary)"><div class="card-body">';
+  html += '<h4 class="mb-2"><span style="color:var(--tblr-primary)">🤝</span> 세토웍스 협업 영상 <span class="badge bg-primary-lt">' + collabs.length + '건</span></h4>';
+  html += '<p class="text-muted small mb-3">아래 콘텐츠 원장에서 "+ 등록"을 눌러 협업 영상으로 추가하세요. 각 영상에 코멘트를 남길 수 있습니다.</p>';
+  if (!collabs.length) {
+    html += '<div class="text-muted small text-center py-3 border rounded">아직 등록된 협업 영상이 없습니다</div>';
+  } else {
+    collabs.forEach(col => {
+      html += '<div class="border rounded p-3 mb-2" style="background:var(--tblr-bg-surface-tertiary,#f8f9fa)">';
+      html += '<div class="d-flex justify-content-between align-items-start mb-2">';
+      html += '<div style="flex:1;min-width:0"><a href="' + (col.url||'#') + '" target="_blank" class="text-primary text-decoration-none fw-bold" style="font-size:13px">' + escHtml(col.title) + '</a>';
+      html += '<div class="text-muted small mt-1">등록일: ' + new Date(col.addedAt).toLocaleDateString('ko-KR') + ' · 코멘트 ' + (col.comments?col.comments.length:0) + '건</div></div>';
+      html += '<button class="btn btn-sm btn-ghost-danger" onclick="removeCollab(\'' + inf.id + '\',' + col.id + ')" aria-label="삭제">×</button>';
+      html += '</div>';
+      // Comments
+      if (col.comments && col.comments.length) {
+        html += '<div class="mb-2">';
+        col.comments.forEach(cm => {
+          html += '<div class="d-flex justify-content-between align-items-start py-1 px-2 mb-1 rounded" style="background:#fff;border:1px solid #e2e8f0;font-size:12px">';
+          html += '<div style="flex:1"><div>' + escHtml(cm.text) + '</div><div class="text-muted" style="font-size:10px">' + new Date(cm.createdAt).toLocaleString('ko-KR') + '</div></div>';
+          html += '<button class="btn btn-sm btn-ghost-danger" style="padding:0 6px" onclick="deleteCollabComment(\'' + inf.id + '\',' + col.id + ',' + cm.id + ')">×</button>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      // Add comment form
+      html += '<div class="d-flex gap-2"><input type="text" id="collab-comment-input-' + col.id + '" class="form-control form-control-sm" placeholder="코멘트 입력..." onkeydown="if(event.key===\'Enter\'){addCollabComment(\'' + inf.id + '\',' + col.id + ')}">';
+      html += '<button class="btn btn-sm btn-primary" onclick="addCollabComment(\'' + inf.id + '\',' + col.id + ')">+ 코멘트</button></div>';
+      html += '</div>';
+    });
+  }
+  html += '</div></div>';
   return html;
 }
 
@@ -1208,30 +1413,40 @@ function renderContentLedger(inf, contents, avgER) {
   html += '</div>';
 
   html += '<div class="table-responsive" style="max-height:400px;overflow:auto">';
-  html += '<table class="table table-vcenter table-hover" style="font-size:13px;min-width:700px">';
+  html += '<table class="table table-vcenter table-hover" style="font-size:13px;min-width:760px">';
   html += '<thead><tr>';
   html += '<th style="width:40px;text-align:center">#</th>';
-  html += '<th style="min-width:250px">제목</th>';
+  html += '<th style="min-width:230px">제목</th>';
   html += '<th style="width:60px;text-align:center">유형</th>';
   html += '<th style="width:80px;text-align:right">조회수</th>';
   html += '<th style="width:70px;text-align:right">좋아요</th>';
   html += '<th style="width:60px;text-align:right">댓글</th>';
   html += '<th style="width:70px;text-align:right">참여율</th>';
   html += '<th style="width:90px;text-align:right">날짜</th>';
+  html += '<th style="width:60px;text-align:center">협업</th>';
   html += '</tr></thead><tbody>';
+  var collabUrls = (getCollabs(inf.id) || []).map(c => c.url);
   displayItems.forEach((c, i) => {
     var cEr = c.views > 0 ? ((c.likes + c.comments) / c.views * 100).toFixed(2) : '0';
     var avgERVal = parseFloat(avgER);
     var erCls = parseFloat(cEr) > avgERVal * 1.5 ? 'text-success fw-bold' : parseFloat(cEr) < avgERVal * 0.5 ? 'text-danger' : '';
+    var isCollab = collabUrls.indexOf(c.content_url) >= 0;
     html += '<tr>';
     html += '<td style="text-align:center" class="text-muted">' + (i + 1) + '</td>';
-    html += '<td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="' + (c.content_url || '#') + '" target="_blank" class="text-primary text-decoration-none">' + (c.title ? escHtml(c.title.substring(0, 50)) : '-') + (c.title && c.title.length > 50 ? '...' : '') + '</a></td>';
+    html += '<td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="' + (c.content_url || '#') + '" target="_blank" class="text-primary text-decoration-none">' + (c.title ? escHtml(c.title.substring(0, 50)) : '-') + (c.title && c.title.length > 50 ? '...' : '') + '</a></td>';
     html += '<td style="text-align:center"><span class="badge bg-secondary-lt">' + (c.content_type || '-') + '</span></td>';
     html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.views) + '</td>';
     html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.likes) + '</td>';
     html += '<td style="text-align:right;font-variant-numeric:tabular-nums">' + fmtFull(c.comments) + '</td>';
     html += '<td style="text-align:right" class="' + erCls + '">' + cEr + '%</td>';
     html += '<td style="text-align:right;font-size:12px" class="text-muted">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td>';
+    html += '<td style="text-align:center">';
+    if (isCollab) {
+      html += '<span class="badge bg-success" title="협업 등록됨">✓</span>';
+    } else {
+      html += '<button class="btn btn-sm btn-outline-primary" style="padding:2px 8px;font-size:11px" onclick="addCollab(\'' + inf.id + '\',' + (i) + ')">+ 등록</button>';
+    }
+    html += '</td>';
     html += '</tr>';
   });
   html += '</tbody></table></div>';
