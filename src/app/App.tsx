@@ -63,10 +63,21 @@ function expandQuery(q: string): string[] {
   return [...new Set(expanded)];
 }
 
+// Short English words need word-boundary matching to avoid false positives (fan≠fantasy)
+const SHORT_WORDS = new Set(['fan','pen','art','bag','cup','led','pet','diy','box','kit','mat','pad']);
+
+function wordMatch(field: string, query: string): boolean {
+  if (query.length <= 4 && /^[a-z]+$/.test(query) && SHORT_WORDS.has(query)) {
+    const regex = new RegExp(`\\b${query}\\b`, 'i');
+    return regex.test(field);
+  }
+  return field.includes(query);
+}
+
 function matchProduct(p: Product, q: string): boolean {
   const queries = expandQuery(q);
   const fields = [p.name, p.description, ...p.tags, p.category || '', p.platform].map(f => f.toLowerCase());
-  return queries.some(query => fields.some(field => field.includes(query)));
+  return queries.some(query => fields.some(field => wordMatch(field, query)));
 }
 
 const VALID_PLATFORMS: Platform[] = ['Wadiz', 'Kickstarter', 'Indiegogo', 'Makuake'];
@@ -95,13 +106,13 @@ function normalizeCrawledProduct(raw: any): Product {
 function matchCampaign(c: Campaign, q: string): boolean {
   const queries = expandQuery(q);
   const fields = [c.name, c.description, ...c.tags].map(f => f.toLowerCase());
-  return queries.some(query => fields.some(field => field.includes(query)));
+  return queries.some(query => fields.some(field => wordMatch(field, query)));
 }
 
 function matchInfluencer(inf: Influencer, q: string): boolean {
   const queries = expandQuery(q);
   const fields = [inf.name, inf.category, inf.platform, ...(inf.campaigns?.map(c => c.name) || [])].map(f => f.toLowerCase());
-  return queries.some(query => fields.some(field => field.includes(query)));
+  return queries.some(query => fields.some(field => wordMatch(field, query)));
 }
 
 function formatKoreanAmount(num: number): string {
@@ -143,6 +154,9 @@ export default function App() {
   const [bookmarkedProducts, setBookmarkedProducts] = useState<Set<string>>(new Set());
   const [bookmarkedCampaigns, setBookmarkedCampaigns] = useState<Set<string>>(new Set());
   const [bookmarkedInfluencers, setBookmarkedInfluencers] = useState<Set<string>>(new Set());
+
+  // Result filters
+  const [platformFilter, setPlatformFilter] = useState<string>('all');
 
   // Modals
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -310,8 +324,30 @@ export default function App() {
         {appState === 'results' && (
           <div className="space-y-10">
 
+            {/* ========== Platform Filter Bar ========== */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-semibold text-gray-500 mr-1">필터:</span>
+              {['all', 'Kickstarter', 'Wadiz', 'Indiegogo', 'Makuake'].map(plat => (
+                <button
+                  key={plat}
+                  onClick={() => setPlatformFilter(plat)}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    platformFilter === plat
+                      ? 'bg-[#ff003b] text-white'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:border-[#ff003b]'
+                  }`}
+                >
+                  {plat === 'all' ? '전체' : plat}
+                </button>
+              ))}
+            </div>
+
             {/* ========== Section 1: Market - Funded Products ========== */}
-            {searchedProducts.length > 0 && (
+            {(() => {
+              const filtered = platformFilter === 'all'
+                ? searchedProducts
+                : searchedProducts.filter(p => p.platform === platformFilter);
+              return filtered.length > 0 ? (
               <section>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-1 h-6 bg-[#ff003b] rounded-full" />
@@ -320,10 +356,9 @@ export default function App() {
                   </h2>
                   {searchedCrawled.length > 0 && (
                     <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-500 border border-red-200">
-                      실시간 데이터
+                      실시간 데이터 {filtered.length}건
                     </span>
                   )}
-                  <span className="text-sm text-gray-400">{t.section1Title}</span>
                 </div>
                 {searchedCrawled.length > 0 && (
                   <div className="flex items-center gap-2 mb-5 text-xs text-gray-500">
@@ -337,7 +372,7 @@ export default function App() {
                   </div>
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {searchedProducts.slice(0, 8).map((product) => (
+                  {filtered.slice(0, 8).map((product) => (
                     <ProductCard
                       key={product.id}
                       product={product}
@@ -350,7 +385,7 @@ export default function App() {
                   ))}
                 </div>
               </section>
-            )}
+            ) : null; })()}
 
             {/* ========== Section 2: Setoworks Portfolio ========== */}
             {searchedCampaigns.length > 0 && (
