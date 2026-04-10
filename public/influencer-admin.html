@@ -315,6 +315,15 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
               </div>
             </div>
           </div>
+          <!-- Feature 3: 주목할 채널 -->
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">✨ 주목할 채널 <span class="text-muted small fw-normal ms-2">(자동 추천)</span></h3></div>
+                <div class="card-body" id="noteworthy-wrap"></div>
+              </div>
+            </div>
+          </div>
           <div class="row mt-3">
             <div class="col-12">
               <div class="card">
@@ -440,6 +449,15 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
               </div>
             </div>
           </div>
+          <!-- Feature 5: 그룹 효과 시뮬레이션 -->
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card" style="border-top:3px solid #6d28d9">
+                <div class="card-header"><h3 class="card-title">📊 그룹 효과 시뮬레이션 <span class="text-muted small fw-normal ms-2">(합산 예상 효과)</span></h3></div>
+                <div class="card-body" id="group-simulation-wrap"></div>
+              </div>
+            </div>
+          </div>
           <div class="row mt-3">
             <div class="col-12">
               <div class="card">
@@ -453,6 +471,55 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
         </div>
       </div>
     </section>
+  </div>
+</div>
+
+<!-- Feature 2: Auto Match Modal -->
+<div class="modal modal-blur fade" id="auto-match-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">🤖 자동 매칭 추천</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label text-muted small">카테고리</label>
+            <select class="form-select form-select-sm" id="am-category"><option value="all">전체 카테고리</option></select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small">국가</label>
+            <select class="form-select form-select-sm" id="am-country">
+              <option value="all">전체</option>
+              <option value="JP">일본 🇯🇵</option>
+              <option value="TW">대만 🇹🇼</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small">예산</label>
+            <select class="form-select form-select-sm" id="am-budget">
+              <option value="free">무료 시딩 (나노/마이크로 4인 이하)</option>
+              <option value="small">소규모 (~50만원, 미드)</option>
+              <option value="mid">중간 (~500만원, 매크로)</option>
+              <option value="large">대형 (1000만+, 메가)</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small">우선순위</label>
+            <select class="form-select form-select-sm" id="am-priority">
+              <option value="engagement">참여율 우선</option>
+              <option value="scale">규모 우선</option>
+              <option value="balanced" selected>균형</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-3 text-end">
+          <button type="button" class="btn btn-primary" onclick="runAutoMatch()">추천 받기</button>
+        </div>
+        <div id="am-results" class="mt-3"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -923,6 +990,9 @@ function renderDashboard() {
     options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true } } } }
   });
 
+  // Feature 3: Noteworthy channels
+  renderNoteworthyChannels();
+
   // Log table
   var logs = DATA.logs || [];
   var logHtml = '<table class="table table-vcenter table-hover card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th><th></th></tr></thead><tbody>';
@@ -936,6 +1006,74 @@ function renderDashboard() {
   }
   logHtml += '</tbody></table>';
   document.getElementById('log-table-wrap').innerHTML = logHtml;
+}
+
+// ─── Feature 3: Noteworthy Channels (Dashboard) ───
+function renderNoteworthyChannels() {
+  var wrap = document.getElementById('noteworthy-wrap');
+  if (!wrap || !DATA) return;
+  var infs = DATA.influencers;
+
+  // 🚀 잠재력 높은 채널 (Pure Score 60+, 콘텐츠 10+, 구독자 1만~50만)
+  var potential = infs.filter(function(i) {
+    return (i.pure_score || 0) >= 60 && (i.content_count || 0) >= 10 && (i.followers || 0) >= 10000 && (i.followers || 0) < 500000;
+  }).sort(function(a, b) { return (b.pure_score || 0) - (a.pure_score || 0); }).slice(0, 3);
+
+  // ⭐ 검증된 우수 채널 (Pure Score 75+, 구독자 50만+)
+  var verified = infs.filter(function(i) {
+    return (i.pure_score || 0) >= 75 && (i.followers || 0) >= 500000;
+  }).sort(function(a, b) { return (b.pure_score || 0) - (a.pure_score || 0); }).slice(0, 3);
+
+  // ⚠ 주의 필요 채널 (ER < 1% AND 구독자 50만+)
+  var warn = infs.filter(function(i) {
+    return calcER(i) > 0 && calcER(i) < 1 && (i.followers || 0) >= 500000;
+  }).sort(function(a, b) { return (b.followers || 0) - (a.followers || 0); }).slice(0, 3);
+
+  function renderCategory(title, subtitle, color, items, metricFn) {
+    var html = '<div class="col-md-4">';
+    html += '<div class="p-3 rounded" style="background:' + color.bg + ';border-left:4px solid ' + color.border + ';height:100%">';
+    html += '<div class="fw-bold mb-1" style="color:' + color.border + ';font-size:14px">' + title + '</div>';
+    html += '<div class="text-muted small mb-2">' + subtitle + '</div>';
+    if (!items.length) {
+      html += '<div class="text-muted small py-3 text-center">해당 채널 없음</div>';
+    } else {
+      items.forEach(function(inf, idx) {
+        var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+        html += '<div class="d-flex align-items-center gap-2 py-2 border-top" style="cursor:pointer" onclick="noteworthyClick(\'' + inf.id + '\')">';
+        html += '<span class="text-muted small" style="width:16px">' + (idx + 1) + '</span>';
+        html += '<span class="avatar avatar-xs" style="background-image:url(' + escHtml(avatarSrc) + ')"></span>';
+        html += '<div style="flex:1;min-width:0;overflow:hidden"><div class="fw-bold" style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(inf.display_name) + '</div>';
+        html += '<div class="text-muted" style="font-size:11px">' + metricFn(inf) + '</div></div>';
+        html += '</div>';
+      });
+    }
+    html += '</div></div>';
+    return html;
+  }
+
+  var html = '<div class="row g-3">';
+  html += renderCategory('🚀 잠재력 높은 채널', '작은 채널이지만 성과 좋음', { bg: 'rgba(16,185,129,.06)', border: '#10b981' }, potential, function(i) {
+    return 'Score ' + (i.pure_score || 0).toFixed(1) + ' · 구독자 ' + fmt(i.followers) + ' · 콘텐츠 ' + i.content_count;
+  });
+  html += renderCategory('⭐ 검증된 우수 채널', '큰 채널 중 최고 성과', { bg: 'rgba(245,158,11,.06)', border: '#f59e0b' }, verified, function(i) {
+    return 'Score ' + (i.pure_score || 0).toFixed(1) + ' · 구독자 ' + fmt(i.followers);
+  });
+  html += renderCategory('⚠ 주의 필요 채널', '규모 대비 참여율 저조', { bg: 'rgba(239,68,68,.06)', border: '#ef4444' }, warn, function(i) {
+    return '구독자 ' + fmt(i.followers) + ' · ER ' + calcER(i).toFixed(2) + '%';
+  });
+  html += '</div>';
+  wrap.innerHTML = html;
+}
+
+function noteworthyClick(id) {
+  resetChFilters();
+  switchToView('channels');
+  expandedRow = Number(id);
+  renderChannelTable();
+  setTimeout(function() {
+    var row = document.querySelector('.expand-row');
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
 }
 
 // =============================================
@@ -1013,9 +1151,10 @@ function renderChannelFilters() {
   // Search (will be wired with composition-safe events after render)
   html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="ch-search-input" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '"></div>';
 
-  // Reset all filters button + CSV export
+  // Reset all filters button + CSV export + Auto Match (Feature 2)
   html += '<div class="d-flex gap-2"><button class="btn btn-sm btn-outline-danger" onclick="resetChFilters()">필터 초기화</button>';
-  html += '<button class="btn btn-sm btn-outline-primary" onclick="exportCSV()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><polyline points="7 11 12 16 17 11"/><line x1="12" y1="4" x2="12" y2="16"/></svg> CSV 내보내기</button></div>';
+  html += '<button class="btn btn-sm btn-outline-primary" onclick="exportCSV()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><polyline points="7 11 12 16 17 11"/><line x1="12" y1="4" x2="12" y2="16"/></svg> CSV 내보내기</button>';
+  html += '<button class="btn btn-sm btn-primary" onclick="openAutoMatchModal()">🤖 자동 매칭</button></div>';
 
   html += '</div>';
 
@@ -1172,6 +1311,164 @@ function renderChannelTable() {
   document.getElementById('channel-table-wrap').innerHTML = html;
 }
 
+// ─── Auto Insights (Feature 1) ───
+// Rule-based strengths/weaknesses/recommendation generation
+function generateAutoInsights(inf) {
+  var er = calcER(inf);
+  var strengths = [];
+  var weaknesses = [];
+  var recommendations = [];
+
+  // Strengths
+  if (er >= 5) strengths.push('높은 참여율 (' + er.toFixed(1) + '%)');
+  if ((inf.content_count || 0) >= 20) strengths.push('꾸준한 업로드 (' + inf.content_count + '건)');
+  if ((inf.avg_views || 0) >= 100000) strengths.push('높은 도달력 (평균 ' + fmt(inf.avg_views) + '회)');
+  if ((inf.pure_score || 0) >= 70) strengths.push('검증된 우수 채널 (Score ' + inf.pure_score.toFixed(1) + ')');
+  if ((inf.followers || 0) >= 1000000) strengths.push('대규모 인지도 (' + fmt(inf.followers) + ')');
+  var viewsSubRatio = (inf.followers > 0 && inf.avg_views > 0) ? (inf.avg_views / inf.followers) : 0;
+  if (viewsSubRatio >= 10) strengths.push('바이럴 성향 (구독자 대비 ' + viewsSubRatio.toFixed(1) + '배 조회)');
+
+  // Weaknesses
+  if (er > 0 && er < 1) weaknesses.push('참여율 저조 (' + er.toFixed(2) + '%)');
+  if ((inf.content_count || 0) > 0 && inf.content_count < 5) weaknesses.push('데이터 부족 (' + inf.content_count + '건)');
+  if ((inf.avg_views || 0) > 0 && inf.avg_views < 1000) weaknesses.push('낮은 도달력 (평균 ' + fmt(inf.avg_views) + '회)');
+  if (inf.pure_score != null && inf.pure_score < 40) weaknesses.push('전반 성과 부족 (Score ' + inf.pure_score.toFixed(1) + ')');
+  if (viewsSubRatio > 0 && viewsSubRatio < 0.3) weaknesses.push('구독자 대비 조회수 부족 (' + viewsSubRatio.toFixed(2) + '배)');
+
+  // Recommendations (category + tier patterns)
+  var tier = inf.tier || 'unset';
+  var cat = inf.category || '';
+  if (tier === 'nano' && cat === 'lifestyle') recommendations.push('소규모 시딩 캠페인 적합');
+  if (tier === 'nano' && cat === 'beauty') recommendations.push('제품 체험 시딩 적합');
+  if (tier === 'nano' && cat === 'food') recommendations.push('맛집/신제품 시딩 적합');
+  if (tier === 'micro' && cat === 'tech_unboxing') recommendations.push('리뷰형 콘텐츠 추천');
+  if (tier === 'micro' && cat === 'fashion') recommendations.push('룩북/스타일링 협업 추천');
+  if (tier === 'micro' && cat === 'fitness') recommendations.push('운동 챌린지 캠페인 추천');
+  if (tier === 'mid' && cat === 'camping_outdoor') recommendations.push('아웃도어 체험형 콘텐츠 적합');
+  if (tier === 'mid' && cat === 'motorcycle') recommendations.push('제품 장기 사용기 추천');
+  if (tier === 'macro' && cat === 'beauty') recommendations.push('광고성 리뷰/앰버서더 협업 추천');
+  if (tier === 'macro' && cat === 'tech_unboxing') recommendations.push('신제품 런칭 협업 추천');
+  if (tier === 'mega' && cat === 'fashion') recommendations.push('브랜드 콜라보 적합');
+  if (tier === 'mega' && cat === 'lifestyle') recommendations.push('대형 브랜드 캠페인 적합');
+
+  // Fallback universal rules
+  if (!recommendations.length) {
+    if (tier === 'nano' || tier === 'micro') recommendations.push('무료/저비용 시딩 캠페인 적합');
+    else if (tier === 'mid') recommendations.push('중간 규모 유료 협업 적합');
+    else if (tier === 'macro' || tier === 'mega') recommendations.push('대형 브랜드 협업 추천');
+    else recommendations.push('추가 데이터 수집 후 재평가 권장');
+  }
+  if (er >= 5 && recommendations.indexOf('참여형 캠페인에 특히 유리') < 0) recommendations.push('참여형 캠페인에 특히 유리');
+
+  return { strengths: strengths, weaknesses: weaknesses, recommendations: recommendations };
+}
+
+function renderAutoInsightCard(inf) {
+  var ins = generateAutoInsights(inf);
+  var html = '<div class="card mt-3" style="border-left:4px solid #10b981"><div class="card-body">';
+  html += '<h4 class="mb-3"><span style="color:#10b981">🎯</span> 자동 인사이트 <span class="text-muted small fw-normal">(규칙 기반 자동 분석)</span></h4>';
+  html += '<div class="row g-3">';
+
+  // Strengths
+  html += '<div class="col-md-4">';
+  html += '<div class="p-2 rounded" style="background:rgba(16,185,129,.06);height:100%">';
+  html += '<div class="fw-bold mb-2" style="color:#059669;font-size:13px">✔ 강점 (' + ins.strengths.length + ')</div>';
+  if (ins.strengths.length) {
+    ins.strengths.forEach(function(s) {
+      html += '<div class="mb-1"><span class="badge" style="background:rgba(16,185,129,.15);color:#047857;font-weight:500;white-space:normal;text-align:left">' + escHtml(s) + '</span></div>';
+    });
+  } else {
+    html += '<div class="text-muted small">감지된 강점 없음</div>';
+  }
+  html += '</div></div>';
+
+  // Weaknesses
+  html += '<div class="col-md-4">';
+  html += '<div class="p-2 rounded" style="background:rgba(239,68,68,.06);height:100%">';
+  html += '<div class="fw-bold mb-2" style="color:#dc2626;font-size:13px">✖ 약점 (' + ins.weaknesses.length + ')</div>';
+  if (ins.weaknesses.length) {
+    ins.weaknesses.forEach(function(s) {
+      html += '<div class="mb-1"><span class="badge" style="background:rgba(239,68,68,.15);color:#b91c1c;font-weight:500;white-space:normal;text-align:left">' + escHtml(s) + '</span></div>';
+    });
+  } else {
+    html += '<div class="text-muted small">감지된 약점 없음</div>';
+  }
+  html += '</div></div>';
+
+  // Recommendations
+  html += '<div class="col-md-4">';
+  html += '<div class="p-2 rounded" style="background:rgba(59,130,246,.06);height:100%">';
+  html += '<div class="fw-bold mb-2" style="color:#2563eb;font-size:13px">★ 추천 캠페인 (' + ins.recommendations.length + ')</div>';
+  ins.recommendations.forEach(function(s) {
+    html += '<div class="mb-1"><span class="badge" style="background:rgba(59,130,246,.15);color:#1d4ed8;font-weight:500;white-space:normal;text-align:left">' + escHtml(s) + '</span></div>';
+  });
+  html += '</div></div>';
+
+  html += '</div></div></div>';
+  return html;
+}
+
+// ─── Pure Score breakdown (Feature 4) ───
+// Reconstructs a per-component breakdown using same formulas as DB calculation.
+function calcPureScoreBreakdown(inf) {
+  // Upload frequency (0~30): up to 30 pts, saturates at 25 videos
+  var cc = inf.content_count || 0;
+  var uploadPts = Math.min(30, Math.round((cc / 25) * 30));
+
+  // View ratio — avg_views relative to followers (0~25): saturates at ratio 1.0
+  var ratio = (inf.followers > 0 && inf.avg_views > 0) ? (inf.avg_views / inf.followers) : 0;
+  var ratioPts = Math.min(25, Math.round(Math.min(ratio, 1) * 25));
+
+  // Engagement (0~20): saturates at ER 5%
+  var er = calcER(inf);
+  var erPts = Math.min(20, Math.round((er / 5) * 20));
+
+  // Consistency (0~15): use likes-to-views stability; proxy = low variance assumed
+  // Rule-based proxy: if content_count >=10 give 12, >=5 give 8, else 4
+  var consistPts = cc >= 20 ? 15 : cc >= 10 ? 12 : cc >= 5 ? 8 : 4;
+
+  // Growth (0~10): saturates at avg_views 200K
+  var growthPts = Math.min(10, Math.round(((inf.avg_views || 0) / 200000) * 10));
+
+  var total = uploadPts + ratioPts + erPts + consistPts + growthPts;
+  // If DB already has a pure_score, use it as the total (components are diagnostic breakdown)
+  var reportedTotal = inf.pure_score != null ? inf.pure_score : total;
+
+  return {
+    upload: uploadPts, uploadMax: 30, uploadDetail: '콘텐츠 ' + cc + '개',
+    ratio: ratioPts, ratioMax: 25, ratioDetail: '구독자 대비 ' + ratio.toFixed(2),
+    engagement: erPts, engagementMax: 20, engagementDetail: 'ER ' + er.toFixed(2) + '%',
+    consistency: consistPts, consistencyMax: 15, consistencyDetail: cc >= 10 ? '안정적' : '편차 있음',
+    growth: growthPts, growthMax: 10, growthDetail: '평균 조회수 ' + fmt(inf.avg_views || 0),
+    total: total, reportedTotal: reportedTotal
+  };
+}
+
+function renderScoreBreakdownTooltip(inf) {
+  var b = calcPureScoreBreakdown(inf);
+  var html = '<div style="text-align:left;white-space:normal;min-width:240px">';
+  html += '<div class="fw-bold mb-2" style="font-size:12px">Pure Score 분석</div>';
+  html += '<div style="border-top:1px solid rgba(255,255,255,.2);margin:4px 0"></div>';
+  var rows = [
+    ['업로드 빈도', b.upload, b.uploadMax, b.uploadDetail],
+    ['조회 비율', b.ratio, b.ratioMax, b.ratioDetail],
+    ['참여율', b.engagement, b.engagementMax, b.engagementDetail],
+    ['일관성', b.consistency, b.consistencyMax, b.consistencyDetail],
+    ['성장 추세', b.growth, b.growthMax, b.growthDetail]
+  ];
+  rows.forEach(function(r) {
+    html += '<div class="d-flex justify-content-between" style="font-size:11px;padding:2px 0">';
+    html += '<span>' + r[0] + ':</span><span><strong>' + r[1] + '/' + r[2] + '</strong> <span style="opacity:.7">(' + r[3] + ')</span></span>';
+    html += '</div>';
+  });
+  html += '<div style="border-top:1px solid rgba(255,255,255,.2);margin:4px 0"></div>';
+  html += '<div class="d-flex justify-content-between fw-bold" style="font-size:12px">';
+  html += '<span>총점:</span><span>' + (inf.pure_score != null ? inf.pure_score.toFixed(1) : b.total) + '/100</span>';
+  html += '</div>';
+  html += '</div>';
+  return html;
+}
+
 // ─── Expand content ───
 function renderExpandContent(inf) {
   var contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id);
@@ -1184,8 +1481,11 @@ function renderExpandContent(inf) {
 
   var html = '<div class="expand-content" onclick="event.stopPropagation()">';
 
+  // Feature 1: Auto Insights card (above Performance Statement)
+  html += renderAutoInsightCard(inf);
+
   // Row 1: Profile + Pure Score + Performance
-  html += '<div class="row g-3">';
+  html += '<div class="row g-3 mt-0">';
 
   // Profile section
   html += '<div class="col-md-6">';
@@ -1207,13 +1507,18 @@ function renderExpandContent(inf) {
 
   // Pure Score visual
   html += '<div class="mt-3 pt-3 border-top">';
-  html += '<h4 class="mb-2">Pure Score</h4>';
+  html += '<h4 class="mb-2">Pure Score <span class="text-muted small fw-normal">(자동 진단)</span></h4>';
   html += '<div class="d-flex align-items-center gap-3 mb-2">';
   html += '<div class="score-tooltip">';
   html += '<span class="pure-score-number" style="color:' + scoreColor(inf.pure_score||0) + '">' + (inf.pure_score != null ? inf.pure_score.toFixed(1) : '-') + '</span>';
-  html += '<div class="tooltip-content">업로드빈도 + 조회비율 + 참여율 + 일관성 + 성장<br>총합 = Pure Score (0~100)</div>';
+  html += '<div class="tooltip-content" style="white-space:normal">' + renderScoreBreakdownTooltip(inf) + '</div>';
   html += '</div>';
   html += gradeBadge(inf.grade);
+  // Feature 4: "?" help button with breakdown tooltip
+  html += '<div class="score-tooltip" style="display:inline-block">';
+  html += '<button type="button" class="btn btn-sm btn-outline-secondary" style="width:28px;height:28px;padding:0;border-radius:50%;font-weight:700" aria-label="Pure Score 상세" title="Pure Score 분석">?</button>';
+  html += '<div class="tooltip-content" style="white-space:normal;min-width:260px">' + renderScoreBreakdownTooltip(inf) + '</div>';
+  html += '</div>';
   html += '</div>';
   html += scoreBarHtml(inf.pure_score, 'lg');
   html += '</div>';
@@ -1886,6 +2191,8 @@ function renderCompareCharts() {
     });
     var tb = document.getElementById('compare-table');
     if (tb) tb.innerHTML = '<p class="text-muted text-center py-4">비교할 인플루언서를 선택하세요</p>';
+    var gs = document.getElementById('group-simulation-wrap');
+    if (gs) gs.innerHTML = '<p class="text-muted text-center py-3">비교할 인플루언서를 선택하세요</p>';
     return;
   }
 
@@ -2006,6 +2313,9 @@ function renderCompareCharts() {
   tHtml += '</tbody></table>';
   document.getElementById('compare-table-wrap').innerHTML = tHtml;
 
+  // Feature 5: Group Simulation
+  renderGroupSimulation(sel);
+
   // Content type breakdown — selected influencers only
   var selIds = sel.map(s => s.id);
   var allContents = (DATA.top_contents || []).filter(c => selIds.indexOf(c.influencer_id) >= 0);
@@ -2034,6 +2344,87 @@ function renderCompareCharts() {
   } else {
     document.getElementById('chart-content-type').parentElement.innerHTML = '<p class="text-muted small p-3">콘텐츠 유형 데이터가 없습니다</p>';
   }
+}
+
+// ─── Feature 5: Group Effect Simulation ───
+function tierCost(tier) {
+  if (tier === 'nano') return 0;
+  if (tier === 'micro') return 500000;
+  if (tier === 'mid') return 3000000;
+  if (tier === 'macro') return 10000000;
+  if (tier === 'mega') return 20000000;
+  return 0;
+}
+
+function renderGroupSimulation(sel) {
+  var wrap = document.getElementById('group-simulation-wrap');
+  if (!wrap) return;
+  if (!sel || !sel.length) {
+    wrap.innerHTML = '<p class="text-muted text-center py-3">비교할 인플루언서를 선택하세요</p>';
+    return;
+  }
+
+  var totalReach = sel.reduce(function(s, i) { return s + (i.followers || 0); }, 0);
+  var totalEngagement = sel.reduce(function(s, i) {
+    return s + Math.round((i.avg_likes || 0) + (i.avg_comments || 0));
+  }, 0);
+  var erVals = sel.filter(function(i) { return i.avg_views > 0; }).map(calcER);
+  var avgER = erVals.length ? (erVals.reduce(function(s, v) { return s + v; }, 0) / erVals.length) : 0;
+
+  var estClicks = Math.round(totalReach * 0.03);
+  var estConversions = Math.round(estClicks * 0.05);
+  var totalCost = sel.reduce(function(s, i) { return s + tierCost(i.tier); }, 0);
+
+  // ROI grade: based on reach / cost ratio
+  // cost=0 → S (free seeding optimal)
+  // reach/cost > 500 → S; >200 → A; >50 → B; else C
+  var grade = 'C';
+  var stars = '⭐⭐';
+  if (totalCost === 0) { grade = 'S'; stars = '⭐⭐⭐⭐⭐'; }
+  else {
+    var ratio = totalReach / totalCost;
+    if (ratio > 500) { grade = 'S'; stars = '⭐⭐⭐⭐⭐'; }
+    else if (ratio > 200) { grade = 'A'; stars = '⭐⭐⭐⭐'; }
+    else if (ratio > 50) { grade = 'B'; stars = '⭐⭐⭐'; }
+    else { grade = 'C'; stars = '⭐⭐'; }
+  }
+
+  // Recommendation text
+  var allNano = sel.every(function(i) { return i.tier === 'nano'; });
+  var allNanoMicro = sel.every(function(i) { return i.tier === 'nano' || i.tier === 'micro'; });
+  var rec = '';
+  if (allNano) rec = '이 그룹은 무료 시딩 캠페인에 최적';
+  else if (allNanoMicro) rec = '이 그룹은 저비용 시딩/체험 캠페인에 최적';
+  else if (grade === 'S' || grade === 'A') rec = '이 그룹은 효율적인 유료 협업 캠페인에 적합';
+  else if (grade === 'B') rec = '이 그룹은 중간 규모 캠페인에 적합 — 목표 명확화 필요';
+  else rec = '이 그룹은 비용 대비 효율 낮음 — 구성 재검토 권장';
+
+  var costText = totalCost === 0 ? '무료 (전부 나노)' : fmtFull(totalCost) + '원';
+
+  var html = '<div class="row g-3">';
+  var metrics = [
+    { label: '선택 인원', value: sel.length + '명', color: '#6d28d9' },
+    { label: '총 예상 도달', value: fmtFull(totalReach), color: '#2563eb' },
+    { label: '총 예상 참여', value: fmtFull(totalEngagement), color: '#059669' },
+    { label: '평균 ER', value: avgER.toFixed(2) + '%', color: '#dc2626' },
+    { label: '예상 클릭 (CTR 3%)', value: fmtFull(estClicks), color: '#f59e0b' },
+    { label: '예상 전환 (CVR 5%)', value: fmtFull(estConversions), color: '#ef4444' },
+    { label: '예상 비용', value: costText, color: '#0ea5e9' },
+    { label: 'ROI 등급', value: stars + ' (' + grade + ')', color: '#6d28d9' }
+  ];
+  metrics.forEach(function(m) {
+    html += '<div class="col-6 col-md-3">';
+    html += '<div class="p-3 rounded" style="background:rgba(109,40,217,.04);border-left:3px solid ' + m.color + '">';
+    html += '<div class="text-muted small mb-1">' + m.label + '</div>';
+    html += '<div class="fw-bold" style="font-size:18px;color:' + m.color + ';font-family:\'Poppins\',sans-serif">' + m.value + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="alert alert-info mt-3 mb-0 py-2 px-3 small">💡 <strong>권장:</strong> ' + rec + '</div>';
+  html += '<div class="text-muted small mt-2">* Tier별 추정 비용 — nano: 무료 · micro: 50만원 · mid: 300만원 · macro: 1000만원 · mega: 2000만원 / CTR 3% · CVR 5% 가정</div>';
+
+  wrap.innerHTML = html;
 }
 
 // ─── KPI Number Animation ───
@@ -2106,6 +2497,117 @@ function showLastUpdate() {
     var el = document.getElementById('last-update');
     if (el) el.textContent = '마지막 업데이트: ' + y + '-' + m + '-' + day + ' ' + h + ':' + min;
   }
+}
+
+// ─── Feature 2: Auto Match Modal ───
+function openAutoMatchModal() {
+  if (!DATA) return;
+  // Populate category dropdown
+  var catSel = document.getElementById('am-category');
+  if (catSel && catSel.children.length <= 1) {
+    var seen = {};
+    DATA.influencers.forEach(function(i) { if (i.category && !seen[i.category]) { seen[i.category] = true; } });
+    Object.keys(seen).forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = CAT_KR[c] || c;
+      catSel.appendChild(opt);
+    });
+  }
+  document.getElementById('am-results').innerHTML = '';
+  var modalEl = document.getElementById('auto-match-modal');
+  var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
+}
+
+function getBudgetTiers(budget) {
+  if (budget === 'free') return ['nano', 'micro'];
+  if (budget === 'small') return ['mid'];
+  if (budget === 'mid') return ['macro'];
+  if (budget === 'large') return ['mega'];
+  return [];
+}
+
+function runAutoMatch() {
+  var cat = document.getElementById('am-category').value;
+  var country = document.getElementById('am-country').value;
+  var budget = document.getElementById('am-budget').value;
+  var priority = document.getElementById('am-priority').value;
+
+  var list = DATA.influencers.slice();
+  if (cat !== 'all') list = list.filter(function(i) { return i.category === cat; });
+  if (country !== 'all') list = list.filter(function(i) { return i.country === country; });
+  var allowedTiers = getBudgetTiers(budget);
+  if (allowedTiers.length) list = list.filter(function(i) { return allowedTiers.indexOf(i.tier) >= 0; });
+
+  // Compute max values for normalization (within filtered set)
+  var maxF = Math.max.apply(null, list.map(function(i) { return i.followers || 0; })) || 1;
+  var maxER = Math.max.apply(null, list.map(function(i) { return calcER(i); })) || 1;
+  var maxScore = Math.max.apply(null, list.map(function(i) { return i.pure_score || 0; })) || 1;
+
+  // Weights by priority
+  var w = { er: 0.34, scale: 0.33, score: 0.33 };
+  if (priority === 'engagement') w = { er: 0.6, scale: 0.15, score: 0.25 };
+  else if (priority === 'scale') w = { er: 0.15, scale: 0.6, score: 0.25 };
+
+  var scored = list.map(function(i) {
+    var erN = calcER(i) / maxER;
+    var scN = (i.followers || 0) / maxF;
+    var psN = (i.pure_score || 0) / maxScore;
+    var matchScore = (erN * w.er + scN * w.scale + psN * w.score) * 100;
+    // Reason
+    var reasons = [];
+    if (erN > 0.7) reasons.push('높은 참여율 (' + calcER(i).toFixed(1) + '%)');
+    if (scN > 0.7) reasons.push('큰 규모 (' + fmt(i.followers) + ')');
+    if (psN > 0.7) reasons.push('우수 점수 (' + (i.pure_score || 0).toFixed(1) + ')');
+    if (!reasons.length) reasons.push('균형 잡힌 지표');
+    return { inf: i, score: matchScore, reasons: reasons };
+  });
+
+  scored.sort(function(a, b) { return b.score - a.score; });
+  var top = scored.slice(0, 5);
+
+  var html = '';
+  if (!top.length) {
+    html = '<div class="alert alert-warning">조건에 맞는 채널이 없습니다. 필터를 완화해 주세요.</div>';
+  } else {
+    html = '<div class="fw-bold mb-2">추천 결과 (상위 ' + top.length + '명)</div>';
+    html += '<div class="list-group">';
+    top.forEach(function(r, idx) {
+      var i = r.inf;
+      var avatarSrc = i.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+      html += '<div class="list-group-item d-flex align-items-center gap-3">';
+      html += '<div class="fw-bold text-muted" style="width:24px">#' + (idx + 1) + '</div>';
+      html += '<span class="avatar" style="background-image:url(' + escHtml(avatarSrc) + ')"></span>';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div class="fw-bold">' + escHtml(i.display_name) + ' ' + tierBadge(i.tier) + '</div>';
+      html += '<div class="text-muted small">' + (CAT_KR[i.category] || i.category || '-') + ' · ' + (COUNTRY_KR[i.country] || i.country || '-') + ' · 구독자 ' + fmt(i.followers) + ' · ER ' + calcER(i).toFixed(2) + '%</div>';
+      html += '<div class="small mt-1" style="color:#2563eb">왜 추천? ' + escHtml(r.reasons.join(' · ')) + '</div>';
+      html += '</div>';
+      html += '<div class="text-center"><div class="fw-bold" style="font-size:18px;color:var(--tblr-primary)">' + r.score.toFixed(0) + '</div><div class="text-muted" style="font-size:10px">매칭점수</div></div>';
+      html += '<button type="button" class="btn btn-sm btn-outline-primary" onclick="autoMatchSelect(\'' + i.id + '\')">선택</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  document.getElementById('am-results').innerHTML = html;
+}
+
+function autoMatchSelect(id) {
+  var sid = String(id);
+  if (compareSelected.indexOf(sid) < 0) {
+    if (compareSelected.length >= 5) {
+      compareSelected.shift();
+    }
+    compareSelected.push(sid);
+    try { localStorage.setItem('compare_selected', JSON.stringify(compareSelected)); } catch(e) {}
+  }
+  var modalEl = document.getElementById('auto-match-modal');
+  var modal = bootstrap.Modal.getInstance(modalEl);
+  if (modal) modal.hide();
+  switchToView('compare');
+  renderCompareSelector();
+  renderCompareCharts();
 }
 
 // ─── CSV Export ───
