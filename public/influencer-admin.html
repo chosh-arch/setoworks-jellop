@@ -665,33 +665,37 @@ function renderChannelFilters() {
   DATA.influencers.forEach(i => { if (!seen[i.category]) { seen[i.category] = true; allCats.push(i.category); } });
   var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
 
-  // Platform btn-group
-  html += '<div><label class="form-label mb-1 text-muted small">플랫폼</label><div class="btn-group" role="group">';
+  // Platform dropdown
+  html += '<div><label class="form-label mb-1 text-muted small">플랫폼</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:110px" onchange="setChFilter(\'platform\',this.value)">';
   [['all','전체'],['youtube','YouTube'],['instagram','Instagram'],['facebook','Facebook']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (chFilters.platform===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'platform\',\'' + v + '\')">' + l + '</button>';
+    html += '<option value="' + v + '"' + (chFilters.platform===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
 
-  // Country btn-group
-  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
-  [['all','전체'],['JP','JP'],['TW','TW'],['기타','기타']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (chFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'country\',\'' + v + '\')">' + l + '</button>';
+  // Country dropdown
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:90px" onchange="setChFilter(\'country\',this.value)">';
+  [['all','전체'],['JP','일본 🇯🇵'],['TW','대만 🇹🇼'],['기타','기타']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (chFilters.country===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
 
-  // Tier btn-group
-  html += '<div><label class="form-label mb-1 text-muted small">Tier</label><div class="btn-group" role="group">';
-  [['all','전체'],['nano','nano'],['micro','micro'],['mid','mid'],['macro','macro'],['mega','mega']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (chFilters.tier===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'tier\',\'' + v + '\')">' + l + '</button>';
+  // Tier dropdown
+  html += '<div><label class="form-label mb-1 text-muted small">Tier</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:90px" onchange="setChFilter(\'tier\',this.value)">';
+  [['all','전체'],['nano','Nano'],['micro','Micro'],['mid','Mid'],['macro','Macro'],['mega','Mega']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (chFilters.tier===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
 
-  // Grade btn-group
-  html += '<div><label class="form-label mb-1 text-muted small">등급</label><div class="btn-group" role="group">';
-  [['all','전체'],['S','S'],['A','A'],['B','B'],['C','C']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (chFilters.grade===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'grade\',\'' + v + '\')">' + l + '</button>';
+  // Grade dropdown
+  html += '<div><label class="form-label mb-1 text-muted small">등급</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:80px" onchange="setChFilter(\'grade\',this.value)">';
+  [['all','전체'],['S','S급'],['A','A급'],['B','B급'],['C','C급']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (chFilters.grade===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
 
   // Category dropdown
   html += '<div><label class="form-label mb-1 text-muted small">카테고리</label>';
@@ -1153,11 +1157,12 @@ function renderCategories() {
 function renderCatFilterBar() {
   var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
   html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="cat-search-input" class="form-control form-control-sm" style="min-width:180px" placeholder="카테고리 검색..." value="' + escHtml(catViewFilters.search) + '"></div>';
-  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
-  [['all','전체'],['JP','JP'],['TW','TW']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (catViewFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCatFilter(\'country\',\'' + v + '\')">' + l + '</button>';
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:100px" onchange="setCatFilter(\'country\',this.value)">';
+  [['all','전체'],['JP','일본 🇯🇵'],['TW','대만 🇹🇼']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (catViewFilters.country===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
   html += '</div>';
   document.getElementById('cat-filter-bar').innerHTML = html;
 
@@ -1347,11 +1352,12 @@ function renderCompareFilterBar() {
 
   var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
   html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="compare-search-input" class="form-control form-control-sm" style="min-width:180px" placeholder="인플루언서 검색..." value="' + escHtml(compareFilters.search) + '"></div>';
-  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
-  [['all','전체'],['JP','JP'],['TW','TW'],['기타','기타']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (compareFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCompareFilter(\'country\',\'' + v + '\')">' + l + '</button>';
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:100px" onchange="setCompareFilter(\'country\',this.value)">';
+  [['all','전체'],['JP','일본 🇯🇵'],['TW','대만 🇹🇼'],['기타','기타']].forEach(([v,l]) => {
+    html += '<option value="' + v + '"' + (compareFilters.country===v?' selected':'') + '>' + l + '</option>';
   });
-  html += '</div></div>';
+  html += '</select></div>';
   html += '<div><label class="form-label mb-1 text-muted small">카테고리</label><select class="form-select form-select-sm" style="min-width:140px" onchange="setCompareFilter(\'category\',this.value)">';
   html += '<option value="all">전체</option>';
   allCats.forEach(c => {
