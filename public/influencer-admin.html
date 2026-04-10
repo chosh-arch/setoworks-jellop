@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Setoworks - 인플루언서 관리 시스템</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
-:root {
+:root, [data-bs-theme="light"] {
   --tblr-primary: #ff003b;
   --tblr-primary-rgb: 255, 0, 59;
   --tblr-font-sans-serif: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -20,7 +20,7 @@ body { font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-seri
   font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: 0.05em;
   color: #fff !important; font-size: 1.2rem;
 }
-.navbar-vertical .navbar-brand span { color: var(--tblr-primary); }
+.navbar-vertical .navbar-brand .brand-red { color: var(--tblr-primary); }
 .navbar-vertical .nav-link { color: #94a3b8 !important; font-size: 14px; font-weight: 500; }
 .navbar-vertical .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.05); }
 .navbar-vertical .nav-link.active { color: #fff !important; background: rgba(255,0,59,.12) !important; border-left: 3px solid var(--tblr-primary); }
@@ -138,6 +138,9 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 .badge-youtube { background: #fee2e2 !important; color: #dc2626 !important; }
 .badge-instagram { background: #f3e8ff !important; color: #7c3aed !important; }
 .badge-facebook { background: #dbeafe !important; color: #2563eb !important; }
+
+/* Active category filter indicator */
+.active-cat-filter { background: #fff5f7; border: 1px dashed var(--tblr-primary); border-radius: 8px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -149,9 +152,13 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
         <span class="navbar-toggler-icon"></span>
       </button>
       <h1 class="navbar-brand navbar-brand-autodark">
-        <span>S</span>ETOWORKS
+        <span class="brand-red">S</span>ETOWORKS
       </h1>
       <div class="collapse navbar-collapse" id="sidebar-menu">
+        <!-- Global search -->
+        <div class="my-2 px-1">
+          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색..." style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;">
+        </div>
         <ul class="navbar-nav flex-column pt-2">
           <li class="nav-item">
             <a class="nav-link active" href="#" data-view="dashboard">
@@ -355,7 +362,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script>
 const PALETTE = ['#ff003b','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
 const CAT_KR = {
@@ -370,6 +377,21 @@ let charts = {};
 let channelSortCol = null;
 let channelSortAsc = true;
 let expandedRow = null;
+
+// ─── Korean IME Composition-safe search helper ───
+// Wraps an input element so that search only fires after Korean composition ends
+function makeCompositionSafe(inputEl, callback) {
+  let isComposing = false;
+  inputEl.addEventListener('compositionstart', () => { isComposing = true; });
+  inputEl.addEventListener('compositionend', (e) => {
+    isComposing = false;
+    callback(e.target.value);
+  });
+  inputEl.addEventListener('input', (e) => {
+    if (isComposing) return;
+    callback(e.target.value);
+  });
+}
 
 // ─── Navigation ───
 document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
@@ -389,6 +411,16 @@ document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
     }
   });
 });
+
+// ─── Global sidebar search (composition safe) ───
+(function() {
+  var sidebarSearch = document.getElementById('sidebar-search');
+  if (sidebarSearch) {
+    makeCompositionSafe(sidebarSearch, function(val) {
+      handleGlobalSearch(val);
+    });
+  }
+})();
 
 // ─── Helpers ───
 function fmt(n) {
@@ -583,7 +615,7 @@ function renderChannelFilters() {
   var allCats = [];
   var seen = {};
   DATA.influencers.forEach(i => { if (!seen[i.category]) { seen[i.category] = true; allCats.push(i.category); } });
-  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
 
   // Platform btn-group
   html += '<div><label class="form-label mb-1 text-muted small">플랫폼</label><div class="btn-group" role="group">';
@@ -613,6 +645,15 @@ function renderChannelFilters() {
   });
   html += '</div></div>';
 
+  // Category dropdown
+  html += '<div><label class="form-label mb-1 text-muted small">카테고리</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:130px" onchange="setChFilter(\'category\',this.value)">';
+  html += '<option value="all"' + (chFilters.category==='all'?' selected':'') + '>전체</option>';
+  allCats.forEach(c => {
+    html += '<option value="' + c + '"' + (chFilters.category===c?' selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
+  });
+  html += '</select></div>';
+
   // Score range
   html += '<div><label class="form-label mb-1 text-muted small">Score</label><div class="d-flex align-items-center gap-1">';
   html += '<input type="number" class="form-control form-control-sm" style="width:60px" placeholder="0" min="0" max="100" value="' + chFilters.scoreMin + '" onchange="setChFilter(\'scoreMin\',this.value)">';
@@ -623,15 +664,43 @@ function renderChannelFilters() {
   // Content checkbox
   html += '<div><label class="form-label mb-1 text-muted small">콘텐츠</label><div><label class="form-check form-check-inline"><input class="form-check-input" type="checkbox" ' + (chFilters.hasContent?'checked':'') + ' onchange="setChFilter(\'hasContent\',this.checked)"><span class="form-check-label">콘텐츠 있음만</span></label></div></div>';
 
-  // Search
-  html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '" oninput="setChFilter(\'search\',this.value)"></div>';
+  // Search (will be wired with composition-safe events after render)
+  html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="ch-search-input" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '"></div>';
+
+  // Reset all filters button
+  html += '<div><button class="btn btn-sm btn-outline-danger" onclick="resetChFilters()">필터 초기화</button></div>';
 
   html += '</div>';
+
+  // Show active category filter banner if category is set (e.g. from category view navigation)
+  if (chFilters.category !== 'all') {
+    html += '<div class="mt-2"><div class="active-cat-filter"><span>카테고리: <strong>' + (CAT_KR[chFilters.category]||chFilters.category) + '</strong></span><button class="btn btn-sm btn-ghost-danger p-0 ms-2" onclick="setChFilter(\'category\',\'all\')" style="font-size:16px;line-height:1">&times; 해제</button></div></div>';
+  }
+
   document.getElementById('channel-filters').innerHTML = html;
+
+  // Wire up composition-safe search on channel search input
+  var chSearchEl = document.getElementById('ch-search-input');
+  if (chSearchEl) {
+    makeCompositionSafe(chSearchEl, function(val) {
+      chFilters.search = val;
+      expandedRow = null;
+      renderChannelTable();
+    });
+  }
 }
 
 function setChFilter(key, val) {
   chFilters[key] = val;
+  expandedRow = null;
+  renderChannelFilters();
+  renderChannelTable();
+}
+
+function resetChFilters() {
+  chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
+  channelSortCol = null;
+  channelSortAsc = true;
   expandedRow = null;
   renderChannelFilters();
   renderChannelTable();
@@ -865,12 +934,12 @@ function renderContentLedger(inf, contents, avgER) {
   html += '<div><label class="form-label mb-0 text-muted small">유형</label><div class="btn-group ms-2" role="group">';
   ['all','video','short'].forEach(t => {
     var label = t === 'all' ? '전체' : t;
-    html += '<button class="btn btn-sm ' + (st.typeFilter===t?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(' + inf.id + ',\'typeFilter\',\'' + t + '\')">' + label + '</button>';
+    html += '<button class="btn btn-sm ' + (st.typeFilter===t?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(\'' + inf.id + '\',\'typeFilter\',\'' + t + '\')">' + label + '</button>';
   });
   html += '</div></div>';
   html += '<div><label class="form-label mb-0 text-muted small">정렬</label><div class="btn-group ms-2" role="group">';
   [['date','날짜순'],['views','조회수순'],['likes','좋아요순']].forEach(([v,l]) => {
-    html += '<button class="btn btn-sm ' + (st.sort===v?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(' + inf.id + ',\'sort\',\'' + v + '\')">' + l + '</button>';
+    html += '<button class="btn btn-sm ' + (st.sort===v?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(\'' + inf.id + '\',\'sort\',\'' + v + '\')">' + l + '</button>';
   });
   html += '</div></div>';
   html += '</div>';
@@ -894,9 +963,9 @@ function renderContentLedger(inf, contents, avgER) {
   html += '</tbody></table></div>';
 
   if (!st.showAll && filtered.length > 20) {
-    html += '<button class="btn-more" onclick="setLedgerFilter(' + inf.id + ',\'showAll\',true)">더보기 (' + (filtered.length - 20) + '건 남음)</button>';
+    html += '<button class="btn-more" onclick="setLedgerFilter(\'' + inf.id + '\',\'showAll\',true)">더보기 (' + (filtered.length - 20) + '건 남음)</button>';
   } else if (st.showAll && filtered.length > 20) {
-    html += '<button class="btn-more" onclick="setLedgerFilter(' + inf.id + ',\'showAll\',false)">접기</button>';
+    html += '<button class="btn-more" onclick="setLedgerFilter(\'' + inf.id + '\',\'showAll\',false)">접기</button>';
   }
 
   html += '</div></div>';
@@ -943,8 +1012,8 @@ function renderMemoSystem(inf) {
     html += '</div>';
     html += '<div class="memo-text mt-1" id="memo-text-' + inf.id + '-' + idx + '">' + escHtml(m.text) + '</div>';
     html += '<div class="memo-actions"><div class="btn-group btn-group-sm">';
-    html += '<button class="btn btn-sm btn-outline-secondary" onclick="editMemo(' + inf.id + ',' + idx + ')">수정</button>';
-    html += '<button class="btn btn-sm btn-outline-danger" onclick="deleteMemo(' + inf.id + ',' + idx + ')">삭제</button>';
+    html += '<button class="btn btn-sm btn-outline-secondary" onclick="editMemo(\'' + inf.id + '\',' + idx + ')">수정</button>';
+    html += '<button class="btn btn-sm btn-outline-danger" onclick="deleteMemo(\'' + inf.id + '\',' + idx + ')">삭제</button>';
     html += '</div></div>';
     html += '</div>';
   });
@@ -952,7 +1021,7 @@ function renderMemoSystem(inf) {
 
   html += '<div class="mt-2" id="memo-add-' + inf.id + '">';
   html += '<textarea id="memo-input-' + inf.id + '" class="form-control form-control-sm" rows="2" placeholder="새 메모를 입력하세요..."></textarea>';
-  html += '<div class="mt-2"><button class="btn btn-sm btn-primary" onclick="addMemo(' + inf.id + ')">메모 추가</button></div>';
+  html += '<div class="mt-2"><button class="btn btn-sm btn-primary" onclick="addMemo(\'' + inf.id + '\')">메모 추가</button></div>';
   html += '</div>';
 
   html += '</div></div>';
@@ -976,7 +1045,7 @@ function editMemo(infId, idx) {
   if (!textEl) return;
 
   textEl.innerHTML = '<textarea id="memo-edit-' + infId + '-' + idx + '" class="form-control form-control-sm" rows="2">' + escHtml(memo.text) + '</textarea>' +
-    '<div class="mt-1 d-flex gap-1"><button class="btn btn-sm btn-primary" onclick="saveMemoEdit(' + infId + ',' + idx + ')">저장</button><button class="btn btn-sm btn-outline-secondary" onclick="renderChannelTable()">취소</button></div>';
+    '<div class="mt-1 d-flex gap-1"><button class="btn btn-sm btn-primary" onclick="saveMemoEdit(\'' + infId + '\',' + idx + ')">저장</button><button class="btn btn-sm btn-outline-secondary" onclick="renderChannelTable()">취소</button></div>';
 }
 
 function saveMemoEdit(infId, idx) {
@@ -998,7 +1067,7 @@ function deleteMemo(infId, idx) {
 }
 
 function toggleExpand(id) {
-  var nid = Number(id);
+  var nid = isNaN(Number(id)) ? id : Number(id);
   expandedRow = expandedRow === nid ? null : nid;
   renderChannelTable();
 }
@@ -1021,8 +1090,8 @@ function renderCategories() {
 }
 
 function renderCatFilterBar() {
-  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
-  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:180px" placeholder="카테고리 검색..." value="' + escHtml(catViewFilters.search) + '" oninput="setCatFilter(\'search\',this.value)"></div>';
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
+  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="cat-search-input" class="form-control form-control-sm" style="min-width:180px" placeholder="카테고리 검색..." value="' + escHtml(catViewFilters.search) + '"></div>';
   html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
   [['all','전체'],['JP','JP'],['TW','TW']].forEach(([v,l]) => {
     html += '<button class="btn btn-sm ' + (catViewFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCatFilter(\'country\',\'' + v + '\')">' + l + '</button>';
@@ -1030,6 +1099,16 @@ function renderCatFilterBar() {
   html += '</div></div>';
   html += '</div>';
   document.getElementById('cat-filter-bar').innerHTML = html;
+
+  // Wire composition-safe search
+  var catSearchEl = document.getElementById('cat-search-input');
+  if (catSearchEl) {
+    makeCompositionSafe(catSearchEl, function(val) {
+      catViewFilters.search = val;
+      renderCatCards();
+      renderCatChart();
+    });
+  }
 }
 
 function setCatFilter(key, val) {
@@ -1146,7 +1225,10 @@ function renderCatChart() {
 }
 
 function goToCatChannel(cat) {
-  chFilters.category = cat;
+  // Reset other filters but keep category
+  chFilters = { platform: 'all', tier: 'all', category: cat, country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
+  channelSortCol = null;
+  channelSortAsc = true;
   expandedRow = null;
   document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
     a.classList.toggle('active', a.dataset.view === 'channels');
@@ -1178,8 +1260,8 @@ function renderCompareFilterBar() {
   var seen = {};
   DATA.influencers.forEach(i => { if (!seen[i.category]) { seen[i.category]=true; allCats.push(i.category); } });
 
-  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
-  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:180px" placeholder="인플루언서 검색..." value="' + escHtml(compareFilters.search) + '" oninput="setCompareFilter(\'search\',this.value)"></div>';
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-end">';
+  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="compare-search-input" class="form-control form-control-sm" style="min-width:180px" placeholder="인플루언서 검색..." value="' + escHtml(compareFilters.search) + '"></div>';
   html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
   [['all','전체'],['JP','JP'],['TW','TW'],['기타','기타']].forEach(([v,l]) => {
     html += '<button class="btn btn-sm ' + (compareFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCompareFilter(\'country\',\'' + v + '\')">' + l + '</button>';
@@ -1193,6 +1275,15 @@ function renderCompareFilterBar() {
   html += '</select></div>';
   html += '</div>';
   document.getElementById('compare-filter-bar').innerHTML = html;
+
+  // Wire composition-safe search
+  var compareSearchEl = document.getElementById('compare-search-input');
+  if (compareSearchEl) {
+    makeCompositionSafe(compareSearchEl, function(val) {
+      compareFilters.search = val;
+      renderCompareSelector();
+    });
+  }
 }
 
 function setCompareFilter(key, val) {
