@@ -4,367 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Setoworks - 인플루언서 관리 시스템</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
 :root {
-  --brand: #ff003b;
-  --charcoal: #212121;
-  --bg: #f7f9fc;
-  --card: #fff;
-  --sidebar-w: 240px;
-  --text: #1a1a2e;
-  --muted: #64748b;
-  --border: #e2e8f0;
+  --tblr-primary: #ff003b;
+  --tblr-primary-rgb: 255, 0, 59;
+  --tblr-font-sans-serif: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; min-height: 100vh; }
-body {
-  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+body { font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif; }
+.navbar-vertical { background: #212121 !important; }
+.navbar-vertical .navbar-brand {
+  font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: 0.05em;
+  color: #fff !important; font-size: 1.2rem;
 }
+.navbar-vertical .navbar-brand span { color: var(--tblr-primary); }
+.navbar-vertical .nav-link { color: #94a3b8 !important; font-size: 14px; font-weight: 500; }
+.navbar-vertical .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.05); }
+.navbar-vertical .nav-link.active { color: #fff !important; background: rgba(255,0,59,.12) !important; border-left: 3px solid var(--tblr-primary); }
+.navbar-vertical .nav-link .nav-link-icon { font-size: 18px; }
+.sidebar-footer-link { color: #94a3b8 !important; text-decoration: none; font-size: 13px; }
+.sidebar-footer-link:hover { color: #fff !important; }
 
-/* Sidebar */
-.sidebar {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: var(--sidebar-w);
-  background: var(--charcoal);
-  color: #fff;
-  display: flex; flex-direction: column;
-  z-index: 100;
-  transition: transform .3s;
-}
-.sidebar-brand { padding: 28px 24px 8px; }
-.sidebar-brand h1 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800; font-size: 20px; color: #fff; letter-spacing: 2px;
-}
-.sidebar-brand h1 span { color: var(--brand); }
-.sidebar-brand .subtitle { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+.view { display: none; }
+.view.active { display: block; }
 
-/* Global search in sidebar */
-.sidebar-search { padding: 8px 16px 16px; }
-.sidebar-search input {
-  width: 100%; padding: 8px 12px; border: 1px solid #444; background: #333;
-  border-radius: 8px; color: #fff; font-size: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.sidebar-search input::placeholder { color: #777; }
-.sidebar-search input:focus { outline: none; border-color: var(--brand); }
+/* KPI number style */
+.kpi-number { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; }
+.kpi-sub { font-size: 12px; }
 
-.sidebar-nav { flex: 1; padding: 8px 0; list-style: none; }
-.sidebar-nav li { padding: 0; }
-.sidebar-nav a {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 24px; color: #94a3b8; text-decoration: none;
-  font-size: 14px; font-weight: 500; transition: all .2s;
-  border-left: 3px solid transparent;
-}
-.sidebar-nav a:hover { color: #fff; background: rgba(255,255,255,.05); }
-.sidebar-nav a.active { color: #fff; background: rgba(255,0,59,.12); border-left-color: var(--brand); }
-.sidebar-nav a .icon { font-size: 18px; width: 22px; text-align: center; }
-.sidebar-bottom { padding: 16px 24px; border-top: 1px solid #333; }
-.sidebar-bottom a {
-  color: #94a3b8; text-decoration: none; font-size: 13px;
-  display: flex; align-items: center; gap: 6px; transition: color .2s;
-}
-.sidebar-bottom a:hover { color: #fff; }
-
-/* Mobile hamburger */
-.hamburger {
-  display: none; position: fixed; top: 12px; left: 12px; z-index: 200;
-  background: var(--charcoal); color: #fff; border: none; border-radius: 8px;
-  width: 40px; height: 40px; font-size: 22px; cursor: pointer;
-}
-
-/* Main */
-.main { margin-left: var(--sidebar-w); padding: 32px 36px; min-height: 100vh; }
-.main h2.view-title {
-  font-family: 'Poppins', sans-serif; font-weight: 700;
-  font-size: 22px; margin-bottom: 24px; color: var(--charcoal);
-}
-
-/* Cards */
-.card {
-  background: var(--card); border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06); padding: 20px 24px;
-}
-
-/* KPI row */
-.kpi-row {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px; margin-bottom: 28px;
-}
-.kpi-card {
-  background: var(--card); border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06); padding: 20px 24px;
-  position: relative; overflow: hidden;
-}
-.kpi-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: var(--brand);
-}
-.kpi-card .kpi-label {
-  font-size: 12px; color: var(--muted); font-weight: 500;
-  text-transform: uppercase; letter-spacing: .5px;
-}
-.kpi-card .kpi-value {
-  font-family: 'Poppins', sans-serif; font-size: 28px;
-  font-weight: 700; color: var(--charcoal); margin: 4px 0;
-}
-.kpi-card .kpi-sub { font-size: 12px; color: var(--muted); }
-
-/* Grid layouts */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-
-/* Chart containers */
-.chart-wrap { position: relative; width: 100%; }
-.chart-wrap canvas { width: 100% !important; }
-.card h3 {
-  font-family: 'Poppins', sans-serif; font-weight: 600;
-  font-size: 15px; margin-bottom: 16px; color: var(--charcoal);
-}
-
-/* Tables */
-.table-wrap {
-  border-radius: 14px; overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06); background: var(--card);
-}
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-thead th {
-  background: var(--charcoal); color: #fff; font-weight: 600;
-  padding: 12px 14px; text-align: left; font-size: 12px;
-  white-space: nowrap; cursor: pointer; user-select: none;
-}
-thead th:hover { background: #333; }
-thead th.num { text-align: right; }
-tbody td {
-  padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle;
-}
-tbody td.num {
-  text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500;
-}
-tbody tr:hover { background: #fff5f7; }
-tbody tr.expandable { cursor: pointer; }
-tbody tr.expanded { background: #fef2f4; }
-
-/* Expand row */
-.expand-row td { padding: 0; background: #fafbfd; }
-.expand-content { padding: 20px 24px; }
-.expand-content .detail-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
-}
-.expand-content .detail-section h4 {
-  font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--charcoal);
-}
-.expand-content .detail-section p {
-  font-size: 12px; color: var(--muted); margin-bottom: 4px;
-}
-.expand-content .detail-section a {
-  color: var(--brand); text-decoration: none; font-size: 12px;
-}
-.expand-content .inner-table { width: 100%; font-size: 12px; margin-top: 8px; }
-.expand-content .inner-table th {
-  background: #f1f5f9; color: var(--charcoal); font-size: 11px; padding: 8px 10px;
-}
-.expand-content .inner-table td {
-  padding: 6px 10px; border-bottom: 1px solid #f1f5f9;
-}
-
-/* Badges */
-.badge {
-  display: inline-block; padding: 3px 10px; border-radius: 12px;
-  font-size: 11px; font-weight: 600; letter-spacing: .3px;
-}
-.badge-yt { background: #fee2e2; color: #dc2626; }
-.badge-ig { background: #f3e8ff; color: #7c3aed; }
-.badge-fb { background: #dbeafe; color: #2563eb; }
-.badge-nano { background: #ecfdf5; color: #059669; }
-.badge-micro { background: #eff6ff; color: #2563eb; }
-.badge-mid { background: #fef3c7; color: #d97706; }
-.badge-macro { background: #fce7f3; color: #db2777; }
-.badge-mega { background: #fae8ff; color: #9333ea; }
-.badge-unset { background: #f1f5f9; color: #64748b; }
+/* Score bar */
+.score-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.score-num { font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; }
 
 /* Grade badges */
 .grade-badge {
   display: inline-flex; align-items: center; justify-content: center;
   width: 28px; height: 28px; border-radius: 8px;
   font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 14px;
-  letter-spacing: 0;
 }
 .grade-S { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; box-shadow: 0 0 8px rgba(245,158,11,.4); }
 .grade-A { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #fff; }
 .grade-B { background: #e2e8f0; color: #64748b; }
 .grade-C { background: #fee2e2; color: #dc2626; }
 
-/* Filter bar */
-.filter-bar {
-  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
-  margin-bottom: 20px; padding: 16px 20px;
-  background: var(--card); border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
-}
-.filter-group { display: flex; gap: 4px; align-items: center; }
-.filter-group label {
-  font-size: 12px; font-weight: 600; color: var(--muted);
-  margin-right: 6px; align-self: center; white-space: nowrap;
-}
-.filter-btn {
-  padding: 6px 14px; border: 1px solid var(--border); background: #fff;
-  border-radius: 8px; font-size: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
-  cursor: pointer; transition: all .15s; color: var(--text);
-}
-.filter-btn:hover { border-color: var(--brand); color: var(--brand); }
-.filter-btn.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-.filter-select {
-  padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
-  font-size: 12px; font-family: 'Noto Sans KR', sans-serif;
-  background: #fff; color: var(--text); min-width: 120px;
-}
-.filter-search {
-  padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
-  font-size: 12px; font-family: 'Noto Sans KR', sans-serif;
-  background: #fff; color: var(--text); min-width: 180px;
-}
-.filter-search::placeholder { color: #cbd5e1; }
-.filter-input-sm {
-  padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px;
-  font-size: 12px; font-family: 'Poppins', sans-serif;
-  background: #fff; color: var(--text); width: 56px; text-align: center;
+/* Expand row */
+.expandable { cursor: pointer; }
+.expandable:hover { background: #fff5f7 !important; }
+.expanded { background: #fef2f4 !important; }
+.expand-row td { padding: 0 !important; background: #fafbfd; }
+.expand-content { padding: 20px 24px; }
+
+/* Profile image */
+.profile-img-lg {
+  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  border: 2px solid #e2e8f0;
 }
 
-/* Score bar */
-.score-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.score-bar {
-  width: 80px; height: 8px; background: #e2e8f0; border-radius: 4px;
-  overflow: hidden; position: relative;
-}
-.score-bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
-.score-bar-lg {
-  width: 100%; height: 14px; background: #e2e8f0; border-radius: 7px;
-  overflow: hidden; position: relative; margin: 8px 0;
-}
-.score-bar-lg .score-bar-fill { height: 100%; border-radius: 7px; }
-
-/* Pure Score gauge */
-.pure-score-display {
-  display: flex; align-items: center; gap: 12px; margin: 8px 0;
-}
+/* Pure score display */
 .pure-score-number {
   font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 800;
 }
-.pure-score-gauge { flex: 1; }
-
-/* Category cards */
-.cat-card {
-  background: var(--card); border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06); padding: 20px;
-  cursor: pointer; transition: all .2s; position: relative; overflow: hidden;
-}
-.cat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-.cat-card .cat-border { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
-.cat-card .cat-name { font-weight: 700; font-size: 16px; margin-top: 8px; margin-bottom: 12px; }
-.cat-card .cat-stat { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-.cat-card .cat-stat strong {
-  font-family: 'Poppins', sans-serif; color: var(--charcoal); font-weight: 600;
-}
-.cat-top3 { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-.cat-top3 .top3-item {
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 11px; padding: 2px 0;
-}
-.cat-top3 .top3-name { color: var(--text); font-weight: 500; }
-.cat-top3 .top3-score { font-family: 'Poppins', sans-serif; font-weight: 600; }
-
-/* Comparison */
-.compare-selector {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
-  padding: 16px 20px; background: var(--card); border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
-}
-.compare-selector label {
-  font-size: 12px; font-weight: 600; color: var(--muted);
-  margin-right: 8px; align-self: center;
-}
-.compare-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px;
-  font-size: 12px; cursor: pointer; transition: all .15s; background: #fff;
-}
-.compare-chip:hover { border-color: var(--brand); }
-.compare-chip.selected { background: var(--brand); color: #fff; border-color: var(--brand); }
-.compare-chip input { display: none; }
-
-/* Sort indicator */
-thead th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: .6; }
-thead th.sort-asc .sort-arrow::after { content: '\25B2'; }
-thead th.sort-desc .sort-arrow::after { content: '\25BC'; }
-
-/* View toggle */
-.view { display: none; }
-.view.active { display: block; }
 
 /* Memo system */
-.memo-list { margin-top: 8px; }
-.memo-item {
-  background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px 12px; margin-bottom: 8px; position: relative;
-}
-.memo-item .memo-time {
-  font-size: 10px; color: var(--muted); margin-bottom: 4px;
-  font-family: 'Poppins', sans-serif;
-}
+.memo-item { position: relative; }
+.memo-item .memo-time { font-size: 10px; font-family: 'Poppins', sans-serif; }
 .memo-item .memo-text { font-size: 12px; white-space: pre-wrap; line-height: 1.5; }
-.memo-item .memo-actions {
-  position: absolute; top: 8px; right: 8px; display: flex; gap: 4px;
-}
-.memo-item .memo-actions button {
-  padding: 2px 8px; font-size: 11px; border: 1px solid var(--border);
-  background: #fff; border-radius: 4px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif; transition: all .15s;
-}
-.memo-item .memo-actions button:hover { border-color: var(--brand); color: var(--brand); }
-.memo-add-area textarea {
-  width: 100%; min-height: 50px; border: 1px solid var(--border);
-  border-radius: 8px; padding: 10px; font-family: 'Noto Sans KR', sans-serif;
-  font-size: 12px; resize: vertical;
-}
-.memo-add-area { margin-top: 8px; }
-.btn-sm {
-  padding: 5px 14px; font-size: 12px; border: 1px solid var(--border);
-  background: #fff; border-radius: 8px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif; transition: all .15s;
-}
-.btn-sm:hover { border-color: var(--brand); color: var(--brand); }
-.btn-sm.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
-.btn-sm.primary:hover { background: #e00035; }
+.memo-item .memo-actions { position: absolute; top: 8px; right: 8px; }
 
-/* Content ledger controls */
-.ledger-controls {
-  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-  margin-bottom: 8px;
-}
+/* Category cards */
+.cat-card { cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
+.cat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.cat-card .cat-border { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
 
-/* Profile image */
-.profile-img {
-  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
-  border: 2px solid var(--border); margin-bottom: 8px;
+/* Compare chips */
+.compare-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border: 1px solid #e2e8f0; border-radius: 20px;
+  font-size: 12px; cursor: pointer; transition: all .15s; background: #fff;
 }
+.compare-chip:hover { border-color: var(--tblr-primary); }
+.compare-chip.selected { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
+
+/* Sort arrow */
+th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: .6; }
+th.sort-asc .sort-arrow::after { content: '\25B2'; }
+th.sort-desc .sort-arrow::after { content: '\25BC'; }
+
+/* Tabular nums in tables */
+.num { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; }
+.table th.sortable { cursor: pointer; user-select: none; }
+.table th.sortable:hover { background: rgba(0,0,0,.05); }
 
 /* Tooltip */
-.score-tooltip {
-  position: relative; cursor: help;
-}
+.score-tooltip { position: relative; cursor: help; }
 .score-tooltip .tooltip-content {
   display: none; position: absolute; bottom: 100%; left: 50%;
-  transform: translateX(-50%); background: var(--charcoal); color: #fff;
+  transform: translateX(-50%); background: #212121; color: #fff;
   padding: 10px 14px; border-radius: 8px; font-size: 11px;
   white-space: nowrap; z-index: 50; margin-bottom: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,.2);
@@ -372,155 +110,260 @@ thead th.sort-desc .sort-arrow::after { content: '\25BC'; }
 .score-tooltip .tooltip-content::after {
   content: ''; position: absolute; top: 100%; left: 50%;
   transform: translateX(-50%); border: 6px solid transparent;
-  border-top-color: var(--charcoal);
+  border-top-color: #212121;
 }
 .score-tooltip:hover .tooltip-content { display: block; }
 
-/* 더보기 button */
+/* inner table styling */
+.inner-table { width: 100%; font-size: 12px; }
+.inner-table th { background: #f1f5f9; font-size: 11px; padding: 8px 10px; font-weight: 600; }
+.inner-table td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; }
+
+/* btn-more */
 .btn-more {
   display: block; width: 100%; padding: 10px; margin-top: 8px;
-  background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
+  background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
   font-size: 12px; font-family: 'Noto Sans KR', sans-serif;
-  cursor: pointer; text-align: center; transition: all .15s; color: var(--muted);
+  cursor: pointer; text-align: center; transition: all .15s; color: #64748b;
 }
-.btn-more:hover { border-color: var(--brand); color: var(--brand); }
+.btn-more:hover { border-color: var(--tblr-primary); color: var(--tblr-primary); }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .hamburger { display: block; }
-  .main { margin-left: 0; padding: 60px 12px 24px; }
-  .grid-2 { grid-template-columns: 1fr; }
-  .kpi-row { grid-template-columns: 1fr 1fr; }
-  .filter-bar { flex-direction: column; align-items: stretch; }
-  .cat-grid { grid-template-columns: 1fr 1fr; }
-  table { display: block; overflow-x: auto; white-space: nowrap; }
-  .compare-selector { flex-direction: column; }
-  .compare-chip { font-size: 12px; }
-  .expand-content .detail-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .kpi-row { grid-template-columns: 1fr; }
-  .cat-grid { grid-template-columns: 1fr; }
-  .main { padding: 52px 8px 16px; }
-}
+/* Chart canvas fix */
+.chart-wrap canvas { width: 100% !important; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+/* Card top accent */
+.card-accent { border-top: 3px solid var(--tblr-primary); }
+
+/* Badge overrides for platforms */
+.badge-youtube { background: #fee2e2 !important; color: #dc2626 !important; }
+.badge-instagram { background: #f3e8ff !important; color: #7c3aed !important; }
+.badge-facebook { background: #dbeafe !important; color: #2563eb !important; }
 </style>
 </head>
 <body>
+<div class="page">
+  <!-- Sidebar -->
+  <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark" style="width:240px;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <h1 class="navbar-brand navbar-brand-autodark">
+        <span>S</span>ETOWORKS
+      </h1>
+      <div class="collapse navbar-collapse" id="sidebar-menu">
+        <ul class="navbar-nav flex-column pt-2">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" data-view="dashboard">
+              <span class="nav-link-icon">&#128202;</span>
+              <span class="nav-link-title">대시보드</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-view="channels">
+              <span class="nav-link-icon">&#128101;</span>
+              <span class="nav-link-title">채널 관리</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-view="categories">
+              <span class="nav-link-icon">&#128193;</span>
+              <span class="nav-link-title">카테고리</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-view="compare">
+              <span class="nav-link-icon">&#9878;&#65039;</span>
+              <span class="nav-link-title">비교 분석</span>
+            </a>
+          </li>
+        </ul>
+        <div class="mt-auto pt-3 border-top border-secondary">
+          <a href="/" class="sidebar-footer-link">&larr; 메인으로</a>
+        </div>
+      </div>
+    </div>
+  </aside>
 
-<button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+  <!-- Main content -->
+  <div class="page-wrapper">
+    <!-- View 1: Dashboard -->
+    <section id="view-dashboard" class="view active">
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="page-pretitle">Setoworks</div>
+          <h2 class="page-title">인플루언서 대시보드</h2>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="row row-deck row-cards" id="kpi-row"></div>
+          <div class="row row-deck row-cards mt-3">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">TOP 7 채널 (구독자 수)</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap"><canvas id="chart-top5" height="280"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">카테고리 분포</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-cat-donut" height="320"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-deck row-cards mt-3">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">등급 분포</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-grade-donut" height="320"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">국가별 분포</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-country-dash" height="320"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">최근 수집 로그</h3></div>
+                <div class="card-body p-0" id="log-table-wrap"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<aside class="sidebar">
-  <div class="sidebar-brand">
-    <h1><span>S</span>ETOWORKS</h1>
-    <div class="subtitle">인플루언서 관리 시스템</div>
+    <!-- View 2: Channels -->
+    <section id="view-channels" class="view">
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="page-pretitle">Setoworks</div>
+          <h2 class="page-title">채널 관리</h2>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="card mb-3">
+            <div class="card-body" id="channel-filters"></div>
+          </div>
+          <div id="channel-count" class="mb-2 text-muted" style="font-size:13px;"></div>
+          <div class="card">
+            <div class="table-responsive" id="channel-table-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View 3: Categories -->
+    <section id="view-categories" class="view">
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="page-pretitle">Setoworks</div>
+          <h2 class="page-title">카테고리</h2>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="card mb-3">
+            <div class="card-body" id="cat-filter-bar"></div>
+          </div>
+          <div class="row row-deck row-cards" id="cat-cards"></div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">카테고리별 비교 (평균 구독자 vs 평균 조회수)</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap"><canvas id="chart-cat-compare" height="300"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View 4: Compare -->
+    <section id="view-compare" class="view">
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="page-pretitle">Setoworks</div>
+          <h2 class="page-title">비교 분석</h2>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="card mb-3">
+            <div class="card-body" id="compare-filter-bar"></div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body" id="compare-selector">
+              <label class="form-label text-muted fw-bold">비교 대상 선택 (최대 5개):</label>
+            </div>
+          </div>
+          <div class="row row-deck row-cards">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">레이더 비교</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:400px;margin:0 auto"><canvas id="chart-radar" height="380"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">국가별 인플루언서 분포</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-country" height="320"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">상세 비교표</h3></div>
+                <div class="card-body p-0" id="compare-table-wrap"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"><h3 class="card-title">콘텐츠 유형 분포</h3></div>
+                <div class="card-body">
+                  <div class="chart-wrap" style="max-width:500px"><canvas id="chart-content-type" height="260"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-  <div class="sidebar-search">
-    <input type="text" id="global-search" placeholder="전체 검색..." oninput="handleGlobalSearch(this.value)">
-  </div>
-  <ul class="sidebar-nav">
-    <li><a href="#" class="active" data-view="dashboard"><span class="icon">&#128202;</span> 대시보드</a></li>
-    <li><a href="#" data-view="channels"><span class="icon">&#128101;</span> 채널 관리</a></li>
-    <li><a href="#" data-view="categories"><span class="icon">&#128193;</span> 카테고리</a></li>
-    <li><a href="#" data-view="compare"><span class="icon">&#9878;&#65039;</span> 비교 분석</a></li>
-  </ul>
-  <div class="sidebar-bottom">
-    <a href="/">&#8592; 메인으로</a>
-  </div>
-</aside>
+</div>
 
-<main class="main">
-  <!-- View 1: Dashboard -->
-  <section id="view-dashboard" class="view active">
-    <h2 class="view-title">대시보드</h2>
-    <div class="kpi-row" id="kpi-row"></div>
-    <div class="grid-2">
-      <div class="card">
-        <h3>TOP 5 채널 (구독자 수)</h3>
-        <div class="chart-wrap"><canvas id="chart-top5" height="260"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>카테고리 분포</h3>
-        <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-cat-donut" height="320"></canvas></div>
-      </div>
-    </div>
-    <div class="grid-2">
-      <div class="card">
-        <h3>등급 분포</h3>
-        <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-grade-donut" height="320"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>국가별 분포</h3>
-        <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-country-dash" height="320"></canvas></div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>최근 수집 로그</h3>
-      <div class="table-wrap" id="log-table-wrap"></div>
-    </div>
-  </section>
-
-  <!-- View 2: Channels -->
-  <section id="view-channels" class="view">
-    <h2 class="view-title">채널 관리</h2>
-    <div class="filter-bar" id="channel-filters"></div>
-    <div id="channel-count" style="margin-bottom:8px;font-size:12px;color:var(--muted)"></div>
-    <div class="table-wrap" id="channel-table-wrap"></div>
-  </section>
-
-  <!-- View 3: Categories -->
-  <section id="view-categories" class="view">
-    <h2 class="view-title">카테고리</h2>
-    <div class="filter-bar" id="cat-filter-bar"></div>
-    <div class="grid-3" id="cat-cards"></div>
-    <div class="card" style="margin-top:8px">
-      <h3>카테고리별 비교 (평균 구독자 vs 평균 조회수)</h3>
-      <div class="chart-wrap"><canvas id="chart-cat-compare" height="300"></canvas></div>
-    </div>
-  </section>
-
-  <!-- View 4: Compare -->
-  <section id="view-compare" class="view">
-    <h2 class="view-title">비교 분석</h2>
-    <div class="filter-bar" id="compare-filter-bar"></div>
-    <div class="compare-selector" id="compare-selector">
-      <label>비교 대상 선택 (최대 5개):</label>
-    </div>
-    <div class="grid-2">
-      <div class="card">
-        <h3>레이더 비교</h3>
-        <div class="chart-wrap" style="max-width:400px;margin:0 auto"><canvas id="chart-radar" height="380"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>국가별 인플루언서 분포</h3>
-        <div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-country" height="320"></canvas></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3>상세 비교표</h3>
-      <div class="table-wrap" id="compare-table-wrap"></div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3>콘텐츠 유형 분포</h3>
-      <div class="chart-wrap" style="max-width:500px"><canvas id="chart-content-type" height="260"></canvas></div>
-    </div>
-  </section>
-</main>
-
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
 <script>
 const PALETTE = ['#ff003b','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
 const CAT_KR = {
-  lifestyle:'라이프스타일', camping_outdoor:'캠핑/아웃도어', food:'푸드',
-  motorcycle:'모터사이클', tech_unboxing:'테크/언박싱', beauty:'뷰티',
-  fitness:'피트니스', fashion:'패션'
+  'fashion': '패션', 'lifestyle': '라이프스타일', 'fitness': '피트니스',
+  'beauty': '뷰티', 'camping_outdoor': '캠핑/아웃도어', 'food': '푸드/요리',
+  'motorcycle': '모터사이클', 'tech_unboxing': '테크/언박싱'
 };
-const COUNTRY_KR = { JP:'일본', TW:'대만', GB:'영국', TH:'태국', SG:'싱가포르' };
+const COUNTRY_KR = { 'JP': '일본 \u{1F1EF}\u{1F1F5}', 'TW': '대만 \u{1F1F9}\u{1F1FC}', 'KR': '한국 \u{1F1F0}\u{1F1F7}', 'GB': '영국 \u{1F1EC}\u{1F1E7}', 'SG': '싱가포르 \u{1F1F8}\u{1F1EC}', 'TH': '태국 \u{1F1F9}\u{1F1ED}' };
 
 let DATA = null;
 let charts = {};
@@ -529,15 +372,21 @@ let channelSortAsc = true;
 let expandedRow = null;
 
 // ─── Navigation ───
-document.querySelectorAll('.sidebar-nav a').forEach(a => {
+document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
     const v = a.dataset.view;
-    document.querySelectorAll('.sidebar-nav a').forEach(x => x.classList.remove('active'));
+    if (!v) return;
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(x => x.classList.remove('active'));
     a.classList.add('active');
     document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
     document.getElementById('view-' + v).classList.add('active');
-    document.querySelector('.sidebar').classList.remove('open');
+    // Close mobile menu
+    var collapse = document.getElementById('sidebar-menu');
+    if (collapse && collapse.classList.contains('show')) {
+      var bsCollapse = bootstrap.Collapse.getInstance(collapse);
+      if (bsCollapse) bsCollapse.hide();
+    }
   });
 });
 
@@ -551,12 +400,13 @@ function fmt(n) {
 function fmtFull(n) { return n == null ? '-' : n.toLocaleString(); }
 function pct(n) { return n == null ? '-' : n.toFixed(2) + '%'; }
 function platformBadge(p) {
-  const cls = p === 'youtube' ? 'badge-yt' : p === 'instagram' ? 'badge-ig' : 'badge-fb';
+  const cls = p === 'youtube' ? 'badge-youtube' : p === 'instagram' ? 'badge-instagram' : 'badge-facebook';
   const label = p === 'youtube' ? 'YouTube' : p === 'instagram' ? 'Instagram' : 'Facebook';
   return '<span class="badge ' + cls + '">' + label + '</span>';
 }
 function tierBadge(t) {
-  return '<span class="badge badge-' + (t || 'unset') + '">' + (t || 'unset') + '</span>';
+  const colorMap = { nano: 'bg-green-lt', micro: 'bg-blue-lt', mid: 'bg-yellow-lt', macro: 'bg-pink-lt', mega: 'bg-purple-lt' };
+  return '<span class="badge ' + (colorMap[t] || 'bg-secondary-lt') + '">' + (t || 'unset') + '</span>';
 }
 function gradeBadge(g) {
   if (!g) return '<span class="grade-badge grade-B">-</span>';
@@ -577,14 +427,13 @@ function scoreBarHtml(score, size) {
   const color = scoreColor(score);
   const w = Math.min(score, 100);
   if (size === 'sm') {
-    return '<div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:' + w + '%;background:' + color + '"></div></div><span style="font-family:Poppins;font-size:12px;font-weight:600;color:' + color + '">' + score.toFixed(1) + '</span></div>';
+    return '<div class="score-bar-wrap"><div class="progress" style="width:80px;height:8px;"><div class="progress-bar" style="width:' + w + '%;background:' + color + '"></div></div><span class="score-num" style="color:' + color + '">' + score.toFixed(1) + '</span></div>';
   }
-  return '<div class="score-bar-lg"><div class="score-bar-fill" style="width:' + w + '%;background:' + color + '"></div></div>';
+  return '<div class="progress" style="height:14px;"><div class="progress-bar" style="width:' + w + '%;background:' + color + '"></div></div>';
 }
 function getCountryGroup(c) {
   if (c === 'JP') return 'JP';
   if (c === 'TW') return 'TW';
-  if (!c) return '기타';
   return '기타';
 }
 function escHtml(s) {
@@ -592,13 +441,12 @@ function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ─── Global Search ───
+// ─── Global Search (sidebar) ───
 function handleGlobalSearch(q) {
   if (!DATA) return;
   if (!q.trim()) return;
-  // Switch to channels view and search there
   chFilters.search = q;
-  document.querySelectorAll('.sidebar-nav a').forEach(a => {
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
     a.classList.toggle('active', a.dataset.view === 'channels');
   });
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -619,7 +467,7 @@ fetch('/influencer_data.json')
     renderCompare();
   })
   .catch(err => {
-    document.querySelector('.main').innerHTML = '<div class="card" style="margin:40px;padding:40px;text-align:center"><h3>데이터 로드 실패</h3><p style="color:var(--muted);margin-top:8px">' + err.message + '</p></div>';
+    document.querySelector('.page-wrapper').innerHTML = '<div class="container-xl mt-4"><div class="card"><div class="card-body text-center py-5"><h3>데이터 로드 실패</h3><p class="text-muted mt-2">' + err.message + '</p></div></div></div>';
   });
 
 // =============================================
@@ -631,45 +479,41 @@ function renderDashboard() {
   const igCnt = infs.filter(i => i.platform === 'instagram').length;
   const fbCnt = infs.filter(i => i.platform === 'facebook').length;
   const totalContent = infs.reduce((s, i) => s + (i.content_count || 0), 0);
-  const avgYtFollowers = ytInfs.length ? Math.round(ytInfs.reduce((s, i) => s + i.followers, 0) / ytInfs.length) : 0;
-  const allER = infs.filter(i => i.avg_views > 0);
-  const avgER = allER.length ? allER.reduce((s, i) => s + calcER(i), 0) / allER.length : 0;
-  const avgScore = infs.filter(i => i.pure_score != null).length
-    ? (infs.filter(i => i.pure_score != null).reduce((s,i) => s + i.pure_score, 0) / infs.filter(i => i.pure_score != null).length).toFixed(1)
-    : '-';
+  const avgFollowers = infs.length ? Math.round(infs.reduce((s, i) => s + i.followers, 0) / infs.length) : 0;
+  const scoredInfs = infs.filter(i => i.pure_score != null);
+  const avgScore = scoredInfs.length ? (scoredInfs.reduce((s, i) => s + i.pure_score, 0) / scoredInfs.length).toFixed(1) : '-';
   const sCount = infs.filter(i => i.grade === 'S').length;
   const aCount = infs.filter(i => i.grade === 'A').length;
 
   const kpis = [
-    { label: '총 채널', value: infs.length, sub: 'YouTube ' + ytInfs.length + ' / Instagram ' + igCnt + ' / Facebook ' + fbCnt },
-    { label: '활성 콘텐츠', value: fmtFull(totalContent), sub: '채널 평균 ' + (infs.length ? Math.round(totalContent / infs.length) : 0) + '개' },
-    { label: '평균 Pure Score', value: avgScore, sub: 'S등급 ' + sCount + '개 / A등급 ' + aCount + '개' },
-    { label: '전체 참여율', value: pct(avgER), sub: '(좋아요+댓글)/조회수 평균' },
-    { label: '국가', value: 'JP ' + infs.filter(i=>i.country==='JP').length + ' / TW ' + infs.filter(i=>i.country==='TW').length, sub: '기타 ' + infs.filter(i=>i.country!=='JP'&&i.country!=='TW').length + '개' }
+    { label: '총 채널', value: infs.length, sub: 'YouTube ' + ytInfs.length + ' / IG ' + igCnt + ' / FB ' + fbCnt, icon: '&#128101;', color: 'bg-primary-lt' },
+    { label: '활성 콘텐츠', value: fmtFull(totalContent), sub: '채널 평균 ' + (infs.length ? Math.round(totalContent / infs.length) : 0) + '개', icon: '&#127909;', color: 'bg-green-lt' },
+    { label: '평균 구독자', value: fmt(avgFollowers), sub: '전체 채널 평균', icon: '&#128200;', color: 'bg-blue-lt' },
+    { label: '평균 Pure Score', value: avgScore, sub: 'S등급 ' + sCount + ' / A등급 ' + aCount, icon: '&#11088;', color: 'bg-yellow-lt' }
   ];
 
-  document.getElementById('kpi-row').innerHTML = kpis.map(function(k) {
-    return '<div class="kpi-card"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-sub">' + k.sub + '</div></div>';
+  document.getElementById('kpi-row').innerHTML = kpis.map(k => {
+    return '<div class="col-sm-6 col-lg-3"><div class="card card-accent"><div class="card-body"><div class="d-flex align-items-center mb-2"><div class="subheader text-muted">' + k.label + '</div></div><div class="kpi-number">' + k.value + '</div><div class="kpi-sub text-muted mt-1">' + k.sub + '</div></div></div></div>';
   }).join('');
 
-  // TOP 5 horizontal bar
-  var top5 = infs.slice().sort(function(a,b){ return b.followers - a.followers; }).slice(0, 5).reverse();
+  // TOP 7 horizontal bar
+  var top7 = infs.slice().sort((a,b) => b.followers - a.followers).slice(0, 7).reverse();
   if (charts.top5) charts.top5.destroy();
   charts.top5 = new Chart(document.getElementById('chart-top5'), {
     type: 'bar',
     data: {
-      labels: top5.map(function(i){ return i.display_name; }),
+      labels: top7.map(i => i.display_name),
       datasets: [{
-        data: top5.map(function(i){ return i.followers; }),
-        backgroundColor: top5.map(function(_, idx){ return PALETTE[idx % PALETTE.length]; }),
+        data: top7.map(i => i.followers),
+        backgroundColor: top7.map((_, idx) => PALETTE[idx % PALETTE.length]),
         borderRadius: 6, barThickness: 28
       }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx){ return fmtFull(ctx.raw) + ' 구독자'; } } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmtFull(ctx.raw) + ' 구독자' } } },
       scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: function(v){ return fmt(v); } }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => fmt(v) }, grid: { color: '#f1f5f9' } },
         y: { ticks: { font: { family: 'Noto Sans KR', size: 12 }, crossAlign: 'far' }, grid: { display: false } }
       }
     }
@@ -681,34 +525,34 @@ function renderDashboard() {
   charts.catDonut = new Chart(document.getElementById('chart-cat-donut'), {
     type: 'doughnut',
     data: {
-      labels: cats.map(function(c){ return CAT_KR[c.category] || c.category; }),
-      datasets: [{ data: cats.map(function(c){ return c.cnt; }), backgroundColor: PALETTE.slice(0, cats.length), borderWidth: 2, borderColor: '#fff' }]
+      labels: cats.map(c => CAT_KR[c.category] || c.category),
+      datasets: [{ data: cats.map(c => c.cnt), backgroundColor: PALETTE.slice(0, cats.length), borderWidth: 2, borderColor: '#fff' }]
     },
     options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, pointStyleWidth: 10 } } } }
   });
 
   // Grade donut
   var gradeMap = {};
-  infs.forEach(function(i){ gradeMap[i.grade||'N/A'] = (gradeMap[i.grade||'N/A']||0)+1; });
+  infs.forEach(i => { gradeMap[i.grade||'N/A'] = (gradeMap[i.grade||'N/A']||0)+1; });
   var gradeColors = { S: '#f59e0b', A: '#3b82f6', B: '#94a3b8', C: '#dc2626', 'N/A': '#e2e8f0' };
   if (charts.gradeDash) charts.gradeDash.destroy();
   charts.gradeDash = new Chart(document.getElementById('chart-grade-donut'), {
     type: 'doughnut',
     data: {
       labels: Object.keys(gradeMap),
-      datasets: [{ data: Object.values(gradeMap), backgroundColor: Object.keys(gradeMap).map(function(g){ return gradeColors[g]||'#ccc'; }), borderWidth: 2, borderColor: '#fff' }]
+      datasets: [{ data: Object.values(gradeMap), backgroundColor: Object.keys(gradeMap).map(g => gradeColors[g]||'#ccc'), borderWidth: 2, borderColor: '#fff' }]
     },
     options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true } } } }
   });
 
   // Country donut
   var countryMap = {};
-  infs.forEach(function(i){ var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
+  infs.forEach(i => { var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
   if (charts.countryDash) charts.countryDash.destroy();
   charts.countryDash = new Chart(document.getElementById('chart-country-dash'), {
     type: 'doughnut',
     data: {
-      labels: Object.keys(countryMap).map(function(c){ return COUNTRY_KR[c]||c; }),
+      labels: Object.keys(countryMap).map(c => COUNTRY_KR[c]||c),
       datasets: [{ data: Object.values(countryMap), backgroundColor: PALETTE.slice(0, Object.keys(countryMap).length), borderWidth: 2, borderColor: '#fff' }]
     },
     options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true } } } }
@@ -716,10 +560,10 @@ function renderDashboard() {
 
   // Log table
   var logs = DATA.logs || [];
-  var logHtml = '<table><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th></tr></thead><tbody>';
-  logs.forEach(function(l) {
-    var statusColor = l.status === 'completed' ? '#059669' : l.status === 'running' ? '#d97706' : '#dc2626';
-    logHtml += '<tr><td>' + platformBadge(l.platform) + '</td><td><span style="color:' + statusColor + ';font-weight:600">' + l.status + '</span></td><td class="num">' + l.profiles_collected + '</td><td class="num">' + l.contents_collected + '</td><td style="font-size:12px;color:var(--muted)">' + new Date(l.started_at).toLocaleString('ko-KR') + '</td></tr>';
+  var logHtml = '<table class="table table-vcenter card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th></tr></thead><tbody>';
+  logs.forEach(l => {
+    var statusBadge = l.status === 'completed' ? '<span class="badge bg-success-lt">completed</span>' : l.status === 'running' ? '<span class="badge bg-warning-lt">running</span>' : '<span class="badge bg-danger-lt">' + l.status + '</span>';
+    logHtml += '<tr><td>' + platformBadge(l.platform) + '</td><td>' + statusBadge + '</td><td class="num">' + l.profiles_collected + '</td><td class="num">' + l.contents_collected + '</td><td class="text-muted" style="font-size:12px">' + new Date(l.started_at).toLocaleString('ko-KR') + '</td></tr>';
   });
   logHtml += '</tbody></table>';
   document.getElementById('log-table-wrap').innerHTML = logHtml;
@@ -728,7 +572,7 @@ function renderDashboard() {
 // =============================================
 // VIEW 2: Channels
 // =============================================
-var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: 'all', search: '' };
+var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
 
 function renderChannels() {
   renderChannelFilters();
@@ -738,66 +582,51 @@ function renderChannels() {
 function renderChannelFilters() {
   var allCats = [];
   var seen = {};
-  DATA.influencers.forEach(function(i) { if (!seen[i.category]) { seen[i.category] = true; allCats.push(i.category); } });
-  var html = '';
+  DATA.influencers.forEach(i => { if (!seen[i.category]) { seen[i.category] = true; allCats.push(i.category); } });
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
 
-  // Platform
-  html += '<div class="filter-group"><label>플랫폼</label>';
-  ['all','youtube','instagram','facebook'].forEach(function(p) {
-    var label = p === 'all' ? '전체' : p === 'youtube' ? 'YouTube' : p === 'instagram' ? 'Instagram' : 'Facebook';
-    html += '<button class="filter-btn ' + (chFilters.platform===p?'active':'') + '" onclick="setChFilter(\'platform\',\'' + p + '\')">' + label + '</button>';
+  // Platform btn-group
+  html += '<div><label class="form-label mb-1 text-muted small">플랫폼</label><div class="btn-group" role="group">';
+  [['all','전체'],['youtube','YouTube'],['instagram','Instagram'],['facebook','Facebook']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (chFilters.platform===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'platform\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
+  html += '</div></div>';
 
-  // Country
-  html += '<div class="filter-group"><label>국가</label>';
-  ['all','JP','TW','기타'].forEach(function(c) {
-    var label = c === 'all' ? '전체' : c;
-    html += '<button class="filter-btn ' + (chFilters.country===c?'active':'') + '" onclick="setChFilter(\'country\',\'' + c + '\')">' + label + '</button>';
+  // Country btn-group
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
+  [['all','전체'],['JP','JP'],['TW','TW'],['기타','기타']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (chFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'country\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
+  html += '</div></div>';
 
-  // Grade
-  html += '<div class="filter-group"><label>등급</label>';
-  ['all','S','A','B','C'].forEach(function(g) {
-    var label = g === 'all' ? '전체' : g;
-    html += '<button class="filter-btn ' + (chFilters.grade===g?'active':'') + '" onclick="setChFilter(\'grade\',\'' + g + '\')">' + label + '</button>';
+  // Tier btn-group
+  html += '<div><label class="form-label mb-1 text-muted small">Tier</label><div class="btn-group" role="group">';
+  [['all','전체'],['nano','nano'],['micro','micro'],['mid','mid'],['macro','macro'],['mega','mega']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (chFilters.tier===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'tier\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
+  html += '</div></div>';
 
-  // Tier
-  html += '<div class="filter-group"><label>Tier</label>';
-  ['all','nano','micro','mid','macro','mega','unset'].forEach(function(t) {
-    html += '<button class="filter-btn ' + (chFilters.tier===t?'active':'') + '" onclick="setChFilter(\'tier\',\'' + t + '\')">' + (t === 'all' ? '전체' : t) + '</button>';
+  // Grade btn-group
+  html += '<div><label class="form-label mb-1 text-muted small">등급</label><div class="btn-group" role="group">';
+  [['all','전체'],['S','S'],['A','A'],['B','B'],['C','C']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (chFilters.grade===v?'btn-primary':'btn-outline-secondary') + '" onclick="setChFilter(\'grade\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
-
-  // Category
-  html += '<div class="filter-group"><label>카테고리</label><select class="filter-select" onchange="setChFilter(\'category\',this.value)">';
-  html += '<option value="all">전체</option>';
-  allCats.forEach(function(c) {
-    html += '<option value="' + c + '" ' + (chFilters.category===c?'selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
-  });
-  html += '</select></div>';
+  html += '</div></div>';
 
   // Score range
-  html += '<div class="filter-group"><label>Score</label>';
-  html += '<input type="number" class="filter-input-sm" placeholder="0" min="0" max="100" value="' + chFilters.scoreMin + '" onchange="setChFilter(\'scoreMin\',this.value)">';
-  html += '<span style="color:var(--muted);font-size:12px">~</span>';
-  html += '<input type="number" class="filter-input-sm" placeholder="100" min="0" max="100" value="' + chFilters.scoreMax + '" onchange="setChFilter(\'scoreMax\',this.value)">';
-  html += '</div>';
+  html += '<div><label class="form-label mb-1 text-muted small">Score</label><div class="d-flex align-items-center gap-1">';
+  html += '<input type="number" class="form-control form-control-sm" style="width:60px" placeholder="0" min="0" max="100" value="' + chFilters.scoreMin + '" onchange="setChFilter(\'scoreMin\',this.value)">';
+  html += '<span class="text-muted">~</span>';
+  html += '<input type="number" class="form-control form-control-sm" style="width:60px" placeholder="100" min="0" max="100" value="' + chFilters.scoreMax + '" onchange="setChFilter(\'scoreMax\',this.value)">';
+  html += '</div></div>';
 
-  // Content filter
-  html += '<div class="filter-group"><label>콘텐츠</label>';
-  ['all','has'].forEach(function(v) {
-    var label = v === 'all' ? '전체' : '콘텐츠 있음';
-    html += '<button class="filter-btn ' + (chFilters.hasContent===v?'active':'') + '" onclick="setChFilter(\'hasContent\',\'' + v + '\')">' + label + '</button>';
-  });
-  html += '</div>';
+  // Content checkbox
+  html += '<div><label class="form-label mb-1 text-muted small">콘텐츠</label><div><label class="form-check form-check-inline"><input class="form-check-input" type="checkbox" ' + (chFilters.hasContent?'checked':'') + ' onchange="setChFilter(\'hasContent\',this.checked)"><span class="form-check-label">콘텐츠 있음만</span></label></div></div>';
 
   // Search
-  html += '<div class="filter-group" style="margin-left:auto"><input type="text" class="filter-search" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '" oninput="setChFilter(\'search\',this.value)"></div>';
+  html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '" oninput="setChFilter(\'search\',this.value)"></div>';
 
+  html += '</div>';
   document.getElementById('channel-filters').innerHTML = html;
 }
 
@@ -810,41 +639,39 @@ function setChFilter(key, val) {
 
 function getFilteredInfluencers() {
   var list = DATA.influencers.slice();
-  if (chFilters.platform !== 'all') list = list.filter(function(i){ return i.platform === chFilters.platform; });
+  if (chFilters.platform !== 'all') list = list.filter(i => i.platform === chFilters.platform);
   if (chFilters.tier !== 'all') {
-    if (chFilters.tier === 'unset') list = list.filter(function(i){ return !i.tier || i.tier === 'unset'; });
-    else list = list.filter(function(i){ return i.tier === chFilters.tier; });
+    if (chFilters.tier === 'unset') list = list.filter(i => !i.tier || i.tier === 'unset');
+    else list = list.filter(i => i.tier === chFilters.tier);
   }
-  if (chFilters.category !== 'all') list = list.filter(function(i){ return i.category === chFilters.category; });
+  if (chFilters.category !== 'all') list = list.filter(i => i.category === chFilters.category);
   if (chFilters.country !== 'all') {
-    if (chFilters.country === '기타') list = list.filter(function(i){ return i.country !== 'JP' && i.country !== 'TW'; });
-    else list = list.filter(function(i){ return i.country === chFilters.country; });
+    if (chFilters.country === '기타') list = list.filter(i => i.country !== 'JP' && i.country !== 'TW');
+    else list = list.filter(i => i.country === chFilters.country);
   }
-  if (chFilters.grade !== 'all') list = list.filter(function(i){ return i.grade === chFilters.grade; });
+  if (chFilters.grade !== 'all') list = list.filter(i => i.grade === chFilters.grade);
   if (chFilters.scoreMin !== '') {
     var mn = parseFloat(chFilters.scoreMin);
-    list = list.filter(function(i){ return i.pure_score != null && i.pure_score >= mn; });
+    list = list.filter(i => i.pure_score != null && i.pure_score >= mn);
   }
   if (chFilters.scoreMax !== '') {
     var mx = parseFloat(chFilters.scoreMax);
-    list = list.filter(function(i){ return i.pure_score != null && i.pure_score <= mx; });
+    list = list.filter(i => i.pure_score != null && i.pure_score <= mx);
   }
-  if (chFilters.hasContent === 'has') {
-    list = list.filter(function(i) {
-      return (DATA.top_contents || []).some(function(c){ return c.influencer_id === i.id; });
-    });
+  if (chFilters.hasContent) {
+    list = list.filter(i => (DATA.top_contents || []).some(c => c.influencer_id === i.id));
   }
   if (chFilters.search) {
     var q = chFilters.search.toLowerCase();
-    list = list.filter(function(i) {
-      return (i.display_name||'').toLowerCase().indexOf(q) >= 0 ||
-             (i.username||'').toLowerCase().indexOf(q) >= 0 ||
-             (i.bio||'').toLowerCase().indexOf(q) >= 0 ||
-             (CAT_KR[i.category]||i.category||'').toLowerCase().indexOf(q) >= 0;
-    });
+    list = list.filter(i =>
+      (i.display_name||'').toLowerCase().indexOf(q) >= 0 ||
+      (i.username||'').toLowerCase().indexOf(q) >= 0 ||
+      (i.bio||'').toLowerCase().indexOf(q) >= 0 ||
+      (CAT_KR[i.category]||i.category||'').toLowerCase().indexOf(q) >= 0
+    );
   }
   if (channelSortCol) {
-    list.sort(function(a, b) {
+    list.sort((a, b) => {
       var va, vb;
       if (channelSortCol === 'er') { va = calcER(a); vb = calcER(b); }
       else if (channelSortCol === 'pure_score') { va = a.pure_score || 0; vb = b.pure_score || 0; }
@@ -858,37 +685,36 @@ function getFilteredInfluencers() {
 
 function renderChannelTable() {
   var list = getFilteredInfluencers();
-  document.getElementById('channel-count').textContent = '총 ' + list.length + '개 채널';
+  document.getElementById('channel-count').innerHTML = '<span class="badge bg-primary-lt">' + list.length + '개 채널</span>';
   var cols = [
     { key: '#', label: '#' },
-    { key: 'display_name', label: '채널명' },
+    { key: 'display_name', label: '채널' },
     { key: 'platform', label: '플랫폼' },
     { key: 'country', label: '국가' },
     { key: 'followers', label: '구독자', num: true },
     { key: 'content_count', label: '콘텐츠', num: true },
-    { key: 'avg_views', label: '평균 조회수', num: true },
+    { key: 'avg_views', label: '평균조회', num: true },
     { key: 'er', label: '참여율', num: true },
     { key: 'pure_score', label: 'Score', num: true },
-    { key: 'grade', label: '등급' },
-    { key: 'tier', label: 'Tier' },
-    { key: 'category', label: '카테고리' }
+    { key: 'grade', label: '등급' }
   ];
 
-  var html = '<table><thead><tr>';
-  cols.forEach(function(c) {
+  var html = '<table class="table table-vcenter table-hover"><thead><tr>';
+  cols.forEach(c => {
     if (c.key === '#') { html += '<th style="width:40px">#</th>'; return; }
     var isSorted = channelSortCol === c.key;
-    var cls = (c.num ? 'num ' : '') + (isSorted ? (channelSortAsc ? 'sort-asc' : 'sort-desc') : '');
+    var cls = 'sortable ' + (c.num ? 'num ' : '') + (isSorted ? (channelSortAsc ? 'sort-asc' : 'sort-desc') : '');
     html += '<th class="' + cls + '" onclick="sortChannels(\'' + c.key + '\')">' + c.label + '<span class="sort-arrow"></span></th>';
   });
   html += '</tr></thead><tbody>';
 
-  list.forEach(function(inf, idx) {
+  list.forEach((inf, idx) => {
     var er = calcER(inf);
     var isExpanded = expandedRow === inf.id;
+    var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
     html += '<tr class="expandable ' + (isExpanded?'expanded':'') + '" onclick="toggleExpand(\'' + inf.id + '\')">';
-    html += '<td>' + (idx + 1) + '</td>';
-    html += '<td style="font-weight:600">' + escHtml(inf.display_name) + '</td>';
+    html += '<td class="text-muted">' + (idx + 1) + '</td>';
+    html += '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm" style="background-image:url(' + escHtml(avatarSrc) + ')"></span><span class="fw-bold">' + escHtml(inf.display_name) + '</span></div></td>';
     html += '<td>' + platformBadge(inf.platform) + '</td>';
     html += '<td>' + (inf.country || '-') + '</td>';
     html += '<td class="num">' + fmt(inf.followers) + '</td>';
@@ -897,8 +723,6 @@ function renderChannelTable() {
     html += '<td class="num">' + pct(er) + '</td>';
     html += '<td class="num">' + scoreBarHtml(inf.pure_score, 'sm') + '</td>';
     html += '<td>' + gradeBadge(inf.grade) + '</td>';
-    html += '<td>' + tierBadge(inf.tier) + '</td>';
-    html += '<td>' + (CAT_KR[inf.category] || inf.category) + '</td>';
     html += '</tr>';
 
     if (isExpanded) {
@@ -909,7 +733,7 @@ function renderChannelTable() {
   });
 
   if (!list.length) {
-    html += '<tr><td colspan="' + cols.length + '" style="text-align:center;padding:40px;color:var(--muted)">조건에 맞는 채널이 없습니다</td></tr>';
+    html += '<tr><td colspan="' + cols.length + '" class="text-center text-muted py-5">조건에 맞는 채널이 없습니다</td></tr>';
   }
 
   html += '</tbody></table>';
@@ -918,7 +742,7 @@ function renderChannelTable() {
 
 // ─── Expand content ───
 function renderExpandContent(inf) {
-  var contents = (DATA.top_contents || []).filter(function(c){ return c.influencer_id === inf.id; });
+  var contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id);
   var er = inf.avg_views > 0 ? ((inf.avg_likes + inf.avg_comments) / inf.avg_views * 100).toFixed(2) : '0.00';
   var totalEng = Math.round(inf.avg_likes * inf.content_count + inf.avg_comments * inf.content_count);
   var viewPerSub = inf.followers > 0 ? (inf.total_views / inf.followers).toFixed(1) : '-';
@@ -929,25 +753,26 @@ function renderExpandContent(inf) {
   var html = '<div class="expand-content" onclick="event.stopPropagation()">';
 
   // Row 1: Profile + Pure Score + Performance
-  html += '<div class="detail-grid">';
+  html += '<div class="row g-3">';
 
-  // Profile section with image
-  html += '<div class="detail-section">';
-  if (inf.profile_image_url) {
-    html += '<img class="profile-img" src="' + escHtml(inf.profile_image_url) + '" onerror="this.src=\'https://yt3.googleusercontent.com/ytc/default_avatar.jpg\'" alt="">';
-  } else {
-    html += '<img class="profile-img" src="https://yt3.googleusercontent.com/ytc/default_avatar.jpg" alt="">';
-  }
-  html += '<h4>프로필 정보</h4>';
-  html += '<p><strong>국가:</strong> ' + (COUNTRY_KR[inf.country]||inf.country||'-') + ' (' + (inf.country||'-') + ') &nbsp; <strong>언어:</strong> ' + (inf.language || '-') + '</p>';
-  if (inf.bio) html += '<p><strong>소개:</strong> ' + escHtml(inf.bio) + '</p>';
-  if (inf.contact_email) html += '<p><strong>이메일:</strong> <span style="color:var(--brand)">' + escHtml(inf.contact_email) + '</span></p>';
-  if (inf.profile_url) html += '<p><a href="' + escHtml(inf.profile_url) + '" target="_blank" style="color:var(--brand)">프로필 링크 열기 &#8594;</a></p>';
+  // Profile section
+  html += '<div class="col-md-6">';
+  html += '<div class="card"><div class="card-body">';
+  var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+  html += '<div class="d-flex align-items-start gap-3 mb-3">';
+  html += '<img class="profile-img-lg" src="' + escHtml(avatarSrc) + '" onerror="this.src=\'https://yt3.googleusercontent.com/ytc/default_avatar.jpg\'" alt="">';
+  html += '<div>';
+  html += '<h4 class="mb-1">' + escHtml(inf.display_name) + '</h4>';
+  html += '<div class="text-muted small"><strong>국가:</strong> ' + (COUNTRY_KR[inf.country]||inf.country||'-') + ' &nbsp; <strong>언어:</strong> ' + (inf.language || '-') + '</div>';
+  if (inf.bio) html += '<div class="text-muted small mt-1">' + escHtml(inf.bio) + '</div>';
+  if (inf.contact_email) html += '<div class="small mt-1"><strong>이메일:</strong> <span class="text-primary">' + escHtml(inf.contact_email) + '</span></div>';
+  html += '</div></div>';
+  if (inf.profile_url) html += '<a href="' + escHtml(inf.profile_url) + '" target="_blank" class="btn btn-sm btn-outline-primary">프로필 링크 열기 &rarr;</a>';
 
   // Pure Score visual
-  html += '<div style="margin-top:12px">';
-  html += '<h4>Pure Score</h4>';
-  html += '<div class="pure-score-display">';
+  html += '<div class="mt-3 pt-3 border-top">';
+  html += '<h4 class="mb-2">Pure Score</h4>';
+  html += '<div class="d-flex align-items-center gap-3 mb-2">';
   html += '<div class="score-tooltip">';
   html += '<span class="pure-score-number" style="color:' + scoreColor(inf.pure_score||0) + '">' + (inf.pure_score != null ? inf.pure_score.toFixed(1) : '-') + '</span>';
   html += '<div class="tooltip-content">업로드빈도 + 조회비율 + 참여율 + 일관성 + 성장<br>총합 = Pure Score (0~100)</div>';
@@ -957,39 +782,41 @@ function renderExpandContent(inf) {
   html += scoreBarHtml(inf.pure_score, 'lg');
   html += '</div>';
 
-  html += '</div>';
+  html += '</div></div></div>';
 
   // Performance statement
-  html += '<div class="detail-section">';
-  html += '<h4>성과 요약표 (Performance Statement)</h4>';
+  html += '<div class="col-md-6">';
+  html += '<div class="card"><div class="card-body">';
+  html += '<h4 class="mb-2">성과 요약표 (Performance Statement)</h4>';
   html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;">';
-  html += '<thead><tr><th colspan="2" style="text-align:center;background:var(--charcoal);color:#fff;font-size:12px;">구독자: ' + fmtFull(inf.followers) + ' / 콘텐츠: ' + inf.content_count + '건</th></tr></thead>';
+  html += '<thead><tr><th colspan="2" style="text-align:center;background:#212121;color:#fff;font-size:12px;">구독자: ' + fmtFull(inf.followers) + ' / 콘텐츠: ' + inf.content_count + '건</th></tr></thead>';
   html += '<tbody>';
-  html += '<tr><td style="padding-left:16px">총 조회수 (Total Views)</td><td class="num" style="font-weight:600">' + fmtFull(inf.total_views) + '</td></tr>';
-  html += '<tr><td style="padding-left:16px">총 좋아요 (Total Likes)</td><td class="num">' + fmtFull(Math.round(inf.avg_likes * inf.content_count)) + '</td></tr>';
-  html += '<tr><td style="padding-left:16px">총 댓글 (Total Comments)</td><td class="num">' + fmtFull(Math.round(inf.avg_comments * inf.content_count)) + '</td></tr>';
-  html += '<tr style="border-top:2px solid var(--charcoal);font-weight:700"><td style="padding-left:16px">총 참여 (Total Engagements)</td><td class="num">' + fmtFull(totalEng) + '</td></tr>';
+  html += '<tr><td>총 조회수 (Total Views)</td><td class="num" style="font-weight:600">' + fmtFull(inf.total_views) + '</td></tr>';
+  html += '<tr><td>총 좋아요 (Total Likes)</td><td class="num">' + fmtFull(Math.round(inf.avg_likes * inf.content_count)) + '</td></tr>';
+  html += '<tr><td>총 댓글 (Total Comments)</td><td class="num">' + fmtFull(Math.round(inf.avg_comments * inf.content_count)) + '</td></tr>';
+  html += '<tr style="border-top:2px solid #212121;font-weight:700"><td>총 참여 (Total Engagements)</td><td class="num">' + fmtFull(totalEng) + '</td></tr>';
   html += '<tr><td colspan="2" style="height:6px;border:none"></td></tr>';
-  html += '<tr><td style="padding-left:16px">평균 조회수 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
-  html += '<tr><td style="padding-left:16px">평균 좋아요 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_likes)) + '</td></tr>';
-  html += '<tr><td style="padding-left:16px">평균 댓글 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_comments)) + '</td></tr>';
-  html += '<tr style="border-top:2px solid var(--charcoal);border-bottom:3px double var(--charcoal);font-weight:800"><td style="padding-left:16px">평균 참여율 (Avg ER)</td><td class="num" style="color:var(--brand)">' + er + '%</td></tr>';
+  html += '<tr><td>평균 조회수 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
+  html += '<tr><td>평균 좋아요 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_likes)) + '</td></tr>';
+  html += '<tr><td>평균 댓글 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_comments)) + '</td></tr>';
+  html += '<tr style="border-top:2px solid #212121;border-bottom:3px double #212121;font-weight:800"><td>평균 참여율 (Avg ER)</td><td class="num" style="color:var(--tblr-primary)">' + er + '%</td></tr>';
   html += '</tbody></table>';
-  html += '</div>';
-  html += '</div>';
+  html += '</div></div></div>';
+
+  html += '</div>'; // end row
 
   // Efficiency ratios
-  html += '<div style="margin-top:12px">';
-  html += '<h4 style="margin-bottom:6px">효율성 지표 (Efficiency Ratios)</h4>';
+  html += '<div class="card mt-3"><div class="card-body">';
+  html += '<h4 class="mb-2">효율성 지표 (Efficiency Ratios)</h4>';
   html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;"><tbody>';
-  html += '<tr><td style="padding-left:16px">구독자 대비 총 조회수 (Views / Subscriber)</td><td class="num" style="font-weight:600">' + viewPerSub + 'x</td></tr>';
-  html += '<tr><td style="padding-left:16px">영상당 평균 조회수 (Views / Video)</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
-  html += '<tr><td style="padding-left:16px">좋아요율 (Likes / Views)</td><td class="num">' + likeRate + '%</td></tr>';
-  html += '<tr><td style="padding-left:16px">댓글율 (Comments / Views)</td><td class="num">' + commentRate + '%</td></tr>';
-  html += '<tr style="border-top:2px solid var(--charcoal);border-bottom:3px double var(--charcoal);font-weight:800"><td style="padding-left:16px">구독자/영상조회 비율 (Sub-to-View)</td><td class="num">' + subViewRatio + '</td></tr>';
+  html += '<tr><td>구독자 대비 총 조회수 (Views / Subscriber)</td><td class="num" style="font-weight:600">' + viewPerSub + 'x</td></tr>';
+  html += '<tr><td>영상당 평균 조회수 (Views / Video)</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
+  html += '<tr><td>좋아요율 (Likes / Views)</td><td class="num">' + likeRate + '%</td></tr>';
+  html += '<tr><td>댓글율 (Comments / Views)</td><td class="num">' + commentRate + '%</td></tr>';
+  html += '<tr style="border-top:2px solid #212121;border-bottom:3px double #212121;font-weight:800"><td>구독자/영상조회 비율 (Sub-to-View)</td><td class="num">' + subViewRatio + '</td></tr>';
   html += '</tbody></table>';
-  html += '<p style="font-size:11px;color:var(--muted);margin-top:4px">* Sub-to-View &lt; 1.0 &#8594; 바이럴 성향 / &gt; 1.0 &#8594; 구독자 대비 조회수 부족</p>';
-  html += '</div>';
+  html += '<p class="text-muted small mt-1">* Sub-to-View &lt; 1.0 &rarr; 바이럴 성향 / &gt; 1.0 &rarr; 구독자 대비 조회수 부족</p>';
+  html += '</div></div>';
 
   // Content Ledger
   html += renderContentLedger(inf, contents, er);
@@ -1004,67 +831,64 @@ function renderExpandContent(inf) {
 // ─── Content Ledger ───
 function renderContentLedger(inf, contents, avgER) {
   if (!contents.length) {
-    return '<p style="font-size:12px;color:var(--muted);margin-top:12px">수집된 콘텐츠가 없습니다</p>';
+    return '<div class="card mt-3"><div class="card-body text-muted small">수집된 콘텐츠가 없습니다</div></div>';
   }
 
-  // State per influencer
   if (!window._ledgerState) window._ledgerState = {};
   if (!window._ledgerState[inf.id]) {
     window._ledgerState[inf.id] = { sort: 'date', typeFilter: 'all', showAll: false };
   }
   var st = window._ledgerState[inf.id];
 
-  // Filter by type
   var filtered = contents;
   if (st.typeFilter !== 'all') {
-    filtered = contents.filter(function(c){ return c.content_type === st.typeFilter; });
+    filtered = contents.filter(c => c.content_type === st.typeFilter);
   }
 
-  // Sort
   filtered = filtered.slice();
   if (st.sort === 'date') {
-    filtered.sort(function(a,b){ return new Date(b.published_at||0) - new Date(a.published_at||0); });
+    filtered.sort((a,b) => new Date(b.published_at||0) - new Date(a.published_at||0));
   } else if (st.sort === 'views') {
-    filtered.sort(function(a,b){ return (b.views||0) - (a.views||0); });
+    filtered.sort((a,b) => (b.views||0) - (a.views||0));
   } else if (st.sort === 'likes') {
-    filtered.sort(function(a,b){ return (b.likes||0) - (a.likes||0); });
+    filtered.sort((a,b) => (b.likes||0) - (a.likes||0));
   }
 
   var showCount = st.showAll ? filtered.length : Math.min(20, filtered.length);
   var displayItems = filtered.slice(0, showCount);
 
-  var html = '<div style="margin-top:12px">';
-  html += '<h4 style="margin-bottom:6px">콘텐츠 원장 (Content Ledger) &#8212; 총 ' + contents.length + '건' + (st.typeFilter !== 'all' ? ' (필터: ' + st.typeFilter + ' ' + filtered.length + '건)' : '') + '</h4>';
+  var html = '<div class="card mt-3"><div class="card-body">';
+  html += '<h4 class="mb-2">콘텐츠 원장 (Content Ledger) &mdash; 총 ' + contents.length + '건' + (st.typeFilter !== 'all' ? ' (필터: ' + st.typeFilter + ' ' + filtered.length + '건)' : '') + '</h4>';
 
   // Controls
-  html += '<div class="ledger-controls">';
-  html += '<div class="filter-group"><label>유형</label>';
-  ['all','video','short'].forEach(function(t) {
+  html += '<div class="d-flex flex-wrap gap-3 align-items-center mb-2">';
+  html += '<div><label class="form-label mb-0 text-muted small">유형</label><div class="btn-group ms-2" role="group">';
+  ['all','video','short'].forEach(t => {
     var label = t === 'all' ? '전체' : t;
-    html += '<button class="filter-btn ' + (st.typeFilter===t?'active':'') + '" onclick="setLedgerFilter(' + inf.id + ',\'typeFilter\',\'' + t + '\')">' + label + '</button>';
+    html += '<button class="btn btn-sm ' + (st.typeFilter===t?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(' + inf.id + ',\'typeFilter\',\'' + t + '\')">' + label + '</button>';
   });
-  html += '</div>';
-  html += '<div class="filter-group"><label>정렬</label>';
-  [['date','날짜순'],['views','조회수순'],['likes','좋아요순']].forEach(function(pair) {
-    html += '<button class="filter-btn ' + (st.sort===pair[0]?'active':'') + '" onclick="setLedgerFilter(' + inf.id + ',\'sort\',\'' + pair[0] + '\')">' + pair[1] + '</button>';
+  html += '</div></div>';
+  html += '<div><label class="form-label mb-0 text-muted small">정렬</label><div class="btn-group ms-2" role="group">';
+  [['date','날짜순'],['views','조회수순'],['likes','좋아요순']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (st.sort===v?'btn-primary':'btn-outline-secondary') + '" onclick="setLedgerFilter(' + inf.id + ',\'sort\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
+  html += '</div></div>';
   html += '</div>';
 
-  html += '<div style="max-height:400px;overflow:auto"><table class="inner-table"><thead><tr><th>#</th><th>제목</th><th>유형</th><th style="text-align:right">조회수</th><th style="text-align:right">좋아요</th><th style="text-align:right">댓글</th><th style="text-align:right">참여율</th><th>날짜</th></tr></thead><tbody>';
-  displayItems.forEach(function(c, i) {
+  html += '<div class="table-responsive" style="max-height:400px;overflow:auto"><table class="table table-vcenter table-sm"><thead><tr><th>#</th><th>제목</th><th>유형</th><th class="num">조회수</th><th class="num">좋아요</th><th class="num">댓글</th><th class="num">참여율</th><th>날짜</th></tr></thead><tbody>';
+  displayItems.forEach((c, i) => {
     var cEr = c.views > 0 ? ((c.likes + c.comments) / c.views * 100).toFixed(2) : '0';
     var avgERVal = parseFloat(avgER);
-    var erStyle = parseFloat(cEr) > avgERVal * 1.5 ? 'color:#059669;font-weight:700' : parseFloat(cEr) < avgERVal * 0.5 ? 'color:#dc2626' : '';
+    var erCls = parseFloat(cEr) > avgERVal * 1.5 ? 'text-success fw-bold' : parseFloat(cEr) < avgERVal * 0.5 ? 'text-danger' : '';
     html += '<tr>';
-    html += '<td>' + (i + 1) + '</td>';
-    html += '<td><a href="' + (c.content_url || '#') + '" target="_blank" style="color:var(--brand);text-decoration:none;font-size:12px">' + (c.title ? escHtml(c.title.substring(0, 45)) : '-') + (c.title && c.title.length > 45 ? '...' : '') + '</a></td>';
-    html += '<td><span class="badge badge-unset">' + (c.content_type || '-') + '</span></td>';
+    html += '<td class="text-muted">' + (i + 1) + '</td>';
+    html += '<td><a href="' + (c.content_url || '#') + '" target="_blank" class="text-primary text-decoration-none" style="font-size:12px">' + (c.title ? escHtml(c.title.substring(0, 45)) : '-') + (c.title && c.title.length > 45 ? '...' : '') + '</a></td>';
+    html += '<td><span class="badge bg-secondary-lt">' + (c.content_type || '-') + '</span></td>';
     html += '<td class="num">' + fmtFull(c.views) + '</td>';
     html += '<td class="num">' + fmtFull(c.likes) + '</td>';
     html += '<td class="num">' + fmtFull(c.comments) + '</td>';
-    html += '<td class="num" style="' + erStyle + '">' + cEr + '%</td>';
-    html += '<td style="font-size:11px;color:var(--muted)">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td>';
+    html += '<td class="num ' + erCls + '">' + cEr + '%</td>';
+    html += '<td class="text-muted" style="font-size:11px">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td>';
     html += '</tr>';
   });
   html += '</tbody></table></div>';
@@ -1075,7 +899,7 @@ function renderContentLedger(inf, contents, avgER) {
     html += '<button class="btn-more" onclick="setLedgerFilter(' + inf.id + ',\'showAll\',false)">접기</button>';
   }
 
-  html += '</div>';
+  html += '</div></div>';
   return html;
 }
 
@@ -1092,7 +916,6 @@ function getMemos(infId) {
     var raw = localStorage.getItem('memos_' + infId);
     if (raw) return JSON.parse(raw);
   } catch(e) {}
-  // Migrate old single memo
   var old = localStorage.getItem('memo_' + infId);
   if (old) {
     var arr = [{ text: old, createdAt: new Date().toISOString(), updatedAt: null }];
@@ -1109,34 +932,30 @@ function saveMemos(infId, memos) {
 
 function renderMemoSystem(inf) {
   var memos = getMemos(inf.id);
-  var html = '<div style="margin-top:16px">';
-  html += '<h4 style="margin-bottom:6px">메모</h4>';
+  var html = '<div class="card mt-3"><div class="card-body">';
+  html += '<h4 class="mb-2">메모</h4>';
 
-  // Existing memos
-  html += '<div class="memo-list" id="memo-list-' + inf.id + '">';
-  memos.forEach(function(m, idx) {
-    html += '<div class="memo-item" id="memo-item-' + inf.id + '-' + idx + '">';
-    html += '<div class="memo-time">' + new Date(m.createdAt).toLocaleString('ko-KR');
+  html += '<div id="memo-list-' + inf.id + '">';
+  memos.forEach((m, idx) => {
+    html += '<div class="memo-item card card-body mb-2 p-2" id="memo-item-' + inf.id + '-' + idx + '">';
+    html += '<div class="memo-time text-muted">' + new Date(m.createdAt).toLocaleString('ko-KR');
     if (m.updatedAt) html += ' (수정: ' + new Date(m.updatedAt).toLocaleString('ko-KR') + ')';
     html += '</div>';
-    html += '<div class="memo-text" id="memo-text-' + inf.id + '-' + idx + '">' + escHtml(m.text) + '</div>';
-    html += '<div class="memo-actions">';
-    html += '<button onclick="editMemo(' + inf.id + ',' + idx + ')">수정</button>';
-    html += '<button onclick="deleteMemo(' + inf.id + ',' + idx + ')">삭제</button>';
-    html += '</div>';
+    html += '<div class="memo-text mt-1" id="memo-text-' + inf.id + '-' + idx + '">' + escHtml(m.text) + '</div>';
+    html += '<div class="memo-actions"><div class="btn-group btn-group-sm">';
+    html += '<button class="btn btn-sm btn-outline-secondary" onclick="editMemo(' + inf.id + ',' + idx + ')">수정</button>';
+    html += '<button class="btn btn-sm btn-outline-danger" onclick="deleteMemo(' + inf.id + ',' + idx + ')">삭제</button>';
+    html += '</div></div>';
     html += '</div>';
   });
   html += '</div>';
 
-  // Add new memo
-  html += '<div class="memo-add-area" id="memo-add-' + inf.id + '">';
-  html += '<textarea id="memo-input-' + inf.id + '" placeholder="새 메모를 입력하세요..."></textarea>';
-  html += '<div style="margin-top:6px;display:flex;gap:6px">';
-  html += '<button class="btn-sm primary" onclick="addMemo(' + inf.id + ')">메모 추가</button>';
-  html += '</div>';
+  html += '<div class="mt-2" id="memo-add-' + inf.id + '">';
+  html += '<textarea id="memo-input-' + inf.id + '" class="form-control form-control-sm" rows="2" placeholder="새 메모를 입력하세요..."></textarea>';
+  html += '<div class="mt-2"><button class="btn btn-sm btn-primary" onclick="addMemo(' + inf.id + ')">메모 추가</button></div>';
   html += '</div>';
 
-  html += '</div>';
+  html += '</div></div>';
   return html;
 }
 
@@ -1153,14 +972,11 @@ function editMemo(infId, idx) {
   var memos = getMemos(infId);
   var memo = memos[idx];
   if (!memo) return;
-  var container = document.getElementById('memo-item-' + infId + '-' + idx);
-  if (!container) return;
   var textEl = document.getElementById('memo-text-' + infId + '-' + idx);
   if (!textEl) return;
 
-  // Replace text with textarea
-  textEl.innerHTML = '<textarea id="memo-edit-' + infId + '-' + idx + '" style="width:100%;min-height:40px;border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;font-family:Noto Sans KR,sans-serif;resize:vertical">' + escHtml(memo.text) + '</textarea>' +
-    '<div style="margin-top:4px;display:flex;gap:4px"><button class="btn-sm primary" onclick="saveMemoEdit(' + infId + ',' + idx + ')">저장</button><button class="btn-sm" onclick="renderChannelTable()">취소</button></div>';
+  textEl.innerHTML = '<textarea id="memo-edit-' + infId + '-' + idx + '" class="form-control form-control-sm" rows="2">' + escHtml(memo.text) + '</textarea>' +
+    '<div class="mt-1 d-flex gap-1"><button class="btn btn-sm btn-primary" onclick="saveMemoEdit(' + infId + ',' + idx + ')">저장</button><button class="btn btn-sm btn-outline-secondary" onclick="renderChannelTable()">취소</button></div>';
 }
 
 function saveMemoEdit(infId, idx) {
@@ -1205,12 +1021,13 @@ function renderCategories() {
 }
 
 function renderCatFilterBar() {
-  var html = '';
-  html += '<div class="filter-group"><label>검색</label><input type="text" class="filter-search" placeholder="카테고리 검색..." value="' + escHtml(catViewFilters.search) + '" oninput="setCatFilter(\'search\',this.value)"></div>';
-  html += '<div class="filter-group"><label>국가</label>';
-  ['all','JP','TW'].forEach(function(c) {
-    html += '<button class="filter-btn ' + (catViewFilters.country===c?'active':'') + '" onclick="setCatFilter(\'country\',\'' + c + '\')">' + (c==='all'?'전체':c) + '</button>';
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
+  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:180px" placeholder="카테고리 검색..." value="' + escHtml(catViewFilters.search) + '" oninput="setCatFilter(\'search\',this.value)"></div>';
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
+  [['all','전체'],['JP','JP'],['TW','TW']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (catViewFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCatFilter(\'country\',\'' + v + '\')">' + l + '</button>';
   });
+  html += '</div></div>';
   html += '</div>';
   document.getElementById('cat-filter-bar').innerHTML = html;
 }
@@ -1225,7 +1042,7 @@ function setCatFilter(key, val) {
 function getFilteredCatInfluencers() {
   var list = DATA.influencers.slice();
   if (catViewFilters.country !== 'all') {
-    list = list.filter(function(i){ return i.country === catViewFilters.country; });
+    list = list.filter(i => i.country === catViewFilters.country);
   }
   return list;
 }
@@ -1233,7 +1050,7 @@ function getFilteredCatInfluencers() {
 function renderCatCards() {
   var infs = getFilteredCatInfluencers();
   var catMap = {};
-  infs.forEach(function(i) {
+  infs.forEach(i => {
     if (!catMap[i.category]) catMap[i.category] = [];
     catMap[i.category].push(i);
   });
@@ -1241,40 +1058,45 @@ function renderCatCards() {
   var catKeys = Object.keys(catMap);
   if (catViewFilters.search) {
     var q = catViewFilters.search.toLowerCase();
-    catKeys = catKeys.filter(function(c) {
-      return c.toLowerCase().indexOf(q) >= 0 || (CAT_KR[c]||'').toLowerCase().indexOf(q) >= 0;
-    });
+    catKeys = catKeys.filter(c => c.toLowerCase().indexOf(q) >= 0 || (CAT_KR[c]||'').toLowerCase().indexOf(q) >= 0);
   }
 
   var cardsHtml = '';
-  catKeys.forEach(function(cat, ci) {
+  catKeys.forEach((cat, ci) => {
     var catInfs = catMap[cat];
-    var avgF = catInfs.length ? Math.round(catInfs.reduce(function(s,i){ return s+i.followers; },0) / catInfs.length) : 0;
-    var avgV = catInfs.length ? Math.round(catInfs.reduce(function(s,i){ return s+(i.avg_views||0); },0) / catInfs.length) : 0;
+    var avgF = catInfs.length ? Math.round(catInfs.reduce((s,i) => s+i.followers, 0) / catInfs.length) : 0;
+    var avgV = catInfs.length ? Math.round(catInfs.reduce((s,i) => s+(i.avg_views||0), 0) / catInfs.length) : 0;
+    var avgS = catInfs.filter(i=>i.pure_score!=null).length ? (catInfs.filter(i=>i.pure_score!=null).reduce((s,i)=>s+i.pure_score,0)/catInfs.filter(i=>i.pure_score!=null).length).toFixed(1) : '-';
 
-    // Top 3 by pure_score
-    var top3 = catInfs.slice().sort(function(a,b){ return (b.pure_score||0)-(a.pure_score||0); }).slice(0,3);
+    var top3 = catInfs.slice().sort((a,b) => (b.pure_score||0)-(a.pure_score||0)).slice(0,3);
 
-    cardsHtml += '<div class="cat-card" onclick="goToCatChannel(\'' + cat + '\')">';
+    cardsHtml += '<div class="col-sm-6 col-lg-4 col-xl-3">';
+    cardsHtml += '<div class="card cat-card" onclick="goToCatChannel(\'' + cat + '\')">';
     cardsHtml += '<div class="cat-border" style="background:' + PALETTE[ci % PALETTE.length] + '"></div>';
-    cardsHtml += '<div class="cat-name">' + (CAT_KR[cat] || cat) + '</div>';
-    cardsHtml += '<div class="cat-stat">채널 수: <strong>' + catInfs.length + '</strong></div>';
-    cardsHtml += '<div class="cat-stat">평균 구독자: <strong>' + fmt(avgF) + '</strong></div>';
-    cardsHtml += '<div class="cat-stat">평균 조회수: <strong>' + fmt(avgV) + '</strong></div>';
+    cardsHtml += '<div class="card-body">';
+    cardsHtml += '<h3 class="card-title mb-3">' + (CAT_KR[cat] || cat) + '</h3>';
+    cardsHtml += '<div class="mb-1 small text-muted">채널 수: <strong class="text-dark">' + catInfs.length + '</strong></div>';
+    cardsHtml += '<div class="mb-1 small text-muted">평균 구독자: <strong class="text-dark">' + fmt(avgF) + '</strong></div>';
+    cardsHtml += '<div class="mb-1 small text-muted">평균 조회수: <strong class="text-dark">' + fmt(avgV) + '</strong></div>';
+    cardsHtml += '<div class="mb-2 small text-muted">평균 Score: <strong class="text-dark">' + avgS + '</strong></div>';
 
     if (top3.length) {
-      cardsHtml += '<div class="cat-top3">';
-      top3.forEach(function(inf, rank) {
-        cardsHtml += '<div class="top3-item"><span class="top3-name">' + (rank+1) + '. ' + escHtml(inf.display_name) + '</span><span class="top3-score" style="color:' + scoreColor(inf.pure_score||0) + '">' + (inf.pure_score != null ? inf.pure_score.toFixed(1) : '-') + '</span></div>';
+      cardsHtml += '<div class="pt-2 border-top">';
+      top3.forEach((inf, rank) => {
+        var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+        cardsHtml += '<div class="d-flex align-items-center justify-content-between py-1">';
+        cardsHtml += '<div class="d-flex align-items-center gap-1"><span class="avatar avatar-xs" style="background-image:url(' + escHtml(avatarSrc) + ')"></span><span class="small fw-medium">' + (rank+1) + '. ' + escHtml(inf.display_name) + '</span></div>';
+        cardsHtml += '<span class="small fw-bold" style="color:' + scoreColor(inf.pure_score||0) + '">' + (inf.pure_score != null ? inf.pure_score.toFixed(1) : '-') + '</span>';
+        cardsHtml += '</div>';
       });
       cardsHtml += '</div>';
     }
 
-    cardsHtml += '</div>';
+    cardsHtml += '</div></div></div>';
   });
 
   if (!catKeys.length) {
-    cardsHtml = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">조건에 맞는 카테고리가 없습니다</div>';
+    cardsHtml = '<div class="col-12 text-center text-muted py-5">조건에 맞는 카테고리가 없습니다</div>';
   }
 
   document.getElementById('cat-cards').innerHTML = cardsHtml;
@@ -1283,20 +1105,20 @@ function renderCatCards() {
 function renderCatChart() {
   var infs = getFilteredCatInfluencers();
   var catMap = {};
-  infs.forEach(function(i) {
+  infs.forEach(i => {
     if (!catMap[i.category]) catMap[i.category] = [];
     catMap[i.category].push(i);
   });
 
   var catKeys = Object.keys(catMap);
-  var labels = catKeys.map(function(c){ return CAT_KR[c]||c; });
-  var avgFollowers = catKeys.map(function(cat) {
+  var labels = catKeys.map(c => CAT_KR[c]||c);
+  var avgFollowers = catKeys.map(cat => {
     var ci = catMap[cat];
-    return ci.length ? Math.round(ci.reduce(function(s,i){ return s+i.followers; },0) / ci.length) : 0;
+    return ci.length ? Math.round(ci.reduce((s,i) => s+i.followers, 0) / ci.length) : 0;
   });
-  var avgViews = catKeys.map(function(cat) {
+  var avgViews = catKeys.map(cat => {
     var ci = catMap[cat];
-    return ci.length ? Math.round(ci.reduce(function(s,i){ return s+(i.avg_views||0); },0) / ci.length) : 0;
+    return ci.length ? Math.round(ci.reduce((s,i) => s+(i.avg_views||0), 0) / ci.length) : 0;
   });
 
   if (charts.catCompare) charts.catCompare.destroy();
@@ -1313,10 +1135,10 @@ function renderCatChart() {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { position: 'top', labels: { font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, padding: 16 } },
-        tooltip: { callbacks: { label: function(ctx){ return ctx.dataset.label + ': ' + fmtFull(ctx.raw); } } }
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + fmtFull(ctx.raw) } }
       },
       scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: function(v){ return fmt(v); } }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => fmt(v) }, grid: { color: '#f1f5f9' } },
         y: { ticks: { font: { family: 'Noto Sans KR', size: 12 } }, grid: { display: false } }
       }
     }
@@ -1326,10 +1148,10 @@ function renderCatChart() {
 function goToCatChannel(cat) {
   chFilters.category = cat;
   expandedRow = null;
-  document.querySelectorAll('.sidebar-nav a').forEach(function(a) {
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
     a.classList.toggle('active', a.dataset.view === 'channels');
   });
-  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-channels').classList.add('active');
   renderChannelFilters();
   renderChannelTable();
@@ -1344,7 +1166,7 @@ var compareFilters = { search: '', country: 'all', category: 'all' };
 function renderCompare() {
   var infs = DATA.influencers;
   if (!compareSelected.length) {
-    compareSelected = infs.slice().sort(function(a,b){ return b.followers - a.followers; }).slice(0, 3).map(function(i){ return String(i.id); });
+    compareSelected = infs.slice().sort((a,b) => b.followers - a.followers).slice(0, 3).map(i => String(i.id));
   }
   renderCompareFilterBar();
   renderCompareSelector();
@@ -1354,21 +1176,22 @@ function renderCompare() {
 function renderCompareFilterBar() {
   var allCats = [];
   var seen = {};
-  DATA.influencers.forEach(function(i){ if (!seen[i.category]) { seen[i.category]=true; allCats.push(i.category); } });
+  DATA.influencers.forEach(i => { if (!seen[i.category]) { seen[i.category]=true; allCats.push(i.category); } });
 
-  var html = '';
-  html += '<div class="filter-group"><label>검색</label><input type="text" class="filter-search" placeholder="인플루언서 검색..." value="' + escHtml(compareFilters.search) + '" oninput="setCompareFilter(\'search\',this.value)"></div>';
-  html += '<div class="filter-group"><label>국가</label>';
-  ['all','JP','TW','기타'].forEach(function(c) {
-    html += '<button class="filter-btn ' + (compareFilters.country===c?'active':'') + '" onclick="setCompareFilter(\'country\',\'' + c + '\')">' + (c==='all'?'전체':c) + '</button>';
+  var html = '<div class="d-flex flex-wrap gap-3 align-items-center">';
+  html += '<div><label class="form-label mb-1 text-muted small">검색</label><input type="text" class="form-control form-control-sm" style="min-width:180px" placeholder="인플루언서 검색..." value="' + escHtml(compareFilters.search) + '" oninput="setCompareFilter(\'search\',this.value)"></div>';
+  html += '<div><label class="form-label mb-1 text-muted small">국가</label><div class="btn-group" role="group">';
+  [['all','전체'],['JP','JP'],['TW','TW'],['기타','기타']].forEach(([v,l]) => {
+    html += '<button class="btn btn-sm ' + (compareFilters.country===v?'btn-primary':'btn-outline-secondary') + '" onclick="setCompareFilter(\'country\',\'' + v + '\')">' + l + '</button>';
   });
-  html += '</div>';
-  html += '<div class="filter-group"><label>카테고리</label><select class="filter-select" onchange="setCompareFilter(\'category\',this.value)">';
+  html += '</div></div>';
+  html += '<div><label class="form-label mb-1 text-muted small">카테고리</label><select class="form-select form-select-sm" style="min-width:140px" onchange="setCompareFilter(\'category\',this.value)">';
   html += '<option value="all">전체</option>';
-  allCats.forEach(function(c) {
+  allCats.forEach(c => {
     html += '<option value="' + c + '" ' + (compareFilters.category===c?'selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
   });
   html += '</select></div>';
+  html += '</div>';
   document.getElementById('compare-filter-bar').innerHTML = html;
 }
 
@@ -1381,23 +1204,23 @@ function setCompareFilter(key, val) {
 function getFilteredCompareInfluencers() {
   var list = DATA.influencers.slice();
   if (compareFilters.country !== 'all') {
-    if (compareFilters.country === '기타') list = list.filter(function(i){ return i.country !== 'JP' && i.country !== 'TW'; });
-    else list = list.filter(function(i){ return i.country === compareFilters.country; });
+    if (compareFilters.country === '기타') list = list.filter(i => i.country !== 'JP' && i.country !== 'TW');
+    else list = list.filter(i => i.country === compareFilters.country);
   }
-  if (compareFilters.category !== 'all') list = list.filter(function(i){ return i.category === compareFilters.category; });
+  if (compareFilters.category !== 'all') list = list.filter(i => i.category === compareFilters.category);
   if (compareFilters.search) {
     var q = compareFilters.search.toLowerCase();
-    list = list.filter(function(i) {
-      return (i.display_name||'').toLowerCase().indexOf(q) >= 0 || (i.username||'').toLowerCase().indexOf(q) >= 0;
-    });
+    list = list.filter(i =>
+      (i.display_name||'').toLowerCase().indexOf(q) >= 0 || (i.username||'').toLowerCase().indexOf(q) >= 0
+    );
   }
   return list;
 }
 
 function renderCompareSelector() {
   var infs = getFilteredCompareInfluencers();
-  var html = '<label>비교 대상 선택 (최대 5개):</label>';
-  infs.forEach(function(inf) {
+  var html = '<label class="form-label text-muted fw-bold mb-2">비교 대상 선택 (최대 5개):</label><div class="d-flex flex-wrap gap-2">';
+  infs.forEach(inf => {
     var sid = String(inf.id);
     var sel = compareSelected.indexOf(sid) >= 0;
     html += '<div class="compare-chip ' + (sel?'selected':'') + '" onclick="toggleCompare(\'' + sid + '\')">';
@@ -1405,6 +1228,7 @@ function renderCompareSelector() {
     if (inf.grade) html += ' ' + gradeBadge(inf.grade);
     html += '</div>';
   });
+  html += '</div>';
   document.getElementById('compare-selector').innerHTML = html;
 }
 
@@ -1424,35 +1248,32 @@ function toggleCompare(id) {
 
 function renderCompareCharts() {
   var infs = DATA.influencers;
-  var sel = infs.filter(function(i){ return compareSelected.indexOf(String(i.id)) >= 0; });
+  var sel = infs.filter(i => compareSelected.indexOf(String(i.id)) >= 0);
 
-  // Normalize for radar
-  var maxF = Math.max.apply(null, infs.map(function(i){ return i.followers; })) || 1;
-  var maxER = Math.max.apply(null, infs.filter(function(i){ return i.avg_views > 0; }).map(function(i){ return calcER(i); })) || 1;
-  var maxCC = Math.max.apply(null, infs.map(function(i){ return i.content_count; })) || 1;
-  var maxAV = Math.max.apply(null, infs.map(function(i){ return i.avg_views || 0; })) || 1;
-  var maxTV = Math.max.apply(null, infs.map(function(i){ return i.total_views || 0; })) || 1;
+  var maxF = Math.max(...infs.map(i => i.followers)) || 1;
+  var maxER = Math.max(...infs.filter(i => i.avg_views > 0).map(i => calcER(i))) || 1;
+  var maxCC = Math.max(...infs.map(i => i.content_count)) || 1;
+  var maxAV = Math.max(...infs.map(i => i.avg_views || 0)) || 1;
+  var maxTV = Math.max(...infs.map(i => i.total_views || 0)) || 1;
 
   if (charts.radar) charts.radar.destroy();
   charts.radar = new Chart(document.getElementById('chart-radar'), {
     type: 'radar',
     data: {
       labels: ['도달력', '참여율', '콘텐츠양', '평균조회', '규모'],
-      datasets: sel.map(function(inf, idx) {
-        return {
-          label: inf.display_name,
-          data: [
-            (inf.followers / maxF) * 100,
-            (calcER(inf) / maxER) * 100,
-            (inf.content_count / maxCC) * 100,
-            ((inf.avg_views || 0) / maxAV) * 100,
-            ((inf.total_views || 0) / maxTV) * 100
-          ],
-          backgroundColor: PALETTE[idx % PALETTE.length] + '22',
-          borderColor: PALETTE[idx % PALETTE.length],
-          borderWidth: 2, pointBackgroundColor: PALETTE[idx % PALETTE.length], pointRadius: 4
-        };
-      })
+      datasets: sel.map((inf, idx) => ({
+        label: inf.display_name,
+        data: [
+          (inf.followers / maxF) * 100,
+          (calcER(inf) / maxER) * 100,
+          (inf.content_count / maxCC) * 100,
+          ((inf.avg_views || 0) / maxAV) * 100,
+          ((inf.total_views || 0) / maxTV) * 100
+        ],
+        backgroundColor: PALETTE[idx % PALETTE.length] + '22',
+        borderColor: PALETTE[idx % PALETTE.length],
+        borderWidth: 2, pointBackgroundColor: PALETTE[idx % PALETTE.length], pointRadius: 4
+      }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -1470,39 +1291,39 @@ function renderCompareCharts() {
 
   // Country breakdown
   var countryMap = {};
-  infs.forEach(function(i){ var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
+  infs.forEach(i => { var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
   if (charts.country) charts.country.destroy();
   charts.country = new Chart(document.getElementById('chart-country'), {
     type: 'doughnut',
     data: {
-      labels: Object.keys(countryMap).map(function(c){ return COUNTRY_KR[c]||c; }),
+      labels: Object.keys(countryMap).map(c => COUNTRY_KR[c]||c),
       datasets: [{ data: Object.values(countryMap), backgroundColor: PALETTE.slice(0, Object.keys(countryMap).length), borderWidth: 2, borderColor: '#fff' }]
     },
     options: { responsive: true, cutout: '55%', plugins: { legend: { position: 'bottom', labels: { font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, padding: 14 } } } }
   });
 
-  // Comparison table with Pure Score and Grade
+  // Comparison table
   var metrics = [
-    { label: '등급', key: 'grade', fmt: function(v){ return v || '-'; } },
-    { label: 'Pure Score', key: 'pure_score', fmt: function(v){ return v != null ? v.toFixed(1) : '-'; } },
+    { label: '등급', key: 'grade', fmt: v => v || '-' },
+    { label: 'Pure Score', key: 'pure_score', fmt: v => v != null ? v.toFixed(1) : '-' },
     { label: '구독자', key: 'followers', fmt: fmtFull },
     { label: '평균 조회수', key: 'avg_views', fmt: fmtFull },
     { label: '평균 좋아요', key: 'avg_likes', fmt: fmtFull },
     { label: '평균 댓글', key: 'avg_comments', fmt: fmtFull },
     { label: '참여율', key: 'er', fmt: pct },
-    { label: '콘텐츠 수', key: 'content_count', fmt: function(v){ return v; } },
+    { label: '콘텐츠 수', key: 'content_count', fmt: v => v },
     { label: '총 조회수', key: 'total_views', fmt: fmtFull },
-    { label: '국가', key: 'country', fmt: function(v){ return COUNTRY_KR[v]||v||'-'; } }
+    { label: '국가', key: 'country', fmt: v => COUNTRY_KR[v]||v||'-' }
   ];
 
-  var tHtml = '<table><thead><tr><th>지표</th>';
-  sel.forEach(function(inf) { tHtml += '<th class="num">' + escHtml(inf.display_name) + '</th>'; });
+  var tHtml = '<table class="table table-vcenter"><thead><tr><th>지표</th>';
+  sel.forEach(inf => { tHtml += '<th class="num">' + escHtml(inf.display_name) + '</th>'; });
   tHtml += '</tr></thead><tbody>';
-  metrics.forEach(function(m) {
+  metrics.forEach(m => {
     tHtml += '<tr>';
-    tHtml += '<td style="font-weight:600">' + m.label + '</td>';
+    tHtml += '<td class="fw-bold">' + m.label + '</td>';
     if (m.key === 'grade' || m.key === 'country') {
-      sel.forEach(function(inf) {
+      sel.forEach(inf => {
         var v = inf[m.key];
         if (m.key === 'grade') {
           tHtml += '<td class="num">' + gradeBadge(v) + '</td>';
@@ -1511,12 +1332,12 @@ function renderCompareCharts() {
         }
       });
     } else {
-      var vals = sel.map(function(inf){ return m.key === 'er' ? calcER(inf) : (inf[m.key] || 0); });
-      var maxVal = Math.max.apply(null, vals);
-      sel.forEach(function(inf, i) {
+      var vals = sel.map(inf => m.key === 'er' ? calcER(inf) : (inf[m.key] || 0));
+      var maxVal = Math.max(...vals);
+      sel.forEach((inf, i) => {
         var v = m.key === 'er' ? calcER(inf) : (inf[m.key] || 0);
         var isMax = v === maxVal && v > 0;
-        tHtml += '<td class="num" style="' + (isMax ? 'color:var(--brand);font-weight:700' : '') + '">' + m.fmt(v) + '</td>';
+        tHtml += '<td class="num" style="' + (isMax ? 'color:var(--tblr-primary);font-weight:700' : '') + '">' + m.fmt(v) + '</td>';
       });
     }
     tHtml += '</tr>';
@@ -1527,7 +1348,7 @@ function renderCompareCharts() {
   // Content type breakdown
   var allContents = DATA.top_contents || [];
   var typeMap = {};
-  allContents.forEach(function(c) { var t = c.content_type || 'unknown'; typeMap[t] = (typeMap[t]||0)+1; });
+  allContents.forEach(c => { var t = c.content_type || 'unknown'; typeMap[t] = (typeMap[t]||0)+1; });
   var typeLabels = Object.keys(typeMap);
   var typeData = Object.values(typeMap);
 
@@ -1541,7 +1362,7 @@ function renderCompareCharts() {
       },
       options: {
         indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx){ return ctx.raw + '개'; } } } },
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw + '개' } } },
         scales: {
           x: { ticks: { font: { family: 'Poppins', size: 11 }, stepSize: 1 }, grid: { color: '#f1f5f9' } },
           y: { ticks: { font: { family: 'Noto Sans KR', size: 12 } }, grid: { display: false } }
@@ -1549,7 +1370,7 @@ function renderCompareCharts() {
       }
     });
   } else {
-    document.getElementById('chart-content-type').parentElement.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:20px">콘텐츠 유형 데이터가 없습니다</p>';
+    document.getElementById('chart-content-type').parentElement.innerHTML = '<p class="text-muted small p-3">콘텐츠 유형 데이터가 없습니다</p>';
   }
 }
 </script>
