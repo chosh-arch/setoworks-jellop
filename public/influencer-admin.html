@@ -13,6 +13,51 @@
   --tblr-primary: #ff003b;
   --tblr-primary-rgb: 255, 0, 59;
   --tblr-font-sans-serif: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --tier-nano: #10b981;
+  --tier-micro: #14b8a6;
+  --tier-mid: #3b82f6;
+  --tier-macro: #f59e0b;
+  --tier-mega: #ef4444;
+}
+
+/* Tier badges — consistent colors across views */
+.tier-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; font-weight: 600; line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
+}
+.tier-badge.tier-nano { background: rgba(16,185,129,.12); color: var(--tier-nano); }
+.tier-badge.tier-micro { background: rgba(20,184,166,.12); color: var(--tier-micro); }
+.tier-badge.tier-mid { background: rgba(59,130,246,.12); color: var(--tier-mid); }
+.tier-badge.tier-macro { background: rgba(245,158,11,.14); color: var(--tier-macro); }
+.tier-badge.tier-mega { background: rgba(239,68,68,.12); color: var(--tier-mega); }
+.tier-badge.tier-unset { background: #e2e8f0; color: #64748b; }
+
+/* Favorite star button */
+.fav-btn {
+  background: none; border: none; padding: 2px 4px; cursor: pointer;
+  color: #cbd5e1; transition: color .15s, transform .15s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.fav-btn:hover { color: #fbbf24; transform: scale(1.1); }
+.fav-btn.active { color: #fbbf24; }
+.fav-btn svg { display: block; }
+
+/* Focus styles for accessibility */
+button:focus-visible,
+.form-select:focus-visible,
+.form-control:focus-visible,
+a:focus-visible,
+.compare-chip:focus-visible,
+.cat-card:focus-visible {
+  outline: 2px solid var(--tblr-primary);
+  outline-offset: 2px;
+}
+
+/* Keyboard shortcut hint */
+.shortcut-hint {
+  color: #64748b; font-size: 11px; padding: 6px 8px 0; line-height: 1.5;
+  border-top: 1px solid rgba(255,255,255,.08); margin-top: 8px;
 }
 body { font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif; }
 .navbar-vertical { background: #212121 !important; }
@@ -174,37 +219,40 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
       <div class="collapse navbar-collapse" id="sidebar-menu">
         <!-- Global search -->
         <div class="my-2 px-1">
-          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색..." style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;">
+          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색..." aria-label="통합 검색" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;">
         </div>
-        <ul class="navbar-nav flex-column pt-2">
+        <ul class="navbar-nav flex-column pt-2" aria-label="네비게이션">
           <li class="nav-item">
-            <a class="nav-link active" href="#" data-view="dashboard">
+            <a class="nav-link active" href="#" data-view="dashboard" aria-label="대시보드">
               <span class="nav-link-icon">&#128202;</span>
               <span class="nav-link-title">대시보드</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" data-view="channels">
+            <a class="nav-link" href="#" data-view="channels" aria-label="채널 관리">
               <span class="nav-link-icon">&#128101;</span>
               <span class="nav-link-title">채널 관리</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" data-view="categories">
+            <a class="nav-link" href="#" data-view="categories" aria-label="카테고리">
               <span class="nav-link-icon">&#128193;</span>
               <span class="nav-link-title">카테고리</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" data-view="compare">
+            <a class="nav-link" href="#" data-view="compare" aria-label="비교 분석">
               <span class="nav-link-icon">&#9878;&#65039;</span>
               <span class="nav-link-title">비교 분석</span>
             </a>
           </li>
         </ul>
-        <div class="mt-auto pt-3 border-top border-secondary d-flex align-items-center justify-content-between">
-          <a href="/" class="sidebar-footer-link">&larr; 메인으로</a>
-          <button class="btn btn-sm btn-ghost-secondary" onclick="toggleDark()" title="다크모드">&#127769;</button>
+        <div class="mt-auto pt-3 border-top border-secondary">
+          <div class="d-flex align-items-center justify-content-between">
+            <a href="/" class="sidebar-footer-link">&larr; 메인으로</a>
+            <button class="btn btn-sm btn-ghost-secondary" onclick="toggleDark()" title="다크모드" aria-label="다크모드 전환">&#127769;</button>
+          </div>
+          <div class="shortcut-hint">단축키: / 검색 &middot; 1~4 뷰 전환 &middot; ESC 닫기</div>
         </div>
       </div>
     </div>
@@ -421,6 +469,42 @@ let charts = {};
 let channelSortCol = null;
 let channelSortAsc = true;
 let expandedRow = null;
+let currentView = 'dashboard';
+let suppressURLUpdate = false;
+
+// ─── Bookmark (favorites) storage ───
+function getBookmarks() {
+  try {
+    var raw = localStorage.getItem('bookmarked_influencers');
+    if (raw) {
+      var arr = JSON.parse(raw);
+      if (Array.isArray(arr)) return arr.map(String);
+    }
+  } catch(e) {}
+  return [];
+}
+function saveBookmarks(arr) {
+  localStorage.setItem('bookmarked_influencers', JSON.stringify(arr));
+}
+function isBookmarked(id) {
+  return getBookmarks().indexOf(String(id)) >= 0;
+}
+function toggleBookmark(id, ev) {
+  if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+  var sid = String(id);
+  var arr = getBookmarks();
+  var idx = arr.indexOf(sid);
+  if (idx >= 0) arr.splice(idx, 1);
+  else arr.push(sid);
+  saveBookmarks(arr);
+  renderChannelTable();
+}
+function starIconHtml(active) {
+  if (active) {
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"/></svg>';
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"/></svg>';
+}
 
 // ─── Korean IME Composition-safe search helper ───
 // Wraps an input element so that search only fires after Korean composition ends
@@ -438,21 +522,29 @@ function makeCompositionSafe(inputEl, callback) {
 }
 
 // ─── Navigation ───
+function switchToView(v) {
+  if (!v) return;
+  var target = document.getElementById('view-' + v);
+  if (!target) return;
+  currentView = v;
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(x => {
+    x.classList.toggle('active', x.dataset.view === v);
+  });
+  document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+  target.classList.add('active');
+  // Close mobile menu
+  var collapse = document.getElementById('sidebar-menu');
+  if (collapse && collapse.classList.contains('show')) {
+    var bsCollapse = bootstrap.Collapse.getInstance(collapse);
+    if (bsCollapse) bsCollapse.hide();
+  }
+  updateURL();
+}
+
 document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    const v = a.dataset.view;
-    if (!v) return;
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(x => x.classList.remove('active'));
-    a.classList.add('active');
-    document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
-    document.getElementById('view-' + v).classList.add('active');
-    // Close mobile menu
-    var collapse = document.getElementById('sidebar-menu');
-    if (collapse && collapse.classList.contains('show')) {
-      var bsCollapse = bootstrap.Collapse.getInstance(collapse);
-      if (bsCollapse) bsCollapse.hide();
-    }
+    switchToView(a.dataset.view);
   });
 });
 
@@ -465,6 +557,70 @@ document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
     });
   }
 })();
+
+// ─── URL state sync (view + key filters) ───
+function updateURL() {
+  if (suppressURLUpdate) return;
+  try {
+    var params = new URLSearchParams();
+    if (currentView) params.set('view', currentView);
+    if (typeof chFilters !== 'undefined') {
+      if (chFilters.platform && chFilters.platform !== 'all') params.set('platform', chFilters.platform);
+      if (chFilters.country && chFilters.country !== 'all') params.set('country', chFilters.country);
+      if (chFilters.tier && chFilters.tier !== 'all') params.set('tier', chFilters.tier);
+      if (chFilters.grade && chFilters.grade !== 'all') params.set('grade', chFilters.grade);
+      if (chFilters.category && chFilters.category !== 'all') params.set('category', chFilters.category);
+      if (chFilters.favOnly) params.set('fav', '1');
+    }
+    var str = params.toString();
+    history.replaceState(null, '', '#' + str);
+  } catch(e) {}
+}
+function loadFromURL() {
+  try {
+    var params = new URLSearchParams(location.hash.slice(1));
+    var view = params.get('view');
+    if (typeof chFilters !== 'undefined') {
+      if (params.get('platform')) chFilters.platform = params.get('platform');
+      if (params.get('country')) chFilters.country = params.get('country');
+      if (params.get('tier')) chFilters.tier = params.get('tier');
+      if (params.get('grade')) chFilters.grade = params.get('grade');
+      if (params.get('category')) chFilters.category = params.get('category');
+      if (params.get('fav') === '1') chFilters.favOnly = true;
+    }
+    if (view) {
+      suppressURLUpdate = true;
+      switchToView(view);
+      suppressURLUpdate = false;
+    }
+  } catch(e) {}
+}
+
+// ─── Keyboard shortcuts ───
+document.addEventListener('keydown', function(e) {
+  var tag = e.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+    if (e.key === 'Escape') e.target.blur();
+    return;
+  }
+  if (e.key === '/') {
+    e.preventDefault();
+    var s = document.getElementById('sidebar-search');
+    if (s) s.focus();
+    return;
+  }
+  if (e.key === 'Escape') {
+    if (expandedRow !== null) {
+      expandedRow = null;
+      if (DATA) renderChannelTable();
+    }
+    return;
+  }
+  if (e.key === '1') switchToView('dashboard');
+  else if (e.key === '2') switchToView('channels');
+  else if (e.key === '3') switchToView('categories');
+  else if (e.key === '4') switchToView('compare');
+});
 
 // ─── Helpers ───
 function fmt(n) {
@@ -481,8 +637,10 @@ function platformBadge(p) {
   return '<span class="badge ' + cls + '">' + label + '</span>';
 }
 function tierBadge(t) {
-  const colorMap = { nano: 'bg-green-lt', micro: 'bg-blue-lt', mid: 'bg-yellow-lt', macro: 'bg-pink-lt', mega: 'bg-purple-lt' };
-  return '<span class="badge ' + (colorMap[t] || 'bg-secondary-lt') + '">' + (t || 'unset') + '</span>';
+  var key = t || 'unset';
+  var validTiers = ['nano','micro','mid','macro','mega'];
+  var cls = validTiers.indexOf(key) >= 0 ? 'tier-' + key : 'tier-unset';
+  return '<span class="tier-badge ' + cls + '">' + key + '</span>';
 }
 function gradeBadge(g) {
   if (!g) return '<span class="grade-badge grade-B">-</span>';
@@ -522,11 +680,7 @@ function handleGlobalSearch(q) {
   if (!DATA) return;
   if (!q.trim()) return;
   chFilters.search = q;
-  document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
-    a.classList.toggle('active', a.dataset.view === 'channels');
-  });
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-channels').classList.add('active');
+  switchToView('channels');
   expandedRow = null;
   renderChannelFilters();
   renderChannelTable();
@@ -543,6 +697,22 @@ fetch('/influencer_data.json')
     var spinner = document.getElementById('loading-spinner');
     if (spinner) spinner.remove();
     document.querySelectorAll('.view').forEach(function(v) { v.style.display = ''; });
+    // Restore compareSelected from localStorage if present
+    try {
+      var rawCmp = localStorage.getItem('compare_selected');
+      if (rawCmp) {
+        var arr = JSON.parse(rawCmp);
+        if (Array.isArray(arr) && arr.length) {
+          var validIds = {};
+          data.influencers.forEach(function(i) { validIds[String(i.id)] = true; });
+          compareSelected = arr.map(String).filter(function(id) { return validIds[id]; });
+        }
+      }
+    } catch(e) {}
+    // Restore URL state before first render
+    suppressURLUpdate = true;
+    loadFromURL();
+    suppressURLUpdate = false;
     renderDashboard();
     renderChannels();
     renderCategories();
@@ -551,6 +721,7 @@ fetch('/influencer_data.json')
     animateKPIs();
     // Show last update timestamp
     showLastUpdate();
+    updateURL();
   })
   .catch(function(err) {
     var spinner = document.getElementById('loading-spinner');
@@ -649,11 +820,15 @@ function renderDashboard() {
 
   // Log table
   var logs = DATA.logs || [];
-  var logHtml = '<table class="table table-vcenter table-hover card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th></tr></thead><tbody>';
-  logs.forEach(l => {
-    var statusBadge = l.status === 'completed' ? '<span class="badge bg-success-lt">completed</span>' : l.status === 'running' ? '<span class="badge bg-warning-lt">running</span>' : '<span class="badge bg-danger-lt">' + l.status + '</span>';
-    logHtml += '<tr><td>' + platformBadge(l.platform) + '</td><td>' + statusBadge + '</td><td class="num">' + l.profiles_collected + '</td><td class="num">' + l.contents_collected + '</td><td class="text-muted" style="font-size:12px">' + new Date(l.started_at).toLocaleString('ko-KR') + '</td></tr>';
-  });
+  var logHtml = '<table class="table table-vcenter table-hover card-table"><thead><tr><th>플랫폼</th><th>상태</th><th class="num">프로필 수</th><th class="num">콘텐츠 수</th><th>시작 시간</th><th></th></tr></thead><tbody>';
+  if (!logs.length) {
+    logHtml += '<tr><td colspan="6" class="text-center text-muted py-3">수집 기록이 없습니다</td></tr>';
+  } else {
+    logs.forEach(l => {
+      var statusBadge = l.status === 'completed' ? '<span class="badge bg-success-lt">completed</span>' : l.status === 'running' ? '<span class="badge bg-warning-lt">running</span>' : '<span class="badge bg-danger-lt">' + l.status + '</span>';
+      logHtml += '<tr><td>' + platformBadge(l.platform) + '</td><td>' + statusBadge + '</td><td class="num">' + l.profiles_collected + '</td><td class="num">' + l.contents_collected + '</td><td class="text-muted" style="font-size:12px">' + new Date(l.started_at).toLocaleString('ko-KR') + '</td><td></td></tr>';
+    });
+  }
   logHtml += '</tbody></table>';
   document.getElementById('log-table-wrap').innerHTML = logHtml;
 }
@@ -661,7 +836,7 @@ function renderDashboard() {
 // =============================================
 // VIEW 2: Channels
 // =============================================
-var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
+var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, favOnly: false, search: '' };
 
 function renderChannels() {
   renderChannelFilters();
@@ -676,7 +851,7 @@ function renderChannelFilters() {
 
   // Platform dropdown
   html += '<div><label class="form-label mb-1 text-muted small">플랫폼</label>';
-  html += '<select class="form-select form-select-sm" style="min-width:110px" onchange="setChFilter(\'platform\',this.value)">';
+  html += '<select class="form-select form-select-sm" aria-label="플랫폼 필터" style="min-width:110px" onchange="setChFilter(\'platform\',this.value)">';
   [['all','전체'],['youtube','YouTube'],['instagram','Instagram'],['facebook','Facebook']].forEach(([v,l]) => {
     html += '<option value="' + v + '"' + (chFilters.platform===v?' selected':'') + '>' + l + '</option>';
   });
@@ -684,7 +859,7 @@ function renderChannelFilters() {
 
   // Country dropdown
   html += '<div><label class="form-label mb-1 text-muted small">국가</label>';
-  html += '<select class="form-select form-select-sm" style="min-width:90px" onchange="setChFilter(\'country\',this.value)">';
+  html += '<select class="form-select form-select-sm" aria-label="국가 필터" style="min-width:90px" onchange="setChFilter(\'country\',this.value)">';
   [['all','전체'],['JP','일본 🇯🇵'],['TW','대만 🇹🇼'],['기타','기타']].forEach(([v,l]) => {
     html += '<option value="' + v + '"' + (chFilters.country===v?' selected':'') + '>' + l + '</option>';
   });
@@ -692,7 +867,7 @@ function renderChannelFilters() {
 
   // Tier dropdown
   html += '<div><label class="form-label mb-1 text-muted small">Tier</label>';
-  html += '<select class="form-select form-select-sm" style="min-width:90px" onchange="setChFilter(\'tier\',this.value)">';
+  html += '<select class="form-select form-select-sm" aria-label="Tier 필터" style="min-width:90px" onchange="setChFilter(\'tier\',this.value)">';
   [['all','전체'],['nano','Nano'],['micro','Micro'],['mid','Mid'],['macro','Macro'],['mega','Mega']].forEach(([v,l]) => {
     html += '<option value="' + v + '"' + (chFilters.tier===v?' selected':'') + '>' + l + '</option>';
   });
@@ -700,7 +875,7 @@ function renderChannelFilters() {
 
   // Grade dropdown
   html += '<div><label class="form-label mb-1 text-muted small">등급</label>';
-  html += '<select class="form-select form-select-sm" style="min-width:80px" onchange="setChFilter(\'grade\',this.value)">';
+  html += '<select class="form-select form-select-sm" aria-label="등급 필터" style="min-width:80px" onchange="setChFilter(\'grade\',this.value)">';
   [['all','전체'],['S','S급'],['A','A급'],['B','B급'],['C','C급']].forEach(([v,l]) => {
     html += '<option value="' + v + '"' + (chFilters.grade===v?' selected':'') + '>' + l + '</option>';
   });
@@ -708,7 +883,7 @@ function renderChannelFilters() {
 
   // Category dropdown
   html += '<div><label class="form-label mb-1 text-muted small">카테고리</label>';
-  html += '<select class="form-select form-select-sm" style="min-width:130px" onchange="setChFilter(\'category\',this.value)">';
+  html += '<select class="form-select form-select-sm" aria-label="카테고리 필터" style="min-width:130px" onchange="setChFilter(\'category\',this.value)">';
   html += '<option value="all"' + (chFilters.category==='all'?' selected':'') + '>전체</option>';
   allCats.forEach(c => {
     html += '<option value="' + c + '"' + (chFilters.category===c?' selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
@@ -724,6 +899,11 @@ function renderChannelFilters() {
 
   // Content checkbox
   html += '<div><label class="form-label mb-1 text-muted small">콘텐츠</label><div><label class="form-check form-check-inline"><input class="form-check-input" type="checkbox" ' + (chFilters.hasContent?'checked':'') + ' onchange="setChFilter(\'hasContent\',this.checked)"><span class="form-check-label">콘텐츠 있음만</span></label></div></div>';
+
+  // Bookmarks filter toggle
+  var favCount = getBookmarks().length;
+  var favBtnCls = chFilters.favOnly ? 'btn-warning' : 'btn-outline-warning';
+  html += '<div><label class="form-label mb-1 text-muted small">즐겨찾기</label><div><button type="button" class="btn btn-sm ' + favBtnCls + '" aria-label="즐겨찾기 필터" aria-pressed="' + (chFilters.favOnly?'true':'false') + '" onclick="setChFilter(\'favOnly\',' + (!chFilters.favOnly) + ')">' + starIconHtml(chFilters.favOnly) + '<span class="ms-1">즐겨찾기만 (' + favCount + ')</span></button></div></div>';
 
   // Search (will be wired with composition-safe events after render)
   html += '<div class="ms-auto"><label class="form-label mb-1 text-muted small">검색</label><input type="text" id="ch-search-input" class="form-control form-control-sm" style="min-width:200px" placeholder="이름, 아이디, 소개, 카테고리 검색..." value="' + escHtml(chFilters.search) + '"></div>';
@@ -757,15 +937,17 @@ function setChFilter(key, val) {
   expandedRow = null;
   renderChannelFilters();
   renderChannelTable();
+  updateURL();
 }
 
 function resetChFilters() {
-  chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
+  chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, favOnly: false, search: '' };
   channelSortCol = null;
   channelSortAsc = true;
   expandedRow = null;
   renderChannelFilters();
   renderChannelTable();
+  updateURL();
 }
 
 function getFilteredInfluencers() {
@@ -791,6 +973,10 @@ function getFilteredInfluencers() {
   }
   if (chFilters.hasContent) {
     list = list.filter(i => (DATA.top_contents || []).some(c => c.influencer_id === i.id));
+  }
+  if (chFilters.favOnly) {
+    var favs = getBookmarks();
+    list = list.filter(i => favs.indexOf(String(i.id)) >= 0);
   }
   if (chFilters.search) {
     var q = chFilters.search.toLowerCase();
@@ -819,6 +1005,7 @@ function renderChannelTable() {
   document.getElementById('channel-count').innerHTML = '<span class="badge bg-primary-lt">' + list.length + '개 채널</span>';
   var cols = [
     { key: '#', label: '#' },
+    { key: 'fav', label: '' },
     { key: 'display_name', label: '채널' },
     { key: 'platform', label: '플랫폼' },
     { key: 'country', label: '국가' },
@@ -833,38 +1020,47 @@ function renderChannelTable() {
   var html = '<table class="table table-vcenter table-hover"><thead><tr>';
   cols.forEach(c => {
     if (c.key === '#') { html += '<th style="width:40px">#</th>'; return; }
+    if (c.key === 'fav') { html += '<th style="width:36px" aria-label="즐겨찾기"></th>'; return; }
     var isSorted = channelSortCol === c.key;
     var cls = 'sortable ' + (c.num ? 'num ' : '') + (isSorted ? (channelSortAsc ? 'sort-asc' : 'sort-desc') : '');
-    html += '<th class="' + cls + '" onclick="sortChannels(\'' + c.key + '\')">' + c.label + '<span class="sort-arrow"></span></th>';
+    var ariaSort = isSorted ? (channelSortAsc ? 'ascending' : 'descending') : 'none';
+    html += '<th class="' + cls + '" aria-sort="' + ariaSort + '" aria-label="정렬: ' + c.label + '" onclick="sortChannels(\'' + c.key + '\')">' + c.label + '<span class="sort-arrow"></span></th>';
   });
   html += '</tr></thead><tbody>';
 
-  list.forEach((inf, idx) => {
-    var er = calcER(inf);
-    var isExpanded = expandedRow === inf.id;
-    var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
-    html += '<tr class="expandable ' + (isExpanded?'expanded':'') + '" onclick="toggleExpand(\'' + inf.id + '\')">';
-    html += '<td class="text-muted">' + (idx + 1) + '</td>';
-    html += '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm" style="background-image:url(' + escHtml(avatarSrc) + ')"></span><span class="fw-bold">' + escHtml(inf.display_name) + '</span></div></td>';
-    html += '<td>' + platformBadge(inf.platform) + '</td>';
-    html += '<td>' + (inf.country || '-') + '</td>';
-    html += '<td class="num">' + fmt(inf.followers) + '</td>';
-    html += '<td class="num">' + inf.content_count + '</td>';
-    html += '<td class="num">' + fmt(inf.avg_views) + '</td>';
-    html += '<td class="num">' + pct(er) + '</td>';
-    html += '<td class="num">' + scoreBarHtml(inf.pure_score, 'sm') + '</td>';
-    html += '<td>' + gradeBadge(inf.grade) + '</td>';
-    html += '</tr>';
-
-    if (isExpanded) {
-      html += '<tr class="expand-row"><td colspan="' + cols.length + '">';
-      html += renderExpandContent(inf);
-      html += '</td></tr>';
-    }
-  });
-
   if (!list.length) {
-    html += '<tr><td colspan="' + cols.length + '" class="text-center text-muted py-5">조건에 맞는 채널이 없습니다</td></tr>';
+    html += '<tr><td colspan="' + cols.length + '">';
+    html += '<div class="text-center py-5">';
+    html += '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg text-muted mb-2" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    html += '<p class="text-muted">조건에 맞는 채널이 없습니다.</p>';
+    html += '<button class="btn btn-sm btn-outline-primary" onclick="resetChFilters()">필터 초기화</button>';
+    html += '</div></td></tr>';
+  } else {
+    list.forEach((inf, idx) => {
+      var er = calcER(inf);
+      var isExpanded = expandedRow === inf.id;
+      var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+      var fav = isBookmarked(inf.id);
+      html += '<tr class="expandable ' + (isExpanded?'expanded':'') + '" aria-expanded="' + (isExpanded?'true':'false') + '" onclick="toggleExpand(\'' + inf.id + '\')">';
+      html += '<td class="text-muted">' + (idx + 1) + '</td>';
+      html += '<td><button type="button" class="fav-btn' + (fav?' active':'') + '" aria-label="즐겨찾기" aria-pressed="' + (fav?'true':'false') + '" onclick="toggleBookmark(\'' + inf.id + '\',event)">' + starIconHtml(fav) + '</button></td>';
+      html += '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm" style="background-image:url(' + escHtml(avatarSrc) + ')"></span><span class="fw-bold">' + escHtml(inf.display_name) + '</span></div></td>';
+      html += '<td>' + platformBadge(inf.platform) + '</td>';
+      html += '<td>' + (inf.country || '-') + '</td>';
+      html += '<td class="num">' + fmt(inf.followers) + '</td>';
+      html += '<td class="num">' + inf.content_count + '</td>';
+      html += '<td class="num">' + fmt(inf.avg_views) + '</td>';
+      html += '<td class="num">' + pct(er) + '</td>';
+      html += '<td class="num">' + scoreBarHtml(inf.pure_score, 'sm') + '</td>';
+      html += '<td>' + gradeBadge(inf.grade) + '</td>';
+      html += '</tr>';
+
+      if (isExpanded) {
+        html += '<tr class="expand-row"><td colspan="' + cols.length + '">';
+        html += renderExpandContent(inf);
+        html += '</td></tr>';
+      }
+    });
   }
 
   html += '</tbody></table>';
@@ -890,10 +1086,14 @@ function renderExpandContent(inf) {
   html += '<div class="col-md-6">';
   html += '<div class="card"><div class="card-body">';
   var avatarSrc = inf.profile_image_url || 'https://yt3.googleusercontent.com/ytc/default_avatar.jpg';
+  var favExp = isBookmarked(inf.id);
   html += '<div class="d-flex align-items-start gap-3 mb-3">';
   html += '<img class="profile-img-lg" src="' + escHtml(avatarSrc) + '" onerror="this.src=\'https://yt3.googleusercontent.com/ytc/default_avatar.jpg\'" alt="">';
-  html += '<div>';
-  html += '<h4 class="mb-1">' + escHtml(inf.display_name) + '</h4>';
+  html += '<div style="flex:1">';
+  html += '<div class="d-flex align-items-center gap-2 mb-1"><h4 class="mb-0">' + escHtml(inf.display_name) + '</h4>';
+  html += '<button type="button" class="fav-btn' + (favExp?' active':'') + '" aria-label="즐겨찾기" aria-pressed="' + (favExp?'true':'false') + '" onclick="toggleBookmark(\'' + inf.id + '\',event)">' + starIconHtml(favExp) + '</button>';
+  if (inf.tier) html += tierBadge(inf.tier);
+  html += '</div>';
   html += '<div class="text-muted small"><strong>국가:</strong> ' + (COUNTRY_KR[inf.country]||inf.country||'-') + ' &nbsp; <strong>언어:</strong> ' + (inf.language || '-') + '</div>';
   if (inf.bio) html += '<div class="text-muted small mt-1">' + escHtml(inf.bio) + '</div>';
   if (inf.contact_email) html += '<div class="small mt-1"><strong>이메일:</strong> <span class="text-primary">' + escHtml(inf.contact_email) + '</span></div>';
@@ -1193,6 +1393,13 @@ function setCatFilter(key, val) {
   renderCatChart();
 }
 
+function resetCatFilters() {
+  catViewFilters = { search: '', country: 'all' };
+  renderCatFilterBar();
+  renderCatCards();
+  renderCatChart();
+}
+
 function getFilteredCatInfluencers() {
   var list = DATA.influencers.slice();
   if (catViewFilters.country !== 'all') {
@@ -1250,7 +1457,11 @@ function renderCatCards() {
   });
 
   if (!catKeys.length) {
-    cardsHtml = '<div class="col-12 text-center text-muted py-5">조건에 맞는 카테고리가 없습니다</div>';
+    cardsHtml = '<div class="col-12"><div class="text-center py-5">';
+    cardsHtml += '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg text-muted mb-2" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    cardsHtml += '<p class="text-muted">조건에 맞는 카테고리가 없습니다.</p>';
+    cardsHtml += '<button class="btn btn-sm btn-outline-primary" onclick="resetCatFilters()">필터 초기화</button>';
+    cardsHtml += '</div></div>';
   }
 
   document.getElementById('cat-cards').innerHTML = cardsHtml;
@@ -1325,15 +1536,11 @@ function renderCatChart() {
 
 function goToCatChannel(cat) {
   // Reset other filters but keep category
-  chFilters = { platform: 'all', tier: 'all', category: cat, country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, search: '' };
+  chFilters = { platform: 'all', tier: 'all', category: cat, country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, favOnly: false, search: '' };
   channelSortCol = null;
   channelSortAsc = true;
   expandedRow = null;
-  document.querySelectorAll('.navbar-nav .nav-link').forEach(a => {
-    a.classList.toggle('active', a.dataset.view === 'channels');
-  });
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-channels').classList.add('active');
+  switchToView('channels');
   renderChannelFilters();
   renderChannelTable();
 }
@@ -1348,6 +1555,7 @@ function renderCompare() {
   var infs = DATA.influencers;
   if (!compareSelected.length) {
     compareSelected = infs.slice().sort((a,b) => b.followers - a.followers).slice(0, 3).map(i => String(i.id));
+    try { localStorage.setItem('compare_selected', JSON.stringify(compareSelected)); } catch(e) {}
   }
   renderCompareFilterBar();
   renderCompareSelector();
@@ -1410,17 +1618,32 @@ function getFilteredCompareInfluencers() {
 
 function renderCompareSelector() {
   var infs = getFilteredCompareInfluencers();
-  var html = '<label class="form-label text-muted fw-bold mb-2">비교 대상 선택 (최대 5개):</label><div class="d-flex flex-wrap gap-2">';
-  infs.forEach(inf => {
-    var sid = String(inf.id);
-    var sel = compareSelected.indexOf(sid) >= 0;
-    html += '<div class="compare-chip ' + (sel?'selected':'') + '" onclick="toggleCompare(\'' + sid + '\')">';
-    html += '<span>' + escHtml(inf.display_name) + '</span>';
-    if (inf.grade) html += ' ' + gradeBadge(inf.grade);
+  var html = '<label class="form-label text-muted fw-bold mb-2">비교 대상 선택 (최대 5개):</label>';
+  if (!infs.length) {
+    html += '<div class="text-center py-5">';
+    html += '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg text-muted mb-2" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    html += '<p class="text-muted">조건에 맞는 인플루언서가 없습니다.</p>';
+    html += '<button class="btn btn-sm btn-outline-primary" onclick="resetCompareFilters()">필터 초기화</button>';
     html += '</div>';
-  });
-  html += '</div>';
+  } else {
+    html += '<div class="d-flex flex-wrap gap-2">';
+    infs.forEach(inf => {
+      var sid = String(inf.id);
+      var sel = compareSelected.indexOf(sid) >= 0;
+      html += '<div class="compare-chip ' + (sel?'selected':'') + '" role="button" tabindex="0" aria-pressed="' + (sel?'true':'false') + '" onclick="toggleCompare(\'' + sid + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleCompare(\'' + sid + '\');}">';
+      html += '<span>' + escHtml(inf.display_name) + '</span>';
+      if (inf.grade) html += ' ' + gradeBadge(inf.grade);
+      html += '</div>';
+    });
+    html += '</div>';
+  }
   document.getElementById('compare-selector').innerHTML = html;
+}
+
+function resetCompareFilters() {
+  compareFilters = { search: '', country: 'all', category: 'all' };
+  renderCompareFilterBar();
+  renderCompareSelector();
 }
 
 function toggleCompare(id) {
@@ -1432,6 +1655,7 @@ function toggleCompare(id) {
     if (compareSelected.length >= 5) return;
     compareSelected.push(sid);
   }
+  try { localStorage.setItem('compare_selected', JSON.stringify(compareSelected)); } catch(e) {}
   renderCompareSelector();
   renderCompareCharts();
 }
