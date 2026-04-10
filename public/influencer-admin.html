@@ -358,9 +358,18 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
           <div class="row row-deck row-cards">
             <div class="col-lg-6">
               <div class="card">
-                <div class="card-header"><h3 class="card-title">레이더 비교</h3></div>
+                <div class="card-header">
+                  <h3 class="card-title">레이더 비교</h3>
+                  <div class="card-actions text-muted small">선택된 인플루언서들 사이 상대 점수 (100점 = 그룹 내 최고)</div>
+                </div>
                 <div class="card-body">
                   <div class="chart-wrap" style="max-width:400px;margin:0 auto"><canvas id="chart-radar" height="380"></canvas></div>
+                  <div class="text-muted small mt-2 px-2">
+                    <strong>구독자</strong>: 총 팔로워 수 · <strong>참여율(ER)</strong>: (좋아요+댓글)/조회수 · <strong>콘텐츠 수</strong>: 수집 영상 개수 · <strong>평균 조회수</strong>: 영상당 평균 · <strong>총 조회수</strong>: 누적 조회수
+                  </div>
+                  <div class="alert alert-info mt-2 mb-0 py-2 px-3 small" id="radar-warning" style="display:none">
+                    💡 의미 있는 비교를 위해 2명 이상 선택하세요
+                  </div>
                 </div>
               </div>
             </div>
@@ -1441,17 +1450,22 @@ function renderCompareCharts() {
     return;
   }
 
-  var maxF = Math.max(...infs.map(i => i.followers)) || 1;
-  var maxER = Math.max(...infs.filter(i => i.avg_views > 0).map(i => calcER(i))) || 1;
-  var maxCC = Math.max(...infs.map(i => i.content_count)) || 1;
-  var maxAV = Math.max(...infs.map(i => i.avg_views || 0)) || 1;
-  var maxTV = Math.max(...infs.map(i => i.total_views || 0)) || 1;
+  // Show warning if only 1 selected
+  var warnEl = document.getElementById('radar-warning');
+  if (warnEl) warnEl.style.display = sel.length === 1 ? 'block' : 'none';
+
+  // Normalize within SELECTED group only (not all 64)
+  var maxF = Math.max(...sel.map(i => i.followers)) || 1;
+  var maxER = Math.max(...sel.filter(i => i.avg_views > 0).map(i => calcER(i))) || 1;
+  var maxCC = Math.max(...sel.map(i => i.content_count)) || 1;
+  var maxAV = Math.max(...sel.map(i => i.avg_views || 0)) || 1;
+  var maxTV = Math.max(...sel.map(i => i.total_views || 0)) || 1;
 
   if (charts.radar) charts.radar.destroy();
   charts.radar = new Chart(document.getElementById('chart-radar'), {
     type: 'radar',
     data: {
-      labels: ['도달력', '참여율', '콘텐츠양', '평균조회', '규모'],
+      labels: ['구독자', '참여율(ER)', '콘텐츠 수', '평균 조회수', '총 조회수'],
       datasets: sel.map((inf, idx) => ({
         label: inf.display_name,
         data: [
@@ -1471,12 +1485,29 @@ function renderCompareCharts() {
       scales: {
         r: {
           beginAtZero: true, max: 100,
-          ticks: { stepSize: 25, font: { family: 'Poppins', size: 10 }, backdropColor: 'transparent' },
+          ticks: { stepSize: 25, font: { family: 'Poppins', size: 10 }, backdropColor: 'transparent', callback: v => v + '점' },
           pointLabels: { font: { family: 'Noto Sans KR', size: 12, weight: '600' } },
           grid: { color: '#e2e8f0' }, angleLines: { color: '#e2e8f0' }
         }
       },
-      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Noto Sans KR', size: 11 }, usePointStyle: true, padding: 12 } } }
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { family: 'Noto Sans KR', size: 11 }, usePointStyle: true, padding: 12 } },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              var inf = sel[ctx.datasetIndex];
+              var axis = ctx.label;
+              var actual = '';
+              if (axis === '구독자') actual = fmtFull(inf.followers) + '명';
+              else if (axis === '참여율(ER)') actual = calcER(inf).toFixed(2) + '%';
+              else if (axis === '콘텐츠 수') actual = inf.content_count + '건';
+              else if (axis === '평균 조회수') actual = fmtFull(Math.round(inf.avg_views)) + '회';
+              else if (axis === '총 조회수') actual = fmtFull(inf.total_views) + '회';
+              return inf.display_name + ': ' + actual + ' (' + ctx.raw.toFixed(0) + '점)';
+            }
+          }
+        }
+      }
     }
   });
 
