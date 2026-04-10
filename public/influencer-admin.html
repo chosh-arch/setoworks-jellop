@@ -82,11 +82,12 @@ body { font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-seri
 /* Compare chips */
 .compare-chip {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border: 1px solid #e2e8f0; border-radius: 20px;
-  font-size: 12px; cursor: pointer; transition: all .15s; background: #fff;
+  padding: 6px 14px; border: 1.5px solid var(--tblr-border-color, #e2e8f0); border-radius: 20px;
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
+  background: var(--tblr-bg-surface, #fff); color: var(--tblr-body-color, #1a1a2e);
 }
-.compare-chip:hover { border-color: var(--tblr-primary); }
-.compare-chip.selected { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
+.compare-chip:hover { border-color: var(--tblr-primary); color: var(--tblr-primary); }
+.compare-chip.selected { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); font-weight: 600; }
 
 /* Sort arrow */
 th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: .6; }
@@ -1437,9 +1438,9 @@ function renderCompareCharts() {
     }
   });
 
-  // Country breakdown
+  // Country breakdown — selected influencers only
   var countryMap = {};
-  infs.forEach(i => { var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
+  sel.forEach(i => { var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
   if (charts.country) charts.country.destroy();
   charts.country = new Chart(document.getElementById('chart-country'), {
     type: 'doughnut',
@@ -1493,8 +1494,9 @@ function renderCompareCharts() {
   tHtml += '</tbody></table>';
   document.getElementById('compare-table-wrap').innerHTML = tHtml;
 
-  // Content type breakdown
-  var allContents = DATA.top_contents || [];
+  // Content type breakdown — selected influencers only
+  var selIds = sel.map(s => s.id);
+  var allContents = (DATA.top_contents || []).filter(c => selIds.indexOf(c.influencer_id) >= 0);
   var typeMap = {};
   allContents.forEach(c => { var t = c.content_type || 'unknown'; typeMap[t] = (typeMap[t]||0)+1; });
   var typeLabels = Object.keys(typeMap);
