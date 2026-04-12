@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks · 사내 DB 구축 · AI 연동 종합 계획서 v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2545;--navy2:#1a3a6b;--blue:#1e56b0;--bl:#dbeafe;--bl2:#eff6ff;
+  --gold:#d4841a;--gold2:#f0b442;--gl:#fef3dc;
+  --green:#0d7c5f;--green2:#10a37f;--grl:#d1fae5;
+  --red:#b91c1c;--rl:#fee2e2;
+  --purple:#6d28d9;--pl:#ede9fe;
+  --pk:#be185d;--pkl:#fce7f3;
+  --slate:#334155;--slate2:#475569;--sll:#f1f5f9;
+  --wh:#ffffff;--bd:#e2e8f0;--bd2:#cbd5e1;--tx:#0f172a;--mu:#64748b;
+  --brand-red:#ff003b;--charcoal:#212121;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{
+  font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--tx);user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"kern" 1,"liga" 1;
+  font-weight:400;
+}
+
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(56px);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1);pointer-events:none;overflow:hidden;}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;}
+.slide.exit-left{opacity:0;transform:translateX(-56px);pointer-events:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes drawLine{from{stroke-dashoffset:2000;}to{stroke-dashoffset:0;}}
+@keyframes barRise{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+@keyframes flowRight{0%{stroke-dashoffset:20;}100%{stroke-dashoffset:0;}}
+@keyframes flowDash{0%{stroke-dashoffset:40;}100%{stroke-dashoffset:0;}}
+.slide.active .stag{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .08s both;}
+.slide.active .st{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .16s both;}
+.slide.active .ss{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .24s both;}
+.slide.active .sb{animation:fadeUp .55s cubic-bezier(.4,0,.2,1) .32s both;}
+
+/* ==== SETOWORKS LOGO ==== */
+.brand-corner{
+  position:absolute;top:16px;right:28px;z-index:100;
+  pointer-events:auto;display:flex;align-items:center;gap:10px;
+}
+.brand-corner img{height:18px;width:auto;display:block;}
+.bc-link{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;color:var(--slate2);background:rgba(255,255,255,.85);border:1px solid var(--bd);transition:all .15s;backdrop-filter:blur(4px);}
+.bc-link:hover{color:var(--brand-red);border-color:var(--brand-red);background:#fff;box-shadow:0 2px 8px rgba(255,0,59,.15);}
+.bc-link svg{width:12px;height:12px;}
+#s0 .brand-corner{background:rgba(255,255,255,.97);padding:8px 14px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+#s0 .brand-corner img{height:16px;}
+#s0 .bc-link{background:transparent;border-color:rgba(0,0,0,.1);}
+
+.si{flex:1;display:flex;flex-direction:column;padding:28px 56px 16px;overflow:hidden;background:#f7f9fc;min-height:0;}
+.stag{display:flex;align-items:center;gap:11px;margin-bottom:13px;flex-shrink:0;}
+.snum{background:var(--charcoal);color:#fff;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.05em;}
+.slbl{font-size:13px;font-weight:500;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;}
+.st{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(26px,3.2vw,40px);font-weight:800;color:var(--charcoal);line-height:1.15;margin-bottom:7px;flex-shrink:0;letter-spacing:-.02em;}
+.st em{font-style:normal;color:var(--brand-red);}
+.ss{font-size:15px;color:var(--slate2);margin-bottom:18px;flex-shrink:0;line-height:1.65;font-weight:400;}
+.sb{flex:1 1 0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:12px;}
+.sb::-webkit-scrollbar{width:6px;height:6px;}
+.sb::-webkit-scrollbar-thumb{background:rgba(33,33,33,.2);border-radius:3px;}
+.sb::-webkit-scrollbar-track{background:transparent;}
+
+.nb{flex-shrink:0;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;background:var(--wh);border-top:1px solid var(--bd);gap:14px;}
+.nb-brand{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:12px;font-weight:800;color:var(--charcoal);letter-spacing:.04em;flex-shrink:0;display:flex;align-items:center;gap:8px;}
+.nb-sep{color:var(--bd2);font-weight:300;}
+.nb-proj{font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;color:var(--mu);letter-spacing:0;}
+.nb-dots{display:flex;align-items:center;gap:4px;flex:1;justify-content:center;flex-wrap:nowrap;overflow:hidden;}
+.nd{width:5px;height:5px;border-radius:50%;background:var(--bd2);cursor:pointer;transition:background .2s,width .2s;border:none;padding:0;flex-shrink:0;}
+.nd.active{background:var(--charcoal);width:16px;border-radius:3px;}
+.nd:hover:not(.active){background:var(--brand-red);}
+.nb-ctrl{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.nb-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--bd2);background:var(--wh);color:var(--charcoal);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
+.nb-btn:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal);}
+.nb-btn:active{transform:scale(.93);}
+.nb-cnt{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--slate2);min-width:42px;text-align:center;}
+
+/* COVER */
+#s0{background:radial-gradient(ellipse at 75% 25%,#1f2733 0%,#0a0e1a 60%,#020000 100%);}
+#s0 .si{background:transparent;justify-content:center;padding:0 64px;}
+#s0 .nb{background:rgba(255,255,255,.04);border-top-color:rgba(255,255,255,.08);}
+#s0 .nb-brand{color:#fff;}
+#s0 .nb-sep{color:rgba(255,255,255,.3);}
+#s0 .nb-proj{color:rgba(255,255,255,.6);}
+#s0 .nd{background:rgba(255,255,255,.22);}
+#s0 .nd.active{background:#fff;}
+#s0 .nb-cnt{color:rgba(255,255,255,.55);}
+#s0 .nb-btn{border-color:rgba(255,255,255,.25);background:transparent;color:#fff;}
+#s0 .nb-btn:hover{background:rgba(255,255,255,.18);}
+.cv-logo{display:inline-block;background:#fff;padding:clamp(20px,3vw,36px) clamp(32px,4.5vw,56px);border-radius:14px;margin-bottom:20px;align-self:flex-start;box-shadow:0 8px 40px rgba(0,0,0,.35);}
+.cv-logo img{height:clamp(38px,5vw,68px);width:auto;display:block;}
+.cv-divider{width:84px;height:3px;background:var(--brand-red);margin:18px 0 26px;}
+.cv-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,0,59,.1);color:#fff;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border-radius:24px;margin-bottom:18px;font-family:'DM Mono',monospace;border:1px solid rgba(255,0,59,.35);}
+.cv-h{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(32px,4.2vw,52px);font-weight:700;color:#fff;line-height:1.05;margin-bottom:18px;letter-spacing:-.02em;}
+.cv-h span{color:rgba(255,255,255,.45);}
+.cv-d{font-size:16px;color:rgba(255,255,255,.78);max-width:680px;line-height:1.78;margin-bottom:36px;font-weight:400;}
+.cv-meta{display:flex;gap:38px;flex-wrap:wrap;}
+.cv-mi{display:flex;flex-direction:column;gap:5px;}
+.cv-ml{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.13em;color:rgba(255,255,255,.5);text-transform:uppercase;}
+.cv-mv{font-size:15px;font-weight:600;color:rgba(255,255,255,.96);}
+
+/* cards */
+.card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(15,37,69,.04),0 1px 2px rgba(15,37,69,.02);}
+.ctitle{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--slate2);margin-bottom:13px;}
+.clist{display:flex;flex-direction:column;gap:8px;}
+.clist .ci{font-size:14px;color:var(--slate);line-height:1.65;font-weight:400;display:flex;gap:9px;align-items:flex-start;}
+.clist .ci::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand-red);flex-shrink:0;margin-top:8px;}
+.clist .ci strong{color:var(--navy);font-weight:700;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:20px;margin-bottom:8px;}
+.bb{background:var(--bl);color:var(--blue);}
+.bg{background:var(--gl);color:var(--gold);}
+.bgg{background:var(--grl);color:var(--green);}
+.br{background:var(--rl);color:var(--red);}
+.brd{background:rgba(255,0,59,.1);color:var(--brand-red);}
+.bp{background:var(--pl);color:var(--purple);}
+.chip{display:inline-block;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;background:var(--sll);border:1px solid var(--bd);border-radius:5px;padding:2px 8px;color:var(--navy);}
+
+/* stat row */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;flex:none;}
+.stat-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 14px;text-align:center;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.stat-num{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:38px;font-weight:800;line-height:1.1;}
+.stat-lbl{font-size:13px;color:var(--slate2);margin-top:6px;line-height:1.5;font-weight:500;}
+
+/* insight box */
+.ibox{padding:13px 17px;border-radius:11px;border-left:4px solid;font-size:13.5px;line-height:1.7;font-weight:400;}
+.ibox strong{font-weight:700;}
+.ibox-blue{background:var(--bl2);border-color:var(--blue);color:#1e3a5f;}
+.ibox-gold{background:var(--gl);border-color:var(--gold);color:#78350f;}
+.ibox-green{background:var(--grl);border-color:var(--green);color:#064e3b;}
+.ibox-red{background:var(--rl);border-color:var(--red);color:#7f1d1d;}
+.ibox-brand{background:rgba(255,0,59,.06);border-color:var(--brand-red);color:#7f1d1d;}
+
+/* hw cards */
+.hw-card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.hw-icon{font-size:28px;}
+.hw-t{font-size:16px;font-weight:800;color:var(--charcoal);}
+.hw-d{font-size:13px;color:var(--slate);line-height:1.7;font-weight:400;}
+.hw-d strong{color:var(--charcoal);font-weight:700;}
+.hw-score{margin-top:auto;display:flex;align-items:center;gap:8px;}
+.hw-bar{flex:1;height:6px;background:var(--sll);border-radius:3px;overflow:hidden;}
+.hw-bar-fill{height:100%;border-radius:3px;}
+.hw-score-val{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;}
+
+/* architecture flow */
+.arch-flow{display:flex;align-items:center;justify-content:center;gap:0;flex:1;padding:8px 0;overflow:auto;}
+.arch-box{border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:140px;max-width:180px;position:relative;border:2px solid;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.arch-box-icon{font-size:24px;}
+.arch-box-t{font-size:13px;font-weight:800;line-height:1.25;}
+.arch-box-d{font-size:11px;line-height:1.5;font-weight:500;opacity:.85;}
+.arch-box-port{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(0,0,0,.08);}
+.arch-arrow{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:48px;color:var(--brand-red);font-size:20px;font-weight:800;}
+.arch-arrow svg{width:40px;height:24px;}
+
+/* schema groups */
+.schema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;overflow:auto;}
+.schema-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;border-left:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.schema-num{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--mu);}
+.schema-t{font-size:13px;font-weight:800;color:var(--charcoal);}
+.schema-d{font-size:11.5px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* placement table */
+.pl-table{width:100%;border-collapse:collapse;background:var(--wh);border-radius:14px;overflow:hidden;border:1px solid var(--bd);}
+.pl-table thead tr{background:var(--charcoal);}
+.pl-table thead th{padding:12px 16px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.96);}
+.pl-table tbody tr:nth-child(even){background:#fafbfd;}
+.pl-table tbody td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--bd);line-height:1.6;color:var(--slate);font-weight:400;}
+.pl-table tbody td:first-child{font-weight:700;color:var(--charcoal);}
+
+/* AI pattern */
+.ai-pattern{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:8px;border-top:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.ai-pattern-t{font-size:15px;font-weight:800;color:var(--charcoal);}
+.ai-pattern-flow{font-family:'DM Mono',monospace;font-size:12px;background:var(--sll);padding:10px 14px;border-radius:8px;line-height:1.7;color:var(--slate2);font-weight:500;}
+.ai-pattern-flow strong{color:var(--brand-red);font-weight:700;}
+
+/* AI scenario cards */
+.ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ai-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;border-left:4px solid;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.ai-card-icon{font-size:20px;}
+.ai-card-t{font-size:13px;font-weight:800;color:var(--charcoal);}
+.ai-card-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* security list */
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;overflow:auto;}
+.sec-item{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.sec-num{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;color:var(--brand-red);flex-shrink:0;width:28px;text-align:center;}
+.sec-body{flex:1;}
+.sec-t{font-size:13px;font-weight:800;color:var(--charcoal);margin-bottom:2px;}
+.sec-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* timeline */
+.phase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;overflow:auto;}
+.phase-card{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;border:1.5px solid;position:relative;}
+.phase-h{display:flex;justify-content:space-between;align-items:flex-start;}
+.phase-num{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;line-height:1;}
+.phase-when{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;color:#fff;}
+.phase-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.3;}
+.phase-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+/* decision items */
+.dec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;overflow:auto;}
+.dec-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--gold);box-shadow:0 1px 3px rgba(15,37,69,.04);}
+.dec-num{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:var(--gold);line-height:1;}
+.dec-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.3;}
+.dec-status{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:3px 10px;border-radius:5px;background:var(--gl);color:var(--gold);align-self:flex-start;}
+
+/* before/after */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;overflow:auto;border-radius:14px;border:1px solid var(--bd);background:var(--wh);}
+.ba-header{display:contents;}
+.ba-header-cell{padding:14px 20px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;}
+.ba-row{display:contents;}
+.ba-row > div{padding:11px 20px;font-size:13px;line-height:1.6;border-top:1px solid var(--bd);}
+.ba-before{color:var(--red);font-weight:500;background:rgba(185,28,28,.03);}
+.ba-after{color:var(--green);font-weight:600;background:rgba(13,124,95,.03);}
+
+/* conclusion flow */
+.concl-flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;padding:12px 0;overflow-x:auto;}
+.concl-box{border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:150px;max-width:190px;border:2px solid;box-shadow:0 6px 24px rgba(0,0,0,.1);position:relative;}
+.concl-box-icon{font-size:28px;}
+.concl-box-t{font-size:14px;font-weight:800;line-height:1.25;}
+.concl-box-d{font-size:11px;line-height:1.5;font-weight:500;}
+.concl-box-port{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+.concl-arrow{width:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.concl-arrow svg{width:36px;height:20px;}
+
+/* animated arrow for conclusion */
+@keyframes arrowPulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+.concl-arrow svg path{animation:arrowPulse 1.5s ease-in-out infinite;}
+
+/* action list */
+.act-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;}
+.act-card{background:var(--wh);border:1px solid var(--bd);border-radius:13px;padding:14px 13px;display:flex;flex-direction:column;gap:7px;text-align:center;border-top:3px solid var(--brand-red);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.act-num{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:24px;font-weight:800;color:var(--brand-red);line-height:1;}
+.act-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.4;}
+.act-d{font-size:12px;color:var(--slate);line-height:1.55;font-weight:400;}
+
+@media(max-width:768px){
+  .si{padding:18px 20px 0;}
+  .nb{padding:0 20px;}
+  .brand-corner{top:14px;right:18px;}
+  .g2,.g3,.g4,.g5,.stat-row,.schema-grid,.ai-grid,.sec-grid,.phase-grid,.dec-grid,.act-grid{grid-template-columns:1fr;}
+  .arch-flow,.concl-flow{flex-direction:column;}
+  .arch-arrow,.concl-arrow{transform:rotate(90deg);}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ━━━ 0 COVER ━━━ -->
+<div class="slide active" id="s0">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="cv-logo"><img src="setoworks_logo_8x.png" alt="SETOWORKS"></div>
+    <div class="cv-divider"></div>
+    <div class="cv-tag">Internal DB Infrastructure · 2026-04-12</div>
+    <div class="cv-h">사내 DB 구축 · AI 연동<br><span>종합 계획서 v4</span></div>
+    <div class="cv-d">DDL v5 (70테이블 · 2,245라인) · NAS 실측 반영 · 15+ 라운드 검증 완료. PostgreSQL 16 + Claude AI + NAS 통합으로 50명 규모 조직의 데이터 플랫폼을 구축한다.</div>
+    <div class="cv-meta">
+      <div class="cv-mi"><span class="cv-ml">DB명</span><span class="cv-mv">setoworks</span></div>
+      <div class="cv-mi"><span class="cv-ml">NAS IP</span><span class="cv-mv">192.168.0.195</span></div>
+      <div class="cv-mi"><span class="cv-ml">구축 기간</span><span class="cv-mv">8 Phase · 8주</span></div>
+      <div class="cv-mi"><span class="cv-ml">슬라이드</span><span class="cv-mv">총 14장</span></div>
+    </div>
+  </div>
+  <div class="nb">
+    <div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div>
+    <div class="nb-dots" id="d0"></div>
+    <div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c0"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- ━━━ 1 프로젝트 개요 ━━━ -->
+<div class="slide" id="s1">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">01</span><span class="slbl">Project Overview</span></div>
+    <div class="st">50명 규모 조직의 <em>통합 데이터 플랫폼</em></div>
+    <div class="ss">PostgreSQL 16 + Claude AI + NAS 통합. DDL v5(70테이블) 즉시 배포 가능 상태.</div>
+    <div class="sb">
+      <div class="g3">
+        <div class="hw-card" style="border-top-color:var(--brand-red);">
+          <div class="hw-icon">&#128451;</div>
+          <div class="hw-t">DB명: setoworks (확정)</div>
+          <div class="hw-d">DDL v5 · <strong>70테이블</strong> · <strong>2,245라인</strong>. 모든 테이블 정의, 인덱스, 트리거, RLS 정책 포함. init.sql 하나로 전체 스키마 즉시 배포 가능.</div>
+        </div>
+        <div class="hw-card" style="border-top-color:var(--blue);">
+          <div class="hw-icon">&#128425;</div>
+          <div class="hw-t">NAS IP: 192.168.0.195 (실측)</div>
+          <div class="hw-d"><strong>7.40TB</strong> 실측 · <strong>388,247파일</strong>. 14년간 축적된 프로젝트 자료, 디자인 에셋, 영상, 문서 전체 보관.</div>
+        </div>
+        <div class="hw-card" style="border-top-color:var(--green);">
+          <div class="hw-icon">&#9989;</div>
+          <div class="hw-t">검증: 15+ 라운드 100% 합격</div>
+          <div class="hw-d"><strong>8 Phase · 8주</strong> 구축 목표. 15회 이상 검증 라운드를 거쳐 DDL 구조, 보안 정책, 백업 전략 모두 확정.</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>핵심 요약:</strong> 추가 구매 없이 기존 장비(Ryzen PC + Mac Studio + NAS)만으로 서버급 DB 인프라를 구축한다. <strong>UPS 1대(10~15만원)</strong>만 추가 필요.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d1"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c1"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 2 보유 장비 분석 ━━━ -->
+<div class="slide" id="s2">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">02</span><span class="slbl">Hardware Assets</span></div>
+    <div class="st">추가 구매 없이 <em>기존 장비만으로 구축</em></div>
+    <div class="ss">DB 서버, API 서버, NAS 3대의 역할 분리. 각 장비의 실측 스펙과 안정성 점수를 검증했다.</div>
+    <div class="sb">
+      <div class="g3">
+        <div class="hw-card" style="border-top-color:var(--brand-red);">
+          <div class="hw-icon">&#128187;</div>
+          <div class="hw-t">DB 서버 (Ryzen 5 5600X)</div>
+          <div class="hw-d"><strong>6코어 12스레드</strong> · <strong>24GB RAM</strong> · SSD 447GB(메인) + 224GB(WAL) · PostgreSQL 16 전용 서버. shared_buffers 6GB, WAL SSD 분리로 쓰기 성능 최적화.</div>
+          <div class="hw-score">
+            <span style="font-size:12px;color:var(--mu);font-weight:600;">안정성</span>
+            <div class="hw-bar"><div class="hw-bar-fill" style="width:82%;background:var(--gold);"></div></div>
+            <span class="hw-score-val" style="color:var(--gold);">82/100</span>
+          </div>
+        </div>
+        <div class="hw-card" style="border-top-color:var(--blue);">
+          <div class="hw-icon">&#127823;</div>
+          <div class="hw-t">API 서버 (Mac Studio M1)</div>
+          <div class="hw-d"><strong>8코어</strong> · <strong>16GB</strong> · 팬리스 설계 · Node.js API(:3000) + Metabase(:3001) + Claude API 게이트웨이. 24시간 상시 가동에 최적화.</div>
+          <div class="hw-score">
+            <span style="font-size:12px;color:var(--mu);font-weight:600;">안정성</span>
+            <div class="hw-bar"><div class="hw-bar-fill" style="width:98%;background:var(--green);"></div></div>
+            <span class="hw-score-val" style="color:var(--green);">98/100</span>
+          </div>
+        </div>
+        <div class="hw-card" style="border-top-color:var(--green);">
+          <div class="hw-icon">&#128449;</div>
+          <div class="hw-t">NAS (192.168.0.195)</div>
+          <div class="hw-d"><strong>7.40TB 실측</strong> · <strong>388,247파일</strong> · READ-ONLY 정책 · gpg AES-256 암호화 백업 저장소. 6계층 방어 체계 완비.</div>
+          <div class="hw-score">
+            <span style="font-size:12px;color:var(--mu);font-weight:600;">안정성</span>
+            <div class="hw-bar"><div class="hw-bar-fill" style="width:95%;background:var(--green);"></div></div>
+            <span class="hw-score-val" style="color:var(--green);">95/100</span>
+          </div>
+        </div>
+      </div>
+      <div class="ibox ibox-green" style="flex:none;">
+        <strong>추가 필요 장비: UPS 1대 (10~15만원)만</strong> — 기존 장비로 서버급 운영 가능. 정전 시 안전 종료 + 복전 시 자동 부팅까지 UPS 하나로 해결한다.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d2"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c2"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 3 전체 아키텍처 ━━━ -->
+<div class="slide" id="s3">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">03</span><span class="slbl">Architecture</span></div>
+    <div class="st">3계층 아키텍처 <em>전체 흐름</em></div>
+    <div class="ss">사용자 요청부터 데이터 저장·백업까지, 5개 컴포넌트의 연결 구조를 나타낸다.</div>
+    <div class="sb">
+      <!-- Architecture Flow Diagram -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+        <svg viewBox="0 0 1100 320" style="width:100%;flex:1;min-height:0;" preserveAspectRatio="xMidYMid meet">
+          <!-- Background regions -->
+          <rect x="10" y="10" width="180" height="300" rx="16" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <rect x="220" y="10" width="340" height="300" rx="16" fill="#dbeafe" stroke="#1e56b0" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <rect x="590" y="10" width="200" height="300" rx="16" fill="rgba(255,0,59,.06)" stroke="#ff003b" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <rect x="820" y="10" width="270" height="300" rx="16" fill="#d1fae5" stroke="#0d7c5f" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+          <!-- Region labels -->
+          <text x="100" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="700" fill="#6d28d9" letter-spacing=".05em">EXTERNAL</text>
+          <text x="390" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="700" fill="#1e56b0" letter-spacing=".05em">APPLICATION LAYER</text>
+          <text x="690" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="700" fill="#ff003b" letter-spacing=".05em">DATABASE LAYER</text>
+          <text x="955" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="700" fill="#0d7c5f" letter-spacing=".05em">STORAGE LAYER</text>
+
+          <!-- Box 1: User/VPN -->
+          <rect x="30" y="100" width="140" height="130" rx="12" fill="#fff" stroke="#6d28d9" stroke-width="2"/>
+          <text x="100" y="130" text-anchor="middle" font-size="28">&#128100;</text>
+          <text x="100" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="800" fill="#212121">사용자 / VPN</text>
+          <text x="100" y="172" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#64748b">10.0.0.0/24</text>
+          <rect x="55" y="182" width="90" height="20" rx="4" fill="#ede9fe"/>
+          <text x="100" y="196" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="700" fill="#6d28d9">WireGuard:51820</text>
+          <text x="100" y="218" text-anchor="middle" font-size="10" fill="#475569">50명 전 직원</text>
+
+          <!-- Arrow 1 -->
+          <line x1="170" y1="165" x2="238" y2="165" stroke="#ff003b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+          <text x="204" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#ff003b" font-weight="700">HTTPS</text>
+
+          <!-- Box 2: Mac Studio -->
+          <rect x="240" y="55" width="300" height="230" rx="12" fill="#fff" stroke="#1e56b0" stroke-width="2"/>
+          <text x="390" y="82" text-anchor="middle" font-size="22">&#127823;</text>
+          <text x="390" y="100" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="#212121">Mac Studio M1</text>
+          <!-- Sub boxes inside -->
+          <rect x="256" y="112" width="125" height="48" rx="8" fill="#dbeafe" stroke="#1e56b0" stroke-width="1"/>
+          <text x="318" y="134" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#1e56b0">Node.js API</text>
+          <text x="318" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">:3000</text>
+
+          <rect x="397" y="112" width="125" height="48" rx="8" fill="#dbeafe" stroke="#1e56b0" stroke-width="1"/>
+          <text x="460" y="134" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#1e56b0">Metabase</text>
+          <text x="460" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">:3001</text>
+
+          <rect x="256" y="170" width="125" height="48" rx="8" fill="rgba(255,0,59,.08)" stroke="#ff003b" stroke-width="1"/>
+          <text x="318" y="192" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#ff003b">Claude API</text>
+          <text x="318" y="208" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">Gateway</text>
+
+          <rect x="397" y="170" width="125" height="48" rx="8" fill="#fef3dc" stroke="#d4841a" stroke-width="1"/>
+          <text x="460" y="192" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#d4841a">Nginx</text>
+          <text x="460" y="208" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">Reverse Proxy</text>
+
+          <rect x="310" y="228" width="160" height="28" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="390" y="247" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="600" fill="#475569">8Core · 16GB · Fanless</text>
+
+          <!-- Arrow 2 -->
+          <line x1="540" y1="165" x2="608" y2="165" stroke="#ff003b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+          <text x="574" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#ff003b" font-weight="700">TCP</text>
+
+          <!-- Box 3: PgBouncer + PostgreSQL -->
+          <rect x="610" y="60" width="170" height="90" rx="12" fill="#fff" stroke="#ff003b" stroke-width="2"/>
+          <text x="695" y="88" text-anchor="middle" font-size="18">&#9889;</text>
+          <text x="695" y="106" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="800" fill="#ff003b">PgBouncer</text>
+          <text x="695" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">:6432</text>
+          <rect x="630" y="130" width="130" height="16" rx="3" fill="rgba(255,0,59,.08)"/>
+          <text x="695" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#ff003b" font-weight="600">500 &#8594; 25 연결</text>
+
+          <line x1="695" y1="150" x2="695" y2="170" stroke="#ff003b" stroke-width="2" marker-end="url(#arrowD)"/>
+
+          <rect x="610" y="172" width="170" height="110" rx="12" fill="#fff" stroke="#212121" stroke-width="2.5"/>
+          <text x="695" y="198" text-anchor="middle" font-size="18">&#128024;</text>
+          <text x="695" y="218" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="#212121">PostgreSQL 16</text>
+          <text x="695" y="236" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#475569">:5432 · 70 tables</text>
+          <rect x="627" y="244" width="136" height="28" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="695" y="261" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="600" fill="#475569">Ryzen 5 · 24GB · SSD</text>
+
+          <!-- Arrow 3 -->
+          <line x1="780" y1="227" x2="838" y2="165" stroke="#0d7c5f" stroke-width="2.5" marker-end="url(#arrowR)"/>
+
+          <!-- Box 4: NAS -->
+          <rect x="840" y="70" width="230" height="220" rx="12" fill="#fff" stroke="#0d7c5f" stroke-width="2"/>
+          <text x="955" y="100" text-anchor="middle" font-size="24">&#128449;</text>
+          <text x="955" y="122" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="#0d7c5f">NAS (.195)</text>
+
+          <rect x="858" y="138" width="194" height="38" rx="8" fill="#d1fae5" stroke="#0d7c5f" stroke-width="1"/>
+          <text x="955" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#0d7c5f">gpg AES-256 암호화 백업</text>
+          <text x="955" y="170" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#475569">DB Dump + WAL Archive</text>
+
+          <rect x="858" y="186" width="194" height="38" rx="8" fill="#d1fae5" stroke="#0d7c5f" stroke-width="1"/>
+          <text x="955" y="203" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#0d7c5f">원본 파일 저장소</text>
+          <text x="955" y="218" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#475569">7.40TB · 388,247 files</text>
+
+          <rect x="880" y="238" width="150" height="24" rx="6" fill="rgba(185,28,28,.08)" stroke="var(--red)" stroke-width="1"/>
+          <text x="955" y="254" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" font-weight="700" fill="var(--red)">READ-ONLY 6계층 방어</text>
+
+          <!-- Arrow markers -->
+          <defs>
+            <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ff003b"/></marker>
+            <marker id="arrowD" markerWidth="6" markerHeight="8" refX="3" refY="8" orient="auto"><path d="M0,0 L3,8 L6,0" fill="#ff003b"/></marker>
+            <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#0d7c5f"/></marker>
+          </defs>
+        </svg>
+
+        <div class="g2" style="flex:none;">
+          <div class="ibox ibox-brand"><strong>PgBouncer 커넥션 풀링:</strong> 500 클라이언트 연결을 <strong>25개 실제 DB 연결</strong>로 압축. PostgreSQL 리소스 보호.</div>
+          <div class="ibox ibox-blue"><strong>WAL 전용 SSD 분리:</strong> 메인 SSD 447GB + WAL SSD 224GB. 쓰기 성능과 안정성을 동시에 확보한다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d3"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c3"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 4 NAS 실측 분석 ━━━ -->
+<div class="slide" id="s4">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">04</span><span class="slbl">NAS Analysis</span></div>
+    <div class="st">NAS 7.40TB <em>실측 분석 결과</em></div>
+    <div class="ss">14년간 축적된 파일 자산의 전수 스캔 결과를 정리한다. 중복 제거만으로 1TB 회수 가능.</div>
+    <div class="sb">
+      <div class="stat-row" style="flex:none;">
+        <div class="stat-card"><div class="stat-num" style="color:var(--brand-red);">388,247</div><div class="stat-lbl">총 파일 수</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--blue);">28,298</div><div class="stat-lbl">총 폴더 수</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--green);">817</div><div class="stat-lbl">프로젝트 수</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--purple);">494</div><div class="stat-lbl">클라이언트 수</div></div>
+      </div>
+      <div class="g2" style="flex:1;">
+        <div class="card">
+          <div class="ctitle">&#9888;&#65039; 중복 파일 분석</div>
+          <div class="clist">
+            <div class="ci"><strong>중복 파일 용량: 905GB</strong> (25,451 그룹)</div>
+            <div class="ci">즉시 <strong>1TB 회수 가능</strong> — Stage 9 정리 실행 시</div>
+            <div class="ci">sha256 해시 기반 정확한 중복 탐지</div>
+            <div class="ci">file_dedup_groups 테이블로 관리</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ctitle">&#128200; 업무 도메인 분석</div>
+          <div class="clist">
+            <div class="ci"><strong>글로벌 크라우드펀딩 컨설팅</strong> 압도적 1위</div>
+            <div class="ci">마쿠아케 <strong>649회</strong> 언급, 와디즈 <strong>325회</strong></div>
+            <div class="ci">킥스타터, 인디고고 등 주요 플랫폼 전수 커버</div>
+            <div class="ci">디자인, 영상, 번역, 물류 관련 파일 다수</div>
+          </div>
+        </div>
+      </div>
+      <div class="ibox ibox-green" style="flex:none;">
+        <strong>READ-ONLY 6계층 방어 체계 완비:</strong> NAS 마운트 옵션 ro + PostgreSQL readonly_user + API 읽기전용 엔드포인트 + Nginx 경로 제한 + 파일시스템 chattr +i + 감사 로그. 원본 파일을 절대 변경하지 않는다.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d4"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c4"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 5 데이터베이스 설계 ━━━ -->
+<div class="slide" id="s5">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">05</span><span class="slbl">Database Schema</span></div>
+    <div class="st">DDL v5 <em>70테이블 · 5개 영역</em></div>
+    <div class="ss">9개 테이블 그룹으로 구성된 전체 스키마. init.sql 하나 실행으로 즉시 배포한다.</div>
+    <div class="sb">
+      <div class="schema-grid">
+        <div class="schema-card" style="border-left-color:var(--charcoal);">
+          <div class="schema-num">01 · 17개 테이블</div>
+          <div class="schema-t">v3 기본</div>
+          <div class="schema-d">users, roles, audit_logs, documents, files, notifications, settings 등 핵심 기반 테이블</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--blue);">
+          <div class="schema-num">02 · 9개 테이블</div>
+          <div class="schema-t">마스터 데이터</div>
+          <div class="schema-d">countries, platforms, project_categories, currencies, tags 등 코드성 참조 테이블</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--green);">
+          <div class="schema-num">03 · 7개 테이블</div>
+          <div class="schema-t">프로젝트 · 클라이언트</div>
+          <div class="schema-d">clients, projects, handovers, milestones, contracts, invoices, feedback</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--gold);">
+          <div class="schema-num">04 · 9개 테이블</div>
+          <div class="schema-t">NAS 미러</div>
+          <div class="schema-d">nas_scan_runs, nas_files, file_dedup_groups, file_versions, path_mappings 등</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--purple);">
+          <div class="schema-num">05 · 8개 테이블</div>
+          <div class="schema-t">콘텐츠 자산</div>
+          <div class="schema-d">media_assets, videos, design_assets, translations, brand_guidelines 등</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--brand-red);">
+          <div class="schema-num">06 · 3개 테이블</div>
+          <div class="schema-t">AI 강화</div>
+          <div class="schema-d">ai_response_cache, ai_feedback, prompts — Claude API 연동 전용</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--red);">
+          <div class="schema-num">07 · 3개 테이블</div>
+          <div class="schema-t">보안 강화</div>
+          <div class="schema-d">user_sessions, login_attempts, api_keys — 4단계 계정 체계 지원</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--pk);">
+          <div class="schema-num">08 · 6개 테이블</div>
+          <div class="schema-t">운영 강화</div>
+          <div class="schema-d">backup_jobs, health_checks, vpn_peers, system_metrics, cron_logs, alerts</div>
+        </div>
+        <div class="schema-card" style="border-left-color:var(--slate2);">
+          <div class="schema-num">09 · 6개 확장</div>
+          <div class="schema-t">PostgreSQL 확장</div>
+          <div class="schema-d">pgvector, pgcrypto, pg_trgm, btree_gin, pg_stat_statements, pg_partman</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>init.sql 하나 실행으로 전체 스키마 즉시 배포</strong> — DDL v5, 2,245라인, 70테이블, 6개 확장, RLS 정책, 인덱스, 트리거 모두 포함.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d5"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c5"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 6 저장 위치 원칙 ━━━ -->
+<div class="slide" id="s6">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">06</span><span class="slbl">Data Placement</span></div>
+    <div class="st">데이터 유형별 <em>저장 위치 원칙</em></div>
+    <div class="ss">어떤 데이터를 어디에 저장하는지 명확한 원칙을 정의한다. DB와 NAS의 역할을 분리한다.</div>
+    <div class="sb">
+      <div style="overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);">
+        <table class="pl-table">
+          <thead>
+            <tr>
+              <th style="width:22%;">데이터 유형</th>
+              <th style="width:25%;">저장 위치</th>
+              <th style="width:53%;">상세</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>텍스트 · 구조화 데이터</td>
+              <td><span class="badge bb">PostgreSQL</span></td>
+              <td>사용자, 프로젝트, 클라이언트, 감사 로그 등 모든 구조화 데이터. JSONB 컬럼 활용.</td>
+            </tr>
+            <tr>
+              <td>AI 대화 · 비용 추적</td>
+              <td><span class="badge bb">PostgreSQL</span> <span class="chip">월별 파티션</span></td>
+              <td>ai_conversations 월별 자동 파티셔닝(pg_partman). input/output 토큰, 비용($) 컬럼 추적.</td>
+            </tr>
+            <tr>
+              <td>문서 텍스트 + 임베딩</td>
+              <td><span class="badge bb">PostgreSQL</span> + <span class="badge bp">pgvector</span></td>
+              <td>1536차원 벡터 임베딩. HNSW 인덱스(cosine). RAG 검색용 — 유사도 기반 문서 검색.</td>
+            </tr>
+            <tr>
+              <td>이미지 · 영상 · PDF</td>
+              <td><span class="badge bgg">NAS</span> + <span class="badge bb">DB 경로</span></td>
+              <td>원본 파일은 NAS에 보관, DB에는 경로(nas_path) + sha256 해시 + 메타데이터만 저장.</td>
+            </tr>
+            <tr>
+              <td>DB 백업 파일</td>
+              <td><span class="badge bgg">NAS</span> <span class="chip">gpg AES-256</span></td>
+              <td>매일 02:00 pg_dump → gpg 암호화 → NAS 전송. 30일 보관, 매주 복원 테스트 자동 실행.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ibox ibox-blue" style="flex:none;">
+        <strong>원칙:</strong> 텍스트 · 구조화 데이터는 PostgreSQL에, 바이너리 파일은 NAS에. DB에는 항상 경로 + 해시만 저장한다. 이 원칙으로 DB 용량을 최소화하고 백업을 간결하게 유지한다.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d6"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c6"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 7 AI 연동 설계 ━━━ -->
+<div class="slide" id="s7">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">07</span><span class="slbl">AI Integration</span></div>
+    <div class="st">Claude AI <em>2가지 핵심 패턴</em></div>
+    <div class="ss">대화형(Chat)과 RAG(검색 증강 생성) 두 패턴으로 AI를 연동한다. 월 $150~$300 예산.</div>
+    <div class="sb">
+      <div class="g2" style="flex:none;">
+        <div class="ai-pattern" style="border-top-color:var(--blue);">
+          <div style="display:flex;align-items:center;gap:8px;"><span class="badge bb">Pattern A</span></div>
+          <div class="ai-pattern-t">대화형 (Chat)</div>
+          <div class="ai-pattern-flow">질문 입력 <strong>&#8594;</strong> DB 이력 조회 <strong>&#8594;</strong> Claude API 호출 <strong>&#8594;</strong> 응답 생성 <strong>&#8594;</strong> messages 테이블 저장</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.6;">컨텍스트 윈도우에 이전 대화 + DB 데이터를 함께 전송. 토큰 비용과 응답 품질을 함께 추적한다.</div>
+        </div>
+        <div class="ai-pattern" style="border-top-color:var(--purple);">
+          <div style="display:flex;align-items:center;gap:8px;"><span class="badge bp">Pattern B</span></div>
+          <div class="ai-pattern-t">RAG (검색 증강 생성)</div>
+          <div class="ai-pattern-flow">질문 입력 <strong>&#8594;</strong> 1536차원 임베딩 <strong>&#8594;</strong> pgvector HNSW cosine 검색 <strong>&#8594;</strong> Claude <strong>&#8594;</strong> 답변</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.6;">NAS 문서를 벡터화하여 DB에 저장. 사용자 질문과 유사한 문서를 검색해 Claude에 컨텍스트로 제공한다.</div>
+        </div>
+      </div>
+      <div class="ctitle" style="margin-top:4px;">AI 활용 시나리오 6가지</div>
+      <div class="ai-grid" style="flex:1;">
+        <div class="ai-card" style="border-left-color:var(--blue);">
+          <div class="ai-card-icon">&#128196;</div>
+          <div class="ai-card-t">문서 자동 분류</div>
+          <div class="ai-card-d">NAS 파일을 Claude가 분석해 카테고리 · 프로젝트 · 클라이언트 자동 태깅</div>
+        </div>
+        <div class="ai-card" style="border-left-color:var(--green);">
+          <div class="ai-card-icon">&#127991;&#65039;</div>
+          <div class="ai-card-t">NAS 파일 태깅</div>
+          <div class="ai-card-d">388,247개 파일에 대한 메타데이터 자동 추출 및 검색 가능한 태그 생성</div>
+        </div>
+        <div class="ai-card" style="border-left-color:var(--gold);">
+          <div class="ai-card-icon">&#128172;</div>
+          <div class="ai-card-t">상담 요약</div>
+          <div class="ai-card-d">클라이언트 미팅 노트, 이메일을 요약하고 핵심 액션 아이템 자동 추출</div>
+        </div>
+        <div class="ai-card" style="border-left-color:var(--purple);">
+          <div class="ai-card-icon">&#128269;</div>
+          <div class="ai-card-t">지식 검색 (RAG)</div>
+          <div class="ai-card-d">14년 프로젝트 자료를 자연어로 검색. "마쿠아케 캠핑 용품 성공 사례?"</div>
+        </div>
+        <div class="ai-card" style="border-left-color:var(--brand-red);">
+          <div class="ai-card-icon">&#128202;</div>
+          <div class="ai-card-t">자동 리포트</div>
+          <div class="ai-card-d">주간 · 월간 프로젝트 진행 리포트를 DB 데이터 기반으로 자동 생성</div>
+        </div>
+        <div class="ai-card" style="border-left-color:var(--pk);">
+          <div class="ai-card-icon">&#128101;</div>
+          <div class="ai-card-t">클라이언트 데이터 정제</div>
+          <div class="ai-card-d">494개 클라이언트 정보 중복 제거, 정규화, 연락처 통합 자동화</div>
+        </div>
+      </div>
+      <div class="ibox ibox-gold" style="flex:none;">
+        <strong>비용:</strong> 월 <strong>$150~$300</strong> (Claude API) · Rate Limit 분당 <strong>10회</strong> · ai_response_cache로 반복 질문 캐싱하여 비용 절감.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d7"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c7"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 8 보안 정책 ━━━ -->
+<div class="slide" id="s8">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">08</span><span class="slbl">Security</span></div>
+    <div class="st"><em>10가지 보안 체계</em></div>
+    <div class="ss">4단계 DB 계정, VPN 단일 외부 개방, NAS READ-ONLY 6계층 방어로 데이터를 보호한다.</div>
+    <div class="sb">
+      <div class="sec-grid">
+        <div class="sec-item">
+          <div class="sec-num">1</div>
+          <div class="sec-body">
+            <div class="sec-t">4단계 DB 계정 분리</div>
+            <div class="sec-d">postgres(DBA) / appuser(API) / readonly_user(직원) / backup_user(백업) — 최소 권한 원칙</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">2</div>
+          <div class="sec-body">
+            <div class="sec-t">VPN 단일 외부 개방</div>
+            <div class="sec-d">WireGuard UDP 51820만 외부 노출. DB/API 포트는 VPN 내부에서만 접근 가능</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">3</div>
+          <div class="sec-body">
+            <div class="sec-t">SSL/TLS 암호화 통신</div>
+            <div class="sec-d">PostgreSQL SSL 필수, API HTTPS 필수. 평문 통신 완전 차단</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">4</div>
+          <div class="sec-body">
+            <div class="sec-t">NAS READ-ONLY 6계층 방어</div>
+            <div class="sec-d">마운트 ro + DB readonly + API 읽기전용 + Nginx 경로제한 + chattr + 감사로그</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">5</div>
+          <div class="sec-body">
+            <div class="sec-t">Row Level Security (RLS)</div>
+            <div class="sec-d">테이블별 행 단위 접근 제어. 사용자는 자신의 데이터만 조회 가능</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">6</div>
+          <div class="sec-body">
+            <div class="sec-t">감사 로그 (audit_logs)</div>
+            <div class="sec-d">모든 데이터 변경 이력을 audit_logs 테이블에 자동 기록. 트리거 기반</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">7</div>
+          <div class="sec-body">
+            <div class="sec-t">백업 암호화 (gpg AES-256)</div>
+            <div class="sec-d">DB 덤프 파일을 gpg로 암호화 후 NAS 전송. 키 분리 보관</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">8</div>
+          <div class="sec-body">
+            <div class="sec-t">로그인 시도 추적</div>
+            <div class="sec-d">login_attempts 테이블로 실패 시도 기록. 5회 실패 시 계정 잠금</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">9</div>
+          <div class="sec-body">
+            <div class="sec-t">API Key 관리</div>
+            <div class="sec-d">api_keys 테이블로 발급 · 만료 · 권한 범위 관리. 해시 저장</div>
+          </div>
+        </div>
+        <div class="sec-item">
+          <div class="sec-num">10</div>
+          <div class="sec-body">
+            <div class="sec-t">세션 관리 · 자동 만료</div>
+            <div class="sec-d">user_sessions 테이블. 24시간 미활동 시 자동 만료. 동시 세션 제한</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d8"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c8"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 9 무중단 운영 ━━━ -->
+<div class="slide" id="s9">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">09</span><span class="slbl">High Availability</span></div>
+    <div class="st">24시간 <em>무중단 운영 전략</em></div>
+    <div class="ss">UPS + 자동 복구 + 주기적 백업 + 헬스체크로 서비스 연속성을 보장한다.</div>
+    <div class="sb">
+      <!-- UPS Flow -->
+      <div class="card" style="flex:none;padding:16px 24px;">
+        <div class="ctitle">&#9889; UPS 정전 대응 플로우</div>
+        <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;padding:8px 0;">
+          <div style="background:var(--rl);border:1.5px solid var(--red);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#9889;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--red);">정전 발생</div>
+          </div>
+          <div style="width:36px;text-align:center;font-size:16px;color:var(--brand-red);font-weight:800;">&#8594;</div>
+          <div style="background:var(--gl);border:1.5px solid var(--gold);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#128267;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--gold);">UPS 전원 공급</div>
+          </div>
+          <div style="width:36px;text-align:center;font-size:16px;color:var(--brand-red);font-weight:800;">&#8594;</div>
+          <div style="background:var(--bl);border:1.5px solid var(--blue);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#128225;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--blue);">NUT 감지</div>
+          </div>
+          <div style="width:36px;text-align:center;font-size:16px;color:var(--brand-red);font-weight:800;">&#8594;</div>
+          <div style="background:var(--pl);border:1.5px solid var(--purple);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#128190;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--purple);">안전 종료</div>
+          </div>
+          <div style="width:36px;text-align:center;font-size:16px;color:var(--brand-red);font-weight:800;">&#8594;</div>
+          <div style="background:var(--grl);border:1.5px solid var(--green);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#128994;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--green);">복전 자동 부팅</div>
+          </div>
+          <div style="width:36px;text-align:center;font-size:16px;color:var(--brand-red);font-weight:800;">&#8594;</div>
+          <div style="background:rgba(255,0,59,.06);border:1.5px solid var(--brand-red);border-radius:10px;padding:10px 16px;text-align:center;">
+            <div style="font-size:18px;">&#9989;</div>
+            <div style="font-size:12px;font-weight:800;color:var(--brand-red);">pg_isready 확인</div>
+          </div>
+        </div>
+      </div>
+      <div class="g3" style="flex:1;">
+        <div class="card">
+          <div class="ctitle">&#128190; 백업 정책</div>
+          <div class="clist">
+            <div class="ci"><strong>매일 02:00</strong> 전체 백업 (pg_dump + gpg)</div>
+            <div class="ci"><strong>WAL 실시간</strong> 아카이빙 (전용 SSD)</div>
+            <div class="ci"><strong>매주 복원 테스트</strong> 자동 실행</div>
+            <div class="ci"><strong>30일 보관</strong>, 이후 자동 삭제</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ctitle">&#128994; 헬스체크 모니터링</div>
+          <div class="clist">
+            <div class="ci"><strong>5분 주기</strong> 헬스체크 (pg_isready)</div>
+            <div class="ci">디스크 사용량 <strong>80%</strong> 초과 시 경고</div>
+            <div class="ci">CPU · 메모리 · 연결 수 추적</div>
+            <div class="ci">이상 감지 시 <strong>이메일 즉시 알림</strong></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ctitle">&#128295; 자동 복구</div>
+          <div class="clist">
+            <div class="ci">systemd 서비스 <strong>자동 재시작</strong></div>
+            <div class="ci">PgBouncer 연결 풀 자동 정리</div>
+            <div class="ci">WAL 기반 <strong>PITR</strong> (특정 시점 복구)</div>
+            <div class="ci">health_checks 테이블에 기록</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d9"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c9"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 10 구축 8 Phase 일정 ━━━ -->
+<div class="slide" id="s10">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">10</span><span class="slbl">8-Phase Plan</span></div>
+    <div class="st">8 Phase · <em>8주 구축 일정</em></div>
+    <div class="ss">UPS 준비부터 부하테스트까지, 8단계를 8주 안에 완료한다.</div>
+    <div class="sb">
+      <div class="phase-grid">
+        <div class="phase-card" style="background:#f8fafc;border-color:var(--slate2);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--slate2);">P0</div>
+            <div class="phase-when" style="background:var(--slate2);">0주</div>
+          </div>
+          <div class="phase-t">사전 준비</div>
+          <div class="phase-d">UPS 구매 · gpg 키 생성 · Ubuntu 22.04 ISO 준비 · 네트워크 구성 계획</div>
+        </div>
+        <div class="phase-card" style="background:#eff6ff;border-color:var(--blue);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--blue);">P1</div>
+            <div class="phase-when" style="background:var(--blue);">1-2주</div>
+          </div>
+          <div class="phase-t">기반 구축</div>
+          <div class="phase-d">Ubuntu 설치 · 디스크 파티션(메인+WAL) · 네트워크 설정 · 방화벽 구성</div>
+        </div>
+        <div class="phase-card" style="background:#f0fdf4;border-color:var(--green);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--green);">P2</div>
+            <div class="phase-when" style="background:var(--green);">2주</div>
+          </div>
+          <div class="phase-t">DB 설치</div>
+          <div class="phase-d">PostgreSQL 16 설치 · 6개 확장 활성화 · SSL 인증서 · postgresql.conf 튜닝</div>
+        </div>
+        <div class="phase-card" style="background:#fff5f7;border-color:var(--brand-red);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--brand-red);">P3</div>
+            <div class="phase-when" style="background:var(--brand-red);">2-3주</div>
+          </div>
+          <div class="phase-t">DDL 배포</div>
+          <div class="phase-d">init.sql 실행 · 70테이블 생성 · RLS 정책 · 인덱스 · 트리거 · 초기 데이터</div>
+        </div>
+        <div class="phase-card" style="background:#fefce8;border-color:var(--gold);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--gold);">P4</div>
+            <div class="phase-when" style="background:var(--gold);">3-4주</div>
+          </div>
+          <div class="phase-t">PgBouncer · API</div>
+          <div class="phase-d">PgBouncer 설정 · Node.js API · Metabase 대시보드 · Nginx 리버스 프록시</div>
+        </div>
+        <div class="phase-card" style="background:#ede9fe;border-color:var(--purple);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--purple);">P5</div>
+            <div class="phase-when" style="background:var(--purple);">4-6주</div>
+          </div>
+          <div class="phase-t">AI 연동</div>
+          <div class="phase-d">Claude API 게이트웨이 · RAG 파이프라인 · pgvector 임베딩 · 자동화 스크립트</div>
+        </div>
+        <div class="phase-card" style="background:#fee2e2;border-color:var(--red);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--red);">P6</div>
+            <div class="phase-when" style="background:var(--red);">6-7주</div>
+          </div>
+          <div class="phase-t">보안 · VPN</div>
+          <div class="phase-d">WireGuard VPN · 4단계 계정 생성 · 백업 자동화 · 직원 교육 자료</div>
+        </div>
+        <div class="phase-card" style="background:#fce7f3;border-color:var(--pk);">
+          <div class="phase-h">
+            <div class="phase-num" style="color:var(--pk);">P7</div>
+            <div class="phase-when" style="background:var(--pk);">8주</div>
+          </div>
+          <div class="phase-t">부하테스트</div>
+          <div class="phase-d">pgbench 성능 검증 · 백업 복원 테스트 · VPN 50명 동시 접속 · 최종 승인</div>
+        </div>
+      </div>
+      <div style="flex:none;background:linear-gradient(90deg,var(--charcoal) 0%,#0a0e1a 100%);border-radius:13px;padding:14px 22px;color:#fff;display:flex;align-items:center;gap:18px;">
+        <div style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:800;color:var(--brand-red);flex-shrink:0;">8주 완료 목표</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;">Phase 0~3은 순차 실행(필수 의존) · Phase 4~6은 병렬 가능 · Phase 7은 전체 통합 테스트. 각 Phase 완료 시 체크리스트 기반 검증.</div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d10"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c10"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 11 마이그레이션 결정사항 ━━━ -->
+<div class="slide" id="s11">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">11</span><span class="slbl">Migration Decisions</span></div>
+    <div class="st">실행 전 <em>8가지 결정 대기</em></div>
+    <div class="ss">기술적 준비는 완료. 아래 8가지 결정이 완료되면 Claude Code에서 실행 스크립트를 즉시 생성한다.</div>
+    <div class="sb">
+      <div class="dec-grid">
+        <div class="dec-card">
+          <div class="dec-num">01</div>
+          <div class="dec-t">임베딩 GPU 방식</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">로컬 GPU vs 클라우드 API. 비용 · 속도 · 보안 트레이드오프</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">02</div>
+          <div class="dec-t">OCR 도구 선택</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">Tesseract vs PaddleOCR vs 클라우드. 한/일/영 다국어 지원</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">03</div>
+          <div class="dec-t">Whisper STT 배포</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">영상 · 음성 파일의 텍스트 변환. 로컬 vs API 방식</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">04</div>
+          <div class="dec-t">클라이언트 매칭 검수자</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">494개 클라이언트 자동 매칭 결과를 검수할 담당자 지정</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">05</div>
+          <div class="dec-t">Stage 9 정리 여부</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">중복 파일 905GB 정리 실행 여부. 실행 시 <strong style="color:var(--green);">1TB 절감</strong></div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">06</div>
+          <div class="dec-t">첫 마이그레이션 시기</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">엑셀 · NAS 데이터의 첫 DB 마이그레이션 시작 시점</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">07</div>
+          <div class="dec-t">롤백 시나리오</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">문제 발생 시 이전 운영 방식으로 복귀하는 기준과 절차</div>
+        </div>
+        <div class="dec-card">
+          <div class="dec-num">08</div>
+          <div class="dec-t">알림 채널 선택</div>
+          <div class="dec-status">&#9203; 결정 대기</div>
+          <div style="font-size:12px;color:var(--slate);line-height:1.55;">이메일 / Slack / 카카오워크 / Teams 중 모니터링 알림 채널</div>
+        </div>
+      </div>
+      <div class="ibox ibox-brand" style="flex:none;">
+        <strong>8가지 결정 완료 시 Claude Code에서 실행 스크립트 즉시 생성</strong> — 각 결정에 대한 기술적 구현 코드는 이미 준비되어 있다. 결정만 내리면 바로 배포한다.
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d11"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c11"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 12 기대 효과 ━━━ -->
+<div class="slide" id="s12">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">12</span><span class="slbl">Expected Impact</span></div>
+    <div class="st">도입 전 vs 도입 후 <em>11가지 변화</em></div>
+    <div class="ss">현재의 분산된 데이터 관리에서 통합 플랫폼으로 전환했을 때의 구체적인 변화를 비교한다.</div>
+    <div class="sb">
+      <div style="overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);">
+        <table class="pl-table" style="table-layout:fixed;">
+          <thead>
+            <tr>
+              <th style="width:20%;">항목</th>
+              <th style="width:40%;background:#7f1d1d;">&#10060; 도입 전</th>
+              <th style="width:40%;background:#064e3b;">&#9989; 도입 후</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>데이터 관리</td><td style="color:var(--red);">파일 분산 · 엑셀 의존</td><td style="color:var(--green);font-weight:600;">setoworks DB 통합 관리</td></tr>
+            <tr><td>NAS 검색</td><td style="color:var(--red);">탐색기 수동 검색</td><td style="color:var(--green);font-weight:600;">AI 자연어 검색 (RAG)</td></tr>
+            <tr><td>중복 파일</td><td style="color:var(--red);">905GB 낭비</td><td style="color:var(--green);font-weight:600;">자동 추적 · 1TB 회수</td></tr>
+            <tr><td>고객 정보</td><td style="color:var(--red);">엑셀 시트 분산</td><td style="color:var(--green);font-weight:600;">CRM 통합 (clients 테이블)</td></tr>
+            <tr><td>AI 활용</td><td style="color:var(--red);">개인 ChatGPT 사용</td><td style="color:var(--green);font-weight:600;">사내 RAG + 컨텍스트 공유</td></tr>
+            <tr><td>보안</td><td style="color:var(--red);">개인 PC 파일 접근</td><td style="color:var(--green);font-weight:600;">VPN + 4단계 계정 + gpg</td></tr>
+            <tr><td>백업</td><td style="color:var(--red);">수동 · 불규칙</td><td style="color:var(--green);font-weight:600;">매일 자동 + 매주 복원 테스트</td></tr>
+            <tr><td>리포트</td><td style="color:var(--red);">수동 작성 · 엑셀</td><td style="color:var(--green);font-weight:600;">Metabase + AI 자동 리포트</td></tr>
+            <tr><td>프로젝트 이력</td><td style="color:var(--red);">담당자 머릿속</td><td style="color:var(--green);font-weight:600;">DB + 감사 로그 전수 기록</td></tr>
+            <tr><td>외부 접속</td><td style="color:var(--red);">불가 또는 보안 미비</td><td style="color:var(--green);font-weight:600;">WireGuard VPN 안전 접속</td></tr>
+            <tr><td>장애 대응</td><td style="color:var(--red);">수동 확인 · 사후 대응</td><td style="color:var(--green);font-weight:600;">5분 주기 헬스체크 + 자동 알림</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d12"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c12"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 13 결론 + 전체 운영 플로우 ━━━ -->
+<div class="slide" id="s13">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si" style="background:linear-gradient(135deg,#f7f9fc 0%,#fff5f7 100%);">
+    <div class="stag"><span class="snum">13</span><span class="slbl">Conclusion</span></div>
+    <div class="st">최종 결론 <em>+ 전체 운영 흐름</em></div>
+    <div class="ss">보유 장비 그대로. UPS 1대만 추가. DDL v5 즉시 배포. 8가지 결정 후 실행.</div>
+    <div class="sb">
+      <!-- Large animated flow diagram -->
+      <div style="flex:none;background:linear-gradient(135deg,#0a0e1a 0%,var(--charcoal) 100%);border-radius:18px;padding:24px 28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,59,.12) 0%,transparent 70%);"></div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--brand-red);text-transform:uppercase;margin-bottom:12px;">System Architecture · Full Flow</div>
+        <svg viewBox="0 0 1000 140" style="width:100%;" preserveAspectRatio="xMidYMid meet">
+          <!-- Animated flow lines -->
+          <defs>
+            <marker id="aR" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill="#ff003b"/></marker>
+          </defs>
+
+          <!-- Component 1: VPN Users -->
+          <rect x="10" y="15" width="155" height="110" rx="14" fill="rgba(109,40,217,.15)" stroke="#6d28d9" stroke-width="2"/>
+          <text x="87" y="48" text-anchor="middle" font-size="22" fill="#fff">&#128100;</text>
+          <text x="87" y="68" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="#fff">외부 접속 (VPN)</text>
+          <text x="87" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,.65)">WireGuard:51820</text>
+          <rect x="37" y="92" width="100" height="18" rx="4" fill="rgba(109,40,217,.3)"/>
+          <text x="87" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="600" fill="#c4b5fd">50명 전 직원</text>
+
+          <!-- Arrow 1 -->
+          <line x1="165" y1="70" x2="210" y2="70" stroke="#ff003b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#aR)">
+            <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.5s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Component 2: Mac Studio -->
+          <rect x="212" y="8" width="220" height="125" rx="14" fill="rgba(30,86,176,.15)" stroke="#1e56b0" stroke-width="2"/>
+          <text x="322" y="35" text-anchor="middle" font-size="18" fill="#fff">&#127823;</text>
+          <text x="322" y="52" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="#fff">Mac Studio M1</text>
+          <text x="260" y="74" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#93c5fd">API:3000</text>
+          <text x="322" y="74" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#93c5fd">MB:3001</text>
+          <text x="388" y="74" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#fca5a5">Claude</text>
+          <rect x="237" y="84" width="170" height="18" rx="4" fill="rgba(30,86,176,.25)"/>
+          <text x="322" y="97" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="600" fill="#93c5fd">8Core · 16GB · Fanless</text>
+          <rect x="237" y="108" width="170" height="16" rx="4" fill="rgba(255,0,59,.15)"/>
+          <text x="322" y="119" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" font-weight="600" fill="#fca5a5">24h 무중단 · 안정성 98</text>
+
+          <!-- Arrow 2 -->
+          <line x1="432" y1="70" x2="477" y2="70" stroke="#ff003b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#aR)">
+            <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.5s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Component 3: PgBouncer -->
+          <rect x="479" y="25" width="115" height="90" rx="14" fill="rgba(255,0,59,.1)" stroke="#ff003b" stroke-width="2"/>
+          <text x="536" y="52" text-anchor="middle" font-size="16" fill="#fff">&#9889;</text>
+          <text x="536" y="68" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="#fff">PgBouncer</text>
+          <text x="536" y="82" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,.65)">:6432</text>
+          <rect x="494" y="90" width="85" height="14" rx="3" fill="rgba(255,0,59,.2)"/>
+          <text x="536" y="101" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" font-weight="600" fill="#fca5a5">500&#8594;25</text>
+
+          <!-- Arrow 3 -->
+          <line x1="594" y1="70" x2="639" y2="70" stroke="#ff003b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#aR)">
+            <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.5s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Component 4: PostgreSQL -->
+          <rect x="641" y="8" width="155" height="125" rx="14" fill="rgba(33,33,33,.5)" stroke="#fff" stroke-width="2"/>
+          <text x="718" y="38" text-anchor="middle" font-size="18" fill="#fff">&#128024;</text>
+          <text x="718" y="55" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="#fff">PostgreSQL 16</text>
+          <text x="718" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,.65)">:5432 · 70 tables</text>
+          <rect x="661" y="80" width="115" height="18" rx="4" fill="rgba(255,255,255,.12)"/>
+          <text x="718" y="93" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)">Ryzen 5 · 24GB</text>
+          <rect x="661" y="104" width="115" height="18" rx="4" fill="rgba(255,0,59,.15)"/>
+          <text x="718" y="117" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" font-weight="600" fill="#fca5a5">SSD 447+224GB</text>
+
+          <!-- Arrow 4 -->
+          <line x1="796" y1="70" x2="841" y2="70" stroke="#10a37f" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#aG)">
+            <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.5s" repeatCount="indefinite"/>
+          </line>
+          <defs><marker id="aG" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill="#10a37f"/></marker></defs>
+
+          <!-- Component 5: NAS -->
+          <rect x="843" y="8" width="150" height="125" rx="14" fill="rgba(13,124,95,.15)" stroke="#0d7c5f" stroke-width="2"/>
+          <text x="918" y="38" text-anchor="middle" font-size="18" fill="#fff">&#128449;</text>
+          <text x="918" y="55" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="#fff">NAS (.195)</text>
+          <text x="918" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,.65)">7.40TB · 388K files</text>
+          <rect x="863" y="80" width="110" height="18" rx="4" fill="rgba(13,124,95,.25)"/>
+          <text x="918" y="93" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" font-weight="600" fill="#6ee7b7">암호화 백업</text>
+          <rect x="863" y="104" width="110" height="18" rx="4" fill="rgba(185,28,28,.2)"/>
+          <text x="918" y="117" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" font-weight="600" fill="#fca5a5">READ-ONLY</text>
+        </svg>
+      </div>
+
+      <!-- Summary -->
+      <div class="ibox ibox-brand" style="flex:none;font-size:14.5px;line-height:1.75;">
+        <strong>최종 결론 한 문장:</strong> <strong style="color:var(--charcoal);">"보유 장비(Ryzen + Mac Studio + NAS) 그대로, UPS 1대만 추가하여, DDL v5 70테이블 즉시 배포 가능. 8가지 결정 완료 시 8주 안에 PostgreSQL + Claude AI + NAS 통합 데이터 플랫폼을 완성한다."</strong>
+      </div>
+
+      <div class="g3" style="flex:none;">
+        <div class="ibox ibox-green"><strong>초기 비용:</strong> UPS 1대 <strong>10~15만원</strong> + Claude API 월 <strong>$150~$300</strong>. 추가 장비 구매 없음.</div>
+        <div class="ibox ibox-blue"><strong>구축 기간:</strong> 8 Phase · <strong>8주</strong>. Phase 0~3 순차, Phase 4~6 병렬, Phase 7 통합 테스트.</div>
+        <div class="ibox ibox-gold"><strong>즉시 가능:</strong> DDL v5 준비 완료. <strong>8가지 결정</strong> 후 Claude Code에서 스크립트 즉시 생성.</div>
+      </div>
+
+      <!-- CTA -->
+      <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 0;">
+        <a href="/" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:var(--brand-red);color:#fff;border-radius:12px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(255,0,59,.35);transition:transform .15s,box-shadow .15s;letter-spacing:.02em;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(255,0,59,.45)';" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(255,0,59,.35)';">
+          포털로 돌아가기
+        </a>
+        <span style="font-size:13px;color:var(--mu);font-weight:500;">세토웍스 운영 포털에서 전체 프로젝트를 관리하세요</span>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d13"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c13"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+</div>
+
+<script>
+const TOTAL=14;let cur=0;
+const slides=document.querySelectorAll('.slide');
+function render(){
+  slides.forEach((s,i)=>{s.classList.remove('active','exit-left');if(i===cur)s.classList.add('active');else if(i<cur)s.classList.add('exit-left');});
+  for(let n=0;n<TOTAL;n++){
+    const cnt=document.getElementById('c'+n);if(cnt)cnt.textContent=(cur+1)+' / '+TOTAL;
+    const dots=document.getElementById('d'+n);if(!dots)continue;
+    dots.innerHTML='';
+    for(let d=0;d<TOTAL;d++){const b=document.createElement('button');b.className='nd'+(d===cur?' active':'');const dd=d;b.onclick=()=>{cur=dd;render();};dots.appendChild(b);}
+  }
+}
+function go(dir){const n=cur+dir;if(n<0||n>=TOTAL)return;cur=n;render();}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);else if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);});
+render();
+</script>
+</body>
+</html>

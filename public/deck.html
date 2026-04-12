@@ -1653,12 +1653,70 @@ body{
         <div class="ibox ibox-gold"><strong>인력:</strong> 자동화 엔지니어 1 + 데이터/백엔드 1 + PM 1 = <strong>최소 3인</strong>. 세토웍스 기존 영업/운영 인력 활용 가능.</div>
         <div class="ibox ibox-blue"><strong>다음 검토:</strong> Day 30 Phase 1 리뷰 → Stage B 결정. Day 60 Phase 2 → Stage C 검토. 분기별 사이클.</div>
       </div>
-      <!-- CTA: 대시보드 연결 -->
-      <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 0;">
-        <a href="/" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:var(--brand-red);color:#fff;border-radius:12px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(255,0,59,.35);transition:transform .15s,box-shadow .15s;letter-spacing:.02em;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(255,0,59,.45)';" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 24px rgba(255,0,59,.35)';">
-          운영 대시보드 직접 체험하기
+      <!-- 운영 흐름 시각화 -->
+      <div style="flex:none;background:linear-gradient(135deg,#0a0e1a,var(--charcoal));border-radius:14px;padding:16px 20px;position:relative;overflow:hidden;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;">▸ Jellop+α 운영 전체 흐름</div>
+        <svg viewBox="0 0 900 100" style="width:100%;height:auto;" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ff003b"/></marker>
+          </defs>
+          <!-- Nodes -->
+          <rect x="0" y="25" width="120" height="50" rx="10" fill="#1e56b0"/>
+          <text x="60" y="47" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="11" font-weight="700">메이커 영입</text>
+          <text x="60" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">14년 네트워크</text>
+
+          <rect x="155" y="25" width="120" height="50" rx="10" fill="#6d28d9"/>
+          <text x="215" y="47" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="11" font-weight="700">사전 예측</text>
+          <text x="215" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">1,200건 데이터</text>
+
+          <rect x="310" y="25" width="120" height="50" rx="10" fill="#d4841a"/>
+          <text x="370" y="47" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="11" font-weight="700">인플루언서 시딩</text>
+          <text x="370" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">3-Tier × 100명</text>
+
+          <rect x="465" y="25" width="120" height="50" rx="10" fill="#ff003b"/>
+          <text x="525" y="47" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="11" font-weight="700">펀딩 런칭</text>
+          <text x="525" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">LP + 광고 + 골든타임</text>
+
+          <rect x="620" y="25" width="120" height="50" rx="10" fill="#0d7c5f"/>
+          <text x="680" y="47" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-size="11" font-weight="700">이커머스 전환</text>
+          <text x="680" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">백커 → 리피트</text>
+
+          <rect x="775" y="25" width="120" height="50" rx="10" fill="var(--charcoal)" stroke="#ff003b" stroke-width="2"/>
+          <text x="835" y="47" text-anchor="middle" fill="#ff003b" font-family="Poppins,sans-serif" font-size="11" font-weight="800">데이터 누적</text>
+          <text x="835" y="62" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace" font-size="8">6채널 → 다음 회전↑</text>
+
+          <!-- Animated arrows -->
+          <line x1="122" y1="50" x2="153" y2="50" stroke="#ff003b" stroke-width="2" marker-end="url(#ah)">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+          </line>
+          <line x1="277" y1="50" x2="308" y2="50" stroke="#ff003b" stroke-width="2" marker-end="url(#ah)">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+          </line>
+          <line x1="432" y1="50" x2="463" y2="50" stroke="#ff003b" stroke-width="2" marker-end="url(#ah)">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+          </line>
+          <line x1="587" y1="50" x2="618" y2="50" stroke="#ff003b" stroke-width="2" marker-end="url(#ah)">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+          </line>
+          <line x1="742" y1="50" x2="773" y2="50" stroke="#ff003b" stroke-width="2" marker-end="url(#ah)">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Return arrow (flywheel) -->
+          <path d="M835,78 C835,95 60,95 60,78" fill="none" stroke="rgba(255,0,59,.4)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#ah)">
+            <animate attributeName="stroke-dashoffset" values="100;0" dur="4s" repeatCount="indefinite"/>
+          </path>
+          <text x="450" y="98" text-anchor="middle" fill="rgba(255,0,59,.6)" font-family="DM Mono,monospace" font-size="9" font-weight="600">플라이휠 — 다음 회전은 더 강하다</text>
+        </svg>
+      </div>
+      <!-- CTA: 포털 연결 -->
+      <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 0;">
+        <a href="/" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;background:var(--brand-red);color:#fff;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(255,0,59,.35);transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          세토웍스 플랫폼 전체 보기
         </a>
-        <span style="font-size:13px;color:var(--mu);font-weight:500;">실제 운영 화면에서 캠페인·인플루언서·수익 데이터를 확인하세요</span>
+        <a href="/db-infra.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--charcoal);color:#fff;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          사내 DB 인프라 계획서
+        </a>
       </div>
     </div>
   </div>

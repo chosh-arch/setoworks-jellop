@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks · Jellop+α Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --brand-red:#ff003b;
+    --charcoal:#212121;
+    --bg:#191919;
+    --card-bg:rgba(255,255,255,0.04);
+    --card-border:rgba(255,255,255,0.08);
+    --text-primary:#f0f0f0;
+    --text-secondary:rgba(255,255,255,0.55);
+    --radius:14px;
+  }
+
+  html{font-size:16px}
+
+  body{
+    font-family:'Noto Sans KR','Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--text-primary);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* subtle dot pattern */
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);
+    background-size:28px 28px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* subtle gradient glow behind logo area */
+  body::after{
+    content:'';
+    position:fixed;
+    top:-180px;left:50%;
+    transform:translateX(-50%);
+    width:700px;height:500px;
+    background:radial-gradient(ellipse,rgba(255,0,59,0.08) 0%,transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .container{
+    position:relative;z-index:1;
+    width:100%;max-width:900px;
+    padding:60px 24px 40px;
+    display:flex;flex-direction:column;align-items:center;
+    flex:1;
+  }
+
+  /* ─── Header / Logo ─── */
+  .header{
+    text-align:center;
+    margin-bottom:56px;
+    animation:fadeDown .7s ease-out both;
+  }
+
+  .logo-img{
+    height:56px;
+    margin-bottom:16px;
+    filter:drop-shadow(0 0 30px rgba(255,0,59,0.25));
+  }
+
+  .brand-name{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:1.75rem;
+    letter-spacing:6px;
+    color:#fff;
+    margin-bottom:6px;
+  }
+
+  .brand-sub{
+    font-family:'Poppins','Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:.95rem;
+    color:var(--text-secondary);
+    letter-spacing:1.5px;
+  }
+
+  /* ─── Grid ─── */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    width:100%;
+  }
+
+  /* ─── Card ─── */
+  .card{
+    position:relative;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:36px 32px 32px;
+    text-decoration:none;
+    color:inherit;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    transition:transform .25s ease,box-shadow .35s ease,border-color .3s ease;
+    cursor:pointer;
+    overflow:hidden;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+
+  .card::before{
+    content:'';
+    position:absolute;inset:0;
+    border-radius:var(--radius);
+    opacity:0;
+    transition:opacity .35s ease;
+    pointer-events:none;
+  }
+
+  .card:hover{
+    transform:translateY(-4px) scale(1.015);
+    border-color:rgba(255,255,255,0.14);
+  }
+  .card:hover::before{opacity:1}
+
+  /* accent glow per card */
+  .card[data-accent="red"]::before{box-shadow:inset 0 0 40px rgba(255,0,59,0.08),0 8px 40px rgba(255,0,59,0.12)}
+  .card[data-accent="blue"]::before{box-shadow:inset 0 0 40px rgba(30,86,176,0.08),0 8px 40px rgba(30,86,176,0.12)}
+  .card[data-accent="green"]::before{box-shadow:inset 0 0 40px rgba(13,124,95,0.08),0 8px 40px rgba(13,124,95,0.12)}
+  .card[data-accent="purple"]::before{box-shadow:inset 0 0 40px rgba(109,40,217,0.08),0 8px 40px rgba(109,40,217,0.12)}
+
+  .card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .icon-wrap{
+    width:52px;height:52px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .icon-wrap svg{width:26px;height:26px;stroke-width:1.6}
+
+  .card[data-accent="red"] .icon-wrap{background:rgba(255,0,59,0.12)}
+  .card[data-accent="red"] .icon-wrap svg{color:#ff003b}
+  .card[data-accent="blue"] .icon-wrap{background:rgba(30,86,176,0.12)}
+  .card[data-accent="blue"] .icon-wrap svg{color:#4d8be8}
+  .card[data-accent="green"] .icon-wrap{background:rgba(13,124,95,0.12)}
+  .card[data-accent="green"] .icon-wrap svg{color:#22c997}
+  .card[data-accent="purple"] .icon-wrap{background:rgba(109,40,217,0.12)}
+  .card[data-accent="purple"] .icon-wrap svg{color:#a370f7}
+
+  .arrow-icon{
+    color:rgba(255,255,255,0.2);
+    transition:color .25s ease,transform .25s ease;
+  }
+  .card:hover .arrow-icon{
+    color:rgba(255,255,255,0.6);
+    transform:translateX(3px);
+  }
+
+  .card-title{
+    font-family:'Poppins','Noto Sans KR',sans-serif;
+    font-weight:600;
+    font-size:1.15rem;
+    color:#fff;
+    line-height:1.3;
+  }
+
+  .card-subtitle{
+    font-size:.84rem;
+    color:var(--text-secondary);
+    line-height:1.5;
+    font-weight:300;
+  }
+
+  /* accent underline */
+  .card-accent-line{
+    width:40px;height:3px;border-radius:2px;
+    margin-top:auto;
+    transition:width .3s ease;
+  }
+  .card:hover .card-accent-line{width:64px}
+
+  .card[data-accent="red"] .card-accent-line{background:#ff003b}
+  .card[data-accent="blue"] .card-accent-line{background:#1e56b0}
+  .card[data-accent="green"] .card-accent-line{background:#0d7c5f}
+  .card[data-accent="purple"] .card-accent-line{background:#6d28d9}
+
+  /* staggered fade-in */
+  .card:nth-child(1){animation:fadeUp .6s .15s ease-out both}
+  .card:nth-child(2){animation:fadeUp .6s .25s ease-out both}
+  .card:nth-child(3){animation:fadeUp .6s .35s ease-out both}
+  .card:nth-child(4){animation:fadeUp .6s .45s ease-out both}
+
+  /* ─── Footer ─── */
+  .footer{
+    position:relative;z-index:1;
+    text-align:center;
+    padding:40px 24px 28px;
+    font-size:.78rem;
+    color:rgba(255,255,255,0.25);
+    letter-spacing:.5px;
+    font-family:'Poppins',sans-serif;
+    animation:fadeUp .6s .55s ease-out both;
+  }
+  .footer a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color .2s}
+  .footer a:hover{color:rgba(255,255,255,0.6)}
+
+  /* ─── Animations ─── */
+  @keyframes fadeDown{
+    from{opacity:0;transform:translateY(-20px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ─── Responsive ─── */
+  @media(max-width:640px){
+    .container{padding:40px 16px 24px}
+    .grid{grid-template-columns:1fr;gap:16px}
+    .card{padding:28px 24px 24px}
+    .brand-name{font-size:1.35rem;letter-spacing:4px}
+    .logo-img{height:44px}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <img src="/setoworks_logo_8x.png" alt="Setoworks" class="logo-img">
+    <div class="brand-name">SETOWORKS</div>
+    <div class="brand-sub">Jellop+&alpha; Platform</div>
+  </div>
+
+  <!-- Card Grid -->
+  <div class="grid">
+
+    <!-- Card 1: 전략 데크 -->
+    <a href="/deck.html" class="card" data-accent="red">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25M8.25 16.5v3.75m7.5-3.75v3.75m-11.25 0h15M12 7.5v5.25m-3-2.25h6"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">전략 데크 (PPT)</div>
+      <div class="card-subtitle">Jellop+&alpha; 90일 로드맵 · 20슬라이드</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+    <!-- Card 2: 크리에이터 관리 -->
+    <a href="/influencer-admin.html" class="card" data-accent="blue">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">크리에이터 관리</div>
+      <div class="card-subtitle">64 인플루언서 · 5개국 · 200 콘텐츠</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+    <!-- Card 3: 운영 대시보드 -->
+    <a href="/index.html" class="card" data-accent="green">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">운영 대시보드</div>
+      <div class="card-subtitle">530 제품 · 6 캠페인 · 실시간 분석</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+    <!-- Card 4: 사내 DB 인프라 -->
+    <a href="/db-infra.html" class="card" data-accent="purple">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">사내 DB 인프라</div>
+      <div class="card-subtitle">PostgreSQL 70테이블 · AI 연동 · NAS 통합</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+  </div>
+</div>
+
+<footer class="footer">
+  &copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a>
+</footer>
+
+</body>
+</html>
