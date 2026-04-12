@@ -57,17 +57,14 @@ body{
 #s0 .brand-corner img{height:16px;}
 #s0 .bc-link{background:transparent;border-color:rgba(0,0,0,.1);}
 
-.si{flex:1;display:flex;flex-direction:column;padding:28px 56px 16px;overflow:hidden;background:#f7f9fc;min-height:0;}
-.stag{display:flex;align-items:center;gap:11px;margin-bottom:13px;flex-shrink:0;}
+.si{flex:1;display:flex;flex-direction:column;padding:20px 48px 10px;overflow:hidden;background:#f7f9fc;min-height:0;}
+.stag{display:flex;align-items:center;gap:11px;margin-bottom:6px;flex-shrink:0;}
 .snum{background:var(--charcoal);color:#fff;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.05em;}
 .slbl{font-size:13px;font-weight:500;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;}
-.st{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(26px,3.2vw,40px);font-weight:800;color:var(--charcoal);line-height:1.15;margin-bottom:7px;flex-shrink:0;letter-spacing:-.02em;}
+.st{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:clamp(20px,2.6vw,32px);font-weight:800;color:var(--charcoal);line-height:1.15;margin-bottom:4px;flex-shrink:0;letter-spacing:-.02em;}
 .st em{font-style:normal;color:var(--brand-red);}
-.ss{font-size:15px;color:var(--slate2);margin-bottom:18px;flex-shrink:0;line-height:1.65;font-weight:400;}
-.sb{flex:1 1 0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:12px;}
-.sb::-webkit-scrollbar{width:6px;height:6px;}
-.sb::-webkit-scrollbar-thumb{background:rgba(33,33,33,.2);border-radius:3px;}
-.sb::-webkit-scrollbar-track{background:transparent;}
+.ss{font-size:13px;color:var(--slate2);margin-bottom:8px;flex-shrink:0;line-height:1.55;font-weight:400;}
+.sb{flex:1 1 0;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:8px;}
 
 .nb{flex-shrink:0;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;background:var(--wh);border-top:1px solid var(--bd);gap:14px;}
 .nb-brand{font-family:'Poppins','Noto Sans KR',sans-serif;font-size:12px;font-weight:800;color:var(--charcoal);letter-spacing:.04em;flex-shrink:0;display:flex;align-items:center;gap:8px;}
@@ -108,10 +105,10 @@ body{
 .cv-mv{font-size:15px;font-weight:600;color:rgba(255,255,255,.96);}
 
 /* cards */
-.card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(15,37,69,.04),0 1px 2px rgba(15,37,69,.02);}
+.card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;box-shadow:0 1px 3px rgba(15,37,69,.04),0 1px 2px rgba(15,37,69,.02);}
 .ctitle{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--slate2);margin-bottom:13px;}
 .clist{display:flex;flex-direction:column;gap:8px;}
-.clist .ci{font-size:14px;color:var(--slate);line-height:1.65;font-weight:400;display:flex;gap:9px;align-items:flex-start;}
+.clist .ci{font-size:11.5px;color:var(--slate);line-height:1.45;font-weight:400;display:flex;gap:6px;align-items:flex-start;}
 .clist .ci::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand-red);flex-shrink:0;margin-top:8px;}
 .clist .ci strong{color:var(--navy);font-weight:700;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
@@ -158,7 +155,7 @@ body{
 .gc-stat-d{font-size:11px;color:var(--slate2);font-weight:500;line-height:1.4;}
 
 /* PORTFOLIO (s3) — 6 verified Setoworks campaigns */
-.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:1;overflow:auto;}
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1;overflow:hidden;}
 .pf-img{width:100%;height:72px;object-fit:cover;border-radius:8px;margin-bottom:6px;background:#f1f5f9;cursor:pointer;transition:opacity .15s;}
 .pf-img:hover{opacity:.85;}
 
@@ -319,7 +316,7 @@ body{
 .tl-week strong{color:var(--charcoal);font-weight:700;font-family:'DM Mono',monospace;font-size:11.5px;background:var(--sll);padding:1px 6px;border-radius:4px;margin-right:5px;}
 
 /* tech verification table */
-.tvw{overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.tvw{overflow:hidden;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
 .tvw table{width:100%;border-collapse:collapse;}
 .tvw thead tr{background:var(--charcoal);position:sticky;top:0;z-index:2;}
 .tvw thead th{padding:13px 15px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.96);}
@@ -343,7 +340,7 @@ body{
 .risk-mit strong{color:var(--green);font-weight:700;}
 
 /* KPI table */
-.kpi-tw{overflow:auto;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.kpi-tw{overflow:hidden;border-radius:14px;border:1px solid var(--bd);flex:1;background:var(--wh);box-shadow:0 1px 3px rgba(15,37,69,.05);}
 .kpi-tw table{width:100%;border-collapse:collapse;}
 .kpi-tw thead tr{background:var(--charcoal);}
 .kpi-tw thead th{padding:13px 15px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.96);}
@@ -359,7 +356,7 @@ body{
 .stat-lbl{font-size:13px;color:var(--slate2);margin-top:6px;line-height:1.5;font-weight:500;}
 
 /* insight box */
-.ibox{padding:13px 17px;border-radius:11px;border-left:4px solid;font-size:13.5px;line-height:1.7;font-weight:400;}
+.ibox{padding:8px 12px;border-radius:9px;border-left:4px solid;font-size:11.5px;line-height:1.5;font-weight:400;}
 .ibox strong{font-weight:700;}
 .ibox-blue{background:var(--bl2);border-color:var(--blue);color:#1e3a5f;}
 .ibox-gold{background:var(--gl);border-color:var(--gold);color:#78350f;}
@@ -686,7 +683,7 @@ body{
         <div class="pipe-step" onclick="showPipe(0)" style="background:var(--charcoal);"><div class="pipe-sn" style="color:#fff;">ALL</div><div class="pipe-sl" style="color:rgba(255,255,255,.7);">전체</div></div>
       </div>
       <!-- Detail Panels (one visible at a time) -->
-      <div id="pipe-panels" style="flex:1;position:relative;overflow:auto;">
+      <div id="pipe-panels" style="flex:1;position:relative;overflow:hidden;">
 
         <!-- Panel 0: Overview (default) -->
         <div class="pipe-panel" data-pipe="0" style="display:flex;flex-direction:column;gap:9px;">
