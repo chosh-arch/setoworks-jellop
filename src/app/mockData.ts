@@ -167,7 +167,7 @@ export const mockProducts: Product[] = [
     percentage: 270,
     backerCount: 1890,
     daysLeft: 11,
-    tags: ['가전', 'CNC', '레이저', 'DIY', '메이커'],
+    tags: ['테크', 'CNC', '레이저', 'DIY', '메이커'],
     fullDescription: '책상 위에 놓을 수 있는 소형 CNC 밀링머신입니다. 레이저 모듈 교체로 레이저 커팅/인그레이빙도 가능하며, 금속, 목재, 아크릴 등 다양한 소재를 가공할 수 있습니다.',
   },
 ];
@@ -298,7 +298,7 @@ export const mockCampaigns: Campaign[] = [
     finalAmount: 3000000000,
     achievementRate: 5000,
     backerCount: 12000,
-    tags: ['가전', '멀티플랫폼', 'MEGA', 'CNC', '레이저'],
+    tags: ['테크', '멀티플랫폼', 'MEGA', 'CNC', '레이저'],
     fullDescription: '킥스타터 15억원 + 일본 젝젝(ZECZEC) 11억원 + 기타 플랫폼 합산 30억원 이상을 달성한 세토웍스의 대표 메가 케이스. 단일 캠페인으로 Year 1 보수 시나리오를 초과하는 규모.',
     fundingTimeline: generateFundingTimeline(3000000000),
     channelAttribution: [
