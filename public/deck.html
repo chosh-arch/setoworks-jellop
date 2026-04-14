@@ -766,47 +766,56 @@ body{
 
         <!-- Panel 1: 발굴 -->
         <div class="pipe-panel" data-pipe="1" style="display:none;">
-          <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
             <div class="dir-hero" style="flex:none;">
               <div class="dir-tag">STEP 1 — 인플루언서 발굴</div>
-              <div class="dir-h" style="font-size:15px;">YouTube API 가동 중 · <em>4개 플랫폼 Phase 2 추가 예정</em></div>
-              <div class="dir-d">YouTube Data API v3 매일 09:00 자동 수집 가동 중. 65명 누적 · 1,192 콘텐츠. Phase 2에서 TikTok/Instagram/Dcard 추가.</div>
+              <div class="dir-h" style="font-size:15px;">6개 플랫폼에서 <em>자동 수집 → DB 적재</em></div>
+              <div class="dir-d">YouTube 가동 중 (65명 누적). TikTok · Instagram · Dcard · Threads · Facebook 순차 추가. 목표 일 100명+.</div>
             </div>
-            <!-- Row 1: 확정 무료 (2) -->
-            <div style="flex:none;">
-              <div style="text-align:center;margin-bottom:6px;"><span style="background:#059669;color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;">확정 무료 — 2개</span></div>
-              <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;">
-                <div style="background:var(--brand-red);color:#fff;padding:8px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">YouTube<br><span style="font-size:10px;opacity:.8;">Data API v3 (공식, 무료)</span></div>
-                <div style="color:var(--mu);font-size:16px;">+</div>
-                <div style="background:#0d9488;color:#fff;padding:8px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Dcard (대만)<br><span style="font-size:10px;opacity:.8;">공개 API 자체개발 (무료)</span></div>
-                <div style="color:var(--brand-red);font-size:16px;font-weight:800;margin:0 4px;">→</div>
-                <div style="background:var(--charcoal);color:#fff;padding:8px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Qdrant DB<br>일 100명+ 적재</div>
+            <!-- 단일 흐름도: 플랫폼 → 수집 → DB -->
+            <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;">
+              <!-- 플랫폼 6개 -->
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:var(--brand-red);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">YouTube <span style="font-size:9px;opacity:.7;">무료 · 가동 중</span></div>
+                <div style="background:#000;color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">TikTok <span style="font-size:9px;opacity:.7;">유료 $0.3/1K</span></div>
+                <div style="background:var(--purple);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">Instagram <span style="font-size:9px;opacity:.7;">유료 $2.3/1K</span></div>
+                <div style="background:#0d9488;color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">Dcard <span style="font-size:9px;opacity:.7;">무료 자체개발</span></div>
+                <div style="background:#1d4ed8;color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">Threads <span style="font-size:9px;opacity:.7;">유료 $2/1K</span></div>
+                <div style="background:var(--slate2);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">Facebook <span style="font-size:9px;opacity:.7;">유료 $10/1K</span></div>
+              </div>
+              <!-- 화살표 -->
+              <div style="font-size:18px;color:var(--brand-red);font-weight:800;padding:0 12px;">→</div>
+              <!-- 수집 엔진 -->
+              <div style="background:var(--charcoal);color:#fff;padding:14px 18px;border-radius:12px;text-align:center;display:flex;flex-direction:column;gap:4px;">
+                <div style="font-size:13px;font-weight:800;">수집 엔진</div>
+                <div style="font-size:10px;opacity:.7;">API · Apify · 크롤러</div>
+                <div style="font-size:10px;opacity:.7;">멀티키 로테이션</div>
+                <div style="font-size:10px;opacity:.7;">매일 09:00 자동</div>
+              </div>
+              <!-- 화살표 -->
+              <div style="font-size:18px;color:var(--brand-red);font-weight:800;padding:0 12px;">→</div>
+              <!-- Pure Score -->
+              <div style="background:rgba(255,0,59,.08);border:2px solid var(--brand-red);color:var(--charcoal);padding:14px 18px;border-radius:12px;text-align:center;display:flex;flex-direction:column;gap:4px;">
+                <div style="font-size:13px;font-weight:800;color:var(--brand-red);">Pure Score</div>
+                <div style="font-size:10px;color:var(--slate);">업로드 30 + 조회비 25</div>
+                <div style="font-size:10px;color:var(--slate);">참여 20 + 일관성 15</div>
+                <div style="font-size:10px;color:var(--slate);">성장 10 = <strong>100점</strong></div>
+              </div>
+              <!-- 화살표 -->
+              <div style="font-size:18px;color:var(--brand-red);font-weight:800;padding:0 12px;">→</div>
+              <!-- DB -->
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:var(--green);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">S등급 · 80+점</div>
+                <div style="background:var(--blue);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">A등급 · 60~79</div>
+                <div style="background:var(--gold);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">B등급 · 40~59</div>
+                <div style="background:var(--slate2);color:#fff;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;">C등급 · 0~39</div>
               </div>
             </div>
-            <!-- Row 2: 무료 시도 → 차단 시 유료 전환 (2) -->
-            <div style="flex:none;">
-              <div style="text-align:center;margin-bottom:6px;"><span style="background:var(--gold);color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;">유료 수집 — 2개</span></div>
-              <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;">
-                <div style="background:#000;color:#fff;padding:8px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;border:2px solid var(--gold);">TikTok<br><span style="font-size:10px;opacity:.8;">Apify $0.3/1K (유료)</span></div>
-                <div style="color:var(--mu);font-size:16px;">+</div>
-                <div style="background:var(--purple);color:#fff;padding:8px 16px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;border:2px solid var(--gold);">Instagram<br><span style="font-size:10px;opacity:.8;">Apify $2.3/1K (유료)</span></div>
-              </div>
-            </div>
-            <!-- Row 2: PAID BACKUP (2 platforms) -->
-            <div style="flex:none;">
-              <div style="text-align:center;margin-bottom:6px;"><span style="background:#d97706;color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;">PAID BACKUP — 2개 플랫폼</span></div>
-              <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
-                <div style="background:#000;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Threads<br><span style="font-size:10px;opacity:.8;">Apify $2/1K</span></div>
-                <div style="color:var(--mu);font-size:16px;">+</div>
-                <div style="background:#1d4ed8;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">Facebook<br><span style="font-size:10px;opacity:.8;">Apify $10/1K</span></div>
-                <div style="color:var(--brand-red);font-size:16px;font-weight:800;margin:0 4px;">→</div>
-                <div style="background:var(--charcoal);color:#fff;padding:8px 14px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;">DB</div>
-              </div>
-            </div>
-            <div class="g3" style="flex:1;">
-              <div class="card"><div class="ctitle">확정 무료 (2개)</div><div class="clist"><div class="ci"><strong>YouTube API v3:</strong> Google 공식, 일 10,000 쿼터 <strong>무료</strong></div><div class="ci"><strong>Dcard (대만):</strong> 공개 API, Python 자체 개발 <strong>무료</strong></div></div><div class="ctitle" style="margin-top:8px;">유료 수집 (2개)</div><div class="clist"><div class="ci"><strong>TikTok:</strong> Apify <strong>$0.30/1K</strong></div><div class="ci"><strong>Instagram:</strong> Apify <strong>$2.30/1K</strong></div></div></div>
-              <div class="card"><div class="ctitle">유료 수집 (2개 플랫폼)</div><div class="clist"><div class="ci"><strong>Threads Apify:</strong> $2/1K건</div><div class="ci"><strong>Facebook Apify:</strong> $10/1K건</div><div class="ci"><strong>최소 월 5만원 ~ 현실 30~50만원</strong></div></div></div>
-              <div class="card"><div class="ctitle">산출물</div><div class="clist"><div class="ci"><strong>일 100명+</strong> → 주 700명+ → 90일 6,000명+</div><div class="ci">Phase 1 완전 무료 시작 → Phase 4 월 20,000명 수집</div><div class="ci"><strong>전체 비용:</strong> 수집 월 5~150만원 + 인프라 월 15~100만원</div></div></div>
+            <!-- 비용 요약 -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;flex:none;">
+              <div class="ibox" style="background:#ecfdf5;border-left:3px solid var(--green);font-size:11px;padding:6px 10px;line-height:1.4;"><strong style="color:var(--green);">무료 2개</strong><br>YouTube API + Dcard 자체개발</div>
+              <div class="ibox" style="background:var(--gl);border-left:3px solid var(--gold);font-size:11px;padding:6px 10px;line-height:1.4;"><strong style="color:var(--gold);">유료 4개</strong><br>TikTok · IG · Threads · Facebook<br>월 5~50만원</div>
+              <div class="ibox" style="background:rgba(255,0,59,.04);border-left:3px solid var(--brand-red);font-size:11px;padding:6px 10px;line-height:1.4;"><strong style="color:var(--brand-red);">산출물</strong><br>일 100명+ → 90일 6,000명+<br>5-Tier 자동 분류</div>
             </div>
           </div>
         </div>
