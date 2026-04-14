@@ -46,13 +46,15 @@ body{
 
 /* ==== SETOWORKS LOGO (LANCZOS 4x/8x upscaled PNG) ==== */
 .brand-corner{
-  position:absolute;top:16px;right:28px;z-index:100;
-  pointer-events:auto;display:flex;align-items:center;gap:10px;
+  position:absolute;top:12px;right:20px;z-index:200;
+  pointer-events:auto;display:flex;align-items:center;gap:8px;
 }
+.slide:not(.active) .brand-corner{display:none;}
 .brand-corner img{height:18px;width:auto;display:block;}
-.bc-link{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;color:var(--slate2);background:rgba(255,255,255,.85);border:1px solid var(--bd);transition:all .15s;backdrop-filter:blur(4px);}
+.bc-link{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;color:var(--slate2);background:rgba(255,255,255,.95);border:1px solid var(--bd);transition:all .15s;backdrop-filter:blur(4px);cursor:pointer;pointer-events:auto;min-height:34px;user-select:none;}
 .bc-link:hover{color:var(--brand-red);border-color:var(--brand-red);background:#fff;box-shadow:0 2px 8px rgba(255,0,59,.15);}
-.bc-link svg{width:12px;height:12px;}
+.bc-link:active{transform:scale(.97);}
+.bc-link svg{width:14px;height:14px;flex-shrink:0;pointer-events:none;}
 #s0 .brand-corner{background:rgba(255,255,255,.97);padding:8px 14px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.3);}
 #s0 .brand-corner img{height:16px;}
 #s0 .bc-link{background:transparent;border-color:rgba(0,0,0,.1);}
