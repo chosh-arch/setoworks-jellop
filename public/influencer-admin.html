@@ -95,7 +95,7 @@ body { font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 
 
 /* Score bar */
 .score-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.score-num { font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; }
+.score-num { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
 
 /* Grade badges */
 .grade-badge {
@@ -128,7 +128,7 @@ body { font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 
 
 /* Memo system */
 .memo-item { position: relative; }
-.memo-item .memo-time { font-size: 10px; font-family: 'Poppins', sans-serif; }
+.memo-item .memo-time { font-size: 10px; font-family: 'Inter', sans-serif; }
 .memo-item .memo-text { font-size: 12px; white-space: pre-wrap; line-height: 1.5; }
 .memo-item .memo-actions { position: absolute; top: 8px; right: 8px; }
 
@@ -153,7 +153,7 @@ th.sort-asc .sort-arrow::after { content: '\25B2'; }
 th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 /* Tabular nums in tables */
-.num { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.num { text-align: right; font-family: 'Inter', sans-serif; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .search-result-item:hover { background: var(--plane-hover); }
 .table th.sortable { cursor: pointer; user-select: none; }
 .table th.sortable:hover { background: rgba(0,0,0,.05); }
@@ -162,7 +162,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 .score-tooltip { position: relative; cursor: help; }
 .score-tooltip .tooltip-content {
   display: none; position: absolute; bottom: 100%; left: 50%;
-  transform: translateX(-50%); background: #212121; color: #fff;
+  transform: translateX(-50%); background: #1e1e2e; color: #fff;
   padding: 10px 14px; border-radius: 8px; font-size: 11px;
   white-space: nowrap; z-index: 50; margin-bottom: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,.2);
@@ -170,7 +170,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 .score-tooltip .tooltip-content::after {
   content: ''; position: absolute; top: 100%; left: 50%;
   transform: translateX(-50%); border: 6px solid transparent;
-  border-top-color: #212121;
+  border-top-color: #1e1e2e;
 }
 .score-tooltip:hover .tooltip-content { display: block; }
 
@@ -538,7 +538,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script>
-const PALETTE = ['#ff003b','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
+const PALETTE = ['#3b5bdb','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
 const CAT_KR = {
   'fashion': '패션', 'lifestyle': '라이프스타일', 'fitness': '피트니스',
   'beauty': '뷰티', 'camping_outdoor': '캠핑/아웃도어', 'food': '푸드/요리',
@@ -958,7 +958,7 @@ function renderDashboard() {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmtFull(ctx.raw) + ' 구독자' } } },
       scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => fmt(v) }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Inter', size: 11 }, callback: v => fmt(v) }, grid: { color: '#f1f5f9' } },
         y: { ticks: { font: { family: 'Noto Sans KR', size: 12 }, crossAlign: 'far' }, grid: { display: false } }
       }
     }
@@ -1543,17 +1543,17 @@ function renderExpandContent(inf) {
   html += '<div class="card"><div class="card-body">';
   html += '<h4 class="mb-2">성과 요약표 (Performance Statement)</h4>';
   html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;">';
-  html += '<thead><tr><th colspan="2" style="text-align:center;background:#212121;color:#fff;font-size:12px;">구독자: ' + fmtFull(inf.followers) + ' / 콘텐츠: ' + inf.content_count + '건</th></tr></thead>';
+  html += '<thead><tr><th colspan="2" style="text-align:center;background:#1e1e2e;color:#fff;font-size:12px;">구독자: ' + fmtFull(inf.followers) + ' / 콘텐츠: ' + inf.content_count + '건</th></tr></thead>';
   html += '<tbody>';
   html += '<tr><td>총 조회수 (Total Views)</td><td class="num" style="font-weight:600">' + fmtFull(inf.total_views) + '</td></tr>';
   html += '<tr><td>총 좋아요 (Total Likes)</td><td class="num">' + fmtFull(Math.round(inf.avg_likes * inf.content_count)) + '</td></tr>';
   html += '<tr><td>총 댓글 (Total Comments)</td><td class="num">' + fmtFull(Math.round(inf.avg_comments * inf.content_count)) + '</td></tr>';
-  html += '<tr style="border-top:2px solid #212121;font-weight:700"><td>총 참여 (Total Engagements)</td><td class="num">' + fmtFull(totalEng) + '</td></tr>';
+  html += '<tr style="border-top:2px solid #1e1e2e;font-weight:700"><td>총 참여 (Total Engagements)</td><td class="num">' + fmtFull(totalEng) + '</td></tr>';
   html += '<tr><td colspan="2" style="height:6px;border:none"></td></tr>';
   html += '<tr><td>평균 조회수 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
   html += '<tr><td>평균 좋아요 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_likes)) + '</td></tr>';
   html += '<tr><td>평균 댓글 / 영상</td><td class="num">' + fmtFull(Math.round(inf.avg_comments)) + '</td></tr>';
-  html += '<tr style="border-top:2px solid #212121;border-bottom:3px double #212121;font-weight:800"><td>평균 참여율 (Avg ER)</td><td class="num" style="color:var(--tblr-primary)">' + er + '%</td></tr>';
+  html += '<tr style="border-top:2px solid #1e1e2e;border-bottom:3px double #1e1e2e;font-weight:800"><td>평균 참여율 (Avg ER)</td><td class="num" style="color:var(--tblr-primary)">' + er + '%</td></tr>';
   html += '</tbody></table>';
   html += '</div></div></div>';
 
@@ -1567,7 +1567,7 @@ function renderExpandContent(inf) {
   html += '<tr><td>영상당 평균 조회수 (Views / Video)</td><td class="num">' + fmtFull(Math.round(inf.avg_views)) + '</td></tr>';
   html += '<tr><td>좋아요율 (Likes / Views)</td><td class="num">' + likeRate + '%</td></tr>';
   html += '<tr><td>댓글율 (Comments / Views)</td><td class="num">' + commentRate + '%</td></tr>';
-  html += '<tr style="border-top:2px solid #212121;border-bottom:3px double #212121;font-weight:800"><td>구독자/영상조회 비율 (Sub-to-View)</td><td class="num">' + subViewRatio + '</td></tr>';
+  html += '<tr style="border-top:2px solid #1e1e2e;border-bottom:3px double #1e1e2e;font-weight:800"><td>구독자/영상조회 비율 (Sub-to-View)</td><td class="num">' + subViewRatio + '</td></tr>';
   html += '</tbody></table>';
   html += '<p class="text-muted small mt-1">* Sub-to-View &lt; 1.0 &rarr; 바이럴 성향 / &gt; 1.0 &rarr; 구독자 대비 조회수 부족</p>';
   html += '</div></div>';
@@ -2037,7 +2037,7 @@ function renderCatChart() {
 
   var datasets = [];
   if (catChartMetric === 'both' || catChartMetric === 'followers') {
-    datasets.push({ label: '평균 구독자', data: avgFollowers, backgroundColor: '#ff003b', borderRadius: 6, barPercentage: 0.4 });
+    datasets.push({ label: '평균 구독자', data: avgFollowers, backgroundColor: '#3b5bdb', borderRadius: 6, barPercentage: 0.4 });
   }
   if (catChartMetric === 'both' || catChartMetric === 'views') {
     datasets.push({ label: '평균 조회수', data: avgViews, backgroundColor: '#1e56b0', borderRadius: 6, barPercentage: 0.4 });
@@ -2060,7 +2060,7 @@ function renderCatChart() {
         tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + (catChartMetric === 'engagement' ? ctx.raw + '%' : catChartMetric === 'score' ? ctx.raw + '점' : fmtFull(ctx.raw)) } }
       },
       scales: {
-        x: { ticks: { font: { family: 'Poppins', size: 11 }, callback: v => catChartMetric === 'engagement' ? v + '%' : catChartMetric === 'score' ? v : fmt(v) }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Inter', size: 11 }, callback: v => catChartMetric === 'engagement' ? v + '%' : catChartMetric === 'score' ? v : fmt(v) }, grid: { color: '#f1f5f9' } },
         y: { ticks: { font: { family: 'Noto Sans KR', size: 12 } }, grid: { display: false } }
       }
     }
@@ -2244,7 +2244,7 @@ function renderCompareCharts() {
       scales: {
         r: {
           beginAtZero: true, max: 100,
-          ticks: { stepSize: 25, font: { family: 'Poppins', size: 10 }, backdropColor: 'transparent', callback: v => v + '점' },
+          ticks: { stepSize: 25, font: { family: 'Inter', size: 10 }, backdropColor: 'transparent', callback: v => v + '점' },
           pointLabels: { font: { family: 'Noto Sans KR', size: 12, weight: '600' } },
           grid: { color: '#e2e8f0' }, angleLines: { color: '#e2e8f0' }
         }
@@ -2349,7 +2349,7 @@ function renderCompareCharts() {
         indexAxis: 'y', responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw + '개' } } },
         scales: {
-          x: { ticks: { font: { family: 'Poppins', size: 11 }, stepSize: 1 }, grid: { color: '#f1f5f9' } },
+          x: { ticks: { font: { family: 'Inter', size: 11 }, stepSize: 1 }, grid: { color: '#f1f5f9' } },
           y: { ticks: { font: { family: 'Noto Sans KR', size: 12 } }, grid: { display: false } }
         }
       }
@@ -2429,7 +2429,7 @@ function renderGroupSimulation(sel) {
     html += '<div class="col-6 col-md-3">';
     html += '<div class="p-3 rounded" style="background:rgba(109,40,217,.04);border-left:3px solid ' + m.color + '">';
     html += '<div class="text-muted small mb-1">' + m.label + '</div>';
-    html += '<div class="fw-bold" style="font-size:18px;color:' + m.color + ';font-family:\'Poppins\',sans-serif">' + m.value + '</div>';
+    html += '<div class="fw-bold" style="font-size:18px;color:' + m.color + ';font-family:\'Inter\',sans-serif">' + m.value + '</div>';
     html += '</div></div>';
   });
   html += '</div>';

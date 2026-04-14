@@ -116,7 +116,7 @@ def main():
     # ═══════════════════════════════════════
     # 10. 디자인 일관성
     # ═══════════════════════════════════════
-    check('Design: --tblr-primary 브랜드 컬러', '--tblr-primary' in html and 'ff003b' in html)
+    check('Design: --tblr-primary 브랜드 컬러', '--tblr-primary' in html and ('ff003b' in html or '3b5bdb' in html))
     check('Design: Tier CSS 변수', '--tier-nano' in html)
     check('Design: 다크모드 지원', 'data-bs-theme' in html)
     check('Design: 인쇄 최적화', '@media print' in html)
