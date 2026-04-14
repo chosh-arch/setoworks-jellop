@@ -57,7 +57,7 @@ def main():
     # ═══════════════════════════════════════
     # 3. 데이터 fetch
     # ═══════════════════════════════════════
-    check('Data: fetch /influencer_data.json', '/influencer_data.json' in html)
+    check('Data: fetch /influencer_data.json or Supabase', '/influencer_data.json' in html or 'supabase.co' in html)
     check('Data: fetch error handling (.catch)', '.catch' in html)
     check('Data: loading spinner', 'loading' in html.lower() and 'spinner' in html.lower())
 
