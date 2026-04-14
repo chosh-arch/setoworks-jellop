@@ -9,12 +9,12 @@ interface TrendingItem {
 }
 
 const trendingItems: TrendingItem[] = [
-  { name: 'ZeroBreeze Mark 3 포터블 에어컨', platform: 'Kickstarter', currentAmount: '$630K', growthRate: 4200 },
-  { name: 'Pomodoro Cube 집중 타이머', platform: 'Wadiz', currentAmount: '1.8억', growthRate: 1850 },
-  { name: 'SoundPod 골전도 스피커', platform: 'Kickstarter', currentAmount: '$186K', growthRate: 1240 },
-  { name: 'PetCam 360 반려동물 카메라', platform: 'Indiegogo', currentAmount: '$98K', growthRate: 980 },
-  { name: 'EcoWrap 재사용 실리콘 랩', platform: 'Wadiz', currentAmount: '7,200만', growthRate: 720 },
-  { name: 'LumiDesk RGB 게이밍 데스크', platform: 'Kickstarter', currentAmount: '$84K', growthRate: 560 },
+  { name: '큐비오X 포터블 CNC 레이저', platform: 'Kickstarter', currentAmount: '30억+', growthRate: 5000 },
+  { name: '한셉트 제로 MK2 폴더블 펜', platform: 'Kickstarter', currentAmount: '$161K', growthRate: 2729 },
+  { name: 'GADOL 가돌 360° 진동 스피커', platform: 'Kickstarter', currentAmount: '$120K', growthRate: 1600 },
+  { name: 'PACER 페이서 호흡 분석기', platform: 'Kickstarter', currentAmount: '$110K', growthRate: 1500 },
+  { name: 'VANZY 반지 2.0 제스처 마우스', platform: 'Kickstarter', currentAmount: '$82K', growthRate: 820 },
+  { name: '젠히트 GenHeat 초슬림 온열패드', platform: '5개국 멀티', currentAmount: '6억+', growthRate: 600 },
 ];
 
 interface WelcomeStateProps {
@@ -29,7 +29,7 @@ export function WelcomeState({ language, onSampleSearch }: WelcomeStateProps) {
       searchPlaceholder: '제품명을 검색하세요',
       searchButton: '검색',
       sampleLabel: '예시',
-      samples: ['선풍기', 'game', '키보드', 'design', '가전'],
+      samples: ['큐비오', '한셉트', '가돌', '페이서', '반지'],
       stat1Value: '14년',
       stat1Label: '업력',
       stat2Value: '1,200건+',
@@ -43,7 +43,7 @@ export function WelcomeState({ language, onSampleSearch }: WelcomeStateProps) {
       searchPlaceholder: 'Search product name',
       searchButton: 'Search',
       sampleLabel: 'Try',
-      samples: ['fan', 'game', 'keyboard', 'design', 'camera'],
+      samples: ['Cubiio', 'Hancept', 'GADOL', 'PACER', 'VANZY'],
       stat1Value: '14 yrs',
       stat1Label: 'Experience',
       stat2Value: '1,200+',
@@ -57,7 +57,7 @@ export function WelcomeState({ language, onSampleSearch }: WelcomeStateProps) {
       searchPlaceholder: '製品名を検索',
       searchButton: '検索',
       sampleLabel: '例',
-      samples: ['扇風機', 'ゲーム', 'キーボード', 'デザイン', '家電'],
+      samples: ['キュビオ', 'ハンセプト', 'ガドル', 'ペイサー', 'バンジ'],
       stat1Value: '14年',
       stat1Label: '業歴',
       stat2Value: '1,200件+',
@@ -71,7 +71,7 @@ export function WelcomeState({ language, onSampleSearch }: WelcomeStateProps) {
       searchPlaceholder: '搜索产品名称',
       searchButton: '搜索',
       sampleLabel: '示例',
-      samples: ['风扇', 'game', '键盘', 'design', '家电'],
+      samples: ['Cubiio', 'Hancept', 'GADOL', 'PACER', 'VANZY'],
       stat1Value: '14年',
       stat1Label: '经验',
       stat2Value: '1,200+',
