@@ -943,14 +943,106 @@ body{
       </div>
       <div style="flex:none;background:linear-gradient(90deg,var(--charcoal) 0%,#0a0e1a 100%);border-radius:13px;padding:14px 22px;color:#fff;display:flex;align-items:center;gap:18px;">
         <div style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:800;color:var(--brand-red);flex-shrink:0;">8주 완료 목표</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;">Phase 0~3은 순차 실행(필수 의존) · Phase 4~6은 병렬 가능 · Phase 7은 전체 통합 테스트. 각 Phase 완료 시 체크리스트 기반 검증.</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;">Phase 0~3 순차 · Phase 4~6 병렬 · Phase 7 통합 테스트. <strong>84개 배포 파일 + preflight 자동 검증 + install_db_server.sh 원클릭 설치</strong> 체계 완비.</div>
       </div>
     </div>
   </div>
   <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="d10"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="c10"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
 </div>
 
-<!-- ━━━ 11 마이그레이션 결정사항 ━━━ -->
+<!-- ━━━ 배포 자동화 ━━━ -->
+<div class="slide" id="sdeploy">
+  <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
+  <div class="si">
+    <div class="stag"><span class="snum">11</span><span class="slbl">Deployment Automation</span></div>
+    <div class="st">배포 자동화 <em>84개 파일 · 6단계 실행</em></div>
+    <div class="ss">수동 설치가 아닌 스크립트 기반 완전 자동화. Preflight 검증 → 원클릭 설치 → DRY_RUN → 본격 가동.</div>
+    <div class="sb">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:none;">
+        <div class="stat-card" style="background:rgba(255,0,59,.04);border-color:var(--brand-red);"><div class="stat-num" style="color:var(--brand-red);">84</div><div class="stat-lbl">배포 파일</div></div>
+        <div class="stat-card" style="background:var(--bl2);border-color:var(--blue);"><div class="stat-num" style="color:var(--blue);">5</div><div class="stat-lbl">디렉터리</div></div>
+        <div class="stat-card" style="background:var(--grl);border-color:var(--green);"><div class="stat-num" style="color:var(--green);">6</div><div class="stat-lbl">실행 단계</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;flex:none;">
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--slate2);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 0</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">secrets.env<br>비밀번호 설정</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">5분 · 수동</div>
+        </div>
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--blue);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 1</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">preflight<br>사전 검증 4종</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">5분 · 변경 0</div>
+        </div>
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--brand-red);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 2</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">install_db<br>PG16+DDL+UFW</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">60~90분 · 자동</div>
+        </div>
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--gold);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 3</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">NAS Watcher<br>Docker 설치</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">10~15분 · 자동</div>
+        </div>
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--green);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 4</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">post_deploy<br>종합 검증</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">5분 · 변경 0</div>
+        </div>
+        <div class="card" style="padding:6px 8px;border-top:3px solid var(--purple);text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);">Step 5-6</div>
+          <div style="font-size:8px;color:var(--slate);line-height:1.3;margin-top:2px;">DRY_RUN<br>→ 본격 가동</div>
+          <div style="font-size:7px;color:var(--mu);margin-top:2px;">1~2일 관찰</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;min-height:0;">
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--blue);">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);margin-bottom:3px;">Preflight 사전 검증 (4종)</div>
+          <div style="font-size:8.5px;color:var(--slate);line-height:1.4;">
+            <div>• 01_check_db_server.sh — OS/RAM/디스크 검증</div>
+            <div>• 02_check_nas.sh — DSM/Docker/공유 검증</div>
+            <div>• 03_check_network.sh — 양방향 연결성</div>
+            <div>• 04_check_disks.sh — 마운트/용량/속도</div>
+            <div style="margin-top:2px;color:var(--blue);font-weight:700;">run_all.sh 로 일괄 실행 · 변경 0건</div>
+          </div>
+        </div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--brand-red);">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);margin-bottom:3px;">install_db_server.sh (원클릭)</div>
+          <div style="font-size:8.5px;color:var(--slate);line-height:1.4;">
+            <div>• PostgreSQL 16 + 6개 확장 자동 설치</div>
+            <div>• DDL v5 (70테이블 · 2,245라인) 자동 적용</div>
+            <div>• 4단계 DB 계정 자동 생성</div>
+            <div>• PgBouncer + pgBackRest + UFW 설정</div>
+            <div style="margin-top:2px;color:var(--brand-red);font-weight:700;">secrets.env 기반 · sudo 1회 실행</div>
+          </div>
+        </div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--gold);">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);margin-bottom:3px;">NAS Watcher (Docker 컨테이너)</div>
+          <div style="font-size:8.5px;color:var(--slate);line-height:1.4;">
+            <div>• inotify 실시간 파일 변경 감지</div>
+            <div>• watcher.py + readonly_guard.py</div>
+            <div>• DRY_RUN=true 기본 (이벤트 로그만)</div>
+            <div>• DRY_RUN=false 전환 시 DB INSERT 시작</div>
+            <div style="margin-top:2px;color:var(--gold);font-weight:700;">NAS READ-ONLY 정책 유지</div>
+          </div>
+        </div>
+        <div class="card" style="padding:8px 10px;border-left:3px solid var(--green);">
+          <div style="font-size:10px;font-weight:800;color:var(--charcoal);margin-bottom:3px;">post_deploy_verify.sh (종합 검증)</div>
+          <div style="font-size:8.5px;color:var(--slate);line-height:1.4;">
+            <div>• DB 70+ 테이블 존재 확인</div>
+            <div>• PgBouncer 연결 풀 검증</div>
+            <div>• NAS Watcher 컨테이너 상태</div>
+            <div>• 백업 스케줄 + 암호화 확인</div>
+            <div style="margin-top:2px;color:var(--green);font-weight:700;">전체 ✅ 확인 후 DRY_RUN 관찰 시작</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nb"><div class="nb-brand">SETOWORKS <span class="nb-sep">|</span> <span class="nb-proj">사내 DB 인프라</span></div><div class="nb-dots" id="ddeploy"></div><div class="nb-ctrl"><button class="nb-btn" onclick="go(-1)">&#8592;</button><span class="nb-cnt" id="cdeploy"></span><button class="nb-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ━━━ 12 마이그레이션 결정사항 ━━━ -->
 <div class="slide" id="s11">
   <div class="brand-corner"><img src="setoworks_logo_4x.png" alt="SETOWORKS"><a href="/" class="bc-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>포털</a></div>
   <div class="si">
@@ -1059,7 +1151,7 @@ body{
   <div class="si" style="background:linear-gradient(135deg,#f7f9fc 0%,#fff5f7 100%);">
     <div class="stag"><span class="snum">13</span><span class="slbl">Conclusion</span></div>
     <div class="st">최종 결론 <em>+ 전체 운영 흐름</em></div>
-    <div class="ss">보유 장비 그대로. UPS 1대만 추가. DDL v5 즉시 배포. 8가지 결정 후 실행.</div>
+    <div class="ss">보유 장비 그대로. UPS 1대만 추가. 84개 배포 파일 + DRY_RUN 안전 모드 완비. 8가지 결정 후 실행.</div>
     <div class="sb">
       <!-- Large animated flow diagram -->
       <div style="flex:none;background:linear-gradient(135deg,#0a0e1a 0%,var(--charcoal) 100%);border-radius:18px;padding:24px 28px;position:relative;overflow:hidden;">
@@ -1144,7 +1236,7 @@ body{
 
       <!-- Summary -->
       <div class="ibox ibox-brand" style="flex:none;font-size:14.5px;line-height:1.75;">
-        <strong>최종 결론 한 문장:</strong> <strong style="color:var(--charcoal);">"보유 장비(Ryzen + Mac Studio + NAS) 그대로, UPS 1대만 추가하여, DDL v5 70테이블 즉시 배포 가능. 8가지 결정 완료 시 8주 안에 PostgreSQL + Claude AI + NAS 통합 데이터 플랫폼을 완성한다."</strong>
+        <strong>최종 결론 한 문장:</strong> <strong style="color:var(--charcoal);">"보유 장비 그대로, UPS 1대만 추가. 84개 배포 파일(preflight 검증 → install_db_server.sh 원클릭 → NAS Watcher DRY_RUN → 본격 가동) 체계가 완비되어 있다. 8가지 결정 완료 시 8주 안에 PostgreSQL + Claude AI + NAS 통합 플랫폼을 완성한다."</strong>
       </div>
 
       <div class="g3" style="flex:none;">
@@ -1168,7 +1260,7 @@ body{
 </div>
 
 <script>
-const TOTAL=14;let cur=0;
+const TOTAL=15;let cur=0;
 const slides=document.querySelectorAll('.slide');
 function render(){
   slides.forEach((s,i)=>{s.classList.remove('active','exit-left');if(i===cur)s.classList.add('active');else if(i<cur)s.classList.add('exit-left');});
