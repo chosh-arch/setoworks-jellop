@@ -1879,6 +1879,17 @@ function toggleExpand(id) {
   renderChannelTable();
 }
 
+function goToChannelDetail(id) {
+  var nid = isNaN(Number(id)) ? id : Number(id);
+  expandedRow = nid;
+  switchToView('channels');
+  setTimeout(function() {
+    renderChannelTable();
+    var row = document.querySelector('tr[onclick*="' + id + '"]');
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
 function sortChannels(col) {
   if (channelSortCol === col) channelSortAsc = !channelSortAsc;
   else { channelSortCol = col; channelSortAsc = col === 'display_name' || col === 'platform' || col === 'category' || col === 'country'; }
@@ -2298,7 +2309,7 @@ function renderCompareCharts() {
   ];
 
   var tHtml = '<table class="table table-vcenter table-hover"><thead><tr><th>지표</th>';
-  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + '">' + escHtml(inf.display_name) + '</th>'; });
+  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + ';cursor:pointer" onclick="goToChannelDetail(\'' + inf.id + '\')" title="클릭하면 상세 페이지로 이동">' + escHtml(inf.display_name) + ' <span style="font-size:10px;opacity:.6">→</span></th>'; });
   tHtml += '</tr></thead><tbody>';
   metrics.forEach(m => {
     tHtml += '<tr>';
