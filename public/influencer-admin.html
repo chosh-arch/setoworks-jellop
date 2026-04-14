@@ -538,7 +538,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
 
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script>
-const PALETTE = ['#3b5bdb','#1e56b0','#d4841a','#0d7c5f','#6d28d9','#be185d','#0ea5e9','#f59e0b'];
+const PALETTE = ['#3b5bdb','#f59e0b','#0d7c5f','#e11d48','#6d28d9','#0ea5e9','#d4841a','#be185d'];
 const CAT_KR = {
   'fashion': '패션', 'lifestyle': '라이프스타일', 'fitness': '피트니스',
   'beauty': '뷰티', 'camping_outdoor': '캠핑/아웃도어', 'food': '푸드/요리',
@@ -2040,7 +2040,7 @@ function renderCatChart() {
     datasets.push({ label: '평균 구독자', data: avgFollowers, backgroundColor: '#3b5bdb', borderRadius: 6, barPercentage: 0.4 });
   }
   if (catChartMetric === 'both' || catChartMetric === 'views') {
-    datasets.push({ label: '평균 조회수', data: avgViews, backgroundColor: '#1e56b0', borderRadius: 6, barPercentage: 0.4 });
+    datasets.push({ label: '평균 조회수', data: avgViews, backgroundColor: '#f59e0b', borderRadius: 6, barPercentage: 0.4 });
   }
   if (catChartMetric === 'engagement') {
     datasets.push({ label: '평균 참여율 (%)', data: avgER, backgroundColor: '#0d7c5f', borderRadius: 6, barPercentage: 0.5 });
@@ -2298,7 +2298,7 @@ function renderCompareCharts() {
   ];
 
   var tHtml = '<table class="table table-vcenter table-hover"><thead><tr><th>지표</th>';
-  sel.forEach(inf => { tHtml += '<th class="num">' + escHtml(inf.display_name) + '</th>'; });
+  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + '">' + escHtml(inf.display_name) + '</th>'; });
   tHtml += '</tr></thead><tbody>';
   metrics.forEach(m => {
     tHtml += '<tr>';
