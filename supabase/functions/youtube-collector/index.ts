@@ -176,6 +176,59 @@ function assignGrade(score: number) {
   return null;                   // 30 미만: 수집 제외 (D등급 없음)
 }
 
+// Detect actual category from channel bio + video titles
+function detectCategoryFromContent(bio: string, videos: any[]): string | null {
+  // Combine bio + all video titles for keyword analysis
+  const text = (bio + " " + videos.map((v: any) => v.title || "").join(" ")).toLowerCase();
+
+  // Category keyword weights — ordered by specificity
+  const CAT_KEYWORDS: Record<string, string[]> = {
+    parenting: ["子育て", "育児", "赤ちゃん", "baby", "育兒", "parenting", "mom vlog", "パパ", "ママ", "family vlog", "baby vlog", "toddler", "幼児", "newborn", "出産"],
+    pet: ["ペット", "犬", "猫", "반려", "pet", "dog", "cat", "寵物", "puppy", "kitten", "ワンコ", "にゃんこ"],
+    gaming: ["ゲーム", "gaming", "게임", "game", "play", "minecraft", "fortnite", "apex", "valorant", "実況"],
+    fitness: ["筋トレ", "workout", "fitness", "トレーニング", "exercise", "gym", "ダイエット", "홈트", "운동"],
+    beauty: ["メイク", "makeup", "skincare", "コスメ", "beauty", "뷰티", "化妆"],
+    food: ["料理", "cooking", "レシピ", "recipe", "먹방", "美食", "グルメ", "ランチ", "food"],
+    tech_unboxing: ["レビュー", "review", "unboxing", "開封", "gadget", "tech", "언박싱", "テック"],
+    camping_outdoor: ["キャンプ", "camping", "outdoor", "캠핑", "アウトドア", "登山", "hiking", "trekking", "露營", "テント"],
+    motorcycle: ["バイク", "motovlog", "motorcycle", "ツーリング", "오토바이", "riding"],
+    fashion: ["ファッション", "fashion", "コーデ", "outfit", "haul", "패션", "lookbook", "ootd"],
+    travel: ["旅行", "travel", "여행", "旅遊", "trip", "観光", "backpack", "hotel"],
+    education: ["勉強", "study", "tutorial", "教育", "공부", "learning", "how to", "解説"],
+    lifestyle: ["vlog", "日常", "暮らし", "ライフ", "lifestyle", "라이프", "일상", "daily", "routine"],
+  };
+
+  // Count keyword matches per category
+  const scores: Record<string, number> = {};
+  for (const [cat, keywords] of Object.entries(CAT_KEYWORDS)) {
+    let count = 0;
+    for (const kw of keywords) {
+      const regex = new RegExp(kw, "gi");
+      const matches = text.match(regex);
+      if (matches) count += matches.length;
+    }
+    if (count > 0) scores[cat] = count;
+  }
+
+  if (Object.keys(scores).length === 0) return null;
+
+  // Sort by count descending
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+  // If top category is "lifestyle" or "camping_outdoor" but parenting has significant matches, prefer parenting
+  // (handles channels like this one where "キャンプ" is in name but content is 70% parenting)
+  if (sorted.length >= 2) {
+    const top = sorted[0];
+    const second = sorted[1];
+    // If second place has > 40% of top's score, and second is more specific, prefer it
+    if (second[1] > top[1] * 0.4 && ["parenting", "pet", "gaming", "fitness"].includes(second[0]) && ["lifestyle", "camping_outdoor", "travel"].includes(top[0])) {
+      return second[0];
+    }
+  }
+
+  return sorted[0][0];
+}
+
 // Extract social media links from channel description
 function extractSocialLinks(bio: string) {
   const links: Record<string, string> = {};
@@ -321,7 +374,7 @@ serve(async (req) => {
         }
 
         // Get videos + score
-        const videos = await getRecentVideos(chId, 50);
+        const videos = await getRecentVideos(chId, 70);
         quotaUsed += 2;
         const pureScore = calcPureScore({ ...details }, videos);
         const grade = assignGrade(pureScore);
@@ -335,6 +388,17 @@ serve(async (req) => {
 
         const avgViews = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length) : 0;
         const avgLikes = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.likes, 0) / videos.length) : 0;
+        const avgComments = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.comments, 0) / videos.length) : 0;
+
+        // Detect actual category from content (may differ from search category)
+        const actualCategory = detectCategoryFromContent(details.bio || ch.snippet.description || "", videos) || category;
+        if (actualCategory !== category) {
+          log.push(`${ch.snippet.channelTitle}: 카테고리 보정 ${category} → ${actualCategory}`);
+        }
+
+        // SNS 링크 추출 + 월평균 업로드
+        const socialLinks = extractSocialLinks(details.bio || ch.snippet.description || "");
+        const monthlyUploads = calcMonthlyUploads(videos);
 
         // Insert new influencer with fixed ID
         const newId = Date.now() * 100 + discovered;
@@ -344,15 +408,18 @@ serve(async (req) => {
           platform_id: chId,
           username: ch.snippet.channelTitle.replace(/\s/g, "_"),
           display_name: ch.snippet.channelTitle,
-          bio: (ch.snippet.description || "").slice(0, 300),
+          bio: (details.bio || ch.snippet.description || "").slice(0, 500),
           profile_url: `https://www.youtube.com/channel/${chId}`,
           profile_image_url: ch.snippet.thumbnails?.default?.url || "",
           followers: details.followers,
           total_posts: details.total_posts,
           total_views: details.total_views,
-          category,
+          category: actualCategory,
           tier,
           country: details.country || detectCountry(ch.snippet.defaultLanguage || ch.snippet.title || "") || selectedCountry,
+          avg_comments: avgComments,
+          monthly_uploads: monthlyUploads,
+          ...socialLinks,
           pure_score: pureScore,
           grade,
           is_active: true,
@@ -406,7 +473,7 @@ serve(async (req) => {
         if (!details) { log.push(`${inf.display_name}: channel not found`); continue; }
 
         // Get recent videos (2 quota)
-        const videos = await getRecentVideos(channelId, 50);
+        const videos = await getRecentVideos(channelId, 70);
         quotaUsed += 2;
 
         // Calculate stats
