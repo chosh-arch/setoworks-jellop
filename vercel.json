@@ -1,11 +1,5 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/portal.html" }
-  ],
-  "crons": [
-    {
-      "path": "/api/crawl-worker",
-      "schedule": "0 */6 * * *"
-    }
   ]
 }
