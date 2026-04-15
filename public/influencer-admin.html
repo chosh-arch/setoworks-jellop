@@ -990,16 +990,20 @@ function renderDashboard() {
     }
   });
 
-  // Category donut
-  var cats = DATA.categories;
+  // Category donut — count influencers per category
+  var catCount = {};
+  infs.forEach(function(i) { var c = i.category || 'etc'; catCount[c] = (catCount[c]||0)+1; });
+  var catLabels = Object.keys(catCount).sort(function(a,b){ return catCount[b]-catCount[a]; });
+  var catData = catLabels.map(function(c){ return catCount[c]; });
+
   if (charts.catDonut) charts.catDonut.destroy();
   charts.catDonut = new Chart(document.getElementById('chart-cat-donut'), {
     type: 'doughnut',
     data: {
-      labels: cats.map(c => CAT_KR[c.category] || c.category),
-      datasets: [{ data: cats.map(c => c.cnt), backgroundColor: PALETTE.slice(0, cats.length), borderWidth: 2, borderColor: '#fff' }]
+      labels: catLabels.map(function(c){ return CAT_KR[c] || c; }),
+      datasets: [{ data: catData, backgroundColor: PALETTE.slice(0, catLabels.length), borderWidth: 2, borderColor: '#fff' }]
     },
-    options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { family: 'Noto Sans KR', size: 12 }, usePointStyle: true, pointStyleWidth: 10 } } } }
+    options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 10, font: { family: 'Noto Sans KR', size: 11 }, usePointStyle: true, pointStyleWidth: 8 } } } }
   });
 
   // Grade donut
