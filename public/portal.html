@@ -99,8 +99,8 @@
   /* ─── Grid ─── */
   .grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:clamp(12px,2vh,24px);
+    grid-template-columns:repeat(3,1fr);
+    gap:clamp(10px,1.5vh,18px);
     width:100%;
     flex-shrink:0;
   }
@@ -210,6 +210,7 @@
   .card:nth-child(2){animation:fadeUp .6s .25s ease-out both}
   .card:nth-child(3){animation:fadeUp .6s .35s ease-out both}
   .card:nth-child(4){animation:fadeUp .6s .45s ease-out both}
+  .card:nth-child(5){animation:fadeUp .6s .55s ease-out both}
 
   /* ─── Footer ─── */
   .footer{
@@ -239,7 +240,7 @@
   /* ─── Responsive ─── */
   @media(max-width:640px){
     .container{padding:0 16px}
-    .grid{grid-template-columns:1fr 1fr;gap:10px}
+    .grid{grid-template-columns:1fr 1fr;gap:8px}
     .card{padding:14px 16px}
     .brand-name{font-size:1.1rem;letter-spacing:4px}
     .logo-img{height:32px}
@@ -312,7 +313,22 @@
       <div class="card-accent-line"></div>
     </a>
 
-    <!-- Card 4: 사내 DB 인프라 -->
+    <!-- Card 4: 크롤링 모니터 -->
+    <a href="/crawl-monitor.html" class="card" data-accent="green">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">크롤링 모니터</div>
+      <div class="card-subtitle">5 플랫폼 · 97 카테고리 · 실시간 모니터링</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+    <!-- Card 5: 사내 DB 인프라 -->
     <a href="/db-infra.html" class="card" data-accent="purple">
       <div class="card-top">
         <div class="icon-wrap">

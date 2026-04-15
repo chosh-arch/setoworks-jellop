@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Setoworks · 크롤링 모니터</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--em:#3ECF8E;--bg:#0a0a0a;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--text:#ededed;--muted:#888;--red:#ef4444;--yellow:#f59e0b;--blue:#6366f1;--orange:#f97316;}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans KR',sans-serif;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:12px 20px 8px;}
+.hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin-bottom:10px;}
+.hdr-left{display:flex;align-items:center;gap:12px;}
+.hdr-logo{font-weight:800;font-size:14px;color:#fff;letter-spacing:.05em;}
+.hdr-logo span{color:var(--em);}
+.hdr-title{font-size:13px;color:var(--muted);font-weight:500;border-left:1px solid rgba(255,255,255,.15);padding-left:12px;}
+.hdr-nav{display:flex;gap:6px;}
+.hdr-nav a{color:var(--muted);text-decoration:none;font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);transition:all .15s;}
+.hdr-nav a:hover{color:var(--em);border-color:var(--em);}
+.platforms{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;flex-shrink:0;margin-bottom:8px;}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;}
+.p-card-h{display:flex;justify-content:space-between;align-items:center;}
+.p-name{font-size:13px;font-weight:700;color:#fff;}
+.p-stats{display:flex;gap:12px;font-size:11px;color:var(--muted);}
+.p-stats strong{color:var(--em);font-weight:700;}
+.p-badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;}
+.p-badge-proxy{background:rgba(239,68,68,.15);color:var(--red);}
+.p-badge-ok{background:rgba(62,207,142,.15);color:var(--em);}
+.p-dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+.p-dot-active{background:var(--em);box-shadow:0 0 6px var(--em);}
+.p-dot-off{background:#444;}
+.main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0;}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;flex-direction:column;overflow:hidden;}
+.panel-title{font-size:12px;font-weight:700;color:var(--em);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.panel-title .refresh{font-size:10px;color:var(--muted);cursor:pointer;}
+.panel-title .refresh:hover{color:var(--em);}
+.jobs-tbl{width:100%;font-size:10.5px;border-collapse:collapse;flex:1;overflow:hidden;}
+.jobs-tbl th{text-align:left;padding:4px 6px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;}
+.jobs-tbl td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.03);}
+.st-badge{padding:2px 6px;border-radius:4px;font-size:9px;font-weight:600;}
+.st-pending{background:rgba(245,158,11,.15);color:var(--yellow);}
+.st-running{background:rgba(99,102,241,.15);color:var(--blue);}
+.st-completed{background:rgba(62,207,142,.15);color:var(--em);}
+.st-failed{background:rgba(239,68,68,.15);color:var(--red);}
+.st-rate_limited{background:rgba(249,115,22,.15);color:var(--orange);}
+.right{display:flex;flex-direction:column;gap:8px;}
+.eq-platform{margin-bottom:6px;}
+.eq-name{font-size:11px;font-weight:700;color:var(--em);margin-bottom:3px;}
+.eq-cats{display:flex;flex-wrap:wrap;gap:3px;}
+.eq-tag{font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--muted);cursor:pointer;transition:all .15s;border:1px solid transparent;user-select:none;}
+.eq-tag:hover{border-color:var(--em);color:var(--em);}
+.eq-tag.active{background:rgba(62,207,142,.12);color:var(--em);border-color:rgba(62,207,142,.3);}
+.code-block{background:#111;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.6;color:var(--muted);flex-shrink:0;}
+.code-block .hl{color:var(--em);}
+.code-block .warn{color:var(--red);}
+.code-block .key{color:var(--blue);}
+.stats-bar{display:flex;gap:6px;flex-shrink:0;margin-top:6px;}
+.stat-item{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 10px;text-align:center;}
+.stat-num{font-size:18px;font-weight:800;color:var(--em);}
+.stat-lbl{font-size:9px;color:var(--muted);margin-top:2px;}
+.ftr{flex-shrink:0;text-align:center;padding:6px 0 0;font-size:9px;color:#444;}
+.ftr a{color:var(--em);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-logo">SETO<span>WORKS</span></div>
+      <div class="hdr-title">크롤링 모니터 · Crawl Monitor</div>
+    </div>
+    <div class="hdr-nav">
+      <a href="/">포털</a>
+      <a href="/index.html">대시보드</a>
+      <a href="/influencer-admin.html">인플루언서</a>
+      <a href="/deck.html">데크</a>
+    </div>
+  </div>
+  <div class="platforms" id="platform-cards"><div class="p-card" style="opacity:.4"><div class="p-name">로딩중...</div></div></div>
+  <div class="main">
+    <div class="panel">
+      <div class="panel-title">최근 크롤링 작업 <span class="refresh" onclick="loadJobs()">↻ 30초 자동</span></div>
+      <div style="flex:1;overflow:hidden;">
+        <table class="jobs-tbl"><thead><tr><th>플랫폼</th><th>카테고리</th><th>상태</th><th>건수</th><th>시작</th><th>소요</th></tr></thead><tbody id="jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">작업 대기 중</td></tr></tbody></table>
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel" style="flex:1;">
+        <div class="panel-title">카테고리 이퀄라이저 <span style="font-size:10px;color:var(--muted);font-weight:400;">클릭으로 ON/OFF</span></div>
+        <div style="flex:1;overflow:hidden;" id="eq-wrap"></div>
+      </div>
+      <div class="code-block">
+        <div><span class="key">platform:</span> Kickstarter <span class="warn">[프록시 필수]</span></div>
+        <div><span class="key">delay:</span> <span class="hl">8~15초</span> (타 사이트 5~10초)</div>
+        <div><span class="key">rate_limit:</span> <span class="hl">6 req/min</span></div>
+        <div><span class="key">429_response:</span> <span class="warn">즉시 플랫폼 전체 중단</span></div>
+        <div><span class="key">consecutive_errors:</span> <span class="warn">2회 → 즉시 중단</span></div>
+        <div><span class="key">proxy_rotation:</span> 최대 3회 자동 교체</div>
+        <div><span class="key">user_agent:</span> 5종 랜덤 로테이션</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num" id="st-total">-</div><div class="stat-lbl">총 프로젝트</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-ks">-</div><div class="stat-lbl">Kickstarter</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-ig">-</div><div class="stat-lbl">Indiegogo</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-mk">-</div><div class="stat-lbl">Makuake</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-wz">-</div><div class="stat-lbl">Wadiz</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-zz">-</div><div class="stat-lbl">Zeczec</div></div>
+  </div>
+  <div class="ftr">Powered by <a href="https://supabase.com">Supabase</a> · Setoworks Jellop+α</div>
+</div>
+<script>
+var SB_URL='https://skcdrvzcwemhjtchfdtt.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU';
+function sbFetch(t,q){return fetch(SB_URL+'/rest/v1/'+t+'?select=*'+(q||''),{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}).then(function(r){return r.json()}).catch(function(){return[]});}
+var FLAGS={kickstarter:'🇺🇸',indiegogo:'🇺🇸',makuake:'🇯🇵',wadiz:'🇰🇷',zeczec:'🇹🇼'};
+async function loadAll(){
+  var pf=await sbFetch('platforms','&order=id');
+  var cats=await sbFetch('crawl_categories','&order=platform_id,name');
+  var prods=await sbFetch('crawled_products','&select=platform');
+  var projs=await sbFetch('projects','&select=platform_id');
+  var pCount={};
+  prods.forEach(function(p){var k=(p.platform||'').toLowerCase().replace(/\s+/g,'');if(k.indexOf('kick')>=0)k='kickstarter';if(k.indexOf('indie')>=0)k='indiegogo';if(k.indexOf('maku')>=0)k='makuake';if(k.indexOf('wadi')>=0)k='wadiz';if(k.indexOf('zec')>=0)k='zeczec';pCount[k]=(pCount[k]||0)+1;});
+  projs.forEach(function(p){pCount[p.platform_id]=(pCount[p.platform_id]||0)+1;});
+  var catMap={};cats.forEach(function(c){if(!catMap[c.platform_id])catMap[c.platform_id]=[];catMap[c.platform_id].push(c);});
+  var html='';
+  pf.forEach(function(p){
+    var cnt=pCount[p.id]||0;var cc=catMap[p.id]?catMap[p.id].length:0;
+    html+='<div class="p-card"><div class="p-card-h"><span class="p-name">'+(FLAGS[p.id]||'')+' '+p.display_name+'</span><span class="p-dot '+(p.is_active?'p-dot-active':'p-dot-off')+'"></span></div>';
+    html+='<div class="p-stats"><span>프로젝트 <strong>'+cnt+'</strong></span><span>카테고리 <strong>'+cc+'</strong></span></div>';
+    html+=p.requires_proxy?'<span class="p-badge p-badge-proxy">프록시 필수</span>':'<span class="p-badge p-badge-ok">직접 연결</span>';
+    html+='</div>';
+  });
+  document.getElementById('platform-cards').innerHTML=html;
+  var total=Object.values(pCount).reduce(function(s,v){return s+v},0);
+  document.getElementById('st-total').textContent=total;
+  document.getElementById('st-ks').textContent=pCount['kickstarter']||0;
+  document.getElementById('st-ig').textContent=pCount['indiegogo']||0;
+  document.getElementById('st-mk').textContent=pCount['makuake']||0;
+  document.getElementById('st-wz').textContent=pCount['wadiz']||0;
+  document.getElementById('st-zz').textContent=pCount['zeczec']||0;
+  var eqHtml='';
+  pf.forEach(function(p){var pc=catMap[p.id]||[];if(!pc.length)return;eqHtml+='<div class="eq-platform"><div class="eq-name">'+(FLAGS[p.id]||'')+' '+p.display_name+' ('+pc.length+')</div><div class="eq-cats">';pc.forEach(function(c){eqHtml+='<span class="eq-tag active" onclick="this.classList.toggle(\'active\')">'+(c.name_en||c.name)+'</span>';});eqHtml+='</div></div>';});
+  document.getElementById('eq-wrap').innerHTML=eqHtml;
+}
+async function loadJobs(){
+  var jobs=await sbFetch('crawl_jobs','&order=created_at.desc&limit=15');
+  if(!jobs.length){document.getElementById('jobs-body').innerHTML='<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">작업 대기 중</td></tr>';return;}
+  var html='';jobs.forEach(function(j){var dur=j.started_at&&j.completed_at?Math.round((new Date(j.completed_at)-new Date(j.started_at))/1000)+'s':'-';html+='<tr><td>'+(j.platform_id||'-')+'</td><td>'+(j.category_id||'-')+'</td><td><span class="st-badge st-'+j.status+'">'+j.status+'</span></td><td>'+j.project_count+'</td><td>'+(j.started_at?new Date(j.started_at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-')+'</td><td>'+dur+'</td></tr>';});
+  document.getElementById('jobs-body').innerHTML=html;
+}
+loadAll();loadJobs();setInterval(loadJobs,30000);
+</script>
+</body>
+</html>
