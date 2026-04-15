@@ -568,6 +568,9 @@ const COUNTRY_KR = { 'JP': '일본 \u{1F1EF}\u{1F1F5}', 'TW': '대만 \u{1F1F9}\
 
 let DATA = null;
 let charts = {};
+var _dynCharts = [];
+function destroyDynCharts() { _dynCharts.forEach(function(c){ try{c.destroy();}catch(e){} }); _dynCharts = []; }
+function dynChart(el, cfg) { var c = new Chart(el, cfg); _dynCharts.push(c); return c; }
 let channelSortCol = null;
 let channelSortAsc = true;
 let expandedRow = null;
@@ -930,6 +933,7 @@ Promise.all([
       logs: []
     };
     DATA = data;
+    _benchmarkCache = null; // invalidate benchmarks on fresh data
     // Load contents per influencer on-demand (not all at once)
     // Preload top contents for dashboard charts (limit per influencer)
     var infIds = data.influencers.map(function(i){return i.id;});
@@ -1584,6 +1588,283 @@ function renderScoreBreakdownTooltip(inf) {
   return html;
 }
 
+// ─── Benchmark Analysis Engine ───
+var _benchmarkCache = null;
+function calcBenchmarks() {
+  if (_benchmarkCache) return _benchmarkCache;
+  var all = (DATA.influencers || []).filter(function(i){ return i.is_active && i.avg_views > 0; });
+  function stats(arr) {
+    if (!arr.length) return {avg:0,med:0,p25:0,p75:0,min:0,max:0};
+    var s = arr.slice().sort(function(a,b){return a-b;});
+    return {
+      avg: s.reduce(function(a,b){return a+b;},0)/s.length,
+      med: s[Math.floor(s.length/2)],
+      p25: s[Math.floor(s.length*0.25)],
+      p75: s[Math.floor(s.length*0.75)],
+      min: s[0], max: s[s.length-1]
+    };
+  }
+  function metricsFor(list) {
+    return {
+      vf: stats(list.map(function(i){return i.avg_views/Math.max(i.followers,1)*100;})),
+      lv: stats(list.map(function(i){return i.avg_likes/Math.max(i.avg_views,1)*100;})),
+      cv: stats(list.map(function(i){return (i.avg_comments||0)/Math.max(i.avg_views,1)*100;})),
+      er: stats(list.map(function(i){return (i.avg_likes+(i.avg_comments||0))/Math.max(i.avg_views,1)*100;})),
+      cl: stats(list.filter(function(i){return i.avg_likes>0;}).map(function(i){return (i.avg_comments||0)/i.avg_likes*100;})),
+      mu: stats(list.filter(function(i){return i.monthly_uploads>0;}).map(function(i){return i.monthly_uploads;})),
+      score: stats(list.map(function(i){return i.pure_score||0;})),
+      views: stats(list.map(function(i){return i.avg_views;})),
+      likes: stats(list.map(function(i){return i.avg_likes;})),
+      followers: stats(list.map(function(i){return i.followers;}))
+    };
+  }
+  function percentile(val, arr) {
+    var s = arr.slice().sort(function(a,b){return a-b;});
+    var idx = s.filter(function(v){return v<=val;}).length;
+    return Math.round(idx/s.length*100);
+  }
+  var result = { global: metricsFor(all), byTier: {}, byCat: {}, percentile: percentile };
+  ['nano','micro','mid','macro','mega'].forEach(function(t){
+    var g = all.filter(function(i){return i.tier===t;});
+    if (g.length >= 2) result.byTier[t] = metricsFor(g);
+  });
+  var cats = {};
+  all.forEach(function(i){ if(i.category) cats[i.category]=true; });
+  Object.keys(cats).forEach(function(c){
+    var g = all.filter(function(i){return i.category===c;});
+    if (g.length >= 2) result.byCat[c] = metricsFor(g);
+  });
+  _benchmarkCache = result;
+  return result;
+}
+
+function getDerivedMetrics(inf) {
+  var f = Math.max(inf.followers||1, 1);
+  var v = Math.max(inf.avg_views||1, 1);
+  var l = inf.avg_likes||0;
+  var c = inf.avg_comments||0;
+  return {
+    vf: v/f*100,          // 조회/구독자
+    lv: l/v*100,          // 좋아요/조회
+    cv: c/v*100,          // 댓글/조회
+    er: (l+c)/v*100,      // 인게이지먼트율
+    cl: l>0?c/l*100:0,    // 댓글/좋아요 (참여 깊이)
+    mu: inf.monthly_uploads||0,  // 월간 업로드
+    monthlyReach: (inf.avg_views||0) * (inf.monthly_uploads||0)  // 월간 도달력
+  };
+}
+
+function getStrengthWeakness(inf) {
+  var bm = calcBenchmarks();
+  var dm = getDerivedMetrics(inf);
+  var ref = bm.byTier[inf.tier] || bm.global;
+  var catRef = bm.byCat[inf.category] || null;
+  var tags = [];
+
+  // 티어 대비 비교
+  var checks = [
+    {key:'vf',val:dm.vf,label:'도달 효율 (V/F)',icon:'📡'},
+    {key:'lv',val:dm.lv,label:'콘텐츠 매력도 (L/V)',icon:'❤️'},
+    {key:'cv',val:dm.cv,label:'토론 유발력 (C/V)',icon:'💬'},
+    {key:'er',val:dm.er,label:'종합 참여율 (ER)',icon:'🔥'},
+    {key:'cl',val:dm.cl,label:'참여 깊이 (C/L)',icon:'🎯'},
+    {key:'mu',val:dm.mu,label:'업로드 빈도',icon:'📤'}
+  ];
+
+  checks.forEach(function(c) {
+    var tierAvg = ref[c.key] ? ref[c.key].avg : 0;
+    var ratio = tierAvg > 0 ? c.val / tierAvg : 1;
+    var catAvg = catRef && catRef[c.key] ? catRef[c.key].avg : null;
+    var catRatio = catAvg ? c.val / catAvg : null;
+
+    if (ratio >= 1.8) tags.push({type:'strong',icon:c.icon,label:c.label,detail:'티어 평균 대비 ' + ratio.toFixed(1) + 'x',value:c.val,avg:tierAvg});
+    else if (ratio >= 1.3) tags.push({type:'good',icon:c.icon,label:c.label,detail:'티어 평균 대비 ' + ratio.toFixed(1) + 'x',value:c.val,avg:tierAvg});
+    else if (ratio <= 0.4) tags.push({type:'weak',icon:c.icon,label:c.label,detail:'티어 평균의 ' + Math.round(ratio*100) + '%',value:c.val,avg:tierAvg});
+    else if (ratio <= 0.7) tags.push({type:'below',icon:c.icon,label:c.label,detail:'티어 평균의 ' + Math.round(ratio*100) + '%',value:c.val,avg:tierAvg});
+  });
+
+  return tags;
+}
+
+function renderBenchmarkCard(inf) {
+  var bm = calcBenchmarks();
+  var dm = getDerivedMetrics(inf);
+  var tierRef = bm.byTier[inf.tier] || bm.global;
+  var catRef = bm.byCat[inf.category] || null;
+  var globalRef = bm.global;
+  var tags = getStrengthWeakness(inf);
+
+  var html = '<div class="card mt-3"><div class="card-body">';
+  html += '<h4 class="mb-2">🔬 심층 벤치마크 분석</h4>';
+
+  // ─── 강점/약점 태그 ───
+  if (tags.length > 0) {
+    html += '<div class="mb-3">';
+    tags.forEach(function(t){
+      var bg = t.type==='strong'?'#dcfce7':t.type==='good'?'#e0f2fe':t.type==='weak'?'#fee2e2':'#fef3c7';
+      var fg = t.type==='strong'?'#166534':t.type==='good'?'#1e40af':t.type==='weak'?'#991b1b':'#92400e';
+      var icon2 = t.type==='strong'?'▲▲':t.type==='good'?'▲':t.type==='weak'?'▼▼':'▼';
+      html += '<span style="display:inline-block;background:' + bg + ';color:' + fg + ';padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600;margin:3px 4px 3px 0;">';
+      html += t.icon + ' ' + t.label + ' ' + icon2 + ' <span style="font-weight:400;font-size:11px;">' + t.detail + '</span></span>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div class="text-muted small mb-3">모든 지표가 티어 평균 범위 내입니다.</div>';
+  }
+
+  // ─── 비교 테이블 ───
+  html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;font-size:12px;">';
+  html += '<thead><tr style="background:#f1f5f9;"><th style="font-weight:600;">지표</th><th class="num" style="font-weight:600;">이 채널</th><th class="num" style="font-weight:600;">' + (inf.tier||'전체').toUpperCase() + ' 평균</th>';
+  if (catRef) html += '<th class="num" style="font-weight:600;">' + (CAT_KR[inf.category]||inf.category) + ' 평균</th>';
+  html += '<th class="num" style="font-weight:600;">전체 평균</th><th style="font-weight:600;text-align:center;">vs 티어</th></tr></thead><tbody>';
+
+  var rows = [
+    {label:'조회/구독자 (V/F)',key:'vf',val:dm.vf,fmt:function(v){return v.toFixed(2)+'%';}},
+    {label:'좋아요/조회 (L/V)',key:'lv',val:dm.lv,fmt:function(v){return v.toFixed(2)+'%';}},
+    {label:'댓글/조회 (C/V)',key:'cv',val:dm.cv,fmt:function(v){return v.toFixed(3)+'%';}},
+    {label:'인게이지먼트율 (ER)',key:'er',val:dm.er,fmt:function(v){return v.toFixed(2)+'%';}},
+    {label:'댓글/좋아요 (C/L)',key:'cl',val:dm.cl,fmt:function(v){return v.toFixed(2)+'%';}},
+    {label:'월간 업로드',key:'mu',val:dm.mu,fmt:function(v){return v.toFixed(1)+'건';}},
+    {label:'월간 도달력',key:null,val:dm.monthlyReach,fmt:function(v){return fmtFull(Math.round(v));}}
+  ];
+
+  rows.forEach(function(r){
+    var tAvg = r.key && tierRef[r.key] ? tierRef[r.key].avg : 0;
+    var cAvg = r.key && catRef && catRef[r.key] ? catRef[r.key].avg : null;
+    var gAvg = r.key && globalRef[r.key] ? globalRef[r.key].avg : 0;
+    var ratio = tAvg > 0 ? r.val/tAvg : 1;
+    var barColor = ratio >= 1.3 ? '#16a34a' : ratio >= 0.8 ? '#3b5bdb' : ratio >= 0.5 ? '#f59e0b' : '#ef4444';
+    var barW = Math.min(100, ratio * 50);
+    var arrow = ratio >= 1.3 ? '↑↑' : ratio >= 1.0 ? '↑' : ratio >= 0.7 ? '→' : ratio >= 0.4 ? '↓' : '↓↓';
+    var arrowColor = ratio >= 1.3 ? '#16a34a' : ratio >= 1.0 ? '#3b82f6' : ratio >= 0.7 ? '#6b7280' : ratio >= 0.4 ? '#f59e0b' : '#ef4444';
+
+    html += '<tr><td style="font-size:11px;">' + r.label + '</td>';
+    html += '<td class="num" style="font-weight:700;">' + r.fmt(r.val) + '</td>';
+    html += '<td class="num">' + (r.key && tAvg > 0 ? r.fmt(tAvg) : '-') + '</td>';
+    if (catRef) html += '<td class="num">' + (cAvg !== null ? r.fmt(cAvg) : '-') + '</td>';
+    html += '<td class="num">' + (r.key && gAvg > 0 ? r.fmt(gAvg) : '-') + '</td>';
+    if (r.key && tAvg > 0) {
+      html += '<td style="text-align:center;"><span style="color:' + arrowColor + ';font-weight:700;font-size:13px;">' + arrow + '</span> <span style="font-size:10px;color:#6b7280;">' + Math.round(ratio*100) + '%</span>';
+      html += '<div style="background:#e2e8f0;border-radius:3px;height:4px;margin-top:2px;"><div style="background:' + barColor + ';border-radius:3px;height:4px;width:' + barW + '%;"></div></div>';
+      html += '</td>';
+    } else {
+      html += '<td></td>';
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+
+  // ─── 레이더 차트 영역 ───
+  html += '<div class="row g-3 mt-2">';
+  html += '<div class="col-md-6"><div class="chart-wrap" style="height:250px"><canvas id="benchmark-radar-' + inf.id + '"></canvas></div></div>';
+  html += '<div class="col-md-6"><div class="chart-wrap" style="height:250px"><canvas id="benchmark-bar-' + inf.id + '"></canvas></div></div>';
+  html += '</div>';
+
+  // ─── 종합 평가 문구 ───
+  var strongCount = tags.filter(function(t){return t.type==='strong'||t.type==='good';}).length;
+  var weakCount = tags.filter(function(t){return t.type==='weak'||t.type==='below';}).length;
+  html += '<div class="mt-3 p-3" style="background:linear-gradient(135deg,rgba(59,91,219,.04),rgba(99,102,241,.06));border-radius:10px;border:1px solid rgba(59,91,219,.1);">';
+  html += '<div style="font-size:13px;font-weight:700;color:#1e293b;">📋 종합 분석</div>';
+  html += '<div style="font-size:12px;color:#475569;margin-top:4px;">';
+  if (strongCount > weakCount) {
+    html += '<strong style="color:#16a34a;">' + strongCount + '개 강점</strong> 지표가 우세합니다. ';
+    var topStrength = tags.filter(function(t){return t.type==='strong';})[0];
+    if (topStrength) html += '특히 <strong>' + topStrength.label + '</strong>이 두드러집니다. ';
+  } else if (weakCount > strongCount) {
+    html += '<strong style="color:#ef4444;">' + weakCount + '개 지표</strong>가 평균 이하입니다. ';
+    var topWeak = tags.filter(function(t){return t.type==='weak';})[0];
+    if (topWeak) html += '<strong>' + topWeak.label + '</strong> 개선이 필요합니다. ';
+  } else {
+    html += '전반적으로 티어 평균과 균형 잡힌 성과를 보이고 있습니다. ';
+  }
+  // 월간 도달력 평가
+  if (dm.monthlyReach > 0) {
+    html += '월간 예상 도달량은 <strong>' + fmtFull(Math.round(dm.monthlyReach)) + '회</strong>입니다.';
+  }
+  html += '</div></div>';
+
+  html += '</div></div>';
+
+  // Schedule chart rendering
+  setTimeout(function(){ renderBenchmarkCharts(inf); }, 150);
+
+  return html;
+}
+
+function renderBenchmarkCharts(inf) {
+  destroyDynCharts();
+  var bm = calcBenchmarks();
+  var dm = getDerivedMetrics(inf);
+  var tierRef = bm.byTier[inf.tier] || bm.global;
+  var globalRef = bm.global;
+
+  // Radar chart — normalize each axis to 0-100 scale using global max
+  var radarEl = document.getElementById('benchmark-radar-' + inf.id);
+  if (radarEl) {
+    var axes = [
+      {label:'도달 효율',key:'vf',val:dm.vf},
+      {label:'콘텐츠 매력도',key:'lv',val:dm.lv},
+      {label:'토론 유발력',key:'cv',val:dm.cv},
+      {label:'종합 참여율',key:'er',val:dm.er},
+      {label:'참여 깊이',key:'cl',val:dm.cl},
+      {label:'업로드 빈도',key:'mu',val:dm.mu}
+    ];
+    var labels = axes.map(function(a){return a.label;});
+    var maxVals = axes.map(function(a){
+      var gMax = globalRef[a.key]?globalRef[a.key].p75*2:1;
+      return Math.max(gMax, 0.01);
+    });
+    var myData = axes.map(function(a,i){return Math.min(100, a.val/maxVals[i]*100);});
+    var tierData = axes.map(function(a,i){
+      var tv = tierRef[a.key]?tierRef[a.key].avg:0;
+      return Math.min(100, tv/maxVals[i]*100);
+    });
+
+    dynChart(radarEl, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: inf.display_name.slice(0,12), data: myData, borderColor: '#3b5bdb', backgroundColor: 'rgba(59,91,219,.15)', borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#3b5bdb' },
+          { label: (inf.tier||'전체').toUpperCase() + ' 평균', data: tierData, borderColor: '#94a3b8', backgroundColor: 'rgba(148,163,184,.08)', borderWidth: 1.5, borderDash: [4,4], pointRadius: 3, pointBackgroundColor: '#94a3b8' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { r: { min: 0, max: 100, ticks: { display: false, stepSize: 25 }, pointLabels: { font: { family: 'Noto Sans KR', size: 10 } }, grid: { color: 'rgba(0,0,0,.06)' } } },
+        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 10 }, boxWidth: 12 } }, title: { display: true, text: '성과 레이더 (티어 벤치마크)', font: { family: 'Inter', size: 12 } } }
+      }
+    });
+  }
+
+  // Bar chart — tier vs me vs global for key metrics
+  var barEl = document.getElementById('benchmark-bar-' + inf.id);
+  if (barEl) {
+    var barLabels = ['V/F%','L/V%','ER%','C/L%'];
+    var barKeys = ['vf','lv','er','cl'];
+    var myVals = [dm.vf, dm.lv, dm.er, dm.cl];
+    var tierVals = barKeys.map(function(k){return tierRef[k]?tierRef[k].avg:0;});
+    var globalVals = barKeys.map(function(k){return globalRef[k]?globalRef[k].avg:0;});
+
+    dynChart(barEl, {
+      type: 'bar',
+      data: {
+        labels: barLabels,
+        datasets: [
+          { label: inf.display_name.slice(0,10), data: myVals, backgroundColor: '#3b5bdb', borderRadius: 4 },
+          { label: (inf.tier||'전체').toUpperCase() + ' 평균', data: tierVals, backgroundColor: '#94a3b8', borderRadius: 4 },
+          { label: '전체 평균', data: globalVals, backgroundColor: '#e2e8f0', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 10 }, boxWidth: 12 } }, title: { display: true, text: '핵심 지표 비교', font: { family: 'Inter', size: 12 } } },
+        scales: { y: { beginAtZero: true, ticks: { callback: function(v){return v.toFixed(1)+'%';} } } }
+      }
+    });
+  }
+}
+
 // ─── Expand content ───
 function renderExpandContent(inf) {
   var contents = (DATA.top_contents || []).filter(c => c.influencer_id === inf.id);
@@ -1751,6 +2032,9 @@ function renderExpandContent(inf) {
   html += '</tbody></table>';
   html += '<p class="text-muted small mt-1">* Sub-to-View &lt; 1.0 &rarr; 바이럴 성향 / &gt; 1.0 &rarr; 구독자 대비 조회수 부족</p>';
   html += '</div></div>';
+
+  // ─── 벤치마크 심층 분석 ───
+  html += renderBenchmarkCard(inf);
 
   // Setoworks 협업 영상 (위치: 콘텐츠 원장 위)
   html += renderCollabSection(inf);
@@ -2101,6 +2385,7 @@ function setInfluencerStatus(id, status) {
 }
 
 function openDetailView(id) {
+  destroyDynCharts();
   var inf = DATA.influencers.find(function(i){ return i.id == id; });
   if (!inf) return;
 
@@ -2186,6 +2471,80 @@ function openDetailView(id) {
       window._nearbyForChart = nearby.map(function(n){ return {name:n.display_name.slice(0,10),views:Math.round(n.avg_views||0),likes:Math.round(n.avg_likes||0),isMe:n.id==id}; });
     }
 
+    // ─── 4b. 심층 벤치마크 분석 (레이더 + 강점/약점) ───
+    var detDM = getDerivedMetrics(inf);
+    var detBM = calcBenchmarks();
+    var detTierRef = detBM.byTier[inf.tier] || detBM.global;
+    var detCatRef = detBM.byCat[inf.category] || null;
+    var detTags = getStrengthWeakness(inf);
+
+    html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">🔬 심층 벤치마크 분석</h3></div><div class="card-body">';
+
+    // 강점/약점 태그
+    if (detTags.length > 0) {
+      html += '<div class="mb-3">';
+      detTags.forEach(function(t){
+        var bg2 = t.type==='strong'?'#dcfce7':t.type==='good'?'#e0f2fe':t.type==='weak'?'#fee2e2':'#fef3c7';
+        var fg2 = t.type==='strong'?'#166534':t.type==='good'?'#1e40af':t.type==='weak'?'#991b1b':'#92400e';
+        var ic2 = t.type==='strong'?'▲▲':t.type==='good'?'▲':t.type==='weak'?'▼▼':'▼';
+        html += '<span style="display:inline-block;background:' + bg2 + ';color:' + fg2 + ';padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;margin:3px 4px 3px 0;">';
+        html += t.icon + ' ' + t.label + ' ' + ic2 + ' <span style="font-weight:400;font-size:11px;">' + t.detail + '</span></span>';
+      });
+      html += '</div>';
+    }
+
+    // 레이더 + 비교 바 차트
+    html += '<div class="row g-3">';
+    html += '<div class="col-md-6"><div class="chart-wrap" style="height:280px"><canvas id="detail-radar-chart"></canvas></div></div>';
+    html += '<div class="col-md-6"><div class="chart-wrap" style="height:280px"><canvas id="detail-benchmark-bar"></canvas></div></div>';
+    html += '</div>';
+
+    // 벤치마크 테이블 (간결)
+    html += '<table class="table table-vcenter mt-3" style="font-size:12px;"><thead><tr style="background:#f1f5f9;"><th>지표</th><th class="num">이 채널</th><th class="num">' + (inf.tier||'').toUpperCase() + ' 평균</th>';
+    if (detCatRef) html += '<th class="num">' + (CAT_KR[inf.category]||inf.category) + ' 평균</th>';
+    html += '<th class="num">전체 평균</th><th style="text-align:center">vs 티어</th></tr></thead><tbody>';
+    var detRows = [
+      {label:'조회/구독자 (V/F)',key:'vf',val:detDM.vf,f:function(v){return v.toFixed(2)+'%';}},
+      {label:'좋아요/조회 (L/V)',key:'lv',val:detDM.lv,f:function(v){return v.toFixed(2)+'%';}},
+      {label:'댓글/조회 (C/V)',key:'cv',val:detDM.cv,f:function(v){return v.toFixed(3)+'%';}},
+      {label:'인게이지먼트율 (ER)',key:'er',val:detDM.er,f:function(v){return v.toFixed(2)+'%';}},
+      {label:'댓글/좋아요 (C/L)',key:'cl',val:detDM.cl,f:function(v){return v.toFixed(2)+'%';}},
+      {label:'월간 업로드',key:'mu',val:detDM.mu,f:function(v){return v.toFixed(1)+'건';}}
+    ];
+    detRows.forEach(function(r){
+      var tA = detTierRef[r.key]?detTierRef[r.key].avg:0;
+      var cA = detCatRef&&detCatRef[r.key]?detCatRef[r.key].avg:null;
+      var gA = detBM.global[r.key]?detBM.global[r.key].avg:0;
+      var rt = tA>0?r.val/tA:1;
+      var ac = rt>=1.3?'#16a34a':rt>=1.0?'#3b82f6':rt>=0.7?'#6b7280':rt>=0.4?'#f59e0b':'#ef4444';
+      var aw = rt>=1.3?'↑↑':rt>=1.0?'↑':rt>=0.7?'→':rt>=0.4?'↓':'↓↓';
+      html += '<tr><td>' + r.label + '</td><td class="num" style="font-weight:700;">' + r.f(r.val) + '</td>';
+      html += '<td class="num">' + (tA>0?r.f(tA):'-') + '</td>';
+      if (detCatRef) html += '<td class="num">' + (cA!==null?r.f(cA):'-') + '</td>';
+      html += '<td class="num">' + (gA>0?r.f(gA):'-') + '</td>';
+      html += '<td style="text-align:center;"><span style="color:' + ac + ';font-weight:700;">' + aw + '</span> <span style="font-size:10px;color:#6b7280;">' + Math.round(rt*100) + '%</span></td></tr>';
+    });
+    html += '</tbody></table>';
+
+    // 종합 평가
+    var sC = detTags.filter(function(t){return t.type==='strong'||t.type==='good';}).length;
+    var wC = detTags.filter(function(t){return t.type==='weak'||t.type==='below';}).length;
+    html += '<div class="p-3 mt-2" style="background:linear-gradient(135deg,rgba(59,91,219,.04),rgba(99,102,241,.06));border-radius:10px;">';
+    html += '<strong>📋 종합 분석:</strong> ';
+    if (sC > wC) {
+      html += '<span style="color:#16a34a;">' + sC + '개 강점 지표</span>가 우세합니다. ';
+    } else if (wC > sC) {
+      html += '<span style="color:#ef4444;">' + wC + '개 지표</span>가 평균 이하입니다. ';
+    } else {
+      html += '전반적으로 균형 잡힌 성과를 보이고 있습니다. ';
+    }
+    if (detDM.monthlyReach > 0) html += '월간 예상 도달량: <strong>' + fmtFull(Math.round(detDM.monthlyReach)) + '회</strong>';
+    html += '</div>';
+    html += '</div></div>';
+
+    // Store for chart rendering
+    window._detailBenchmarkInf = inf;
+
     // ─── 5. Platform Comparison (future) ───
     var platforms = [];
     if (inf.platform === 'youtube' || inf.platform === 'YouTube') platforms.push({name:'YouTube',score:inf.youtube_score||inf.pure_score,followers:inf.followers});
@@ -2222,12 +2581,12 @@ function openDetailView(id) {
     if (window._nearbyForChart) {
       setTimeout(function(){
         var nd = window._nearbyForChart;
-        new Chart(document.getElementById('detail-compare-views'), {
+        dynChart(document.getElementById('detail-compare-views'), {
           type: 'bar',
           data: { labels: nd.map(function(n){return n.name}), datasets: [{ label: '평균 조회수', data: nd.map(function(n){return n.views}), backgroundColor: nd.map(function(n){return n.isMe?'#3b5bdb':'#94a3b8'}), borderRadius: 6 }] },
           options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false}, title: {display:true,text:'평균 조회수 비교',font:{family:'Inter',size:12}} }, scales: { x: {ticks:{callback:function(v){return fmt(v)}}}, y: {ticks:{font:{family:'Noto Sans KR',size:11}}} } }
         });
-        new Chart(document.getElementById('detail-compare-likes'), {
+        dynChart(document.getElementById('detail-compare-likes'), {
           type: 'bar',
           data: { labels: nd.map(function(n){return n.name}), datasets: [{ label: '평균 좋아요', data: nd.map(function(n){return n.likes}), backgroundColor: nd.map(function(n){return n.isMe?'#f59e0b':'#94a3b8'}), borderRadius: 6 }] },
           options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false}, title: {display:true,text:'평균 좋아요 비교',font:{family:'Inter',size:12}} }, scales: { x: {ticks:{callback:function(v){return fmt(v)}}}, y: {ticks:{font:{family:'Noto Sans KR',size:11}}} } }
@@ -2239,7 +2598,7 @@ function openDetailView(id) {
     if (contents.length > 1) {
       setTimeout(function(){
         var sorted = contents.slice().sort(function(a,b){ return new Date(a.published_at) - new Date(b.published_at); });
-        new Chart(document.getElementById('detail-views-chart'), {
+        dynChart(document.getElementById('detail-views-chart'), {
           type: 'line',
           data: {
             labels: sorted.map(function(c){ return c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}) : ''; }),
@@ -2259,6 +2618,67 @@ function openDetailView(id) {
           }
         });
       }, 100);
+    }
+
+    // Render detail benchmark radar + bar charts
+    if (window._detailBenchmarkInf) {
+      setTimeout(function(){
+        var bInf = window._detailBenchmarkInf;
+        var bDM = getDerivedMetrics(bInf);
+        var bBM = calcBenchmarks();
+        var bTR = bBM.byTier[bInf.tier] || bBM.global;
+        var bGR = bBM.global;
+
+        var rEl = document.getElementById('detail-radar-chart');
+        if (rEl) {
+          var rAxes = [
+            {label:'도달 효율',key:'vf',val:bDM.vf},
+            {label:'콘텐츠 매력도',key:'lv',val:bDM.lv},
+            {label:'토론 유발력',key:'cv',val:bDM.cv},
+            {label:'종합 참여율',key:'er',val:bDM.er},
+            {label:'참여 깊이',key:'cl',val:bDM.cl},
+            {label:'업로드 빈도',key:'mu',val:bDM.mu}
+          ];
+          var rMax = rAxes.map(function(a){ var gm = bGR[a.key]?bGR[a.key].p75*2:1; return Math.max(gm,0.01); });
+          dynChart(rEl, {
+            type: 'radar',
+            data: {
+              labels: rAxes.map(function(a){return a.label;}),
+              datasets: [
+                { label: bInf.display_name.slice(0,12), data: rAxes.map(function(a,i){return Math.min(100,a.val/rMax[i]*100);}), borderColor: '#3b5bdb', backgroundColor: 'rgba(59,91,219,.15)', borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#3b5bdb' },
+                { label: (bInf.tier||'전체').toUpperCase()+' 평균', data: rAxes.map(function(a,i){var tv=bTR[a.key]?bTR[a.key].avg:0;return Math.min(100,tv/rMax[i]*100);}), borderColor: '#94a3b8', backgroundColor: 'rgba(148,163,184,.08)', borderWidth: 1.5, borderDash:[4,4], pointRadius: 3, pointBackgroundColor: '#94a3b8' }
+              ]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              scales: { r: { min:0, max:100, ticks:{display:false,stepSize:25}, pointLabels:{font:{family:'Noto Sans KR',size:11}}, grid:{color:'rgba(0,0,0,.06)'} } },
+              plugins: { legend:{position:'bottom',labels:{font:{family:'Inter',size:11},boxWidth:12}}, title:{display:true,text:'성과 레이더 (티어 벤치마크)',font:{family:'Inter',size:13}} }
+            }
+          });
+        }
+
+        var bEl = document.getElementById('detail-benchmark-bar');
+        if (bEl) {
+          var bLabels = ['V/F%','L/V%','ER%','C/L%'];
+          var bKeys = ['vf','lv','er','cl'];
+          dynChart(bEl, {
+            type: 'bar',
+            data: {
+              labels: bLabels,
+              datasets: [
+                { label: bInf.display_name.slice(0,10), data: [bDM.vf,bDM.lv,bDM.er,bDM.cl], backgroundColor: '#3b5bdb', borderRadius: 5 },
+                { label: (bInf.tier||'').toUpperCase()+' 평균', data: bKeys.map(function(k){return bTR[k]?bTR[k].avg:0;}), backgroundColor: '#94a3b8', borderRadius: 5 },
+                { label: '전체 평균', data: bKeys.map(function(k){return bGR[k]?bGR[k].avg:0;}), backgroundColor: '#e2e8f0', borderRadius: 5 }
+              ]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              plugins: { legend:{position:'bottom',labels:{font:{family:'Inter',size:11},boxWidth:12}}, title:{display:true,text:'핵심 지표 비교',font:{family:'Inter',size:13}} },
+              scales: { y:{beginAtZero:true,ticks:{callback:function(v){return v.toFixed(1)+'%';}}} }
+            }
+          });
+        }
+      }, 250);
     }
   });
 }
@@ -2707,7 +3127,7 @@ function renderCompareCharts() {
   ];
 
   var tHtml = '<table class="table table-vcenter table-hover"><thead><tr><th>지표</th>';
-  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + ';cursor:pointer" onclick="goToChannelDetail(\'' + inf.id + '\')" title="클릭하면 상세 페이지로 이동">' + escHtml(inf.display_name) + ' <span style="font-size:10px;opacity:.6">→</span></th>'; });
+  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + ';cursor:pointer" onclick="openDetailView(' + inf.id + ')" title="클릭하면 상세 페이지로 이동">' + escHtml(inf.display_name) + ' <span style="font-size:10px;opacity:.6">→</span></th>'; });
   tHtml += '</tr></thead><tbody>';
   metrics.forEach(m => {
     tHtml += '<tr>';
