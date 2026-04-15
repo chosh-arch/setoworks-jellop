@@ -154,7 +154,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         <div class="p-stats"><span>채널 <strong id="yt-channels">-</strong></span><span>콘텐츠 <strong id="yt-contents">-</strong></span></div>
         <div class="p-badge p-badge-ok">API v3 · 무료</div>
         <div class="p-actions">
-          <button class="btn-crawl" onclick="runYouTubeCollector()">▶ YouTube 수집 시작</button>
+          <button class="btn-crawl" onclick="runYouTubeCollector()">▶ 기존 채널 업데이트</button>
+          <button class="btn-crawl" style="background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);" onclick="runYouTubeDiscover()">🔍 새 크리에이터 발굴</button>
         </div>
       </div>
       <div class="p-card" style="opacity:.6;">
@@ -199,6 +200,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
           <option value="motorcycle">모터사이클</option>
         </select>
       </div>
+      <div class="setting-row">
+          <label>발굴 국가</label>
+          <select id="creator-country">
+            <option value="JP">🇯🇵 일본</option>
+            <option value="KR">🇰🇷 한국</option>
+            <option value="TW">🇹🇼 대만</option>
+            <option value="US">🇺🇸 미국</option>
+            <option value="GB">🇬🇧 영국</option>
+            <option value="CN">🇨🇳 중국</option>
+          </select>
+        </div>
       <div style="font-size:9px;color:var(--muted);margin-top:4px;">Pure Score: 업로드 빈도(30) + 조회/구독 비율(25) + 참여율(20) + 일관성(15) + 성장(10) = 100점</div>
     </div>
   </div>
@@ -350,6 +362,40 @@ function switchTab(tab){
 }
 
 function setCrawlType(type){ switchTab(type); }
+
+async function runYouTubeDiscover(){
+  var cat=(document.getElementById('creator-category')||{value:'fitness'}).value;
+  var country=(document.getElementById('creator-country')||{value:'JP'}).value;
+  var limit=(document.getElementById('creator-limit')||{value:'5'}).value;
+  var minSubs=(document.getElementById('creator-min-subs')||{value:'1000'}).value;
+  if(cat==='all')cat='lifestyle';
+
+  toast('🔍 발굴 시작: '+cat+' / '+country+' ('+limit+'채널, 30~60초 소요)');
+
+  var tbody=document.getElementById('jobs-body');
+  tbody.insertAdjacentHTML('afterbegin','<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🔍 YouTube 발굴</td><td><span class="st-badge st-running">검색 중...</span></td><td>'+cat+'</td><td>'+country+'</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td>manual</td></tr>');
+
+  try{
+    var r=await fetch(SB+'/functions/v1/youtube-collector?mode=discover&category='+cat+'&country='+country+'&limit='+limit+'&min_subs='+minSubs,{headers:{'Authorization':'Bearer '+SK}});
+    var d=await r.json();
+    var firstRow=tbody.querySelector('tr:first-child');
+    if(firstRow)firstRow.remove();
+
+    var rows='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:700;">🔍 발굴 완료</td><td><span class="st-badge st-completed">'+d.discovered+'/'+d.candidates+'</span></td><td>'+cat+'</td><td>'+country+'</td><td>쿼터 '+d.quota_used+'</td><td></td></tr>';
+    if(d.log){d.log.forEach(function(l){
+      if(l.indexOf('NEW:')>=0){
+        var parts=l.replace('✅ NEW: ','').split(' | ');
+        var name=parts[0]||'';var subs=parts[1]||'';var score=parts[2]||'';var tier=parts[3]||'';
+        rows+='<tr style="background:rgba(62,207,142,.05);"><td style="padding-left:20px;">↳ <strong>'+name+'</strong></td><td style="color:var(--em);font-weight:700;">신규 발굴</td><td>'+subs+'</td><td>'+score+'</td><td>'+tier+'</td><td></td></tr>';
+      } else if(l.indexOf('SKIP')>=0){
+        rows+='<tr style="opacity:.5;"><td style="padding-left:20px;font-size:9px;">↳ '+l+'</td><td colspan="5"></td></tr>';
+      }
+    });}
+    tbody.insertAdjacentHTML('afterbegin',rows);
+    toast('✅ 발굴 완료: '+(d.discovered||0)+'명 신규 크리에이터 ('+cat+'/'+country+')');
+    loadCreatorStats();loadYouTubeUsage();
+  }catch(e){toast('⚠ 발굴 실패: '+e.message);}
+}
 
 var ytRunning=false;
 async function runYouTubeCollector(){

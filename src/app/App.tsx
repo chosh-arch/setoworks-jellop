@@ -191,14 +191,45 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    fetch('/crawled_products.json')
-      .then((res) => res.json())
-      .then((data: any[]) => {
-        setCrawledProducts(data.map(normalizeCrawledProduct));
-      })
-      .catch(() => {
-        // silently fail - will use mockProducts as fallback
+    const SB_URL = 'https://skcdrvzcwemhjtchfdtt.supabase.co';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU';
+    const sbHeaders = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` };
+
+    // Load from both: static JSON + Supabase live crawled projects
+    Promise.all([
+      fetch('/crawled_products.json').then(r => r.json()).catch(() => []),
+      fetch(`${SB_URL}/rest/v1/projects?select=*&order=crawled_at.desc&limit=500`, { headers: sbHeaders })
+        .then(r => r.json()).catch(() => [])
+    ]).then(([jsonProducts, sbProjects]) => {
+      // Normalize Supabase projects to same format as crawled_products
+      const sbNormalized = (sbProjects || []).map((p: any) => ({
+        id: `sb-${p.platform_id}-${p.external_id}`,
+        name: p.name || '',
+        description: p.description || '',
+        imageUrl: p.photo_url || '',
+        platform: p.platform_id === 'wadiz' ? 'Wadiz' : p.platform_id === 'makuake' ? 'Makuake' : p.platform_id === 'kickstarter' ? 'Kickstarter' : p.platform_id === 'indiegogo' ? 'Indiegogo' : p.platform_id === 'zeczec' ? 'Zeczec' : p.platform_id,
+        fundingGoal: Number(p.goal) || 0,
+        currentAmount: Number(p.pledged) || 0,
+        percentage: Number(p.percent_funded) || 0,
+        backerCount: Number(p.backers_count) || 0,
+        daysLeft: 0,
+        tags: [],
+        category: (p.extra_data?.category) || '',
+        url: p.url || '',
+        source: 'supabase',
+      }));
+
+      // Merge: JSON + Supabase (deduplicate by name)
+      const seen = new Set<string>();
+      const all = [...jsonProducts, ...sbNormalized].filter((p: any) => {
+        const key = (p.name || '').toLowerCase().trim();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
       });
+
+      setCrawledProducts(all.map(normalizeCrawledProduct));
+    });
   }, []);
 
   useEffect(() => {

@@ -160,10 +160,115 @@ serve(async (req) => {
   let quotaUsed = 0;
 
   try {
-    // Get active influencers from DB
-    // Parse limit from URL params, default 3 (conservative quota usage)
     const url = new URL(req.url);
+    const mode = url.searchParams.get("mode") || "update"; // update or discover
     const limit = parseInt(url.searchParams.get("limit") || "3");
+
+    // ═══ DISCOVER MODE: 카테고리 검색으로 새 크리에이터 발굴 ═══
+    if (mode === "discover") {
+      const category = url.searchParams.get("category") || "tech";
+      const country = url.searchParams.get("country") || "JP";
+      const minSubs = parseInt(url.searchParams.get("min_subs") || "1000");
+      const SEARCH_QUERIES: Record<string, string[]> = {
+        fitness: ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン"],
+        fashion: ["fashion haul", "outfit of the day", "패션 하울", "コーデ紹介"],
+        beauty: ["makeup tutorial", "skincare routine", "뷰티 루틴", "メイク"],
+        lifestyle: ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG"],
+        food: ["cooking vlog", "먹방", "料理VLOG", "美食"],
+        tech_unboxing: ["tech review", "unboxing", "언박싱", "開封レビュー"],
+        camping_outdoor: ["camping vlog", "캠핑", "キャンプ", "露營"],
+        motorcycle: ["motovlog", "バイク", "오토바이"],
+      };
+      const COUNTRY_LANG: Record<string, string> = { JP: "ja", KR: "ko", TW: "zh-TW", US: "en", GB: "en", DE: "de", FR: "fr", CN: "zh-CN" };
+
+      const queries = SEARCH_QUERIES[category] || [`${category} vlog`];
+      const query = queries[Math.floor(Math.random() * queries.length)];
+      const lang = COUNTRY_LANG[country] || "en";
+
+      log.push(`DISCOVER: "${query}" in ${country} (${lang}), min ${minSubs} subs`);
+
+      // Search YouTube for channels
+      const searchResult = await ytGet("search", { part: "snippet", q: query, type: "channel", maxResults: String(limit), relevanceLanguage: lang, regionCode: country });
+      quotaUsed += 100;
+      const candidates = searchResult.items || [];
+      log.push(`Found ${candidates.length} candidates`);
+
+      // Check existing in DB
+      const existingIds = new Set((await sbGet("influencers", "&select=platform_id")).map((i: any) => i.platform_id));
+
+      let discovered = 0;
+      for (const ch of candidates) {
+        const chId = ch.snippet.channelId;
+        if (existingIds.has(chId) || existingIds.has("@" + ch.snippet.channelTitle)) {
+          log.push(`${ch.snippet.channelTitle}: SKIP (이미 DB에 있음)`);
+          continue;
+        }
+
+        // Get details
+        const details = await getChannelDetails(chId);
+        quotaUsed += 1;
+        if (!details || details.followers < minSubs) {
+          log.push(`${ch.snippet.channelTitle}: SKIP (${details?.followers || 0} < ${minSubs} subs)`);
+          continue;
+        }
+
+        // Get videos + score
+        const videos = await getRecentVideos(chId, 15);
+        quotaUsed += 2;
+        const pureScore = calcPureScore({ ...details }, videos);
+        const grade = assignGrade(pureScore);
+        const tier = assignTier(details.followers);
+
+        const avgViews = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length) : 0;
+        const avgLikes = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.likes, 0) / videos.length) : 0;
+
+        // Insert new influencer
+        await sbUpsert("influencers", [{
+          id: Date.now() + discovered,
+          platform: "youtube",
+          platform_id: chId,
+          username: ch.snippet.channelTitle.replace(/\s/g, "_"),
+          display_name: ch.snippet.channelTitle,
+          bio: (ch.snippet.description || "").slice(0, 300),
+          profile_url: `https://www.youtube.com/channel/${chId}`,
+          profile_image_url: ch.snippet.thumbnails?.default?.url || "",
+          followers: details.followers,
+          total_posts: details.total_posts,
+          total_views: details.total_views,
+          category,
+          tier,
+          country,
+          pure_score: pureScore,
+          grade,
+          is_active: true,
+          first_discovered_at: new Date().toISOString(),
+          last_collected_at: new Date().toISOString(),
+          content_count: videos.length,
+          avg_views: avgViews,
+          avg_likes: avgLikes,
+        }]);
+
+        if (videos.length) {
+          await sbUpsert("contents", videos.map((v: any) => ({ ...v, influencer_id: Date.now() + discovered })));
+        }
+
+        discovered++;
+        const fmtSubs = details.followers >= 1000000 ? (details.followers/1000000).toFixed(1)+"M" : details.followers >= 1000 ? Math.round(details.followers/1000)+"K" : String(details.followers);
+        log.push(`✅ NEW: ${ch.snippet.channelTitle} | ${fmtSubs} subs | ${pureScore}점 (${grade}) | ${tier}`);
+      }
+
+      await sbInsert("collect_logs", {
+        log_type: "youtube_discover",
+        message: `${discovered} new from "${query}" in ${country}`,
+        details: { log, quota_used: quotaUsed, discovered, category, country },
+      });
+
+      return new Response(JSON.stringify({ mode: "discover", discovered, candidates: candidates.length, quota_used: quotaUsed, category, country, log }), {
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
+    // ═══ UPDATE MODE: 기존 채널 업데이트 ═══
     const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
     log.push(`Active YouTube channels: ${influencers.length}`);
 
