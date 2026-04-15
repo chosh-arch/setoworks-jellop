@@ -351,16 +351,51 @@ function switchTab(tab){
 
 function setCrawlType(type){ switchTab(type); }
 
+var ytRunning=false;
 async function runYouTubeCollector(){
+  if(ytRunning){toast('⚠ 이미 수집 중입니다');return;}
   var limit=(document.getElementById('creator-limit')||{value:'5'}).value;
-  toast('🎬 YouTube 수집 시작 ('+limit+'채널)...');
+  ytRunning=true;
+
+  // Show running state in jobs table immediately
+  var row='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge st-running">수집 중...</span></td><td>-</td><td>'+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td>manual</td></tr>';
+  var tbody=document.getElementById('jobs-body');
+  tbody.insertAdjacentHTML('afterbegin',row);
+
+  // Disable buttons
+  document.querySelectorAll('[onclick*="runYouTubeCollector"]').forEach(function(b){b.disabled=true;b.textContent='⏳ 수집 중...';});
+
+  toast('🎬 YouTube 수집 시작 ('+limit+'채널, 30~60초 소요)');
+
   try{
     var r=await fetch(SB+'/functions/v1/youtube-collector?limit='+limit,{headers:{'Authorization':'Bearer '+SK}});
     var d=await r.json();
-    toast('✅ YouTube: '+(d.updated||0)+'/'+d.total+'채널, 쿼터 '+(d.quota_used||0));
-    loadYouTubeUsage();loadJobs();
-    if(document.getElementById('yt-channels'))document.getElementById('yt-channels').textContent=d.total||'-';
-  }catch(e){toast('⚠ YouTube 수집 실패');}
+
+    // Show results in jobs table
+    var resultRows='';
+    if(d.log){
+      d.log.forEach(function(l){
+        if(l.indexOf(':')>0 && l.indexOf('Active')<0){
+          var isErr=l.indexOf('ERROR')>=0||l.indexOf('cannot')>=0;
+          resultRows+='<tr style="background:rgba('+(isErr?'239,68,68':'99,102,241')+',.05);"><td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge '+(isErr?'st-failed':'st-completed')+'">'+(isErr?'실패':'완료')+'</span></td><td colspan="4" style="font-size:10px;">'+l+'</td></tr>';
+        }
+      });
+    }
+    if(resultRows)tbody.insertAdjacentHTML('afterbegin',resultRows);
+    else tbody.querySelector('tr:first-child').innerHTML='<td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge st-completed">완료</span></td><td style="color:var(--em);font-weight:700;">'+d.updated+'채널</td><td>'+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</td><td>쿼터 '+d.quota_used+'</td><td>manual</td>';
+
+    toast('✅ YouTube: '+(d.updated||0)+'/'+d.total+'채널 업데이트, 쿼터 '+(d.quota_used||0));
+    loadYouTubeUsage();loadCreatorStats();
+  }catch(e){
+    toast('⚠ YouTube 수집 실패: '+e.message);
+    tbody.querySelector('tr:first-child').innerHTML='<td>🎬 YouTube</td><td><span class="st-badge st-failed">실패</span></td><td colspan="4" style="color:var(--red);">'+e.message+'</td>';
+  }finally{
+    ytRunning=false;
+    document.querySelectorAll('[onclick*="runYouTubeCollector"]').forEach(function(b){b.disabled=false;b.textContent='▶ YouTube 수집 시작';});
+    // Fix the header button text
+    var headerBtn=document.querySelector('[onclick*="runYouTubeCollector"][style*="blue"]');
+    if(headerBtn)headerBtn.textContent='▶ YT 수집';
+  }
 }
 
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
