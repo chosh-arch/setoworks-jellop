@@ -93,7 +93,8 @@ try:
     css=s.split('</style>')[0] if '</style>' in s else ''
     check('DECK','TOTAL=22','TOTAL=22' in s,f'found TOTAL={s[s.find("TOTAL=")+6:s.find("TOTAL=")+8] if "TOTAL=" in s else "?"}')
     check('DECK','no overflow:auto in CSS','overflow:auto' not in css)
-    check('DECK','no #ff003b in CSS','ff003b' not in css)
+    css_no_vars=css.replace('--brand-red:#ff003b','')
+    check('DECK','no #ff003b in CSS (except CSS var)','ff003b' not in css_no_vars)
     check('DECK','no 우리',s.count('우리')==0,f'found {s.count("우리")} occurrences')
     check('DECK','5개 수익원','5개 수익원' in s or '5 수익원' in s)
     check('DECK','sreal slide','id="sreal"' in s)
@@ -155,7 +156,7 @@ except Exception as e:
 # ─── 9. QA SCRIPT ───
 print('\n[9] QA CHECK SCRIPT')
 try:
-    r=subprocess.run([sys.executable,'qa_check.py'],capture_output=True,text=True,cwd=os.path.dirname(__file__) or '.')
+    r=subprocess.run([sys.executable,'qa_check.py'],capture_output=True,text=True,encoding='utf-8',errors='replace',cwd=os.path.dirname(__file__) or '.')
     check('QASCRIPT','39/39 PASS','39/39 PASS' in r.stdout,r.stdout[-100:].strip())
     check('QASCRIPT','exit code 0',r.returncode==0,f'exit {r.returncode}')
 except Exception as e:
@@ -164,7 +165,7 @@ except Exception as e:
 # ─── 10. BUILD ───
 print('\n[10] VITE BUILD')
 try:
-    r=subprocess.run(['npx','vite','build'],capture_output=True,text=True,cwd=os.path.dirname(__file__) or '.',timeout=120)
+    r=subprocess.run(['npx','vite','build'],capture_output=True,text=True,encoding='utf-8',errors='replace',shell=True,cwd=os.path.dirname(__file__) or '.',timeout=120)
     check('BUILD','success',r.returncode==0,r.stderr[-100:].strip() if r.returncode!=0 else '')
     dist=os.path.join(os.path.dirname(__file__) or '.','dist')
     for f in ['index.html','portal.html','deck.html','db-infra.html','influencer-admin.html','crawl-monitor.html']:

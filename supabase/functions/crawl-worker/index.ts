@@ -57,7 +57,7 @@ async function crawlWadiz(limit: number, catCode?: string) {
 // MAKUAKE: GET https://api.makuake.com/v2/projects
 // ═══════════════════════════════════
 async function crawlMakuake(limit: number, catCode?: string) {
-  const url = `https://api.makuake.com/v2/projects?page=1&per_page=${limit}&sort=popular${catCode ? "&category_code=" + catCode : ""}`;
+  const url = `https://api.makuake.com/v2/projects?page=1&per_page=${limit}${catCode ? "&category_code=" + catCode : ""}`;
   const r = await fetch(url, {
     headers: { "User-Agent": rua(), Accept: "application/json", "Accept-Language": "ja,en;q=0.9", Referer: "https://www.makuake.com/discover/", Origin: "https://www.makuake.com" },
   });
@@ -85,15 +85,19 @@ async function crawlZeczec(limit: number) {
   });
   if (!r.ok) throw new Error(`Zeczec ${r.status}`);
   const html = await r.text();
-  // Parse project cards from HTML
-  const regex = /href="\/projects\/([\w-]+)"[^>]*>[\s\S]*?class="projectCard[^"]*"[\s\S]*?<h3[^>]*>(.*?)<\/h3>/g;
+  // Extract project slugs from href="/projects/xxx"
+  const slugRegex = /href="\/projects\/([\w-]+)"/g;
+  const seen = new Set<string>();
   const projects: any[] = [];
   let m;
-  while ((m = regex.exec(html)) && projects.length < limit) {
+  while ((m = slugRegex.exec(html)) && projects.length < limit) {
+    const slug = m[1];
+    if (seen.has(slug)) continue;
+    seen.add(slug);
     projects.push({
-      platform_id: "zeczec", external_id: m[1],
-      name: m[2].replace(/<[^>]+>/g, "").trim(),
-      url: `https://www.zeczec.com/projects/${m[1]}`,
+      platform_id: "zeczec", external_id: slug,
+      name: slug.replace(/-/g, " "),
+      url: `https://www.zeczec.com/projects/${slug}`,
     });
   }
   return projects;
