@@ -67,7 +67,7 @@ async function getChannelDetails(channelId: string) {
     display_name: ch.snippet.title,
     bio: (ch.snippet.description || "").slice(0, 500),
     profile_image_url: ch.snippet.thumbnails?.default?.url,
-    country: ch.snippet.country || "",
+    country: ch.snippet.country || detectCountry(ch.snippet.defaultLanguage || ch.snippet.title || ""),
     followers: parseInt(ch.statistics.subscriberCount || "0"),
     total_posts: parseInt(ch.statistics.videoCount || "0"),
     total_views: parseInt(ch.statistics.viewCount || "0"),
@@ -153,6 +153,25 @@ function assignGrade(score: number) {
   if (score >= 40) return "B";
   if (score >= 30) return "C";  // 30~39: C등급 (B에 가까운 C — 수집 대상)
   return null;                   // 30 미만: 수집 제외 (D등급 없음)
+}
+
+function detectCountry(text: string): string {
+  if (!text) return "";
+  const t = text.toLowerCase();
+  // Language code detection
+  if (t === "ja" || t === "ja-jp") return "JP";
+  if (t === "ko" || t === "ko-kr") return "KR";
+  if (t === "zh" || t === "zh-tw" || t === "zh-hant") return "TW";
+  if (t === "zh-cn" || t === "zh-hans") return "CN";
+  if (t === "de") return "DE";
+  if (t === "fr") return "FR";
+  if (t === "en" || t === "en-us") return "US";
+  if (t === "en-gb") return "GB";
+  // Character detection in title/description
+  if (/[\u3040-\u309f\u30a0-\u30ff]/.test(text)) return "JP"; // Hiragana/Katakana
+  if (/[\uac00-\ud7af]/.test(text)) return "KR"; // Korean
+  if (/[\u4e00-\u9fff]/.test(text) && !/[\u3040-\u30ff]/.test(text)) return "TW"; // CJK without Japanese
+  return "";
 }
 
 function assignTier(followers: number) {
