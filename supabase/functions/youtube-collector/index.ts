@@ -1,0 +1,245 @@
+import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
+
+const SB_URL = Deno.env.get("SUPABASE_URL") ?? "https://skcdrvzcwemhjtchfdtt.supabase.co";
+const SB_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+const YT_KEY = Deno.env.get("YOUTUBE_API_KEY") ?? "AIzaSyDnO6894MZhz8Fk-__YYehog2XE2K_jgjw";
+
+const H = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, "Content-Type": "application/json" };
+
+async function sbGet(t: string, q = "") { return (await fetch(`${SB_URL}/rest/v1/${t}?select=*${q}`, { headers: H })).json(); }
+async function sbUpsert(t: string, rows: any[]) {
+  return (await fetch(`${SB_URL}/rest/v1/${t}`, {
+    method: "POST", headers: { ...H, Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(rows)
+  })).ok;
+}
+async function sbInsert(t: string, d: any) {
+  await fetch(`${SB_URL}/rest/v1/${t}`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(d) });
+}
+
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+// YouTube Data API v3 helpers
+async function ytGet(endpoint: string, params: Record<string, string>) {
+  const url = new URL(`https://www.googleapis.com/youtube/v3/${endpoint}`);
+  params.key = YT_KEY;
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  const r = await fetch(url.toString());
+  if (!r.ok) throw new Error(`YouTube API ${r.status}: ${await r.text()}`);
+  return r.json();
+}
+
+// Resolve @handle or username to channel ID
+async function resolveChannelId(platformId: string): Promise<string | null> {
+  // If already a UC... channel ID, return as-is
+  if (platformId.startsWith("UC")) return platformId;
+  // Search by handle/username
+  const handle = platformId.replace("@", "");
+  try {
+    const d = await ytGet("search", { part: "snippet", q: handle, type: "channel", maxResults: "1" });
+    if (d.items?.length) return d.items[0].snippet.channelId;
+    // Try forHandle
+    const d2 = await ytGet("channels", { part: "id", forHandle: handle });
+    if (d2.items?.length) return d2.items[0].id;
+  } catch { /* ignore */ }
+  return null;
+}
+
+// Get channel details
+async function getChannelDetails(channelId: string) {
+  const d = await ytGet("channels", {
+    part: "snippet,statistics,contentDetails",
+    id: channelId,
+  });
+  if (!d.items?.length) return null;
+  const ch = d.items[0];
+  return {
+    platform_id: channelId,
+    display_name: ch.snippet.title,
+    bio: (ch.snippet.description || "").slice(0, 500),
+    profile_image_url: ch.snippet.thumbnails?.default?.url,
+    country: ch.snippet.country || "",
+    followers: parseInt(ch.statistics.subscriberCount || "0"),
+    total_posts: parseInt(ch.statistics.videoCount || "0"),
+    total_views: parseInt(ch.statistics.viewCount || "0"),
+    profile_url: `https://www.youtube.com/channel/${channelId}`,
+  };
+}
+
+// Get recent videos
+async function getRecentVideos(channelId: string, maxResults = 20) {
+  // Get uploads playlist
+  const ch = await ytGet("channels", { part: "contentDetails", id: channelId });
+  if (!ch.items?.length) return [];
+  const uploadsId = ch.items[0].contentDetails.relatedPlaylists.uploads;
+
+  // Get video IDs
+  const pl = await ytGet("playlistItems", {
+    part: "contentDetails",
+    playlistId: uploadsId,
+    maxResults: String(maxResults),
+  });
+  const videoIds = (pl.items || []).map((i: any) => i.contentDetails.videoId).join(",");
+  if (!videoIds) return [];
+
+  // Get video details
+  const vids = await ytGet("videos", { part: "snippet,statistics", id: videoIds });
+  return (vids.items || []).map((v: any) => ({
+    influencer_id: null, // will be set later
+    title: v.snippet.title,
+    content_url: `https://www.youtube.com/watch?v=${v.id}`,
+    views: parseInt(v.statistics.viewCount || "0"),
+    likes: parseInt(v.statistics.likeCount || "0"),
+    comments: parseInt(v.statistics.commentCount || "0"),
+    published_at: v.snippet.publishedAt,
+    content_type: "video",
+  }));
+}
+
+// Pure Score calculation (simplified — matches src/scoring/calculator.py)
+function calcPureScore(inf: any, videos: any[]) {
+  let score = 0;
+
+  // 1. Upload frequency (30pts) — 4+/month = max
+  const recentVideos = videos.filter((v: any) => {
+    const d = new Date(v.published_at);
+    const sixMonths = new Date();
+    sixMonths.setMonth(sixMonths.getMonth() - 6);
+    return d > sixMonths;
+  });
+  const monthlyAvg = recentVideos.length / 6;
+  score += Math.min(30, (monthlyAvg / 4) * 30);
+
+  // 2. View/follower ratio (25pts) — 0.5+ = max
+  const avgViews = videos.length ? videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length : 0;
+  const ratio = inf.followers > 0 ? avgViews / inf.followers : 0;
+  score += Math.min(25, (ratio / 0.5) * 25);
+
+  // 3. Engagement rate (20pts) — 8%+ = max
+  const totalEng = videos.reduce((s: number, v: any) => s + v.likes + v.comments, 0);
+  const totalViews = videos.reduce((s: number, v: any) => s + v.views, 0);
+  const er = totalViews > 0 ? (totalEng / totalViews) * 100 : 0;
+  score += Math.min(20, (er / 8) * 20);
+
+  // 4. Consistency (15pts) — CV <= 0.3 = max
+  if (videos.length >= 3) {
+    const dates = videos.map((v: any) => new Date(v.published_at).getTime()).sort();
+    const intervals = [];
+    for (let i = 1; i < dates.length; i++) intervals.push(dates[i] - dates[i - 1]);
+    const mean = intervals.reduce((s, v) => s + v, 0) / intervals.length;
+    const std = Math.sqrt(intervals.reduce((s, v) => s + (v - mean) ** 2, 0) / intervals.length);
+    const cv = mean > 0 ? std / mean : 1;
+    score += Math.min(15, ((1 - cv) / 0.7) * 15);
+  }
+
+  // 5. Growth (10pts) — first collection = 5pts
+  score += 5;
+
+  return Math.round(score * 10) / 10;
+}
+
+function assignGrade(score: number) {
+  if (score >= 80) return "S";
+  if (score >= 60) return "A";
+  if (score >= 40) return "B";
+  return "C";
+}
+
+function assignTier(followers: number) {
+  if (followers >= 1000000) return "mega";
+  if (followers >= 500000) return "macro";
+  if (followers >= 50000) return "mid";
+  if (followers >= 10000) return "micro";
+  return "nano";
+}
+
+serve(async (req) => {
+  const cors = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Content-Type,Authorization" };
+  if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+
+  const log: string[] = [];
+  let quotaUsed = 0;
+
+  try {
+    // Get active influencers from DB
+    // Parse limit from URL params, default 3 (conservative quota usage)
+    const url = new URL(req.url);
+    const limit = parseInt(url.searchParams.get("limit") || "3");
+    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
+    log.push(`Active YouTube channels: ${influencers.length}`);
+
+    let updated = 0;
+    for (const inf of influencers) {
+      try {
+        await sleep(1000); // Rate limiting
+
+        // Resolve handle to channel ID (100 quota for search, or 1 for forHandle)
+        const channelId = await resolveChannelId(inf.platform_id);
+        quotaUsed += inf.platform_id.startsWith("UC") ? 0 : 100;
+        if (!channelId) { log.push(`${inf.display_name}: cannot resolve ${inf.platform_id}`); continue; }
+
+        // Get channel details (1 quota)
+        const details = await getChannelDetails(channelId);
+        quotaUsed += 1;
+        if (!details) { log.push(`${inf.display_name}: channel not found`); continue; }
+
+        // Get recent videos (2 quota)
+        const videos = await getRecentVideos(channelId, 20);
+        quotaUsed += 2;
+
+        // Calculate stats
+        const avgViews = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length) : 0;
+        const avgLikes = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.likes, 0) / videos.length) : 0;
+        const avgComments = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.comments, 0) / videos.length) : 0;
+
+        // Calculate Pure Score
+        const pureScore = calcPureScore({ ...inf, ...details }, videos);
+        const grade = assignGrade(pureScore);
+        const tier = assignTier(details.followers);
+
+        // Update influencer
+        await sbUpsert("influencers", [{
+          id: inf.id,
+          ...details,
+          platform: "YouTube",
+          username: inf.username,
+          category: inf.category,
+          pure_score: pureScore,
+          grade,
+          tier,
+          content_count: videos.length,
+          avg_views: avgViews,
+          avg_likes: avgLikes,
+          avg_comments: avgComments,
+          last_collected_at: new Date().toISOString(),
+          is_active: true,
+        }]);
+
+        // Upsert contents
+        if (videos.length) {
+          const withId = videos.map((v: any) => ({ ...v, influencer_id: inf.id }));
+          await sbUpsert("contents", withId);
+        }
+
+        updated++;
+        log.push(`${inf.display_name}: ${details.followers} subs, ${videos.length} vids, score=${pureScore} (${grade})`);
+      } catch (e: any) {
+        log.push(`${inf.display_name}: ERROR ${e.message?.slice(0, 80)}`);
+      }
+    }
+
+    // Log
+    await sbInsert("collect_logs", {
+      log_type: "youtube_collector",
+      message: `${updated}/${influencers.length} channels updated, quota=${quotaUsed}`,
+      details: { log, quota_used: quotaUsed, updated, total: influencers.length },
+    });
+
+    return new Response(JSON.stringify({ updated, total: influencers.length, quota_used: quotaUsed, log }), {
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: e.message, log }), {
+      status: 500, headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
+});
