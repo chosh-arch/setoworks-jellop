@@ -8,9 +8,19 @@ const H = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, "Content-Type": "
 
 async function sbGet(t: string, q = "") { return (await fetch(`${SB_URL}/rest/v1/${t}?select=*${q}`, { headers: H })).json(); }
 async function sbUpsert(t: string, rows: any[]) {
-  return (await fetch(`${SB_URL}/rest/v1/${t}`, {
+  const r = await fetch(`${SB_URL}/rest/v1/${t}`, {
     method: "POST", headers: { ...H, Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(rows)
-  })).ok;
+  });
+  if (!r.ok) { const err = await r.text(); console.error(`sbUpsert ${t} error:`, err.slice(0, 200)); }
+  return r.ok;
+}
+async function sbInsertMany(t: string, rows: any[]) {
+  // For tables with auto-increment PK (like contents), use plain INSERT
+  const r = await fetch(`${SB_URL}/rest/v1/${t}`, {
+    method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(rows)
+  });
+  if (!r.ok) { const err = await r.text(); console.error(`sbInsertMany ${t} error:`, err.slice(0, 200)); }
+  return r.ok;
 }
 async function sbInsert(t: string, d: any) {
   await fetch(`${SB_URL}/rest/v1/${t}`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(d) });
@@ -280,7 +290,7 @@ serve(async (req) => {
         }]);
 
         if (videos.length) {
-          await sbUpsert("contents", videos.map((v: any) => ({ ...v, influencer_id: Date.now() + discovered })));
+          await sbInsertMany("contents", videos.map((v: any) => ({ ...v, influencer_id: Date.now() + discovered })));
         }
 
         discovered++;
@@ -381,10 +391,15 @@ serve(async (req) => {
           });
         }
 
-        // Upsert contents
+        // Insert contents (delete old first to avoid duplicates)
         if (videos.length) {
+          // Delete existing contents for this influencer
+          await fetch(`${SB_URL}/rest/v1/contents?influencer_id=eq.${inf.id}`, {
+            method: "DELETE", headers: { ...H, Prefer: "return=minimal" }
+          });
           const withId = videos.map((v: any) => ({ ...v, influencer_id: inf.id }));
-          await sbUpsert("contents", withId);
+          const ok = await sbInsertMany("contents", withId);
+          log.push(`  → ${videos.length} contents ${ok ? "saved" : "SAVE FAILED"}`);
         }
 
         updated++;
