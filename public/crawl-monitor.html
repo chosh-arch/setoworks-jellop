@@ -744,7 +744,7 @@ function renderEqualizer(){
   platformData.forEach(p=>{
     var cats=catMap[p.id]||[];
     if(!cats.length)return;
-    html+='<div class="eq-section"><div class="eq-name">'+(FLAGS[p.id]||'')+' '+p.display_name+' <span class="eq-cnt">('+cats.length+'개)</span></div><div class="eq-cats">';
+    html+='<div class="eq-section"><div class="eq-name" style="display:flex;justify-content:space-between;align-items:center;">'+(FLAGS[p.id]||'')+' '+p.display_name+' <span style="background:var(--em);color:#000;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:800;">'+cats.length+'개 카테고리</span></div><div class="eq-cats">';
     cats.forEach(c=>{html+='<span class="eq-tag active" data-platform="'+p.id+'" data-cat-id="'+c.id+'" onclick="this.classList.toggle(\'active\')">'+(c.name_en||c.name)+'</span>';});
     html+='</div></div>';
   });
