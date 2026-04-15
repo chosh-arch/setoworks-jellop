@@ -490,7 +490,7 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
       <div class="page-header d-print-none">
         <div class="container-xl">
           <div class="d-flex align-items-center">
-            <button class="btn btn-sm btn-ghost-primary me-3" onclick="switchToView('channels')">← 목록으로</button>
+            <button class="btn btn-sm btn-primary me-3" onclick="switchToView('channels')" style="padding:4px 14px;border-radius:8px;font-weight:600;">목록으로</button>
             <div>
               <div class="page-pretitle">크리에이터 상세</div>
               <h2 class="page-title" id="detail-title">-</h2>
@@ -1699,7 +1699,7 @@ function renderBenchmarkCard(inf) {
   var html = '<div class="card mt-3"><div class="card-body" style="padding:14px 16px;">';
   html += '<div class="d-flex justify-content-between align-items-center mb-2">';
   html += '<h4 class="mb-0" style="font-size:14px;">📊 벤치마크 요약</h4>';
-  html += '<button class="btn btn-sm btn-outline-primary" onclick="openDetailView(' + inf.id + ')" style="font-size:11px;padding:2px 10px;">상세 분석 →</button>';
+  html += '<button class="btn btn-sm btn-outline-primary" onclick="openDetailView(' + inf.id + ')" style="font-size:11px;padding:3px 12px;border-radius:8px;font-weight:600;">상세 분석</button>';
   html += '</div>';
 
   // ─── 핵심 지표 4개 미니 게이지 ───
@@ -2293,7 +2293,7 @@ function openDetailView(id) {
     html += '<div class="mt-2 text-muted small">' + (inf.country || '-') + ' · ' + (CAT_KR[inf.category] || inf.category || '-') + '</div>';
     if (inf.contact_email) html += '<div class="mt-1"><a href="mailto:' + inf.contact_email + '" class="text-primary">📧 ' + inf.contact_email + '</a></div>';
     if (inf.instagram_id) html += '<div><a href="https://instagram.com/' + inf.instagram_id + '" target="_blank" class="text-primary">📷 @' + inf.instagram_id + '</a></div>';
-    if (inf.profile_url) html += '<div><a href="' + inf.profile_url + '" target="_blank" class="btn btn-sm btn-outline-primary mt-2">YouTube 채널 →</a></div>';
+    if (inf.profile_url) html += '<div><a href="' + inf.profile_url + '" target="_blank" class="btn btn-sm btn-outline-primary mt-2" style="padding:4px 14px;border-radius:8px;font-weight:600;">YouTube 채널</a></div>';
     html += '</div></div></div>';
 
     // ─── 2. KPI Cards ───
@@ -2337,7 +2337,7 @@ function openDetailView(id) {
         var nER = n.avg_views > 0 ? ((n.avg_likes + (n.avg_comments||0)) / n.avg_views * 100).toFixed(2) : '-';
         html += '<tr style="' + (isMe ? 'background:rgba(59,91,219,.08);font-weight:700;' : 'cursor:pointer;') + '" ' + (isMe ? '' : 'onclick="openDetailView(' + n.id + ')"') + '>';
         html += '<td>' + (nIdx+1) + '위</td>';
-        html += '<td>' + (isMe ? '🔹 ' : '') + escHtml(n.display_name) + (isMe ? '' : ' →') + '</td>';
+        html += '<td>' + (isMe ? '🔹 ' : '') + escHtml(n.display_name) + '</td>';
         html += '<td>' + gradeBadge(n.grade) + '</td>';
         html += '<td class="num" style="' + (isMe ? 'color:var(--tblr-primary);' : '') + '">' + (n.pure_score||0).toFixed(1) + '</td>';
         html += '<td class="num">' + fmt(n.followers) + '</td>';
@@ -3014,7 +3014,7 @@ function renderCompareCharts() {
   ];
 
   var tHtml = '<table class="table table-vcenter table-hover"><thead><tr><th>지표</th>';
-  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + ';cursor:pointer" onclick="openDetailView(' + inf.id + ')" title="클릭하면 상세 페이지로 이동">' + escHtml(inf.display_name) + ' <span style="font-size:10px;opacity:.6">→</span></th>'; });
+  sel.forEach(function(inf, idx) { tHtml += '<th class="num" style="border-top:3px solid ' + PALETTE[idx % PALETTE.length] + ';color:' + PALETTE[idx % PALETTE.length] + ';cursor:pointer" onclick="openDetailView(' + inf.id + ')" title="클릭하면 상세 페이지로 이동">' + escHtml(inf.display_name) + '</th>'; });
   tHtml += '</tr></thead><tbody>';
   metrics.forEach(m => {
     tHtml += '<tr>';
