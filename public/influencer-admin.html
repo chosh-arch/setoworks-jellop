@@ -885,7 +885,7 @@ function sbFetch(table, query) {
 document.querySelectorAll('.view').forEach(function(v) { v.style.display = 'none'; });
 Promise.all([
   sbFetch('influencers', '&order=id'),
-  sbFetch('contents', '&order=id'),
+  sbFetch('contents', '&order=id.desc&limit=5000'),
   sbFetch('categories', '&order=id')
 ]).then(function(results) {
     var data = {
