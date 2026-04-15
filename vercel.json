@@ -1,12 +1,7 @@
 {
-  "routes": [
-    { "src": "^/$", "dest": "/portal.html" }
+  "rewrites": [
+    { "source": "/", "destination": "/portal.html" }
   ],
-  "functions": {
-    "api/*.js": {
-      "runtime": "@vercel/node@3"
-    }
-  },
   "crons": [
     {
       "path": "/api/crawl-worker",
