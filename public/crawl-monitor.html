@@ -303,10 +303,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         <div class="panel-title">👤 크리에이터 수집 설정</div>
         <div class="setting-row"><label>Pure Score 기준</label><input type="range" id="creator-min-score" min="0" max="80" value="0" step="10" oninput="document.getElementById('cms-val').textContent=this.value==0?'전체':this.value+'+'"><span id="cms-val" style="color:var(--em);font-weight:700;">전체</span></div>
         <div class="setting-row"><label>최소 구독자</label><input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:80px;"></div>
-        <div class="setting-row"><label>수집 수</label><input type="range" id="creator-limit" min="1" max="20" value="5" oninput="document.getElementById('cl-val').textContent=this.value"><span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널</div>
-        <div class="setting-row"><label>카테고리</label><select id="creator-category"><option value="all">전체</option><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드</option><option value="tech_unboxing">테크</option><option value="motorcycle">모터사이클</option></select></div>
-        <div class="setting-row"><label>국가</label><select id="creator-country"><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option></select></div>
-        <div style="font-size:8px;color:var(--muted);margin-top:4px;">업로드(30)+조회비(25)+참여(20)+일관(15)+성장(10)=100점</div>
+        <div class="setting-row"><label>카테고리당</label><input type="range" id="creator-limit" min="1" max="25" value="5" oninput="document.getElementById('cl-val').textContent=this.value"><span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널/카테고리</div>
+        <div class="setting-row"><label>카테고리</label><select id="creator-category"><option value="all">전체 (랜덤)</option><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드/요리</option><option value="tech_unboxing">테크/언박싱</option><option value="motorcycle">모터사이클</option><option value="pet">반려동물</option><option value="parenting">육아/패밀리</option><option value="gaming">게임</option><option value="education">교육/학습</option><option value="travel">여행</option></select></div>
+        <div class="setting-row"><label>국가</label><select id="creator-country"><option value="ALL">🌏 전체 (랜덤)</option><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option><option value="DE">🇩🇪 독일</option><option value="FR">🇫🇷 프랑스</option></select></div>
+        <div style="font-size:8px;color:var(--muted);margin-top:4px;">카테고리별 수집 · 중복 자동 제거 · 규모 다양 (nano~mega) · 30점 미만 제외</div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
         <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">YouTube API 사용량</div>
@@ -378,10 +378,11 @@ function setCrawlType(type){ switchTab(type); }
 
 async function runYouTubeDiscover(){
   var cat=(document.getElementById('creator-category')||{value:'fitness'}).value;
-  var country=(document.getElementById('creator-country')||{value:'JP'}).value;
+  var country=(document.getElementById('creator-country')||{value:'ALL'}).value;
   var limit=(document.getElementById('creator-limit')||{value:'5'}).value;
   var minSubs=(document.getElementById('creator-min-subs')||{value:'1000'}).value;
-  if(cat==='all')cat='lifestyle';
+  var allCats=['fashion','lifestyle','fitness','beauty','camping_outdoor','food','tech_unboxing','motorcycle','pet','parenting','gaming','education','travel'];
+  if(cat==='all')cat=allCats[Math.floor(Math.random()*allCats.length)];
 
   toast('🔍 발굴 시작: '+cat+' / '+country+' ('+limit+'채널, 30~60초 소요)');
 

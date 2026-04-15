@@ -168,28 +168,44 @@ serve(async (req) => {
     // ═══ DISCOVER MODE: 카테고리 검색으로 새 크리에이터 발굴 ═══
     if (mode === "discover") {
       const category = url.searchParams.get("category") || "tech";
-      const country = url.searchParams.get("country") || "JP";
+      const country = url.searchParams.get("country") || "ALL";
       const minSubs = parseInt(url.searchParams.get("min_subs") || "1000");
+
+      // 13개 카테고리 전체 + 다국어 검색어
       const SEARCH_QUERIES: Record<string, string[]> = {
-        fitness: ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン"],
-        fashion: ["fashion haul", "outfit of the day", "패션 하울", "コーデ紹介"],
-        beauty: ["makeup tutorial", "skincare routine", "뷰티 루틴", "メイク"],
-        lifestyle: ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG"],
-        food: ["cooking vlog", "먹방", "料理VLOG", "美食"],
-        tech_unboxing: ["tech review", "unboxing", "언박싱", "開封レビュー"],
-        camping_outdoor: ["camping vlog", "캠핑", "キャンプ", "露營"],
-        motorcycle: ["motovlog", "バイク", "오토바이"],
+        fitness: ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン", "fitness challenge"],
+        fashion: ["fashion haul", "outfit of the day", "패션 하울", "コーデ紹介", "fashion lookbook"],
+        beauty: ["makeup tutorial", "skincare routine", "뷰티 루틴", "メイク", "beauty review"],
+        lifestyle: ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG", "day in my life"],
+        food: ["cooking vlog", "먹방", "料理VLOG", "美食", "what i eat in a day", "recipe"],
+        tech_unboxing: ["tech review", "unboxing", "언박싱", "開封レビュー", "gadget review"],
+        camping_outdoor: ["camping vlog", "캠핑", "キャンプ", "露營", "outdoor adventure"],
+        motorcycle: ["motovlog", "バイク", "오토바이", "motorcycle tour", "riding vlog"],
+        pet: ["pet vlog", "반려동물", "ペット", "寵物", "cute dog", "cat vlog"],
+        parenting: ["parenting vlog", "육아", "子育て", "育兒", "family vlog", "mom vlog"],
+        gaming: ["gaming", "게임", "ゲーム", "let's play", "game review"],
+        education: ["study vlog", "공부", "勉強", "tutorial", "learning", "how to"],
+        travel: ["travel vlog", "여행", "旅行", "旅遊", "backpacking", "travel guide"],
       };
+
+      const ALL_COUNTRIES = ["JP", "KR", "TW", "US", "GB", "DE", "FR", "CN"];
       const COUNTRY_LANG: Record<string, string> = { JP: "ja", KR: "ko", TW: "zh-TW", US: "en", GB: "en", DE: "de", FR: "fr", CN: "zh-CN" };
 
-      const queries = SEARCH_QUERIES[category] || [`${category} vlog`];
+      // country=ALL이면 랜덤 국가, 아니면 지정 국가
+      const targetCountries = country === "ALL" ? ALL_COUNTRIES : [country];
+      const selectedCountry = targetCountries[Math.floor(Math.random() * targetCountries.length)];
+
+      const queries = SEARCH_QUERIES[category] || [`${category} vlog`, `${category} review`];
       const query = queries[Math.floor(Math.random() * queries.length)];
-      const lang = COUNTRY_LANG[country] || "en";
+      const lang = COUNTRY_LANG[selectedCountry] || "en";
 
-      log.push(`DISCOVER: "${query}" in ${country} (${lang}), min ${minSubs} subs`);
+      // 규모 다양성: 검색 결과를 다양한 정렬로 가져오기
+      const orderOptions = ["relevance", "viewCount", "date"];
+      const order = orderOptions[Math.floor(Math.random() * orderOptions.length)];
 
-      // Search YouTube for channels
-      const searchResult = await ytGet("search", { part: "snippet", q: query, type: "channel", maxResults: String(limit), relevanceLanguage: lang, regionCode: country });
+      log.push(`DISCOVER: "${query}" in ${selectedCountry} (${lang}), sort=${order}, min ${minSubs} subs`);
+
+      const searchResult = await ytGet("search", { part: "snippet", q: query, type: "channel", maxResults: String(Math.min(limit * 2, 25)), relevanceLanguage: lang, regionCode: selectedCountry, order });
       quotaUsed += 100;
       const candidates = searchResult.items || [];
       log.push(`Found ${candidates.length} candidates`);
