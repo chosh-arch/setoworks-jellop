@@ -1618,10 +1618,19 @@ function renderExpandContent(inf) {
   if (inf.tier) html += tierBadge(inf.tier);
   html += '</div>';
   html += '<div class="text-muted small"><strong>국가:</strong> ' + (COUNTRY_KR[inf.country]||inf.country||'-') + ' &nbsp; <strong>언어:</strong> ' + (inf.language || '-') + '</div>';
-  if (inf.bio) html += '<div class="text-muted small mt-1" style="max-height:60px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;">' + escHtml(inf.bio).slice(0, 200) + (inf.bio.length > 200 ? '...' : '') + '</div>';
+  if (inf.bio) {
+    var bioText = escHtml(inf.bio);
+    // Make emails clickable
+    bioText = bioText.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color:var(--tblr-primary);">📧 $1</a>');
+    // Make Instagram links clickable
+    bioText = bioText.replace(/(?:instagram\.com|instagr\.am)\/([a-zA-Z0-9_.]+)/gi, '<a href="https://instagram.com/$1" target="_blank" style="color:#7c3aed;">📷 @$1</a>');
+    // Make other URLs clickable
+    bioText = bioText.replace(/(https?:\/\/[^\s<]+)/g, function(url) { if (url.indexOf('mailto:') >= 0 || url.indexOf('instagram.com') >= 0) return url; return '<a href="' + url + '" target="_blank" style="color:var(--tblr-primary);">🔗 링크</a>'; });
+    html += '<div class="text-muted small mt-1" style="max-height:80px;overflow-y:auto;word-break:break-word;white-space:pre-wrap;line-height:1.5;">' + bioText + '</div>';
+  }
   // 월평균 업로드 + SNS
   var extras = [];
-  if (inf.monthly_uploads && (inf.content_count || 0) >= 70) extras.push('월 ' + inf.monthly_uploads + '건 업로드');
+  extras.push('월 ' + ((inf.content_count || 0) >= 70 && inf.monthly_uploads ? inf.monthly_uploads + '건' : '-') + ' 업로드');
   if (inf.instagram_id) extras.push('IG: @' + inf.instagram_id);
   if (inf.tiktok_id) extras.push('TT: @' + inf.tiktok_id);
   if (inf.threads_id) extras.push('Threads: @' + inf.threads_id);
@@ -1942,8 +1951,33 @@ function renderMemoSystem(inf) {
   html += '<textarea id="memo-input-' + inf.id + '" class="form-control form-control-sm" rows="2" placeholder="새 메모를 입력하세요..."></textarea>';
   html += '<div class="mt-2"><button class="btn btn-sm btn-primary" onclick="addMemo(\'' + inf.id + '\')">메모 추가</button></div>';
   html += '</div>';
-
   html += '</div></div>';
+
+  // ─── 바로 위/아래 인플루언서 비교 ───
+  var sortedAll = DATA.influencers.filter(function(i){ return i.is_active && i.pure_score != null; }).sort(function(a,b){ return b.pure_score - a.pure_score; });
+  var myIdx = sortedAll.findIndex(function(i){ return i.id === inf.id; });
+  if (myIdx >= 0) {
+    var above = myIdx > 0 ? sortedAll[myIdx - 1] : null;
+    var below = myIdx < sortedAll.length - 1 ? sortedAll[myIdx + 1] : null;
+    html += '<div class="card mt-3"><div class="card-body">';
+    html += '<h4 class="mb-2">📊 인접 순위 비교 &mdash; ' + (myIdx + 1) + '위 / ' + sortedAll.length + '명</h4>';
+    html += '<table class="table table-vcenter" style="font-size:12px;"><thead><tr><th>순위</th><th>이름</th><th>등급</th><th>Score</th><th>구독자</th><th>참여율</th></tr></thead><tbody>';
+    if (above) {
+      var abER = above.avg_views > 0 ? ((above.avg_likes + (above.avg_comments||0)) / above.avg_views * 100).toFixed(2) : '-';
+      html += '<tr style="opacity:.6;"><td>' + myIdx + '위</td><td>' + escHtml(above.display_name) + '</td><td>' + gradeBadge(above.grade) + '</td><td class="num">' + (above.pure_score||0).toFixed(1) + '</td><td class="num">' + fmt(above.followers) + '</td><td class="num">' + abER + '%</td></tr>';
+    }
+    var myER = inf.avg_views > 0 ? ((inf.avg_likes + (inf.avg_comments||0)) / inf.avg_views * 100).toFixed(2) : '-';
+    html += '<tr style="background:rgba(59,91,219,.06);font-weight:700;"><td>' + (myIdx+1) + '위</td><td>🔹 ' + escHtml(inf.display_name) + '</td><td>' + gradeBadge(inf.grade) + '</td><td class="num" style="color:var(--tblr-primary);">' + (inf.pure_score||0).toFixed(1) + '</td><td class="num">' + fmt(inf.followers) + '</td><td class="num">' + myER + '%</td></tr>';
+    if (below) {
+      var blER = below.avg_views > 0 ? ((below.avg_likes + (below.avg_comments||0)) / below.avg_views * 100).toFixed(2) : '-';
+      html += '<tr style="opacity:.6;"><td>' + (myIdx+2) + '위</td><td>' + escHtml(below.display_name) + '</td><td>' + gradeBadge(below.grade) + '</td><td class="num">' + (below.pure_score||0).toFixed(1) + '</td><td class="num">' + fmt(below.followers) + '</td><td class="num">' + blER + '%</td></tr>';
+    }
+    html += '</tbody></table>';
+    if (above) html += '<div style="font-size:11px;color:var(--tblr-primary);">▲ ' + (above.pure_score - inf.pure_score).toFixed(1) + '점 올리면 ' + myIdx + '위</div>';
+    if (below) html += '<div style="font-size:11px;color:#94a3b8;">▼ ' + (inf.pure_score - below.pure_score).toFixed(1) + '점 차이로 ' + (myIdx+2) + '위와 격차</div>';
+    html += '</div></div>';
+  }
+
   return html;
 }
 

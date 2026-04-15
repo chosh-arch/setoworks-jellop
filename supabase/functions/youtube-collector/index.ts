@@ -76,7 +76,7 @@ async function getChannelDetails(channelId: string) {
 }
 
 // Get recent videos
-async function getRecentVideos(channelId: string, maxResults = 20) {
+async function getRecentVideos(channelId: string, maxResults = 50) {
   // Get uploads playlist
   const ch = await ytGet("channels", { part: "contentDetails", id: channelId });
   if (!ch.items?.length) return [];
@@ -300,7 +300,7 @@ serve(async (req) => {
         }
 
         // Get videos + score
-        const videos = await getRecentVideos(chId, 15);
+        const videos = await getRecentVideos(chId, 50);
         quotaUsed += 2;
         const pureScore = calcPureScore({ ...details }, videos);
         const grade = assignGrade(pureScore);
@@ -385,7 +385,7 @@ serve(async (req) => {
         if (!details) { log.push(`${inf.display_name}: channel not found`); continue; }
 
         // Get recent videos (2 quota)
-        const videos = await getRecentVideos(channelId, 20);
+        const videos = await getRecentVideos(channelId, 50);
         quotaUsed += 2;
 
         // Calculate stats
