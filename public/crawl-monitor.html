@@ -212,22 +212,26 @@ async function triggerCrawl(platformId){
 
   var result=await sbPost('crawl_jobs',jobs);
   runningPlatforms[platformId]=true;
-  toast('✅ '+platformId+': '+jobs.length+'개 작업 생성됨');
+  toast('✅ '+platformId+': '+jobs.length+'개 작업 생성됨 → 워커 자동 실행');
   renderPlatforms();
   loadJobs();
 
-  // Trigger worker
-  fetch('/api/crawl-worker').catch(()=>{});
+  // Trigger worker via Edge Function
+  setTimeout(function(){
+    fetch(SB+'/functions/v1/crawl-worker',{headers:{'Authorization':'Bearer '+SK}})
+      .then(r=>r.json()).then(d=>{toast('🔄 워커: '+(d.processed||0)+'건 처리');loadJobs();loadStats();runningPlatforms[platformId]=false;renderPlatforms();})
+      .catch(()=>{});
+  },2000);
 }
 
 async function runWorker(){
   toast('▶ 워커 실행 중...');
   try{
-    var r=await fetch('/api/crawl-worker');
+    var r=await fetch(SB+'/functions/v1/crawl-worker',{headers:{'Authorization':'Bearer '+SK}});
     var d=await r.json();
-    toast('✅ 워커 완료: '+d.processed+'건 처리');
+    toast('✅ 워커 완료: '+(d.processed||0)+'건 처리');
     loadJobs();loadStats();
-  }catch(e){toast('⚠ 워커 실행 실패');}
+  }catch(e){toast('⚠ 워커 실행 실패: '+e.message);}
 }
 
 async function loadAll(){
