@@ -291,8 +291,8 @@ serve(async (req) => {
       });
     }
 
-    // ═══ UPDATE MODE: 기존 채널 업데이트 ═══
-    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
+    // ═══ UPDATE MODE: 기존 채널 업데이트 (active + review만, archived 제외) ═══
+    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&or=(status.eq.active,status.eq.review,status.is.null)&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
     log.push(`Active YouTube channels: ${influencers.length}`);
 
     let updated = 0;
@@ -324,6 +324,17 @@ serve(async (req) => {
         const grade = assignGrade(pureScore);
         const tier = assignTier(details.followers);
 
+        // 등급 변동 감지
+        const prevGrade = inf.grade;
+        const gradeChanged = prevGrade && grade && prevGrade !== grade;
+        const gradeDirection = gradeChanged ? (
+          "SABCX".indexOf(grade || "X") < "SABCX".indexOf(prevGrade || "X") ? "↑ 상승" : "↓ 하락"
+        ) : "";
+
+        // C등급 하락 시 아카이브 후보
+        const shouldArchive = !grade; // 30점 미만 = null grade
+        const monthlyReview = grade === "C"; // C등급은 월간 리뷰 대상
+
         // Update influencer
         await sbUpsert("influencers", [{
           id: inf.id,
@@ -332,15 +343,35 @@ serve(async (req) => {
           username: inf.username,
           category: inf.category,
           pure_score: pureScore,
-          grade,
+          grade: grade || "C",
+          prev_grade: prevGrade,
+          grade_changed_at: gradeChanged ? new Date().toISOString() : inf.grade_changed_at,
           tier,
           content_count: videos.length,
           avg_views: avgViews,
           avg_likes: avgLikes,
           avg_comments: avgComments,
           last_collected_at: new Date().toISOString(),
-          is_active: true,
+          is_active: !shouldArchive,
+          status: shouldArchive ? "archived" : monthlyReview ? "review" : "active",
+          archived_at: shouldArchive ? new Date().toISOString() : null,
+          archive_reason: shouldArchive ? `Pure Score ${pureScore}점 — 30점 미만 자동 아카이브` : null,
+          next_review_at: monthlyReview ? new Date(Date.now() + 30*24*60*60*1000).toISOString() : null,
+          update_count: (inf.update_count || 0) + 1,
+          last_updated_by: "auto",
         }]);
+
+        // 등급 변동 이력 기록
+        if (gradeChanged) {
+          await sbInsert("grade_history", {
+            influencer_id: inf.id,
+            prev_grade: prevGrade,
+            new_grade: grade,
+            prev_score: inf.pure_score,
+            new_score: pureScore,
+            reason: `자동 업데이트 ${gradeDirection}`,
+          });
+        }
 
         // Upsert contents
         if (videos.length) {
@@ -349,7 +380,8 @@ serve(async (req) => {
         }
 
         updated++;
-        log.push(`${inf.display_name}: ${details.followers} subs, ${videos.length} vids, score=${pureScore} (${grade})`);
+        const statusTag = shouldArchive ? " [ARCHIVED]" : gradeChanged ? ` [${gradeDirection}]` : "";
+        log.push(`${inf.display_name}: ${details.followers} subs, ${videos.length} vids, score=${pureScore} (${grade || "제외"})${statusTag}`);
       } catch (e: any) {
         log.push(`${inf.display_name}: ERROR ${e.message?.slice(0, 80)}`);
       }

@@ -320,6 +320,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </div>
     </div>
   </div>
+  <!-- 최근 발굴 목록 + 자동화 현황 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">최근 발굴 크리에이터</div>
+      <div id="recent-creators" style="font-size:10px;color:var(--muted);max-height:120px;overflow-y:auto;">로딩중...</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">자동화 스케줄</div>
+      <div id="auto-schedules" style="font-size:10px;color:var(--muted);line-height:1.8;">로딩중...</div>
+    </div>
+  </div>
   </div><!-- /section-creator -->
 
   <!-- Stats Bar -->
@@ -843,8 +854,47 @@ async function loadCreatorStats(){
   if(document.getElementById('yt-channels'))document.getElementById('yt-channels').textContent=infs.length;
 }
 
+async function loadRecentCreators(){
+  var infs=await sbGet('influencers','&or=(platform.eq.YouTube,platform.eq.youtube)&order=first_discovered_at.desc.nullslast&limit=10&select=display_name,followers,pure_score,grade,status,first_discovered_at,category,country');
+  var el=document.getElementById('recent-creators');
+  if(!el)return;
+  if(!infs.length){el.innerHTML='아직 발굴된 크리에이터가 없습니다';return;}
+  var html='';
+  infs.forEach(function(i){
+    var subs=i.followers>=1000000?(i.followers/1000000).toFixed(1)+'M':i.followers>=1000?Math.round(i.followers/1000)+'K':i.followers;
+    var gc=i.grade==='S'?'var(--yellow)':i.grade==='A'?'var(--em)':i.grade==='B'?'var(--blue)':'var(--muted)';
+    var st=i.status==='archived'?'<span style="color:var(--red);font-size:8px;">보관</span>':i.status==='review'?'<span style="color:var(--yellow);font-size:8px;">리뷰</span>':'';
+    html+='<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03);">';
+    html+='<span style="color:'+gc+';font-weight:700;min-width:14px;">'+i.grade+'</span>';
+    html+='<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+i.display_name+'</span>';
+    html+='<span style="color:var(--em);min-width:35px;text-align:right;">'+subs+'</span>';
+    html+='<span style="min-width:30px;text-align:right;">'+Math.round(i.pure_score||0)+'점</span>';
+    html+=st;
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+async function loadAutoSchedules(){
+  var schedules=await sbGet('auto_schedules','&order=id');
+  var el=document.getElementById('auto-schedules');
+  if(!el)return;
+  var labels={'daily_update':'📊 일일 채널 업데이트','daily_discover':'🔍 일일 신규 발굴','monthly_c_review':'📋 C등급 월간 리뷰','quarterly_archive_review':'📦 분기 아카이브 리뷰'};
+  var html='';
+  schedules.forEach(function(s){
+    var active=s.is_active?'<span style="color:var(--em);">●</span>':'<span style="color:var(--red);">○</span>';
+    var last=s.last_run_at?new Date(s.last_run_at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}):'미실행';
+    var cfg=s.config||{};
+    var detail=s.schedule_type==='new_discovery'?'카테고리별 '+(cfg.channels_per_category||3)+'채널 × 8개국':s.schedule_type==='channel_update'?(cfg.channels_per_run||10)+'채널/회':'';
+    html+='<div style="display:flex;align-items:center;gap:6px;">'+active+' <span style="flex:1;">'+(labels[s.id]||s.id)+'</span><span style="color:var(--muted);font-size:9px;">'+detail+'</span><span style="font-size:9px;">'+last+'</span></div>';
+  });
+  el.innerHTML=html||'스케줄 없음';
+}
+
 loadAll();
 loadCreatorStats();
+loadRecentCreators();
+loadAutoSchedules();
 loadYouTubeUsage();
 loadCrawlHistory();
 setInterval(loadJobs,30000);
@@ -852,6 +902,8 @@ setInterval(loadStats,60000);
 setInterval(loadYouTubeUsage,60000);
 setInterval(loadCrawlHistory,60000);
 setInterval(loadCreatorStats,60000);
+setInterval(loadRecentCreators,60000);
+setInterval(loadAutoSchedules,120000);
 </script>
 </body>
 </html>

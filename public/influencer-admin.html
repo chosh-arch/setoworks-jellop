@@ -947,11 +947,20 @@ function renderDashboard() {
   const sCount = infs.filter(i => i.grade === 'S').length;
   const aCount = infs.filter(i => i.grade === 'A').length;
 
+  const bCount = infs.filter(i => i.grade === 'B').length;
+  const cCount = infs.filter(i => i.grade === 'C').length;
+  const archivedCount = infs.filter(i => i.status === 'archived').length;
+  const reviewCount = infs.filter(i => i.status === 'review').length;
+  const recentUpdated = infs.filter(i => {
+    if (!i.last_collected_at) return false;
+    return (Date.now() - new Date(i.last_collected_at).getTime()) < 7 * 24 * 60 * 60 * 1000;
+  }).length;
+
   const kpis = [
-    { label: '총 채널', value: infs.length, sub: 'YouTube ' + ytInfs.length + ' / IG ' + igCnt + ' / FB ' + fbCnt, icon: '&#128101;', color: 'bg-primary-lt' },
-    { label: '활성 콘텐츠', value: fmtFull(totalContent), sub: '채널 평균 ' + (infs.length ? Math.round(totalContent / infs.length) : 0) + '개', icon: '&#127909;', color: 'bg-green-lt' },
-    { label: '평균 구독자', value: fmt(avgFollowers), sub: '전체 채널 평균', icon: '&#128200;', color: 'bg-blue-lt' },
-    { label: '평균 Pure Score', value: avgScore, sub: 'S등급 ' + sCount + ' / A등급 ' + aCount, icon: '&#11088;', color: 'bg-yellow-lt' }
+    { label: '총 채널', value: infs.length, sub: 'S:' + sCount + ' A:' + aCount + ' B:' + bCount + ' C:' + cCount, icon: '&#128101;', color: 'bg-primary-lt' },
+    { label: '활성 콘텐츠', value: fmtFull(totalContent), sub: '최근 7일 업데이트 ' + recentUpdated + '채널', icon: '&#127909;', color: 'bg-green-lt' },
+    { label: '평균 Pure Score', value: avgScore, sub: '리뷰 대기 ' + reviewCount + ' / 보관 ' + archivedCount, icon: '&#11088;', color: 'bg-yellow-lt' },
+    { label: '평균 구독자', value: fmt(avgFollowers), sub: 'YouTube ' + ytInfs.length + ' / IG ' + igCnt + ' / FB ' + fbCnt, icon: '&#128200;', color: 'bg-blue-lt' }
   ];
 
   document.getElementById('kpi-row').innerHTML = kpis.map(k => {
