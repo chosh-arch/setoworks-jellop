@@ -179,6 +179,29 @@ try:
 except Exception as e:
     check('DEEP','fetch',False,str(e)[:60])
 
+# ─── 8c. DATA INTEGRITY (DB 데이터 무결성) ───
+print('\n[8c] DATA INTEGRITY')
+try:
+    infs=sb('influencers','&is_active=eq.true&select=id,display_name,content_count,avg_views,avg_likes,avg_comments,monthly_uploads,category,pure_score,grade,tier')
+    valid_cats={'fitness','fashion','beauty','lifestyle','food','tech_unboxing','camping_outdoor','motorcycle','pet','parenting','gaming','education','travel'}
+    bad_cat=[i for i in infs if i.get('category') and i['category'] not in valid_cats]
+    check('INTEGRITY',f'모든 카테고리 유효 (invalid: {[i["display_name"] for i in bad_cat[:3]]})',len(bad_cat)==0)
+    no_comments=[i for i in infs if i.get('avg_comments') is None or i.get('avg_comments')==0]
+    check('INTEGRITY',f'avg_comments 존재 ({len(infs)-len(no_comments)}/{len(infs)})',len(no_comments)<=len(infs)*0.3,f'{len(no_comments)}명 누락')
+    has70=[i for i in infs if (i.get('content_count') or 0)>=70]
+    no_monthly=[i for i in has70 if not i.get('monthly_uploads') or i['monthly_uploads']<=0]
+    check('INTEGRITY',f'70건 채널에 monthly_uploads 존재 ({len(has70)-len(no_monthly)}/{len(has70)})',len(no_monthly)==0,f'{[i["display_name"] for i in no_monthly[:3]]}')
+    # 등급-점수 정합성
+    grade_mismatch=[]
+    for i in infs:
+        s,g=i.get('pure_score',0),i.get('grade','')
+        if g=='S' and s<80: grade_mismatch.append(i['display_name'])
+        elif g=='A' and (s<60 or s>=80): grade_mismatch.append(i['display_name'])
+        elif g=='B' and (s<40 or s>=60): grade_mismatch.append(i['display_name'])
+    check('INTEGRITY',f'등급-점수 정합 (불일치: {grade_mismatch[:3]})',len(grade_mismatch)==0)
+except Exception as e:
+    check('INTEGRITY','check',False,str(e)[:80])
+
 # ─── 9. QA SCRIPT ───
 print('\n[9] QA CHECK SCRIPT')
 try:

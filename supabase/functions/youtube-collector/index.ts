@@ -28,6 +28,62 @@ async function sbInsert(t: string, d: any) {
 
 const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
+// ═══ 수집 상수 (하드코딩 방지 — 한 곳에서 관리) ═══
+const COLLECT_CONFIG = {
+  VIDEOS_PER_CHANNEL: 70,       // 채널당 수집 영상 수 (절대 50으로 바꾸지 말 것)
+  MIN_SCORE_THRESHOLD: 30,      // 수집 최소 Pure Score
+  BIO_MAX_LENGTH: 500,          // bio 최대 저장 길이
+  RATE_LIMIT_MS: 1000,          // API 호출 간격
+} as const;
+
+// ═══ 데이터 무결성 검증 (저장 전 필수 체크) ═══
+interface ValidationResult { ok: boolean; errors: string[]; warnings: string[]; }
+
+function validateInfluencer(data: Record<string, any>, videos: any[]): ValidationResult {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+
+  // 1. 필수 필드 존재 여부
+  const required = ['display_name','platform_id','followers','category','tier','grade','pure_score','content_count','avg_views','avg_likes','avg_comments'];
+  for (const f of required) {
+    if (data[f] === undefined || data[f] === null) errors.push('필수 필드 누락: ' + f);
+  }
+
+  // 2. content_count = 실제 수집 영상 수 일치
+  if (data.content_count !== videos.length) {
+    errors.push('content_count(' + data.content_count + ') != videos(' + videos.length + ')');
+    data.content_count = videos.length; // 자동 보정
+  }
+
+  // 3. 영상 수집량 검증 (total_posts >= 70인데 수집이 70 미만이면 경고)
+  if (data.total_posts >= COLLECT_CONFIG.VIDEOS_PER_CHANNEL && videos.length < COLLECT_CONFIG.VIDEOS_PER_CHANNEL) {
+    warnings.push('영상 ' + data.total_posts + '건 중 ' + videos.length + '건만 수집됨 (목표: ' + COLLECT_CONFIG.VIDEOS_PER_CHANNEL + ')');
+  }
+
+  // 4. monthly_uploads 검증 (70건 이상이면 반드시 있어야 함)
+  if (videos.length >= COLLECT_CONFIG.VIDEOS_PER_CHANNEL && (!data.monthly_uploads || data.monthly_uploads <= 0)) {
+    warnings.push('영상 70건 이상인데 monthly_uploads 미산출');
+  }
+
+  // 5. 평균값 정합성 (avg_views가 0인데 total_views가 큰 경우)
+  if (data.avg_views === 0 && data.total_views > 10000) {
+    warnings.push('avg_views=0 but total_views=' + data.total_views);
+  }
+
+  // 6. 카테고리 검증 (유효한 카테고리인지)
+  const VALID_CATS = ['fitness','fashion','beauty','lifestyle','food','tech_unboxing','camping_outdoor','motorcycle','pet','parenting','gaming','education','travel'];
+  if (data.category && !VALID_CATS.includes(data.category)) {
+    warnings.push('알 수 없는 카테고리: ' + data.category);
+  }
+
+  // 7. 등급/점수 정합성
+  if (data.grade === 'S' && data.pure_score < 80) errors.push('S등급인데 점수 ' + data.pure_score + ' (80 미만)');
+  if (data.grade === 'A' && (data.pure_score < 60 || data.pure_score >= 80)) errors.push('A등급인데 점수 ' + data.pure_score);
+  if (data.grade === 'B' && (data.pure_score < 40 || data.pure_score >= 60)) errors.push('B등급인데 점수 ' + data.pure_score);
+
+  return { ok: errors.length === 0, errors, warnings };
+}
+
 // YouTube Data API v3 helpers
 async function ytGet(endpoint: string, params: Record<string, string>) {
   const url = new URL(`https://www.googleapis.com/youtube/v3/${endpoint}`);
@@ -76,7 +132,7 @@ async function getChannelDetails(channelId: string) {
 }
 
 // Get recent videos
-async function getRecentVideos(channelId: string, maxResults = 70) {
+async function getRecentVideos(channelId: string, maxResults = COLLECT_CONFIG.VIDEOS_PER_CHANNEL) {
   // Get uploads playlist
   const ch = await ytGet("channels", { part: "contentDetails", id: channelId });
   if (!ch.items?.length) return [];
@@ -374,7 +430,7 @@ serve(async (req) => {
         }
 
         // Get videos + score
-        const videos = await getRecentVideos(chId, 70);
+        const videos = await getRecentVideos(chId);
         quotaUsed += 2;
         const pureScore = calcPureScore({ ...details }, videos);
         const grade = assignGrade(pureScore);
@@ -400,15 +456,15 @@ serve(async (req) => {
         const socialLinks = extractSocialLinks(details.bio || ch.snippet.description || "");
         const monthlyUploads = calcMonthlyUploads(videos);
 
-        // Insert new influencer with fixed ID
+        // Build influencer data
         const newId = Date.now() * 100 + discovered;
-        await sbUpsert("influencers", [{
+        const infData: Record<string, any> = {
           id: newId,
           platform: "youtube",
           platform_id: chId,
           username: ch.snippet.channelTitle.replace(/\s/g, "_"),
           display_name: ch.snippet.channelTitle,
-          bio: (details.bio || ch.snippet.description || "").slice(0, 500),
+          bio: (details.bio || ch.snippet.description || "").slice(0, COLLECT_CONFIG.BIO_MAX_LENGTH),
           profile_url: `https://www.youtube.com/channel/${chId}`,
           profile_image_url: ch.snippet.thumbnails?.default?.url || "",
           followers: details.followers,
@@ -417,6 +473,8 @@ serve(async (req) => {
           category: actualCategory,
           tier,
           country: details.country || detectCountry(ch.snippet.defaultLanguage || ch.snippet.title || "") || selectedCountry,
+          avg_views: avgViews,
+          avg_likes: avgLikes,
           avg_comments: avgComments,
           monthly_uploads: monthlyUploads,
           ...socialLinks,
@@ -427,9 +485,19 @@ serve(async (req) => {
           first_discovered_at: new Date().toISOString(),
           last_collected_at: new Date().toISOString(),
           content_count: videos.length,
-          avg_views: avgViews,
-          avg_likes: avgLikes,
-        }]);
+        };
+
+        // ★ 저장 전 무결성 검증
+        const validation = validateInfluencer(infData, videos);
+        if (!validation.ok) {
+          log.push(`${ch.snippet.channelTitle}: VALIDATION FAIL — ${validation.errors.join(', ')}`);
+          continue; // 검증 실패하면 저장하지 않음
+        }
+        if (validation.warnings.length) {
+          log.push(`${ch.snippet.channelTitle}: WARN — ${validation.warnings.join(', ')}`);
+        }
+
+        await sbUpsert("influencers", [infData]);
 
         // Insert contents with same ID
         if (videos.length) {
@@ -473,7 +541,7 @@ serve(async (req) => {
         if (!details) { log.push(`${inf.display_name}: channel not found`); continue; }
 
         // Get recent videos (2 quota)
-        const videos = await getRecentVideos(channelId, 70);
+        const videos = await getRecentVideos(channelId);
         quotaUsed += 2;
 
         // Calculate stats
@@ -501,13 +569,22 @@ serve(async (req) => {
         const shouldArchive = !grade; // 30점 미만 = null grade
         const monthlyReview = grade === "C"; // C등급은 월간 리뷰 대상
 
-        // Update influencer
-        await sbUpsert("influencers", [{
+        // Update 시에도 카테고리 재검증 (기존 카테고리와 콘텐츠가 불일치하면 보정)
+        const detectedCat = detectCategoryFromContent(details.bio || inf.bio || "", videos);
+        let finalCategory = inf.category;
+        if (detectedCat && detectedCat !== inf.category) {
+          // 검출 결과가 다르면 로그 남기고 보정
+          log.push(`  ⚠️ 카테고리 불일치: DB=${inf.category} → 콘텐츠 분석=${detectedCat} (자동 보정)`);
+          finalCategory = detectedCat;
+        }
+
+        // Build update data
+        const updateData: Record<string, any> = {
           id: inf.id,
           ...details,
           platform: "YouTube",
           username: inf.username,
-          category: inf.category,
+          category: finalCategory,
           pure_score: pureScore,
           grade: grade || "C",
           prev_grade: prevGrade,
@@ -529,7 +606,19 @@ serve(async (req) => {
           total_score: pureScore, // Will be weighted average when multi-platform
           monthly_uploads: monthlyUploads,
           ...socialLinks,
-        }]);
+        };
+
+        // ★ 저장 전 무결성 검증
+        const uValidation = validateInfluencer(updateData, videos);
+        if (!uValidation.ok) {
+          log.push(`${inf.display_name}: VALIDATION FAIL — ${uValidation.errors.join(', ')}`);
+          continue;
+        }
+        if (uValidation.warnings.length) {
+          log.push(`${inf.display_name}: WARN — ${uValidation.warnings.join(', ')}`);
+        }
+
+        await sbUpsert("influencers", [updateData]);
 
         // 등급 변동 이력 기록
         if (gradeChanged) {
