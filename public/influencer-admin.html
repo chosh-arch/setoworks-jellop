@@ -1694,179 +1694,62 @@ function renderBenchmarkCard(inf) {
   var bm = calcBenchmarks();
   var dm = getDerivedMetrics(inf);
   var tierRef = bm.byTier[inf.tier] || bm.global;
-  var catRef = bm.byCat[inf.category] || null;
-  var globalRef = bm.global;
   var tags = getStrengthWeakness(inf);
 
-  var html = '<div class="card mt-3"><div class="card-body">';
-  html += '<h4 class="mb-2">🔬 심층 벤치마크 분석</h4>';
+  var html = '<div class="card mt-3"><div class="card-body" style="padding:14px 16px;">';
+  html += '<div class="d-flex justify-content-between align-items-center mb-2">';
+  html += '<h4 class="mb-0" style="font-size:14px;">📊 벤치마크 요약</h4>';
+  html += '<button class="btn btn-sm btn-outline-primary" onclick="openDetailView(' + inf.id + ')" style="font-size:11px;padding:2px 10px;">상세 분석 →</button>';
+  html += '</div>';
 
-  // ─── 강점/약점 태그 ───
+  // ─── 핵심 지표 4개 미니 게이지 ───
+  var gauges = [
+    {label:'V/F',val:dm.vf,key:'vf',unit:'%',desc:'도달 효율'},
+    {label:'L/V',val:dm.lv,key:'lv',unit:'%',desc:'매력도'},
+    {label:'ER',val:dm.er,key:'er',unit:'%',desc:'참여율'},
+    {label:'C/L',val:dm.cl,key:'cl',unit:'%',desc:'참여 깊이'}
+  ];
+  html += '<div class="row g-2 mb-2">';
+  gauges.forEach(function(g){
+    var tAvg = tierRef[g.key] ? tierRef[g.key].avg : 0;
+    var ratio = tAvg > 0 ? g.val / tAvg : 1;
+    var color = ratio >= 1.3 ? '#16a34a' : ratio >= 1.0 ? '#3b82f6' : ratio >= 0.7 ? '#6b7280' : ratio >= 0.4 ? '#f59e0b' : '#ef4444';
+    var arrow = ratio >= 1.3 ? '▲' : ratio >= 1.0 ? '▲' : ratio >= 0.7 ? '―' : '▼';
+    var barW = Math.min(100, ratio * 50);
+    html += '<div class="col-3"><div style="background:#f8fafc;border-radius:8px;padding:8px;text-align:center;border:1px solid #e5e7eb;">';
+    html += '<div style="font-size:10px;color:#6b7280;">' + g.desc + '</div>';
+    html += '<div style="font-size:16px;font-weight:800;color:' + color + ';">' + g.val.toFixed(g.key==='cl'?1:2) + '<span style="font-size:10px;font-weight:400;">' + g.unit + '</span></div>';
+    html += '<div style="background:#e2e8f0;border-radius:2px;height:3px;margin:3px 0 2px;"><div style="background:' + color + ';border-radius:2px;height:3px;width:' + barW + '%;"></div></div>';
+    html += '<div style="font-size:9px;color:' + color + ';">' + arrow + ' ' + Math.round(ratio*100) + '% vs ' + (inf.tier||'전체').toUpperCase() + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+
+  // ─── 강점/약점 태그 (컴팩트) ───
   if (tags.length > 0) {
-    html += '<div class="mb-3">';
+    html += '<div>';
     tags.forEach(function(t){
       var bg = t.type==='strong'?'#dcfce7':t.type==='good'?'#e0f2fe':t.type==='weak'?'#fee2e2':'#fef3c7';
       var fg = t.type==='strong'?'#166534':t.type==='good'?'#1e40af':t.type==='weak'?'#991b1b':'#92400e';
-      var icon2 = t.type==='strong'?'▲▲':t.type==='good'?'▲':t.type==='weak'?'▼▼':'▼';
-      html += '<span style="display:inline-block;background:' + bg + ';color:' + fg + ';padding:4px 10px;border-radius:8px;font-size:12px;font-weight:600;margin:3px 4px 3px 0;">';
-      html += t.icon + ' ' + t.label + ' ' + icon2 + ' <span style="font-weight:400;font-size:11px;">' + t.detail + '</span></span>';
+      var ic = t.type==='strong'||t.type==='good'?'▲':'▼';
+      html += '<span style="display:inline-block;background:' + bg + ';color:' + fg + ';padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;margin:2px 3px 2px 0;">';
+      html += t.icon + ' ' + ic + ' <span style="font-weight:400;font-size:10px;">' + t.detail + '</span></span>';
     });
     html += '</div>';
-  } else {
-    html += '<div class="text-muted small mb-3">모든 지표가 티어 평균 범위 내입니다.</div>';
   }
 
-  // ─── 비교 테이블 ───
-  html += '<table class="inner-table" style="font-variant-numeric:tabular-nums;font-size:12px;">';
-  html += '<thead><tr style="background:#f1f5f9;"><th style="font-weight:600;">지표</th><th class="num" style="font-weight:600;">이 채널</th><th class="num" style="font-weight:600;">' + (inf.tier||'전체').toUpperCase() + ' 평균</th>';
-  if (catRef) html += '<th class="num" style="font-weight:600;">' + (CAT_KR[inf.category]||inf.category) + ' 평균</th>';
-  html += '<th class="num" style="font-weight:600;">전체 평균</th><th style="font-weight:600;text-align:center;">vs 티어</th></tr></thead><tbody>';
-
-  var rows = [
-    {label:'조회/구독자 (V/F)',key:'vf',val:dm.vf,fmt:function(v){return v.toFixed(2)+'%';}},
-    {label:'좋아요/조회 (L/V)',key:'lv',val:dm.lv,fmt:function(v){return v.toFixed(2)+'%';}},
-    {label:'댓글/조회 (C/V)',key:'cv',val:dm.cv,fmt:function(v){return v.toFixed(3)+'%';}},
-    {label:'인게이지먼트율 (ER)',key:'er',val:dm.er,fmt:function(v){return v.toFixed(2)+'%';}},
-    {label:'댓글/좋아요 (C/L)',key:'cl',val:dm.cl,fmt:function(v){return v.toFixed(2)+'%';}},
-    {label:'월간 업로드',key:'mu',val:dm.mu,fmt:function(v){return v.toFixed(1)+'건';}},
-    {label:'월간 도달력',key:null,val:dm.monthlyReach,fmt:function(v){return fmtFull(Math.round(v));}}
-  ];
-
-  rows.forEach(function(r){
-    var tAvg = r.key && tierRef[r.key] ? tierRef[r.key].avg : 0;
-    var cAvg = r.key && catRef && catRef[r.key] ? catRef[r.key].avg : null;
-    var gAvg = r.key && globalRef[r.key] ? globalRef[r.key].avg : 0;
-    var ratio = tAvg > 0 ? r.val/tAvg : 1;
-    var barColor = ratio >= 1.3 ? '#16a34a' : ratio >= 0.8 ? '#3b5bdb' : ratio >= 0.5 ? '#f59e0b' : '#ef4444';
-    var barW = Math.min(100, ratio * 50);
-    var arrow = ratio >= 1.3 ? '↑↑' : ratio >= 1.0 ? '↑' : ratio >= 0.7 ? '→' : ratio >= 0.4 ? '↓' : '↓↓';
-    var arrowColor = ratio >= 1.3 ? '#16a34a' : ratio >= 1.0 ? '#3b82f6' : ratio >= 0.7 ? '#6b7280' : ratio >= 0.4 ? '#f59e0b' : '#ef4444';
-
-    html += '<tr><td style="font-size:11px;">' + r.label + '</td>';
-    html += '<td class="num" style="font-weight:700;">' + r.fmt(r.val) + '</td>';
-    html += '<td class="num">' + (r.key && tAvg > 0 ? r.fmt(tAvg) : '-') + '</td>';
-    if (catRef) html += '<td class="num">' + (cAvg !== null ? r.fmt(cAvg) : '-') + '</td>';
-    html += '<td class="num">' + (r.key && gAvg > 0 ? r.fmt(gAvg) : '-') + '</td>';
-    if (r.key && tAvg > 0) {
-      html += '<td style="text-align:center;"><span style="color:' + arrowColor + ';font-weight:700;font-size:13px;">' + arrow + '</span> <span style="font-size:10px;color:#6b7280;">' + Math.round(ratio*100) + '%</span>';
-      html += '<div style="background:#e2e8f0;border-radius:3px;height:4px;margin-top:2px;"><div style="background:' + barColor + ';border-radius:3px;height:4px;width:' + barW + '%;"></div></div>';
-      html += '</td>';
-    } else {
-      html += '<td></td>';
-    }
-    html += '</tr>';
-  });
-  html += '</tbody></table>';
-
-  // ─── 레이더 차트 영역 ───
-  html += '<div class="row g-3 mt-2">';
-  html += '<div class="col-md-6"><div class="chart-wrap" style="height:250px"><canvas id="benchmark-radar-' + inf.id + '"></canvas></div></div>';
-  html += '<div class="col-md-6"><div class="chart-wrap" style="height:250px"><canvas id="benchmark-bar-' + inf.id + '"></canvas></div></div>';
+  // ─── 한줄 종합 ───
+  var sC = tags.filter(function(t){return t.type==='strong'||t.type==='good';}).length;
+  var wC = tags.filter(function(t){return t.type==='weak'||t.type==='below';}).length;
+  html += '<div style="margin-top:6px;font-size:11px;color:#475569;">';
+  if (sC > wC) html += '💪 <strong style="color:#16a34a;">강점 ' + sC + '개</strong> 우세';
+  else if (wC > sC) html += '⚠️ <strong style="color:#ef4444;">약점 ' + wC + '개</strong> 주의';
+  else html += '⚖️ 티어 평균 범위 내';
+  if (dm.monthlyReach > 0) html += ' · 월간 도달 <strong>' + fmt(Math.round(dm.monthlyReach)) + '</strong>';
   html += '</div>';
 
-  // ─── 종합 평가 문구 ───
-  var strongCount = tags.filter(function(t){return t.type==='strong'||t.type==='good';}).length;
-  var weakCount = tags.filter(function(t){return t.type==='weak'||t.type==='below';}).length;
-  html += '<div class="mt-3 p-3" style="background:linear-gradient(135deg,rgba(59,91,219,.04),rgba(99,102,241,.06));border-radius:10px;border:1px solid rgba(59,91,219,.1);">';
-  html += '<div style="font-size:13px;font-weight:700;color:#1e293b;">📋 종합 분석</div>';
-  html += '<div style="font-size:12px;color:#475569;margin-top:4px;">';
-  if (strongCount > weakCount) {
-    html += '<strong style="color:#16a34a;">' + strongCount + '개 강점</strong> 지표가 우세합니다. ';
-    var topStrength = tags.filter(function(t){return t.type==='strong';})[0];
-    if (topStrength) html += '특히 <strong>' + topStrength.label + '</strong>이 두드러집니다. ';
-  } else if (weakCount > strongCount) {
-    html += '<strong style="color:#ef4444;">' + weakCount + '개 지표</strong>가 평균 이하입니다. ';
-    var topWeak = tags.filter(function(t){return t.type==='weak';})[0];
-    if (topWeak) html += '<strong>' + topWeak.label + '</strong> 개선이 필요합니다. ';
-  } else {
-    html += '전반적으로 티어 평균과 균형 잡힌 성과를 보이고 있습니다. ';
-  }
-  // 월간 도달력 평가
-  if (dm.monthlyReach > 0) {
-    html += '월간 예상 도달량은 <strong>' + fmtFull(Math.round(dm.monthlyReach)) + '회</strong>입니다.';
-  }
   html += '</div></div>';
-
-  html += '</div></div>';
-
-  // Schedule chart rendering
-  setTimeout(function(){ renderBenchmarkCharts(inf); }, 150);
-
   return html;
-}
-
-function renderBenchmarkCharts(inf) {
-  destroyDynCharts();
-  var bm = calcBenchmarks();
-  var dm = getDerivedMetrics(inf);
-  var tierRef = bm.byTier[inf.tier] || bm.global;
-  var globalRef = bm.global;
-
-  // Radar chart — normalize each axis to 0-100 scale using global max
-  var radarEl = document.getElementById('benchmark-radar-' + inf.id);
-  if (radarEl) {
-    var axes = [
-      {label:'도달 효율',key:'vf',val:dm.vf},
-      {label:'콘텐츠 매력도',key:'lv',val:dm.lv},
-      {label:'토론 유발력',key:'cv',val:dm.cv},
-      {label:'종합 참여율',key:'er',val:dm.er},
-      {label:'참여 깊이',key:'cl',val:dm.cl},
-      {label:'업로드 빈도',key:'mu',val:dm.mu}
-    ];
-    var labels = axes.map(function(a){return a.label;});
-    var maxVals = axes.map(function(a){
-      var gMax = globalRef[a.key]?globalRef[a.key].p75*2:1;
-      return Math.max(gMax, 0.01);
-    });
-    var myData = axes.map(function(a,i){return Math.min(100, a.val/maxVals[i]*100);});
-    var tierData = axes.map(function(a,i){
-      var tv = tierRef[a.key]?tierRef[a.key].avg:0;
-      return Math.min(100, tv/maxVals[i]*100);
-    });
-
-    dynChart(radarEl, {
-      type: 'radar',
-      data: {
-        labels: labels,
-        datasets: [
-          { label: inf.display_name.slice(0,12), data: myData, borderColor: '#3b5bdb', backgroundColor: 'rgba(59,91,219,.15)', borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#3b5bdb' },
-          { label: (inf.tier||'전체').toUpperCase() + ' 평균', data: tierData, borderColor: '#94a3b8', backgroundColor: 'rgba(148,163,184,.08)', borderWidth: 1.5, borderDash: [4,4], pointRadius: 3, pointBackgroundColor: '#94a3b8' }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        scales: { r: { min: 0, max: 100, ticks: { display: false, stepSize: 25 }, pointLabels: { font: { family: 'Noto Sans KR', size: 10 } }, grid: { color: 'rgba(0,0,0,.06)' } } },
-        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 10 }, boxWidth: 12 } }, title: { display: true, text: '성과 레이더 (티어 벤치마크)', font: { family: 'Inter', size: 12 } } }
-      }
-    });
-  }
-
-  // Bar chart — tier vs me vs global for key metrics
-  var barEl = document.getElementById('benchmark-bar-' + inf.id);
-  if (barEl) {
-    var barLabels = ['V/F%','L/V%','ER%','C/L%'];
-    var barKeys = ['vf','lv','er','cl'];
-    var myVals = [dm.vf, dm.lv, dm.er, dm.cl];
-    var tierVals = barKeys.map(function(k){return tierRef[k]?tierRef[k].avg:0;});
-    var globalVals = barKeys.map(function(k){return globalRef[k]?globalRef[k].avg:0;});
-
-    dynChart(barEl, {
-      type: 'bar',
-      data: {
-        labels: barLabels,
-        datasets: [
-          { label: inf.display_name.slice(0,10), data: myVals, backgroundColor: '#3b5bdb', borderRadius: 4 },
-          { label: (inf.tier||'전체').toUpperCase() + ' 평균', data: tierVals, backgroundColor: '#94a3b8', borderRadius: 4 },
-          { label: '전체 평균', data: globalVals, backgroundColor: '#e2e8f0', borderRadius: 4 }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 10 }, boxWidth: 12 } }, title: { display: true, text: '핵심 지표 비교', font: { family: 'Inter', size: 12 } } },
-        scales: { y: { beginAtZero: true, ticks: { callback: function(v){return v.toFixed(1)+'%';} } } }
-      }
-    });
-  }
 }
 
 // ─── Expand content ───
