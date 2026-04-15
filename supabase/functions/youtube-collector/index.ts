@@ -247,7 +247,7 @@ serve(async (req) => {
       const candidates = searchResult.items || [];
       log.push(`Found ${candidates.length} candidates`);
 
-      // Check existing in DB
+      // Check existing in DB (including rejected/no_collab — don't re-discover them)
       const existingIds = new Set((await sbGet("influencers", "&select=platform_id")).map((i: any) => i.platform_id));
 
       let discovered = 0;
@@ -298,7 +298,7 @@ serve(async (req) => {
           total_views: details.total_views,
           category,
           tier,
-          country: selectedCountry,
+          country: details.country || detectCountry(ch.snippet.defaultLanguage || ch.snippet.title || "") || selectedCountry,
           pure_score: pureScore,
           grade,
           is_active: true,
@@ -332,8 +332,8 @@ serve(async (req) => {
       });
     }
 
-    // ═══ UPDATE MODE: 기존 채널 업데이트 (active + review만, archived 제외) ═══
-    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&or=(status.eq.active,status.eq.review,status.is.null)&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
+    // ═══ UPDATE MODE: 기존 채널 업데이트 (active + review만 — rejected/no_collab/archived 제외) ═══
+    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&not.status=in.(rejected,no_collab,archived)&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
     log.push(`Active YouTube channels: ${influencers.length}`);
 
     let updated = 0;

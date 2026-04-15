@@ -1144,7 +1144,7 @@ function noteworthyClick(id) {
 // =============================================
 // VIEW 2: Channels
 // =============================================
-var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', scoreMin: '', scoreMax: '', hasContent: false, favOnly: false, search: '' };
+var chFilters = { platform: 'all', tier: 'all', category: 'all', country: 'all', grade: 'all', status: 'active', scoreMin: '', scoreMax: '', hasContent: false, favOnly: false, search: '' };
 
 function renderChannels() {
   renderChannelFilters();
@@ -1204,6 +1204,14 @@ function renderChannelFilters() {
   html += '<span class="text-muted">~</span>';
   html += '<input type="number" class="form-control form-control-sm" style="width:60px" placeholder="100" min="0" max="100" value="' + chFilters.scoreMax + '" onchange="setChFilter(\'scoreMax\',this.value)">';
   html += '</div></div>';
+
+  // Status filter
+  html += '<div><label class="form-label mb-1 text-muted small">상태</label>';
+  html += '<select class="form-select form-select-sm" style="min-width:100px" onchange="setChFilter(\'status\',this.value)">';
+  [['active','활성'],['all','전체 (보관 포함)'],['rejected','거부'],['no_collab','협업불가'],['archived','보관']].forEach(function(pair){
+    html += '<option value="' + pair[0] + '"' + (chFilters.status===pair[0]?' selected':'') + '>' + pair[1] + '</option>';
+  });
+  html += '</select></div>';
 
   // Content checkbox
   html += '<div><label class="form-label mb-1 text-muted small">콘텐츠</label><div><label class="form-check form-check-inline"><input class="form-check-input" type="checkbox" ' + (chFilters.hasContent?'checked':'') + ' onchange="setChFilter(\'hasContent\',this.checked)"><span class="form-check-label">콘텐츠 있음만</span></label></div></div>';
@@ -1272,6 +1280,10 @@ function getFilteredInfluencers() {
     else list = list.filter(i => i.country === chFilters.country);
   }
   if (chFilters.grade !== 'all') list = list.filter(i => i.grade === chFilters.grade);
+  if (chFilters.status === 'active') list = list.filter(i => !i.status || i.status === 'active' || i.status === 'review');
+  else if (chFilters.status === 'rejected') list = list.filter(i => i.status === 'rejected');
+  else if (chFilters.status === 'no_collab') list = list.filter(i => i.status === 'no_collab');
+  else if (chFilters.status === 'archived') list = list.filter(i => i.status === 'archived');
   if (chFilters.scoreMin !== '') {
     var mn = parseFloat(chFilters.scoreMin);
     list = list.filter(i => i.pure_score != null && i.pure_score >= mn);
@@ -1554,6 +1566,20 @@ function renderExpandContent(inf) {
   var subViewRatio = inf.content_count > 0 && inf.avg_views > 0 ? (inf.followers / inf.avg_views).toFixed(2) : '-';
 
   var html = '<div class="expand-content" onclick="event.stopPropagation()">';
+
+  // Status management buttons
+  var statusLabel = {active:'활성',review:'리뷰 대기',archived:'보관',rejected:'거부',no_collab:'협업불가'};
+  var currentStatus = inf.status || 'active';
+  html += '<div class="d-flex align-items-center gap-2 mb-3">';
+  html += '<span class="badge bg-' + (currentStatus==='active'?'success':currentStatus==='rejected'?'danger':currentStatus==='no_collab'?'warning':'secondary') + '">' + (statusLabel[currentStatus]||currentStatus) + '</span>';
+  if (currentStatus === 'active' || currentStatus === 'review') {
+    html += '<button class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation();setInfluencerStatus('+inf.id+',\'rejected\')">❌ 거부</button>';
+    html += '<button class="btn btn-sm btn-outline-warning" onclick="event.stopPropagation();setInfluencerStatus('+inf.id+',\'no_collab\')">🚫 협업불가</button>';
+    html += '<button class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation();setInfluencerStatus('+inf.id+',\'archived\')">📦 보관</button>';
+  } else {
+    html += '<button class="btn btn-sm btn-outline-success" onclick="event.stopPropagation();setInfluencerStatus('+inf.id+',\'active\')">✅ 활성 복귀</button>';
+  }
+  html += '</div>';
 
   // Feature 1: Auto Insights card (above Performance Statement)
   html += renderAutoInsightCard(inf);
@@ -1940,6 +1966,22 @@ function toggleExpand(id) {
   renderChannelTable();
 }
 
+function setInfluencerStatus(id, status) {
+  var labels = {rejected:'거부',no_collab:'협업불가',archived:'보관',active:'활성 복귀'};
+  if (!confirm((labels[status]||status) + ' 상태로 변경하시겠습니까?')) return;
+  fetch(SUPABASE_URL + '/rest/v1/influencers?id=eq.' + id, {
+    method: 'PATCH',
+    headers: {'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal'},
+    body: JSON.stringify({status: status, is_active: status === 'active'})
+  }).then(function(){
+    // Update local data
+    var inf = DATA.influencers.find(function(i){return i.id == id;});
+    if (inf) { inf.status = status; inf.is_active = status === 'active'; }
+    renderChannelTable();
+    toast((labels[status]||status) + ' 처리 완료');
+  });
+}
+
 function goToChannelDetail(id) {
   var nid = isNaN(Number(id)) ? id : Number(id);
   expandedRow = nid;
@@ -2156,8 +2198,18 @@ function goToCatChannel(cat) {
 var compareSelected = [];
 var compareFilters = { search: '', country: 'all', category: 'all' };
 
+function resetCompare() {
+  compareSelected = [];
+  try { localStorage.removeItem('compare_selected'); } catch(e) {}
+  renderCompare();
+  toast('비교 대상이 초기화되었습니다');
+}
+
 function renderCompare() {
-  var infs = DATA.influencers;
+  // Filter out rejected/no_collab/archived from compare
+  var infs = DATA.influencers.filter(function(i) {
+    return !i.status || i.status === 'active' || i.status === 'review';
+  });
   if (!compareSelected.length) {
     compareSelected = infs.slice().sort((a,b) => b.followers - a.followers).slice(0, 3).map(i => String(i.id));
     try { localStorage.setItem('compare_selected', JSON.stringify(compareSelected)); } catch(e) {}
@@ -2186,6 +2238,7 @@ function renderCompareFilterBar() {
     html += '<option value="' + c + '" ' + (compareFilters.category===c?'selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
   });
   html += '</select></div>';
+  html += '<div style="margin-left:auto;"><button class="btn btn-sm btn-outline-danger" onclick="resetCompare()">선택 초기화</button></div>';
   html += '</div>';
   document.getElementById('compare-filter-bar').innerHTML = html;
 
