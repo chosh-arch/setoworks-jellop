@@ -263,9 +263,10 @@ serve(async (req) => {
         const avgViews = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length) : 0;
         const avgLikes = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.likes, 0) / videos.length) : 0;
 
-        // Insert new influencer
+        // Insert new influencer with fixed ID
+        const newId = Date.now() * 100 + discovered;
         await sbUpsert("influencers", [{
-          id: Date.now() + discovered,
+          id: newId,
           platform: "youtube",
           platform_id: chId,
           username: ch.snippet.channelTitle.replace(/\s/g, "_"),
@@ -278,10 +279,11 @@ serve(async (req) => {
           total_views: details.total_views,
           category,
           tier,
-          country,
+          country: selectedCountry,
           pure_score: pureScore,
           grade,
           is_active: true,
+          status: grade === "C" ? "review" : "active",
           first_discovered_at: new Date().toISOString(),
           last_collected_at: new Date().toISOString(),
           content_count: videos.length,
@@ -289,8 +291,10 @@ serve(async (req) => {
           avg_likes: avgLikes,
         }]);
 
+        // Insert contents with same ID
         if (videos.length) {
-          await sbInsertMany("contents", videos.map((v: any) => ({ ...v, influencer_id: Date.now() + discovered })));
+          const ok = await sbInsertMany("contents", videos.map((v: any) => ({ ...v, influencer_id: newId })));
+          log.push(`  → ${videos.length} contents ${ok ? "saved" : "SAVE FAILED"}`);
         }
 
         discovered++;
