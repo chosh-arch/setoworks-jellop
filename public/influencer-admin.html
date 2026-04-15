@@ -643,6 +643,10 @@ function switchToView(v) {
     var bsCollapse = bootstrap.Collapse.getInstance(collapse);
     if (bsCollapse) bsCollapse.hide();
   }
+  // Re-render compare view when switching to it (ensure latest selections are visible)
+  if (v === 'compare' && DATA) {
+    renderCompare();
+  }
   updateURL();
 }
 
