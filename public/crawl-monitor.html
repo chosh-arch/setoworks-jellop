@@ -371,18 +371,44 @@ async function runYouTubeCollector(){
     var r=await fetch(SB+'/functions/v1/youtube-collector?limit='+limit,{headers:{'Authorization':'Bearer '+SK}});
     var d=await r.json();
 
-    // Show results in jobs table
+    // Show results — each channel as a detailed row
+    // Remove the "수집 중" placeholder
+    var firstRow=tbody.querySelector('tr:first-child');
+    if(firstRow)firstRow.remove();
+
     var resultRows='';
+    // Summary row
+    resultRows+='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:700;">🎬 YouTube 수집 완료</td><td><span class="st-badge st-completed">'+d.updated+'/'+d.total+'</span></td><td style="color:var(--em);font-weight:700;">쿼터 '+d.quota_used+'</td><td>'+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</td><td colspan="2"></td></tr>';
+
+    // Individual channel results
     if(d.log){
       d.log.forEach(function(l){
-        if(l.indexOf(':')>0 && l.indexOf('Active')<0){
-          var isErr=l.indexOf('ERROR')>=0||l.indexOf('cannot')>=0;
-          resultRows+='<tr style="background:rgba('+(isErr?'239,68,68':'99,102,241')+',.05);"><td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge '+(isErr?'st-failed':'st-completed')+'">'+(isErr?'실패':'완료')+'</span></td><td colspan="4" style="font-size:10px;">'+l+'</td></tr>';
+        if(l.indexOf('Active')>=0) return;
+        var isErr=l.indexOf('ERROR')>=0||l.indexOf('cannot')>=0;
+        // Parse: "Name: 1200000 subs, 20 vids, score=43 (B)"
+        var parts=l.split(': ');
+        var chName=parts[0]||'';
+        var detail=parts.slice(1).join(': ');
+
+        // Extract numbers
+        var subsMatch=detail.match(/(\d[\d,]+)\s*subs/);
+        var vidsMatch=detail.match(/(\d+)\s*vids/);
+        var scoreMatch=detail.match(/score=([\d.]+)/);
+        var gradeMatch=detail.match(/\(([SABC])\)/);
+
+        if(subsMatch){
+          var subs=parseInt(subsMatch[1].replace(/,/g,''));
+          var fmtSubs=subs>=1000000?(subs/1000000).toFixed(1)+'M':subs>=1000?Math.round(subs/1000)+'K':subs;
+          var score=scoreMatch?scoreMatch[1]:'-';
+          var grade=gradeMatch?gradeMatch[1]:'-';
+          var gradeColor=grade==='S'?'var(--yellow)':grade==='A'?'var(--em)':grade==='B'?'var(--blue)':'var(--muted)';
+          resultRows+='<tr style="background:rgba(99,102,241,.03);"><td style="padding-left:20px;">↳ <strong>'+chName+'</strong></td><td style="color:'+gradeColor+';font-weight:700;">'+grade+'등급</td><td style="font-weight:600;">'+fmtSubs+' 구독</td><td>'+(vidsMatch?vidsMatch[1]:'?')+'영상</td><td style="color:var(--em);">'+score+'점</td><td></td></tr>';
+        } else if(isErr){
+          resultRows+='<tr style="background:rgba(239,68,68,.05);"><td style="padding-left:20px;">↳ '+chName+'</td><td><span class="st-badge st-failed">실패</span></td><td colspan="4" style="font-size:9px;color:var(--red);">'+detail+'</td></tr>';
         }
       });
     }
-    if(resultRows)tbody.insertAdjacentHTML('afterbegin',resultRows);
-    else tbody.querySelector('tr:first-child').innerHTML='<td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge st-completed">완료</span></td><td style="color:var(--em);font-weight:700;">'+d.updated+'채널</td><td>'+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</td><td>쿼터 '+d.quota_used+'</td><td>manual</td>';
+    tbody.insertAdjacentHTML('afterbegin',resultRows);
 
     toast('✅ YouTube: '+(d.updated||0)+'/'+d.total+'채널 업데이트, 쿼터 '+(d.quota_used||0));
     loadYouTubeUsage();loadCreatorStats();
