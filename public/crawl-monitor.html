@@ -135,8 +135,73 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     </div>
   </div>
 
-  <!-- Platform Cards with Run Buttons -->
-  <div class="platforms" id="platform-cards"></div>
+  <!-- Tab Switch: 제품 vs 크리에이터 -->
+  <div style="display:flex;gap:6px;flex-shrink:0;margin-bottom:8px;">
+    <button class="btn-crawl" id="tab-product" onclick="switchTab('product')" style="padding:6px 16px;font-size:12px;">📦 제품 크롤링 (크라우드펀딩)</button>
+    <button class="btn-crawl" id="tab-creator" onclick="switchTab('creator')" style="padding:6px 16px;font-size:12px;opacity:.5;">👤 크리에이터 수집 (YouTube)</button>
+  </div>
+
+  <!-- TAB 1: 제품 크롤링 -->
+  <div id="panel-product">
+    <div class="platforms" id="platform-cards"></div>
+  </div>
+
+  <!-- TAB 2: 크리에이터 수집 -->
+  <div id="panel-creator" style="display:none;">
+    <div class="platforms" style="grid-template-columns:repeat(3,1fr);">
+      <div class="p-card" style="border-left:3px solid var(--em);">
+        <div class="p-card-h"><span class="p-name">🎬 YouTube</span><span class="p-dot p-dot-active"></span></div>
+        <div class="p-stats"><span>채널 <strong id="yt-channels">-</strong></span><span>콘텐츠 <strong id="yt-contents">-</strong></span></div>
+        <div class="p-badge p-badge-ok">API v3 · 무료</div>
+        <div class="p-actions">
+          <button class="btn-crawl" onclick="runYouTubeCollector()">▶ YouTube 수집 시작</button>
+        </div>
+      </div>
+      <div class="p-card" style="opacity:.6;">
+        <div class="p-card-h"><span class="p-name">📷 Instagram</span></div>
+        <div class="p-stats"><span>Apify $2.3/1K</span></div>
+        <div class="p-badge p-badge-proxy">Phase 2 예정</div>
+      </div>
+      <div class="p-card" style="opacity:.6;">
+        <div class="p-card-h"><span class="p-name">🎵 TikTok</span></div>
+        <div class="p-stats"><span>Apify $0.3/1K</span></div>
+        <div class="p-badge p-badge-proxy">Phase 2 예정</div>
+      </div>
+    </div>
+    <!-- 크리에이터 설정 -->
+    <div class="panel" style="margin-top:8px;">
+      <div class="panel-title">크리에이터 수집 설정</div>
+      <div class="setting-row">
+        <label>Pure Score 기준</label>
+        <input type="range" id="creator-min-score" min="0" max="80" value="0" step="10" oninput="document.getElementById('cms-val').textContent=this.value==0?'전체':this.value+'+'">
+        <span id="cms-val" style="color:var(--em);font-weight:700;min-width:40px;">전체</span>
+      </div>
+      <div class="setting-row">
+        <label>최소 구독자</label>
+        <input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:80px;">
+      </div>
+      <div class="setting-row">
+        <label>수집 채널 수</label>
+        <input type="range" id="creator-limit" min="1" max="20" value="5" oninput="document.getElementById('cl-val').textContent=this.value">
+        <span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널/회
+      </div>
+      <div class="setting-row">
+        <label>카테고리</label>
+        <select id="creator-category">
+          <option value="all">전체</option>
+          <option value="fashion">패션</option>
+          <option value="lifestyle">라이프스타일</option>
+          <option value="fitness">피트니스</option>
+          <option value="beauty">뷰티</option>
+          <option value="camping_outdoor">캠핑/아웃도어</option>
+          <option value="food">푸드</option>
+          <option value="tech_unboxing">테크</option>
+          <option value="motorcycle">모터사이클</option>
+        </select>
+      </div>
+      <div style="font-size:9px;color:var(--muted);margin-top:4px;">Pure Score: 업로드 빈도(30) + 조회/구독 비율(25) + 참여율(20) + 일관성(15) + 성장(10) = 100점</div>
+    </div>
+  </div>
 
   <!-- Main Sections -->
   <div class="sections">
@@ -146,9 +211,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         <div class="panel-title">
           실시간 크롤링 작업
           <div>
-            <span class="panel-sub" id="job-timer">30초마다 자동 새로고침</span>
-            <button class="btn-crawl" onclick="loadJobs()" style="margin-left:6px;">↻ 새로고침</button>
-            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 워커 실행</button>
+            <span class="panel-sub" id="job-timer">30초 자동</span>
+            <button class="btn-crawl" onclick="loadJobs()" style="margin-left:6px;">↻</button>
+            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 제품 워커</button>
+            <button class="btn-crawl" onclick="runYouTubeCollector()" style="margin-left:4px;background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);">▶ YT 수집</button>
           </div>
         </div>
         <div style="flex:1;overflow-y:auto;">
@@ -186,8 +252,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         </div>
         <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
       </div>
-      <div class="panel">
-        <div class="panel-title">크롤링 설정</div>
+      <div class="panel" id="product-settings">
+        <div class="panel-title">📦 제품 크롤링 설정</div>
         <div class="setting-row">
           <label>카테고리당 수집</label>
           <input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value">
@@ -204,19 +270,6 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
           <label>페이지 수</label>
           <input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value">
           <span id="mp-val" style="color:var(--em);font-weight:700;min-width:24px;">5</span>페이지
-        </div>
-        <div class="setting-row">
-          <label>인플루언서 필터</label>
-          <select id="inf-min-score">
-            <option value="0">전체 수집</option>
-            <option value="40">Pure Score 40+</option>
-            <option value="60">Pure Score 60+</option>
-            <option value="80">Pure Score 80+</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <label>최소 구독자</label>
-          <input type="number" id="min-subs" value="1000" min="0" step="500" style="width:80px;">
         </div>
         <div class="setting-row">
           <button class="btn-crawl" onclick="saveSettings()" style="margin-left:auto;">💾 설정 저장</button>
@@ -284,15 +337,30 @@ var LOCAL_CMDS={
   indiegogo:'cd D:\\Crawling && python worker.py --platform indiegogo'
 };
 var platformData=[], catMap={}, runningPlatforms={};
-var currentCrawlType='product';
+var currentTab='product';
 
-function setCrawlType(type){
-  currentCrawlType=type;
-  document.getElementById('btn-type-product').style.opacity=type==='product'?'1':'.5';
-  document.getElementById('btn-type-creator').style.opacity=type==='creator'?'1':'.5';
-  // Show influencer settings prominently for creator type
-  updateSettingsIndicator();
-  toast(type==='product'?'📦 제품 크롤링 모드':'👤 크리에이터 크롤링 모드');
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById('panel-product').style.display=tab==='product'?'':'none';
+  document.getElementById('panel-creator').style.display=tab==='creator'?'':'none';
+  document.getElementById('tab-product').style.opacity=tab==='product'?'1':'.5';
+  document.getElementById('tab-creator').style.opacity=tab==='creator'?'1':'.5';
+  var ps=document.getElementById('product-settings');
+  if(ps)ps.style.display=tab==='product'?'':'none';
+}
+
+function setCrawlType(type){ switchTab(type); }
+
+async function runYouTubeCollector(){
+  var limit=(document.getElementById('creator-limit')||{value:'5'}).value;
+  toast('🎬 YouTube 수집 시작 ('+limit+'채널)...');
+  try{
+    var r=await fetch(SB+'/functions/v1/youtube-collector?limit='+limit,{headers:{'Authorization':'Bearer '+SK}});
+    var d=await r.json();
+    toast('✅ YouTube: '+(d.updated||0)+'/'+d.total+'채널, 쿼터 '+(d.quota_used||0));
+    loadYouTubeUsage();loadJobs();
+    if(document.getElementById('yt-channels'))document.getElementById('yt-channels').textContent=d.total||'-';
+  }catch(e){toast('⚠ YouTube 수집 실패');}
 }
 
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
@@ -398,7 +466,7 @@ async function saveSettings(){
     max_pages:maxPages,
     min_pure_score:minScore,
     min_subscribers:minSubs,
-    crawl_type:currentCrawlType,
+    crawl_type:currentTab,
     updated_at:new Date().toISOString()
   };
   try{
@@ -437,7 +505,7 @@ function updateSettingsIndicator(){
   chips.push('수집: '+ipc+'건/카테고리');
   chips.push('모드: '+mode);
   chips.push('페이지: '+pages);
-  if(currentCrawlType==='creator'){
+  if(currentTab==='creator'){
     chips.push('Pure Score: '+(score==='0'?'전체':score+'+'));
     chips.push('최소구독: '+Number(subs).toLocaleString());
   }
@@ -464,7 +532,7 @@ async function triggerCrawl(platformId){
       jobs.push({
         platform_id:platformId,category_id:catId,status:'pending',
         triggered_by:'manual',batch_id:batchId,items_per_category:ipc,
-        crawl_type:currentCrawlType,page_num:pg,total_pages:pages
+        crawl_type:currentTab,page_num:pg,total_pages:pages
       });
     });
   }
@@ -644,7 +712,14 @@ async function loadCrawlHistory(){
   document.getElementById('crawl-history').innerHTML=html;
 }
 
+async function loadCreatorStats(){
+  var infs=await sbGet('influencers','&select=id,platform&or=(platform.eq.YouTube,platform.eq.youtube)');
+  var cnts=await sbGet('contents','&select=id&limit=0');
+  if(document.getElementById('yt-channels'))document.getElementById('yt-channels').textContent=infs.length;
+}
+
 loadAll();
+loadCreatorStats();
 loadYouTubeUsage();
 loadCrawlHistory();
 setInterval(loadJobs,30000);
