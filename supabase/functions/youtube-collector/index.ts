@@ -141,7 +141,8 @@ function assignGrade(score: number) {
   if (score >= 80) return "S";
   if (score >= 60) return "A";
   if (score >= 40) return "B";
-  return "C";
+  if (score >= 30) return "C";  // 30~39: C등급 (B에 가까운 C — 수집 대상)
+  return null;                   // 30 미만: 수집 제외 (D등급 없음)
 }
 
 function assignTier(followers: number) {
@@ -218,6 +219,12 @@ serve(async (req) => {
         const pureScore = calcPureScore({ ...details }, videos);
         const grade = assignGrade(pureScore);
         const tier = assignTier(details.followers);
+
+        // 30점 미만 = 수집 제외
+        if (!grade) {
+          log.push(`${ch.snippet.channelTitle}: SKIP (${pureScore}점 < 30 — 등급 미달)`);
+          continue;
+        }
 
         const avgViews = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length) : 0;
         const avgLikes = videos.length ? Math.round(videos.reduce((s: number, v: any) => s + v.likes, 0) / videos.length) : 0;
