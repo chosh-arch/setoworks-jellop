@@ -148,70 +148,53 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- TAB 2: 크리에이터 수집 -->
   <div id="panel-creator" style="display:none;">
-    <div class="platforms" style="grid-template-columns:repeat(3,1fr);">
+    <!-- 상단: 플랫폼 현황 + YouTube API -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
       <div class="p-card" style="border-left:3px solid var(--em);">
         <div class="p-card-h"><span class="p-name">🎬 YouTube</span><span class="p-dot p-dot-active"></span></div>
-        <div class="p-stats"><span>채널 <strong id="yt-channels">-</strong></span><span>콘텐츠 <strong id="yt-contents">-</strong></span></div>
-        <div class="p-badge p-badge-ok">API v3 · 무료</div>
-        <div class="p-actions">
-          <button class="btn-crawl" onclick="runYouTubeCollector()">▶ 기존 채널 업데이트</button>
-          <button class="btn-crawl" style="background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);" onclick="runYouTubeDiscover()">🔍 새 크리에이터 발굴</button>
+        <div class="p-stats"><span>채널 <strong id="yt-channels">-</strong></span></div>
+        <div class="p-badge p-badge-ok">API v3 무료</div>
+      </div>
+      <div class="p-card" style="opacity:.5;"><div class="p-name" style="font-size:12px;">📷 Instagram</div><div class="p-badge p-badge-proxy" style="margin-top:4px;">Phase 2</div></div>
+      <div class="p-card" style="opacity:.5;"><div class="p-name" style="font-size:12px;">🎵 TikTok</div><div class="p-badge p-badge-proxy" style="margin-top:4px;">Phase 2</div></div>
+      <div class="p-card">
+        <div style="font-size:10px;font-weight:700;color:var(--em);">YouTube API 쿼터</div>
+        <div style="background:#1a1a1a;border-radius:4px;height:6px;overflow:hidden;margin:4px 0;">
+          <div id="yt-bar" style="height:100%;background:var(--em);width:1%;border-radius:4px;transition:width .5s;"></div>
         </div>
-      </div>
-      <div class="p-card" style="opacity:.6;">
-        <div class="p-card-h"><span class="p-name">📷 Instagram</span></div>
-        <div class="p-stats"><span>Apify $2.3/1K</span></div>
-        <div class="p-badge p-badge-proxy">Phase 2 예정</div>
-      </div>
-      <div class="p-card" style="opacity:.6;">
-        <div class="p-card-h"><span class="p-name">🎵 TikTok</span></div>
-        <div class="p-stats"><span>Apify $0.3/1K</span></div>
-        <div class="p-badge p-badge-proxy">Phase 2 예정</div>
+        <div style="font-size:9px;color:var(--muted);"><span id="yt-usage">-</span> · <span id="yt-status" style="color:var(--em);">정상</span></div>
+        <div style="font-size:8px;color:#444;">오후 4시(KST) 초기화</div>
       </div>
     </div>
-    <!-- 크리에이터 설정 -->
-    <div class="panel" style="margin-top:8px;">
-      <div class="panel-title">크리에이터 수집 설정</div>
-      <div class="setting-row">
-        <label>Pure Score 기준</label>
-        <input type="range" id="creator-min-score" min="0" max="80" value="0" step="10" oninput="document.getElementById('cms-val').textContent=this.value==0?'전체':this.value+'+'">
-        <span id="cms-val" style="color:var(--em);font-weight:700;min-width:40px;">전체</span>
+
+    <!-- 두 가지 액션: 기존 업데이트 / 새 발굴 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <!-- 액션 1: 기존 채널 업데이트 -->
+      <div class="panel" style="margin:0;">
+        <div class="panel-title">📊 기존 채널 업데이트</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">보유 중인 채널의 구독자·영상·Pure Score를 최신화합니다.</div>
+        <div class="setting-row"><label>업데이트 수</label><input type="range" id="creator-limit" min="1" max="25" value="5" oninput="document.getElementById('cl-val').textContent=this.value"><span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널</div>
+        <button class="btn-crawl" onclick="runYouTubeCollector()" style="width:100%;margin-top:4px;padding:6px;">▶ 업데이트 실행</button>
       </div>
-      <div class="setting-row">
-        <label>최소 구독자</label>
-        <input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:80px;">
+      <!-- 액션 2: 새 크리에이터 발굴 -->
+      <div class="panel" style="margin:0;">
+        <div class="panel-title">🔍 새 크리에이터 발굴</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">카테고리 + 국가로 YouTube에서 새 크리에이터를 찾습니다.</div>
+        <div class="setting-row"><label>카테고리</label><select id="creator-category" style="flex:1;"><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드/요리</option><option value="tech_unboxing">테크/언박싱</option><option value="motorcycle">모터사이클</option><option value="pet">반려동물</option><option value="parenting">육아/패밀리</option><option value="gaming">게임</option><option value="education">교육/학습</option><option value="travel">여행</option></select></div>
+        <div class="setting-row"><label>국가</label><select id="creator-country" style="flex:1;"><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option><option value="DE">🇩🇪 독일</option><option value="FR">🇫🇷 프랑스</option></select></div>
+        <div class="setting-row"><label>최소 구독자</label><input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:70px;"></div>
+        <button class="btn-crawl" onclick="runYouTubeDiscover()" style="width:100%;margin-top:4px;padding:6px;background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);">🔍 발굴 실행</button>
       </div>
-      <div class="setting-row">
-        <label>수집 채널 수</label>
-        <input type="range" id="creator-limit" min="1" max="20" value="5" oninput="document.getElementById('cl-val').textContent=this.value">
-        <span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널/회
-      </div>
-      <div class="setting-row">
-        <label>카테고리</label>
-        <select id="creator-category">
-          <option value="all">전체</option>
-          <option value="fashion">패션</option>
-          <option value="lifestyle">라이프스타일</option>
-          <option value="fitness">피트니스</option>
-          <option value="beauty">뷰티</option>
-          <option value="camping_outdoor">캠핑/아웃도어</option>
-          <option value="food">푸드</option>
-          <option value="tech_unboxing">테크</option>
-          <option value="motorcycle">모터사이클</option>
-        </select>
-      </div>
-      <div class="setting-row">
-          <label>발굴 국가</label>
-          <select id="creator-country">
-            <option value="JP">🇯🇵 일본</option>
-            <option value="KR">🇰🇷 한국</option>
-            <option value="TW">🇹🇼 대만</option>
-            <option value="US">🇺🇸 미국</option>
-            <option value="GB">🇬🇧 영국</option>
-            <option value="CN">🇨🇳 중국</option>
-          </select>
-        </div>
-      <div style="font-size:9px;color:var(--muted);margin-top:4px;">Pure Score: 업로드 빈도(30) + 조회/구독 비율(25) + 참여율(20) + 일관성(15) + 성장(10) = 100점</div>
+    </div>
+
+    <!-- 등급 기준 안내 -->
+    <div style="display:flex;gap:6px;margin-bottom:8px;font-size:9px;">
+      <span style="background:rgba(251,191,36,.12);color:var(--yellow);padding:2px 8px;border-radius:4px;font-weight:700;">S 80+</span>
+      <span style="background:rgba(62,207,142,.12);color:var(--em);padding:2px 8px;border-radius:4px;font-weight:700;">A 60~79</span>
+      <span style="background:rgba(99,102,241,.12);color:var(--blue);padding:2px 8px;border-radius:4px;font-weight:700;">B 40~59</span>
+      <span style="background:rgba(255,255,255,.06);color:var(--muted);padding:2px 8px;border-radius:4px;font-weight:700;">C 30~39</span>
+      <span style="background:rgba(239,68,68,.08);color:var(--red);padding:2px 8px;border-radius:4px;font-weight:700;">30미만 제외</span>
+      <span style="color:#444;padding:2px;"> | Pure Score = 업로드(30)+조회비(25)+참여(20)+일관(15)+성장(10)</span>
     </div>
   </div>
 
@@ -277,47 +260,15 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </div>
   </div><!-- /section-product -->
 
-  <!-- ═══ TAB 2 내부: 크리에이터 영역 ═══ -->
+  <!-- ═══ TAB 2 내부: 크리에이터 작업 결과 ═══ -->
   <div id="section-creator" style="display:none;">
-  <div class="sections">
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="panel" style="flex:1;">
-        <div class="panel-title">
-          👤 크리에이터 수집 작업
-          <div>
-            <button class="btn-crawl" onclick="runYouTubeCollector()">▶ 기존 채널 업데이트</button>
-            <button class="btn-crawl" style="background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);" onclick="runYouTubeDiscover()">🔍 새 발굴</button>
-          </div>
-        </div>
-        <div style="flex:1;overflow-y:auto;">
-          <table class="jobs-tbl">
-            <thead><tr><th>채널/검색</th><th>상태</th><th>구독자</th><th>Pure Score</th><th>등급</th><th>규모</th></tr></thead>
-            <tbody id="creator-jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">▶ 또는 🔍 버튼을 눌러 수집을 시작하세요</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- Right: 크리에이터 설정 -->
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="panel">
-        <div class="panel-title">👤 크리에이터 수집 설정</div>
-        <div class="setting-row"><label>Pure Score 기준</label><input type="range" id="creator-min-score" min="0" max="80" value="0" step="10" oninput="document.getElementById('cms-val').textContent=this.value==0?'전체':this.value+'+'"><span id="cms-val" style="color:var(--em);font-weight:700;">전체</span></div>
-        <div class="setting-row"><label>최소 구독자</label><input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:80px;"></div>
-        <div class="setting-row"><label>카테고리당</label><input type="range" id="creator-limit" min="1" max="25" value="5" oninput="document.getElementById('cl-val').textContent=this.value"><span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널/카테고리</div>
-        <div class="setting-row"><label>카테고리</label><select id="creator-category"><option value="all">전체 (랜덤)</option><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드/요리</option><option value="tech_unboxing">테크/언박싱</option><option value="motorcycle">모터사이클</option><option value="pet">반려동물</option><option value="parenting">육아/패밀리</option><option value="gaming">게임</option><option value="education">교육/학습</option><option value="travel">여행</option></select></div>
-        <div class="setting-row"><label>국가</label><select id="creator-country"><option value="ALL">🌏 전체 (랜덤)</option><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option><option value="DE">🇩🇪 독일</option><option value="FR">🇫🇷 프랑스</option></select></div>
-        <div style="font-size:8px;color:var(--muted);margin-top:4px;">카테고리별 수집 · 중복 자동 제거 · 규모 다양 (nano~mega) · 30점 미만 제외</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
-        <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">YouTube API 사용량</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="flex:1;background:#1a1a1a;border-radius:4px;height:8px;overflow:hidden;">
-            <div id="yt-bar" style="height:100%;background:var(--em);width:1%;border-radius:4px;transition:width .5s;"></div>
-          </div>
-          <span id="yt-usage" style="font-size:11px;color:var(--muted);min-width:80px;">로딩중...</span>
-        </div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px;">10,000/일 · 매일 오후 4시(KST) 초기화 · <span id="yt-status" style="color:var(--em);">정상</span></div>
-      </div>
+  <div class="panel">
+    <div class="panel-title">👤 수집 결과</div>
+    <div style="overflow-y:auto;max-height:200px;">
+      <table class="jobs-tbl">
+        <thead><tr><th>채널</th><th>상태</th><th>구독자</th><th>Pure Score</th><th>등급</th><th>규모</th></tr></thead>
+        <tbody id="creator-jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:16px;">위에서 ▶ 업데이트 또는 🔍 발굴을 실행하세요</td></tr></tbody>
+      </table>
     </div>
   </div>
   <!-- 최근 발굴 목록 + 자동화 현황 -->
