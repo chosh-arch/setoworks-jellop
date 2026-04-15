@@ -85,6 +85,39 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .toast{position:fixed;bottom:20px;right:20px;background:#111;border:1px solid var(--em);color:var(--em);padding:10px 16px;border-radius:8px;font-size:12px;z-index:9999;animation:slideIn .3s ease-out;display:none;}
 .toast.show{display:block;}
 @keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:none;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:#111;border:1px solid var(--border);border-radius:12px;width:90%;max-width:640px;max-height:80vh;overflow-y:auto;padding:20px;position:relative;}
+.modal-close{position:absolute;top:10px;right:14px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;}
+.modal-close:hover{color:var(--em);}
+.modal-title{font-size:14px;font-weight:700;color:var(--em);margin-bottom:12px;}
+.modal-row{display:flex;gap:8px;margin-bottom:6px;font-size:11px;}
+.modal-row .lbl{color:var(--muted);min-width:90px;}
+.modal-row .val{color:var(--text);font-weight:500;}
+.modal-proj-tbl{width:100%;font-size:11px;border-collapse:collapse;margin-top:8px;}
+.modal-proj-tbl th{text-align:left;padding:5px 8px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;}
+.modal-proj-tbl td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.03);}
+.modal-proj-tbl td:nth-child(2),.modal-proj-tbl td:nth-child(3){text-align:right;font-variant-numeric:tabular-nums;}
+/* Add category form */
+.add-cat-form{display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin-top:6px;padding:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;}
+.add-cat-form select,.add-cat-form input{background:#111;border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:10px;font-family:inherit;}
+.add-cat-form input{width:110px;}
+.add-cat-form button{background:rgba(62,207,142,.12);color:var(--em);border:1px solid rgba(62,207,142,.25);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;}
+.add-cat-form button:hover{background:var(--em);color:#000;}
+/* Local worker button */
+.btn-local{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.25);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.btn-local:hover{background:rgba(239,68,68,.2);}
+.local-info{display:none;margin-top:4px;padding:6px 8px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:6px;font-size:9px;color:var(--muted);line-height:1.6;}
+.local-info.show{display:block;}
+.copy-cmd{display:inline-block;background:#0d0d0d;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--em);cursor:pointer;margin-top:3px;user-select:all;}
+.copy-cmd:hover{border-color:var(--em);}
+/* Settings indicator */
+.settings-indicator{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;padding:6px 8px;background:rgba(62,207,142,.04);border:1px solid rgba(62,207,142,.1);border-radius:6px;}
+.si-chip{font-size:9px;color:var(--em);background:rgba(62,207,142,.1);padding:2px 6px;border-radius:4px;font-weight:600;}
+/* Job row clickable */
+.jobs-tbl tbody tr[data-job-id]{cursor:pointer;transition:background .15s;}
+.jobs-tbl tbody tr[data-job-id]:hover{background:rgba(62,207,142,.06);}
 </style>
 </head>
 <body>
@@ -141,8 +174,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
         <div style="display:flex;gap:4px;">
           <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="setCrawlType('product')" id="btn-type-product">📦 제품</button>
           <button class="btn-crawl" style="font-size:9px;padding:3px 8px;opacity:.5" onclick="setCrawlType('creator')" id="btn-type-creator">👤 크리에이터</button>
+          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="toggleAddCatForm()" id="btn-add-cat">+ 카테고리 추가</button>
         </div>
       </div>
+        <!-- Add Category Form (hidden by default) -->
+        <div class="add-cat-form" id="add-cat-form" style="display:none;">
+          <select id="new-cat-platform" aria-label="플랫폼 선택"><option value="">플랫폼 선택</option></select>
+          <input type="text" id="new-cat-name" placeholder="카테고리명 (영문)" aria-label="카테고리명">
+          <input type="text" id="new-cat-extid" placeholder="external_id" aria-label="External ID">
+          <button onclick="addCategory()">추가</button>
+        </div>
         <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
       </div>
       <div class="panel">
@@ -177,6 +218,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
           <label>최소 구독자</label>
           <input type="number" id="min-subs" value="1000" min="0" step="500" style="width:80px;">
         </div>
+        <div class="setting-row">
+          <button class="btn-crawl" onclick="saveSettings()" style="margin-left:auto;">💾 설정 저장</button>
+        </div>
+        <div class="settings-indicator" id="settings-indicator" style="display:none;"></div>
       </div>
     </div>
   </div>
@@ -210,6 +255,14 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   </div>
   <div class="ftr">Powered by <a href="https://supabase.com">Supabase</a> · 30초 자동 새로고침 · Setoworks Jellop+α</div>
 </div>
+<!-- Job Detail Modal -->
+<div class="modal-overlay" id="job-modal" onclick="if(event.target===this)closeJobModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeJobModal()" aria-label="닫기">&times;</button>
+    <div class="modal-title" id="modal-title">작업 상세</div>
+    <div id="modal-body">로딩중...</div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -218,8 +271,18 @@ var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN
 var H={'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json'};
 function sbGet(t,q){return fetch(SB+'/rest/v1/'+t+'?select=*'+(q||''),{headers:H}).then(r=>r.json()).catch(()=>[]);}
 function sbPost(t,d){return fetch(SB+'/rest/v1/'+t,{method:'POST',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(d)}).then(r=>r.json()).catch(()=>[]);}
+function sbUpsert(t,d){return fetch(SB+'/rest/v1/'+t,{method:'POST',headers:{...H,'Prefer':'return=representation,resolution=merge-duplicates'},body:JSON.stringify(d)}).then(r=>r.json()).catch(()=>[]);}
 
 var FLAGS={kickstarter:'🇺🇸',indiegogo:'🇺🇸',makuake:'🇯🇵',wadiz:'🇰🇷',zeczec:'🇹🇼'};
+var LOCAL_ONLY=['kickstarter','indiegogo'];
+var LOCAL_MSGS={
+  kickstarter:'Kickstarter는 TLS 핑거프린팅 보호가 있어 프록시 + curl_cffi가 필요합니다. 로컬에서 python worker.py를 실행하세요.',
+  indiegogo:'Indiegogo는 curl_cffi 기반 요청이 필요합니다. Edge Function에서는 실행 불가하며 로컬 워커가 필요합니다.'
+};
+var LOCAL_CMDS={
+  kickstarter:'cd D:\\Crawling && python worker.py --platform kickstarter',
+  indiegogo:'cd D:\\Crawling && python worker.py --platform indiegogo'
+};
 var platformData=[], catMap={}, runningPlatforms={};
 var currentCrawlType='product';
 
@@ -227,10 +290,160 @@ function setCrawlType(type){
   currentCrawlType=type;
   document.getElementById('btn-type-product').style.opacity=type==='product'?'1':'.5';
   document.getElementById('btn-type-creator').style.opacity=type==='creator'?'1':'.5';
+  // Show influencer settings prominently for creator type
+  updateSettingsIndicator();
   toast(type==='product'?'📦 제품 크롤링 모드':'👤 크리에이터 크롤링 모드');
 }
 
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+/* === TASK 1: Job Detail Modal === */
+function openJobModal(jobId){
+  document.getElementById('job-modal').classList.add('show');
+  document.getElementById('modal-body').innerHTML='<div style="text-align:center;color:var(--muted);padding:20px;">로딩중...</div>';
+  loadJobDetail(jobId);
+}
+function closeJobModal(){document.getElementById('job-modal').classList.remove('show');}
+
+async function loadJobDetail(jobId){
+  var jobs=await sbGet('crawl_jobs','&id=eq.'+jobId);
+  if(!jobs.length){document.getElementById('modal-body').innerHTML='<div style="color:var(--red);">작업을 찾을 수 없습니다.</div>';return;}
+  var j=jobs[0];
+  var dur=j.started_at&&j.completed_at?Math.round((new Date(j.completed_at)-new Date(j.started_at))/1000)+'초':'-';
+  var html='';
+  html+='<div class="modal-row"><span class="lbl">작업 ID</span><span class="val" style="font-family:JetBrains Mono;font-size:10px;">'+j.id+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">플랫폼</span><span class="val">'+(FLAGS[j.platform_id]||'')+' '+j.platform_id+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">상태</span><span class="val"><span class="st-badge st-'+j.status+'">'+j.status+'</span></span></div>';
+  html+='<div class="modal-row"><span class="lbl">트리거</span><span class="val">'+j.triggered_by+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">생성 시간</span><span class="val">'+(j.created_at?new Date(j.created_at).toLocaleString('ko-KR'):'-')+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">시작 시간</span><span class="val">'+(j.started_at?new Date(j.started_at).toLocaleString('ko-KR'):'-')+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">완료 시간</span><span class="val">'+(j.completed_at?new Date(j.completed_at).toLocaleString('ko-KR'):'-')+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">소요 시간</span><span class="val">'+dur+'</span></div>';
+  html+='<div class="modal-row"><span class="lbl">수집 건수</span><span class="val" style="color:var(--em);font-weight:700;">'+(j.project_count||0)+'건</span></div>';
+  if(j.batch_id)html+='<div class="modal-row"><span class="lbl">배치 ID</span><span class="val" style="font-family:JetBrains Mono;font-size:9px;">'+j.batch_id+'</span></div>';
+  if(j.error_message){
+    html+='<div style="margin-top:8px;padding:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:6px;font-size:11px;color:var(--red);">';
+    html+='<strong>오류 메시지:</strong><br>'+j.error_message+'</div>';
+  }
+  // Load projects for this job
+  html+='<div style="margin-top:12px;"><div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">수집된 프로젝트</div>';
+  var projs=await sbGet('projects','&crawl_job_id=eq.'+jobId+'&order=pledged_amount.desc.nullslast&limit=50');
+  if(projs.length){
+    html+='<table class="modal-proj-tbl"><thead><tr><th>프로젝트명</th><th style="text-align:right;">모금액</th><th style="text-align:right;">달성률</th></tr></thead><tbody>';
+    projs.forEach(function(p){
+      var amt=p.pledged_amount?Number(p.pledged_amount).toLocaleString():'—';
+      var pct=p.percent_funded!=null?p.percent_funded+'%':'—';
+      var name=(p.title||p.name||'이름 없음');
+      if(name.length>40)name=name.slice(0,40)+'...';
+      html+='<tr><td>'+name+'</td><td style="text-align:right;color:var(--em);font-variant-numeric:tabular-nums;">'+amt+'</td><td style="text-align:right;font-variant-numeric:tabular-nums;">'+pct+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  } else {
+    html+='<div style="color:var(--muted);font-size:10px;padding:10px;text-align:center;">이 작업에서 수집된 프로젝트가 없습니다.</div>';
+  }
+  html+='</div>';
+  document.getElementById('modal-title').textContent='작업 상세 — '+(FLAGS[j.platform_id]||'')+' '+j.platform_id;
+  document.getElementById('modal-body').innerHTML=html;
+}
+
+/* === TASK 2: Add Category === */
+function toggleAddCatForm(){
+  var f=document.getElementById('add-cat-form');
+  var showing=f.style.display!=='none';
+  f.style.display=showing?'none':'flex';
+  if(!showing){
+    // Populate platform select
+    var sel=document.getElementById('new-cat-platform');
+    if(sel.options.length<=1){
+      platformData.forEach(function(p){var o=document.createElement('option');o.value=p.id;o.textContent=(FLAGS[p.id]||'')+' '+p.display_name;sel.appendChild(o);});
+    }
+  }
+}
+
+async function addCategory(){
+  var pid=document.getElementById('new-cat-platform').value;
+  var name=document.getElementById('new-cat-name').value.trim();
+  var extId=document.getElementById('new-cat-extid').value.trim();
+  if(!pid){toast('⚠ 플랫폼을 선택하세요');return;}
+  if(!name){toast('⚠ 카테고리명을 입력하세요');return;}
+  var payload={platform_id:pid,name:name,name_en:name,is_active:true};
+  if(extId)payload.external_id=extId;
+  var result=await sbPost('crawl_categories',payload);
+  if(result&&result.length){
+    toast('✅ 카테고리 "'+name+'" 추가 완료');
+    document.getElementById('new-cat-name').value='';
+    document.getElementById('new-cat-extid').value='';
+    document.getElementById('add-cat-form').style.display='none';
+    // Reload categories and equalizer
+    var cats=await sbGet('crawl_categories','&order=platform_id,name');
+    catMap={};
+    cats.forEach(function(c){if(!catMap[c.platform_id])catMap[c.platform_id]=[];catMap[c.platform_id].push(c);});
+    renderEqualizer();renderPlatforms();
+  } else {
+    toast('⚠ 카테고리 추가 실패');
+  }
+}
+
+/* === TASK 3: Crawl Settings Save/Load === */
+async function saveSettings(){
+  var ipc=parseInt(document.getElementById('items-per-cat').value)||10;
+  var mode=document.getElementById('crawl-mode').value;
+  var maxPages=parseInt(document.getElementById('max-pages').value)||5;
+  var minScore=parseInt(document.getElementById('inf-min-score').value)||0;
+  var minSubs=parseInt(document.getElementById('min-subs').value)||0;
+  var payload={
+    setting_key:'crawl_defaults',
+    items_per_category:ipc,
+    crawl_mode:mode,
+    max_pages:maxPages,
+    min_pure_score:minScore,
+    min_subscribers:minSubs,
+    crawl_type:currentCrawlType,
+    updated_at:new Date().toISOString()
+  };
+  try{
+    var result=await sbUpsert('crawl_settings',[payload]);
+    toast('✅ 크롤링 설정 저장 완료');
+    updateSettingsIndicator();
+  }catch(e){
+    toast('⚠ 설정 저장 실패: '+e.message);
+  }
+}
+
+async function loadSettings(){
+  try{
+    var rows=await sbGet('crawl_settings','&setting_key=eq.crawl_defaults&limit=1');
+    if(rows&&rows.length){
+      var s=rows[0];
+      if(s.items_per_category){document.getElementById('items-per-cat').value=s.items_per_category;document.getElementById('ipc-val').textContent=s.items_per_category;}
+      if(s.crawl_mode)document.getElementById('crawl-mode').value=s.crawl_mode;
+      if(s.max_pages){document.getElementById('max-pages').value=s.max_pages;document.getElementById('mp-val').textContent=s.max_pages;}
+      if(s.min_pure_score!=null)document.getElementById('inf-min-score').value=String(s.min_pure_score);
+      if(s.min_subscribers!=null)document.getElementById('min-subs').value=s.min_subscribers;
+      if(s.crawl_type)setCrawlType(s.crawl_type);
+    }
+    updateSettingsIndicator();
+  }catch(e){}
+}
+
+function updateSettingsIndicator(){
+  var el=document.getElementById('settings-indicator');
+  var ipc=document.getElementById('items-per-cat').value;
+  var mode=document.getElementById('crawl-mode').value==='full'?'전체':'신규';
+  var pages=document.getElementById('max-pages').value;
+  var score=document.getElementById('inf-min-score').value;
+  var subs=document.getElementById('min-subs').value;
+  var chips=[];
+  chips.push('수집: '+ipc+'건/카테고리');
+  chips.push('모드: '+mode);
+  chips.push('페이지: '+pages);
+  if(currentCrawlType==='creator'){
+    chips.push('Pure Score: '+(score==='0'?'전체':score+'+'));
+    chips.push('최소구독: '+Number(subs).toLocaleString());
+  }
+  el.innerHTML=chips.map(function(c){return '<span class="si-chip">'+c+'</span>';}).join('');
+  el.style.display='flex';
+}
 
 async function triggerCrawl(platformId){
   // Get active categories for this platform
@@ -288,7 +501,7 @@ async function loadAll(){
   var cats=await sbGet('crawl_categories','&order=platform_id,name');
   catMap={};
   cats.forEach(c=>{if(!catMap[c.platform_id])catMap[c.platform_id]=[];catMap[c.platform_id].push(c);});
-  renderPlatforms();renderEqualizer();loadJobs();loadStats();
+  renderPlatforms();renderEqualizer();loadJobs();loadStats();loadSettings();
 }
 
 async function loadStats(){
@@ -306,21 +519,49 @@ async function loadStats(){
   document.getElementById('st-zz').textContent=ct.zeczec||0;
 }
 
+/* === TASK 4: Platform cards with local worker notice === */
 function renderPlatforms(){
   var html='';
   platformData.forEach(p=>{
     var cc=(catMap[p.id]||[]).length;
     var isRunning=runningPlatforms[p.id];
+    var isLocal=LOCAL_ONLY.indexOf(p.id)>=0;
     html+='<div class="p-card">';
     html+='<div class="p-card-h"><span class="p-name">'+(FLAGS[p.id]||'')+' '+p.display_name+'</span>';
     html+='<span class="p-dot p-dot-active"></span></div>';
     html+='<div class="p-stats"><span>카테고리 <strong>'+cc+'</strong></span></div>';
     html+=p.requires_proxy?'<span class="p-badge p-badge-proxy">프록시 필수</span>':'<span class="p-badge p-badge-ok">직접 연결</span>';
     html+='<div class="p-actions">';
-    html+='<button class="btn-crawl'+(isRunning?' running':'')+'" onclick="triggerCrawl(\''+p.id+'\')"'+(isRunning?' disabled':'')+'>▶ '+(isRunning?'실행중...':'크롤링 시작')+'</button>';
-    html+='</div></div>';
+    if(isLocal){
+      html+='<button class="btn-local" onclick="toggleLocalInfo(\''+p.id+'\')">로컬 워커 필요</button>';
+    } else {
+      html+='<button class="btn-crawl'+(isRunning?' running':'')+'" onclick="triggerCrawl(\''+p.id+'\')"'+(isRunning?' disabled':'')+'>▶ '+(isRunning?'실행중...':'크롤링 시작')+'</button>';
+    }
+    html+='</div>';
+    if(isLocal){
+      html+='<div class="local-info" id="local-info-'+p.id+'">';
+      html+='<div>'+LOCAL_MSGS[p.id]+'</div>';
+      html+='<div style="margin-top:4px;">명령어 (클릭하여 복사):</div>';
+      html+='<div class="copy-cmd" onclick="copyCmd(this)" title="클릭하여 복사">'+LOCAL_CMDS[p.id]+'</div>';
+      html+='</div>';
+    }
+    html+='</div>';
   });
   document.getElementById('platform-cards').innerHTML=html;
+}
+
+function toggleLocalInfo(pid){
+  var el=document.getElementById('local-info-'+pid);
+  if(el)el.classList.toggle('show');
+}
+
+function copyCmd(el){
+  var text=el.textContent;
+  navigator.clipboard.writeText(text).then(function(){toast('✅ 명령어가 클립보드에 복사되었습니다');}).catch(function(){
+    // Fallback
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    toast('✅ 명령어가 클립보드에 복사되었습니다');
+  });
 }
 
 function renderEqualizer(){
@@ -348,10 +589,10 @@ async function loadJobs(){
   var html='';
   jobs.forEach(j=>{
     var dur=j.started_at&&j.completed_at?Math.round((new Date(j.completed_at)-new Date(j.started_at))/1000)+'s':j.status==='running'?'실행중...':'-';
-    html+='<tr>';
+    html+='<tr data-job-id="'+j.id+'" onclick="openJobModal('+j.id+')">';
     html+='<td style="font-weight:600;">'+(FLAGS[j.platform_id]||'')+' '+(j.platform_id||'-')+'</td>';
     html+='<td><span class="st-badge st-'+j.status+'">'+j.status+'</span></td>';
-    html+='<td style="font-weight:600;color:var(--em);">'+j.project_count+'</td>';
+    html+='<td style="font-weight:600;color:var(--em);text-align:right;font-variant-numeric:tabular-nums;">'+j.project_count+'</td>';
     html+='<td style="font-size:10px;">'+(j.started_at?new Date(j.started_at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-')+'</td>';
     html+='<td>'+dur+'</td>';
     html+='<td style="font-size:9px;color:var(--muted);">'+j.triggered_by+'</td>';
