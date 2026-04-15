@@ -271,15 +271,22 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </table>
     </div>
   </div>
-  <!-- 최근 발굴 목록 + 자동화 현황 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+  <!-- 3열: 최근 발굴 + 자동화 설정 + 등급 관리 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
+    <!-- 최근 발굴 (발굴일 포함) -->
     <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
       <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">최근 발굴 크리에이터</div>
-      <div id="recent-creators" style="font-size:10px;color:var(--muted);max-height:120px;overflow-y:auto;">로딩중...</div>
+      <div id="recent-creators" style="font-size:10px;color:var(--muted);max-height:140px;overflow-y:auto;">로딩중...</div>
     </div>
+    <!-- 자동화 설정 (편집 가능) -->
     <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
-      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">자동화 스케줄</div>
-      <div id="auto-schedules" style="font-size:10px;color:var(--muted);line-height:1.8;">로딩중...</div>
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">⚙️ 자동화 설정 <span style="font-size:9px;color:var(--muted);font-weight:400;">클릭하여 수정</span></div>
+      <div id="auto-schedules" style="font-size:10px;color:var(--muted);line-height:2;">로딩중...</div>
+    </div>
+    <!-- 등급 변동 현황 -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:6px;">📊 등급 현황</div>
+      <div id="grade-summary" style="font-size:10px;color:var(--muted);line-height:1.8;">로딩중...</div>
     </div>
   </div>
   </div><!-- /section-creator -->
@@ -814,12 +821,14 @@ async function loadRecentCreators(){
   infs.forEach(function(i){
     var subs=i.followers>=1000000?(i.followers/1000000).toFixed(1)+'M':i.followers>=1000?Math.round(i.followers/1000)+'K':i.followers;
     var gc=i.grade==='S'?'var(--yellow)':i.grade==='A'?'var(--em)':i.grade==='B'?'var(--blue)':'var(--muted)';
-    var st=i.status==='archived'?'<span style="color:var(--red);font-size:8px;">보관</span>':i.status==='review'?'<span style="color:var(--yellow);font-size:8px;">리뷰</span>':'';
-    html+='<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03);">';
-    html+='<span style="color:'+gc+';font-weight:700;min-width:14px;">'+i.grade+'</span>';
-    html+='<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+i.display_name+'</span>';
-    html+='<span style="color:var(--em);min-width:35px;text-align:right;">'+subs+'</span>';
-    html+='<span style="min-width:30px;text-align:right;">'+Math.round(i.pure_score||0)+'점</span>';
+    var st=i.status==='archived'?'<span style="color:var(--red);font-size:8px;"> 보관</span>':i.status==='review'?'<span style="color:var(--yellow);font-size:8px;"> 리뷰</span>':'';
+    var disc=i.first_discovered_at?new Date(i.first_discovered_at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}):'';
+    html+='<div style="display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03);">';
+    html+='<span style="color:'+gc+';font-weight:700;min-width:12px;font-size:10px;">'+i.grade+'</span>';
+    html+='<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px;">'+i.display_name+'</span>';
+    html+='<span style="color:var(--em);min-width:32px;text-align:right;font-size:10px;">'+subs+'</span>';
+    html+='<span style="min-width:26px;text-align:right;font-size:9px;">'+Math.round(i.pure_score||0)+'</span>';
+    html+='<span style="min-width:30px;text-align:right;font-size:8px;color:#555;">'+disc+'</span>';
     html+=st;
     html+='</div>';
   });
@@ -830,22 +839,72 @@ async function loadAutoSchedules(){
   var schedules=await sbGet('auto_schedules','&order=id');
   var el=document.getElementById('auto-schedules');
   if(!el)return;
-  var labels={'daily_update':'📊 일일 채널 업데이트','daily_discover':'🔍 일일 신규 발굴','monthly_c_review':'📋 C등급 월간 리뷰','quarterly_archive_review':'📦 분기 아카이브 리뷰'};
+  var labels={'daily_update':'📊 채널 업데이트','daily_discover':'🔍 신규 발굴','monthly_c_review':'📋 C등급 리뷰','quarterly_archive_review':'📦 아카이브 리뷰'};
+  var times={'daily_update':'매일 09:00','daily_discover':'매일 09:30','monthly_c_review':'30일마다','quarterly_archive_review':'90일마다'};
   var html='';
   schedules.forEach(function(s){
-    var active=s.is_active?'<span style="color:var(--em);">●</span>':'<span style="color:var(--red);">○</span>';
-    var last=s.last_run_at?new Date(s.last_run_at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}):'미실행';
     var cfg=s.config||{};
-    var detail=s.schedule_type==='new_discovery'?'카테고리별 '+(cfg.channels_per_category||3)+'채널 × 8개국':s.schedule_type==='channel_update'?(cfg.channels_per_run||10)+'채널/회':'';
-    html+='<div style="display:flex;align-items:center;gap:6px;">'+active+' <span style="flex:1;">'+(labels[s.id]||s.id)+'</span><span style="color:var(--muted);font-size:9px;">'+detail+'</span><span style="font-size:9px;">'+last+'</span></div>';
+    var detail='';
+    if(s.id==='daily_update') detail='<input type="number" value="'+(cfg.channels_per_run||10)+'" min="1" max="30" style="width:40px;background:#111;border:1px solid var(--border);color:var(--em);padding:1px 4px;border-radius:4px;font-size:9px;" onchange="updateSchedule(\''+s.id+'\',{channels_per_run:parseInt(this.value)})">채널/회';
+    else if(s.id==='daily_discover') detail='<input type="number" value="'+(cfg.channels_per_category||3)+'" min="1" max="10" style="width:30px;background:#111;border:1px solid var(--border);color:var(--em);padding:1px 4px;border-radius:4px;font-size:9px;" onchange="updateSchedule(\''+s.id+'\',{channels_per_category:parseInt(this.value)})">채널/카테고리';
+    else detail=(cfg.interval_days||'?')+'일';
+
+    var toggleBtn='<span style="cursor:pointer;font-size:10px;" onclick="toggleSchedule(\''+s.id+'\','+(!s.is_active)+')">'+(s.is_active?'<span style="color:var(--em);">●</span>':'<span style="color:var(--red);">○</span>')+'</span>';
+    html+='<div style="display:flex;align-items:center;gap:4px;">';
+    html+=toggleBtn;
+    html+='<span style="flex:1;font-size:10px;">'+(labels[s.id]||s.id)+'</span>';
+    html+='<span style="font-size:8px;color:#555;">'+times[s.id]+'</span>';
+    html+='<span style="font-size:9px;">'+detail+'</span>';
+    html+='</div>';
   });
   el.innerHTML=html||'스케줄 없음';
+}
+
+async function updateSchedule(id,newConfig){
+  var schedules=await sbGet('auto_schedules','&id=eq.'+id);
+  if(!schedules.length)return;
+  var cfg={...(schedules[0].config||{}),...newConfig};
+  await fetch(SB+'/rest/v1/auto_schedules?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({config:cfg})});
+  toast('✅ '+id+' 설정 저장됨');
+  loadAutoSchedules();
+}
+async function toggleSchedule(id,active){
+  await fetch(SB+'/rest/v1/auto_schedules?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({is_active:active})});
+  toast(active?'✅ '+id+' 활성화':'⏸ '+id+' 비활성화');
+  loadAutoSchedules();
+}
+
+async function loadGradeSummary(){
+  var infs=await sbGet('influencers','&select=grade,status&or=(platform.eq.YouTube,platform.eq.youtube)');
+  var el=document.getElementById('grade-summary');
+  if(!el)return;
+  var grades={S:0,A:0,B:0,C:0};
+  var statuses={active:0,review:0,archived:0};
+  infs.forEach(function(i){
+    if(i.grade&&grades[i.grade]!==undefined)grades[i.grade]++;
+    var st=i.status||'active';
+    if(statuses[st]!==undefined)statuses[st]++;
+  });
+  var html='<div style="display:flex;gap:8px;margin-bottom:6px;">';
+  html+='<span style="color:var(--yellow);font-weight:700;">S '+grades.S+'</span>';
+  html+='<span style="color:var(--em);font-weight:700;">A '+grades.A+'</span>';
+  html+='<span style="color:var(--blue);font-weight:700;">B '+grades.B+'</span>';
+  html+='<span style="color:var(--muted);font-weight:700;">C '+grades.C+'</span>';
+  html+='</div>';
+  html+='<div style="font-size:9px;">';
+  html+='<span style="color:var(--em);">● 활성 '+statuses.active+'</span> ';
+  html+='<span style="color:var(--yellow);">● 리뷰 '+statuses.review+'</span> ';
+  html+='<span style="color:var(--red);">● 보관 '+statuses.archived+'</span>';
+  html+='</div>';
+  html+='<div style="font-size:8px;color:#444;margin-top:4px;">C등급: 월간 리뷰 → 보관: 분기 재검토</div>';
+  el.innerHTML=html;
 }
 
 loadAll();
 loadCreatorStats();
 loadRecentCreators();
 loadAutoSchedules();
+loadGradeSummary();
 loadYouTubeUsage();
 loadCrawlHistory();
 setInterval(loadJobs,30000);
@@ -855,6 +914,7 @@ setInterval(loadCrawlHistory,60000);
 setInterval(loadCreatorStats,60000);
 setInterval(loadRecentCreators,60000);
 setInterval(loadAutoSchedules,120000);
+setInterval(loadGradeSummary,60000);
 </script>
 </body>
 </html>
