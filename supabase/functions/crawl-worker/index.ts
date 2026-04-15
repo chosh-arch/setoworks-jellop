@@ -30,9 +30,10 @@ const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 // ═══════════════════════════════════
 // WADIZ: POST https://service.wadiz.kr/api/search/v2/funding
 // ═══════════════════════════════════
-async function crawlWadiz(limit: number, catCode?: string) {
+async function crawlWadiz(limit: number, catCode?: string, page?: number) {
   const url = "https://service.wadiz.kr/api/search/v2/funding";
-  const body = { startNum: 0, limit, order: "support", categoryCode: catCode || "" };
+  const startNum = ((page || 1) - 1) * limit;
+  const body = { startNum, limit, order: "support", categoryCode: catCode || "" };
   const r = await fetch(url, {
     method: "POST",
     headers: { "User-Agent": rua(), "Content-Type": "application/json", Accept: "application/json" },
@@ -56,8 +57,9 @@ async function crawlWadiz(limit: number, catCode?: string) {
 // ═══════════════════════════════════
 // MAKUAKE: GET https://api.makuake.com/v2/projects
 // ═══════════════════════════════════
-async function crawlMakuake(limit: number, catCode?: string) {
-  const url = `https://api.makuake.com/v2/projects?page=1&per_page=${limit}${catCode ? "&category_code=" + catCode : ""}`;
+async function crawlMakuake(limit: number, catCode?: string, page?: number) {
+  const pg = page || 1;
+  const url = `https://api.makuake.com/v2/projects?page=${pg}&per_page=${limit}${catCode ? "&category_code=" + catCode : ""}`;
   const r = await fetch(url, {
     headers: { "User-Agent": rua(), Accept: "application/json", "Accept-Language": "ja,en;q=0.9", Referer: "https://www.makuake.com/discover/", Origin: "https://www.makuake.com" },
   });
@@ -79,8 +81,9 @@ async function crawlMakuake(limit: number, catCode?: string) {
 // ═══════════════════════════════════
 // ZECZEC: scrape HTML (simple)
 // ═══════════════════════════════════
-async function crawlZeczec(limit: number) {
-  const r = await fetch("https://www.zeczec.com/categories?sort=hot&page=1", {
+async function crawlZeczec(limit: number, _catCode?: string, page?: number) {
+  const pg = page || 1;
+  const r = await fetch(`https://www.zeczec.com/categories?sort=hot&page=${pg}`, {
     headers: { "User-Agent": rua(), "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.8" },
   });
   if (!r.ok) throw new Error(`Zeczec ${r.status}`);
@@ -103,7 +106,7 @@ async function crawlZeczec(limit: number) {
   return projects;
 }
 
-const CRAWLERS: Record<string, (n: number, cat?: string) => Promise<any[]>> = {
+const CRAWLERS: Record<string, (n: number, cat?: string, page?: number) => Promise<any[]>> = {
   wadiz: crawlWadiz,
   makuake: crawlMakuake,
   zeczec: crawlZeczec,
@@ -147,7 +150,7 @@ serve(async (req) => {
         log.push(`${job.platform_id}: waiting ${delay}ms...`);
         await sleep(delay);
 
-        const projects = await crawler(job.items_per_category || 10);
+        const projects = await crawler(job.items_per_category || 10, undefined, job.page_num || 1);
         log.push(`${job.platform_id}: fetched ${projects.length} items`);
 
         if (projects.length > 0) {

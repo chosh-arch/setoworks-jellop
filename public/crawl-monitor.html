@@ -136,7 +136,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <!-- Right: Equalizer + Settings -->
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="panel" style="flex:1;">
-        <div class="panel-title">카테고리 이퀄라이저 <span class="panel-sub">클릭으로 ON/OFF · 선택된 카테고리만 크롤링</span></div>
+        <div class="panel-title">
+        카테고리 이퀄라이저
+        <div style="display:flex;gap:4px;">
+          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="setCrawlType('product')" id="btn-type-product">📦 제품</button>
+          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;opacity:.5" onclick="setCrawlType('creator')" id="btn-type-creator">👤 크리에이터</button>
+        </div>
+      </div>
         <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
       </div>
       <div class="panel">
@@ -150,8 +156,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
           <label>크롤링 모드</label>
           <select id="crawl-mode">
             <option value="new">신규만 (incremental)</option>
-            <option value="full">전체 (full crawl)</option>
+            <option value="full">전체 (full crawl — 모든 페이지)</option>
           </select>
+        </div>
+        <div class="setting-row">
+          <label>페이지 수</label>
+          <input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value">
+          <span id="mp-val" style="color:var(--em);font-weight:700;min-width:24px;">5</span>페이지
         </div>
         <div class="setting-row">
           <label>인플루언서 필터</label>
@@ -210,6 +221,14 @@ function sbPost(t,d){return fetch(SB+'/rest/v1/'+t,{method:'POST',headers:{...H,
 
 var FLAGS={kickstarter:'🇺🇸',indiegogo:'🇺🇸',makuake:'🇯🇵',wadiz:'🇰🇷',zeczec:'🇹🇼'};
 var platformData=[], catMap={}, runningPlatforms={};
+var currentCrawlType='product';
+
+function setCrawlType(type){
+  currentCrawlType=type;
+  document.getElementById('btn-type-product').style.opacity=type==='product'?'1':'.5';
+  document.getElementById('btn-type-creator').style.opacity=type==='creator'?'1':'.5';
+  toast(type==='product'?'📦 제품 크롤링 모드':'👤 크리에이터 크롤링 모드');
+}
 
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
@@ -220,13 +239,25 @@ async function triggerCrawl(platformId){
   if(!activeCats.length){toast('⚠ '+platformId+': 활성 카테고리가 없습니다');return;}
 
   var ipc=parseInt(document.getElementById('items-per-cat').value)||10;
+  var maxPages=parseInt(document.getElementById('max-pages').value)||1;
+  var mode=document.getElementById('crawl-mode').value;
 
-  // Create jobs directly in Supabase
+  // Create jobs — multiple pages if full crawl
   var batchId=crypto.randomUUID();
-  var jobs=activeCats.map(catId=>({
-    platform_id:platformId,category_id:catId,status:'pending',
-    triggered_by:'manual',batch_id:batchId,items_per_category:ipc
-  }));
+  var pages=mode==='full'?maxPages:1;
+  var jobs=[];
+  for(var pg=1;pg<=pages;pg++){
+    activeCats.forEach(function(catId){
+      jobs.push({
+        platform_id:platformId,category_id:catId,status:'pending',
+        triggered_by:'manual',batch_id:batchId,items_per_category:ipc,
+        crawl_type:currentCrawlType,page_num:pg,total_pages:pages
+      });
+    });
+  }
+  // Deduplicate: same platform+category+page
+  var seen={};
+  jobs=jobs.filter(function(j){var k=j.platform_id+j.category_id+j.page_num;if(seen[k])return false;seen[k]=true;return true;});
 
   var result=await sbPost('crawl_jobs',jobs);
   runningPlatforms[platformId]=true;
