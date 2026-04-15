@@ -1,5 +1,11 @@
 {
   "routes": [
     { "src": "^/$", "dest": "/portal.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/crawl-worker",
+      "schedule": "0 */6 * * *"
+    }
   ]
 }

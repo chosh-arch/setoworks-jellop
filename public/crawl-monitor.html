@@ -7,68 +7,91 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--em:#3ECF8E;--bg:#0a0a0a;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--text:#ededed;--muted:#888;--red:#ef4444;--yellow:#f59e0b;--blue:#6366f1;--orange:#f97316;}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans KR',sans-serif;}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0;}
-.wrap{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:12px 20px 8px;}
-.hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin-bottom:10px;}
-.hdr-left{display:flex;align-items:center;gap:12px;}
-.hdr-logo{font-weight:800;font-size:14px;color:#fff;letter-spacing:.05em;}
+:root{--em:#3ECF8E;--bg:#0a0a0a;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--text:#ededed;--muted:#666;--red:#ef4444;--yellow:#f59e0b;--blue:#6366f1;--orange:#f97316;}
+html,body{height:100%;overflow-y:auto;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans KR',sans-serif;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;padding:14px 24px 10px;max-width:1400px;margin:0 auto;}
+/* Header */
+.hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin-bottom:12px;}
+.hdr-left{display:flex;align-items:center;gap:14px;}
+.hdr-logo{font-weight:800;font-size:15px;color:#fff;letter-spacing:.05em;text-decoration:none;}
 .hdr-logo span{color:var(--em);}
-.hdr-title{font-size:13px;color:var(--muted);font-weight:500;border-left:1px solid rgba(255,255,255,.15);padding-left:12px;}
+.hdr-title{font-size:14px;color:var(--muted);font-weight:500;border-left:1px solid rgba(255,255,255,.12);padding-left:14px;}
 .hdr-nav{display:flex;gap:6px;}
-.hdr-nav a{color:var(--muted);text-decoration:none;font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);transition:all .15s;}
+.hdr-nav a{color:var(--muted);text-decoration:none;font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid var(--border);transition:all .15s;}
 .hdr-nav a:hover{color:var(--em);border-color:var(--em);}
-.platforms{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;flex-shrink:0;margin-bottom:8px;}
-.p-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;}
+/* Platform cards */
+.platforms{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;flex-shrink:0;margin-bottom:12px;}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s;}
+.p-card:hover{border-color:rgba(62,207,142,.3);}
 .p-card-h{display:flex;justify-content:space-between;align-items:center;}
-.p-name{font-size:13px;font-weight:700;color:#fff;}
-.p-stats{display:flex;gap:12px;font-size:11px;color:var(--muted);}
+.p-name{font-size:14px;font-weight:700;color:#fff;}
+.p-stats{display:flex;gap:10px;font-size:11px;color:var(--muted);}
 .p-stats strong{color:var(--em);font-weight:700;}
-.p-badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;}
-.p-badge-proxy{background:rgba(239,68,68,.15);color:var(--red);}
-.p-badge-ok{background:rgba(62,207,142,.15);color:var(--em);}
-.p-dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
-.p-dot-active{background:var(--em);box-shadow:0 0 6px var(--em);}
-.p-dot-off{background:#444;}
-.main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0;}
-.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;flex-direction:column;overflow:hidden;}
-.panel-title{font-size:12px;font-weight:700;color:var(--em);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-.panel-title .refresh{font-size:10px;color:var(--muted);cursor:pointer;}
-.panel-title .refresh:hover{color:var(--em);}
-.jobs-tbl{width:100%;font-size:10.5px;border-collapse:collapse;flex:1;overflow:hidden;}
-.jobs-tbl th{text-align:left;padding:4px 6px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;}
-.jobs-tbl td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.03);}
-.st-badge{padding:2px 6px;border-radius:4px;font-size:9px;font-weight:600;}
-.st-pending{background:rgba(245,158,11,.15);color:var(--yellow);}
-.st-running{background:rgba(99,102,241,.15);color:var(--blue);}
-.st-completed{background:rgba(62,207,142,.15);color:var(--em);}
-.st-failed{background:rgba(239,68,68,.15);color:var(--red);}
-.st-rate_limited{background:rgba(249,115,22,.15);color:var(--orange);}
-.right{display:flex;flex-direction:column;gap:8px;}
-.eq-platform{margin-bottom:6px;}
-.eq-name{font-size:11px;font-weight:700;color:var(--em);margin-bottom:3px;}
+.p-badge{font-size:9px;padding:2px 7px;border-radius:4px;font-weight:600;display:inline-block;}
+.p-badge-proxy{background:rgba(239,68,68,.12);color:var(--red);}
+.p-badge-ok{background:rgba(62,207,142,.12);color:var(--em);}
+.p-dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.p-dot-active{background:var(--em);box-shadow:0 0 8px var(--em);}
+/* Action button */
+.p-actions{display:flex;gap:4px;margin-top:4px;}
+.btn-crawl{background:rgba(62,207,142,.12);color:var(--em);border:1px solid rgba(62,207,142,.25);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn-crawl:hover{background:var(--em);color:#000;border-color:var(--em);}
+.btn-crawl:disabled{opacity:.4;cursor:not-allowed;}
+.btn-crawl.running{background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+/* Sections */
+.sections{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;}
+.panel-title{font-size:12px;font-weight:700;color:var(--em);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.panel-sub{font-size:10px;color:var(--muted);font-weight:400;}
+/* Jobs */
+.jobs-tbl{width:100%;font-size:11px;border-collapse:collapse;}
+.jobs-tbl th{text-align:left;padding:5px 8px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;}
+.jobs-tbl td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.03);}
+.st-badge{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:600;display:inline-block;}
+.st-pending{background:rgba(245,158,11,.12);color:var(--yellow);}
+.st-running{background:rgba(99,102,241,.15);color:var(--blue);animation:pulse 1.5s infinite;}
+.st-completed{background:rgba(62,207,142,.12);color:var(--em);}
+.st-failed{background:rgba(239,68,68,.12);color:var(--red);}
+.st-rate_limited{background:rgba(249,115,22,.12);color:var(--orange);}
+/* Equalizer */
+.eq-section{margin-bottom:10px;}
+.eq-name{font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.eq-cnt{font-size:9px;color:var(--muted);font-weight:400;}
 .eq-cats{display:flex;flex-wrap:wrap;gap:3px;}
-.eq-tag{font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--muted);cursor:pointer;transition:all .15s;border:1px solid transparent;user-select:none;}
+.eq-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:var(--muted);cursor:pointer;transition:all .15s;border:1px solid transparent;user-select:none;}
 .eq-tag:hover{border-color:var(--em);color:var(--em);}
-.eq-tag.active{background:rgba(62,207,142,.12);color:var(--em);border-color:rgba(62,207,142,.3);}
-.code-block{background:#111;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.6;color:var(--muted);flex-shrink:0;}
+.eq-tag.active{background:rgba(62,207,142,.1);color:var(--em);border-color:rgba(62,207,142,.25);}
+/* Settings */
+.setting-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:11px;}
+.setting-row label{color:var(--muted);min-width:100px;}
+.setting-row input,.setting-row select{background:#111;border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:11px;font-family:inherit;}
+.setting-row input[type=range]{flex:1;accent-color:var(--em);}
+/* Code block */
+.code-block{background:#0d0d0d;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.7;color:var(--muted);}
 .code-block .hl{color:var(--em);}
 .code-block .warn{color:var(--red);}
 .code-block .key{color:var(--blue);}
-.stats-bar{display:flex;gap:6px;flex-shrink:0;margin-top:6px;}
-.stat-item{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 10px;text-align:center;}
-.stat-num{font-size:18px;font-weight:800;color:var(--em);}
+/* Stats */
+.stats-bar{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;flex-shrink:0;margin-top:10px;}
+.stat-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;}
+.stat-num{font-size:20px;font-weight:800;color:var(--em);font-family:'Inter';}
 .stat-lbl{font-size:9px;color:var(--muted);margin-top:2px;}
-.ftr{flex-shrink:0;text-align:center;padding:6px 0 0;font-size:9px;color:#444;}
+/* Footer */
+.ftr{flex-shrink:0;text-align:center;padding:8px 0;font-size:9px;color:#333;}
 .ftr a{color:var(--em);text-decoration:none;}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:#111;border:1px solid var(--em);color:var(--em);padding:10px 16px;border-radius:8px;font-size:12px;z-index:9999;animation:slideIn .3s ease-out;display:none;}
+.toast.show{display:block;}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hdr">
     <div class="hdr-left">
-      <div class="hdr-logo">SETO<span>WORKS</span></div>
+      <a href="/" class="hdr-logo">SETO<span>WORKS</span></a>
       <div class="hdr-title">크롤링 모니터 · Crawl Monitor</div>
     </div>
     <div class="hdr-nav">
@@ -78,81 +101,217 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <a href="/deck.html">데크</a>
     </div>
   </div>
-  <div class="platforms" id="platform-cards"><div class="p-card" style="opacity:.4"><div class="p-name">로딩중...</div></div></div>
-  <div class="main">
-    <div class="panel">
-      <div class="panel-title">최근 크롤링 작업 <span class="refresh" onclick="loadJobs()">↻ 30초 자동</span></div>
-      <div style="flex:1;overflow:hidden;">
-        <table class="jobs-tbl"><thead><tr><th>플랫폼</th><th>카테고리</th><th>상태</th><th>건수</th><th>시작</th><th>소요</th></tr></thead><tbody id="jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">작업 대기 중</td></tr></tbody></table>
+
+  <!-- Platform Cards with Run Buttons -->
+  <div class="platforms" id="platform-cards"></div>
+
+  <!-- Main Sections -->
+  <div class="sections">
+    <!-- Left: Jobs + Stats -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="panel" style="flex:1;">
+        <div class="panel-title">
+          실시간 크롤링 작업
+          <div>
+            <span class="panel-sub" id="job-timer">30초마다 자동 새로고침</span>
+            <button class="btn-crawl" onclick="loadJobs()" style="margin-left:6px;">↻ 새로고침</button>
+            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 워커 실행</button>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;">
+          <table class="jobs-tbl">
+            <thead><tr><th>플랫폼</th><th>상태</th><th>건수</th><th>시작</th><th>소요</th><th>트리거</th></tr></thead>
+            <tbody id="jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">로딩중...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Protection -->
+      <div class="code-block">
+        <div><span class="key">kickstarter:</span> <span class="warn">프록시 필수</span> · delay <span class="hl">8~15s</span> · rate <span class="hl">6/min</span> · 429→<span class="warn">즉시 중단</span> · err×2→<span class="warn">중단</span></div>
+        <div><span class="key">indiegogo:</span> delay <span class="hl">5~10s</span> · UA 로테이션 · robots.txt 준수</div>
+        <div><span class="key">makuake/wadiz/zeczec:</span> delay <span class="hl">5~10s</span> · 공식 API 우선 · 직접 연결 OK</div>
       </div>
     </div>
-    <div class="right">
+
+    <!-- Right: Equalizer + Settings -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="panel" style="flex:1;">
-        <div class="panel-title">카테고리 이퀄라이저 <span style="font-size:10px;color:var(--muted);font-weight:400;">클릭으로 ON/OFF</span></div>
-        <div style="flex:1;overflow:hidden;" id="eq-wrap"></div>
+        <div class="panel-title">카테고리 이퀄라이저 <span class="panel-sub">클릭으로 ON/OFF · 선택된 카테고리만 크롤링</span></div>
+        <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
       </div>
-      <div class="code-block">
-        <div><span class="key">platform:</span> Kickstarter <span class="warn">[프록시 필수]</span></div>
-        <div><span class="key">delay:</span> <span class="hl">8~15초</span> (타 사이트 5~10초)</div>
-        <div><span class="key">rate_limit:</span> <span class="hl">6 req/min</span></div>
-        <div><span class="key">429_response:</span> <span class="warn">즉시 플랫폼 전체 중단</span></div>
-        <div><span class="key">consecutive_errors:</span> <span class="warn">2회 → 즉시 중단</span></div>
-        <div><span class="key">proxy_rotation:</span> 최대 3회 자동 교체</div>
-        <div><span class="key">user_agent:</span> 5종 랜덤 로테이션</div>
+      <div class="panel">
+        <div class="panel-title">크롤링 설정</div>
+        <div class="setting-row">
+          <label>카테고리당 수집</label>
+          <input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value">
+          <span id="ipc-val" style="color:var(--em);font-weight:700;min-width:24px;">10</span>건
+        </div>
+        <div class="setting-row">
+          <label>크롤링 모드</label>
+          <select id="crawl-mode">
+            <option value="new">신규만 (incremental)</option>
+            <option value="full">전체 (full crawl)</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label>인플루언서 필터</label>
+          <select id="inf-min-score">
+            <option value="0">전체 수집</option>
+            <option value="40">Pure Score 40+</option>
+            <option value="60">Pure Score 60+</option>
+            <option value="80">Pure Score 80+</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label>최소 구독자</label>
+          <input type="number" id="min-subs" value="1000" min="0" step="500" style="width:80px;">
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Stats Bar -->
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-num" id="st-total">-</div><div class="stat-lbl">총 프로젝트</div></div>
-    <div class="stat-item"><div class="stat-num" id="st-ks">-</div><div class="stat-lbl">Kickstarter</div></div>
-    <div class="stat-item"><div class="stat-num" id="st-ig">-</div><div class="stat-lbl">Indiegogo</div></div>
-    <div class="stat-item"><div class="stat-num" id="st-mk">-</div><div class="stat-lbl">Makuake</div></div>
-    <div class="stat-item"><div class="stat-num" id="st-wz">-</div><div class="stat-lbl">Wadiz</div></div>
-    <div class="stat-item"><div class="stat-num" id="st-zz">-</div><div class="stat-lbl">Zeczec</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-ks">-</div><div class="stat-lbl">🇺🇸 Kickstarter</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-ig">-</div><div class="stat-lbl">🇺🇸 Indiegogo</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-mk">-</div><div class="stat-lbl">🇯🇵 Makuake</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-wz">-</div><div class="stat-lbl">🇰🇷 Wadiz</div></div>
+    <div class="stat-item"><div class="stat-num" id="st-zz">-</div><div class="stat-lbl">🇹🇼 Zeczec</div></div>
   </div>
-  <div class="ftr">Powered by <a href="https://supabase.com">Supabase</a> · Setoworks Jellop+α</div>
+  <div class="ftr">Powered by <a href="https://supabase.com">Supabase</a> · 30초 자동 새로고침 · Setoworks Jellop+α</div>
 </div>
+<div class="toast" id="toast"></div>
+
 <script>
-var SB_URL='https://skcdrvzcwemhjtchfdtt.supabase.co';
-var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU';
-function sbFetch(t,q){return fetch(SB_URL+'/rest/v1/'+t+'?select=*'+(q||''),{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}).then(function(r){return r.json()}).catch(function(){return[]});}
+var SB='https://skcdrvzcwemhjtchfdtt.supabase.co';
+var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU';
+var H={'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json'};
+function sbGet(t,q){return fetch(SB+'/rest/v1/'+t+'?select=*'+(q||''),{headers:H}).then(r=>r.json()).catch(()=>[]);}
+function sbPost(t,d){return fetch(SB+'/rest/v1/'+t,{method:'POST',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(d)}).then(r=>r.json()).catch(()=>[]);}
+
 var FLAGS={kickstarter:'🇺🇸',indiegogo:'🇺🇸',makuake:'🇯🇵',wadiz:'🇰🇷',zeczec:'🇹🇼'};
+var platformData=[], catMap={}, runningPlatforms={};
+
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+async function triggerCrawl(platformId){
+  // Get active categories for this platform
+  var activeCats=[];
+  document.querySelectorAll('.eq-tag[data-platform="'+platformId+'"].active').forEach(el=>{activeCats.push(parseInt(el.dataset.catId));});
+  if(!activeCats.length){toast('⚠ '+platformId+': 활성 카테고리가 없습니다');return;}
+
+  var ipc=parseInt(document.getElementById('items-per-cat').value)||10;
+
+  // Create jobs directly in Supabase
+  var batchId=crypto.randomUUID();
+  var jobs=activeCats.map(catId=>({
+    platform_id:platformId,category_id:catId,status:'pending',
+    triggered_by:'manual',batch_id:batchId,items_per_category:ipc
+  }));
+
+  var result=await sbPost('crawl_jobs',jobs);
+  runningPlatforms[platformId]=true;
+  toast('✅ '+platformId+': '+jobs.length+'개 작업 생성됨');
+  renderPlatforms();
+  loadJobs();
+
+  // Trigger worker
+  fetch('/api/crawl-worker').catch(()=>{});
+}
+
+async function runWorker(){
+  toast('▶ 워커 실행 중...');
+  try{
+    var r=await fetch('/api/crawl-worker');
+    var d=await r.json();
+    toast('✅ 워커 완료: '+d.processed+'건 처리');
+    loadJobs();loadStats();
+  }catch(e){toast('⚠ 워커 실행 실패');}
+}
+
 async function loadAll(){
-  var pf=await sbFetch('platforms','&order=id');
-  var cats=await sbFetch('crawl_categories','&order=platform_id,name');
-  var prods=await sbFetch('crawled_products','&select=platform');
-  var projs=await sbFetch('projects','&select=platform_id');
-  var pCount={};
-  prods.forEach(function(p){var k=(p.platform||'').toLowerCase().replace(/\s+/g,'');if(k.indexOf('kick')>=0)k='kickstarter';if(k.indexOf('indie')>=0)k='indiegogo';if(k.indexOf('maku')>=0)k='makuake';if(k.indexOf('wadi')>=0)k='wadiz';if(k.indexOf('zec')>=0)k='zeczec';pCount[k]=(pCount[k]||0)+1;});
-  projs.forEach(function(p){pCount[p.platform_id]=(pCount[p.platform_id]||0)+1;});
-  var catMap={};cats.forEach(function(c){if(!catMap[c.platform_id])catMap[c.platform_id]=[];catMap[c.platform_id].push(c);});
+  platformData=await sbGet('platforms','&order=id');
+  var cats=await sbGet('crawl_categories','&order=platform_id,name');
+  catMap={};
+  cats.forEach(c=>{if(!catMap[c.platform_id])catMap[c.platform_id]=[];catMap[c.platform_id].push(c);});
+  renderPlatforms();renderEqualizer();loadJobs();loadStats();
+}
+
+async function loadStats(){
+  var prods=await sbGet('crawled_products','&select=platform');
+  var projs=await sbGet('projects','&select=platform_id');
+  var ct={};
+  prods.forEach(p=>{var k=(p.platform||'').toLowerCase();if(k.indexOf('kick')>=0)k='kickstarter';if(k.indexOf('indie')>=0)k='indiegogo';if(k.indexOf('maku')>=0)k='makuake';if(k.indexOf('wadi')>=0)k='wadiz';if(k.indexOf('zec')>=0)k='zeczec';ct[k]=(ct[k]||0)+1;});
+  projs.forEach(p=>{ct[p.platform_id]=(ct[p.platform_id]||0)+1;});
+  var total=Object.values(ct).reduce((s,v)=>s+v,0);
+  document.getElementById('st-total').textContent=total;
+  document.getElementById('st-ks').textContent=ct.kickstarter||0;
+  document.getElementById('st-ig').textContent=ct.indiegogo||0;
+  document.getElementById('st-mk').textContent=ct.makuake||0;
+  document.getElementById('st-wz').textContent=ct.wadiz||0;
+  document.getElementById('st-zz').textContent=ct.zeczec||0;
+}
+
+function renderPlatforms(){
   var html='';
-  pf.forEach(function(p){
-    var cnt=pCount[p.id]||0;var cc=catMap[p.id]?catMap[p.id].length:0;
-    html+='<div class="p-card"><div class="p-card-h"><span class="p-name">'+(FLAGS[p.id]||'')+' '+p.display_name+'</span><span class="p-dot '+(p.is_active?'p-dot-active':'p-dot-off')+'"></span></div>';
-    html+='<div class="p-stats"><span>프로젝트 <strong>'+cnt+'</strong></span><span>카테고리 <strong>'+cc+'</strong></span></div>';
+  platformData.forEach(p=>{
+    var cc=(catMap[p.id]||[]).length;
+    var isRunning=runningPlatforms[p.id];
+    html+='<div class="p-card">';
+    html+='<div class="p-card-h"><span class="p-name">'+(FLAGS[p.id]||'')+' '+p.display_name+'</span>';
+    html+='<span class="p-dot p-dot-active"></span></div>';
+    html+='<div class="p-stats"><span>카테고리 <strong>'+cc+'</strong></span></div>';
     html+=p.requires_proxy?'<span class="p-badge p-badge-proxy">프록시 필수</span>':'<span class="p-badge p-badge-ok">직접 연결</span>';
-    html+='</div>';
+    html+='<div class="p-actions">';
+    html+='<button class="btn-crawl'+(isRunning?' running':'')+'" onclick="triggerCrawl(\''+p.id+'\')"'+(isRunning?' disabled':'')+'>▶ '+(isRunning?'실행중...':'크롤링 시작')+'</button>';
+    html+='</div></div>';
   });
   document.getElementById('platform-cards').innerHTML=html;
-  var total=Object.values(pCount).reduce(function(s,v){return s+v},0);
-  document.getElementById('st-total').textContent=total;
-  document.getElementById('st-ks').textContent=pCount['kickstarter']||0;
-  document.getElementById('st-ig').textContent=pCount['indiegogo']||0;
-  document.getElementById('st-mk').textContent=pCount['makuake']||0;
-  document.getElementById('st-wz').textContent=pCount['wadiz']||0;
-  document.getElementById('st-zz').textContent=pCount['zeczec']||0;
-  var eqHtml='';
-  pf.forEach(function(p){var pc=catMap[p.id]||[];if(!pc.length)return;eqHtml+='<div class="eq-platform"><div class="eq-name">'+(FLAGS[p.id]||'')+' '+p.display_name+' ('+pc.length+')</div><div class="eq-cats">';pc.forEach(function(c){eqHtml+='<span class="eq-tag active" onclick="this.classList.toggle(\'active\')">'+(c.name_en||c.name)+'</span>';});eqHtml+='</div></div>';});
-  document.getElementById('eq-wrap').innerHTML=eqHtml;
 }
+
+function renderEqualizer(){
+  var html='';
+  platformData.forEach(p=>{
+    var cats=catMap[p.id]||[];
+    if(!cats.length)return;
+    html+='<div class="eq-section"><div class="eq-name">'+(FLAGS[p.id]||'')+' '+p.display_name+' <span class="eq-cnt">('+cats.length+'개)</span></div><div class="eq-cats">';
+    cats.forEach(c=>{html+='<span class="eq-tag active" data-platform="'+p.id+'" data-cat-id="'+c.id+'" onclick="this.classList.toggle(\'active\')">'+(c.name_en||c.name)+'</span>';});
+    html+='</div></div>';
+  });
+  document.getElementById('eq-wrap').innerHTML=html;
+}
+
 async function loadJobs(){
-  var jobs=await sbFetch('crawl_jobs','&order=created_at.desc&limit=15');
-  if(!jobs.length){document.getElementById('jobs-body').innerHTML='<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">작업 대기 중</td></tr>';return;}
-  var html='';jobs.forEach(function(j){var dur=j.started_at&&j.completed_at?Math.round((new Date(j.completed_at)-new Date(j.started_at))/1000)+'s':'-';html+='<tr><td>'+(j.platform_id||'-')+'</td><td>'+(j.category_id||'-')+'</td><td><span class="st-badge st-'+j.status+'">'+j.status+'</span></td><td>'+j.project_count+'</td><td>'+(j.started_at?new Date(j.started_at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-')+'</td><td>'+dur+'</td></tr>';});
+  var jobs=await sbGet('crawl_jobs','&order=created_at.desc&limit=20');
+  // Check running status
+  runningPlatforms={};
+  jobs.forEach(j=>{if(j.status==='running'||j.status==='pending')runningPlatforms[j.platform_id]=true;});
+
+  if(!jobs.length){
+    document.getElementById('jobs-body').innerHTML='<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:16px;">아직 크롤링 작업이 없습니다. 위에서 ▶ 크롤링 시작 버튼을 눌러보세요.</td></tr>';
+    return;
+  }
+  var html='';
+  jobs.forEach(j=>{
+    var dur=j.started_at&&j.completed_at?Math.round((new Date(j.completed_at)-new Date(j.started_at))/1000)+'s':j.status==='running'?'실행중...':'-';
+    html+='<tr>';
+    html+='<td style="font-weight:600;">'+(FLAGS[j.platform_id]||'')+' '+(j.platform_id||'-')+'</td>';
+    html+='<td><span class="st-badge st-'+j.status+'">'+j.status+'</span></td>';
+    html+='<td style="font-weight:600;color:var(--em);">'+j.project_count+'</td>';
+    html+='<td style="font-size:10px;">'+(j.started_at?new Date(j.started_at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-')+'</td>';
+    html+='<td>'+dur+'</td>';
+    html+='<td style="font-size:9px;color:var(--muted);">'+j.triggered_by+'</td>';
+    html+='</tr>';
+    if(j.error_message)html+='<tr><td colspan="6" style="font-size:9px;color:var(--red);padding:2px 8px;">⚠ '+j.error_message.slice(0,80)+'</td></tr>';
+  });
   document.getElementById('jobs-body').innerHTML=html;
+  renderPlatforms();
 }
-loadAll();loadJobs();setInterval(loadJobs,30000);
+
+loadAll();
+setInterval(loadJobs,30000);
+setInterval(loadStats,60000);
 </script>
 </body>
 </html>
