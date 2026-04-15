@@ -155,6 +155,39 @@ function assignGrade(score: number) {
   return null;                   // 30 미만: 수집 제외 (D등급 없음)
 }
 
+// Extract social media links from channel description
+function extractSocialLinks(bio: string) {
+  const links: Record<string, string> = {};
+  if (!bio) return links;
+  // Instagram
+  const igMatch = bio.match(/(?:instagram\.com|instagr\.am)\/([a-zA-Z0-9_.]+)/i);
+  if (igMatch) links.instagram_id = igMatch[1];
+  // TikTok
+  const ttMatch = bio.match(/tiktok\.com\/@?([a-zA-Z0-9_.]+)/i);
+  if (ttMatch) links.tiktok_id = ttMatch[1];
+  // Facebook
+  const fbMatch = bio.match(/facebook\.com\/([a-zA-Z0-9_.]+)/i);
+  if (fbMatch) links.facebook_id = fbMatch[1];
+  // Threads
+  const thMatch = bio.match(/threads\.net\/@?([a-zA-Z0-9_.]+)/i);
+  if (thMatch) links.threads_id = thMatch[1];
+  // Twitter/X
+  const xMatch = bio.match(/(?:twitter\.com|x\.com)\/([a-zA-Z0-9_]+)/i);
+  if (xMatch) links.twitter_id = xMatch[1];
+  return links;
+}
+
+// Calculate monthly upload average from video dates
+function calcMonthlyUploads(videos: any[]): number {
+  if (videos.length < 2) return videos.length;
+  const dates = videos.map(v => new Date(v.published_at).getTime()).filter(d => !isNaN(d)).sort();
+  if (dates.length < 2) return videos.length;
+  const oldest = dates[0];
+  const newest = dates[dates.length - 1];
+  const months = (newest - oldest) / (30 * 24 * 60 * 60 * 1000);
+  return months > 0 ? Math.round(dates.length / months * 10) / 10 : dates.length;
+}
+
 function detectCountry(text: string): string {
   if (!text) return "";
   const t = text.toLowerCase();
@@ -333,7 +366,7 @@ serve(async (req) => {
     }
 
     // ═══ UPDATE MODE: 기존 채널 업데이트 (active + review만 — rejected/no_collab/archived 제외) ═══
-    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&not.status=in.(rejected,no_collab,archived)&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
+    const influencers = await sbGet("influencers", `&or=(platform.eq.YouTube,platform.eq.youtube)&is_active=eq.true&order=last_collected_at.asc.nullsfirst&limit=${limit}`);
     log.push(`Active YouTube channels: ${influencers.length}`);
 
     let updated = 0;
@@ -364,6 +397,10 @@ serve(async (req) => {
         const pureScore = calcPureScore({ ...inf, ...details }, videos);
         const grade = assignGrade(pureScore);
         const tier = assignTier(details.followers);
+
+        // SNS 링크 추출 + 월평균 업로드
+        const socialLinks = extractSocialLinks(details.bio || inf.bio || "");
+        const monthlyUploads = calcMonthlyUploads(videos);
 
         // 등급 변동 감지
         const prevGrade = inf.grade;
@@ -400,6 +437,10 @@ serve(async (req) => {
           next_review_at: monthlyReview ? new Date(Date.now() + 30*24*60*60*1000).toISOString() : null,
           update_count: (inf.update_count || 0) + 1,
           last_updated_by: "auto",
+          youtube_score: pureScore,
+          total_score: pureScore, // Will be weighted average when multi-platform
+          monthly_uploads: monthlyUploads,
+          ...socialLinks,
         }]);
 
         // 등급 변동 이력 기록

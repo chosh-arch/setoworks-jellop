@@ -1618,7 +1618,14 @@ function renderExpandContent(inf) {
   if (inf.tier) html += tierBadge(inf.tier);
   html += '</div>';
   html += '<div class="text-muted small"><strong>국가:</strong> ' + (COUNTRY_KR[inf.country]||inf.country||'-') + ' &nbsp; <strong>언어:</strong> ' + (inf.language || '-') + '</div>';
-  if (inf.bio) html += '<div class="text-muted small mt-1">' + escHtml(inf.bio) + '</div>';
+  if (inf.bio) html += '<div class="text-muted small mt-1" style="max-height:60px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;">' + escHtml(inf.bio).slice(0, 200) + (inf.bio.length > 200 ? '...' : '') + '</div>';
+  // 월평균 업로드 + SNS
+  var extras = [];
+  if (inf.monthly_uploads && (inf.content_count || 0) >= 70) extras.push('월 ' + inf.monthly_uploads + '건 업로드');
+  if (inf.instagram_id) extras.push('IG: @' + inf.instagram_id);
+  if (inf.tiktok_id) extras.push('TT: @' + inf.tiktok_id);
+  if (inf.threads_id) extras.push('Threads: @' + inf.threads_id);
+  if (extras.length) html += '<div style="font-size:11px;color:var(--tblr-primary);margin-top:4px;">' + extras.join(' · ') + '</div>';
   if (inf.contact_email) html += '<div class="small mt-1"><strong>이메일:</strong> <span class="text-primary">' + escHtml(inf.contact_email) + '</span></div>';
   html += '</div></div>';
   if (inf.profile_url) html += '<a href="' + escHtml(inf.profile_url) + '" target="_blank" class="btn btn-sm btn-outline-primary">프로필 링크 열기 &rarr;</a>';
@@ -2216,11 +2223,14 @@ function goToCatChannel(cat) {
 var compareSelected = [];
 var compareFilters = { search: '', country: 'all', category: 'all' };
 
+var compareWasReset = false;
 function resetCompare() {
   compareSelected = [];
+  compareWasReset = true;
   try { localStorage.removeItem('compare_selected'); } catch(e) {}
-  renderCompare();
-  toast('비교 대상이 초기화되었습니다');
+  renderCompareSelector();
+  renderCompareCharts();
+  toast('비교 대상이 초기화되었습니다. 채널을 새로 선택하세요.');
 }
 
 function renderCompare() {
@@ -2228,7 +2238,7 @@ function renderCompare() {
   var infs = DATA.influencers.filter(function(i) {
     return !i.status || i.status === 'active' || i.status === 'review';
   });
-  if (!compareSelected.length) {
+  if (!compareSelected.length && !compareWasReset) {
     compareSelected = infs.slice().sort((a,b) => b.followers - a.followers).slice(0, 3).map(i => String(i.id));
     try { localStorage.setItem('compare_selected', JSON.stringify(compareSelected)); } catch(e) {}
   }
