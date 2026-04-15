@@ -144,6 +144,7 @@
   .card[data-accent="blue"]::before{box-shadow:inset 0 0 40px rgba(30,86,176,0.08),0 8px 40px rgba(30,86,176,0.12)}
   .card[data-accent="green"]::before{box-shadow:inset 0 0 40px rgba(13,124,95,0.08),0 8px 40px rgba(13,124,95,0.12)}
   .card[data-accent="purple"]::before{box-shadow:inset 0 0 40px rgba(109,40,217,0.08),0 8px 40px rgba(109,40,217,0.12)}
+  .card[data-accent="cyan"]::before{box-shadow:inset 0 0 40px rgba(6,182,212,0.08),0 8px 40px rgba(6,182,212,0.12)}
 
   .card-top{
     display:flex;
@@ -167,6 +168,8 @@
   .card[data-accent="green"] .icon-wrap svg{color:#22c997}
   .card[data-accent="purple"] .icon-wrap{background:rgba(109,40,217,0.12)}
   .card[data-accent="purple"] .icon-wrap svg{color:#a370f7}
+  .card[data-accent="cyan"] .icon-wrap{background:rgba(6,182,212,0.12)}
+  .card[data-accent="cyan"] .icon-wrap svg{color:#06b6d4}
 
   .arrow-icon{
     color:rgba(255,255,255,0.2);
@@ -204,6 +207,7 @@
   .card[data-accent="blue"] .card-accent-line{background:#1e56b0}
   .card[data-accent="green"] .card-accent-line{background:#0d7c5f}
   .card[data-accent="purple"] .card-accent-line{background:#6d28d9}
+  .card[data-accent="cyan"] .card-accent-line{background:#06b6d4}
 
   /* staggered fade-in */
   .card:nth-child(1){animation:fadeUp .6s .15s ease-out both}
@@ -211,6 +215,7 @@
   .card:nth-child(3){animation:fadeUp .6s .35s ease-out both}
   .card:nth-child(4){animation:fadeUp .6s .45s ease-out both}
   .card:nth-child(5){animation:fadeUp .6s .55s ease-out both}
+  .card:nth-child(6){animation:fadeUp .6s .65s ease-out both}
 
   /* ─── Footer ─── */
   .footer{
@@ -340,6 +345,21 @@
       </div>
       <div class="card-title">사내 DB 인프라</div>
       <div class="card-subtitle">PostgreSQL 70테이블 · AI 연동 · NAS 통합</div>
+      <div class="card-accent-line"></div>
+    </a>
+
+    <!-- Card 6: 시스템 가이드 -->
+    <a href="/system-guide.html" class="card" data-accent="cyan">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+      </div>
+      <div class="card-title">시스템 가이드</div>
+      <div class="card-subtitle">전체 시스템 문서 · 운영 매뉴얼</div>
       <div class="card-accent-line"></div>
     </a>
 
