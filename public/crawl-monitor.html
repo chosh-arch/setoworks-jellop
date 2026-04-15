@@ -215,18 +215,17 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     </div>
   </div>
 
-  <!-- Main Sections -->
+  <!-- ═══ TAB 1 내부: 제품 크롤링 영역 ═══ -->
+  <div id="section-product">
   <div class="sections">
-    <!-- Left: Jobs + Stats -->
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="panel" style="flex:1;">
         <div class="panel-title">
-          실시간 크롤링 작업
+          📦 제품 크롤링 작업
           <div>
-            <span class="panel-sub" id="job-timer">30초 자동</span>
+            <span class="panel-sub">30초 자동</span>
             <button class="btn-crawl" onclick="loadJobs()" style="margin-left:6px;">↻</button>
-            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 제품 워커</button>
-            <button class="btn-crawl" onclick="runYouTubeCollector()" style="margin-left:4px;background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);">▶ YT 수집</button>
+            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 제품 워커 실행</button>
           </div>
         </div>
         <div style="flex:1;overflow-y:auto;">
@@ -244,70 +243,84 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </div>
     </div>
 
-    <!-- Right: Equalizer + Settings -->
+    <!-- Right: 이퀄라이저 + 설정 -->
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="panel" style="flex:1;">
-        <div class="panel-title">
-        카테고리 이퀄라이저
-        <div style="display:flex;gap:4px;">
-          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="setCrawlType('product')" id="btn-type-product">📦 제품</button>
-          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;opacity:.5" onclick="setCrawlType('creator')" id="btn-type-creator">👤 크리에이터</button>
-          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="toggleAddCatForm()" id="btn-add-cat">+ 카테고리 추가</button>
-        </div>
-      </div>
-        <!-- Add Category Form (hidden by default) -->
+        <div class="panel-title">📦 카테고리 이퀄라이저 <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="toggleAddCatForm()" id="btn-add-cat">+ 추가</button></div>
         <div class="add-cat-form" id="add-cat-form" style="display:none;">
-          <select id="new-cat-platform" aria-label="플랫폼 선택"><option value="">플랫폼 선택</option></select>
-          <input type="text" id="new-cat-name" placeholder="카테고리명 (영문)" aria-label="카테고리명">
+          <select id="new-cat-platform" aria-label="플랫폼 선택"><option value="">플랫폼</option></select>
+          <input type="text" id="new-cat-name" placeholder="카테고리명" aria-label="카테고리명">
           <input type="text" id="new-cat-extid" placeholder="external_id" aria-label="External ID">
           <button onclick="addCategory()">추가</button>
         </div>
         <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
       </div>
-      <div class="panel" id="product-settings">
+      <div class="panel">
         <div class="panel-title">📦 제품 크롤링 설정</div>
-        <div class="setting-row">
-          <label>카테고리당 수집</label>
-          <input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value">
-          <span id="ipc-val" style="color:var(--em);font-weight:700;min-width:24px;">10</span>건
-        </div>
-        <div class="setting-row">
-          <label>크롤링 모드</label>
-          <select id="crawl-mode">
-            <option value="new">신규만 (incremental)</option>
-            <option value="full">전체 (full crawl — 모든 페이지)</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <label>페이지 수</label>
-          <input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value">
-          <span id="mp-val" style="color:var(--em);font-weight:700;min-width:24px;">5</span>페이지
-        </div>
-        <div class="setting-row">
-          <button class="btn-crawl" onclick="saveSettings()" style="margin-left:auto;">💾 설정 저장</button>
-        </div>
-        <div class="settings-indicator" id="settings-indicator" style="display:none;"></div>
+        <div class="setting-row"><label>카테고리당</label><input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value"><span id="ipc-val" style="color:var(--em);font-weight:700;">10</span>건</div>
+        <div class="setting-row"><label>모드</label><select id="crawl-mode"><option value="new">신규만</option><option value="full">전체</option></select></div>
+        <div class="setting-row"><label>페이지</label><input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value"><span id="mp-val" style="color:var(--em);font-weight:700;">5</span></div>
       </div>
     </div>
   </div>
-
-  <!-- YouTube API + Crawl History -->
+  <!-- 제품 통계 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0;margin-top:8px;">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
-      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">YouTube API 사용량</div>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div style="flex:1;background:#1a1a1a;border-radius:4px;height:8px;overflow:hidden;">
-          <div id="yt-bar" style="height:100%;background:var(--em);width:1%;border-radius:4px;transition:width .5s;"></div>
-        </div>
-        <span id="yt-usage" style="font-size:11px;color:var(--muted);min-width:80px;">로딩중...</span>
-      </div>
-      <div style="font-size:9px;color:var(--muted);margin-top:3px;">일일 10,000 쿼터 · 매일 자정 초기화 · <span id="yt-status" style="color:var(--em);">정상</span></div>
-    </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
       <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">크롤링 이력 요약</div>
       <div id="crawl-history" style="font-size:10px;color:var(--muted);line-height:1.6;">로딩중...</div>
     </div>
+    <div class="code-block" style="font-size:9px;line-height:1.5;">
+      <div><span class="key">kickstarter:</span> <span class="warn">프록시 필수</span> · 8~15s · 6/min · 429→중단</div>
+      <div><span class="key">indiegogo:</span> <span class="warn">curl_cffi 필수</span> · 5~10s</div>
+      <div><span class="key">makuake/wadiz/zeczec:</span> <span class="hl">Edge Function OK</span></div>
+    </div>
   </div>
+  </div><!-- /section-product -->
+
+  <!-- ═══ TAB 2 내부: 크리에이터 영역 ═══ -->
+  <div id="section-creator" style="display:none;">
+  <div class="sections">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="panel" style="flex:1;">
+        <div class="panel-title">
+          👤 크리에이터 수집 작업
+          <div>
+            <button class="btn-crawl" onclick="runYouTubeCollector()">▶ 기존 채널 업데이트</button>
+            <button class="btn-crawl" style="background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);" onclick="runYouTubeDiscover()">🔍 새 발굴</button>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;">
+          <table class="jobs-tbl">
+            <thead><tr><th>채널/검색</th><th>상태</th><th>구독자</th><th>Pure Score</th><th>등급</th><th>규모</th></tr></thead>
+            <tbody id="creator-jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">▶ 또는 🔍 버튼을 눌러 수집을 시작하세요</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Right: 크리에이터 설정 -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="panel">
+        <div class="panel-title">👤 크리에이터 수집 설정</div>
+        <div class="setting-row"><label>Pure Score 기준</label><input type="range" id="creator-min-score" min="0" max="80" value="0" step="10" oninput="document.getElementById('cms-val').textContent=this.value==0?'전체':this.value+'+'"><span id="cms-val" style="color:var(--em);font-weight:700;">전체</span></div>
+        <div class="setting-row"><label>최소 구독자</label><input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:80px;"></div>
+        <div class="setting-row"><label>수집 수</label><input type="range" id="creator-limit" min="1" max="20" value="5" oninput="document.getElementById('cl-val').textContent=this.value"><span id="cl-val" style="color:var(--em);font-weight:700;">5</span>채널</div>
+        <div class="setting-row"><label>카테고리</label><select id="creator-category"><option value="all">전체</option><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드</option><option value="tech_unboxing">테크</option><option value="motorcycle">모터사이클</option></select></div>
+        <div class="setting-row"><label>국가</label><select id="creator-country"><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option></select></div>
+        <div style="font-size:8px;color:var(--muted);margin-top:4px;">업로드(30)+조회비(25)+참여(20)+일관(15)+성장(10)=100점</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+        <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">YouTube API 사용량</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;background:#1a1a1a;border-radius:4px;height:8px;overflow:hidden;">
+            <div id="yt-bar" style="height:100%;background:var(--em);width:1%;border-radius:4px;transition:width .5s;"></div>
+          </div>
+          <span id="yt-usage" style="font-size:11px;color:var(--muted);min-width:80px;">로딩중...</span>
+        </div>
+        <div style="font-size:9px;color:var(--muted);margin-top:3px;">10,000/일 · <span id="yt-status" style="color:var(--em);">정상</span></div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /section-creator -->
 
   <!-- Stats Bar -->
   <div class="stats-bar">
@@ -355,10 +368,10 @@ function switchTab(tab){
   currentTab=tab;
   document.getElementById('panel-product').style.display=tab==='product'?'':'none';
   document.getElementById('panel-creator').style.display=tab==='creator'?'':'none';
+  document.getElementById('section-product').style.display=tab==='product'?'':'none';
+  document.getElementById('section-creator').style.display=tab==='creator'?'':'none';
   document.getElementById('tab-product').style.opacity=tab==='product'?'1':'.5';
   document.getElementById('tab-creator').style.opacity=tab==='creator'?'1':'.5';
-  var ps=document.getElementById('product-settings');
-  if(ps)ps.style.display=tab==='product'?'':'none';
 }
 
 function setCrawlType(type){ switchTab(type); }
@@ -372,8 +385,8 @@ async function runYouTubeDiscover(){
 
   toast('🔍 발굴 시작: '+cat+' / '+country+' ('+limit+'채널, 30~60초 소요)');
 
-  var tbody=document.getElementById('jobs-body');
-  tbody.insertAdjacentHTML('afterbegin','<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🔍 YouTube 발굴</td><td><span class="st-badge st-running">검색 중...</span></td><td>'+cat+'</td><td>'+country+'</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td>manual</td></tr>');
+  var tbody=document.getElementById('creator-jobs-body');
+  tbody.innerHTML='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🔍 '+cat+' ('+country+')</td><td><span class="st-badge st-running">검색 중</span></td><td>-</td><td>-</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td></td></tr>';
 
   try{
     var r=await fetch(SB+'/functions/v1/youtube-collector?mode=discover&category='+cat+'&country='+country+'&limit='+limit+'&min_subs='+minSubs,{headers:{'Authorization':'Bearer '+SK}});
@@ -381,17 +394,21 @@ async function runYouTubeDiscover(){
     var firstRow=tbody.querySelector('tr:first-child');
     if(firstRow)firstRow.remove();
 
-    var rows='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:700;">🔍 발굴 완료</td><td><span class="st-badge st-completed">'+d.discovered+'/'+d.candidates+'</span></td><td>'+cat+'</td><td>'+country+'</td><td>쿼터 '+d.quota_used+'</td><td></td></tr>';
+    // Show results in creator table (채널/검색 | 상태 | 구독자 | Pure Score | 등급 | 규모)
+    var rows='<tr style="background:rgba(99,102,241,.06);"><td style="font-weight:700;">🔍 '+cat+' ('+country+')</td><td><span class="st-badge st-completed">발굴 '+d.discovered+'명</span></td><td colspan="2">후보 '+d.candidates+'명</td><td>쿼터 '+d.quota_used+'</td><td></td></tr>';
     if(d.log){d.log.forEach(function(l){
       if(l.indexOf('NEW:')>=0){
         var parts=l.replace('✅ NEW: ','').split(' | ');
         var name=parts[0]||'';var subs=parts[1]||'';var score=parts[2]||'';var tier=parts[3]||'';
-        rows+='<tr style="background:rgba(62,207,142,.05);"><td style="padding-left:20px;">↳ <strong>'+name+'</strong></td><td style="color:var(--em);font-weight:700;">신규 발굴</td><td>'+subs+'</td><td>'+score+'</td><td>'+tier+'</td><td></td></tr>';
+        var gradeMatch=score.match(/\(([SABC])\)/);
+        var grade=gradeMatch?gradeMatch[1]:'-';
+        var gradeColor=grade==='S'?'var(--yellow)':grade==='A'?'var(--em)':grade==='B'?'var(--blue)':'var(--muted)';
+        rows+='<tr style="background:rgba(62,207,142,.04);"><td style="padding-left:16px;"><strong>'+name+'</strong></td><td style="color:var(--em);">✅ 신규</td><td>'+subs+'</td><td>'+score.replace(/\s*\([SABC]\)/,'')+'</td><td style="color:'+gradeColor+';font-weight:700;">'+grade+'</td><td>'+tier+'</td></tr>';
       } else if(l.indexOf('SKIP')>=0){
-        rows+='<tr style="opacity:.5;"><td style="padding-left:20px;font-size:9px;">↳ '+l+'</td><td colspan="5"></td></tr>';
+        rows+='<tr style="opacity:.4;"><td style="padding-left:16px;font-size:9px;" colspan="6">'+l+'</td></tr>';
       }
     });}
-    tbody.insertAdjacentHTML('afterbegin',rows);
+    tbody.innerHTML=rows;
     toast('✅ 발굴 완료: '+(d.discovered||0)+'명 신규 크리에이터 ('+cat+'/'+country+')');
     loadCreatorStats();loadYouTubeUsage();
   }catch(e){toast('⚠ 발굴 실패: '+e.message);}
@@ -403,9 +420,9 @@ async function runYouTubeCollector(){
   var limit=(document.getElementById('creator-limit')||{value:'5'}).value;
   ytRunning=true;
 
-  // Show running state in jobs table immediately
-  var row='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🎬 YouTube</td><td><span class="st-badge st-running">수집 중...</span></td><td>-</td><td>'+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td>manual</td></tr>';
-  var tbody=document.getElementById('jobs-body');
+  // Show running state in creator jobs table
+  var row='<tr style="background:rgba(99,102,241,.08);"><td style="font-weight:600;">🎬 업데이트 중...</td><td><span class="st-badge st-running">수집 중</span></td><td>-</td><td>-</td><td><span style="animation:pulse 1s infinite;">⏳</span></td><td></td></tr>';
+  var tbody=document.getElementById('creator-jobs-body');
   tbody.insertAdjacentHTML('afterbegin',row);
 
   // Disable buttons
