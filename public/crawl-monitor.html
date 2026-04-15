@@ -840,24 +840,41 @@ async function loadAutoSchedules(){
   var el=document.getElementById('auto-schedules');
   if(!el)return;
   var labels={'daily_update':'📊 채널 업데이트','daily_discover':'🔍 신규 발굴','monthly_c_review':'📋 C등급 리뷰','quarterly_archive_review':'📦 아카이브 리뷰'};
-  var times={'daily_update':'매일 09:00','daily_discover':'매일 09:30','monthly_c_review':'30일마다','quarterly_archive_review':'90일마다'};
+  var cycles={'daily_update':'매일 09:00','daily_discover':'매일 09:30','monthly_c_review':'30일','quarterly_archive_review':'90일'};
+
   var html='';
   schedules.forEach(function(s){
     var cfg=s.config||{};
-    var detail='';
-    if(s.id==='daily_update') detail='<input type="number" value="'+(cfg.channels_per_run||10)+'" min="1" max="30" style="width:40px;background:#111;border:1px solid var(--border);color:var(--em);padding:1px 4px;border-radius:4px;font-size:9px;" onchange="updateSchedule(\''+s.id+'\',{channels_per_run:parseInt(this.value)})">채널/회';
-    else if(s.id==='daily_discover') detail='<input type="number" value="'+(cfg.channels_per_category||3)+'" min="1" max="10" style="width:30px;background:#111;border:1px solid var(--border);color:var(--em);padding:1px 4px;border-radius:4px;font-size:9px;" onchange="updateSchedule(\''+s.id+'\',{channels_per_category:parseInt(this.value)})">채널/카테고리';
-    else detail=(cfg.interval_days||'?')+'일';
+    var isOn=s.is_active;
 
-    var toggleBtn='<span style="cursor:pointer;font-size:10px;" onclick="toggleSchedule(\''+s.id+'\','+(!s.is_active)+')">'+(s.is_active?'<span style="color:var(--em);">●</span>':'<span style="color:var(--red);">○</span>')+'</span>';
-    html+='<div style="display:flex;align-items:center;gap:4px;">';
-    html+=toggleBtn;
-    html+='<span style="flex:1;font-size:10px;">'+(labels[s.id]||s.id)+'</span>';
-    html+='<span style="font-size:8px;color:#555;">'+times[s.id]+'</span>';
-    html+='<span style="font-size:9px;">'+detail+'</span>';
+    // ON/OFF 스위치
+    var sw='<div style="display:inline-flex;align-items:center;cursor:pointer;width:32px;height:16px;border-radius:8px;background:'+(isOn?'var(--em)':'#333')+';position:relative;transition:background .2s;" onclick="toggleSchedule(\''+s.id+'\','+(!isOn)+')">';
+    sw+='<div style="width:12px;height:12px;border-radius:50%;background:#fff;position:absolute;top:2px;'+(isOn?'right:2px':'left:2px')+';transition:all .2s;"></div></div>';
+
+    // 설정값 편집
+    var setting='';
+    if(s.id==='daily_update') setting='<input type="number" value="'+(cfg.channels_per_run||10)+'" min="1" max="30" style="width:36px;background:#111;border:1px solid var(--border);color:var(--text);padding:1px 4px;border-radius:4px;font-size:9px;text-align:center;" onchange="updateSchedule(\''+s.id+'\',{channels_per_run:parseInt(this.value)})"><span style="font-size:8px;">채널</span>';
+    else if(s.id==='daily_discover') setting='<input type="number" value="'+(cfg.channels_per_category||3)+'" min="1" max="10" style="width:30px;background:#111;border:1px solid var(--border);color:var(--text);padding:1px 4px;border-radius:4px;font-size:9px;text-align:center;" onchange="updateSchedule(\''+s.id+'\',{channels_per_category:parseInt(this.value)})"><span style="font-size:8px;">/카테고리</span>';
+    else setting='<span style="font-size:9px;color:var(--muted);">'+(cfg.interval_days||'?')+'일 주기</span>';
+
+    // 마지막 실행일
+    var lastRun=s.last_run_at?fmtDate(s.last_run_at):'<span style="color:var(--red);">미실행</span>';
+
+    html+='<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);">';
+    html+=sw;
+    html+='<div style="flex:1;"><div style="font-size:10px;font-weight:600;color:'+(isOn?'var(--text)':'#555')+';">'+(labels[s.id]||s.id)+'</div>';
+    html+='<div style="font-size:8px;color:#555;">'+cycles[s.id]+'</div></div>';
+    html+='<div style="text-align:right;">'+setting+'</div>';
+    html+='<div style="min-width:45px;text-align:right;font-size:8px;color:var(--muted);">'+lastRun+'</div>';
     html+='</div>';
   });
   el.innerHTML=html||'스케줄 없음';
+}
+
+function fmtDate(iso){
+  if(!iso)return'-';
+  var d=new Date(iso);
+  return d.toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
 }
 
 async function updateSchedule(id,newConfig){
