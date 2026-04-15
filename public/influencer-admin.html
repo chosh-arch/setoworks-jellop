@@ -484,6 +484,26 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
         </div>
       </div>
     </section>
+
+    <!-- View 5: Channel Detail -->
+    <section id="view-detail" class="view">
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-ghost-primary me-3" onclick="switchToView('channels')">← 목록으로</button>
+            <div>
+              <div class="page-pretitle">크리에이터 상세</div>
+              <h2 class="page-title" id="detail-title">-</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-body">
+        <div class="container-xl" id="detail-content">
+          <div class="text-center text-muted py-5">채널을 선택하세요</div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
@@ -1585,6 +1605,11 @@ function renderExpandContent(inf) {
 
   var html = '<div class="expand-content" onclick="event.stopPropagation()">';
 
+  // Detail page button
+  html += '<div class="d-flex justify-content-between align-items-center mb-3">';
+  html += '<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openDetailView(' + inf.id + ')">📋 상세 페이지 보기</button>';
+  html += '<div class="d-flex gap-2">';
+
   // Status management buttons
   var statusLabel = {active:'활성',review:'리뷰 대기',archived:'보관',rejected:'거부',no_collab:'협업불가'};
   var currentStatus = inf.status || 'active';
@@ -1597,7 +1622,7 @@ function renderExpandContent(inf) {
   } else {
     html += '<button class="btn btn-sm btn-outline-success" onclick="event.stopPropagation();setInfluencerStatus('+inf.id+',\'active\')">✅ 활성 복귀</button>';
   }
-  html += '</div>';
+  html += '</div></div></div>';
 
   // Feature 1: Auto Insights card (above Performance Statement)
   html += renderAutoInsightCard(inf);
@@ -1626,7 +1651,7 @@ function renderExpandContent(inf) {
     bioText = bioText.replace(/(?:instagram\.com|instagr\.am)\/([a-zA-Z0-9_.]+)/gi, '<a href="https://instagram.com/$1" target="_blank" style="color:#7c3aed;">📷 @$1</a>');
     // Make other URLs clickable
     bioText = bioText.replace(/(https?:\/\/[^\s<]+)/g, function(url) { if (url.indexOf('mailto:') >= 0 || url.indexOf('instagram.com') >= 0) return url; return '<a href="' + url + '" target="_blank" style="color:var(--tblr-primary);">🔗 링크</a>'; });
-    html += '<div class="text-muted small mt-1" style="max-height:80px;overflow-y:auto;word-break:break-word;white-space:pre-wrap;line-height:1.5;">' + bioText + '</div>';
+    html += '<div class="text-muted small mt-1" style="word-break:break-word;white-space:pre-wrap;line-height:1.5;">' + bioText + '</div>';
   }
   // 월평균 업로드 + SNS
   var extras = [];
@@ -2038,6 +2063,135 @@ function setInfluencerStatus(id, status) {
     if (inf) { inf.status = status; inf.is_active = status === 'active'; }
     renderChannelTable();
     toast((labels[status]||status) + ' 처리 완료');
+  });
+}
+
+function openDetailView(id) {
+  var inf = DATA.influencers.find(function(i){ return i.id == id; });
+  if (!inf) return;
+
+  document.getElementById('detail-title').textContent = inf.display_name;
+  switchToView('detail');
+
+  // Load all contents for this influencer
+  sbFetch('contents', '&influencer_id=eq.' + id + '&order=published_at.desc&limit=200').then(function(contents) {
+    var html = '';
+
+    // ─── 1. Profile Header ───
+    var er = inf.avg_views > 0 ? ((inf.avg_likes + (inf.avg_comments||0)) / inf.avg_views * 100).toFixed(2) : '0';
+    html += '<div class="row g-3 mb-4">';
+    html += '<div class="col-md-3"><div class="card"><div class="card-body text-center">';
+    if (inf.profile_image_url) html += '<img src="' + inf.profile_image_url + '" class="rounded-circle mb-2" style="width:80px;height:80px;object-fit:cover;">';
+    html += '<h3>' + escHtml(inf.display_name) + '</h3>';
+    html += '<div>' + gradeBadge(inf.grade) + ' ' + tierBadge(inf.tier) + ' ' + platformBadge(inf.platform, inf) + '</div>';
+    html += '<div class="mt-2 text-muted small">' + (inf.country || '-') + ' · ' + (CAT_KR[inf.category] || inf.category || '-') + '</div>';
+    if (inf.contact_email) html += '<div class="mt-1"><a href="mailto:' + inf.contact_email + '" class="text-primary">📧 ' + inf.contact_email + '</a></div>';
+    if (inf.instagram_id) html += '<div><a href="https://instagram.com/' + inf.instagram_id + '" target="_blank" class="text-primary">📷 @' + inf.instagram_id + '</a></div>';
+    if (inf.profile_url) html += '<div><a href="' + inf.profile_url + '" target="_blank" class="btn btn-sm btn-outline-primary mt-2">YouTube 채널 →</a></div>';
+    html += '</div></div></div>';
+
+    // ─── 2. KPI Cards ───
+    html += '<div class="col-md-9"><div class="row g-3">';
+    var kpis = [
+      {label:'Pure Score',value:(inf.pure_score||0).toFixed(1)+'점',color:'primary'},
+      {label:'구독자',value:fmt(inf.followers),color:'blue'},
+      {label:'참여율',value:er+'%',color:'green'},
+      {label:'콘텐츠',value:contents.length+'건',color:'yellow'},
+      {label:'평균 조회수',value:fmt(Math.round(inf.avg_views||0)),color:'purple'},
+      {label:'월평균 업로드',value:(inf.content_count||0)>=70&&inf.monthly_uploads?inf.monthly_uploads+'건':'-',color:'cyan'}
+    ];
+    kpis.forEach(function(k){
+      html += '<div class="col-4"><div class="card"><div class="card-body p-2 text-center"><div class="text-muted small">' + k.label + '</div><div class="kpi-number" style="font-size:20px;">' + k.value + '</div></div></div></div>';
+    });
+    html += '</div></div></div>';
+
+    // ─── 3. Views Timeline Chart ───
+    if (contents.length > 1) {
+      html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📈 조회수 추이</h3></div><div class="card-body"><div class="chart-wrap" style="height:250px"><canvas id="detail-views-chart"></canvas></div></div></div>';
+    }
+
+    // ─── 4. Adjacent Ranking ───
+    var sortedAll = DATA.influencers.filter(function(i){ return i.is_active && i.pure_score != null; }).sort(function(a,b){ return b.pure_score - a.pure_score; });
+    var myIdx = sortedAll.findIndex(function(i){ return i.id == id; });
+    if (myIdx >= 0) {
+      var nearby = sortedAll.slice(Math.max(0,myIdx-3), myIdx+4);
+      html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📊 인접 순위 비교 — ' + (myIdx+1) + '위 / ' + sortedAll.length + '명</h3></div><div class="card-body">';
+      html += '<table class="table table-vcenter" style="font-size:13px;"><thead><tr><th>순위</th><th>이름</th><th>등급</th><th>Score</th><th>구독자</th><th>평균조회</th><th>참여율</th><th>카테고리</th></tr></thead><tbody>';
+      nearby.forEach(function(n,ni){
+        var nIdx = sortedAll.indexOf(n);
+        var isMe = n.id == id;
+        var nER = n.avg_views > 0 ? ((n.avg_likes + (n.avg_comments||0)) / n.avg_views * 100).toFixed(2) : '-';
+        html += '<tr style="' + (isMe ? 'background:rgba(59,91,219,.08);font-weight:700;' : '') + '">';
+        html += '<td>' + (nIdx+1) + '위</td>';
+        html += '<td>' + (isMe ? '🔹 ' : '') + escHtml(n.display_name) + '</td>';
+        html += '<td>' + gradeBadge(n.grade) + '</td>';
+        html += '<td class="num" style="' + (isMe ? 'color:var(--tblr-primary);' : '') + '">' + (n.pure_score||0).toFixed(1) + '</td>';
+        html += '<td class="num">' + fmt(n.followers) + '</td>';
+        html += '<td class="num">' + fmt(Math.round(n.avg_views||0)) + '</td>';
+        html += '<td class="num">' + nER + '%</td>';
+        html += '<td>' + (CAT_KR[n.category]||n.category||'-') + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div></div>';
+    }
+
+    // ─── 5. Platform Comparison (future) ───
+    var platforms = [];
+    if (inf.platform === 'youtube' || inf.platform === 'YouTube') platforms.push({name:'YouTube',score:inf.youtube_score||inf.pure_score,followers:inf.followers});
+    if (inf.instagram_id) platforms.push({name:'Instagram',score:inf.instagram_score||null,followers:null});
+    if (inf.tiktok_id) platforms.push({name:'TikTok',score:inf.tiktok_score||null,followers:null});
+    if (platforms.length > 1) {
+      html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">🔄 멀티 플랫폼 비교</h3></div><div class="card-body">';
+      html += '<table class="table table-vcenter" style="font-size:13px;"><thead><tr><th>플랫폼</th><th>Score</th><th>구독자</th><th>상태</th></tr></thead><tbody>';
+      platforms.forEach(function(p){
+        html += '<tr><td>' + p.name + '</td><td class="num">' + (p.score ? p.score.toFixed(1) : '수집 예정') + '</td><td class="num">' + (p.followers ? fmt(p.followers) : '-') + '</td><td>' + (p.score ? '<span class="badge bg-success">활성</span>' : '<span class="badge bg-secondary">대기</span>') + '</td></tr>';
+      });
+      html += '</tbody></table><div class="text-muted small">※ Instagram/TikTok 스코어는 해당 플랫폼 크롤링 활성화 시 자동 수집됩니다.</div></div></div>';
+    }
+
+    // ─── 6. Full Video List ───
+    html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">🎬 전체 영상 목록 (' + contents.length + '건)</h3></div><div class="card-body p-0">';
+    html += '<div class="table-responsive"><table class="table table-vcenter table-hover" style="font-size:12px;">';
+    html += '<thead><tr><th>#</th><th>제목</th><th class="num">조회수</th><th class="num">좋아요</th><th class="num">댓글</th><th class="num">참여율</th><th>날짜</th></tr></thead><tbody>';
+    contents.forEach(function(c,i){
+      var cER = c.views > 0 ? ((c.likes + c.comments) / c.views * 100).toFixed(2) : '0';
+      html += '<tr><td>' + (i+1) + '</td>';
+      html += '<td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href="' + (c.content_url||'#') + '" target="_blank" class="text-primary">' + escHtml((c.title||'').slice(0,60)) + '</a></td>';
+      html += '<td class="num">' + fmtFull(c.views) + '</td>';
+      html += '<td class="num">' + fmtFull(c.likes) + '</td>';
+      html += '<td class="num">' + fmtFull(c.comments) + '</td>';
+      html += '<td class="num">' + cER + '%</td>';
+      html += '<td class="text-muted">' + (c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR') : '-') + '</td></tr>';
+    });
+    html += '</tbody></table></div></div>';
+
+    document.getElementById('detail-content').innerHTML = html;
+
+    // Render chart
+    if (contents.length > 1) {
+      setTimeout(function(){
+        var sorted = contents.slice().sort(function(a,b){ return new Date(a.published_at) - new Date(b.published_at); });
+        new Chart(document.getElementById('detail-views-chart'), {
+          type: 'line',
+          data: {
+            labels: sorted.map(function(c){ return c.published_at ? new Date(c.published_at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}) : ''; }),
+            datasets: [
+              { label: '조회수', data: sorted.map(function(c){ return c.views; }), borderColor: '#3b5bdb', backgroundColor: 'rgba(59,91,219,.1)', fill: true, tension: 0.3, pointRadius: 2 },
+              { label: '좋아요', data: sorted.map(function(c){ return c.likes; }), borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,.1)', fill: false, tension: 0.3, pointRadius: 2, yAxisID: 'y1' }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              y: { position: 'left', title: { display: true, text: '조회수' }, ticks: { callback: function(v){ return fmt(v); } } },
+              y1: { position: 'right', title: { display: true, text: '좋아요' }, grid: { drawOnChartArea: false } }
+            },
+            plugins: { legend: { labels: { font: { family: 'Inter', size: 11 } } } }
+          }
+        });
+      }, 100);
+    }
   });
 }
 

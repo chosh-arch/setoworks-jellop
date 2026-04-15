@@ -41,9 +41,10 @@ def main():
     check('HTML: 단일 root', html.count('<html') == 1 and html.count('</html>') == 1)
     check('HTML: head/body 균형', html.count('<head>') == html.count('</head>') and html.count('<body>') == html.count('</body>'))
 
-    # 태그 균형 (간이)
-    open_div = len(re.findall(r'<div[\s>]', html))
-    close_div = html.count('</div>')
+    # 태그 균형 (정적 HTML만 — JS 내 동적 생성 제외)
+    static_html = html.split('<script>')[0] if '<script>' in html else html
+    open_div = len(re.findall(r'<div[\s>]', static_html))
+    close_div = static_html.count('</div>')
     check(f'HTML: div 태그 균형 ({open_div} vs {close_div})', open_div == close_div)
 
     # ═══════════════════════════════════════
