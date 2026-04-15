@@ -2124,7 +2124,7 @@ function openDetailView(id) {
     if (myIdx >= 0) {
       var nearby = compareList.slice(Math.max(0,myIdx-3), myIdx+4);
       html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📊 인접 순위 (' + compareLabel + ') — ' + (myIdx+1) + '위 / ' + compareList.length + '명</h3></div><div class="card-body">';
-      html += '<table class="table table-vcenter table-hover" style="font-size:13px;"><thead><tr><th>순위</th><th>이름</th><th>등급</th><th>Score</th><th>구독자</th><th>평균조회</th><th>참여율</th></tr></thead><tbody>';
+      html += '<table class="table table-vcenter table-hover" style="font-size:13px;"><thead><tr><th style="width:50px">순위</th><th>이름</th><th style="width:50px">등급</th><th class="num" style="width:60px">Score</th><th class="num" style="width:70px">구독자</th><th class="num" style="width:70px">평균조회</th><th class="num" style="width:60px">참여율</th></tr></thead><tbody>';
       nearby.forEach(function(n){
         var nIdx = compareList.indexOf(n);
         var isMe = n.id == id;

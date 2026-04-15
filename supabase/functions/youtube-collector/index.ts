@@ -136,18 +136,22 @@ function calcPureScore(inf: any, videos: any[]) {
   const monthlyAvg = recentVideos.length / 6;
   score += Math.min(30, (monthlyAvg / 4) * 30);
 
-  // 2. View/follower ratio (25pts) — 0.5+ = max
+  // 2. View/follower ratio (25pts) — tier별 기준 적용
   const avgViews = videos.length ? videos.reduce((s: number, v: any) => s + v.views, 0) / videos.length : 0;
   const ratio = inf.followers > 0 ? avgViews / inf.followers : 0;
-  score += Math.min(25, (ratio / 0.5) * 25);
+  // 메가(1M+)는 0.1이면 만점, 매크로(500K+)는 0.15, 나머지는 0.3
+  const ratioTarget = inf.followers >= 1000000 ? 0.1 : inf.followers >= 500000 ? 0.15 : inf.followers >= 50000 ? 0.2 : 0.3;
+  score += Math.min(25, (ratio / ratioTarget) * 25);
 
-  // 3. Engagement rate (20pts) — 8%+ = max
+  // 3. Engagement rate (20pts) — tier별 기준 적용
   const totalEng = videos.reduce((s: number, v: any) => s + v.likes + v.comments, 0);
   const totalViews = videos.reduce((s: number, v: any) => s + v.views, 0);
   const er = totalViews > 0 ? (totalEng / totalViews) * 100 : 0;
-  score += Math.min(20, (er / 8) * 20);
+  // 메가는 2%면 만점, 매크로 3%, 나머지 5%
+  const erTarget = inf.followers >= 1000000 ? 2 : inf.followers >= 500000 ? 3 : inf.followers >= 50000 ? 4 : 5;
+  score += Math.min(20, (er / erTarget) * 20);
 
-  // 4. Consistency (15pts) — CV <= 0.3 = max
+  // 4. Consistency (15pts) — CV <= 0.3 = max, 음수 방지
   if (videos.length >= 3) {
     const dates = videos.map((v: any) => new Date(v.published_at).getTime()).sort();
     const intervals = [];
@@ -155,7 +159,7 @@ function calcPureScore(inf: any, videos: any[]) {
     const mean = intervals.reduce((s, v) => s + v, 0) / intervals.length;
     const std = Math.sqrt(intervals.reduce((s, v) => s + (v - mean) ** 2, 0) / intervals.length);
     const cv = mean > 0 ? std / mean : 1;
-    score += Math.min(15, ((1 - cv) / 0.7) * 15);
+    score += Math.max(0, Math.min(15, ((1 - cv) / 0.7) * 15));
   }
 
   // 5. Growth (10pts) — first collection = 5pts
