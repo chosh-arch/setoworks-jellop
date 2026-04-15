@@ -143,7 +143,33 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- TAB 1: 제품 크롤링 -->
   <div id="panel-product">
+    <!-- 상단: 5개 플랫폼 카드 -->
     <div class="platforms" id="platform-cards"></div>
+
+    <!-- 2열: 크롤링 실행 + 설정 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+      <!-- 왼쪽: 실행 패널 -->
+      <div class="panel" style="margin:0;">
+        <div class="panel-title">📦 제품 크롤링 설정</div>
+        <div class="setting-row"><label>카테고리당 수집</label><input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value"><span id="ipc-val" style="color:var(--em);font-weight:700;">10</span>건</div>
+        <div class="setting-row"><label>크롤링 모드</label><select id="crawl-mode" style="flex:1;"><option value="new">신규만 (최신 제품)</option><option value="full">전체 (모든 페이지)</option></select></div>
+        <div class="setting-row"><label>페이지 수</label><input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value"><span id="mp-val" style="color:var(--em);font-weight:700;">5</span>페이지</div>
+        <button class="btn-crawl" onclick="runWorker()" style="width:100%;margin-top:4px;padding:6px;">▶ 제품 워커 실행</button>
+      </div>
+      <!-- 오른쪽: 보호 정책 -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="code-block" style="flex:1;">
+          <div style="font-size:10px;font-weight:700;color:var(--em);margin-bottom:4px;">🛡 크롤링 보호 정책</div>
+          <div><span class="key">kickstarter:</span> <span class="warn">프록시 필수</span> · 8~15s · 6/min</div>
+          <div style="padding-left:12px;"><span class="warn">429 → 즉시 중단</span> · 연속 2회 에러 → 중단</div>
+          <div><span class="key">indiegogo:</span> <span class="warn">curl_cffi 필수</span> · 5~10s</div>
+          <div><span class="key">makuake:</span> <span class="hl">API v2 직접 연결</span> · 5~10s</div>
+          <div><span class="key">wadiz:</span> <span class="hl">API v2 직접 연결</span> · 5~10s</div>
+          <div><span class="key">zeczec:</span> <span class="hl">HTML 스크래핑</span> · 5~10s</div>
+          <div style="margin-top:4px;"><span class="key">중복 방지:</span> <span class="hl">UNIQUE(platform_id, external_id)</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- TAB 2: 크리에이터 수집 -->
@@ -200,62 +226,47 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- ═══ TAB 1 내부: 제품 크롤링 영역 ═══ -->
   <div id="section-product">
+  <!-- 2열: 작업 테이블 + 이퀄라이저 -->
   <div class="sections">
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="panel" style="flex:1;">
-        <div class="panel-title">
-          📦 제품 크롤링 작업
-          <div>
-            <span class="panel-sub">30초 자동</span>
-            <button class="btn-crawl" onclick="loadJobs()" style="margin-left:6px;">↻</button>
-            <button class="btn-crawl" onclick="runWorker()" style="margin-left:4px;">▶ 제품 워커 실행</button>
-          </div>
-        </div>
-        <div style="flex:1;overflow-y:auto;">
-          <table class="jobs-tbl">
-            <thead><tr><th>플랫폼</th><th>상태</th><th>건수</th><th>시작</th><th>소요</th><th>트리거</th></tr></thead>
-            <tbody id="jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">로딩중...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Protection -->
-      <div class="code-block">
-        <div><span class="key">kickstarter:</span> <span class="warn">프록시 필수</span> · delay <span class="hl">8~15s</span> · rate <span class="hl">6/min</span> · 429→<span class="warn">즉시 중단</span> · err×2→<span class="warn">중단</span></div>
-        <div><span class="key">indiegogo:</span> delay <span class="hl">5~10s</span> · UA 로테이션 · robots.txt 준수</div>
-        <div><span class="key">makuake/wadiz/zeczec:</span> delay <span class="hl">5~10s</span> · 공식 API 우선 · 직접 연결 OK</div>
+    <!-- 왼쪽: 작업 테이블 -->
+    <div class="panel">
+      <div class="panel-title">📦 크롤링 작업 현황 <span class="panel-sub">30초 자동 · <span style="cursor:pointer;color:var(--em);" onclick="loadJobs()">↻ 새로고침</span></span></div>
+      <div style="flex:1;overflow-y:auto;">
+        <table class="jobs-tbl">
+          <thead><tr><th>플랫폼</th><th>상태</th><th>건수</th><th>시작</th><th>소요</th><th>트리거</th></tr></thead>
+          <tbody id="jobs-body"><tr><td colspan="6" style="color:var(--muted);text-align:center;padding:16px;">로딩중...</td></tr></tbody>
+        </table>
       </div>
     </div>
-
-    <!-- Right: 이퀄라이저 + 설정 -->
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="panel" style="flex:1;">
-        <div class="panel-title">📦 카테고리 이퀄라이저 <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="toggleAddCatForm()" id="btn-add-cat">+ 추가</button></div>
-        <div class="add-cat-form" id="add-cat-form" style="display:none;">
-          <select id="new-cat-platform" aria-label="플랫폼 선택"><option value="">플랫폼</option></select>
-          <input type="text" id="new-cat-name" placeholder="카테고리명" aria-label="카테고리명">
-          <input type="text" id="new-cat-extid" placeholder="external_id" aria-label="External ID">
-          <button onclick="addCategory()">추가</button>
-        </div>
-        <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
+    <!-- 오른쪽: 이퀄라이저 -->
+    <div class="panel">
+      <div class="panel-title">📦 카테고리 이퀄라이저 (97개) <button class="btn-crawl" style="font-size:9px;padding:2px 6px;" onclick="toggleAddCatForm()">+ 추가</button></div>
+      <div class="add-cat-form" id="add-cat-form" style="display:none;">
+        <select id="new-cat-platform" aria-label="플랫폼"><option value="">플랫폼</option></select>
+        <input type="text" id="new-cat-name" placeholder="카테고리명" aria-label="카테고리명">
+        <input type="text" id="new-cat-extid" placeholder="external_id" aria-label="ID">
+        <button onclick="addCategory()">추가</button>
       </div>
-      <div class="panel">
-        <div class="panel-title">📦 제품 크롤링 설정</div>
-        <div class="setting-row"><label>카테고리당</label><input type="range" id="items-per-cat" min="5" max="50" value="10" oninput="document.getElementById('ipc-val').textContent=this.value"><span id="ipc-val" style="color:var(--em);font-weight:700;">10</span>건</div>
-        <div class="setting-row"><label>모드</label><select id="crawl-mode"><option value="new">신규만</option><option value="full">전체</option></select></div>
-        <div class="setting-row"><label>페이지</label><input type="range" id="max-pages" min="1" max="20" value="5" oninput="document.getElementById('mp-val').textContent=this.value"><span id="mp-val" style="color:var(--em);font-weight:700;">5</span></div>
-      </div>
+      <div style="flex:1;overflow-y:auto;" id="eq-wrap"></div>
     </div>
   </div>
-  <!-- 제품 통계 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0;margin-top:8px;">
+  <!-- 3열: 이력 + 통계 + 상태 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
     <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
-      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">크롤링 이력 요약</div>
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">📊 크롤링 이력</div>
       <div id="crawl-history" style="font-size:10px;color:var(--muted);line-height:1.6;">로딩중...</div>
     </div>
-    <div class="code-block" style="font-size:9px;line-height:1.5;">
-      <div><span class="key">kickstarter:</span> <span class="warn">프록시 필수</span> · 8~15s · 6/min · 429→중단</div>
-      <div><span class="key">indiegogo:</span> <span class="warn">curl_cffi 필수</span> · 5~10s</div>
-      <div><span class="key">makuake/wadiz/zeczec:</span> <span class="hl">Edge Function OK</span></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">📦 플랫폼별 현황</div>
+      <div id="product-platform-stats" style="font-size:10px;color:var(--muted);line-height:1.6;">로딩중...</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:4px;">⚙️ 제품 자동화</div>
+      <div style="font-size:9px;color:var(--muted);line-height:1.7;">
+        <div>🇯🇵 Makuake · 🇰🇷 Wadiz · 🇹🇼 Zeczec → <span style="color:var(--em);">Edge Function</span></div>
+        <div>🇺🇸 Kickstarter · Indiegogo → <span style="color:var(--red);">로컬 워커</span></div>
+        <div style="margin-top:4px;">중복: UNIQUE 자동 제거 · 딜레이: 5~15초</div>
+      </div>
     </div>
   </div>
   </div><!-- /section-product -->
@@ -917,7 +928,29 @@ async function loadGradeSummary(){
   el.innerHTML=html;
 }
 
+async function loadPlatformStats(){
+  var el=document.getElementById('product-platform-stats');
+  if(!el)return;
+  var projs=await sbGet('projects','&select=platform_id');
+  var prods=await sbGet('crawled_products','&select=platform');
+  var ct={};
+  prods.forEach(function(p){var k=(p.platform||'').toLowerCase();if(k.indexOf('kick')>=0)k='Kickstarter';else if(k.indexOf('indie')>=0)k='Indiegogo';else if(k.indexOf('maku')>=0)k='Makuake';else if(k.indexOf('wadi')>=0)k='Wadiz';else if(k.indexOf('zec')>=0)k='Zeczec';else k=p.platform;ct[k]=(ct[k]||0)+1;});
+  projs.forEach(function(p){var k=p.platform_id;k=k.charAt(0).toUpperCase()+k.slice(1);ct[k]=(ct[k]||0)+1;});
+  var total=Object.values(ct).reduce(function(s,v){return s+v;},0);
+  var html='<div style="font-size:14px;font-weight:800;color:var(--em);margin-bottom:4px;">'+total+'건</div>';
+  Object.entries(ct).sort(function(a,b){return b[1]-a[1];}).forEach(function(e){
+    var pct=Math.round(e[1]/total*100);
+    html+='<div style="display:flex;align-items:center;gap:4px;margin:2px 0;">';
+    html+='<span style="flex:1;font-size:10px;">'+e[0]+'</span>';
+    html+='<span style="font-size:10px;font-weight:700;color:var(--em);min-width:30px;text-align:right;">'+e[1]+'</span>';
+    html+='<div style="width:50px;background:#1a1a1a;border-radius:3px;height:4px;"><div style="width:'+pct+'%;background:var(--em);height:100%;border-radius:3px;"></div></div>';
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
 loadAll();
+loadPlatformStats();
 loadCreatorStats();
 loadRecentCreators();
 loadAutoSchedules();
@@ -926,6 +959,7 @@ loadYouTubeUsage();
 loadCrawlHistory();
 setInterval(loadJobs,30000);
 setInterval(loadStats,60000);
+setInterval(loadPlatformStats,60000);
 setInterval(loadYouTubeUsage,60000);
 setInterval(loadCrawlHistory,60000);
 setInterval(loadCreatorStats,60000);
