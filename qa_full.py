@@ -1,5 +1,5 @@
 """Setoworks Full Production QA"""
-import sys,json,urllib.request,ssl,subprocess,os,glob
+import sys,json,urllib.request,ssl,subprocess,os,glob,re
 sys.stdout.reconfigure(encoding='utf-8')
 ctx=ssl.create_default_context()
 
@@ -152,6 +152,32 @@ try:
     check('MONITOR','Edge Function URL','functions/v1/crawl-worker' in s)
 except Exception as e:
     check('MONITOR','fetch',False,str(e)[:60])
+
+# ─── 8b. INFLUENCER ADMIN DEEP CHECK ───
+print('\n[8b] INFLUENCER ADMIN DEEP')
+try:
+    s=fetch_page('/influencer-admin.html')
+    # Grade sort: GRADE_ORDER must exist with S:0,A:1,B:2,C:3
+    check('DEEP','grade sort order S→A→B→C','GRADE_ORDER' in s and 'S:0' in s and 'A:1' in s and 'B:2' in s)
+    # Contents limit >= 5000
+    check('DEEP','contents batch loading','loadContentBatch' in s and 'limit=500' in s)
+    # Multi-platform support
+    check('DEEP','multi-platform (instagram_id)','instagram_id' in s)
+    # Status filter
+    check('DEEP','status filter (rejected/no_collab)','rejected' in s and 'no_collab' in s)
+    # Compare reset button
+    check('DEEP','compare reset button','resetCompare' in s)
+    # setInfluencerStatus function
+    check('DEEP','setInfluencerStatus function','setInfluencerStatus' in s)
+    # PALETTE >= 13 colors
+    pal_match=re.search(r'PALETTE\s*=\s*\[([^\]]+)\]',s)
+    if pal_match:
+        colors=pal_match.group(1).count('#')
+        check('DEEP',f'PALETTE {colors} colors >= 13',colors>=13)
+    # Supabase batch loading
+    check('DEEP','batch content loading','loadContentBatch' in s)
+except Exception as e:
+    check('DEEP','fetch',False,str(e)[:60])
 
 # ─── 9. QA SCRIPT ───
 print('\n[9] QA CHECK SCRIPT')
