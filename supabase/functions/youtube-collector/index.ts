@@ -195,7 +195,15 @@ serve(async (req) => {
       const targetCountries = country === "ALL" ? ALL_COUNTRIES : [country];
       const selectedCountry = targetCountries[Math.floor(Math.random() * targetCountries.length)];
 
-      const queries = SEARCH_QUERIES[category] || [`${category} vlog`, `${category} review`];
+      // Check DB for custom category queries
+      let queries = SEARCH_QUERIES[category];
+      if (!queries) {
+        const customCats = await sbGet("crawl_settings", `&setting_key=eq.creator_category&id=eq.cat_${category}`);
+        if (customCats.length) {
+          try { queries = JSON.parse(customCats[0].setting_value).queries; } catch {}
+        }
+        if (!queries || !queries.length) queries = [`${category} vlog`, `${category} review`];
+      }
       const query = queries[Math.floor(Math.random() * queries.length)];
       const lang = COUNTRY_LANG[selectedCountry] || "en";
 

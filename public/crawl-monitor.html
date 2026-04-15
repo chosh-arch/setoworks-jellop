@@ -206,7 +206,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <div class="panel" style="margin:0;">
         <div class="panel-title">🔍 새 크리에이터 발굴</div>
         <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">카테고리 + 국가로 YouTube에서 새 크리에이터를 찾습니다.</div>
-        <div class="setting-row"><label>카테고리</label><select id="creator-category" style="flex:1;"><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드/요리</option><option value="tech_unboxing">테크/언박싱</option><option value="motorcycle">모터사이클</option><option value="pet">반려동물</option><option value="parenting">육아/패밀리</option><option value="gaming">게임</option><option value="education">교육/학습</option><option value="travel">여행</option></select></div>
+        <div class="setting-row"><label>카테고리</label><select id="creator-category" style="flex:1;"><option value="fashion">패션</option><option value="lifestyle">라이프스타일</option><option value="fitness">피트니스</option><option value="beauty">뷰티</option><option value="camping_outdoor">캠핑/아웃도어</option><option value="food">푸드/요리</option><option value="tech_unboxing">테크/언박싱</option><option value="motorcycle">모터사이클</option><option value="pet">반려동물</option><option value="parenting">육아/패밀리</option><option value="gaming">게임</option><option value="education">교육/학습</option><option value="travel">여행</option></select><button class="btn-crawl" style="font-size:8px;padding:2px 6px;margin-left:4px;" onclick="document.getElementById('creator-cat-add').style.display=document.getElementById('creator-cat-add').style.display==='none'?'flex':'none'">+</button></div>
+        <div id="creator-cat-add" style="display:none;gap:4px;align-items:center;padding:4px 0;">
+          <input type="text" id="new-creator-cat-id" placeholder="카테고리 ID (영문)" style="flex:1;background:#111;border:1px solid var(--border);color:var(--text);padding:3px 6px;border-radius:4px;font-size:9px;">
+          <input type="text" id="new-creator-cat-name" placeholder="표시명 (한글)" style="flex:1;background:#111;border:1px solid var(--border);color:var(--text);padding:3px 6px;border-radius:4px;font-size:9px;">
+          <input type="text" id="new-creator-cat-query" placeholder="검색어 (쉼표 구분)" style="flex:1;background:#111;border:1px solid var(--border);color:var(--text);padding:3px 6px;border-radius:4px;font-size:9px;">
+          <button class="btn-crawl" style="font-size:9px;padding:3px 8px;" onclick="addCreatorCategory()">추가</button>
+        </div>
         <div class="setting-row"><label>국가</label><select id="creator-country" style="flex:1;"><option value="JP">🇯🇵 일본</option><option value="KR">🇰🇷 한국</option><option value="TW">🇹🇼 대만</option><option value="US">🇺🇸 미국</option><option value="GB">🇬🇧 영국</option><option value="CN">🇨🇳 중국</option><option value="DE">🇩🇪 독일</option><option value="FR">🇫🇷 프랑스</option></select></div>
         <div class="setting-row"><label>최소 구독자</label><input type="number" id="creator-min-subs" value="1000" min="0" step="500" style="width:70px;"></div>
         <button class="btn-crawl" onclick="runYouTubeDiscover()" style="width:100%;margin-top:4px;padding:6px;background:rgba(99,102,241,.12);color:var(--blue);border-color:rgba(99,102,241,.25);">🔍 발굴 실행</button>
@@ -355,6 +361,53 @@ function switchTab(tab){
 }
 
 function setCrawlType(type){ switchTab(type); }
+
+async function addCreatorCategory(){
+  var id=document.getElementById('new-creator-cat-id').value.trim();
+  var name=document.getElementById('new-creator-cat-name').value.trim();
+  var queryStr=document.getElementById('new-creator-cat-query').value.trim();
+  if(!id||!name){toast('⚠ 카테고리 ID와 표시명을 입력하세요');return;}
+
+  // Add to dropdown
+  var sel=document.getElementById('creator-category');
+  var opt=document.createElement('option');
+  opt.value=id;
+  opt.textContent=name;
+  sel.appendChild(opt);
+  sel.value=id;
+
+  // Save to crawl_settings for persistence
+  await fetch(SB+'/rest/v1/crawl_settings',{
+    method:'POST',
+    headers:{...H,'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({id:'cat_'+id,setting_key:'creator_category',setting_value:JSON.stringify({id:id,name:name,queries:queryStr.split(',').map(function(s){return s.trim()})})})
+  });
+
+  // Clear form
+  document.getElementById('new-creator-cat-id').value='';
+  document.getElementById('new-creator-cat-name').value='';
+  document.getElementById('new-creator-cat-query').value='';
+  document.getElementById('creator-cat-add').style.display='none';
+  toast('✅ 카테고리 추가됨: '+name+' ('+id+')');
+}
+
+// Load custom categories on startup
+async function loadCustomCategories(){
+  var settings=await sbGet('crawl_settings','&setting_key=eq.creator_category');
+  var sel=document.getElementById('creator-category');
+  if(!sel)return;
+  settings.forEach(function(s){
+    try{
+      var cat=JSON.parse(s.setting_value);
+      if(cat.id&&!sel.querySelector('option[value="'+cat.id+'"]')){
+        var opt=document.createElement('option');
+        opt.value=cat.id;
+        opt.textContent=cat.name;
+        sel.appendChild(opt);
+      }
+    }catch(e){}
+  });
+}
 
 async function runYouTubeDiscover(){
   var cat=(document.getElementById('creator-category')||{value:'fitness'}).value;
@@ -952,6 +1005,7 @@ async function loadPlatformStats(){
 loadAll();
 loadPlatformStats();
 loadCreatorStats();
+loadCustomCategories();
 loadRecentCreators();
 loadAutoSchedules();
 loadGradeSummary();
