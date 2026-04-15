@@ -713,10 +713,26 @@ function fmt(n) {
 }
 function fmtFull(n) { return n == null ? '-' : n.toLocaleString(); }
 function pct(n) { return n == null ? '-' : n.toFixed(2) + '%'; }
-function platformBadge(p) {
-  const cls = p === 'youtube' ? 'badge-youtube' : p === 'instagram' ? 'badge-instagram' : 'badge-facebook';
-  const label = p === 'youtube' ? 'YouTube' : p === 'instagram' ? 'Instagram' : 'Facebook';
-  return '<span class="badge ' + cls + '">' + label + '</span>';
+function platformBadge(p, inf) {
+  var badges = '';
+  var cls = (p === 'youtube' || p === 'YouTube') ? 'badge-youtube' : p === 'instagram' ? 'badge-instagram' : 'badge-facebook';
+  var label = (p === 'youtube' || p === 'YouTube') ? 'YT' : p === 'instagram' ? 'IG' : 'FB';
+  badges += '<span class="badge ' + cls + '">' + label + '</span>';
+  // Show additional platforms
+  if (inf) {
+    var extra = inf.platforms || [];
+    if (typeof extra === 'string') try { extra = JSON.parse(extra); } catch(e) { extra = []; }
+    if (inf.instagram_id && extra.indexOf('instagram') < 0) extra.push('instagram');
+    if (inf.facebook_id && extra.indexOf('facebook') < 0) extra.push('facebook');
+    if (inf.tiktok_id && extra.indexOf('tiktok') < 0) extra.push('tiktok');
+    extra.forEach(function(ep) {
+      if (ep === p || ep === 'youtube' || ep === 'YouTube') return;
+      var ecls = ep === 'instagram' ? 'badge-instagram' : ep === 'facebook' ? 'badge-facebook' : 'badge-youtube';
+      var elbl = ep === 'instagram' ? 'IG' : ep === 'facebook' ? 'FB' : ep === 'tiktok' ? 'TT' : ep;
+      badges += '<span class="badge ' + ecls + '" style="margin-left:2px;">' + elbl + '</span>';
+    });
+  }
+  return badges;
 }
 function tierBadge(t) {
   var key = t || 'unset';
@@ -1311,10 +1327,12 @@ function getFilteredInfluencers() {
   if (channelSortCol) {
     list.sort((a, b) => {
       var va, vb;
+      var GRADE_ORDER = {S:0,A:1,B:2,C:3};
       if (channelSortCol === 'er') { va = calcER(a); vb = calcER(b); }
       else if (channelSortCol === 'pure_score') { va = a.pure_score || 0; vb = b.pure_score || 0; }
+      else if (channelSortCol === 'grade') { va = GRADE_ORDER[a.grade] != null ? GRADE_ORDER[a.grade] : 9; vb = GRADE_ORDER[b.grade] != null ? GRADE_ORDER[b.grade] : 9; }
       else { va = a[channelSortCol]; vb = b[channelSortCol]; }
-      if (typeof va === 'string') return channelSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+      if (channelSortCol !== 'grade' && typeof va === 'string') return channelSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
       return channelSortAsc ? (va||0) - (vb||0) : (vb||0) - (va||0);
     });
   }
@@ -1366,7 +1384,7 @@ function renderChannelTable() {
       html += '<td class="text-muted">' + (idx + 1) + '</td>';
       html += '<td><button type="button" class="fav-btn' + (fav?' active':'') + '" aria-label="즐겨찾기" aria-pressed="' + (fav?'true':'false') + '" onclick="toggleBookmark(\'' + inf.id + '\',event)">' + starIconHtml(fav) + '</button></td>';
       html += '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm" style="background-image:url(' + escHtml(avatarSrc) + ')"></span><span class="fw-bold">' + escHtml(inf.display_name) + '</span></div></td>';
-      html += '<td>' + platformBadge(inf.platform) + '</td>';
+      html += '<td>' + platformBadge(inf.platform, inf) + '</td>';
       html += '<td>' + (inf.country || '-') + '</td>';
       html += '<td class="num">' + fmt(inf.followers) + '</td>';
       html += '<td class="num">' + inf.content_count + '</td>';

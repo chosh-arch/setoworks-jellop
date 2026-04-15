@@ -1,0 +1,4 @@
+ALTER TABLE influencers ADD COLUMN IF NOT EXISTS platforms JSONB DEFAULT '[]';
+ALTER TABLE influencers ADD COLUMN IF NOT EXISTS instagram_id TEXT;
+ALTER TABLE influencers ADD COLUMN IF NOT EXISTS tiktok_id TEXT;
+ALTER TABLE influencers ADD COLUMN IF NOT EXISTS facebook_id TEXT;
