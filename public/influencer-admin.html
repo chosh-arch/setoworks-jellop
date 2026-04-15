@@ -2110,29 +2110,46 @@ function openDetailView(id) {
       html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📈 조회수 추이</h3></div><div class="card-body"><div class="chart-wrap" style="height:250px"><canvas id="detail-views-chart"></canvas></div></div></div>';
     }
 
-    // ─── 4. Adjacent Ranking ───
-    var sortedAll = DATA.influencers.filter(function(i){ return i.is_active && i.pure_score != null; }).sort(function(a,b){ return b.pure_score - a.pure_score; });
-    var myIdx = sortedAll.findIndex(function(i){ return i.id == id; });
+    // ─── 4. Adjacent Ranking (같은 카테고리+국가) ───
+    var sameCatCountry = DATA.influencers.filter(function(i){
+      return i.is_active && i.pure_score != null && i.category === inf.category && i.country === inf.country;
+    }).sort(function(a,b){ return b.pure_score - a.pure_score; });
+    var allSorted = DATA.influencers.filter(function(i){ return i.is_active && i.pure_score != null; }).sort(function(a,b){ return b.pure_score - a.pure_score; });
+
+    // Use category+country if >= 3, otherwise use all
+    var compareList = sameCatCountry.length >= 3 ? sameCatCountry : allSorted;
+    var compareLabel = sameCatCountry.length >= 3 ? (CAT_KR[inf.category]||inf.category) + ' · ' + inf.country : '전체';
+    var myIdx = compareList.findIndex(function(i){ return i.id == id; });
+
     if (myIdx >= 0) {
-      var nearby = sortedAll.slice(Math.max(0,myIdx-3), myIdx+4);
-      html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📊 인접 순위 비교 — ' + (myIdx+1) + '위 / ' + sortedAll.length + '명</h3></div><div class="card-body">';
-      html += '<table class="table table-vcenter" style="font-size:13px;"><thead><tr><th>순위</th><th>이름</th><th>등급</th><th>Score</th><th>구독자</th><th>평균조회</th><th>참여율</th><th>카테고리</th></tr></thead><tbody>';
-      nearby.forEach(function(n,ni){
-        var nIdx = sortedAll.indexOf(n);
+      var nearby = compareList.slice(Math.max(0,myIdx-3), myIdx+4);
+      html += '<div class="card mb-3"><div class="card-header"><h3 class="card-title">📊 인접 순위 (' + compareLabel + ') — ' + (myIdx+1) + '위 / ' + compareList.length + '명</h3></div><div class="card-body">';
+      html += '<table class="table table-vcenter table-hover" style="font-size:13px;"><thead><tr><th>순위</th><th>이름</th><th>등급</th><th>Score</th><th>구독자</th><th>평균조회</th><th>참여율</th></tr></thead><tbody>';
+      nearby.forEach(function(n){
+        var nIdx = compareList.indexOf(n);
         var isMe = n.id == id;
         var nER = n.avg_views > 0 ? ((n.avg_likes + (n.avg_comments||0)) / n.avg_views * 100).toFixed(2) : '-';
-        html += '<tr style="' + (isMe ? 'background:rgba(59,91,219,.08);font-weight:700;' : '') + '">';
+        html += '<tr style="' + (isMe ? 'background:rgba(59,91,219,.08);font-weight:700;' : 'cursor:pointer;') + '" ' + (isMe ? '' : 'onclick="openDetailView(' + n.id + ')"') + '>';
         html += '<td>' + (nIdx+1) + '위</td>';
-        html += '<td>' + (isMe ? '🔹 ' : '') + escHtml(n.display_name) + '</td>';
+        html += '<td>' + (isMe ? '🔹 ' : '') + escHtml(n.display_name) + (isMe ? '' : ' →') + '</td>';
         html += '<td>' + gradeBadge(n.grade) + '</td>';
         html += '<td class="num" style="' + (isMe ? 'color:var(--tblr-primary);' : '') + '">' + (n.pure_score||0).toFixed(1) + '</td>';
         html += '<td class="num">' + fmt(n.followers) + '</td>';
         html += '<td class="num">' + fmt(Math.round(n.avg_views||0)) + '</td>';
         html += '<td class="num">' + nER + '%</td>';
-        html += '<td>' + (CAT_KR[n.category]||n.category||'-') + '</td>';
         html += '</tr>';
       });
-      html += '</tbody></table></div></div>';
+      html += '</tbody></table>';
+
+      // ─── 인접 비교 그래프 ───
+      html += '<div class="row g-3 mt-2">';
+      html += '<div class="col-6"><div class="chart-wrap" style="height:180px"><canvas id="detail-compare-views"></canvas></div></div>';
+      html += '<div class="col-6"><div class="chart-wrap" style="height:180px"><canvas id="detail-compare-likes"></canvas></div></div>';
+      html += '</div>';
+      html += '</div></div>';
+
+      // Store nearby for chart rendering
+      window._nearbyForChart = nearby.map(function(n){ return {name:n.display_name.slice(0,10),views:Math.round(n.avg_views||0),likes:Math.round(n.avg_likes||0),isMe:n.id==id}; });
     }
 
     // ─── 5. Platform Comparison (future) ───
@@ -2167,7 +2184,24 @@ function openDetailView(id) {
 
     document.getElementById('detail-content').innerHTML = html;
 
-    // Render chart
+    // Render adjacent comparison charts
+    if (window._nearbyForChart) {
+      setTimeout(function(){
+        var nd = window._nearbyForChart;
+        new Chart(document.getElementById('detail-compare-views'), {
+          type: 'bar',
+          data: { labels: nd.map(function(n){return n.name}), datasets: [{ label: '평균 조회수', data: nd.map(function(n){return n.views}), backgroundColor: nd.map(function(n){return n.isMe?'#3b5bdb':'#94a3b8'}), borderRadius: 6 }] },
+          options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false}, title: {display:true,text:'평균 조회수 비교',font:{family:'Inter',size:12}} }, scales: { x: {ticks:{callback:function(v){return fmt(v)}}}, y: {ticks:{font:{family:'Noto Sans KR',size:11}}} } }
+        });
+        new Chart(document.getElementById('detail-compare-likes'), {
+          type: 'bar',
+          data: { labels: nd.map(function(n){return n.name}), datasets: [{ label: '평균 좋아요', data: nd.map(function(n){return n.likes}), backgroundColor: nd.map(function(n){return n.isMe?'#f59e0b':'#94a3b8'}), borderRadius: 6 }] },
+          options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false}, title: {display:true,text:'평균 좋아요 비교',font:{family:'Inter',size:12}} }, scales: { x: {ticks:{callback:function(v){return fmt(v)}}}, y: {ticks:{font:{family:'Noto Sans KR',size:11}}} } }
+        });
+      }, 200);
+    }
+
+    // Render views timeline chart
     if (contents.length > 1) {
       setTimeout(function(){
         var sorted = contents.slice().sort(function(a,b){ return new Date(a.published_at) - new Date(b.published_at); });

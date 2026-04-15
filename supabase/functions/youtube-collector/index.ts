@@ -76,26 +76,43 @@ async function getChannelDetails(channelId: string) {
 }
 
 // Get recent videos
-async function getRecentVideos(channelId: string, maxResults = 50) {
+async function getRecentVideos(channelId: string, maxResults = 70) {
   // Get uploads playlist
   const ch = await ytGet("channels", { part: "contentDetails", id: channelId });
   if (!ch.items?.length) return [];
   const uploadsId = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
-  // Get video IDs
-  const pl = await ytGet("playlistItems", {
-    part: "contentDetails",
-    playlistId: uploadsId,
-    maxResults: String(maxResults),
-  });
-  const videoIds = (pl.items || []).map((i: any) => i.contentDetails.videoId).join(",");
-  if (!videoIds) return [];
+  // Get video IDs — paginate if > 50
+  let allVideoIds: string[] = [];
+  let nextPageToken = "";
+  let remaining = maxResults;
 
-  // Get video details
-  const vids = await ytGet("videos", { part: "snippet,statistics", id: videoIds });
-  return (vids.items || []).map((v: any) => ({
+  while (remaining > 0) {
+    const batchSize = Math.min(remaining, 50);
+    const params: Record<string, string> = { part: "contentDetails", playlistId: uploadsId, maxResults: String(batchSize) };
+    if (nextPageToken) params.pageToken = nextPageToken;
+    const pl = await ytGet("playlistItems", params);
+    const ids = (pl.items || []).map((i: any) => i.contentDetails.videoId);
+    allVideoIds = allVideoIds.concat(ids);
+    remaining -= ids.length;
+    nextPageToken = pl.nextPageToken || "";
+    if (!nextPageToken || ids.length < batchSize) break;
+  }
+
+  if (!allVideoIds.length) return [];
+
+  // Get video details — batch 50 at a time
+  const allVideos: any[] = [];
+  for (let i = 0; i < allVideoIds.length; i += 50) {
+    const batch = allVideoIds.slice(i, i + 50).join(",");
+    const vids = await ytGet("videos", { part: "snippet,statistics", id: batch });
+    allVideos.push(...(vids.items || []));
+  }
+
+  return allVideos.map((v: any) => ({
     influencer_id: null, // will be set later
     title: v.snippet.title,
+    description: (v.snippet.description || "").slice(0, 500),
     content_url: `https://www.youtube.com/watch?v=${v.id}`,
     views: parseInt(v.statistics.viewCount || "0"),
     likes: parseInt(v.statistics.likeCount || "0"),
