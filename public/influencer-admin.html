@@ -1705,6 +1705,40 @@ function renderExpandContent(inf) {
 
   html += '</div>'; // end row
 
+  // ─── 월간 업로드 현황 ───
+  var monthlyVal = inf.monthly_uploads || 0;
+  var contentTotal = inf.content_count || 0;
+  html += '<div class="card mt-3"><div class="card-body">';
+  html += '<h4 class="mb-2">📅 월간 업로드 현황</h4>';
+  html += '<div class="row g-3">';
+  // YouTube
+  html += '<div class="col-md-4"><div style="background:#f8fafc;border-radius:10px;padding:12px;text-align:center;border:1px solid #e2e8f0;">';
+  html += '<div style="font-size:11px;color:#64748b;">🎬 YouTube</div>';
+  html += '<div style="font-size:24px;font-weight:800;color:var(--tblr-primary);">' + (contentTotal >= 70 ? monthlyVal + '<span style="font-size:12px;font-weight:400;">건/월</span>' : '<span style="font-size:14px;color:#94a3b8;">데이터 수집 중</span>') + '</div>';
+  html += '<div style="font-size:10px;color:#94a3b8;">수집 영상: ' + contentTotal + '건</div>';
+  html += '</div></div>';
+  // Instagram (향후)
+  if (inf.instagram_id) {
+    html += '<div class="col-md-4"><div style="background:#faf5ff;border-radius:10px;padding:12px;text-align:center;border:1px solid #e9d5ff;">';
+    html += '<div style="font-size:11px;color:#7c3aed;">📷 Instagram @' + inf.instagram_id + '</div>';
+    html += '<div style="font-size:14px;color:#94a3b8;">수집 예정</div>';
+    html += '</div></div>';
+  }
+  // TikTok (향후)
+  if (inf.tiktok_id) {
+    html += '<div class="col-md-4"><div style="background:#fef3c7;border-radius:10px;padding:12px;text-align:center;border:1px solid #fcd34d;">';
+    html += '<div style="font-size:11px;color:#92400e;">🎵 TikTok @' + inf.tiktok_id + '</div>';
+    html += '<div style="font-size:14px;color:#94a3b8;">수집 예정</div>';
+    html += '</div></div>';
+  }
+  // 종합
+  html += '<div class="col-md-4"><div style="background:rgba(59,91,219,.04);border-radius:10px;padding:12px;text-align:center;border:1px solid rgba(59,91,219,.15);">';
+  html += '<div style="font-size:11px;color:var(--tblr-primary);">📊 종합 (전 플랫폼)</div>';
+  var totalMonthly = monthlyVal; // 향후 IG/TT 합산
+  html += '<div style="font-size:24px;font-weight:800;color:var(--tblr-primary);">' + (contentTotal >= 70 ? totalMonthly + '<span style="font-size:12px;font-weight:400;">건/월</span>' : '<span style="font-size:14px;color:#94a3b8;">집계 중</span>') + '</div>';
+  html += '</div></div>';
+  html += '</div></div></div>';
+
   // Efficiency ratios
   html += '<div class="card mt-3"><div class="card-body">';
   html += '<h4 class="mb-2">효율성 지표 (Efficiency Ratios)</h4>';
