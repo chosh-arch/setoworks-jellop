@@ -1,0 +1,170 @@
+{
+  "total_superbackers": 1398,
+  "with_backings_data": 667,
+  "avg_backings": 327.0,
+  "median_backings": 167.0,
+  "max_backings": 4579,
+  "backings_distribution": [
+    {
+      "range": "1-50",
+      "count": 78
+    },
+    {
+      "range": "51-100",
+      "count": 117
+    },
+    {
+      "range": "101-300",
+      "count": 271
+    },
+    {
+      "range": "301-500",
+      "count": 84
+    },
+    {
+      "range": "501-1000",
+      "count": 77
+    },
+    {
+      "range": "1000+",
+      "count": 40
+    }
+  ],
+  "sb_vs_success": [
+    {
+      "label": "SB 0",
+      "count": 1731,
+      "success_rate": 30.8,
+      "avg_funded": 217.4
+    },
+    {
+      "label": "SB 1",
+      "count": 530,
+      "success_rate": 48.1,
+      "avg_funded": 312.7
+    },
+    {
+      "label": "SB 2-3",
+      "count": 281,
+      "success_rate": 71.5,
+      "avg_funded": 1236.8
+    },
+    {
+      "label": "SB 4-6",
+      "count": 114,
+      "success_rate": 88.6,
+      "avg_funded": 1533.4
+    },
+    {
+      "label": "SB 7+",
+      "count": 45,
+      "success_rate": 95.6,
+      "avg_funded": 1539.5
+    }
+  ],
+  "top_superbackers": [
+    {
+      "name": "Boldigl",
+      "backings": 4579,
+      "projects": 2
+    },
+    {
+      "name": "Ray",
+      "backings": 4053,
+      "projects": 7
+    },
+    {
+      "name": "Winston Kou",
+      "backings": 3663,
+      "projects": 2
+    },
+    {
+      "name": "Scott Schaper",
+      "backings": 3126,
+      "projects": 2
+    },
+    {
+      "name": "Steven Byrd",
+      "backings": 3084,
+      "projects": 1
+    },
+    {
+      "name": "Stuart Stilborn",
+      "backings": 2866,
+      "projects": 2
+    },
+    {
+      "name": "Rayhne Sinclair",
+      "backings": 2777,
+      "projects": 1
+    },
+    {
+      "name": "Twist the Leaf",
+      "backings": 2591,
+      "projects": 1
+    },
+    {
+      "name": "Kirk Spencer",
+      "backings": 2225,
+      "projects": 1
+    },
+    {
+      "name": "Mr. A",
+      "backings": 1960,
+      "projects": 1
+    },
+    {
+      "name": "Jimbro",
+      "backings": 1940,
+      "projects": 3
+    },
+    {
+      "name": "Hargravius",
+      "backings": 1855,
+      "projects": 2
+    },
+    {
+      "name": "Joseph Valenzuela",
+      "backings": 1842,
+      "projects": 5
+    },
+    {
+      "name": "/amqueue",
+      "backings": 1794,
+      "projects": 1
+    },
+    {
+      "name": "Stanley F Kubiak",
+      "backings": 1731,
+      "projects": 1
+    },
+    {
+      "name": "Alexandra Corrsin",
+      "backings": 1651,
+      "projects": 1
+    },
+    {
+      "name": "Edon van Hees",
+      "backings": 1645,
+      "projects": 2
+    },
+    {
+      "name": "Churchill",
+      "backings": 1560,
+      "projects": 1
+    },
+    {
+      "name": "Kristin Holt",
+      "backings": 1536,
+      "projects": 1
+    },
+    {
+      "name": "W",
+      "backings": 1523,
+      "projects": 3
+    }
+  ],
+  "unique_projects": 970,
+  "multi_active": 276,
+  "creators_too": 33
+}

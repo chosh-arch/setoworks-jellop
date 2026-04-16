@@ -122,6 +122,21 @@ tr:hover{background:#f8fafc;}
 .tip{position:relative;cursor:help;}
 .tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#222;color:#ddd;padding:4px 8px;border-radius:6px;font-size:10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;}
 .tip:hover::after{opacity:1;}
+
+/* ACCORDION */
+.acc{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow);background:#fff;}
+.acc-head{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.acc-head:hover{background:#f8fafc;}
+.acc-head .acc-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;color:#fff;background:var(--indigo);flex-shrink:0;}
+.acc-head h2{font-size:14px;font-weight:700;color:var(--text);flex:1;}
+.acc-head .acc-summary{font-size:11px;color:var(--muted);margin-left:auto;max-width:350px;text-align:right;}
+.acc-head .acc-arrow{font-size:12px;color:var(--muted);transition:transform .2s;margin-left:8px;}
+.acc.open .acc-arrow{transform:rotate(180deg);}
+.acc-head .acc-badge{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600;margin-left:8px;}
+.acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--border);}
+.acc.open .acc-body{display:block;}
+.acc-body .section{margin-bottom:0;}
+.acc-body .section-head{display:none;}
 </style>
 </head>
 <body>
@@ -145,258 +160,213 @@ tr:hover{background:#f8fafc;}
 
 <div class="container" id="app">
 
-<!-- S0: EXECUTIVE KPI -->
+<!-- KPI 요약 (항상 보임) -->
 <div class="kpi-row" id="kpi-row"></div>
 
-<!-- ML MODEL PERFORMANCE -->
-<div class="section" id="sec-ml">
-  <div class="section-head">
-    <div class="sec-icon">ML</div>
-    <h2>ML 예측 모델 성능</h2>
-    <span class="sec-sub">XGBoost + LightGBM + RandomForest 비교 · 하이퍼파라미터 최적화 완료</span>
+<!-- ACC 1: 예측 모델 & 성공/실패 -->
+<div class="acc open" id="acc-predict">
+  <div class="acc-head" onclick="toggleAcc('acc-predict')">
+    <div class="acc-icon">ML</div>
+    <h2>예측 모델 & 성공/실패 분석</h2>
+    <span class="acc-summary">XGBoost AUC 0.91 · SB 7명+ = 95.6% 성공</span>
+    <span class="acc-arrow">&#x25BC;</span>
   </div>
-  <div class="g4" id="ml-kpis"></div>
-  <div style="height:14px;"></div>
-  <div class="g3">
-    <div class="card"><h3>모델별 성능 비교</h3><div class="chart-wrap"><canvas id="ch-ml-models"></canvas></div></div>
-    <div class="card"><h3>Feature Importance TOP 15</h3><div id="ml-feat-bars"></div></div>
-    <div class="card">
-      <h3>모델 상세 정보</h3>
-      <div id="ml-detail"></div>
+  <div class="acc-body">
+    <div class="section" id="sec-ml"><div class="section-head"><div class="sec-icon">ML</div><h2>ML 예측 모델 성능</h2></div>
+      <div class="g4" id="ml-kpis"></div><div style="height:14px;"></div>
+      <div class="g3">
+        <div class="card"><h3>모델별 성능 비교</h3><div class="chart-wrap"><canvas id="ch-ml-models"></canvas></div></div>
+        <div class="card"><h3>Feature Importance TOP 15</h3><div id="ml-feat-bars"></div></div>
+        <div class="card"><h3>모델 상세 정보</h3><div id="ml-detail"></div></div>
+      </div>
+    </div>
+    <div class="section" id="sec-prediction"><div class="section-head"><div class="sec-icon">01</div><h2>성공 예측 팩터</h2></div>
+      <div class="g23">
+        <div class="card"><h3>요인별 영향도 <span class="tag">DELTA pp</span></h3><div id="factor-bars"></div></div>
+        <div class="card"><h3>목표 금액별 성공률</h3><div class="chart-wrap"><canvas id="ch-goal"></canvas></div></div>
+      </div>
+    </div>
+    <div class="section" id="sec-failure"><div class="section-head"><div class="sec-icon">06</div><h2>실패 패턴 감지</h2></div>
+      <div class="g3">
+        <div class="card"><h3>달성률 분포</h3><div class="chart-wrap"><canvas id="ch-achieve"></canvas></div></div>
+        <div class="card"><h3>실패 프로필 <span class="tag" style="background:#fef2f2;color:var(--red);">경고 신호</span></h3><div id="failure-profile"></div></div>
+        <div class="card"><h3>성공 vs 실패 비교</h3><div id="compare-table"></div></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- S1: SUCCESS PREDICTION FACTORS -->
-<div class="section" id="sec-prediction">
-  <div class="section-head">
-    <div class="sec-icon">01</div>
-    <h2>성공 예측 팩터</h2>
-    <span class="sec-sub">성공률에 가장 큰 영향을 미치는 요인 TOP 10</span>
+<!-- ACC 2: 카테고리 & 리워드 -->
+<div class="acc" id="acc-category">
+  <div class="acc-head" onclick="toggleAcc('acc-category')">
+    <div class="acc-icon">CT</div>
+    <h2>카테고리 & 리워드</h2>
+    <span class="acc-summary">15개 카테고리 · 리워드 가격 최적화 (독점)</span>
+    <span class="acc-arrow">&#x25BC;</span>
   </div>
-  <div class="g23">
-    <div class="card"><h3>요인별 영향도 <span class="tag">DELTA pp</span></h3><div id="factor-bars"></div></div>
-    <div class="card"><h3>목표 금액별 성공률</h3><div class="chart-wrap"><canvas id="ch-goal"></canvas></div></div>
-  </div>
-</div>
-
-<!-- S2: CATEGORY INTELLIGENCE -->
-<div class="section" id="sec-category">
-  <div class="section-head">
-    <div class="sec-icon">02</div>
-    <h2>카테고리 인텔리전스</h2>
-    <span class="sec-sub">카테고리별 성공 공식</span>
-  </div>
-  <div class="g2">
-    <div class="card"><h3>카테고리별 성공률</h3><div class="chart-wrap tall"><canvas id="ch-cat-success"></canvas></div></div>
-    <div class="card"><h3>카테고리 상세 지표</h3><div style="overflow-y:auto;max-height:340px;"><table id="tbl-cat"><thead><tr><th>카테고리</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th><th class="num">평균 후원자</th></tr></thead><tbody></tbody></table></div></div>
-  </div>
-</div>
-
-<!-- S3: REWARD TIER OPTIMIZATION -->
-<div class="section" id="sec-reward">
-  <div class="section-head">
-    <div class="sec-icon">03</div>
-    <h2>리워드 티어 최적화</h2>
-    <span class="sec-sub">KickTraq 미보유 — 독점 인사이트</span>
-  </div>
-  <div class="g3">
-    <div class="card"><h3>가격대별 분포</h3><div class="chart-wrap"><canvas id="ch-price-dist"></canvas></div></div>
-    <div class="card"><h3>티어 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tier-success"></canvas></div></div>
-    <div class="card"><h3>인기 가격대 TOP 15</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-prices"><thead><tr><th>가격</th><th class="num">티어 수</th><th class="num">총 후원자</th><th class="num">평균/티어</th></tr></thead><tbody></tbody></table></div></div>
-  </div>
-</div>
-
-<!-- S4: CONTENT QUALITY -->
-<div class="section" id="sec-content">
-  <div class="section-head">
-    <div class="sec-icon">04</div>
-    <h2>콘텐츠 품질 점수</h2>
-    <span class="sec-sub">콘텐츠 품질과 성공의 상관관계</span>
-  </div>
-  <div class="g4">
-    <div class="card">
-      <h3>스토리 길이</h3>
-      <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">21,806 <span style="font-size:13px;color:var(--ks-muted);">vs</span> 9,085</div><div style="color:var(--ks-muted);font-size:10px;">성공 프로젝트 스토리가 2.4배 길다</div></div>
-      <div class="chart-wrap" style="height:180px;"><canvas id="ch-story"></canvas></div>
+  <div class="acc-body">
+    <div class="section" id="sec-category"><div class="section-head"><div class="sec-icon">02</div><h2>카테고리 인텔리전스</h2></div>
+      <div class="g2">
+        <div class="card"><h3>카테고리별 성공률</h3><div class="chart-wrap tall"><canvas id="ch-cat-success"></canvas></div></div>
+        <div class="card"><h3>카테고리 상세 지표</h3><div style="overflow-y:auto;max-height:340px;"><table id="tbl-cat"><thead><tr><th>카테고리</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th><th class="num">평균 후원자</th></tr></thead><tbody></tbody></table></div></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>이미지 수</h3>
-      <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">15장 <span style="font-size:13px;color:var(--ks-muted);">vs</span> 6.8장</div><div style="color:var(--ks-muted);font-size:10px;">이미지 20장+ → 75.4% 성공</div></div>
-      <div class="chart-wrap" style="height:180px;"><canvas id="ch-images"></canvas></div>
-    </div>
-    <div class="card">
-      <h3>FAQ / 업데이트</h3>
-      <div class="insight-box"><div class="ib-title">FAQ 효과</div><div class="ib-num">+10.5pp</div><div style="color:var(--ks-muted);font-size:10px;">FAQ 보유 시 45.1% vs 34.6%</div></div>
-      <div class="insight-box"><div class="ib-title">업데이트 효과</div><div class="ib-num">3.2x</div><div style="color:var(--ks-muted);font-size:10px;">성공 2.93회 vs 실패 0.93회</div></div>
-    </div>
-    <div class="card">
-      <h3>캠페인 기간</h3>
-      <div class="insight-box"><div class="ib-title">최적 기간</div><div class="ib-num">30일</div><div style="color:var(--ks-muted);font-size:10px;">20일 이하면 90% 성공</div></div>
-      <div class="chart-wrap" style="height:180px;"><canvas id="ch-duration"></canvas></div>
+    <div class="section" id="sec-reward"><div class="section-head"><div class="sec-icon">03</div><h2>리워드 티어 최적화</h2></div>
+      <div class="g3">
+        <div class="card"><h3>가격대별 분포</h3><div class="chart-wrap"><canvas id="ch-price-dist"></canvas></div></div>
+        <div class="card"><h3>티어 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tier-success"></canvas></div></div>
+        <div class="card"><h3>인기 가격대 TOP 15</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-prices"><thead><tr><th>가격</th><th class="num">티어 수</th><th class="num">총 후원자</th><th class="num">평균/티어</th></tr></thead><tbody></tbody></table></div></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- S5: GEOGRAPHIC INTELLIGENCE -->
-<div class="section" id="sec-geo">
-  <div class="section-head">
-    <div class="sec-icon">05</div>
-    <h2>지역/통화 인텔리전스</h2>
-    <span class="sec-sub">국가/통화별 성공 패턴</span>
+<!-- ACC 3: 콘텐츠 & 타이밍 -->
+<div class="acc" id="acc-content">
+  <div class="acc-head" onclick="toggleAcc('acc-content')">
+    <div class="acc-icon">TM</div>
+    <h2>콘텐츠 & 타이밍</h2>
+    <span class="acc-summary">업데이트 6개+ = 73.8% 성공 · 첫3일 댓글 U자 곡선</span>
+    <span class="acc-arrow">&#x25BC;</span>
   </div>
-  <div class="g2">
-    <div class="card"><h3>국가별 성공률 <span class="tag">TOP 15</span></h3><div class="chart-wrap tall"><canvas id="ch-country"></canvas></div></div>
-    <div class="card"><h3>통화 분포</h3><div class="chart-wrap" style="height:200px;"><canvas id="ch-currency"></canvas></div><div style="margin-top:12px;"><table id="tbl-country"><thead><tr><th>국가</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th></tr></thead><tbody></tbody></table></div></div>
-  </div>
-</div>
-
-<!-- S6: FAILURE PATTERN DETECTION -->
-<div class="section" id="sec-failure">
-  <div class="section-head">
-    <div class="sec-icon">06</div>
-    <h2>실패 패턴 감지</h2>
-    <span class="sec-sub">"실패 데이터가 진짜 경쟁력" — 100% 실패 판별 패턴</span>
-  </div>
-  <div class="g3">
-    <div class="card">
-      <h3>달성률 분포</h3>
-      <div class="chart-wrap"><canvas id="ch-achieve"></canvas></div>
+  <div class="acc-body">
+    <div class="section" id="sec-content"><div class="section-head"><div class="sec-icon">04</div><h2>콘텐츠 품질 점수</h2></div>
+      <div class="g4">
+        <div class="card"><h3>스토리 길이</h3>
+          <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">21,806 <span style="font-size:13px;color:var(--muted);">vs</span> 9,085</div><div style="color:var(--muted);font-size:10px;">성공 프로젝트 스토리가 2.4배 길다</div></div>
+          <div class="chart-wrap" style="height:180px;"><canvas id="ch-story"></canvas></div></div>
+        <div class="card"><h3>이미지 수</h3>
+          <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">15장 <span style="font-size:13px;color:var(--muted);">vs</span> 6.8장</div><div style="color:var(--muted);font-size:10px;">이미지 20장+ = 75.4% 성공</div></div>
+          <div class="chart-wrap" style="height:180px;"><canvas id="ch-images"></canvas></div></div>
+        <div class="card"><h3>FAQ / 업데이트</h3>
+          <div class="insight-box"><div class="ib-title">FAQ 효과</div><div class="ib-num">+10.5pp</div><div style="color:var(--muted);font-size:10px;">FAQ 보유 시 45.1% vs 34.6%</div></div>
+          <div class="insight-box"><div class="ib-title">업데이트 효과</div><div class="ib-num">3.2x</div><div style="color:var(--muted);font-size:10px;">성공 2.93회 vs 실패 0.93회</div></div></div>
+        <div class="card"><h3>캠페인 기간</h3>
+          <div class="insight-box"><div class="ib-title">최적 기간</div><div class="ib-num">30일</div><div style="color:var(--muted);font-size:10px;">20일 이하면 90% 성공</div></div>
+          <div class="chart-wrap" style="height:180px;"><canvas id="ch-duration"></canvas></div></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>실패 프로필 <span class="tag" style="background:rgba(239,68,68,.15);color:var(--red);">경고 신호</span></h3>
-      <div id="failure-profile"></div>
-    </div>
-    <div class="card">
-      <h3>성공 vs 실패 비교</h3>
-      <div id="compare-table"></div>
-    </div>
-  </div>
-</div>
-
-<!-- S7: BACKER BEHAVIOR -->
-<div class="section" id="sec-backer">
-  <div class="section-head">
-    <div class="sec-icon">07</div>
-    <h2>후원자 행동 분석</h2>
-    <span class="sec-sub">후원자 행동 패턴 및 슈퍼백커 분석</span>
-  </div>
-  <div class="g3">
-    <div class="card"><h3>후원자 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-backers"></canvas></div></div>
-    <div class="card"><h3>카테고리별 평균 후원 단가</h3><div class="chart-wrap"><canvas id="ch-pledge-cat"></canvas></div></div>
-    <div class="card">
-      <h3>핵심 후원자 인사이트</h3>
-      <div class="insight-box"><div class="ib-title">슈퍼백커 크리에이터 효과</div><div class="ib-num">+51.8pp</div><div style="color:var(--ks-muted);font-size:10px;">슈퍼백커 크리에이터: 89.2% 성공 (가장 강력한 예측 변수)</div></div>
-      <div class="insight-box"><div class="ib-title">후원자 100명 임계점</div><div class="ib-num">84.9%</div><div style="color:var(--ks-muted);font-size:10px;">100명 넘으면 대부분 성공, 500명+ = 100%</div></div>
-      <div class="insight-box"><div class="ib-title">댓글/후원자 비율</div><div class="ib-num">3x</div><div style="color:var(--ks-muted);font-size:10px;">실패 프로젝트 댓글 비율이 3배 높음 (불만 시그널)</div></div>
+    <div class="section" id="sec-timeline"><div class="section-head"><div class="sec-icon">TL</div><h2>시계열 분석</h2></div>
+      <div class="g3">
+        <div class="card"><h3>업데이트 빈도 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-freq"></canvas></div></div>
+        <div class="card"><h3>첫 업데이트 타이밍 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-first"></canvas></div></div>
+        <div class="card"><h3>첫 3일 댓글 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-early"></canvas></div></div>
+      </div>
+      <div style="height:12px;"></div>
+      <div class="g2">
+        <div class="card"><h3>업데이트 캠페인 구간 분포</h3><div class="chart-wrap"><canvas id="ch-tl-uphase"></canvas></div></div>
+        <div class="card"><h3>댓글 캠페인 구간 분포</h3><div class="chart-wrap"><canvas id="ch-tl-cphase"></canvas></div></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- S8: AI & ESG TRENDS -->
-<div class="section" id="sec-trend">
-  <div class="section-head">
-    <div class="sec-icon">08</div>
-    <h2>AI & ESG 트렌드 모니터</h2>
-    <span class="sec-sub">경쟁사 미보유 독점 데이터</span>
+<!-- ACC 4: 후원자 & 슈퍼백커 -->
+<div class="acc" id="acc-backer">
+  <div class="acc-head" onclick="toggleAcc('acc-backer')">
+    <div class="acc-icon">SB</div>
+    <h2>후원자 & 슈퍼백커</h2>
+    <span class="acc-summary">1,398명 추적 · SB 7명+ 참여 = 95.6% 성공</span>
+    <span class="acc-badge" style="background:#ecfdf5;color:#059669;">크롤링 진행 중</span>
+    <span class="acc-arrow">&#x25BC;</span>
   </div>
-  <div class="g3">
-    <div class="card">
-      <h3>AI 공시</h3>
-      <div class="insight-box"><div class="ib-title">AI 사용 공시율</div><div class="ib-num" id="val-ai">-</div><div style="color:var(--ks-muted);font-size:10px;">킥스타터 필수 필드화 → 시장 전체 AI 채택 추적 가능</div></div>
+  <div class="acc-body">
+    <div class="section" id="sec-backer"><div class="section-head"><div class="sec-icon">07</div><h2>후원자 행동 분석</h2></div>
+      <div class="g3">
+        <div class="card"><h3>후원자 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-backers"></canvas></div></div>
+        <div class="card"><h3>카테고리별 평균 후원 단가</h3><div class="chart-wrap"><canvas id="ch-pledge-cat"></canvas></div></div>
+        <div class="card"><h3>핵심 후원자 인사이트</h3>
+          <div class="insight-box"><div class="ib-title">슈퍼백커 크리에이터 효과</div><div class="ib-num">+51.8pp</div><div style="color:var(--muted);font-size:10px;">슈퍼백커 크리에이터: 89.2% 성공</div></div>
+          <div class="insight-box"><div class="ib-title">후원자 100명 임계점</div><div class="ib-num">84.9%</div><div style="color:var(--muted);font-size:10px;">100명 넘으면 대부분 성공</div></div>
+          <div class="insight-box"><div class="ib-title">댓글/후원자 비율</div><div class="ib-num">3x</div><div style="color:var(--muted);font-size:10px;">실패 프로젝트 댓글 비율 3배 높음</div></div>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <h3>환경 공시</h3>
-      <div class="insight-box"><div class="ib-title">환경 공시 보유 시 성공률</div><div class="ib-num">+19.5pp</div><div style="color:var(--ks-muted);font-size:10px;">53.1% vs 33.6% — ESG 트렌드가 후원에 영향</div></div>
-      <div id="env-detail" style="margin-top:8px;"></div>
-    </div>
-    <div class="card">
-      <h3>Project We Love 효과</h3>
-      <div class="insight-box"><div class="ib-title">PWL 배지 효과</div><div class="ib-num">+36.8pp</div><div style="color:var(--ks-muted);font-size:10px;">71.9% vs 35.1% — 킥스타터 편집팀 선택의 위력</div></div>
-      <div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div>
-    </div>
-  </div>
-</div>
-
-<!-- S-TIMELINE: 시계열 분석 -->
-<div class="section" id="sec-timeline">
-  <div class="section-head">
-    <div class="sec-icon">TL</div>
-    <h2>시계열 분석</h2>
-    <span class="sec-sub">업데이트 타이밍 + 댓글 활동량 기반</span>
-  </div>
-  <div class="g3">
-    <div class="card"><h3>업데이트 빈도 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-freq"></canvas></div></div>
-    <div class="card"><h3>첫 업데이트 타이밍 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-first"></canvas></div></div>
-    <div class="card"><h3>첫 3일 댓글 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-tl-early"></canvas></div></div>
-  </div>
-  <div style="height:12px;"></div>
-  <div class="g2">
-    <div class="card"><h3>업데이트 캠페인 구간 분포</h3><div class="chart-wrap"><canvas id="ch-tl-uphase"></canvas></div></div>
-    <div class="card"><h3>댓글 캠페인 구간 분포</h3><div class="chart-wrap"><canvas id="ch-tl-cphase"></canvas></div></div>
-  </div>
-</div>
-
-<!-- S9: FAQ PATTERN MINING -->
-<div class="section" id="sec-faq">
-  <div class="section-head">
-    <div class="sec-icon">09</div>
-    <h2>FAQ 패턴 마이닝</h2>
-    <span class="sec-sub">7,750개 FAQ 자동 분류 — 카테고리별 질문 패턴</span>
-  </div>
-  <div class="g3">
-    <div class="card"><h3>FAQ 토픽 분포</h3><div class="chart-wrap"><canvas id="ch-faq-topics"></canvas></div></div>
-    <div class="card"><h3>카테고리별 FAQ 토픽</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-faq-cat"><thead><tr><th>카테고리</th><th class="num">FAQ</th><th>TOP 토픽</th></tr></thead><tbody></tbody></table></div></div>
-    <div class="card"><h3>성공 vs 실패 FAQ 차이</h3><div class="chart-wrap"><canvas id="ch-faq-diff"></canvas></div></div>
-  </div>
-</div>
-
-<!-- S10: COMMENT SENTIMENT -->
-<div class="section" id="sec-sentiment">
-  <div class="section-head">
-    <div class="sec-icon">10</div>
-    <h2>댓글 감정 분석</h2>
-    <span class="sec-sub">13,277개 댓글 감정 분류 — 긍정/부정/질문/중립</span>
-  </div>
-  <div class="g3">
-    <div class="card"><h3>감정 분포</h3><div class="chart-wrap"><canvas id="ch-sent-dist"></canvas></div></div>
-    <div class="card"><h3>성공 vs 실패 감정 비교</h3><div class="chart-wrap"><canvas id="ch-sent-compare"></canvas></div></div>
-    <div class="card">
-      <h3>핵심 발견</h3>
-      <div id="sent-findings"></div>
+    <div style="margin-top:14px;">
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">슈퍼백커 인덱스</h3>
+      <div class="g3">
+        <div class="card"><h3>SB 참여 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-sb-success"></canvas></div></div>
+        <div class="card"><h3>후원 횟수 분포</h3><div class="chart-wrap"><canvas id="ch-sb-dist"></canvas></div></div>
+        <div class="card"><h3>TOP 슈퍼백커</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-sb-top"><thead><tr><th>#</th><th>이름</th><th class="num">후원 횟수</th><th class="num">활동</th></tr></thead><tbody></tbody></table></div></div>
+      </div>
+      <div style="margin-top:8px;padding:10px;background:#f8fafc;border-radius:8px;font-size:11px;color:var(--muted);">
+        * 슈퍼백커 프로필 크롤링 진행 중 (667/1,398명 완료 48%) — 데이터 보강 시 자동 갱신
+      </div>
     </div>
   </div>
 </div>
 
-<!-- S11: TOP RANKINGS -->
-<div class="section" id="sec-rankings">
-  <div class="section-head">
-    <div class="sec-icon">11</div>
-    <h2>실시간 랭킹</h2>
-    <span class="sec-sub">데이터 실시간 반영</span>
+<!-- ACC 5: 지역 & 트렌드 -->
+<div class="acc" id="acc-geo">
+  <div class="acc-head" onclick="toggleAcc('acc-geo')">
+    <div class="acc-icon">GE</div>
+    <h2>지역 & AI/ESG 트렌드</h2>
+    <span class="acc-summary">30개국+ · 14개 통화 · AI/ESG 독점 데이터</span>
+    <span class="acc-arrow">&#x25BC;</span>
   </div>
+  <div class="acc-body">
+    <div class="section" id="sec-geo"><div class="section-head"><div class="sec-icon">05</div><h2>지역/통화 인텔리전스</h2></div>
+      <div class="g2">
+        <div class="card"><h3>국가별 성공률 <span class="tag">TOP 15</span></h3><div class="chart-wrap tall"><canvas id="ch-country"></canvas></div></div>
+        <div class="card"><h3>통화 분포</h3><div class="chart-wrap" style="height:200px;"><canvas id="ch-currency"></canvas></div><div style="margin-top:12px;"><table id="tbl-country"><thead><tr><th>국가</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th></tr></thead><tbody></tbody></table></div></div>
+      </div>
+    </div>
+    <div class="section" id="sec-trend"><div class="section-head"><div class="sec-icon">08</div><h2>AI & ESG 트렌드</h2></div>
+      <div class="g3">
+        <div class="card"><h3>AI 공시</h3><div class="insight-box"><div class="ib-title">AI 사용 공시율</div><div class="ib-num" id="val-ai">-</div><div style="color:var(--muted);font-size:10px;">킥스타터 필수 필드화</div></div></div>
+        <div class="card"><h3>환경 공시</h3><div class="insight-box"><div class="ib-title">환경 공시 보유 시 성공률</div><div class="ib-num">+19.5pp</div><div style="color:var(--muted);font-size:10px;">53.1% vs 33.6%</div></div><div id="env-detail" style="margin-top:8px;"></div></div>
+        <div class="card"><h3>Project We Love 효과</h3><div class="insight-box"><div class="ib-title">PWL 배지 효과</div><div class="ib-num">+36.8pp</div><div style="color:var(--muted);font-size:10px;">71.9% vs 35.1%</div></div><div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACC 6: 텍스트 마이닝 -->
+<div class="acc" id="acc-text">
+  <div class="acc-head" onclick="toggleAcc('acc-text')">
+    <div class="acc-icon">TX</div>
+    <h2>텍스트 마이닝</h2>
+    <span class="acc-summary">FAQ 7,750개 · 댓글 13,277개 분석</span>
+    <span class="acc-badge" style="background:#fffbeb;color:#d97706;">데이터 보강 시 정확도 향상</span>
+    <span class="acc-arrow">&#x25BC;</span>
+  </div>
+  <div class="acc-body">
+    <div class="section" id="sec-faq"><div class="section-head"><div class="sec-icon">FQ</div><h2>FAQ 패턴 마이닝</h2></div>
+      <div class="g3">
+        <div class="card"><h3>FAQ 토픽 분포</h3><div class="chart-wrap"><canvas id="ch-faq-topics"></canvas></div></div>
+        <div class="card"><h3>카테고리별 FAQ 토픽</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-faq-cat"><thead><tr><th>카테고리</th><th class="num">FAQ</th><th>TOP 토픽</th></tr></thead><tbody></tbody></table></div></div>
+        <div class="card"><h3>성공 vs 실패 FAQ 차이</h3><div class="chart-wrap"><canvas id="ch-faq-diff"></canvas></div></div>
+      </div>
+    </div>
+    <div class="section" id="sec-sentiment"><div class="section-head"><div class="sec-icon">ST</div><h2>댓글 감정 분석</h2></div>
+      <div class="g3">
+        <div class="card"><h3>감정 분포</h3><div class="chart-wrap"><canvas id="ch-sent-dist"></canvas></div></div>
+        <div class="card"><h3>성공 vs 실패 감정 비교</h3><div class="chart-wrap"><canvas id="ch-sent-compare"></canvas></div></div>
+        <div class="card"><h3>핵심 발견</h3><div id="sent-findings"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 실시간 랭킹 (항상 보임) -->
+<div class="section" id="sec-rankings" style="margin-top:8px;">
+  <div class="section-head"><div class="sec-icon" style="background:var(--indigo);">RK</div><h2>실시간 랭킹</h2><span class="sec-sub">데이터 실시간 반영</span></div>
   <div class="tabs" id="rank-tabs">
     <div class="tab active" data-rank="pledged">최다 모금</div>
     <div class="tab" data-rank="backers">최다 후원자</div>
     <div class="tab" data-rank="overfunded">최고 달성률</div>
   </div>
-  <div class="card">
-    <div style="overflow-x:auto;max-height:420px;overflow-y:auto;">
-      <table id="tbl-rank" class="rank-table"><thead><tr><th>#</th><th>프로젝트</th><th>카테고리</th><th class="num">모금액</th><th class="num">후원자</th><th class="num">달성률</th><th class="num">목표</th></tr></thead><tbody></tbody></table>
-    </div>
-  </div>
+  <div class="card"><div style="overflow-x:auto;max-height:420px;overflow-y:auto;">
+    <table id="tbl-rank" class="rank-table"><thead><tr><th>#</th><th>프로젝트</th><th>카테고리</th><th class="num">모금액</th><th class="num">후원자</th><th class="num">달성률</th><th class="num">목표</th></tr></thead><tbody></tbody></table>
+  </div></div>
 </div>
 
-<!-- S10: COMPETITIVE ADVANTAGE -->
+<!-- 경쟁 우위 맵 (항상 보임) -->
 <div class="section" id="sec-competitive">
-  <div class="section-head">
-    <div class="sec-icon">12</div>
-    <h2>경쟁 우위 맵</h2>
-    <span class="sec-sub">KickTraq / BackerTracker 대비 우위 영역</span>
-  </div>
+  <div class="section-head"><div class="sec-icon" style="background:var(--indigo);">VS</div><h2>경쟁 우위 맵</h2><span class="sec-sub">KickTraq / BackerTracker 대비</span></div>
   <div class="card">
     <div class="g4" id="comp-grid"></div>
-    <div id="comp-detail" style="display:none;margin-top:14px;background:linear-gradient(135deg,rgba(5,206,120,.06),rgba(59,130,246,.04));border:1px solid rgba(5,206,120,.2);border-radius:12px;padding:20px;"></div>
+    <div id="comp-detail" style="display:none;margin-top:14px;background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:20px;"></div>
   </div>
 </div>
 
@@ -520,6 +490,46 @@ async function buildMLSection(){
         </div>
       </div>`;
   }catch(e){console.log('ML results not loaded:',e);}
+}
+
+// ========== ACCORDION TOGGLE ==========
+function toggleAcc(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.toggle('open');
+}
+
+// ========== SUPERBACKER SECTION ==========
+async function buildSuperbackerSection(){
+  try{
+    const r=await fetch('/data/superbackers.json');
+    if(!r.ok)return;
+    const d=await r.json();
+
+    // SB count vs success
+    const sbVs=d.sb_vs_success;
+    if(sbVs){
+      makeChart('ch-sb-success','bar',sbVs.map(s=>s.label),[
+        {label:'성공률',data:sbVs.map(s=>s.success_rate),backgroundColor:['#94a3b8','#6366f1','#8b5cf6','#10b981','#059669'],borderRadius:4}
+      ],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%',color:'#64748b'}},x:{ticks:{color:'#64748b'}}}});
+    }
+
+    // Backings distribution
+    const dist=d.backings_distribution;
+    if(dist){
+      makeChart('ch-sb-dist','bar',dist.map(d=>d.range),[
+        {data:dist.map(d=>d.count),backgroundColor:'#6366f1',borderRadius:4}
+      ],{plugins:{legend:{display:false}},scales:{y:{ticks:{color:'#64748b'}},x:{ticks:{color:'#64748b',font:{size:9}}}}});
+    }
+
+    // TOP superbackers table
+    const top=d.top_superbackers;
+    if(top){
+      const tbody=document.querySelector('#tbl-sb-top tbody');
+      if(tbody){
+        tbody.innerHTML=top.slice(0,15).map((s,i)=>`<tr><td>${i+1}</td><td style="font-weight:600;">${s.name}</td><td class="num">${s.backings.toLocaleString()}</td><td class="num">${s.projects}</td></tr>`).join('');
+      }
+    }
+  }catch(e){console.log('Superbackers not loaded:',e);}
 }
 
 // ========== TIMELINE SECTION ==========
@@ -1229,6 +1239,7 @@ async function main(){
     buildGeoSection(DATA);
     buildFailureSection(DATA);
     buildBackerSection(DATA,DETAILS);
+    buildSuperbackerSection();
     buildTimeline();
     buildFaqSentiment();
     buildRankings(DATA);
