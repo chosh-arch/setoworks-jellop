@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kickstarter Live Dashboard — Setoworks</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
@@ -95,10 +94,24 @@ async function load() {
   }
 
   // Parse extra_data
+  var CAT_PARENT = {1:'Art',2:'Comics',3:'Crafts',4:'Dance',5:'Design',6:'Fashion',7:'Food',8:'Film & Video',9:'Games',10:'Journalism',11:'Music',12:'Photography',13:'Technology',14:'Theater',15:'Publishing'};
   all.forEach(function(p) {
+    var origCatId = p.category_id;
     if (p.extra_data) {
-      try { var ex = typeof p.extra_data === 'string' ? JSON.parse(p.extra_data) : p.extra_data; Object.assign(p, ex); } catch(e) {}
+      try {
+        var ex = typeof p.extra_data === 'string' ? JSON.parse(p.extra_data) : p.extra_data;
+        // country 정규화 (object {name,code} 또는 string)
+        if (ex.country && typeof ex.country === 'object') {
+          ex.country = ex.country.code || ex.country.name || '';
+        }
+        Object.assign(p, ex);
+      } catch(e) {}
     }
+    // category_name fallback: extra_data에 없으면 parent category 사용
+    if (!p.category_name && !p.subcategory) {
+      p.category_name = (p.parent_category || CAT_PARENT[origCatId] || '-');
+    }
+    if (!p.country) p.country = '-';
     p.percent_funded = p.percent_funded || (p.goal > 0 ? Math.round(p.pledged / p.goal * 100) : 0);
   });
 
@@ -124,12 +137,12 @@ function renderKPIs() {
   var cats = {}; d.forEach(function(p){ var c=p.category_name||p.subcategory||'?'; cats[c]=(cats[c]||0)+1; });
 
   document.getElementById('kpi-row').innerHTML =
-    '<div class="kpi"><div class="label">Total Projects</div><div class="value">' + fmt(d.length) + '</div><div class="sub">live on Kickstarter</div></div>' +
-    '<div class="kpi"><div class="label">Total Pledged</div><div class="value">$' + fmt(totalPledged) + '</div><div class="sub">across all projects</div></div>' +
-    '<div class="kpi"><div class="label">Total Backers</div><div class="value">' + fmt(totalBackers) + '</div><div class="sub">active supporters</div></div>' +
-    '<div class="kpi"><div class="label">Funded (100%+)</div><div class="value">' + funded + '</div><div class="sub">' + (d.length ? (funded/d.length*100).toFixed(1) : 0) + '% success rate</div></div>' +
-    '<div class="kpi"><div class="label">Avg Funded</div><div class="value">' + Math.round(avgFunded) + '%</div><div class="sub">average funding rate</div></div>' +
-    '<div class="kpi"><div class="label">Countries</div><div class="value">' + Object.keys(countries).length + '</div><div class="sub">worldwide reach</div></div>';
+    '<div class="kpi"><div class="label">전체 프로젝트</div><div class="value">' + fmt(d.length) + '</div><div class="sub">킥스타터 라이브</div></div>' +
+    '<div class="kpi"><div class="label">총 모금액</div><div class="value">$' + fmt(totalPledged) + '</div><div class="sub">전체 프로젝트 합산</div></div>' +
+    '<div class="kpi"><div class="label">총 후원자</div><div class="value">' + fmt(totalBackers) + '</div><div class="sub">활성 후원자 수</div></div>' +
+    '<div class="kpi"><div class="label">달성 (100%+)</div><div class="value">' + funded + '</div><div class="sub">성공률 ' + (d.length ? (funded/d.length*100).toFixed(1) : 0) + '%</div></div>' +
+    '<div class="kpi"><div class="label">평균 달성률</div><div class="value">' + Math.round(avgFunded) + '%</div><div class="sub">전체 평균 펀딩 비율</div></div>' +
+    '<div class="kpi"><div class="label">참여 국가</div><div class="value">' + Object.keys(countries).length + '</div><div class="sub">글로벌 분포</div></div>';
 }
 
 var charts = {};
