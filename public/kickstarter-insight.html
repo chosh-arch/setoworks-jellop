@@ -140,6 +140,25 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S0: EXECUTIVE KPI -->
 <div class="kpi-row" id="kpi-row"></div>
 
+<!-- ML MODEL PERFORMANCE -->
+<div class="section" id="sec-ml">
+  <div class="section-head">
+    <div class="sec-icon" style="background:rgba(5,206,120,.12);">&#x1F916;</div>
+    <h2>ML 예측 모델 성능</h2>
+    <span class="sec-sub">XGBoost + LightGBM + RandomForest 비교 · 하이퍼파라미터 최적화 완료</span>
+  </div>
+  <div class="g4" id="ml-kpis"></div>
+  <div style="height:14px;"></div>
+  <div class="g3">
+    <div class="card"><h3>모델별 성능 비교</h3><div class="chart-wrap"><canvas id="ch-ml-models"></canvas></div></div>
+    <div class="card"><h3>Feature Importance TOP 15</h3><div id="ml-feat-bars"></div></div>
+    <div class="card">
+      <h3>모델 상세 정보</h3>
+      <div id="ml-detail"></div>
+    </div>
+  </div>
+</div>
+
 <!-- S1: SUCCESS PREDICTION FACTORS -->
 <div class="section" id="sec-prediction">
   <div class="section-head">
@@ -365,6 +384,84 @@ function makeChart(id,type,labels,datasets,opts={}){
   const cfg={type,data:{labels,datasets},options:{...defaults,...opts}};
   charts[id]=new Chart(ctx,cfg);
   return charts[id];
+}
+
+// ========== ML MODEL SECTION ==========
+async function buildMLSection(){
+  try{
+    const r=await fetch('/data/ml_results.json');
+    if(!r.ok)return;
+    const ml=await r.json();
+    const m=ml.metrics;
+
+    // KPIs
+    const gapStatus=m.overfitting_gap<0.05?{t:'정상',c:'green'}:m.overfitting_gap<0.08?{t:'주의',c:'orange'}:{t:'과적합',c:'red'};
+    document.getElementById('ml-kpis').innerHTML=`
+      <div class="kpi"><div class="label">모델</div><div class="value" style="font-size:16px;color:var(--ks-green);">${ml.model_name}</div><div class="sub">${ml.feature_count}개 피처 · ${ml.data_count}건 학습</div></div>
+      <div class="kpi"><div class="label">AUC Score</div><div class="value">${(m.cv_auc*100).toFixed(1)}%</div><div class="sub">5-Fold CV 평균 (±${(m.cv_std*100).toFixed(1)})</div></div>
+      <div class="kpi"><div class="label">Test 정확도</div><div class="value blue">${(m.test_accuracy*100).toFixed(1)}%</div><div class="sub">F1: ${m.test_f1.toFixed(3)}</div></div>
+      <div class="kpi"><div class="label">과적합 검증</div><div class="value ${gapStatus.c}">${(m.overfitting_gap*100).toFixed(1)}pp</div><div class="sub">Train-Test 갭 · ${gapStatus.t}</div></div>`;
+
+    // Model comparison chart
+    const models=ml.all_models;
+    const mNames=Object.keys(models);
+    const mAucs=mNames.map(n=>models[n].test_auc*100);
+    const mAccs=mNames.map(n=>models[n].test_acc*100);
+    const shortNames=mNames.map(n=>n.replace('(정규화)','').replace('(최적화)','').trim().substring(0,15));
+    makeChart('ch-ml-models','bar',shortNames,[
+      {label:'AUC',data:mAucs,backgroundColor:'rgba(5,206,120,.7)',borderRadius:4},
+      {label:'Accuracy',data:mAccs,backgroundColor:'rgba(59,130,246,.7)',borderRadius:4},
+    ],{plugins:{legend:{display:true,labels:{color:'#7b7b9e',font:{size:10}}}},scales:{y:{min:75,max:95,ticks:{callback:v=>v+'%'}},x:{ticks:{font:{size:9}}}}});
+
+    // Feature importance bars
+    const feats=ml.feature_importance.slice(0,15);
+    const maxScore=feats[0].score;
+    const FEAT_KO={'story_images':'스토리 이미지 수','updates_total':'업데이트 수','log_goal':'목표금액(log)','cat_Film & Video':'카테고리:영화','comments_count':'댓글 수','staff_pick':'Staff Pick','is_pwl':'Project We Love','cur_HKD':'통화:HKD','duration':'캠페인 기간','story_length':'스토리 길이','co_HK':'국가:홍콩','cat_Design':'카테고리:디자인','co_JP':'국가:일본','cur_Other':'통화:기타','risks_length':'리스크 텍스트','rewards_count':'리워드 수','faqs_count':'FAQ 수','creator_bio_length':'크리에이터 소개','creator_superbacker':'슈퍼백커','has_env_commit':'환경공시','has_video':'비디오 유무'};
+    document.getElementById('ml-feat-bars').innerHTML=feats.map((f,i)=>{
+      const w=f.score/maxScore*100;
+      const nm=FEAT_KO[f.name]||f.name;
+      return `<div class="factor-row"><div class="factor-name" style="width:140px;font-size:10px;">${nm}</div><div class="factor-bar-bg" style="height:16px;"><div class="factor-bar-fill" style="width:${w}%;background:${i<3?'#05ce78':i<7?'#3b82f6':'#8b5cf6'};font-size:9px;">${w>30?(f.score*100).toFixed(1)+'%':''}</div></div><div class="factor-val" style="width:45px;font-size:10px;">${(f.score*100).toFixed(1)}%</div></div>`;
+    }).join('');
+
+    // Detail panel
+    const cm=ml.confusion_matrix;
+    const cls=ml.classes;
+    document.getElementById('ml-detail').innerHTML=`
+      <div style="font-size:11px;line-height:1.7;">
+        <div class="insight-box" style="margin-bottom:8px;">
+          <div class="ib-title">Confusion Matrix</div>
+          <table style="font-size:11px;width:100%;margin-top:4px;">
+            <tr><th></th><th class="num" style="color:var(--red);">예측:실패</th><th class="num" style="color:var(--ks-green);">예측:성공</th></tr>
+            <tr><td style="color:var(--red);font-weight:700;">실제 실패</td><td class="num" style="font-weight:700;">${cm.tn}</td><td class="num" style="color:var(--red);">${cm.fp}</td></tr>
+            <tr><td style="color:var(--ks-green);font-weight:700;">실제 성공</td><td class="num" style="color:var(--red);">${cm.fn}</td><td class="num" style="font-weight:700;">${cm.tp}</td></tr>
+          </table>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--ks-muted);">실패 Precision</div>
+            <div style="font-size:16px;font-weight:800;color:var(--ks-green);">${(cls['실패'].precision*100).toFixed(1)}%</div>
+          </div>
+          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--ks-muted);">성공 Precision</div>
+            <div style="font-size:16px;font-weight:800;color:var(--blue);">${(cls['성공'].precision*100).toFixed(1)}%</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--ks-muted);">실패 Recall</div>
+            <div style="font-size:16px;font-weight:800;color:var(--ks-green);">${(cls['실패'].recall*100).toFixed(1)}%</div>
+          </div>
+          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:var(--ks-muted);">성공 Recall</div>
+            <div style="font-size:16px;font-weight:800;color:var(--blue);">${(cls['성공'].recall*100).toFixed(1)}%</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--ks-muted);">
+          최적 파라미터: depth=${ml.best_params?.max_depth||'-'}, lr=${ml.best_params?.learning_rate||'-'}, trees=${ml.best_params?.n_estimators||'-'}<br>
+          CV Fold AUC: ${ml.cv_folds?.map(s=>(s*100).toFixed(1)+'%').join(' / ')||'-'}
+        </div>
+      </div>`;
+  }catch(e){console.log('ML results not loaded:',e);}
 }
 
 // ========== BUILD ALL SECTIONS ==========
@@ -803,6 +900,7 @@ async function main(){
 
     // Build all sections
     buildKPI(DATA);
+    buildMLSection();
     buildFactorBars();
     buildGoalChart(DATA);
     buildCategorySection(DATA);
