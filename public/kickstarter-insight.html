@@ -4,52 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>킥스타터 인사이트 엔진 — Setoworks</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Geist+Mono&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
 :root {
-  --ks-green:#05ce78; --ks-dark:#0b0b14; --ks-card:#13132a; --ks-card2:#1a1a35;
-  --ks-border:#252545; --ks-text:#e0e0e0; --ks-muted:#7b7b9e;
-  --red:#ef4444; --orange:#f59e0b; --blue:#3b82f6; --purple:#8b5cf6;
-  --cyan:#06b6d4; --pink:#ec4899; --teal:#14b8a6;
+  --ks-green:#fff; --ks-dark:#000; --ks-card:#0a0a0a; --ks-card2:#111;
+  --ks-border:#222; --ks-text:#ededed; --ks-muted:#666;
+  --red:#ff4444; --orange:#ff8800; --blue:#0070f3; --purple:#7928ca;
+  --cyan:#00c2ff; --pink:#ff0080; --teal:#00dfd8;
+  --accent:#fff;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter','Noto Sans KR',sans-serif;background:var(--ks-dark);color:var(--ks-text);overflow-x:hidden;}
-::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:#0b0b14;} ::-webkit-scrollbar-thumb{background:#333;border-radius:3px;}
+body{font-family:'Inter','Noto Sans KR',system-ui,sans-serif;background:var(--ks-dark);color:var(--ks-text);overflow-x:hidden;}
+code,pre,.mono{font-family:'Geist Mono','SF Mono','Consolas',monospace;}
+::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:#000;} ::-webkit-scrollbar-thumb{background:#333;border-radius:3px;}
 
-/* TOPBAR */
-.topbar{background:linear-gradient(135deg,#0b0b14 0%,#1a1a35 100%);padding:14px 24px;border-bottom:1px solid var(--ks-border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
-.topbar h1{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;}
-.topbar h1 .icon{font-size:22px;} .topbar h1 .accent{color:var(--ks-green);}
-.topbar .meta{font-size:11px;color:var(--ks-muted);margin-top:2px;}
-.nav-links{display:flex;gap:8px;align-items:center;}
-.nav-btn{background:rgba(255,255,255,.06);color:var(--ks-text);border:1px solid var(--ks-border);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;}
-.nav-btn:hover{background:rgba(5,206,120,.15);border-color:var(--ks-green);color:var(--ks-green);text-decoration:none;}
-.nav-btn.primary{background:var(--ks-green);color:#0b0b14;border-color:var(--ks-green);}
+/* TOPBAR — Vercel style */
+.topbar{background:rgba(0,0,0,.85);padding:12px 24px;border-bottom:1px solid var(--ks-border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:saturate(180%) blur(20px);}
+.topbar h1{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;letter-spacing:-.02em;}
+.topbar h1 .icon{display:inline-block;width:20px;height:20px;clip-path:polygon(50% 0%,100% 100%,0% 100%);background:#fff;} .topbar h1 .accent{color:#fff;}
+.topbar .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--ks-muted);margin-top:2px;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-btn{background:transparent;color:var(--ks-muted);border:1px solid var(--ks-border);padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s;}
+.nav-btn:hover{color:#fff;border-color:#555;text-decoration:none;}
+.nav-btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:600;} .nav-btn.primary:hover{background:#ccc;}
 
 /* CONTAINER */
 .container{max-width:1440px;margin:0 auto;padding:20px;}
 
-/* SECTION HEADERS */
-.section{margin-bottom:28px;}
-.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--ks-border);}
-.section-head .sec-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.section-head h2{font-size:16px;font-weight:700;}
-.section-head .sec-sub{font-size:11px;color:var(--ks-muted);margin-left:auto;}
+/* SECTION HEADERS — minimal */
+.section{margin-bottom:32px;}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--ks-border);}
+.section-head .sec-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-family:'Geist Mono',monospace;font-weight:700;color:var(--ks-muted);border:1px solid var(--ks-border);}
+.section-head h2{font-size:15px;font-weight:700;letter-spacing:-.03em;}
+.section-head .sec-sub{font-family:'Geist Mono',monospace;font-size:10px;color:var(--ks-muted);margin-left:auto;}
 
-/* KPI */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
-.kpi{background:var(--ks-card);border:1px solid var(--ks-border);border-radius:12px;padding:14px;text-align:center;transition:transform .2s,border-color .2s;}
-.kpi:hover{transform:translateY(-2px);border-color:rgba(5,206,120,.3);}
-.kpi .label{font-size:10px;color:var(--ks-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
-.kpi .value{font-size:26px;font-weight:800;color:var(--ks-green);margin-top:4px;font-variant-numeric:tabular-nums;}
-.kpi .sub{font-size:10px;color:var(--ks-muted);margin-top:2px;}
+/* KPI — border-line-only */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;margin-bottom:24px;background:var(--ks-border);border:1px solid var(--ks-border);border-radius:8px;overflow:hidden;}
+.kpi{background:var(--ks-dark);padding:16px;text-align:center;transition:background .15s;}
+.kpi:hover{background:#0a0a0a;}
+.kpi .label{font-family:'Geist Mono',monospace;font-size:10px;color:var(--ks-muted);text-transform:uppercase;letter-spacing:.08em;}
+.kpi .value{font-size:28px;font-weight:800;color:#fff;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.04em;}
+.kpi .sub{font-family:'Geist Mono',monospace;font-size:10px;color:var(--ks-muted);margin-top:4px;}
 .kpi .value.red{color:var(--red);} .kpi .value.blue{color:var(--blue);} .kpi .value.orange{color:var(--orange);} .kpi .value.purple{color:var(--purple);}
 
-/* CARDS */
-.card{background:var(--ks-card);border:1px solid var(--ks-border);border-radius:12px;padding:16px;margin-bottom:0;}
-.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.card h3 .tag{font-size:9px;background:rgba(5,206,120,.15);color:var(--ks-green);padding:2px 6px;border-radius:4px;font-weight:600;}
+/* CARDS — border-line-only, hover invert */
+.card{background:transparent;border:1px solid var(--ks-border);border-radius:8px;padding:16px;margin-bottom:0;transition:all .2s;}
+.card:hover{border-color:#444;}
+.card h3{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;letter-spacing:-.02em;}
+.card h3 .tag{font-family:'Geist Mono',monospace;font-size:9px;background:transparent;color:var(--ks-muted);padding:2px 6px;border-radius:3px;border:1px solid var(--ks-border);font-weight:500;}
 
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -63,24 +66,24 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:var(--ks-dark);col
 .chart-wrap{position:relative;height:260px;}
 .chart-wrap.tall{height:340px;}
 
-/* TABLE */
+/* TABLE — clean mono */
 table{width:100%;border-collapse:collapse;font-size:11px;}
-th{background:#16162a;color:var(--ks-muted);font-weight:600;text-transform:uppercase;font-size:9px;letter-spacing:.05em;padding:6px 8px;text-align:left;position:sticky;top:0;white-space:nowrap;}
+th{background:transparent;color:var(--ks-muted);font-family:'Geist Mono',monospace;font-weight:500;text-transform:uppercase;font-size:9px;letter-spacing:.06em;padding:6px 8px;text-align:left;position:sticky;top:0;white-space:nowrap;border-bottom:1px solid var(--ks-border);}
 td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.04);font-variant-numeric:tabular-nums;}
-tr:hover{background:rgba(5,206,120,.04);}
+tr:hover{background:rgba(255,255,255,.03);}
 .num{text-align:right;}
 
 /* PROGRESS BAR */
 .prog{background:#1e1e3a;border-radius:4px;height:6px;overflow:hidden;flex:1;}
 .prog-fill{height:100%;border-radius:4px;transition:width .5s;}
 
-/* BADGES */
-.badge{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;display:inline-block;}
-.badge-green{background:rgba(5,206,120,.15);color:#05ce78;}
-.badge-red{background:rgba(239,68,68,.15);color:#ef4444;}
-.badge-blue{background:rgba(59,130,246,.15);color:#60a5fa;}
-.badge-orange{background:rgba(245,158,11,.15);color:#f59e0b;}
-.badge-purple{background:rgba(139,92,246,.15);color:#a78bfa;}
+/* BADGES — minimal */
+.badge{padding:2px 7px;border-radius:3px;font-size:9px;font-weight:600;display:inline-block;font-family:'Geist Mono',monospace;}
+.badge-green{background:transparent;color:#0f0;border:1px solid rgba(0,255,0,.3);}
+.badge-red{background:transparent;color:var(--red);border:1px solid rgba(255,68,68,.3);}
+.badge-blue{background:transparent;color:var(--blue);border:1px solid rgba(0,112,243,.3);}
+.badge-orange{background:transparent;color:var(--orange);border:1px solid rgba(255,136,0,.3);}
+.badge-purple{background:transparent;color:#a78bfa;border:1px solid rgba(139,92,246,.3);}
 
 /* FACTOR BAR */
 .factor-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px;}
@@ -89,26 +92,28 @@ tr:hover{background:rgba(5,206,120,.04);}
 .factor-bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:700;color:#fff;transition:width .8s ease;}
 .factor-val{width:60px;font-weight:700;font-size:11px;flex-shrink:0;}
 
-/* INSIGHT CARD */
-.insight-box{background:linear-gradient(135deg,rgba(5,206,120,.08),rgba(59,130,246,.05));border:1px solid rgba(5,206,120,.2);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:12px;line-height:1.6;}
-.insight-box .ib-title{font-weight:700;color:var(--ks-green);margin-bottom:4px;font-size:12px;}
-.insight-box .ib-num{font-size:22px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;}
+/* INSIGHT CARD — Vercel style */
+.insight-box{background:transparent;border:1px solid var(--ks-border);border-radius:6px;padding:12px 14px;margin-bottom:8px;font-size:12px;line-height:1.6;}
+.insight-box .ib-title{font-family:'Geist Mono',monospace;font-weight:600;color:var(--ks-muted);margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+.insight-box .ib-num{font-size:24px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.04em;}
 
 /* RANK TABLE */
 .rank-table td:first-child{font-weight:800;color:var(--ks-green);text-align:center;width:30px;}
 
-/* LOADING */
-.loading-screen{position:fixed;inset:0;background:var(--ks-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .5s;}
+/* LOADING — Vercel triangle */
+.loading-screen{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .5s;}
 .loading-screen.hide{opacity:0;pointer-events:none;}
-.spinner{width:40px;height:40px;border:3px solid var(--ks-border);border-top-color:var(--ks-green);border-radius:50%;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{margin-top:16px;color:var(--ks-muted);font-size:13px;}
-.loading-sub{color:var(--ks-muted);font-size:11px;margin-top:4px;}
+.spinner{width:30px;height:30px;clip-path:polygon(50% 0%,100% 100%,0% 100%);background:#fff;animation:pulse 1.2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.9);}50%{opacity:1;transform:scale(1.1);}}
+.loading-text{margin-top:20px;color:#666;font-family:'Geist Mono',monospace;font-size:12px;}
+.loading-sub{color:#444;font-family:'Geist Mono',monospace;font-size:11px;margin-top:4px;}
 
-/* TABS */
-.tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap;}
-.tab{padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.04);color:var(--ks-muted);border:1px solid transparent;transition:all .2s;}
-.tab:hover,.tab.active{background:rgba(5,206,120,.12);color:var(--ks-green);border-color:rgba(5,206,120,.3);}
+/* TABS — Vercel style */
+.tabs{display:flex;gap:0;margin-bottom:14px;flex-wrap:wrap;border:1px solid var(--ks-border);border-radius:6px;overflow:hidden;width:fit-content;}
+.tab{padding:6px 16px;font-size:11px;font-weight:500;cursor:pointer;background:transparent;color:var(--ks-muted);border:none;border-right:1px solid var(--ks-border);transition:all .15s;}
+.tab:last-child{border-right:none;}
+.tab:hover{color:#fff;background:rgba(255,255,255,.05);}
+.tab.active{color:#fff;background:rgba(255,255,255,.1);}
 
 /* TOOLTIP on hover */
 .tip{position:relative;cursor:help;}
@@ -126,7 +131,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 
 <div class="topbar">
   <div>
-    <h1><span class="icon">&#x1F50D;</span> <span class="accent">킥스타터</span> 인사이트 엔진</h1>
+    <h1><span class="icon"></span> <span class="accent">킥스타터</span> 인사이트 엔진</h1>
     <div class="meta" id="meta-info">Loading...</div>
   </div>
   <div class="nav-links">
@@ -143,7 +148,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- ML MODEL PERFORMANCE -->
 <div class="section" id="sec-ml">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(5,206,120,.12);">&#x1F916;</div>
+    <div class="sec-icon">ML</div>
     <h2>ML 예측 모델 성능</h2>
     <span class="sec-sub">XGBoost + LightGBM + RandomForest 비교 · 하이퍼파라미터 최적화 완료</span>
   </div>
@@ -162,7 +167,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S1: SUCCESS PREDICTION FACTORS -->
 <div class="section" id="sec-prediction">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(5,206,120,.12);">&#x1F3AF;</div>
+    <div class="sec-icon">01</div>
     <h2>성공 예측 팩터</h2>
     <span class="sec-sub">성공률에 가장 큰 영향을 미치는 요인 TOP 10</span>
   </div>
@@ -175,7 +180,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S2: CATEGORY INTELLIGENCE -->
 <div class="section" id="sec-category">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(59,130,246,.12);">&#x1F4CA;</div>
+    <div class="sec-icon">02</div>
     <h2>카테고리 인텔리전스</h2>
     <span class="sec-sub">카테고리별 성공 공식</span>
   </div>
@@ -188,7 +193,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S3: REWARD TIER OPTIMIZATION -->
 <div class="section" id="sec-reward">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(245,158,11,.12);">&#x1F4B0;</div>
+    <div class="sec-icon">03</div>
     <h2>리워드 티어 최적화</h2>
     <span class="sec-sub">KickTraq 미보유 — 독점 인사이트</span>
   </div>
@@ -202,7 +207,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S4: CONTENT QUALITY -->
 <div class="section" id="sec-content">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(139,92,246,.12);">&#x270D;</div>
+    <div class="sec-icon">04</div>
     <h2>콘텐츠 품질 점수</h2>
     <span class="sec-sub">콘텐츠 품질과 성공의 상관관계</span>
   </div>
@@ -233,7 +238,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S5: GEOGRAPHIC INTELLIGENCE -->
 <div class="section" id="sec-geo">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(6,182,212,.12);">&#x1F30D;</div>
+    <div class="sec-icon">05</div>
     <h2>지역/통화 인텔리전스</h2>
     <span class="sec-sub">국가/통화별 성공 패턴</span>
   </div>
@@ -246,7 +251,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S6: FAILURE PATTERN DETECTION -->
 <div class="section" id="sec-failure">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(239,68,68,.12);">&#x26A0;</div>
+    <div class="sec-icon">06</div>
     <h2>실패 패턴 감지</h2>
     <span class="sec-sub">"실패 데이터가 진짜 경쟁력" — 100% 실패 판별 패턴</span>
   </div>
@@ -269,7 +274,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S7: BACKER BEHAVIOR -->
 <div class="section" id="sec-backer">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(236,72,153,.12);">&#x1F465;</div>
+    <div class="sec-icon">07</div>
     <h2>후원자 행동 분석</h2>
     <span class="sec-sub">후원자 행동 패턴 및 슈퍼백커 분석</span>
   </div>
@@ -288,7 +293,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S8: AI & ESG TRENDS -->
 <div class="section" id="sec-trend">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(20,184,166,.12);">&#x1F4A1;</div>
+    <div class="sec-icon">08</div>
     <h2>AI & ESG 트렌드 모니터</h2>
     <span class="sec-sub">경쟁사 미보유 독점 데이터</span>
   </div>
@@ -310,10 +315,41 @@ tr:hover{background:rgba(5,206,120,.04);}
   </div>
 </div>
 
-<!-- S9: TOP RANKINGS -->
+<!-- S9: FAQ PATTERN MINING -->
+<div class="section" id="sec-faq">
+  <div class="section-head">
+    <div class="sec-icon">09</div>
+    <h2>FAQ 패턴 마이닝</h2>
+    <span class="sec-sub">7,750개 FAQ 자동 분류 — 카테고리별 질문 패턴</span>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>FAQ 토픽 분포</h3><div class="chart-wrap"><canvas id="ch-faq-topics"></canvas></div></div>
+    <div class="card"><h3>카테고리별 FAQ 토픽</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-faq-cat"><thead><tr><th>카테고리</th><th class="num">FAQ</th><th>TOP 토픽</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="card"><h3>성공 vs 실패 FAQ 차이</h3><div class="chart-wrap"><canvas id="ch-faq-diff"></canvas></div></div>
+  </div>
+</div>
+
+<!-- S10: COMMENT SENTIMENT -->
+<div class="section" id="sec-sentiment">
+  <div class="section-head">
+    <div class="sec-icon">10</div>
+    <h2>댓글 감정 분석</h2>
+    <span class="sec-sub">13,277개 댓글 감정 분류 — 긍정/부정/질문/중립</span>
+  </div>
+  <div class="g3">
+    <div class="card"><h3>감정 분포</h3><div class="chart-wrap"><canvas id="ch-sent-dist"></canvas></div></div>
+    <div class="card"><h3>성공 vs 실패 감정 비교</h3><div class="chart-wrap"><canvas id="ch-sent-compare"></canvas></div></div>
+    <div class="card">
+      <h3>핵심 발견</h3>
+      <div id="sent-findings"></div>
+    </div>
+  </div>
+</div>
+
+<!-- S11: TOP RANKINGS -->
 <div class="section" id="sec-rankings">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(245,158,11,.12);">&#x1F3C6;</div>
+    <div class="sec-icon">11</div>
     <h2>실시간 랭킹</h2>
     <span class="sec-sub">데이터 실시간 반영</span>
   </div>
@@ -332,7 +368,7 @@ tr:hover{background:rgba(5,206,120,.04);}
 <!-- S10: COMPETITIVE ADVANTAGE -->
 <div class="section" id="sec-competitive">
   <div class="section-head">
-    <div class="sec-icon" style="background:rgba(5,206,120,.12);">&#x1F680;</div>
+    <div class="sec-icon">12</div>
     <h2>경쟁 우위 맵</h2>
     <span class="sec-sub">KickTraq / BackerTracker 대비 우위 영역</span>
   </div>
@@ -462,6 +498,66 @@ async function buildMLSection(){
         </div>
       </div>`;
   }catch(e){console.log('ML results not loaded:',e);}
+}
+
+// ========== FAQ & SENTIMENT SECTION ==========
+async function buildFaqSentiment(){
+  try{
+    const r=await fetch('/data/faq_sentiment.json');
+    if(!r.ok)return;
+    const d=await r.json();
+    const faq=d.faq, sent=d.sentiment;
+
+    // FAQ topic chart
+    const topics=Object.entries(faq.topic_distribution).filter(([k])=>k!=='기타').sort((a,b)=>b[1]-a[1]);
+    makeChart('ch-faq-topics','bar',topics.map(t=>t[0]),[{data:topics.map(t=>t[1]),backgroundColor:'#fff',borderRadius:3}],{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#666'}},y:{ticks:{color:'#aaa',font:{size:10}}}}});
+
+    // FAQ category table
+    const catTopics=faq.category_topics;
+    const tbody=document.querySelector('#tbl-faq-cat tbody');
+    if(tbody){
+      tbody.innerHTML=Object.entries(catTopics).sort((a,b)=>b[1].total-a[1].total).slice(0,10).map(([cat,d])=>{
+        const top=Object.entries(d.topics).filter(([k])=>k!=='기타').sort((a,b)=>b[1]-a[1]).slice(0,2);
+        return `<tr><td>${cat}</td><td class="num">${d.total}</td><td>${top.map(([t,c])=>`<span class="badge badge-blue">${t} ${c}</span>`).join(' ')}</td></tr>`;
+      }).join('');
+    }
+
+    // FAQ success vs fail
+    const sfTopics=['배송/물류','후원/리워드','일정/배송시기','제품 스펙/호환','A/S/고객지원','환불/취소'];
+    const sVals=sfTopics.map(t=>faq.success_vs_fail.success_topics[t]||0);
+    const fVals=sfTopics.map(t=>faq.success_vs_fail.fail_topics[t]||0);
+    makeChart('ch-faq-diff','bar',sfTopics,[
+      {label:'성공',data:sVals,backgroundColor:'#fff',borderRadius:3},
+      {label:'실패',data:fVals,backgroundColor:'#555',borderRadius:3},
+    ],{plugins:{legend:{display:true,labels:{color:'#666',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#666'}},x:{ticks:{color:'#888',font:{size:9}}}}});
+
+    // Sentiment distribution
+    const sd=sent.distribution;
+    const sentLabels=['positive','negative','question','neutral'];
+    const sentKo={'positive':'긍정','negative':'부정','question':'질문','neutral':'중립'};
+    const sentColors=['#fff','#ff4444','#0070f3','#333'];
+    makeChart('ch-sent-dist','doughnut',sentLabels.map(s=>sentKo[s]),[{data:sentLabels.map(s=>sd[s]||0),backgroundColor:sentColors,borderWidth:0}],{plugins:{legend:{display:true,position:'right',labels:{color:'#888',font:{size:10}}}}});
+
+    // Sentiment success vs fail
+    const svf=sent.success_vs_fail;
+    makeChart('ch-sent-compare','bar',sentLabels.map(s=>sentKo[s]),[
+      {label:'성공 프로젝트',data:sentLabels.map(s=>svf.success[s]),backgroundColor:'#fff',borderRadius:3},
+      {label:'실패 프로젝트',data:sentLabels.map(s=>svf.fail[s]),backgroundColor:'#555',borderRadius:3},
+    ],{plugins:{legend:{display:true,labels:{color:'#666',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#666'}},x:{ticks:{color:'#888'}}}});
+
+    // Sentiment findings
+    const sf=svf.success, ff=svf.fail;
+    const posDiff=(sf.positive-ff.positive).toFixed(1);
+    const sbvn=sent.superbacker_vs_normal;
+    document.getElementById('sent-findings').innerHTML=`
+      <div class="insight-box"><div class="ib-title">긍정 댓글 격차</div><div class="ib-num">+${posDiff}pp</div><div style="color:var(--ks-muted);font-size:10px;">성공 ${sf.positive}% vs 실패 ${ff.positive}% — 가장 큰 차이</div></div>
+      <div class="insight-box"><div class="ib-title">실패 프로젝트 특징</div><div class="ib-num">${ff.neutral}%</div><div style="color:var(--ks-muted);font-size:10px;">중립 댓글 비율 — 관심/열정 부재</div></div>
+      <div class="insight-box"><div class="ib-title">슈퍼백커 댓글 패턴</div><div class="ib-num" style="font-size:16px;">질문형</div><div style="color:var(--ks-muted);font-size:10px;">질문 ${sbvn.superbacker.question}% (일반 ${sbvn.normal.question}%) — 정보 수집 목적</div></div>
+      <div style="margin-top:8px;font-size:10px;color:var(--ks-muted);font-family:'Geist Mono',monospace;">
+        * 부정 댓글 ${sent.distribution.negative||0}건 (${((sent.distribution.negative||0)/sent.total_comments*100).toFixed(1)}%) — 데이터 축적 시 정확도 향상<br>
+        * 슈퍼백커 댓글 ${sent.superbacker_comments}건 (${(sent.superbacker_comments/sent.total_comments*100).toFixed(1)}%)
+      </div>`;
+  }catch(e){console.log('FAQ/Sentiment not loaded:',e);}
 }
 
 // ========== BUILD ALL SECTIONS ==========
@@ -774,9 +870,9 @@ function buildRankings(data){
 
 function buildCompetitive(){
   const items=[
-    {icon:'&#x1F4B0;',title:'리워드 티어 분석',us:true,kt:false,bt:false,done:true,desc:'가격 분포, 최적 티어 수, 후원자 집중 가격대',
+    {icon:'',code:'RW',title:'리워드 티어 분석',us:true,kt:false,bt:false,done:true,desc:'가격 분포, 최적 티어 수, 후원자 집중 가격대',
      detail:'<b>보유 데이터:</b> 리워드 티어별 가격, 후원자 수, 배송일, 잔여수량, 아이템 목록<br><b>분석 완료:</b> 최적 가격대 도출($26-50 최다 후원), 티어 수 최적화(10-11개 최고 성공률 55%), 카테고리별 가격 전략<br><b>경쟁사:</b> KickTraq/BackerTracker 모두 리워드 데이터 없음 → <span style="color:#05ce78;">완전 독점 영역</span><br><b>대시보드:</b> 리워드 티어 최적화 섹션에서 가격 분포, 티어별 성공률, 인기 가격대 TOP15 확인 가능'},
-    {icon:'&#x2753;',title:'FAQ 패턴 마이닝',us:true,kt:false,bt:false,done:false,desc:'카테고리별 자주 묻는 질문 패턴',
+    {icon:'',code:'FQ',title:'FAQ 패턴 마이닝',us:true,kt:false,bt:false,done:false,desc:'카테고리별 자주 묻는 질문 패턴',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(5,206,120,.1);border-radius:8px;font-size:11px;"><b style="color:#05ce78;">즉시 구현 가능</b> — 데이터 충분</div>
 <b>보유 데이터:</b> 1,147개 프로젝트 × 평균 6.8개 = <b style="color:#fff;">총 7,750개 FAQ 텍스트</b> (질문+답변 전문)<br><br>
 <b style="color:#05ce78;">구현 방법 (3단계):</b><br>
@@ -793,7 +889,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 신규 메이커에게 "이 질문은 미리 FAQ에 답해두세요" 체크리스트 제공<br><br>
 <b>소요 시간:</b> 1~2시간 (Python 스크립트 + 대시보드 섹션 추가)<br>
 <b>상업 가치:</b> 메이커 온보딩 도구로 SaaS화 가능 — 월 $29 플랜`},
-    {icon:'&#x1F4AC;',title:'댓글 감정 분석',us:true,kt:false,bt:false,done:false,desc:'댓글 감정 분석, 불만 시그널 감지',
+    {icon:'',code:'ST',title:'댓글 감정 분석',us:true,kt:false,bt:false,done:false,desc:'댓글 감정 분석, 불만 시그널 감지',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(5,206,120,.1);border-radius:8px;font-size:11px;"><b style="color:#05ce78;">즉시 구현 가능</b> — 데이터 충분</div>
 <b>보유 데이터:</b> 2,437개 프로젝트 × 평균 5.4개 = <b style="color:#fff;">총 13,277개 댓글</b> (본문, 작성자, 날짜, 배지)<br><br>
 <b style="color:#05ce78;">구현 방법 (3단계):</b><br>
@@ -812,7 +908,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 위험 프로젝트 TOP 10 목록<br><br>
 <b>소요 시간:</b> 2~3시간 (키워드 사전 + 분석 + 시각화)<br>
 <b>고도화 (선택):</b> Claude API로 댓글 요약/분류 → 정확도 향상 (API 비용 발생)`},
-    {icon:'&#x26A0;',title:'실패 예측',us:true,kt:false,bt:false,done:'partial',desc:'100% 실패 판별, 위험 요인 스코어링',
+    {icon:'',code:'FP',title:'실패 예측',us:true,kt:false,bt:false,done:'partial',desc:'100% 실패 판별, 위험 요인 스코어링',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습 완료, 개별 프로젝트 스코어링 미구현</div>
 <b style="color:#05ce78;">구현된 것:</b><br>
 &nbsp;&nbsp;- XGBoost 정규화 모델 학습 완료 (AUC 0.91, 정확도 80.8%)<br>
@@ -825,7 +921,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 성공 vs 실패 비교 테이블 일부 수치가 하드코딩 (동적 계산 전환 필요)<br><br>
 <b>완전 구현 방법:</b> 학습된 모델(pkl) → JS에서 피처 추출 → Python API 또는 ONNX 변환 후 브라우저 추론<br>
 <b>예상 소요:</b> 2~3시간 (API 엔드포인트 or 클라이언트 추론)`,},
-    {icon:'&#x1F4C8;',title:'펀딩 추세 예측',us:true,kt:true,bt:true,done:false,desc:'펀딩 추세 예측 (우리: ML / 경쟁: 선형)',
+    {icon:'',code:'TR',title:'펀딩 추세 예측',us:true,kt:true,bt:true,done:false,desc:'펀딩 추세 예측 (우리: ML / 경쟁: 선형)',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(239,68,68,.1);border-radius:8px;font-size:11px;"><b style="color:#ef4444;">선행 조건 필요</b> — 일별 시계열 데이터 축적 필요</div>
 <b>현재 상태:</b> 단일 시점 스냅샷만 보유 (라이브 크롤링 1회). 일별 펀딩 추이 데이터 없음<br><br>
 <b style="color:#f59e0b;">구현 로드맵 (4단계):</b><br>
@@ -847,9 +943,9 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 가중 평균 앙상블 → 최종 예측 정확도 극대화<br><br>
 <b>KickTraq 대비 차별점:</b> 선형 추세가 아닌 딥러닝 곡선 예측, 카테고리별 학습 커브 적용<br>
 <b>예상 소요:</b> 크롤러 자동화 1일 + 14일 데이터 축적 + 모델 구축 2~3일 = 약 3주`},
-    {icon:'&#x1F310;',title:'지역 인텔리전스',us:true,kt:false,bt:false,done:true,desc:'국가별 성공률, 통화별 패턴',
+    {icon:'',code:'GE',title:'지역 인텔리전스',us:true,kt:false,bt:false,done:true,desc:'국가별 성공률, 통화별 패턴',
      detail:'<b>구현 완료:</b> 14개 통화, 30개국+ 분석 완료<br><b>핵심 발견:</b> HK 73.5% 성공 (건당 $845K 최고 효율), US 36.7% (경쟁 과밀), JP 53.8%<br><b>통화 분석:</b> USD 54.9%, EUR 15.9%, GBP 11.7%<br><b>대시보드:</b> 지역/통화 인텔리전스 섹션에서 국가별 성공률 차트, 통화 분포, 국가별 지표 확인 가능'},
-    {icon:'&#x1F916;',title:'AI 공시 추적',us:true,kt:false,bt:false,done:'partial',desc:'AI 사용 프로젝트 추적 (업계 최초)',
+    {icon:'',code:'AI',title:'AI 공시 추적',us:true,kt:false,bt:false,done:'partial',desc:'AI 사용 프로젝트 추적 (업계 최초)',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 공시율 숫자만 표시, 상세 분석 미구현</div>
 <b style="color:#05ce78;">구현된 것:</b><br>
 &nbsp;&nbsp;- 전체 프로젝트 AI 공시 보유율 동적 계산 (1개 수치)<br>
@@ -861,7 +957,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- AI 공시 프로젝트 목록/필터<br><br>
 <b>완전 구현 방법:</b> extra_data.ai_disclosure 4개 필드 파싱 → 유형별 집계 → 차트 3개 추가<br>
 <b>예상 소요:</b> 1~2시간 (데이터는 이미 보유, 시각화만 추가)`},
-    {icon:'&#x1F33F;',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:'partial',desc:'환경 공시와 성공률 상관관계',
+    {icon:'',code:'ES',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:'partial',desc:'환경 공시와 성공률 상관관계',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 유무 비교 동적, 헤드라인 하드코딩</div>
 <b style="color:#05ce78;">구현된 것:</b><br>
 &nbsp;&nbsp;- 환경 공시 보유/미보유 성공률 동적 비교 (2개 박스)<br>
@@ -873,7 +969,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- ESG + 성공률 상관 차트 (바 차트 없음)<br><br>
 <b>완전 구현 방법:</b> 하드코딩 수치 동적 전환 + environmental_commitments 배열 파싱 + 차트 추가<br>
 <b>예상 소요:</b> 1시간`},
-    {icon:'&#x1F465;',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:false,desc:'슈퍼백커 행동 패턴 분석',
+    {icon:'',code:'SB',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:false,desc:'슈퍼백커 행동 패턴 분석',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 크리에이터 분석 완료, 후원자 추적은 추가 크롤링 필요</div>
 <b style="color:#05ce78;">현재 구현된 것 (크리에이터 측):</b><br>
 &nbsp;&nbsp;- 크리에이터가 슈퍼백커인지 여부: <b style="color:#fff;">115명/2,701건 (4.3%)</b><br>
@@ -899,7 +995,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- "이 프로젝트에 슈퍼백커가 N명 유입" → 성공 확률 재계산<br><br>
 <b>예상 소요:</b> 프로필 크롤링 2~3일 + 분석 1일 = 약 4일<br>
 <b>대표님 인용:</b> "슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어"`},
-    {icon:'&#x1F3AF;',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:'partial',desc:'XGBoost 기반 다변수 예측 모델',
+    {icon:'',code:'ML',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:'partial',desc:'XGBoost 기반 다변수 예측 모델',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습+평가 완료, 실시간 스코어링 미구현</div>
 <b style="color:#05ce78;">구현된 것:</b><br>
 &nbsp;&nbsp;- XGBoost 정규화 모델 학습 (AUC 0.9097, 정확도 80.8%)<br>
@@ -917,7 +1013,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;2. 대시보드에서 scores.json 로드 → 프로젝트별 점수 표시<br>
 &nbsp;&nbsp;3. 또는 ONNX 변환 → 브라우저에서 실시간 추론 (onnxruntime-web)<br>
 <b>예상 소요:</b> 방법1 = 1시간, 방법2 = 3~4시간`},
-    {icon:'&#x1F4CA;',title:'일별 트렌드 차트',us:true,kt:true,bt:true,done:false,desc:'일별 펀딩/후원자 추이',
+    {icon:'',code:'DT',title:'일별 트렌드 차트',us:true,kt:true,bt:true,done:false,desc:'일별 펀딩/후원자 추이',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(239,68,68,.1);border-radius:8px;font-size:11px;"><b style="color:#ef4444;">선행 조건 필요</b> — 일별 시계열 데이터 축적 필요 (펀딩 추세 예측과 동일)</div>
 <b>현재 상태:</b> 크롤링 1회 스냅샷만 보유. 일별 변화 추적 데이터 없음<br><br>
 <b style="color:#f59e0b;">구현 로드맵 (3단계):</b><br>
@@ -935,7 +1031,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 최종 러시 패턴 (마감 3일 전 급등 예측)<br><br>
 <b>경쟁사 대비:</b> KickTraq = 단순 일별 바 차트, 우리 = 카테고리 평균 오버레이 + 이상 탐지 + ML 예측선<br>
 <b>예상 소요:</b> 크롤러 공유 (펀딩 추세와 동일) + 차트 UI 1일 = 첫 차트까지 약 2일`},
-    {icon:'&#x1F50D;',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:'partial',desc:'스토리 길이/이미지/FAQ 종합 점수',
+    {icon:'',code:'CQ',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:'partial',desc:'스토리 길이/이미지/FAQ 종합 점수',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 상관관계 차트 3개 동적, 종합 점수 미구현</div>
 <b style="color:#05ce78;">구현된 것:</b><br>
 &nbsp;&nbsp;- 스토리 길이별 성공률 차트 (6구간, 동적 계산)<br>
@@ -961,10 +1057,10 @@ function buildCompetitive(){
     grid.innerHTML=items.map((it,i)=>{
       const exclusive=!it.kt&&!it.bt;
       const isActive=i===activeIdx;
-      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:${isActive?'rgba(5,206,120,.15)':exclusive?'rgba(5,206,120,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isActive?'#05ce78':exclusive?'rgba(5,206,120,.2)':'rgba(255,255,255,.06)'};border-radius:10px;padding:12px;text-align:center;transition:all .2s;${isActive?'transform:scale(1.03);box-shadow:0 0 20px rgba(5,206,120,.2);':''}">
-        ${it.done===true?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#05ce78;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(5,206,120,.4);">&#x2713;</div>':it.done==='partial'?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(245,158,11,.4);">&#xBD;</div>':''}
-        <div style="font-size:20px;margin-bottom:4px;">${it.icon}</div>
-        <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:#05ce78;':''}">${it.title}</div>
+      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:transparent;border:1px solid ${isActive?'#fff':'#222'};border-radius:8px;padding:14px;text-align:center;transition:all .15s;${isActive?'background:#111;':''}">
+        ${it.done===true?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:900;">&#x2713;</div>':it.done==='partial'?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#ff8800;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:900;">&#xBD;</div>':''}
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:#666;margin:0 auto 6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid #333;border-radius:6px;">${it.code||''}</div>
+        <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:#fff;':''}">${it.title}</div>
         <div style="font-size:9px;color:var(--ks-muted);margin-bottom:6px;">${it.desc}</div>
         <div style="display:flex;gap:4px;justify-content:center;font-size:9px;">
           <span class="badge badge-green">Seto</span>
@@ -988,7 +1084,7 @@ function buildCompetitive(){
           detailEl.style.display='block';
           detailEl.innerHTML=`
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <span style="font-size:28px;">${it.icon}</span>
+              <span style="font-size:28px;">${it.code||''}</span>
               <div>
                 <div style="font-size:15px;font-weight:800;color:#05ce78;">${it.title}</div>
                 <div style="font-size:11px;color:var(--ks-muted);">${it.desc}</div>
@@ -1070,6 +1166,7 @@ async function main(){
     buildGeoSection(DATA);
     buildFailureSection(DATA);
     buildBackerSection(DATA,DETAILS);
+    buildFaqSentiment();
     buildRankings(DATA);
     buildCompetitive();
 

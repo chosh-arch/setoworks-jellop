@@ -1,0 +1,1169 @@
+{
+  "faq": {
+    "total": 7749,
+    "projects_with_faq": 1147,
+    "topic_distribution": {
+      "기타": 4607,
+      "배송/물류": 793,
+      "후원/리워드": 641,
+      "일정/배송시기": 530,
+      "제품 스펙/호환": 361,
+      "A/S/고객지원": 289,
+      "늦은 후원": 193,
+      "스트레치 골": 123,
+      "환불/취소": 99,
+      "가격/할인": 80,
+      "해외 배송": 33
+    },
+    "category_topics": {
+      "Technology": {
+        "total": 1852,
+        "topics": {
+          "기타": 1188,
+          "배송/물류": 129,
+          "A/S/고객지원": 124,
+          "제품 스펙/호환": 103,
+          "일정/배송시기": 102,
+          "후원/리워드": 94,
+          "늦은 후원": 37,
+          "환불/취소": 27,
+          "가격/할인": 22,
+          "스트레치 골": 19,
+          "해외 배송": 7
+        }
+      },
+      "Games": {
+        "total": 1809,
+        "topics": {
+          "기타": 1081,
+          "배송/물류": 180,
+          "후원/리워드": 180,
+          "일정/배송시기": 136,
+          "제품 스펙/호환": 62,
+          "늦은 후원": 51,
+          "A/S/고객지원": 50,
+          "스트레치 골": 26,
+          "가격/할인": 22,
+          "환불/취소": 14,
+          "해외 배송": 7
+        }
+      },
+      "Design": {
+        "total": 1498,
+        "topics": {
+          "기타": 850,
+          "배송/물류": 188,
+          "후원/리워드": 125,
+          "제품 스펙/호환": 116,
+          "일정/배송시기": 88,
+          "A/S/고객지원": 58,
+          "늦은 후원": 27,
+          "환불/취소": 26,
+          "가격/할인": 10,
+          "스트레치 골": 6,
+          "해외 배송": 4
+        }
+      },
+      "Publishing": {
+        "total": 627,
+        "topics": {
+          "기타": 333,
+          "배송/물류": 108,
+          "후원/리워드": 66,
+          "일정/배송시기": 31,
+          "스트레치 골": 20,
+          "늦은 후원": 19,
+          "A/S/고객지원": 14,
+          "제품 스펙/호환": 14,
+          "환불/취소": 9,
+          "가격/할인": 7,
+          "해외 배송": 6
+        }
+      },
+      "Film & Video": {
+        "total": 389,
+        "topics": {
+          "기타": 253,
+          "일정/배송시기": 46,
+          "후원/리워드": 33,
+          "스트레치 골": 14,
+          "A/S/고객지원": 13,
+          "늦은 후원": 9,
+          "배송/물류": 7,
+          "가격/할인": 5,
+          "제품 스펙/호환": 5,
+          "환불/취소": 4
+        }
+      },
+      "Comics": {
+        "total": 331,
+        "topics": {
+          "기타": 177,
+          "배송/물류": 50,
+          "후원/리워드": 38,
+          "일정/배송시기": 24,
+          "제품 스펙/호환": 12,
+          "늦은 후원": 11,
+          "스트레치 골": 7,
+          "환불/취소": 5,
+          "해외 배송": 3,
+          "가격/할인": 2,
+          "A/S/고객지원": 2
+        }
+      },
+      "Fashion": {
+        "total": 258,
+        "topics": {
+          "기타": 133,
+          "배송/물류": 35,
+          "제품 스펙/호환": 29,
+          "후원/리워드": 23,
+          "일정/배송시기": 17,
+          "늦은 후원": 9,
+          "스트레치 골": 4,
+          "A/S/고객지원": 4,
+          "환불/취소": 3,
+          "가격/할인": 1
+        }
+      },
+      "Music": {
+        "total": 200,
+        "topics": {
+          "기타": 118,
+          "일정/배송시기": 20,
+          "후원/리워드": 19,
+          "배송/물류": 13,
+          "늦은 후원": 10,
+          "스트레치 골": 7,
+          "A/S/고객지원": 7,
+          "제품 스펙/호환": 3,
+          "가격/할인": 2,
+          "환불/취소": 1
+        }
+      },
+      "Food": {
+        "total": 193,
+        "topics": {
+          "기타": 110,
+          "일정/배송시기": 21,
+          "배송/물류": 18,
+          "후원/리워드": 18,
+          "늦은 후원": 6,
+          "스트레치 골": 5,
+          "A/S/고객지원": 5,
+          "제품 스펙/호환": 5,
+          "가격/할인": 2,
+          "환불/취소": 2,
+          "해외 배송": 1
+        }
+      },
+      "Art": {
+        "total": 167,
+        "topics": {
+          "기타": 111,
+          "배송/물류": 15,
+          "일정/배송시기": 11,
+          "후원/리워드": 8,
+          "스트레치 골": 6,
+          "제품 스펙/호환": 5,
+          "A/S/고객지원": 4,
+          "늦은 후원": 2,
+          "환불/취소": 2,
+          "가격/할인": 2,
+          "해외 배송": 1
+        }
+      },
+      "null": {
+        "total": 145,
+        "topics": {
+          "기타": 93,
+          "배송/물류": 14,
+          "후원/리워드": 12,
+          "일정/배송시기": 11,
+          "A/S/고객지원": 3,
+          "스트레치 골": 3,
+          "제품 스펙/호환": 2,
+          "환불/취소": 2,
+          "늦은 후원": 2,
+          "가격/할인": 2,
+          "해외 배송": 1
+        }
+      },
+      "Crafts": {
+        "total": 90,
+        "topics": {
+          "기타": 45,
+          "배송/물류": 14,
+          "일정/배송시기": 10,
+          "후원/리워드": 8,
+          "제품 스펙/호환": 4,
+          "A/S/고객지원": 3,
+          "환불/취소": 2,
+          "늦은 후원": 2,
+          "해외 배송": 1,
+          "스트레치 골": 1
+        }
+      }
+    },
+    "category_keywords": {
+      "Technology": {
+        "keywords": [
+          {
+            "word": "use",
+            "count": 109
+          },
+          {
+            "word": "shipping",
+            "count": 72
+          },
+          {
+            "word": "work",
+            "count": 71
+          },
+          {
+            "word": "need",
+            "count": 70
+          },
+          {
+            "word": "pledge",
+            "count": 67
+          },
+          {
+            "word": "app",
+            "count": 64
+          },
+          {
+            "word": "there",
+            "count": 63
+          },
+          {
+            "word": "support",
+            "count": 62
+          },
+          {
+            "word": "long",
+            "count": 53
+          },
+          {
+            "word": "get",
+            "count": 51
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "long battery",
+            "count": 18
+          },
+          {
+            "phrase": "battery last",
+            "count": 18
+          },
+          {
+            "phrase": "add ons",
+            "count": 14
+          },
+          {
+            "phrase": "difference between",
+            "count": 13
+          },
+          {
+            "phrase": "back project",
+            "count": 13
+          },
+          {
+            "phrase": "shipping address",
+            "count": 12
+          },
+          {
+            "phrase": "cudis sporty",
+            "count": 12
+          },
+          {
+            "phrase": "get access",
+            "count": 11
+          }
+        ]
+      },
+      "Games": {
+        "keywords": [
+          {
+            "word": "game",
+            "count": 255
+          },
+          {
+            "word": "there",
+            "count": 141
+          },
+          {
+            "word": "pledge",
+            "count": 102
+          },
+          {
+            "word": "shipping",
+            "count": 86
+          },
+          {
+            "word": "get",
+            "count": 82
+          },
+          {
+            "word": "kickstarter",
+            "count": 76
+          },
+          {
+            "word": "play",
+            "count": 76
+          },
+          {
+            "word": "available",
+            "count": 67
+          },
+          {
+            "word": "campaign",
+            "count": 57
+          },
+          {
+            "word": "ship",
+            "count": 51
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "pledge manager",
+            "count": 23
+          },
+          {
+            "phrase": "add ons",
+            "count": 18
+          },
+          {
+            "phrase": "there any",
+            "count": 17
+          },
+          {
+            "phrase": "many players",
+            "count": 16
+          },
+          {
+            "phrase": "after campaign",
+            "count": 16
+          },
+          {
+            "phrase": "game available",
+            "count": 14
+          },
+          {
+            "phrase": "game released",
+            "count": 13
+          },
+          {
+            "phrase": "after kickstarter",
+            "count": 12
+          }
+        ]
+      },
+      "Design": {
+        "keywords": [
+          {
+            "word": "shipping",
+            "count": 108
+          },
+          {
+            "word": "use",
+            "count": 94
+          },
+          {
+            "word": "pledge",
+            "count": 92
+          },
+          {
+            "word": "kickstarter",
+            "count": 67
+          },
+          {
+            "word": "ship",
+            "count": 59
+          },
+          {
+            "word": "product",
+            "count": 48
+          },
+          {
+            "word": "about",
+            "count": 45
+          },
+          {
+            "word": "project",
+            "count": 43
+          },
+          {
+            "word": "need",
+            "count": 42
+          },
+          {
+            "word": "work",
+            "count": 38
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "payment methods",
+            "count": 21
+          },
+          {
+            "phrase": "back project",
+            "count": 19
+          },
+          {
+            "phrase": "money collected",
+            "count": 19
+          },
+          {
+            "phrase": "mean back",
+            "count": 17
+          },
+          {
+            "phrase": "methods use",
+            "count": 15
+          },
+          {
+            "phrase": "add ons",
+            "count": 15
+          },
+          {
+            "phrase": "project pledge",
+            "count": 14
+          },
+          {
+            "phrase": "shipping address",
+            "count": 14
+          }
+        ]
+      },
+      "Publishing": {
+        "keywords": [
+          {
+            "word": "book",
+            "count": 92
+          },
+          {
+            "word": "shipping",
+            "count": 52
+          },
+          {
+            "word": "books",
+            "count": 47
+          },
+          {
+            "word": "pledge",
+            "count": 40
+          },
+          {
+            "word": "kickstarter",
+            "count": 37
+          },
+          {
+            "word": "ship",
+            "count": 34
+          },
+          {
+            "word": "rewards",
+            "count": 32
+          },
+          {
+            "word": "available",
+            "count": 26
+          },
+          {
+            "word": "there",
+            "count": 26
+          },
+          {
+            "word": "get",
+            "count": 23
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "shipping address",
+            "count": 10
+          },
+          {
+            "phrase": "pledge over",
+            "count": 10
+          },
+          {
+            "phrase": "over time",
+            "count": 10
+          },
+          {
+            "phrase": "ship internationally",
+            "count": 8
+          },
+          {
+            "phrase": "stretch goals",
+            "count": 8
+          },
+          {
+            "phrase": "change pledge",
+            "count": 8
+          },
+          {
+            "phrase": "available after",
+            "count": 8
+          },
+          {
+            "phrase": "receive rewards",
+            "count": 7
+          }
+        ]
+      },
+      "Film & Video": {
+        "keywords": [
+          {
+            "word": "film",
+            "count": 62
+          },
+          {
+            "word": "about",
+            "count": 18
+          },
+          {
+            "word": "get",
+            "count": 18
+          },
+          {
+            "word": "project",
+            "count": 18
+          },
+          {
+            "word": "happens",
+            "count": 15
+          },
+          {
+            "word": "there",
+            "count": 15
+          },
+          {
+            "word": "rewards",
+            "count": 15
+          },
+          {
+            "word": "goal",
+            "count": 14
+          },
+          {
+            "word": "more",
+            "count": 14
+          },
+          {
+            "word": "watch",
+            "count": 12
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "more about",
+            "count": 8
+          },
+          {
+            "phrase": "funding goal",
+            "count": 6
+          },
+          {
+            "phrase": "happens don",
+            "count": 6
+          },
+          {
+            "phrase": "learn more",
+            "count": 6
+          },
+          {
+            "phrase": "there any",
+            "count": 5
+          },
+          {
+            "phrase": "hit goal",
+            "count": 4
+          },
+          {
+            "phrase": "spin cycle",
+            "count": 4
+          },
+          {
+            "phrase": "take place",
+            "count": 4
+          }
+        ]
+      },
+      "Comics": {
+        "keywords": [
+          {
+            "word": "shipping",
+            "count": 25
+          },
+          {
+            "word": "campaign",
+            "count": 24
+          },
+          {
+            "word": "book",
+            "count": 23
+          },
+          {
+            "word": "comic",
+            "count": 21
+          },
+          {
+            "word": "get",
+            "count": 19
+          },
+          {
+            "word": "books",
+            "count": 18
+          },
+          {
+            "word": "pledge",
+            "count": 18
+          },
+          {
+            "word": "rewards",
+            "count": 16
+          },
+          {
+            "word": "there",
+            "count": 16
+          },
+          {
+            "word": "digital",
+            "count": 14
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "box sets",
+            "count": 6
+          },
+          {
+            "phrase": "more than",
+            "count": 5
+          },
+          {
+            "phrase": "graphic novel",
+            "count": 5
+          },
+          {
+            "phrase": "ship internationally",
+            "count": 5
+          },
+          {
+            "phrase": "after campaign",
+            "count": 5
+          },
+          {
+            "phrase": "many pages",
+            "count": 5
+          },
+          {
+            "phrase": "physical rewards",
+            "count": 4
+          },
+          {
+            "phrase": "shipping costs",
+            "count": 4
+          }
+        ]
+      },
+      "Fashion": {
+        "keywords": [
+          {
+            "word": "shipping",
+            "count": 17
+          },
+          {
+            "word": "ship",
+            "count": 14
+          },
+          {
+            "word": "receive",
+            "count": 13
+          },
+          {
+            "word": "pledge",
+            "count": 13
+          },
+          {
+            "word": "choose",
+            "count": 12
+          },
+          {
+            "word": "order",
+            "count": 12
+          },
+          {
+            "word": "size",
+            "count": 12
+          },
+          {
+            "word": "campaign",
+            "count": 11
+          },
+          {
+            "word": "kickstarter",
+            "count": 11
+          },
+          {
+            "word": "after",
+            "count": 11
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "ship internationally",
+            "count": 6
+          },
+          {
+            "phrase": "after backing",
+            "count": 4
+          },
+          {
+            "phrase": "receive order",
+            "count": 4
+          },
+          {
+            "phrase": "instead waiting",
+            "count": 3
+          },
+          {
+            "phrase": "money collected",
+            "count": 3
+          },
+          {
+            "phrase": "funds used",
+            "count": 3
+          },
+          {
+            "phrase": "ship worldwide",
+            "count": 3
+          },
+          {
+            "phrase": "there delays",
+            "count": 3
+          }
+        ]
+      },
+      "Music": {
+        "keywords": [
+          {
+            "word": "music",
+            "count": 20
+          },
+          {
+            "word": "get",
+            "count": 14
+          },
+          {
+            "word": "album",
+            "count": 13
+          },
+          {
+            "word": "happens",
+            "count": 13
+          },
+          {
+            "word": "project",
+            "count": 13
+          },
+          {
+            "word": "after",
+            "count": 11
+          },
+          {
+            "word": "vinyl",
+            "count": 11
+          },
+          {
+            "word": "rewards",
+            "count": 9
+          },
+          {
+            "word": "there",
+            "count": 8
+          },
+          {
+            "word": "reward",
+            "count": 8
+          }
+        ],
+        "bigrams": [
+          {
+            "phrase": "support project",
+            "count": 4
+          },
+          {
+            "phrase": "after campaign",
+            "count": 3
+          },
+          {
+            "phrase": "stretch goals",
+            "count": 2
+          },
+          {
+            "phrase": "house concerts",
+            "count": 2
+          },
+          {
+            "phrase": "happens campaign",
+            "count": 2
+          },
+          {
+            "phrase": "campaign exceeds",
+            "count": 2
+          },
+          {
+            "phrase": "receive rewards",
+            "count": 2
+          },
+          {
+            "phrase": "get updates",
+            "count": 2
+          }
+        ]
+      }
+    },
+    "success_vs_fail": {
+      "success_topics": {
+        "기타": 34.8,
+        "배송/물류": 7.8,
+        "후원/리워드": 6.3,
+        "일정/배송시기": 4.1,
+        "제품 스펙/호환": 3.5,
+        "A/S/고객지원": 2.7,
+        "늦은 후원": 1.4,
+        "환불/취소": 1.0,
+        "가격/할인": 0.6,
+        "스트레치 골": 0.6,
+        "해외 배송": 0.3
+      },
+      "fail_topics": {
+        "기타": 34.6,
+        "배송/물류": 4.1,
+        "일정/배송시기": 3.9,
+        "후원/리워드": 3.3,
+        "제품 스펙/호환": 1.9,
+        "A/S/고객지원": 1.6,
+        "늦은 후원": 1.5,
+        "스트레치 골": 1.3,
+        "가격/할인": 0.6,
+        "환불/취소": 0.4,
+        "해외 배송": 0.2
+      }
+    }
+  },
+  "sentiment": {
+    "total_comments": 13273,
+    "superbacker_comments": 4368,
+    "distribution": {
+      "neutral": 8315,
+      "positive": 2918,
+      "question": 1827,
+      "negative": 213
+    },
+    "success_vs_fail": {
+      "success": {
+        "positive": 34.6,
+        "negative": 2.8,
+        "question": 24.9,
+        "neutral": 37.7
+      },
+      "fail": {
+        "positive": 9.0,
+        "negative": 0.4,
+        "question": 2.3,
+        "neutral": 88.3
+      }
+    },
+    "superbacker_vs_normal": {
+      "superbacker": {
+        "positive": 17.5,
+        "negative": 1.6,
+        "question": 15.3,
+        "neutral": 65.6
+      },
+      "normal": {
+        "positive": 24.2,
+        "negative": 1.6,
+        "question": 13.0,
+        "neutral": 61.2
+      }
+    },
+    "risk_projects": [
+      {
+        "name": "Deep Ring / Bracelet: Your Personal Autonomous Hea",
+        "comments": 6,
+        "negative": 2,
+        "ratio": 33.3,
+        "funded": 141.2
+      },
+      {
+        "name": "The Last Ember: A WAYPOINT Solo RPG Adventure",
+        "comments": 6,
+        "negative": 2,
+        "ratio": 33.3,
+        "funded": 3391.0
+      },
+      {
+        "name": "UniTooth: The World's First Counter-Rotating Tooth",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 610.0
+      },
+      {
+        "name": "Blue Tribe: This Denim Was Gatekept at $300. We Br",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 298.8
+      },
+      {
+        "name": "InkCase — The Trackable Travel Wallet for Your Saf",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 622.0
+      },
+      {
+        "name": "WACK - Billy and Skippy (Animated Series)",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 7.3
+      },
+      {
+        "name": "Frank Gunn: Monster Soldier - Comic Book Issue #1",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 97.7
+      },
+      {
+        "name": "ClawStage: The real-world physical playground for ",
+        "comments": 25,
+        "negative": 5,
+        "ratio": 20.0,
+        "funded": 6974.3
+      },
+      {
+        "name": "Joobie | Your Pocket-Sized AI Pet with an Evolving",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 1222.0
+      },
+      {
+        "name": "PLAKKS Baseball ⚾ | Hit, Run & Connect at Home",
+        "comments": 5,
+        "negative": 1,
+        "ratio": 20.0,
+        "funded": 309.2
+      }
+    ],
+    "category_sentiment": [
+      {
+        "category": "Technology",
+        "negative_pct": 2.7,
+        "positive_pct": 20.6,
+        "total": 1973
+      },
+      {
+        "category": "Design",
+        "negative_pct": 2.3,
+        "positive_pct": 29.4,
+        "total": 1642
+      },
+      {
+        "category": "Games",
+        "negative_pct": 1.8,
+        "positive_pct": 29.2,
+        "total": 3968
+      },
+      {
+        "category": "Comics",
+        "negative_pct": 1.7,
+        "positive_pct": 26.6,
+        "total": 1184
+      },
+      {
+        "category": null,
+        "negative_pct": 1.5,
+        "positive_pct": 16.5,
+        "total": 267
+      },
+      {
+        "category": "Fashion",
+        "negative_pct": 1.2,
+        "positive_pct": 10.5,
+        "total": 247
+      },
+      {
+        "category": "Art",
+        "negative_pct": 1.1,
+        "positive_pct": 15.0,
+        "total": 367
+      },
+      {
+        "category": "Publishing",
+        "negative_pct": 0.9,
+        "positive_pct": 19.4,
+        "total": 932
+      },
+      {
+        "category": "Photography",
+        "negative_pct": 0.7,
+        "positive_pct": 11.3,
+        "total": 150
+      },
+      {
+        "category": "Film & Video",
+        "negative_pct": 0.6,
+        "positive_pct": 7.4,
+        "total": 1443
+      },
+      {
+        "category": "Music",
+        "negative_pct": 0.4,
+        "positive_pct": 14.8,
+        "total": 522
+      },
+      {
+        "category": "Food",
+        "negative_pct": 0.4,
+        "positive_pct": 4.9,
+        "total": 267
+      },
+      {
+        "category": "Crafts",
+        "negative_pct": 0.0,
+        "positive_pct": 13.1,
+        "total": 122
+      },
+      {
+        "category": "Dance",
+        "negative_pct": 0.0,
+        "positive_pct": 9.8,
+        "total": 41
+      },
+      {
+        "category": "Journalism",
+        "negative_pct": 0.0,
+        "positive_pct": 16.9,
+        "total": 59
+      }
+    ],
+    "negative_keywords": [
+      {
+        "word": "just",
+        "count": 32
+      },
+      {
+        "word": "like",
+        "count": 29
+      },
+      {
+        "word": "pledge",
+        "count": 28
+      },
+      {
+        "word": "there",
+        "count": 25
+      },
+      {
+        "word": "all",
+        "count": 24
+      },
+      {
+        "word": "one",
+        "count": 23
+      },
+      {
+        "word": "about",
+        "count": 22
+      },
+      {
+        "word": "money",
+        "count": 21
+      },
+      {
+        "word": "late",
+        "count": 20
+      },
+      {
+        "word": "get",
+        "count": 19
+      },
+      {
+        "word": "also",
+        "count": 19
+      },
+      {
+        "word": "see",
+        "count": 19
+      },
+      {
+        "word": "waiting",
+        "count": 18
+      },
+      {
+        "word": "project",
+        "count": 18
+      },
+      {
+        "word": "only",
+        "count": 18
+      }
+    ],
+    "negative_bigrams": [
+      {
+        "phrase": "take money",
+        "count": 6
+      },
+      {
+        "phrase": "early bird",
+        "count": 6
+      },
+      {
+        "phrase": "there any",
+        "count": 5
+      },
+      {
+        "phrase": "late pledge",
+        "count": 5
+      },
+      {
+        "phrase": "late pledges",
+        "count": 4
+      },
+      {
+        "phrase": "pledge manager",
+        "count": 4
+      },
+      {
+        "phrase": "add ons",
+        "count": 4
+      },
+      {
+        "phrase": "all just",
+        "count": 3
+      },
+      {
+        "phrase": "look like",
+        "count": 3
+      },
+      {
+        "phrase": "cancel pledge",
+        "count": 3
+      }
+    ]
+  }
+}
