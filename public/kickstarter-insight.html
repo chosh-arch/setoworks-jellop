@@ -812,8 +812,19 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 위험 프로젝트 TOP 10 목록<br><br>
 <b>소요 시간:</b> 2~3시간 (키워드 사전 + 분석 + 시각화)<br>
 <b>고도화 (선택):</b> Claude API로 댓글 요약/분류 → 정확도 향상 (API 비용 발생)`},
-    {icon:'&#x26A0;',title:'실패 예측',us:true,kt:false,bt:false,done:true,desc:'100% 실패 판별, 위험 요인 스코어링',
-     detail:'<b>구현 완료:</b> XGBoost 모델 AUC 0.91, 정확도 80.8% 달성<br><b>실패 프로필:</b> 목표 $40K, 스토리 7K자, 이미지 4.8장, PWL 0.3%<br><b>핵심 변수:</b> 스토리 이미지 수(20%), 업데이트 수(10.3%), 목표금액(6.4%)<br><b>대시보드:</b> ML 예측 모델 성능 + 실패 패턴 감지 섹션에서 확인 가능'},
+    {icon:'&#x26A0;',title:'실패 예측',us:true,kt:false,bt:false,done:'partial',desc:'100% 실패 판별, 위험 요인 스코어링',
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습 완료, 개별 프로젝트 스코어링 미구현</div>
+<b style="color:#05ce78;">구현된 것:</b><br>
+&nbsp;&nbsp;- XGBoost 정규화 모델 학습 완료 (AUC 0.91, 정확도 80.8%)<br>
+&nbsp;&nbsp;- 5개 모델 비교 + 하이퍼파라미터 최적화 (120회 탐색)<br>
+&nbsp;&nbsp;- Feature Importance TOP 15, Confusion Matrix 대시보드 표시<br>
+&nbsp;&nbsp;- 실패 프로젝트 통계 프로필 (목표/후원자/기간 비교 차트)<br><br>
+<b style="color:#ef4444;">미구현:</b><br>
+&nbsp;&nbsp;- 개별 프로젝트 URL 입력 → 성공 확률 점수 출력 기능<br>
+&nbsp;&nbsp;- 전체 라이브 프로젝트 일괄 스코어링 + 위험 프로젝트 목록<br>
+&nbsp;&nbsp;- 성공 vs 실패 비교 테이블 일부 수치가 하드코딩 (동적 계산 전환 필요)<br><br>
+<b>완전 구현 방법:</b> 학습된 모델(pkl) → JS에서 피처 추출 → Python API 또는 ONNX 변환 후 브라우저 추론<br>
+<b>예상 소요:</b> 2~3시간 (API 엔드포인트 or 클라이언트 추론)`,},
     {icon:'&#x1F4C8;',title:'펀딩 추세 예측',us:true,kt:true,bt:true,done:false,desc:'펀딩 추세 예측 (우리: ML / 경쟁: 선형)',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(239,68,68,.1);border-radius:8px;font-size:11px;"><b style="color:#ef4444;">선행 조건 필요</b> — 일별 시계열 데이터 축적 필요</div>
 <b>현재 상태:</b> 단일 시점 스냅샷만 보유 (라이브 크롤링 1회). 일별 펀딩 추이 데이터 없음<br><br>
@@ -838,10 +849,30 @@ function buildCompetitive(){
 <b>예상 소요:</b> 크롤러 자동화 1일 + 14일 데이터 축적 + 모델 구축 2~3일 = 약 3주`},
     {icon:'&#x1F310;',title:'지역 인텔리전스',us:true,kt:false,bt:false,done:true,desc:'국가별 성공률, 통화별 패턴',
      detail:'<b>구현 완료:</b> 14개 통화, 30개국+ 분석 완료<br><b>핵심 발견:</b> HK 73.5% 성공 (건당 $845K 최고 효율), US 36.7% (경쟁 과밀), JP 53.8%<br><b>통화 분석:</b> USD 54.9%, EUR 15.9%, GBP 11.7%<br><b>대시보드:</b> 지역/통화 인텔리전스 섹션에서 국가별 성공률 차트, 통화 분포, 국가별 지표 확인 가능'},
-    {icon:'&#x1F916;',title:'AI 공시 추적',us:true,kt:false,bt:false,done:true,desc:'AI 사용 프로젝트 추적 (업계 최초)',
-     detail:'<b>구현 완료:</b> 전체 프로젝트 AI 공시 데이터 수집 및 분석<br><b>공시 필드:</b> fundingForAiAttribution, fundingForAiConsent, fundingForAiOption, otherAiDetails<br><b>분석 결과:</b> AI 공시율 실시간 추적 중<br><b>대시보드:</b> AI & ESG 트렌드 모니터 섹션에서 확인 가능'},
-    {icon:'&#x1F33F;',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:true,desc:'환경 공시와 성공률 상관관계',
-     detail:'<b>구현 완료:</b> 환경 공시 보유/미보유 성공률 비교 분석<br><b>핵심 발견:</b> 환경 공시 보유 시 성공률 53.1% vs 미보유 33.6% (+19.5pp)<br><b>현황:</b> 전체의 27.5%가 환경 공시 보유 — ESG 트렌드 확대 중<br><b>대시보드:</b> AI & ESG 트렌드 모니터 섹션에서 ESG 공시 유무별 성공률 확인 가능'},
+    {icon:'&#x1F916;',title:'AI 공시 추적',us:true,kt:false,bt:false,done:'partial',desc:'AI 사용 프로젝트 추적 (업계 최초)',
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 공시율 숫자만 표시, 상세 분석 미구현</div>
+<b style="color:#05ce78;">구현된 것:</b><br>
+&nbsp;&nbsp;- 전체 프로젝트 AI 공시 보유율 동적 계산 (1개 수치)<br>
+&nbsp;&nbsp;- 데이터 수집 완료 (fundingForAiAttribution, Consent, Option, otherAiDetails)<br><br>
+<b style="color:#ef4444;">미구현:</b><br>
+&nbsp;&nbsp;- AI 공시 유형별 분류 차트 (Attribution/Consent/Option 각각 몇 %?)<br>
+&nbsp;&nbsp;- AI 사용 프로젝트 vs 미사용 성공률 비교<br>
+&nbsp;&nbsp;- 카테고리별 AI 채택률 히트맵<br>
+&nbsp;&nbsp;- AI 공시 프로젝트 목록/필터<br><br>
+<b>완전 구현 방법:</b> extra_data.ai_disclosure 4개 필드 파싱 → 유형별 집계 → 차트 3개 추가<br>
+<b>예상 소요:</b> 1~2시간 (데이터는 이미 보유, 시각화만 추가)`},
+    {icon:'&#x1F33F;',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:'partial',desc:'환경 공시와 성공률 상관관계',
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 유무 비교 동적, 헤드라인 하드코딩</div>
+<b style="color:#05ce78;">구현된 것:</b><br>
+&nbsp;&nbsp;- 환경 공시 보유/미보유 성공률 동적 비교 (2개 박스)<br>
+&nbsp;&nbsp;- 프로젝트 수 동적 카운팅<br><br>
+<b style="color:#ef4444;">미구현:</b><br>
+&nbsp;&nbsp;- 헤드라인 수치 (+19.5pp, 53.1% vs 33.6%) 하드코딩 → 동적 전환 필요<br>
+&nbsp;&nbsp;- 환경 공시 유형별 분류 (어떤 환경 항목이 가장 많은지)<br>
+&nbsp;&nbsp;- 카테고리별 ESG 채택률 차트<br>
+&nbsp;&nbsp;- ESG + 성공률 상관 차트 (바 차트 없음)<br><br>
+<b>완전 구현 방법:</b> 하드코딩 수치 동적 전환 + environmental_commitments 배열 파싱 + 차트 추가<br>
+<b>예상 소요:</b> 1시간`},
     {icon:'&#x1F465;',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:false,desc:'슈퍼백커 행동 패턴 분석',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 크리에이터 분석 완료, 후원자 추적은 추가 크롤링 필요</div>
 <b style="color:#05ce78;">현재 구현된 것 (크리에이터 측):</b><br>
@@ -868,8 +899,24 @@ function buildCompetitive(){
 &nbsp;&nbsp;- "이 프로젝트에 슈퍼백커가 N명 유입" → 성공 확률 재계산<br><br>
 <b>예상 소요:</b> 프로필 크롤링 2~3일 + 분석 1일 = 약 4일<br>
 <b>대표님 인용:</b> "슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어"`},
-    {icon:'&#x1F3AF;',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:true,desc:'XGBoost 기반 다변수 예측 모델',
-     detail:'<b>구현 완료:</b> XGBoost 정규화 모델 — AUC 0.9097, 정확도 80.8%<br><b>5개 모델 비교:</b> XGBoost, LightGBM, RandomForest, GradientBoosting, LogisticRegression<br><b>47개 피처:</b> 숫자(15) + 카테고리(15) + 국가(11) + 통화(6)<br><b>대시보드:</b> ML 예측 모델 성능 섹션에서 모델 비교, Feature Importance, Confusion Matrix 확인 가능'},
+    {icon:'&#x1F3AF;',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:'partial',desc:'XGBoost 기반 다변수 예측 모델',
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습+평가 완료, 실시간 스코어링 미구현</div>
+<b style="color:#05ce78;">구현된 것:</b><br>
+&nbsp;&nbsp;- XGBoost 정규화 모델 학습 (AUC 0.9097, 정확도 80.8%)<br>
+&nbsp;&nbsp;- 5개 모델 비교 차트 (XGBoost, LightGBM, RF, GB, LR)<br>
+&nbsp;&nbsp;- Feature Importance TOP 15 바 차트<br>
+&nbsp;&nbsp;- Confusion Matrix + Precision/Recall 카드<br>
+&nbsp;&nbsp;- 최적 하이퍼파라미터 + 5-Fold CV 점수 표시<br>
+&nbsp;&nbsp;- 모델 파일 저장 (best_model.pkl, xgb_model.pkl)<br><br>
+<b style="color:#ef4444;">미구현:</b><br>
+&nbsp;&nbsp;- 개별 프로젝트에 성공 확률 점수 부여 기능<br>
+&nbsp;&nbsp;- 전체 2,701건 일괄 스코어링 → 점수순 랭킹<br>
+&nbsp;&nbsp;- "이 프로젝트는 성공 확률 78%" 같은 실시간 예측<br><br>
+<b>완전 구현 방법:</b><br>
+&nbsp;&nbsp;1. Python으로 전체 프로젝트 일괄 스코어링 → scores.json 생성<br>
+&nbsp;&nbsp;2. 대시보드에서 scores.json 로드 → 프로젝트별 점수 표시<br>
+&nbsp;&nbsp;3. 또는 ONNX 변환 → 브라우저에서 실시간 추론 (onnxruntime-web)<br>
+<b>예상 소요:</b> 방법1 = 1시간, 방법2 = 3~4시간`},
     {icon:'&#x1F4CA;',title:'일별 트렌드 차트',us:true,kt:true,bt:true,done:false,desc:'일별 펀딩/후원자 추이',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(239,68,68,.1);border-radius:8px;font-size:11px;"><b style="color:#ef4444;">선행 조건 필요</b> — 일별 시계열 데이터 축적 필요 (펀딩 추세 예측과 동일)</div>
 <b>현재 상태:</b> 크롤링 1회 스냅샷만 보유. 일별 변화 추적 데이터 없음<br><br>
@@ -888,8 +935,23 @@ function buildCompetitive(){
 &nbsp;&nbsp;- 최종 러시 패턴 (마감 3일 전 급등 예측)<br><br>
 <b>경쟁사 대비:</b> KickTraq = 단순 일별 바 차트, 우리 = 카테고리 평균 오버레이 + 이상 탐지 + ML 예측선<br>
 <b>예상 소요:</b> 크롤러 공유 (펀딩 추세와 동일) + 차트 UI 1일 = 첫 차트까지 약 2일`},
-    {icon:'&#x1F50D;',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:true,desc:'스토리 길이/이미지/FAQ 종합 점수',
-     detail:'<b>구현 완료:</b> 스토리 길이, 이미지 수, FAQ, 업데이트, 캠페인 기간별 성공률 분석<br><b>핵심 발견:</b> 성공 스토리 21.8K자 vs 실패 9.1K자 (2.4배), 이미지 15장 vs 6.8장 (2.2배)<br><b>ML 반영:</b> story_images(20%), updates_total(10.3%)이 모델 핵심 변수로 확인됨<br><b>대시보드:</b> 콘텐츠 품질 점수 섹션에서 각 요소별 성공률 차트 확인 가능'},
+    {icon:'&#x1F50D;',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:'partial',desc:'스토리 길이/이미지/FAQ 종합 점수',
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 상관관계 차트 3개 동적, 종합 점수 미구현</div>
+<b style="color:#05ce78;">구현된 것:</b><br>
+&nbsp;&nbsp;- 스토리 길이별 성공률 차트 (6구간, 동적 계산)<br>
+&nbsp;&nbsp;- 이미지 수별 성공률 차트 (5구간, 동적 계산)<br>
+&nbsp;&nbsp;- 캠페인 기간별 성공률 차트 (5구간, 동적 계산)<br><br>
+<b style="color:#ef4444;">미구현:</b><br>
+&nbsp;&nbsp;- 헤드라인 수치 (21,806 vs 9,085 등) 하드코딩 → 동적 전환 필요<br>
+&nbsp;&nbsp;- FAQ/업데이트 섹션에 차트 없음 (텍스트만 하드코딩)<br>
+&nbsp;&nbsp;- <b>프로젝트별 종합 콘텐츠 품질 점수 (0~100점) 산출 기능 없음</b><br>
+&nbsp;&nbsp;- "이미지 5장 더 추가하면 85점" 같은 개선 가이드 없음<br><br>
+<b>완전 구현 방법:</b><br>
+&nbsp;&nbsp;1. 하드코딩 수치 → 동적 계산 (성공/실패 평균 실시간 비교)<br>
+&nbsp;&nbsp;2. FAQ/업데이트 상관 차트 추가<br>
+&nbsp;&nbsp;3. 가중 점수 = 스토리길이(30%) + 이미지수(25%) + FAQ(15%) + 업데이트(15%) + 비디오(15%)<br>
+&nbsp;&nbsp;4. 각 프로젝트에 점수 부여 → 점수별 성공률 곡선 표시<br>
+<b>예상 소요:</b> 2~3시간`},
   ];
   let activeIdx=-1;
   const grid=document.getElementById('comp-grid');
@@ -900,7 +962,7 @@ function buildCompetitive(){
       const exclusive=!it.kt&&!it.bt;
       const isActive=i===activeIdx;
       return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:${isActive?'rgba(5,206,120,.15)':exclusive?'rgba(5,206,120,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isActive?'#05ce78':exclusive?'rgba(5,206,120,.2)':'rgba(255,255,255,.06)'};border-radius:10px;padding:12px;text-align:center;transition:all .2s;${isActive?'transform:scale(1.03);box-shadow:0 0 20px rgba(5,206,120,.2);':''}">
-        ${it.done?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#05ce78;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(5,206,120,.4);">&#x2713;</div>':''}
+        ${it.done===true?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#05ce78;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(5,206,120,.4);">&#x2713;</div>':it.done==='partial'?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(245,158,11,.4);">&#xBD;</div>':''}
         <div style="font-size:20px;margin-bottom:4px;">${it.icon}</div>
         <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:#05ce78;':''}">${it.title}</div>
         <div style="font-size:9px;color:var(--ks-muted);margin-bottom:6px;">${it.desc}</div>
@@ -932,7 +994,7 @@ function buildCompetitive(){
                 <div style="font-size:11px;color:var(--ks-muted);">${it.desc}</div>
               </div>
               <div style="margin-left:auto;display:flex;gap:6px;">
-                ${it.done?'<span class="badge badge-green" style="font-size:10px;padding:4px 10px;">&#x2713; 데이터 기반 구현 완료</span>':'<span class="badge badge-purple" style="font-size:10px;padding:4px 10px;">구현 예정</span>'}
+                ${it.done===true?'<span class="badge badge-green" style="font-size:10px;padding:4px 10px;">&#x2713; 구현 완료</span>':it.done==='partial'?'<span class="badge badge-orange" style="font-size:10px;padding:4px 10px;">&#xBD; 부분 구현</span>':'<span class="badge badge-purple" style="font-size:10px;padding:4px 10px;">구현 예정</span>'}
                 ${exclusive?'<span class="badge badge-green" style="font-size:10px;padding:4px 10px;">독점</span>':'<span class="badge badge-orange" style="font-size:10px;padding:4px 10px;">경쟁 존재</span>'}
               </div>
             </div>
