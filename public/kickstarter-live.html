@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kickstarter Live Dashboard — Setoworks</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root { --ks-green: #05ce78; --ks-dark: #0f0f0f; --ks-card: #1a1a2e; --ks-border: #2a2a3e; --ks-text: #e0e0e0; --ks-muted: #8b8b9e; }
+* { box-sizing: border-box; }
+body { font-family: 'Inter','Noto Sans KR',sans-serif; background: var(--ks-dark); color: var(--ks-text); margin: 0; }
+.topbar { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%); padding: 16px 24px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; justify-content: space-between; }
+.topbar h1 { font-size: 20px; font-weight: 800; margin: 0; }
+.topbar h1 span { color: var(--ks-green); }
+.topbar .meta { font-size: 12px; color: var(--ks-muted); }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi { background: var(--ks-card); border: 1px solid var(--ks-border); border-radius: 12px; padding: 16px; text-align: center; }
+.kpi .label { font-size: 11px; color: var(--ks-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi .value { font-size: 28px; font-weight: 800; color: var(--ks-green); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.kpi .sub { font-size: 11px; color: var(--ks-muted); margin-top: 2px; }
+.card { background: var(--ks-card); border: 1px solid var(--ks-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.card h3 { font-size: 14px; font-weight: 700; margin: 0 0 12px 0; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:768px) { .row2, .row3 { grid-template-columns: 1fr; } }
+.chart-wrap { position: relative; height: 280px; }
+.filter-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+.filter-bar select, .filter-bar input { background: #16162a; color: #e0e0e0; border: 1px solid var(--ks-border); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-family: inherit; }
+.filter-bar input { min-width: 220px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: #16162a; color: var(--ks-muted); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 0.04em; padding: 8px; text-align: left; position: sticky; top: 0; }
+td { padding: 8px; border-bottom: 1px solid var(--ks-border); vertical-align: middle; }
+tr:hover { background: rgba(5,206,120,.05); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.badge-live { background: rgba(5,206,120,.15); color: var(--ks-green); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+.badge-funded { background: rgba(59,130,246,.15); color: #60a5fa; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+.progress-bar { background: #2a2a3e; border-radius: 4px; height: 6px; overflow: hidden; }
+.progress-fill { background: var(--ks-green); height: 100%; border-radius: 4px; transition: width .3s; }
+.project-img { width: 60px; height: 34px; object-fit: cover; border-radius: 4px; background: #2a2a3e; }
+a { color: var(--ks-green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.loading { text-align: center; padding: 60px; color: var(--ks-muted); }
+.sort-btn { cursor: pointer; user-select: none; }
+.sort-btn:hover { color: var(--ks-green); }
+.back-btn { background: var(--ks-green); color: #0f0f0f; border: none; padding: 6px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <h1><span>Kickstarter</span> Live Dashboard</h1>
+    <div class="meta" id="meta-info">Loading...</div>
+  </div>
+  <a href="/portal.html" class="back-btn">Portal</a>
+</div>
+<div class="container">
+  <div class="kpi-row" id="kpi-row"></div>
+  <div class="row2" id="charts-row"></div>
+  <div class="row3" id="charts-row2"></div>
+  <div class="card">
+    <h3>📋 전체 프로젝트 목록</h3>
+    <div class="filter-bar" id="filter-bar"></div>
+    <div style="overflow-x:auto; max-height: 600px; overflow-y: auto;">
+      <table id="project-table"><thead></thead><tbody></tbody></table>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://skcdrvzcwemhjtchfdtt.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU';
+
+function fmt(n) { if (n == null) return '-'; if (n >= 1e6) return (n/1e6).toFixed(1)+'M'; if (n >= 1e3) return (n/1e3).toFixed(1)+'K'; return n.toLocaleString(); }
+function fmtMoney(n, cur) { if (n == null) return '-'; var s = cur === 'USD' ? '$' : cur === 'EUR' ? '€' : cur === 'GBP' ? '£' : cur === 'JPY' ? '¥' : (cur||'$'); return s + fmt(n); }
+
+var DATA = [];
+var sortCol = 'pledged', sortAsc = false;
+var filterCat = 'all', filterSearch = '', filterFunded = 'all';
+
+async function load() {
+  var all = [];
+  var offset = 0;
+  while (true) {
+    var r = await fetch(SB_URL + '/rest/v1/projects?select=*&platform_id=eq.kickstarter&order=pledged.desc.nullslast&limit=1000&offset=' + offset, {
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+    });
+    var d = await r.json();
+    all = all.concat(d);
+    if (d.length < 1000) break;
+    offset += 1000;
+  }
+
+  // Parse extra_data
+  all.forEach(function(p) {
+    if (p.extra_data) {
+      try { var ex = typeof p.extra_data === 'string' ? JSON.parse(p.extra_data) : p.extra_data; Object.assign(p, ex); } catch(e) {}
+    }
+    p.percent_funded = p.percent_funded || (p.goal > 0 ? Math.round(p.pledged / p.goal * 100) : 0);
+  });
+
+  DATA = all;
+  document.getElementById('meta-info').textContent = all.length + ' live projects · ' + new Date().toLocaleDateString('ko-KR');
+  renderAll();
+}
+
+function renderAll() {
+  renderKPIs();
+  renderCharts();
+  renderFilters();
+  renderTable();
+}
+
+function renderKPIs() {
+  var d = DATA;
+  var totalPledged = d.reduce(function(s,p){ return s + (p.pledged||0); }, 0);
+  var totalBackers = d.reduce(function(s,p){ return s + (p.backers_count||0); }, 0);
+  var funded = d.filter(function(p){ return (p.percent_funded||0) >= 100; }).length;
+  var avgFunded = d.length ? d.reduce(function(s,p){ return s + (p.percent_funded||0); },0) / d.length : 0;
+  var countries = {}; d.forEach(function(p){ var c=p.country||'?'; countries[c]=(countries[c]||0)+1; });
+  var cats = {}; d.forEach(function(p){ var c=p.category_name||p.subcategory||'?'; cats[c]=(cats[c]||0)+1; });
+
+  document.getElementById('kpi-row').innerHTML =
+    '<div class="kpi"><div class="label">Total Projects</div><div class="value">' + fmt(d.length) + '</div><div class="sub">live on Kickstarter</div></div>' +
+    '<div class="kpi"><div class="label">Total Pledged</div><div class="value">$' + fmt(totalPledged) + '</div><div class="sub">across all projects</div></div>' +
+    '<div class="kpi"><div class="label">Total Backers</div><div class="value">' + fmt(totalBackers) + '</div><div class="sub">active supporters</div></div>' +
+    '<div class="kpi"><div class="label">Funded (100%+)</div><div class="value">' + funded + '</div><div class="sub">' + (d.length ? (funded/d.length*100).toFixed(1) : 0) + '% success rate</div></div>' +
+    '<div class="kpi"><div class="label">Avg Funded</div><div class="value">' + Math.round(avgFunded) + '%</div><div class="sub">average funding rate</div></div>' +
+    '<div class="kpi"><div class="label">Countries</div><div class="value">' + Object.keys(countries).length + '</div><div class="sub">worldwide reach</div></div>';
+}
+
+var charts = {};
+function renderCharts() {
+  // Category distribution (top 15)
+  var catMap = {};
+  DATA.forEach(function(p) { var c = p.category_name || p.subcategory || '?'; catMap[c] = (catMap[c]||0) + 1; });
+  var sorted = Object.entries(catMap).sort(function(a,b){ return b[1]-a[1]; });
+  var top = sorted.slice(0, 15);
+
+  // Country distribution
+  var coMap = {};
+  DATA.forEach(function(p) { var c = p.country || '?'; coMap[c] = (coMap[c]||0) + 1; });
+  var coSorted = Object.entries(coMap).sort(function(a,b){ return b[1]-a[1]; }).slice(0, 10);
+
+  // Funding distribution
+  var fundBuckets = {'0%': 0, '1-25%': 0, '26-50%': 0, '51-99%': 0, '100-200%': 0, '200-500%': 0, '500%+': 0};
+  DATA.forEach(function(p) {
+    var pf = p.percent_funded || 0;
+    if (pf === 0) fundBuckets['0%']++;
+    else if (pf <= 25) fundBuckets['1-25%']++;
+    else if (pf <= 50) fundBuckets['26-50%']++;
+    else if (pf <= 99) fundBuckets['51-99%']++;
+    else if (pf <= 200) fundBuckets['100-200%']++;
+    else if (pf <= 500) fundBuckets['200-500%']++;
+    else fundBuckets['500%+']++;
+  });
+
+  // Pledged range
+  var pledgeBuckets = {'$0': 0, '$1-1K': 0, '$1K-10K': 0, '$10K-50K': 0, '$50K-100K': 0, '$100K-500K': 0, '$500K+': 0};
+  DATA.forEach(function(p) {
+    var v = p.pledged || 0;
+    if (v === 0) pledgeBuckets['$0']++;
+    else if (v < 1000) pledgeBuckets['$1-1K']++;
+    else if (v < 10000) pledgeBuckets['$1K-10K']++;
+    else if (v < 50000) pledgeBuckets['$10K-50K']++;
+    else if (v < 100000) pledgeBuckets['$50K-100K']++;
+    else if (v < 500000) pledgeBuckets['$100K-500K']++;
+    else pledgeBuckets['$500K+']++;
+  });
+
+  // Staff pick vs normal
+  var staffPick = DATA.filter(function(p){ return p.staff_pick; }).length;
+
+  var PALETTE = ['#05ce78','#3b82f6','#f59e0b','#ef4444','#8b5cf6','#ec4899','#14b8a6','#f97316','#06b6d4','#a855f7','#84cc16','#e11d48','#0ea5e9','#d946ef','#22c55e'];
+
+  document.getElementById('charts-row').innerHTML =
+    '<div class="card"><h3>📊 카테고리별 프로젝트 수 (Top 15)</h3><div class="chart-wrap"><canvas id="chart-cat"></canvas></div></div>' +
+    '<div class="card"><h3>🌍 국가별 분포 (Top 10)</h3><div class="chart-wrap"><canvas id="chart-country"></canvas></div></div>';
+
+  document.getElementById('charts-row2').innerHTML =
+    '<div class="card"><h3>💰 펀딩 달성률 분포</h3><div class="chart-wrap"><canvas id="chart-fund"></canvas></div></div>' +
+    '<div class="card"><h3>💵 모금액 분포</h3><div class="chart-wrap"><canvas id="chart-pledge"></canvas></div></div>' +
+    '<div class="card"><h3>⭐ Staff Pick 비율</h3><div class="chart-wrap"><canvas id="chart-staff"></canvas></div></div>';
+
+  if (charts.cat) charts.cat.destroy();
+  charts.cat = new Chart(document.getElementById('chart-cat'), {
+    type: 'bar', data: { labels: top.map(function(x){return x[0];}), datasets: [{data: top.map(function(x){return x[1];}), backgroundColor: PALETTE, borderRadius: 4}] },
+    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#e0e0e0',font:{size:11}}}} }
+  });
+
+  if (charts.country) charts.country.destroy();
+  charts.country = new Chart(document.getElementById('chart-country'), {
+    type: 'doughnut', data: { labels: coSorted.map(function(x){return x[0];}), datasets: [{data: coSorted.map(function(x){return x[1];}), backgroundColor: PALETTE, borderWidth: 0}] },
+    options: { responsive:true, maintainAspectRatio:false, cutout:'50%', plugins:{legend:{position:'right',labels:{color:'#e0e0e0',font:{size:11},boxWidth:12,padding:8}}} }
+  });
+
+  if (charts.fund) charts.fund.destroy();
+  charts.fund = new Chart(document.getElementById('chart-fund'), {
+    type: 'bar', data: { labels: Object.keys(fundBuckets), datasets: [{data: Object.values(fundBuckets), backgroundColor: ['#ef4444','#f97316','#f59e0b','#eab308','#05ce78','#3b82f6','#8b5cf6'], borderRadius: 4}] },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#8b8b9e'}}} }
+  });
+
+  if (charts.pledge) charts.pledge.destroy();
+  charts.pledge = new Chart(document.getElementById('chart-pledge'), {
+    type: 'bar', data: { labels: Object.keys(pledgeBuckets), datasets: [{data: Object.values(pledgeBuckets), backgroundColor: ['#64748b','#06b6d4','#3b82f6','#8b5cf6','#d946ef','#f59e0b','#05ce78'], borderRadius: 4}] },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#8b8b9e'}}} }
+  });
+
+  if (charts.staff) charts.staff.destroy();
+  charts.staff = new Chart(document.getElementById('chart-staff'), {
+    type: 'doughnut', data: { labels: ['Staff Pick','Normal'], datasets: [{data: [staffPick, DATA.length - staffPick], backgroundColor: ['#f59e0b','#2a2a3e'], borderWidth: 0}] },
+    options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{position:'bottom',labels:{color:'#e0e0e0',font:{size:12}}}} }
+  });
+}
+
+function renderFilters() {
+  var cats = {}; DATA.forEach(function(p){ var c = p.category_name||'?'; cats[c]=(cats[c]||0)+1; });
+  var sorted = Object.entries(cats).sort(function(a,b){return b[1]-a[1];});
+  var html = '<input type="text" placeholder="프로젝트명 검색..." id="search-input" value="' + filterSearch + '">';
+  html += '<select id="cat-filter"><option value="all">전체 카테고리</option>';
+  sorted.forEach(function(x){ html += '<option value="' + x[0] + '"' + (filterCat===x[0]?' selected':'') + '>' + x[0] + ' (' + x[1] + ')</option>'; });
+  html += '</select>';
+  html += '<select id="funded-filter"><option value="all"' + (filterFunded==='all'?' selected':'') + '>전체 상태</option><option value="funded"' + (filterFunded==='funded'?' selected':'') + '>100%+ 달성</option><option value="unfunded"' + (filterFunded==='unfunded'?' selected':'') + '>미달성</option></select>';
+  document.getElementById('filter-bar').innerHTML = html;
+
+  document.getElementById('search-input').addEventListener('input', function(e){ filterSearch = e.target.value.toLowerCase(); renderTable(); });
+  document.getElementById('cat-filter').addEventListener('change', function(e){ filterCat = e.target.value; renderTable(); });
+  document.getElementById('funded-filter').addEventListener('change', function(e){ filterFunded = e.target.value; renderTable(); });
+}
+
+function renderTable() {
+  var filtered = DATA.filter(function(p) {
+    if (filterCat !== 'all' && (p.category_name||'?') !== filterCat) return false;
+    if (filterSearch && !(p.name||'').toLowerCase().includes(filterSearch)) return false;
+    if (filterFunded === 'funded' && (p.percent_funded||0) < 100) return false;
+    if (filterFunded === 'unfunded' && (p.percent_funded||0) >= 100) return false;
+    return true;
+  });
+
+  // Sort
+  filtered.sort(function(a,b) {
+    var va = a[sortCol], vb = b[sortCol];
+    if (va == null) va = sortAsc ? Infinity : -Infinity;
+    if (vb == null) vb = sortAsc ? Infinity : -Infinity;
+    return sortAsc ? (va > vb ? 1 : -1) : (va < vb ? 1 : -1);
+  });
+
+  var thead = '<tr>';
+  var cols = [
+    {key:'name',label:'프로젝트',align:'left'},
+    {key:'category_name',label:'카테고리',align:'left'},
+    {key:'country',label:'국가',align:'left'},
+    {key:'pledged',label:'모금액',align:'right'},
+    {key:'goal',label:'목표액',align:'right'},
+    {key:'percent_funded',label:'달성률',align:'right'},
+    {key:'backers_count',label:'후원자',align:'right'},
+  ];
+  cols.forEach(function(c) {
+    var arrow = sortCol === c.key ? (sortAsc ? ' ↑' : ' ↓') : '';
+    thead += '<th class="sort-btn" style="text-align:' + c.align + '" onclick="doSort(\'' + c.key + '\')">' + c.label + arrow + '</th>';
+  });
+  thead += '</tr>';
+
+  var tbody = '';
+  filtered.slice(0, 500).forEach(function(p) {
+    var pf = p.percent_funded || 0;
+    var barW = Math.min(100, pf);
+    var barColor = pf >= 100 ? '#05ce78' : pf >= 50 ? '#f59e0b' : '#ef4444';
+    tbody += '<tr>';
+    tbody += '<td style="min-width:250px"><div style="display:flex;align-items:center;gap:8px;">';
+    if (p.photo_url) tbody += '<img src="' + p.photo_url + '" class="project-img" onerror="this.style.display=\'none\'">';
+    tbody += '<div><a href="' + (p.url||'#') + '" target="_blank" style="font-weight:600;font-size:12px;">' + (p.name||'').slice(0,60) + '</a>';
+    tbody += '<div style="font-size:10px;color:var(--ks-muted);">' + (p.creator||'') + (p.staff_pick ? ' ⭐' : '') + '</div></div></div></td>';
+    tbody += '<td style="font-size:11px;">' + (p.category_name||p.subcategory||'-') + '</td>';
+    tbody += '<td style="font-size:11px;">' + (p.country||'-') + '</td>';
+    tbody += '<td class="num" style="font-weight:700;color:var(--ks-green);">' + fmtMoney(p.pledged, p.currency) + '</td>';
+    tbody += '<td class="num">' + fmtMoney(p.goal, p.currency) + '</td>';
+    tbody += '<td class="num"><div style="display:flex;align-items:center;gap:6px;justify-content:flex-end;">';
+    tbody += '<div class="progress-bar" style="width:60px;"><div class="progress-fill" style="width:' + barW + '%;background:' + barColor + ';"></div></div>';
+    tbody += '<span style="font-weight:600;color:' + barColor + ';">' + pf + '%</span></div></td>';
+    tbody += '<td class="num">' + fmt(p.backers_count) + '</td>';
+    tbody += '</tr>';
+  });
+
+  if (filtered.length > 500) {
+    tbody += '<tr><td colspan="7" style="text-align:center;color:var(--ks-muted);padding:16px;">... 외 ' + (filtered.length - 500) + '건 (필터로 범위를 좁혀주세요)</td></tr>';
+  }
+
+  document.querySelector('#project-table thead').innerHTML = thead;
+  document.querySelector('#project-table tbody').innerHTML = tbody || '<tr><td colspan="7" style="text-align:center;color:var(--ks-muted);padding:30px;">결과 없음</td></tr>';
+}
+
+function doSort(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = false; }
+  renderTable();
+}
+
+load();
+</script>
+</body>
+</html>
