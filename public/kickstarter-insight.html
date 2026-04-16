@@ -774,30 +774,30 @@ function buildRankings(data){
 
 function buildCompetitive(){
   const items=[
-    {icon:'&#x1F4B0;',title:'리워드 티어 분석',us:true,kt:false,bt:false,desc:'가격 분포, 최적 티어 수, 후원자 집중 가격대',
-     detail:'<b>보유 데이터:</b> 리워드 티어별 가격, 후원자 수, 배송일, 잔여수량, 아이템 목록<br><b>분석 가능:</b> 최적 가격대 도출($26-50 최다 후원), 티어 수 최적화(10-11개 최고 성공률 55%), 카테고리별 가격 전략<br><b>경쟁사:</b> KickTraq/BackerTracker 모두 리워드 데이터 없음 → <span style="color:#05ce78;">완전 독점 영역</span><br><b>활용 모델:</b> 가격 탄력성 분석, 클러스터링(K-means) 기반 최적 티어 구간 도출'},
-    {icon:'&#x2753;',title:'FAQ 패턴 마이닝',us:true,kt:false,bt:false,desc:'카테고리별 자주 묻는 질문 패턴',
+    {icon:'&#x1F4B0;',title:'리워드 티어 분석',us:true,kt:false,bt:false,done:true,desc:'가격 분포, 최적 티어 수, 후원자 집중 가격대',
+     detail:'<b>보유 데이터:</b> 리워드 티어별 가격, 후원자 수, 배송일, 잔여수량, 아이템 목록<br><b>분석 완료:</b> 최적 가격대 도출($26-50 최다 후원), 티어 수 최적화(10-11개 최고 성공률 55%), 카테고리별 가격 전략<br><b>경쟁사:</b> KickTraq/BackerTracker 모두 리워드 데이터 없음 → <span style="color:#05ce78;">완전 독점 영역</span><br><b>대시보드:</b> 리워드 티어 최적화 섹션에서 가격 분포, 티어별 성공률, 인기 가격대 TOP15 확인 가능'},
+    {icon:'&#x2753;',title:'FAQ 패턴 마이닝',us:true,kt:false,bt:false,done:false,desc:'카테고리별 자주 묻는 질문 패턴',
      detail:'<b>보유 데이터:</b> 프로젝트당 평균 6.5개 FAQ (질문+답변 전문)<br><b>분석 가능:</b> 카테고리별 빈출 질문 유형 추출, 신규 메이커에게 "이 질문은 미리 답하세요" 가이드 제공<br><b>활용 모델:</b> TF-IDF + 토픽 모델링(LDA), 또는 Claude API로 FAQ 자동 분류/요약<br><b>상업 가치:</b> 메이커 온보딩 도구로 SaaS화 가능'},
-    {icon:'&#x1F4AC;',title:'댓글 감정 분석',us:true,kt:false,bt:false,desc:'댓글 감정 분석, 불만 시그널 감지',
+    {icon:'&#x1F4AC;',title:'댓글 감정 분석',us:true,kt:false,bt:false,done:false,desc:'댓글 감정 분석, 불만 시그널 감지',
      detail:'<b>보유 데이터:</b> 프로젝트당 최대 50건 댓글 (본문, 작성자, 날짜, 배지)<br><b>핵심 발견:</b> 실패 프로젝트 댓글/후원자 비율이 성공의 3배 (0.15 vs 0.05) → 불만 시그널<br><b>활용 모델:</b> 감정분석(BERT/Claude), 키워드 빈도, 시계열 감정 변화 추적<br><b>상업 가치:</b> 실시간 "위험 프로젝트" 알림 서비스'},
-    {icon:'&#x26A0;',title:'실패 예측',us:true,kt:false,bt:false,desc:'100% 실패 판별, 위험 요인 스코어링',
-     detail:'<b>핵심 인사이트:</b> 완전실패(0-5%) 프로필 = 목표 $40K, 스토리 7K자, 이미지 4.8장, PWL 0.3%<br><b>예측 정확도:</b> XGBoost로 ~90%, LSTM 시계열 결합 시 93% 목표<br><b>특징:</b> 목표금액이 성공의 2.5배, 캠페인 기간이 +14일 더 긴 것이 실패 신호<br><b>경쟁사:</b> KickTraq은 선형 추세만 제공, 실패 예측 기능 없음 → <span style="color:#05ce78;">핵심 차별점</span>'},
-    {icon:'&#x1F4C8;',title:'펀딩 추세 예측',us:true,kt:true,bt:true,desc:'펀딩 추세 예측 (우리: ML / 경쟁: 선형)',
-     detail:'<b>경쟁 현황:</b> KickTraq = 선형 트렌드 + 단순 보정 (70-92% 정확도), BackerTracker = 유사 캠페인 곡선 비교<br><b>우리 전략:</b> Bi-LSTM 시계열 예측 (학술 연구 93% 정확도) + XGBoost 정적 특성 결합<br><b>입력 변수:</b> 일별 후원자 증가, 카테고리, 목표, 리워드 수, 스토리 품질, PWL 여부<br><b>목표:</b> KickTraq 대비 10%p+ 높은 예측 정확도 달성'},
-    {icon:'&#x1F310;',title:'지역 인텔리전스',us:true,kt:false,bt:false,desc:'국가별 성공률, 통화별 패턴',
-     detail:'<b>핵심 발견:</b> HK 73.5% 성공 (건당 $845K 최고 효율), US 36.7% (경쟁 과밀), JP 53.8%<br><b>통화 분석:</b> USD 54.9%, EUR 15.9%, GBP 11.7% — 14개 통화 추적<br><b>활용:</b> "이 카테고리에서 이 국가로 런칭하면 성공률 X%" 가이드 제공<br><b>경쟁사:</b> 국가별 분석 기능 없음'},
-    {icon:'&#x1F916;',title:'AI 공시 추적',us:true,kt:false,bt:false,desc:'AI 사용 프로젝트 추적 (업계 최초)',
-     detail:'<b>현황:</b> 킥스타터가 AI 공시를 필수화 → 100% 프로젝트에 AI 사용 여부 데이터 존재<br><b>공시 필드:</b> fundingForAiAttribution, fundingForAiConsent, fundingForAiOption, otherAiDetails<br><b>분석 가능:</b> AI 활용 프로젝트 vs 미활용 성공률 비교, AI 활용 트렌드 추적<br><b>시장 가치:</b> 업계 최초 AI 채택 현황 리포트 발행 가능'},
-    {icon:'&#x1F33F;',title:'ESG 영향 분석',us:true,kt:false,bt:false,desc:'환경 공시와 성공률 상관관계',
-     detail:'<b>핵심 발견:</b> 환경 공시 보유 시 성공률 53.1% vs 미보유 33.6% (+19.5pp)<br><b>현황:</b> 전체의 27.5%가 환경 공시 보유 — ESG 트렌드 확대 중<br><b>분석 가능:</b> ESG 프로젝트 카테고리 분포, 후원자 선호도 분석<br><b>상업 가치:</b> ESG 마케팅 가이드로 메이커에게 제공'},
-    {icon:'&#x1F465;',title:'슈퍼백커 추적',us:true,kt:false,bt:false,desc:'슈퍼백커 행동 패턴 분석',
-     detail:'<b>핵심 발견:</b> 슈퍼백커 크리에이터 프로젝트 = 89.2% 성공 (전체 대비 +51.8pp, 최강 예측 변수)<br><b>보유 데이터:</b> creator.is_superbacker 필드, 댓글 작성자 배지 (superbacker 표시)<br><b>분석 가능:</b> 슈퍼백커가 선호하는 카테고리/가격대, 반복 후원 패턴<br><b>대표님 인용:</b> "슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어"'},
-    {icon:'&#x1F3AF;',title:'성공 점수 (ML)',us:true,kt:false,bt:false,desc:'XGBoost 기반 다변수 예측 모델',
-     detail:'<b>모델 설계:</b> XGBoost (정적 특성) + LSTM (시계열) 앙상블<br><b>입력 변수 15개:</b> goal, story_length, story_images, rewards_count, faqs_count, updates_count, duration, is_pwl, staff_pick, has_video, env_commit, creator_superbacker, category, country, comment_ratio<br><b>학습 데이터:</b> 2,701건 (지속 증가) → 충분한 학습량<br><b>목표 정확도:</b> XGBoost 단독 90%+, 앙상블 93%+ (학술 논문 벤치마크 기준)'},
-    {icon:'&#x1F4CA;',title:'일별 트렌드 차트',us:true,kt:true,bt:true,desc:'일별 펀딩/후원자 추이',
-     detail:'<b>경쟁 현황:</b> KickTraq/BackerTracker 모두 제공하는 기본 기능<br><b>차별화:</b> 단순 차트가 아닌 카테고리 평균 곡선 오버레이, 이상 탐지(급등/급락 감지), 예측선 표시<br><b>구현:</b> 일별 크롤링 데이터 축적 → 시계열 DB 구축 필요<br><b>우선순위:</b> 기본 기능이므로 반드시 구현, 위에 ML 예측선을 얹어 차별화'},
-    {icon:'&#x1F50D;',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,desc:'스토리 길이/이미지/FAQ 종합 점수',
-     detail:'<b>핵심 발견:</b> 성공 스토리 21.8K자 vs 실패 9.1K자 (2.4배), 이미지 15장 vs 6.8장 (2.2배)<br><b>점수 산출:</b> 스토리 길이(30%), 이미지 수(25%), FAQ 보유(15%), 업데이트 빈도(15%), 비디오 유무(15%)<br><b>활용:</b> 메이커에게 "당신의 콘텐츠 점수는 72점, 이미지 5장 더 추가하면 85점" 가이드<br><b>경쟁사:</b> 콘텐츠 분석 기능 없음 → 독점'},
+    {icon:'&#x26A0;',title:'실패 예측',us:true,kt:false,bt:false,done:true,desc:'100% 실패 판별, 위험 요인 스코어링',
+     detail:'<b>구현 완료:</b> XGBoost 모델 AUC 0.91, 정확도 80.8% 달성<br><b>실패 프로필:</b> 목표 $40K, 스토리 7K자, 이미지 4.8장, PWL 0.3%<br><b>핵심 변수:</b> 스토리 이미지 수(20%), 업데이트 수(10.3%), 목표금액(6.4%)<br><b>대시보드:</b> ML 예측 모델 성능 + 실패 패턴 감지 섹션에서 확인 가능'},
+    {icon:'&#x1F4C8;',title:'펀딩 추세 예측',us:true,kt:true,bt:true,done:false,desc:'펀딩 추세 예측 (우리: ML / 경쟁: 선형)',
+     detail:'<b>경쟁 현황:</b> KickTraq = 선형 트렌드 + 단순 보정 (70-92% 정확도), BackerTracker = 유사 캠페인 곡선 비교<br><b>우리 전략:</b> Bi-LSTM 시계열 예측 (학술 연구 93% 정확도) + XGBoost 정적 특성 결합<br><b>입력 변수:</b> 일별 후원자 증가, 카테고리, 목표, 리워드 수, 스토리 품질, PWL 여부<br><b>필요:</b> 일별 크롤링 시계열 데이터 축적 필요'},
+    {icon:'&#x1F310;',title:'지역 인텔리전스',us:true,kt:false,bt:false,done:true,desc:'국가별 성공률, 통화별 패턴',
+     detail:'<b>구현 완료:</b> 14개 통화, 30개국+ 분석 완료<br><b>핵심 발견:</b> HK 73.5% 성공 (건당 $845K 최고 효율), US 36.7% (경쟁 과밀), JP 53.8%<br><b>통화 분석:</b> USD 54.9%, EUR 15.9%, GBP 11.7%<br><b>대시보드:</b> 지역/통화 인텔리전스 섹션에서 국가별 성공률 차트, 통화 분포, 국가별 지표 확인 가능'},
+    {icon:'&#x1F916;',title:'AI 공시 추적',us:true,kt:false,bt:false,done:true,desc:'AI 사용 프로젝트 추적 (업계 최초)',
+     detail:'<b>구현 완료:</b> 전체 프로젝트 AI 공시 데이터 수집 및 분석<br><b>공시 필드:</b> fundingForAiAttribution, fundingForAiConsent, fundingForAiOption, otherAiDetails<br><b>분석 결과:</b> AI 공시율 실시간 추적 중<br><b>대시보드:</b> AI & ESG 트렌드 모니터 섹션에서 확인 가능'},
+    {icon:'&#x1F33F;',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:true,desc:'환경 공시와 성공률 상관관계',
+     detail:'<b>구현 완료:</b> 환경 공시 보유/미보유 성공률 비교 분석<br><b>핵심 발견:</b> 환경 공시 보유 시 성공률 53.1% vs 미보유 33.6% (+19.5pp)<br><b>현황:</b> 전체의 27.5%가 환경 공시 보유 — ESG 트렌드 확대 중<br><b>대시보드:</b> AI & ESG 트렌드 모니터 섹션에서 ESG 공시 유무별 성공률 확인 가능'},
+    {icon:'&#x1F465;',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:true,desc:'슈퍼백커 행동 패턴 분석',
+     detail:'<b>구현 완료:</b> 크리에이터 슈퍼백커 여부별 성공률 분석<br><b>핵심 발견:</b> 슈퍼백커 크리에이터 = 89.2% 성공 (+51.8pp, ML 모델 내 주요 변수)<br><b>대시보드:</b> 후원자 행동 분석 섹션에서 슈퍼백커 효과, 후원자 임계점, 댓글 비율 확인 가능<br><b>대표님 인용:</b> "슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어"'},
+    {icon:'&#x1F3AF;',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:true,desc:'XGBoost 기반 다변수 예측 모델',
+     detail:'<b>구현 완료:</b> XGBoost 정규화 모델 — AUC 0.9097, 정확도 80.8%<br><b>5개 모델 비교:</b> XGBoost, LightGBM, RandomForest, GradientBoosting, LogisticRegression<br><b>47개 피처:</b> 숫자(15) + 카테고리(15) + 국가(11) + 통화(6)<br><b>대시보드:</b> ML 예측 모델 성능 섹션에서 모델 비교, Feature Importance, Confusion Matrix 확인 가능'},
+    {icon:'&#x1F4CA;',title:'일별 트렌드 차트',us:true,kt:true,bt:true,done:false,desc:'일별 펀딩/후원자 추이',
+     detail:'<b>경쟁 현황:</b> KickTraq/BackerTracker 모두 제공하는 기본 기능<br><b>차별화:</b> 단순 차트가 아닌 카테고리 평균 곡선 오버레이, 이상 탐지(급등/급락 감지), 예측선 표시<br><b>필요:</b> 일별 크롤링 데이터 축적 → 시계열 DB 구축 필요<br><b>우선순위:</b> 기본 기능이므로 반드시 구현, 위에 ML 예측선을 얹어 차별화'},
+    {icon:'&#x1F50D;',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:true,desc:'스토리 길이/이미지/FAQ 종합 점수',
+     detail:'<b>구현 완료:</b> 스토리 길이, 이미지 수, FAQ, 업데이트, 캠페인 기간별 성공률 분석<br><b>핵심 발견:</b> 성공 스토리 21.8K자 vs 실패 9.1K자 (2.4배), 이미지 15장 vs 6.8장 (2.2배)<br><b>ML 반영:</b> story_images(20%), updates_total(10.3%)이 모델 핵심 변수로 확인됨<br><b>대시보드:</b> 콘텐츠 품질 점수 섹션에서 각 요소별 성공률 차트 확인 가능'},
   ];
   let activeIdx=-1;
   const grid=document.getElementById('comp-grid');
@@ -807,7 +807,8 @@ function buildCompetitive(){
     grid.innerHTML=items.map((it,i)=>{
       const exclusive=!it.kt&&!it.bt;
       const isActive=i===activeIdx;
-      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;background:${isActive?'rgba(5,206,120,.15)':exclusive?'rgba(5,206,120,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isActive?'#05ce78':exclusive?'rgba(5,206,120,.2)':'rgba(255,255,255,.06)'};border-radius:10px;padding:12px;text-align:center;transition:all .2s;${isActive?'transform:scale(1.03);box-shadow:0 0 20px rgba(5,206,120,.2);':''}">
+      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:${isActive?'rgba(5,206,120,.15)':exclusive?'rgba(5,206,120,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isActive?'#05ce78':exclusive?'rgba(5,206,120,.2)':'rgba(255,255,255,.06)'};border-radius:10px;padding:12px;text-align:center;transition:all .2s;${isActive?'transform:scale(1.03);box-shadow:0 0 20px rgba(5,206,120,.2);':''}">
+        ${it.done?'<div style="position:absolute;top:6px;right:6px;width:22px;height:22px;background:#05ce78;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0b0b14;font-weight:900;box-shadow:0 0 8px rgba(5,206,120,.4);">&#x2713;</div>':''}
         <div style="font-size:20px;margin-bottom:4px;">${it.icon}</div>
         <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:#05ce78;':''}">${it.title}</div>
         <div style="font-size:9px;color:var(--ks-muted);margin-bottom:6px;">${it.desc}</div>
@@ -838,7 +839,10 @@ function buildCompetitive(){
                 <div style="font-size:15px;font-weight:800;color:#05ce78;">${it.title}</div>
                 <div style="font-size:11px;color:var(--ks-muted);">${it.desc}</div>
               </div>
-              ${exclusive?'<span class="badge badge-green" style="margin-left:auto;font-size:10px;padding:4px 10px;">독점 인사이트</span>':'<span class="badge badge-orange" style="margin-left:auto;font-size:10px;padding:4px 10px;">경쟁 존재</span>'}
+              <div style="margin-left:auto;display:flex;gap:6px;">
+                ${it.done?'<span class="badge badge-green" style="font-size:10px;padding:4px 10px;">&#x2713; 데이터 기반 구현 완료</span>':'<span class="badge badge-purple" style="font-size:10px;padding:4px 10px;">구현 예정</span>'}
+                ${exclusive?'<span class="badge badge-green" style="font-size:10px;padding:4px 10px;">독점</span>':'<span class="badge badge-orange" style="font-size:10px;padding:4px 10px;">경쟁 존재</span>'}
+              </div>
             </div>
             <div style="font-size:12px;line-height:1.8;color:var(--ks-text);">${it.detail}</div>
             <div style="margin-top:12px;display:flex;gap:12px;">
