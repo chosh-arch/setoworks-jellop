@@ -438,7 +438,7 @@ body{
   <div class="si">
     <div class="cv-logo"><img src="setoworks_logo_8x.png" alt="SETOWORKS"></div>
     <div class="cv-divider"></div>
-    <div class="cv-tag">Strategic Automation Project · 2026-04-16</div>
+    <div class="cv-tag">Strategic Automation Project · <span id="deck-update-date">2026-04-16</span></div>
     <div class="cv-h">Jellop+α<br><span>14년 노하우 위에 얹는 데이터 자동화</span></div>
     <div class="cv-d">2012년부터 14년간 1,200건의 글로벌 펀딩 프로젝트와 520억원의 누적 펀딩 노하우 위에, 데이터 기반 예측 + 인플루언서 시딩 + 6채널 데이터 통합을 더해 다음 14년의 도약을 만든다 — 90일 실행 로드맵 v4.</div>
     <div class="cv-meta">
@@ -1920,6 +1920,15 @@ let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);});
 render();
+// 자동 업데이트 날짜 표시
+(function(){
+  var el=document.getElementById('deck-update-date');
+  if(!el)return;
+  fetch(window.location.href,{method:'HEAD'}).then(function(r){
+    var lm=r.headers.get('last-modified');
+    if(lm){var d=new Date(lm);el.textContent=d.toISOString().slice(0,10);}
+  }).catch(function(){});
+})();
 </script>
 </body>
 </html>

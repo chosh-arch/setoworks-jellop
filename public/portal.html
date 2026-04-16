@@ -367,8 +367,27 @@
 </div>
 
 <footer class="footer">
-  &copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a>
+  <div id="update-badge" style="margin-bottom:6px;display:inline-block;background:rgba(255,0,59,0.1);border:1px solid rgba(255,0,59,0.2);border-radius:8px;padding:3px 12px;font-size:11px;color:rgba(255,255,255,0.6);"></div>
+  <div>&copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a></div>
 </footer>
+<script>
+// 최신 git commit 시간을 Vercel 배포 시간으로 표시
+(function(){
+  var badge = document.getElementById('update-badge');
+  // Vercel의 빌드 시간을 추정 (현재 페이지의 Last-Modified 헤더)
+  fetch(window.location.href, {method:'HEAD'}).then(function(r){
+    var lm = r.headers.get('last-modified');
+    if (lm) {
+      var d = new Date(lm);
+      badge.textContent = 'Last Update: ' + d.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}) + ' ' + d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    } else {
+      badge.textContent = 'Last Update: ' + new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+    }
+  }).catch(function(){
+    badge.textContent = 'Last Update: ' + new Date().toLocaleDateString('ko-KR');
+  });
+})();
+</script>
 
 </body>
 </html>
