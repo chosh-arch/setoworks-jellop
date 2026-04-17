@@ -765,15 +765,8 @@ function toUSD(amount,cur){return amount*(USD_RATES[(cur||'USD').toUpperCase()]|
 function fmtKRW(usd){const k=usd*KRW;if(k>=1e8)return(k/1e8).toFixed(1)+'억원';if(k>=1e4)return(k/1e4).toFixed(0)+'만원';return Math.round(k).toLocaleString()+'원';}
 
 function buildKPI(data){
-  // Split live vs all
-  const live=data.filter(p=>{
-    if(!p.extra_data&&!p._deadline)return true; // assume live if no deadline
-    const ed=typeof p.extra_data==='object'?p.extra_data:null;
-    if(!ed)return true;
-    const dl=ed.deadline_at;
-    if(!dl)return true;
-    try{return new Date(dl*1000)>new Date();}catch(e){return true;}
-  });
+  // Split live vs all — _isLive는 main()에서 extra_data 파싱 시 설정됨
+  const live=data.filter(p=>p._isLive!==false);
 
   function makeRow(group,targetId,label){
     const n=group.length;
@@ -1358,6 +1351,7 @@ async function main(){
       // Normalize country from live data or extra_data
       p._country=null;
       p._pwl=false;
+      p._isLive=true; // default, overridden if deadline found
       if(p.extra_data){
         try{
           const ed=typeof p.extra_data==='string'?JSON.parse(p.extra_data):p.extra_data;
@@ -1369,6 +1363,10 @@ async function main(){
             ed.goal=ed.goal||p.goal||0;
             // story_images가 URL 배열이면 개수로 변환
             if(Array.isArray(ed.story_images))ed.story_images=ed.story_images.length;
+            // deadline을 p 객체에 직접 저장 (라이브 판별용)
+            if(ed.deadline_at){
+              try{p._deadline=new Date(parseInt(ed.deadline_at)*1000);p._isLive=p._deadline>new Date();}catch(e){p._isLive=true;}
+            }else{p._isLive=true;}
             DETAILS.push({slug:p.external_id,ext_id:p.external_id,status:'ok',data:ed});
             // country can be object {name,code} or string
             if(ed.country){
@@ -1384,7 +1382,8 @@ async function main(){
     });
 
     setStatus(`${DATA.length}건 로드, ${detailCount}건 상세 파싱 완료. 렌더링 중...`);
-    document.getElementById('meta-info').textContent=`${DATA.length.toLocaleString()}건 추적 중 | ${detailCount.toLocaleString()}건 상세 데이터 | ${new Date().toLocaleString('ko-KR')} 갱신`;
+    const liveCount=DATA.filter(p=>p._isLive!==false).length;
+    document.getElementById('meta-info').textContent=`전체 ${DATA.length.toLocaleString()}건 | 라이브 ${liveCount.toLocaleString()}건 | 상세 ${detailCount.toLocaleString()}건 | ${new Date().toLocaleString('ko-KR')}`;
 
     // Build all sections
     buildKPI(DATA);
