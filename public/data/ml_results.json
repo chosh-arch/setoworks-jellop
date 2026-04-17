@@ -1,189 +1,158 @@
 {
-  "model_name": "XGBoost (정규화)",
-  "timestamp": "2026-04-16T18:14:51.465734",
+  "model_name": "XGBoost (SB 피처 추가)",
   "data_count": 2701,
-  "feature_count": 47,
+  "feature_count": 50,
   "metrics": {
-    "cv_auc": 0.9097,
-    "cv_std": 0.0111,
-    "test_auc": 0.9049,
-    "test_accuracy": 0.8078,
-    "test_f1": 0.7689,
-    "train_accuracy": 0.8653,
-    "overfitting_gap": 0.0575
+    "cv_auc": 0.921,
+    "cv_std": 0.0108,
+    "test_auc": 0.9172,
+    "test_accuracy": 0.841,
+    "test_f1": 0.8089,
+    "train_accuracy": 0.8731,
+    "overfitting_gap": 0.0321
   },
   "confusion_matrix": {
-    "tn": 264,
-    "fp": 50,
-    "fn": 54,
-    "tp": 173
+    "tn": 273,
+    "fp": 41,
+    "fn": 45,
+    "tp": 182
   },
   "feature_importance": [
     {
       "name": "story_images",
-      "score": 0.199717
+      "score": 0.208206
+    },
+    {
+      "name": "sb_total_backings",
+      "score": 0.089907
     },
     {
       "name": "updates_total",
-      "score": 0.102858
+      "score": 0.07038
     },
     {
       "name": "log_goal",
-      "score": 0.063814
-    },
-    {
-      "name": "cat_Film & Video",
-      "score": 0.059382
+      "score": 0.058751
     },
     {
       "name": "comments_count",
-      "score": 0.047769
-    },
-    {
-      "name": "staff_pick",
-      "score": 0.047161
+      "score": 0.05081
     },
     {
       "name": "is_pwl",
-      "score": 0.046317
+      "score": 0.042516
     },
     {
-      "name": "cur_HKD",
-      "score": 0.04212
-    },
-    {
-      "name": "duration",
-      "score": 0.041658
+      "name": "cat_Film & Video",
+      "score": 0.03966
     },
     {
       "name": "story_length",
-      "score": 0.04101
+      "score": 0.038709
+    },
+    {
+      "name": "cur_HKD",
+      "score": 0.037174
+    },
+    {
+      "name": "staff_pick",
+      "score": 0.035014
+    },
+    {
+      "name": "duration",
+      "score": 0.033352
     },
     {
       "name": "co_HK",
-      "score": 0.038737
-    },
-    {
-      "name": "cat_Design",
-      "score": 0.027783
-    },
-    {
-      "name": "co_JP",
-      "score": 0.021243
-    },
-    {
-      "name": "cur_Other",
-      "score": 0.020697
-    },
-    {
-      "name": "risks_length",
-      "score": 0.020549
-    },
-    {
-      "name": "cat_Technology",
-      "score": 0.019657
-    },
-    {
-      "name": "cur_EUR",
-      "score": 0.018333
-    },
-    {
-      "name": "faqs_count",
-      "score": 0.017406
-    },
-    {
-      "name": "cat_Games",
-      "score": 0.015587
-    },
-    {
-      "name": "rewards_count",
-      "score": 0.01526
-    },
-    {
-      "name": "cur_GBP",
-      "score": 0.01525
-    },
-    {
-      "name": "creator_superbacker",
-      "score": 0.014363
-    },
-    {
-      "name": "co_GB",
-      "score": 0.013858
+      "score": 0.032939
     },
     {
       "name": "has_video",
-      "score": 0.012484
+      "score": 0.023674
     },
     {
-      "name": "creator_bio_length",
-      "score": 0.010399
+      "name": "sb_comment_count",
+      "score": 0.022927
+    },
+    {
+      "name": "co_JP",
+      "score": 0.022693
+    },
+    {
+      "name": "cat_Design",
+      "score": 0.020585
+    },
+    {
+      "name": "faqs_count",
+      "score": 0.018593
+    },
+    {
+      "name": "cur_Other",
+      "score": 0.017726
+    },
+    {
+      "name": "risks_length",
+      "score": 0.017433
+    },
+    {
+      "name": "cur_GBP",
+      "score": 0.014971
+    },
+    {
+      "name": "rewards_count",
+      "score": 0.014063
+    },
+    {
+      "name": "creator_superbacker",
+      "score": 0.012852
+    },
+    {
+      "name": "cat_Comics",
+      "score": 0.011223
+    },
+    {
+      "name": "cur_EUR",
+      "score": 0.010897
+    },
+    {
+      "name": "cat_Games",
+      "score": 0.010417
     }
   ],
   "cv_folds": [
-    0.9029,
-    0.9157,
-    0.9281,
-    0.8965,
-    0.9056
+    0.9102,
+    0.9305,
+    0.9358,
+    0.9085,
+    0.92
   ],
   "all_models": {
-    "XGBoost (최적화)": {
-      "test_auc": 0.9086,
-      "test_acc": 0.8115,
-      "f1": 0.7723,
-      "gap": 0.083
-    },
-    "앙상블 (XGB+LGBM+RF)": {
-      "test_auc": 0.9063,
-      "test_acc": 0.8133,
-      "f1": 0.7751,
-      "gap": 0.0728
-    },
-    "XGBoost (정규화)": {
+    "XGBoost (이전, SB없음)": {
       "test_auc": 0.9049,
       "test_acc": 0.8078,
       "f1": 0.7689,
-      "gap": 0.0575
+      "gap": 0
     },
-    "LightGBM (정규화)": {
-      "test_auc": 0.9017,
-      "test_acc": 0.8096,
-      "f1": 0.7706,
-      "gap": 0.0589
-    },
-    "RandomForest (정규화)": {
-      "test_auc": 0.8975,
-      "test_acc": 0.8022,
-      "f1": 0.7648,
-      "gap": 0.0575
-    },
-    "GradientBoosting (정규화)": {
-      "test_auc": 0.9008,
-      "test_acc": 0.8096,
-      "f1": 0.7726,
-      "gap": 0.0515
+    "XGBoost (현재, SB추가)": {
+      "test_auc": 0.9172,
+      "test_acc": 0.841,
+      "f1": 0.8089,
+      "gap": 0.0321
     }
   },
   "best_params": {
-    "subsample": 0.7,
-    "reg_lambda": 1.0,
-    "reg_alpha": 0.5,
-    "n_estimators": 300,
-    "min_child_weight": 3,
-    "max_depth": 4,
+    "max_depth": 3,
     "learning_rate": 0.03,
-    "gamma": 0.1,
-    "colsample_bytree": 0.6
+    "n_estimators": 200
   },
   "classes": {
     "실패": {
-      "precision": 0.8302,
-      "recall": 0.8408
+      "precision": 0.8585,
+      "recall": 0.8694
     },
     "성공": {
-      "precision": 0.7758,
-      "recall": 0.7621
+      "precision": 0.8161,
+      "recall": 0.8018
     }
   }
 }
