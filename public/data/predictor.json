@@ -494,5 +494,28 @@
       "count": 69,
       "parent": "Comics"
     }
+  },
+  "subcategory_goal_median": {
+    "Hardware": 2023,
+    "Gadgets": 2000,
+    "Product Design": 2985,
+    "Robots": 2600,
+    "Wearables": 1950,
+    "Software": 1290,
+    "Apps": 21836,
+    "Toys": 2000,
+    "Video Games": 6488,
+    "Tabletop Games": 432,
+    "Sound": 3250,
+    "Camera Equipment": 5088,
+    "Playing Cards": 1000,
+    "Comic Books": 3000,
+    "Graphic Novels": 3000,
+    "Accessories": 2000,
+    "Apparel": 3000,
+    "Film & Video": 5000,
+    "Music": 3000,
+    "Art": 2000,
+    "Publishing": 3000
   }
 }

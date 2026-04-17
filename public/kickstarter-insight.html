@@ -243,20 +243,10 @@ tr:hover{background:#f8fafc;}
     <span class="acc-arrow">&#x25BC;</span>
   </div>
   <div class="acc-body">
-    <div class="section" id="sec-content"><div class="section-head"><div class="sec-icon">04</div><h2>콘텐츠 품질 점수</h2></div>
-      <div class="g4">
-        <div class="card"><h3>스토리 길이</h3>
-          <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">21,806 <span style="font-size:13px;color:var(--muted);">vs</span> 9,085</div><div style="color:var(--muted);font-size:10px;">성공 프로젝트 스토리가 2.4배 길다</div></div>
-          <div class="chart-wrap" style="height:180px;"><canvas id="ch-story"></canvas></div></div>
-        <div class="card"><h3>이미지 수</h3>
-          <div class="insight-box"><div class="ib-title">성공 vs 실패</div><div class="ib-num">15장 <span style="font-size:13px;color:var(--muted);">vs</span> 6.8장</div><div style="color:var(--muted);font-size:10px;">이미지 20장+ = 75.4% 성공</div></div>
-          <div class="chart-wrap" style="height:180px;"><canvas id="ch-images"></canvas></div></div>
-        <div class="card"><h3>FAQ / 업데이트</h3>
-          <div class="insight-box"><div class="ib-title">FAQ 효과</div><div class="ib-num">+10.5pp</div><div style="color:var(--muted);font-size:10px;">FAQ 보유 시 45.1% vs 34.6%</div></div>
-          <div class="insight-box"><div class="ib-title">업데이트 효과</div><div class="ib-num">3.2x</div><div style="color:var(--muted);font-size:10px;">성공 2.93회 vs 실패 0.93회</div></div></div>
-        <div class="card"><h3>캠페인 기간</h3>
-          <div class="insight-box"><div class="ib-title">최적 기간</div><div class="ib-num">30일</div><div style="color:var(--muted);font-size:10px;">20일 이하면 90% 성공</div></div>
-          <div class="chart-wrap" style="height:180px;"><canvas id="ch-duration"></canvas></div></div>
+    <div class="section"><div class="section-head"><div class="sec-icon">04</div><h2>캠페인 기간 & 후원자 임계점</h2></div>
+      <div class="g2">
+        <div class="card"><h3>캠페인 기간별 성공률</h3><div class="chart-wrap"><canvas id="ch-duration"></canvas></div></div>
+        <div class="card"><h3>후원자 수 임계점</h3><div class="chart-wrap"><canvas id="ch-backers"></canvas></div></div>
       </div>
     </div>
     <div class="section" id="sec-timeline"><div class="section-head"><div class="sec-icon">TL</div><h2>시계열 분석</h2></div>
@@ -325,8 +315,8 @@ tr:hover{background:#f8fafc;}
 <div class="acc" id="acc-geo">
   <div class="acc-head" onclick="toggleAcc('acc-geo')">
     <div class="acc-icon">GE</div>
-    <h2>지역 & 킥스타터 특수 지표</h2>
-    <span class="acc-summary">30개국+ · 14개 통화 · AI 사용/친환경/추천 배지 분석</span>
+    <h2>지역 & Staff Pick</h2>
+    <span class="acc-summary">20개국+ · 14개 통화 · Staff Pick 효과</span>
     <span class="acc-arrow">&#x25BC;</span>
   </div>
   <div class="acc-body">
@@ -336,31 +326,17 @@ tr:hover{background:#f8fafc;}
         <div class="card"><h3>통화 분포</h3><div class="chart-wrap" style="height:200px;"><canvas id="ch-currency"></canvas></div><div style="margin-top:12px;"><table id="tbl-country"><thead><tr><th>국가</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th></tr></thead><tbody></tbody></table></div></div>
       </div>
     </div>
-    <div class="section" id="sec-trend"><div class="section-head"><div class="sec-icon">08</div><h2>킥스타터 특수 지표</h2></div>
-      <div class="g3">
+    <div class="section"><div class="section-head"><div class="sec-icon">SP</div><h2>Staff Pick / Project We Love 효과</h2></div>
+      <div class="g2">
         <div class="card">
-          <h3>AI 사용 여부 표시</h3>
-          <div class="insight-box">
-            <div class="ib-title">AI 사용 프로젝트 비율</div>
-            <div class="ib-num" id="val-ai">-</div>
-            <div style="color:var(--muted);font-size:10px;">킥스타터가 2024년부터 모든 프로젝트에 AI 사용 여부를 의무 표시하도록 함. 이 데이터로 AI 활용 프로젝트 트렌드를 추적할 수 있음.</div>
-          </div>
+          <h3>Staff Pick 선정 vs 미선정</h3>
+          <div class="chart-wrap"><canvas id="ch-pwl"></canvas></div>
         </div>
         <div class="card">
-          <h3>친환경 프로젝트 표시</h3>
+          <h3>킥스타터 추천 (Staff Pick) 이란?</h3>
           <div class="insight-box">
-            <div class="ib-title">친환경 표시 프로젝트 성공률 차이</div>
-            <div class="ib-num">+19.5pp</div>
-            <div style="color:var(--muted);font-size:10px;">킥스타터가 제공하는 환경 관련 약속(친환경 소재, 탄소 감축 등)을 표시한 프로젝트가 미표시 대비 성공률 19.5%p 높음. ESG 관심이 후원에 직접 영향.</div>
-          </div>
-          <div id="env-detail" style="margin-top:8px;"></div>
-        </div>
-        <div class="card">
-          <h3>킥스타터 추천 (Project We Love)</h3>
-          <div class="insight-box">
-            <div class="ib-title">킥스타터 편집팀이 직접 선정한 추천 프로젝트</div>
-            <div class="ib-num">+36.8pp</div>
-            <div style="color:var(--muted);font-size:10px;">추천 배지 받은 프로젝트 71.9% 성공 vs 미선정 35.1% — 가장 강력한 외부 신호 중 하나</div>
+            <div class="ib-title">킥스타터 편집팀이 직접 선정하는 추천 프로젝트</div>
+            <div id="sp-detail" style="margin-top:8px;font-size:12px;color:var(--sub);line-height:1.7;">로딩 중...</div>
           </div>
           <div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div>
         </div>
@@ -1426,10 +1402,21 @@ async function main(){
       const cats=Object.entries(D.categories).sort((a,b)=>b[1].count-a[1].count);
       makeChart('ch-cat-success','bar',cats.map(c=>c[0]),[{data:cats.map(c=>c[1].success_rate),backgroundColor:cats.map(c=>c[1].success_rate>=50?'#10b981':c[1].success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
       const tbody=document.querySelector('#tbl-cat tbody');
-      if(tbody) tbody.innerHTML=cats.map(([n,d])=>{
-        const cls=d.success_rate>=50?'badge-green':d.success_rate>=30?'badge-orange':'badge-red';
-        return `<tr><td>${n}</td><td class="num">${d.count}</td><td class="num"><span class="badge ${cls}">${d.success_rate}%</span></td><td class="num">$${fmt(d.avg_pledged)}</td><td class="num">${fmt(d.avg_backers)}</td></tr>`;
-      }).join('');
+      if(tbody){
+        let html='';
+        cats.forEach(([n,d])=>{
+          const cls=d.success_rate>=50?'badge-green':d.success_rate>=30?'badge-orange':'badge-red';
+          const hasSub=d.subcategories&&d.subcategories.length>0;
+          html+=`<tr style="cursor:${hasSub?'pointer':'default'};font-weight:600;" ${hasSub?`onclick="document.querySelectorAll('.sub-${n.replace(/[^a-zA-Z]/g,'')}').forEach(r=>r.style.display=r.style.display==='none'?'':'none')"`:''}><td>${n} ${hasSub?'<span style=\"font-size:9px;color:var(--sub);\">&#x25BC;</span>':''}</td><td class="num">${d.count}</td><td class="num"><span class="badge ${cls}">${d.success_rate}%</span></td><td class="num">$${fmt(d.avg_pledged)}</td><td class="num">${fmt(d.avg_backers)}</td></tr>`;
+          if(hasSub){
+            d.subcategories.forEach(sc=>{
+              const scls=sc.success_rate>=50?'badge-green':sc.success_rate>=30?'badge-orange':'badge-red';
+              html+=`<tr class="sub-${n.replace(/[^a-zA-Z]/g,'')}" style="display:none;font-size:11px;color:var(--sub);"><td style="padding-left:24px;">${sc.name}</td><td class="num">${sc.count}</td><td class="num"><span class="badge ${scls}">${sc.success_rate}%</span></td><td class="num">$${fmt(sc.avg_pledged)}</td><td class="num">${fmt(sc.avg_backers)}</td></tr>`;
+            });
+          }
+        });
+        tbody.innerHTML=html;
+      }
     }
 
     // Reward (from precomputed)
@@ -1445,13 +1432,11 @@ async function main(){
       if(tb) tb.innerHTML=D.popular_prices.map(p=>`<tr><td>$${p.price}</td><td class="num">${p.count}</td><td class="num">-</td><td class="num">-</td></tr>`).join('');
     }
 
-    // Content charts
+    // Bucket charts
     function renderBucketChart(id,data){
-      if(!data)return;
-      makeChart(id,'bar',data.map(d=>d.label),[{data:data.map(d=>d.success_rate),backgroundColor:data.map(d=>d.success_rate>=50?'#10b981':d.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+      if(!data||!data.length)return;
+      makeChart(id,'bar',data.map(d=>d.label),[{data:data.map(d=>d.success_rate),backgroundColor:data.map(d=>d.success_rate>=50?'#10b981':d.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}},x:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
     }
-    renderBucketChart('ch-story',D.story_vs_success);
-    renderBucketChart('ch-images',D.image_vs_success);
     renderBucketChart('ch-duration',D.duration_vs_success);
     renderBucketChart('ch-backers',D.backer_vs_success);
 
@@ -1482,10 +1467,12 @@ async function main(){
     }
     document.getElementById('compare-table').innerHTML=`<table style="font-size:11px;"><tr><th></th><th class="num" style="color:#10b981;">성공</th><th class="num" style="color:var(--red);">실패</th></tr><tr><td>평균 목표액</td><td class="num">$${fmt(D.failure_profile?.success_avg_goal)}</td><td class="num">$${fmt(D.failure_profile?.fail_avg_goal)}</td></tr><tr><td>평균 후원자</td><td class="num">${fmt(D.failure_profile?.success_avg_backers)}</td><td class="num">${fmt(D.failure_profile?.fail_avg_backers)}</td></tr></table>`;
 
-    // PWL / ENV
-    if(D.pwl) makeChart('ch-pwl','bar',['추천 선정','미선정'],[{data:[D.pwl.yes_rate,D.pwl.no_rate],backgroundColor:['#10b981','#ef4444'],borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
-    if(D.env){
-      document.getElementById('env-detail').innerHTML=`<div style="display:flex;gap:8px;"><div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;color:var(--muted);">친환경 표시 있음</div><div style="font-size:18px;font-weight:800;color:#10b981;">${D.env.yes_rate}%</div><div style="font-size:9px;color:var(--muted);">${D.env.yes_count}건</div></div><div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;color:var(--muted);">친환경 표시 없음</div><div style="font-size:18px;font-weight:800;color:var(--red);">${D.env.no_rate}%</div><div style="font-size:9px;color:var(--muted);">${D.env.no_count}건</div></div></div>`;
+    // Staff Pick
+    if(D.staff_pick){
+      const sp=D.staff_pick;
+      makeChart('ch-pwl','bar',['Staff Pick 선정','미선정'],[{data:[sp.yes_rate,sp.no_rate],backgroundColor:['#10b981','#ef4444'],borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+      const spd=document.getElementById('sp-detail');
+      if(spd) spd.innerHTML=`Staff Pick 선정: <b>${sp.yes_rate}%</b> 성공 (${sp.yes_count}건)<br>미선정: <b>${sp.no_rate}%</b> 성공 (${sp.no_count}건)<br><b>차이: +${(sp.yes_rate-sp.no_rate).toFixed(1)}pp</b> — 편집팀 추천이 성공에 큰 영향`;
     }
 
     // Pledge per backer by category
