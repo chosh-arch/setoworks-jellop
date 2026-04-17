@@ -1,124 +1,78 @@
 {
-  "model_info": {
-    "name": "XGBoost (런칭 전 변수만)",
-    "features": 38,
-    "training_data": 9983,
-    "cv_auc": 0.7955,
-    "test_auc": 0.793,
-    "test_accuracy": 76.0,
-    "test_f1": 0.8352,
-    "gap": 0.1,
-    "note": "결과 확정 프로젝트(성공+실패+취소)만으로 학습. 런칭 전 입력 가능한 변수만 사용."
+  "track_a": {
+    "name": "XGBoost (기본 변수)",
+    "features": [
+      "목표금액",
+      "캠페인기간",
+      "비디오유무",
+      "카테고리",
+      "국가"
+    ],
+    "training_data": 10006,
+    "auc": 0.8173,
+    "accuracy": 78.1,
+    "cv_auc": 0.8041,
+    "note": "결과 확정 10006건으로 학습. Webrobots+우리 크롤링 데이터 혼합."
   },
-  "feature_importance": [
-    {
-      "name": "story_length",
-      "score": 0.2118
-    },
-    {
-      "name": "duration",
-      "score": 0.1328
-    },
-    {
-      "name": "rewards_count",
-      "score": 0.1206
-    },
-    {
-      "name": "log_goal",
-      "score": 0.1091
-    },
-    {
-      "name": "cur_HKD",
-      "score": 0.0573
-    },
-    {
-      "name": "co_HK",
-      "score": 0.0495
-    },
-    {
-      "name": "story_images",
-      "score": 0.0406
-    },
-    {
-      "name": "has_video",
-      "score": 0.0367
-    },
-    {
-      "name": "cur_EUR",
-      "score": 0.0305
-    },
-    {
-      "name": "co_Other",
-      "score": 0.0226
-    },
-    {
-      "name": "co_DE",
-      "score": 0.0208
-    },
-    {
-      "name": "cat_Art",
-      "score": 0.0179
-    },
-    {
-      "name": "co_IT",
-      "score": 0.0167
-    },
-    {
-      "name": "co_ES",
-      "score": 0.0145
-    },
-    {
-      "name": "co_US",
-      "score": 0.0134
-    }
-  ],
+  "track_b": {
+    "name": "XGBoost (콘텐츠 변수)",
+    "features": [
+      "스토리길이",
+      "이미지수",
+      "리워드수",
+      "FAQ수"
+    ],
+    "training_data": 843,
+    "auc": 0.8323,
+    "note": "상세 크롤링 843건만으로 학습. 샘플 수 제한으로 참고용."
+  },
   "scoring_tables": {
     "goal": [
       {
         "label": "<$500",
         "min": 0,
         "max": 500,
-        "predicted": 93.0,
+        "predicted": 92.9,
         "actual": 93.4,
-        "count": 1643
+        "count": 1651
       },
       {
         "label": "$500-1K",
         "min": 500,
         "max": 1000,
-        "predicted": 85.0,
+        "predicted": 85.4,
         "actual": 84.2,
-        "count": 1220
+        "count": 1222
       },
       {
         "label": "$1-2K",
         "min": 1000,
         "max": 2000,
-        "predicted": 78.7,
-        "actual": 78.4,
-        "count": 1325
+        "predicted": 78.3,
+        "actual": 78.5,
+        "count": 1328
       },
       {
         "label": "$2-5K",
         "min": 2000,
         "max": 5000,
-        "predicted": 71.1,
+        "predicted": 71.4,
         "actual": 71.5,
-        "count": 1924
+        "count": 1925
       },
       {
         "label": "$5-10K",
         "min": 5000,
         "max": 10000,
-        "predicted": 60.3,
-        "actual": 59.7,
-        "count": 1525
+        "predicted": 60.2,
+        "actual": 59.9,
+        "count": 1532
       },
       {
         "label": "$10-25K",
         "min": 10000,
         "max": 25000,
-        "predicted": 49.7,
+        "predicted": 49.5,
         "actual": 50.9,
         "count": 1370
       },
@@ -126,15 +80,15 @@
         "label": "$25-50K",
         "min": 25000,
         "max": 50000,
-        "predicted": 33.2,
-        "actual": 33.6,
-        "count": 575
+        "predicted": 33.9,
+        "actual": 33.8,
+        "count": 577
       },
       {
         "label": "$50K+",
         "min": 50000,
         "max": 1000000000000.0,
-        "predicted": 22.2,
+        "predicted": 23.2,
         "actual": 23.2,
         "count": 401
       }
@@ -144,91 +98,78 @@
         "label": "1-14일",
         "min": 1,
         "max": 15,
-        "predicted": 99.3,
-        "actual": 99.0,
-        "count": 100
+        "predicted": 89.6,
+        "actual": 89.9,
+        "count": 996
       },
       {
         "label": "15-21일",
         "min": 15,
         "max": 22,
-        "predicted": 99.3,
-        "actual": 100.0,
-        "count": 134
+        "predicted": 86.5,
+        "actual": 87.0,
+        "count": 1364
       },
       {
         "label": "22-30일",
         "min": 22,
         "max": 31,
-        "predicted": 99.3,
-        "actual": 98.8,
-        "count": 402
+        "predicted": 68.8,
+        "actual": 68.7,
+        "count": 4998
       },
       {
         "label": "31-45일",
         "min": 31,
         "max": 46,
-        "predicted": 99.1,
-        "actual": 99.2,
-        "count": 120
+        "predicted": 64.1,
+        "actual": 64.8,
+        "count": 1499
       },
       {
         "label": "46-60일",
         "min": 46,
         "max": 61,
-        "predicted": 99.0,
-        "actual": 98.2,
-        "count": 57
+        "predicted": 35.7,
+        "actual": 35.3,
+        "count": 1147
       }
     ],
     "story_length": [
       {
-        "label": "0",
-        "min": 0,
-        "max": 1,
-        "predicted": 66.0,
-        "actual": 66.2,
-        "count": 9170
-      },
-      {
         "label": "<1K",
-        "min": 1,
+        "min": 0,
         "max": 1000,
-        "predicted": 98.5,
         "actual": 100.0,
-        "count": 16
+        "count": 17
       },
       {
         "label": "1-5K",
         "min": 1000,
         "max": 5000,
-        "predicted": 98.8,
-        "actual": 98.3,
-        "count": 176
+        "actual": 97.8,
+        "count": 182
       },
       {
         "label": "5-10K",
         "min": 5000,
         "max": 10000,
-        "predicted": 99.4,
-        "actual": 98.6,
-        "count": 219
+        "actual": 98.7,
+        "count": 225
       },
       {
         "label": "10-20K",
         "min": 10000,
         "max": 20000,
-        "predicted": 99.4,
-        "actual": 99.1,
-        "count": 224
+        "actual": 99.2,
+        "count": 238
       },
       {
         "label": "20K+",
         "min": 20000,
         "max": 1000000000.0,
-        "predicted": 99.3,
         "actual": 100.0,
-        "count": 178
+        "count": 181
       }
     ],
     "story_images": [
@@ -236,75 +177,59 @@
         "label": "0",
         "min": 0,
         "max": 1,
-        "predicted": 66.3,
-        "actual": 66.4,
-        "count": 9255
+        "actual": 95.4,
+        "count": 87
       },
       {
         "label": "1-5",
         "min": 1,
         "max": 6,
-        "predicted": 99.3,
-        "actual": 99.3,
-        "count": 142
+        "actual": 98.6,
+        "count": 148
       },
       {
         "label": "6-10",
         "min": 6,
         "max": 11,
-        "predicted": 99.5,
-        "actual": 97.9,
-        "count": 146
+        "actual": 98.0,
+        "count": 151
       },
       {
         "label": "11-20",
         "min": 11,
         "max": 21,
-        "predicted": 99.4,
         "actual": 100.0,
-        "count": 440
+        "count": 457
       }
     ],
     "rewards_count": [
       {
-        "label": "0",
-        "min": 0,
-        "max": 1,
-        "predicted": 66.0,
-        "actual": 66.2,
-        "count": 9171
-      },
-      {
         "label": "1-3",
         "min": 1,
         "max": 4,
-        "predicted": 98.8,
-        "actual": 98.5,
-        "count": 135
+        "actual": 98.6,
+        "count": 140
       },
       {
         "label": "4-6",
         "min": 4,
         "max": 7,
-        "predicted": 99.5,
-        "actual": 99.0,
-        "count": 289
+        "actual": 98.7,
+        "count": 300
       },
       {
         "label": "7-10",
         "min": 7,
         "max": 11,
-        "predicted": 99.3,
         "actual": 99.6,
-        "count": 243
+        "count": 253
       },
       {
         "label": "10+",
         "min": 10,
         "max": 999,
-        "predicted": 99.1,
         "actual": 98.9,
-        "count": 176
+        "count": 182
       }
     ],
     "faqs_count": [
@@ -312,33 +237,29 @@
         "label": "0",
         "min": 0,
         "max": 1,
-        "predicted": 67.8,
-        "actual": 67.9,
-        "count": 9691
+        "actual": 99.1,
+        "count": 540
       },
       {
         "label": "1-3",
         "min": 1,
         "max": 4,
-        "predicted": 99.4,
-        "actual": 99.1,
-        "count": 117
+        "actual": 99.2,
+        "count": 120
       },
       {
         "label": "4-6",
         "min": 4,
         "max": 7,
-        "predicted": 99.4,
-        "actual": 98.9,
-        "count": 95
+        "actual": 99.0,
+        "count": 99
       },
       {
         "label": "7+",
         "min": 7,
         "max": 999,
-        "predicted": 98.7,
-        "actual": 97.5,
-        "count": 80
+        "actual": 97.6,
+        "count": 84
       }
     ]
   },
@@ -346,110 +267,115 @@
     "Art": {
       "predicted": 67.8,
       "actual": 67.9,
-      "count": 9602
+      "count": 9611
     },
     "Design": {
-      "predicted": 94.7,
-      "actual": 97.8,
-      "count": 46
+      "predicted": 94.1,
+      "actual": 98.0,
+      "count": 50
     },
     "Dance": {
-      "predicted": 98.8,
+      "predicted": 91.4,
       "actual": 100.0,
       "count": 67
     },
     "Comics": {
-      "predicted": 92.3,
+      "predicted": 94.9,
       "actual": 100.0,
-      "count": 12
+      "count": 13
     },
     "Fashion": {
-      "predicted": 96.8,
-      "actual": 94.9,
-      "count": 39
+      "predicted": 91.1,
+      "actual": 95.6,
+      "count": 45
+    },
+    "Film & Video": {
+      "predicted": 91.8,
+      "actual": 41.7,
+      "count": 12
     },
     "Technology": {
-      "predicted": 89.6,
+      "predicted": 95.4,
       "actual": 95.5,
       "count": 22
     },
     "Crafts": {
-      "predicted": 95.8,
+      "predicted": 92.8,
       "actual": 96.2,
       "count": 79
     },
     "Music": {
-      "predicted": 76.2,
+      "predicted": 86.0,
       "actual": 79.5,
       "count": 39
     },
-    "Film & Video": {
-      "predicted": 86.0,
-      "actual": 30.0,
-      "count": 10
-    },
     "Games": {
-      "predicted": 93.6,
+      "predicted": 92.5,
       "actual": 86.5,
       "count": 37
+    },
+    "Food": {
+      "predicted": 86.9,
+      "actual": 80.0,
+      "count": 10
     }
   },
   "country_scores": {
     "HK": {
-      "predicted": 87.2,
-      "actual": 87.6,
-      "count": 492
+      "predicted": 87.3,
+      "actual": 87.7,
+      "count": 495
     },
     "US": {
-      "predicted": 67.4,
-      "actual": 68.0,
-      "count": 5341
+      "predicted": 68.1,
+      "actual": 68.1,
+      "count": 5353
     },
     "Other": {
-      "predicted": 66.9,
-      "actual": 66.7,
-      "count": 919
+      "predicted": 66.5,
+      "actual": 66.8,
+      "count": 921
     },
     "JP": {
       "predicted": 77.9,
-      "actual": 78.8,
-      "count": 189
+      "actual": 78.9,
+      "count": 190
     },
     "FR": {
-      "predicted": 70.3,
+      "predicted": 69.2,
       "actual": 69.9,
       "count": 246
     },
     "GB": {
-      "predicted": 72.7,
+      "predicted": 72.1,
       "actual": 72.8,
       "count": 1108
     },
     "DE": {
-      "predicted": 56.7,
-      "actual": 54.9,
-      "count": 317
+      "predicted": 56.8,
+      "actual": 55.0,
+      "count": 318
     },
     "IT": {
-      "predicted": 61.2,
-      "actual": 60.6,
-      "count": 259
+      "predicted": 60.7,
+      "actual": 60.8,
+      "count": 260
     },
     "CA": {
-      "predicted": 67.2,
-      "actual": 67.0,
-      "count": 531
+      "predicted": 66.3,
+      "actual": 67.1,
+      "count": 532
     },
     "ES": {
-      "predicted": 66.3,
-      "actual": 65.4,
-      "count": 298
+      "predicted": 65.4,
+      "actual": 65.7,
+      "count": 300
     },
     "AU": {
-      "predicted": 68.7,
+      "predicted": 66.9,
       "actual": 65.7,
       "count": 283
     }
   },
-  "disclaimer": "본 예측은 9,974건의 킥스타터 완료 프로젝트 통계 분석에 기반한 참고 자료이며, 실제 결과를 보장하지 않습니다."
+  "disclaimer": "본 예측은 킥스타터 완료 프로젝트 통계 분석에 기반한 참고 자료이며, 실제 결과를 보장하지 않습니다. 콘텐츠 변수(스토리/이미지/리워드/FAQ)는 상세 크롤링 데이터 795건 기준으로 신뢰도가 제한적입니다."
 }

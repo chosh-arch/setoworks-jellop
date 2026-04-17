@@ -280,8 +280,10 @@ async function init(){
   PRED = await r.json();
 
   document.getElementById('disclaimer').innerHTML = PRED.disclaimer;
+  const ta = PRED.track_a || {};
+  const tb = PRED.track_b || {};
   document.getElementById('model-info').innerHTML =
-    `모델: ${PRED.model_info.name} | 정확도: ${PRED.model_info.test_accuracy}% (AUC ${PRED.model_info.test_auc}) | 학습 데이터: ${PRED.model_info.training_data.toLocaleString()}건 | 과적합 갭: ${PRED.model_info.gap}pp`;
+    `기본 모델: ${ta.name||''} (${(ta.training_data||0).toLocaleString()}건, AUC ${ta.auc||'?'}, 정확도 ${ta.accuracy||'?'}%) | 콘텐츠 모델: ${tb.name||''} (${(tb.training_data||0).toLocaleString()}건, 참고용)`;
 
   predict();
 }
