@@ -94,6 +94,20 @@ def audit_file(filepath, label):
             referenced = f"'{cid}'" in js_part
             check(f'canvas #{cid} JS 참조', referenced, f'JS에서 {cid}를 채우는 코드 없음')
 
+    # 12. JS↔JSON 키 불일치 검출 (빈 차트 방지)
+    if 'insight' in filepath:
+        import json as jj
+        try:
+            with open(filepath.replace('kickstarter-insight.html','data/dashboard.json'),'r',encoding='utf-8') as jf:
+                dash_data = jj.load(jf)
+            dash_keys = set(dash_data.keys())
+            js_main = content[content.find('async function main'):]
+            js_d_refs = set(re.findall(r'D\.(\w+)', js_main))
+            for ref in js_d_refs:
+                if ref not in dash_keys and ref not in ('_totalInDB',):
+                    check(f'D.{ref} 존재', False, f'JS에서 D.{ref} 참조하지만 dashboard.json에 없음 → 빈 차트/데이터 원인')
+        except: pass
+
     return content
 
 # Audit both files
