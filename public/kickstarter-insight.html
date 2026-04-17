@@ -1436,6 +1436,14 @@ async function main(){
     if(D.reward_vs_success){
       makeChart('ch-tier-success','bar',D.reward_vs_success.map(r=>r.label),[{data:D.reward_vs_success.map(r=>r.success_rate),backgroundColor:D.reward_vs_success.map(r=>r.success_rate>=50?'#10b981':r.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
     }
+    // Price distribution
+    if(D.price_distribution&&D.price_distribution.length>0){
+      makeChart('ch-price-dist','bar',D.price_distribution.map(d=>d.label),[{data:D.price_distribution.map(d=>d.count),backgroundColor:'#f59e0b',borderRadius:4}],{plugins:{legend:{display:false}}});
+    }
+    if(D.popular_prices&&D.popular_prices.length>0){
+      const tb=document.querySelector('#tbl-prices tbody');
+      if(tb) tb.innerHTML=D.popular_prices.map(p=>`<tr><td>$${p.price}</td><td class="num">${p.count}</td><td class="num">-</td><td class="num">-</td></tr>`).join('');
+    }
 
     // Content charts
     function renderBucketChart(id,data){

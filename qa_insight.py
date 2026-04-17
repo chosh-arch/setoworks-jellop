@@ -85,6 +85,15 @@ def audit_file(filepath, label):
     check('_isLive default가 true 아님', len(bad_assigns) == 0,
           f'_isLive=true 할당 {len(bad_assigns)}건: {bad_assigns[:2]}')
 
+    # 11. Orphan canvas check — canvas가 JS 전체에서 makeChart로 참조되는지
+    if 'insight' in filepath:
+        canvases_in_html = re.findall(r'<canvas id="([^"]+)"', content)
+        js_part = content[content.find('<script'):]
+        for cid in canvases_in_html:
+            # JS 어디에서든 이 canvas id가 makeChart에서 참조되는지
+            referenced = f"'{cid}'" in js_part
+            check(f'canvas #{cid} JS 참조', referenced, f'JS에서 {cid}를 채우는 코드 없음')
+
     return content
 
 # Audit both files
