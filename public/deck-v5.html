@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks · Jellop+α Strategic Roadmap v5</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-red: #ff003b;
+  --charcoal: #212121;
+  --navy: #0f2545;
+  --blue: #1e56b0;
+  --gold: #d4841a;
+  --green: #0d7c5f;
+  --purple: #6d28d9;
+  --cyan: #0891b2;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --slate: #334155;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Deck Container ─── */
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); }
+
+/* ─── Slide ─── */
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateX(40px);
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none; overflow: hidden;
+}
+.slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+.slide.exit-left { opacity: 0; transform: translateX(-40px); }
+
+/* ─── Top Stage Bar ─── */
+.stage-bar {
+  display: flex; align-items: center; gap: 0;
+  padding: 0 20px; height: 48px; flex-shrink: 0;
+  background: var(--charcoal); color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+.stage-pill {
+  padding: 6px 16px; font-size: 11px; font-weight: 700;
+  border-radius: 6px; cursor: pointer; transition: all .2s;
+  white-space: nowrap; letter-spacing: .02em;
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.stage-pill:hover { background: rgba(255,255,255,.1); color: #fff; }
+.stage-pill.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+.stage-pill.done { background: rgba(5,206,120,.15); color: #05ce78; border-color: rgba(5,206,120,.3); }
+.stage-sep { width: 24px; height: 1px; background: rgba(255,255,255,.15); flex-shrink: 0; }
+.stage-bar-right {
+  margin-left: auto; display: flex; align-items: center; gap: 12px;
+  font-size: 11px; color: rgba(255,255,255,.5);
+}
+.stage-bar-right img { height: 22px; filter: brightness(10); opacity: .6; }
+
+/* ─── Slide Inner ─── */
+.si {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 20px 32px; gap: 12px; overflow-y: auto;
+}
+.stag { display: flex; align-items: center; gap: 10px; }
+.snum {
+  font-family: 'Poppins', sans-serif; font-weight: 800;
+  font-size: 12px; color: var(--brand-red);
+  background: rgba(255,0,59,.06); padding: 3px 10px; border-radius: 6px;
+}
+.slbl { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .04em; }
+.st {
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  font-size: clamp(22px, 3vw, 32px); font-weight: 800;
+  line-height: 1.25; color: var(--charcoal);
+}
+.st em { color: var(--brand-red); font-style: normal; }
+.ss { font-size: 13.5px; line-height: 1.65; color: var(--slate); max-width: 800px; }
+.sb { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+
+/* ─── Cards ─── */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.card-grid { display: grid; gap: 10px; }
+.card-grid.g2 { grid-template-columns: 1fr 1fr; }
+.card-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.card-grid.g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.card h4 { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+.card p, .card li { font-size: 11.5px; line-height: 1.55; color: var(--slate); }
+.card .num { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 24px; }
+
+/* ─── Stage Intro Card ─── */
+.stage-intro {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #1a1a2e 100%);
+  border-radius: 16px; padding: 32px; color: #fff;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.stage-intro .stage-num {
+  font-family: 'Poppins', sans-serif; font-size: 48px; font-weight: 800;
+  color: var(--brand-red); line-height: 1;
+}
+.stage-intro h2 { font-size: 28px; font-weight: 800; }
+.stage-intro p { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.6; max-width: 600px; }
+
+/* ─── KPI Row ─── */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+.kpi .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.kpi .value { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: var(--brand-red); }
+.kpi .sub { font-size: 10px; color: var(--muted); }
+
+/* ─── Flow Arrow ─── */
+.flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+.flow-step {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 16px; font-size: 12px; font-weight: 600; text-align: center;
+  flex: 1; min-width: 100px;
+}
+.flow-arrow { font-size: 18px; color: var(--brand-red); padding: 0 4px; flex-shrink: 0; }
+
+/* ─── Highlight Box ─── */
+.hbox {
+  border-radius: 10px; padding: 12px 16px; font-size: 12px; line-height: 1.55;
+}
+.hbox-red { background: rgba(255,0,59,.04); border: 1px solid rgba(255,0,59,.15); }
+.hbox-blue { background: rgba(30,86,176,.04); border: 1px solid rgba(30,86,176,.15); }
+.hbox-green { background: rgba(13,124,95,.04); border: 1px solid rgba(13,124,95,.15); }
+.hbox-gold { background: rgba(212,132,26,.04); border: 1px solid rgba(212,132,26,.15); }
+
+/* ─── Bottom Nav ─── */
+.bnav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px; height: 44px; flex-shrink: 0;
+  background: #fff; border-top: 1px solid var(--border);
+  font-family: 'Poppins', sans-serif; font-size: 11px;
+}
+.bnav-brand { color: var(--muted); font-weight: 600; letter-spacing: .04em; }
+.bnav-brand span { color: var(--brand-red); }
+.bnav-pos { color: var(--charcoal); font-weight: 700; }
+.bnav-ctrl { display: flex; gap: 6px; }
+.bnav-btn {
+  width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
+  background: #fff; cursor: pointer; font-size: 14px; color: var(--charcoal);
+  display: flex; align-items: center; justify-content: center; transition: all .15s;
+}
+.bnav-btn:hover { background: var(--bg); border-color: var(--brand-red); color: var(--brand-red); }
+
+/* ─── Print ─── */
+@media print {
+  .stage-bar, .bnav { display: none; }
+  .slide { position: relative; opacity: 1; transform: none; pointer-events: all; page-break-after: always; }
+  .si { overflow: visible; }
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.slide.active .stag { animation: fadeUp .4s ease .05s both; }
+.slide.active .st { animation: fadeUp .4s ease .12s both; }
+.slide.active .ss { animation: fadeUp .4s ease .19s both; }
+.slide.active .sb { animation: fadeUp .4s ease .26s both; }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ══════════════════════════════════════════
+     STAGE 0: 도입 — 세토웍스는 이렇게 된다
+     ══════════════════════════════════════════ -->
+
+<!-- 0-0: 커버 -->
+<div class="slide" data-stage="0" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill active" onclick="goStage(0)">도입</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(1)">1. 킥스타터</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right">
+      <span id="deck-date"></span>
+      <img src="setoworks_logo_4x.png" alt="SETOWORKS">
+    </div>
+  </div>
+  <div class="si" style="justify-content:center;align-items:center;text-align:center;background:linear-gradient(180deg,#fff 0%,#f0f2ff 100%);">
+    <img src="setoworks_logo_8x.png" alt="SETOWORKS" style="height:52px;margin-bottom:8px;">
+    <div style="width:60px;height:2px;background:var(--brand-red);margin:8px auto;"></div>
+    <div class="st" style="font-size:36px;">Jellop+α</div>
+    <div style="font-size:16px;color:var(--slate);font-weight:500;margin-top:4px;">14년 노하우 위에 얹는 데이터 자동화</div>
+    <div style="margin-top:20px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+      <div class="kpi" style="min-width:140px;"><div class="label">누적 프로젝트</div><div class="value">1,200건</div><div class="sub">2012~2026</div></div>
+      <div class="kpi" style="min-width:140px;"><div class="label">누적 펀딩액</div><div class="value">520억</div><div class="sub">글로벌</div></div>
+      <div class="kpi" style="min-width:140px;"><div class="label">현재 매출</div><div class="value">50억/년</div><div class="sub">2025 기준</div></div>
+      <div class="kpi" style="min-width:140px;"><div class="label">Year 4 목표</div><div class="value">126억</div><div class="sub">2.5배 성장</div></div>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);">
+      <em style="color:var(--brand-red);">"보고서가 아니라 실행까지 연결해야 계약이 된다."</em> — 대표
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos"></div>
+    <div class="bnav-ctrl">
+      <button class="bnav-btn" onclick="go(-1)">&#8592;</button>
+      <button class="bnav-btn" onclick="go(1)">&#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- 0-1: 현재 위치 + 방향 -->
+<div class="slide" data-stage="0" data-sub="1">
+  <div class="stage-bar">
+    <div class="stage-pill active" onclick="goStage(0)">도입</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(1)">1. 킥스타터</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div>
+    <div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">INTRO</span><span class="slbl">Direction · 진행 방향</span></div>
+    <div class="st">14년 카테고리 리더의 <em>다음 진화</em></div>
+    <div class="ss">세토웍스는 이미 1위 — Jellop+α는 신규 사업이 아니라 14년 운영 데이터 위에 AI를 얹는 진화 프로젝트. "데이터 독점 기반 실행 회사"로 재포지셔닝한다.</div>
+    <div class="sb">
+      <div style="display:flex;gap:10px;">
+        <div class="card" style="flex:1;border-top:3px solid var(--brand-red);">
+          <h4 style="color:var(--brand-red);">사업 3축</h4>
+          <ul style="padding-left:16px;">
+            <li>글로벌 크라우드펀딩 (KS/IG/Wadiz/Makuake)</li>
+            <li>이커머스 확장 (아마존/라쿠텐/큐텐)</li>
+            <li>오프라인 유통 + 바이어 발굴</li>
+          </ul>
+        </div>
+        <div class="card" style="flex:1;border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">개발 원칙 3가지</h4>
+          <ul style="padding-left:16px;">
+            <li><strong>"개발이라는 생각을 버려라"</strong> — 기획+빠른 구현</li>
+            <li><strong>속도가 전부</strong> — 빨리 만들어 빨리 내놓기</li>
+            <li><strong>세토웍스 연관만</strong> — 브랜딩과 아이덴티티</li>
+          </ul>
+        </div>
+        <div class="card" style="flex:1;border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">업무 비중</h4>
+          <ul style="padding-left:16px;">
+            <li><strong>70%</strong> — 내부 자동화/GTM 시스템</li>
+            <li><strong>30%</strong> — 외부 사업화 서비스</li>
+            <li>목표: 업무 80~90% 자동화</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hbox hbox-red" style="flex:none;">
+        <strong>전체 플로우:</strong> 킥스타터 섭렵(데이터 확보) → 인플루언서 시딩(마케팅 파워) → 글로벌 펀딩 확장(5개 플랫폼) → 이커머스 전환(바이어+물류) → 내부 자동화(80~90%)
+      </div>
+
+      <div class="flow" style="flex:none;">
+        <div class="flow-step" style="background:rgba(255,0,59,.06);border-color:var(--brand-red);color:var(--brand-red);font-weight:800;">1. 킥스타터 섭렵</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(30,86,176,.06);border-color:var(--blue);color:var(--blue);">2. 인플루언서 시딩</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(212,132,26,.06);border-color:var(--gold);color:var(--gold);">3. 글로벌 펀딩</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(13,124,95,.06);border-color:var(--green);color:var(--green);">4. 이커머스 전환</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(109,40,217,.06);border-color:var(--purple);color:var(--purple);">5. 내부 자동화</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos1"></div>
+    <div class="bnav-ctrl">
+      <button class="bnav-btn" onclick="go(-1)">&#8592;</button>
+      <button class="bnav-btn" onclick="go(1)">&#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- 0-2: 실측 현황 -->
+<div class="slide" data-stage="0" data-sub="2">
+  <div class="stage-bar">
+    <div class="stage-pill active" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">INTRO</span><span class="slbl">Live System · 실측 현황</span></div>
+    <div class="st">이미 가동 중인 <em>실측 데이터</em></div>
+    <div class="ss">테스트가 아닌 실제 운영 중인 인프라. 매일 자동 수집, 5개 플랫폼 크롤링, 킥스타터 GraphQL 상세 크롤링 완료.</div>
+    <div class="sb">
+      <div class="kpi-row" style="flex:none;">
+        <div class="kpi"><div class="label">인플루언서</div><div class="value">59명</div><div class="sub">S:3 / A:20+ / B:25+</div></div>
+        <div class="kpi"><div class="label">콘텐츠 수집</div><div class="value">4,500+</div><div class="sub">70건/채널</div></div>
+        <div class="kpi"><div class="label">크롤링 제품</div><div class="value">3,398</div><div class="sub">5개 플랫폼</div></div>
+        <div class="kpi"><div class="label">KS 상세</div><div class="value">2,701</div><div class="sub">리워드·FAQ·댓글</div></div>
+        <div class="kpi"><div class="label">QA 항목</div><div class="value">74</div><div class="sub">전체 PASS</div></div>
+        <div class="kpi"><div class="label">DB 크기</div><div class="value">~28MB</div><div class="sub">8,365행</div></div>
+      </div>
+      <div class="card-grid g3" style="flex:1;">
+        <div class="card" style="border-top:3px solid var(--brand-red);">
+          <h4 style="color:var(--brand-red);">킥스타터 크롤링</h4>
+          <p>• 2,701건 라이브 전체 수집<br>• GraphQL API 상세 (리워드·FAQ·댓글·스토리·리스크)<br>• curl_cffi + 프록시 5개 병렬<br>• 47개 인사이트 엔진 구축<br>• <strong>업계 최초 GraphQL 직접 활용</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">인플루언서 시스템</h4>
+          <p>• YouTube API v3 매일 자동 수집<br>• Pure Score 티어별 벤치마크<br>• 13개 카테고리 × 8개국<br>• 심층 벤치마크 분석 (6종 파생지표)<br>• 강점/약점 자동 태깅</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">운영 대시보드</h4>
+          <p>• React + Vite + Vercel 라이브<br>• KS Live + Insight Engine 대시보드<br>• 인플루언서 관리 (Plane 스타일)<br>• 크롤링 모니터 (5플랫폼)<br>• git push → 50초 자동 배포</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos2"></div>
+    <div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 1: 킥스타터 섭렵
+     ══════════════════════════════════════════ -->
+
+<!-- 1-0: 스테이지 인트로 -->
+<div class="slide" data-stage="1" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si" style="justify-content:center;align-items:center;">
+    <div class="stage-intro" style="max-width:700px;text-align:center;">
+      <div class="stage-num">01</div>
+      <h2>킥스타터 섭렵</h2>
+      <p>"킥스타터를 먼저 했으면 좋겠어요. <strong>무조건.</strong>" — 대표<br><br>
+      킥스타터를 놓치면 데미지가 크다. 혁신 제품의 시작점이고, 여기서 잡은 고객이 이커머스·바이어 발굴로 파생된다. 킥스타터 관련 서비스를 빠르게 여러 개 만들어놓는 것이 핵심.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;">
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+          📊 예측 솔루션
+        </div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+          👤 슈퍼백커 트래킹
+        </div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+          🔥 트렌드/랭킹
+        </div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+          📑 인사이트 엔진
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos3"></div>
+    <div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- 1-1: 데이터 수집 현황 -->
+<div class="slide" data-stage="1" data-sub="1">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">1-1</span><span class="slbl">Data Collection · 데이터 수집</span></div>
+    <div class="st">킥스타터 2,701건 <em>상세 크롤링 완료</em></div>
+    <div class="ss">Cloudflare TLS 위장 + 프록시 + GraphQL API 직접 활용 — 오픈소스 19개를 분석한 결과 우리 방식이 업계 최초이자 가장 완전한 데이터를 확보한다.</div>
+    <div class="sb">
+      <div class="kpi-row" style="flex:none;">
+        <div class="kpi"><div class="label">라이브 프로젝트</div><div class="value" style="color:var(--brand-red);">2,701</div><div class="sub">15개 카테고리 전체</div></div>
+        <div class="kpi"><div class="label">리워드 티어</div><div class="value" style="color:var(--gold);">수천 개</div><div class="sub">금액/후원자/배송/아이템</div></div>
+        <div class="kpi"><div class="label">FAQ</div><div class="value" style="color:var(--blue);">수만 개</div><div class="sub">질문+답변 전체</div></div>
+        <div class="kpi"><div class="label">댓글</div><div class="value" style="color:var(--green);">수만 건</div><div class="sub">프로젝트당 50건</div></div>
+      </div>
+      <div class="card-grid g2">
+        <div class="card">
+          <h4>📦 수집 데이터 목록</h4>
+          <p>• 프로젝트 기본 (이름, 설명, 카테고리, 크리에이터)<br>
+          • 모금액, 목표액, 달성률, 후원자 수<br>
+          • <strong>스토리 HTML 전문</strong> (평균 50KB/건, 이미지 URL 포함)<br>
+          • <strong>리워드 티어</strong> (금액, 설명, 후원자수, 배송일, 잔여수량, 아이템)<br>
+          • <strong>FAQ</strong> 전체 (질문+답변)<br>
+          • <strong>댓글</strong> (본문, 작성자, 날짜, 배지)<br>
+          • <strong>업데이트</strong> (제목, 날짜, 공개여부)<br>
+          • 리스크 & 챌린지, 환경 공시, AI 공시<br>
+          • 크리에이터 상세 (바이오, 슈퍼백커 여부)<br>
+          • 비디오 프리뷰, 국가, 위치, Staff Pick</p>
+        </div>
+        <div class="card">
+          <h4>🔧 기술 스택</h4>
+          <p>• <strong>curl_cffi</strong> Chrome 124 TLS 위장 → Cloudflare 통과<br>
+          • <strong>프록시 풀</strong> 10개 확보, 4개 안정 (GitHub 3,600+ 자동 탐색)<br>
+          • <strong>GraphQL API</strong> 직접 활용 (세션 쿠키 + CSRF 토큰)<br>
+          • 페이지 방문 1회 → GraphQL 2회 = 프로젝트당 3요청<br>
+          • 병렬 5워커로 ~70분에 전체 완료<br>
+          • <strong>무결성 검증</strong>: validateInfluencer 7항목 체크<br>
+          • <strong>재시도</strong>: 실패 0 될 때까지 자동 반복</p>
+          <div class="hbox hbox-red" style="margin-top:8px;">
+            <strong>경쟁 우위:</strong> 오픈소스 19개 (kickscrape, njday, Devids 등) 전부 HTML 스크래핑 → KS SPA 전환 후 작동 불가. 우리는 GraphQL 직접 사용.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos4"></div>
+    <div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- 1-2: 예측 솔루션 3단계 -->
+<div class="slide" data-stage="1" data-sub="2">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">1-2</span><span class="slbl">Prediction · 예측 솔루션</span></div>
+    <div class="st">예측 솔루션 <em>3단계 로드맵</em></div>
+    <div class="ss">"얼마나 구체적으로 잘 예측해주느냐"가 핵심. 금액 예측은 사기죄 영역 → 스코링으로. VC도 성공 확률 30%, 우리 실패 데이터가 진짜 경쟁력.</div>
+    <div class="sb">
+      <div class="card-grid g3" style="flex:none;">
+        <div class="card" style="border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">1단계: 킥스타터 예측</h4>
+          <p style="font-size:10px;color:var(--muted);margin-bottom:4px;">난이도: 쉬움 | 시기: 즉시</p>
+          <p>• 2,701건 데이터 기반 스코링<br>• 카테고리별 성공 패턴<br>• 100% 실패 판별 (최우선)<br>• "이 제품은 킥스타터가 맞다/아니다" 추천</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold);">
+          <h4 style="color:var(--gold);">2단계: 글로벌 펀딩 예측</h4>
+          <p style="font-size:10px;color:var(--muted);margin-bottom:4px;">난이도: 중간 | 시기: 1단계 직후</p>
+          <p>• 와디즈/마쿠아케/잭잭 데이터 통합<br>• "이 제품은 킥스타터 아님, 다른 데서 먼저"<br>• 플랫폼별 성공 예측 비교</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">3단계: 이커머스 판매 예측</h4>
+          <p style="font-size:10px;color:var(--muted);margin-bottom:4px;">난이도: 어려움 | 시기: 장기</p>
+          <p>• 아마존/라쿠텐/큐텐 데이터<br>• 데이터 방대 + 정확성 이슈<br>• "일본 아마존에 가시면 됩니다" 추천</p>
+        </div>
+      </div>
+      <div class="card" style="flex:none;">
+        <h4>🎯 3단계 예측 방식</h4>
+        <div class="flow" style="margin-top:8px;">
+          <div class="flow-step" style="background:#fee2e2;color:#b91c1c;"><strong>① 100% 실패 판별</strong><br><span style="font-size:10px;">이건 확실히 안 된다</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="background:#fef3dc;color:var(--gold);"><strong>② 확률적 스코링</strong><br><span style="font-size:10px;">성공 확률 점수화</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="background:#d1fae5;color:var(--green);"><strong>③ 성공 가능성 높은 케이스</strong><br><span style="font-size:10px;">적극 추천 + 실행 연결</span></div>
+        </div>
+      </div>
+      <div class="hbox hbox-red" style="flex:none;">
+        <strong>⚠️ 리스크 관리:</strong> 금액 예측("얼마 팔린다")은 돈을 받으면 사기죄 가능. 반드시 "스코링"으로 표현. 추천은 하되 보장은 안 한다.
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos5"></div>
+    <div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- 1-3: 슈퍼백커 + 트렌드 + 벤치마크 -->
+<div class="slide" data-stage="1" data-sub="3">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">1-3</span><span class="slbl">Services · 킥스타터 서비스</span></div>
+    <div class="st">슈퍼백커 트래킹 + <em>트렌드/랭킹</em></div>
+    <div class="ss">"슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어." — 대표. KickTraq는 "별거 아닌 서비스인데 니즈가 있다" = 예측 수요 증명.</div>
+    <div class="sb">
+      <div class="card-grid g2">
+        <div class="card" style="border-top:3px solid var(--brand-red);">
+          <h4 style="color:var(--brand-red);">👤 슈퍼백커 트래킹</h4>
+          <p>• 킥스타터 파워 백커 행동 분석<br>
+          • 어떤 카테고리, 어떤 가격대에 투자하는지<br>
+          • 메이커에게 "이 사람들이 당신 프로젝트에 관심 가질 확률" 제공<br>
+          • 큐텐/라쿠텐 유저 행동 패턴에도 적용 가능<br>
+          <strong style="color:var(--brand-red);">→ 메이커에게 직접 판매 가능한 서비스</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold);">
+          <h4 style="color:var(--gold);">📈 트렌드/랭킹 서비스</h4>
+          <p>• 각 나라별 <strong>모스트 펀딩</strong> (금액 최대)<br>
+          • <strong>24시간 기준 급등</strong> 프로젝트<br>
+          • <strong>카테고리별 탑</strong> 프로젝트<br>
+          • 자동 갱신 → 서비스화<br>
+          • "가져오는 것만으로는 의미 없고, 어떻게 뿌려주느냐가 핵심"</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">🏆 경쟁사 벤치마크</h4>
+          <p>• <strong>KickTraq</strong>: 예측 정확도 낮음 → 우리가 더 잘 할 수 있음<br>
+          • <strong>BackerKit</strong>: 유사 서비스 존재<br>
+          • <strong>Jellop</strong>: KS 8% 수수료 모델<br>
+          • <strong>TCF, Backerspace, 롤링스퀘어</strong>: 경쟁사<br>
+          • <strong>Spray.io</strong>: "비효율의 자동화" 평가</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">📊 47개 인사이트 엔진</h4>
+          <p>• 성공 예측 팩터 분석<br>
+          • 카테고리 인텔리전스<br>
+          • 리워드 최적화<br>
+          • 콘텐츠 품질 점수<br>
+          • 실패 패턴 감지<br>
+          • <a href="/kickstarter-insight.html" style="color:var(--green);font-weight:700;">라이브 대시보드 →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav">
+    <div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div>
+    <div class="bnav-pos" id="pos6"></div>
+    <div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 2: 인플루언서 시딩
+     ══════════════════════════════════════════ -->
+
+<!-- 2-0: 스테이지 인트로 -->
+<div class="slide" data-stage="2" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si" style="justify-content:center;align-items:center;">
+    <div class="stage-intro" style="max-width:700px;text-align:center;">
+      <div class="stage-num">02</div>
+      <h2>인플루언서 시딩</h2>
+      <p>크리에이터를 비용/규모로 3등급 분류 → 메이커 예산에 맞춘 4종 패키지.<br>나노 50명 시딩 ROI > 메가 1명. "찾기는 쉽고 검증이 어렵다" — 검증을 자동화 로직으로.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;">
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">👥 3-Tier 분류</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">📊 IIS 지표</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">💰 예산 어드바이저</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🔄 역경매 모델</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- 2-1: 3-Tier + 4종 패키지 -->
+<div class="slide" data-stage="2" data-sub="1">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">2-1</span><span class="slbl">Tiered Packaging · 3단계 분류</span></div>
+    <div class="st">인플루언서 <em>3-Tier + 4종 패키지</em></div>
+    <div class="ss">메이커는 "얼마짜리"가 아니라 "어떤 결과"를 산다. 3 Tier × 4 패키지로 의사결정을 빠르게.</div>
+    <div class="sb">
+      <div class="card-grid g3" style="flex:none;">
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">Tier 1 — 시딩/무료 (나노)</h4>
+          <p>1K~30K 팔로워 / 제품 단가만<br>50~150명 동시 시딩<br>실 게시율 30~50%<br>신뢰도/UGC 양 확보<br><strong>ROI: 무한대 (제품비만)</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">Tier 2 — 유료 미드</h4>
+          <p>30K~300K 팔로워 / 15~200만원/건<br>계약 기반 (게시 보장+마감일)<br>Reels/TikTok 소재 재활용<br>캠페인당 5~15명<br><strong>전환 광고 핵심 소재</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--brand-red);">
+          <h4 style="color:var(--brand-red);">Tier 3 — 메가 앵커</h4>
+          <p>300K~수백만 / 500~5,000만원+<br>단독 영상 + 라이브커머스<br>IP 제휴 + PR/언론 노출<br>캠페인당 1~3명<br><strong>메가 케이스 트리거</strong></p>
+        </div>
+      </div>
+      <div class="card-grid g4" style="flex:none;">
+        <div class="card" style="text-align:center;border-top:2px solid var(--green);">
+          <h4>STARTER</h4>
+          <div class="num" style="color:var(--green);">300~500만</div>
+          <p style="font-size:10px;">Tier1×50 + 예측리포트</p>
+        </div>
+        <div class="card" style="text-align:center;border-top:2px solid var(--blue);">
+          <h4>GROWTH</h4>
+          <div class="num" style="color:var(--blue);">1,500~2,500만</div>
+          <p style="font-size:10px;">T1×100 + T2×5 + 광고+LP</p>
+        </div>
+        <div class="card" style="text-align:center;border-top:2px solid var(--brand-red);">
+          <h4>MEGA</h4>
+          <div class="num" style="color:var(--brand-red);">5,000만+</div>
+          <p style="font-size:10px;">T1×150 + T2×10 + T3×2 + 풀스택</p>
+        </div>
+        <div class="card" style="text-align:center;border-top:2px solid var(--purple);">
+          <h4>CUSTOM</h4>
+          <div class="num" style="color:var(--purple);">협의</div>
+          <p style="font-size:10px;">맞춤 구성</p>
+        </div>
+      </div>
+      <div class="hbox hbox-blue" style="flex:none;">
+        <strong>업셀 전략:</strong> STARTER→GROWTH→MEGA 자연스러운 업셀. 큐비오X(30억) 사례가 MEGA 패키지의 성공 레퍼런스.
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- 2-2: IIS + 예산 어드바이저 + 역경매 + 어필리에이트 -->
+<div class="slide" data-stage="2" data-sub="2">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">2-2</span><span class="slbl">Advanced Features · 고급 기능</span></div>
+    <div class="st">IIS 지표 + 예산 어드바이저 + <em>역경매</em></div>
+    <div class="ss">인플루언서를 주식 인덱스처럼 종합 점수화(IIS). 예산 입력하면 최적 조합 자동 추천. 역경매로 효율 극대화.</div>
+    <div class="sb">
+      <div class="card-grid g2">
+        <div class="card" style="border-top:3px solid var(--purple);">
+          <h4 style="color:var(--purple);">📊 IIS 지표 (Influencer Index Score)</h4>
+          <p>• 팔로워 비율 + 봇 제거 + 정제 데이터<br>
+          • 주식 인덱스처럼 종합 점수화 (0~100)<br>
+          • Pure Score 5항목: 업로드(30) + 조회비(25) + 참여(20) + 일관성(15) + 성장(10)<br>
+          • 티어별 벤치마크 자동 비교<br>
+          • 이퀄라이저: 파라미터 조절 → 실시간 점수 변동<br>
+          <strong>현재 59명 DB에 적용 중</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold);">
+          <h4 style="color:var(--gold);">💰 예산 어드바이저</h4>
+          <p>• 예산 입력 → 최적 인플루언서 조합 자동 추천<br>
+          • ROAS 예측 (기존 캠페인 데이터 기반)<br>
+          • Tier 배분 최적화 (나노 70% + 미드 25% + 메가 5%)<br>
+          • 카테고리/국가별 단가 벤치마크<br>
+          <strong>→ 메이커 의사결정 시간 90% 절감</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--cyan);">
+          <h4 style="color:var(--cyan);">🔄 역경매(입찰) 모델 <span style="font-size:9px;background:rgba(8,145,178,.1);padding:2px 6px;border-radius:4px;">기획중</span></h4>
+          <p>• 기존: 찾기→제안 (광고주 주도)<br>
+          • 역경매: 광고주가 예산/조건 등록 → <strong>인플루언서가 입찰</strong><br>
+          • 효율 극대화 (가격 경쟁 유도)<br>
+          • Spray.io 벤치마크 ("비효율의 자동화" 극복)<br>
+          <strong>→ 업계 최초 인플루언서 역경매 플랫폼</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">🔗 어필리에이트 시스템 <span style="font-size:9px;background:rgba(13,124,95,.1);padding:2px 6px;border-radius:4px;">개발예정</span></h4>
+          <p>• 인플루언서에게 고유 추적 링크 자동 발급<br>
+          • 판매 시 20% 수수료 자동 정산<br>
+          • 샘플 발송 + 링크까지 원스톱<br>
+          • 나노 인플루언서에 최적 (비용 0, 성과만 정산)<br>
+          <strong>→ 인플루언서도 사업자가 되는 구조</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 3: 글로벌 펀딩 확장
+     ══════════════════════════════════════════ -->
+
+<!-- 3-0: 스테이지 인트로 -->
+<div class="slide" data-stage="3" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si" style="justify-content:center;align-items:center;">
+    <div class="stage-intro" style="max-width:700px;text-align:center;">
+      <div class="stage-num">03</div>
+      <h2>글로벌 펀딩 확장</h2>
+      <p>킥스타터 하나가 아니라 5개 플랫폼을 동시에 섭렵한다.<br>수수료 모델: KS 8% / 와디즈 17% / 마쿠아케 22% / Jellop 15%<br>성과공유형: 안 되면 돈 안 받음, 되면 15~20% — 메이커와 같은 배.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;">
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🇺🇸 Kickstarter</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🇺🇸 Indiegogo</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🇰🇷 Wadiz</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🇯🇵 Makuake</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🇹🇼 Zeczec</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- 3-1: 5개 플랫폼 + 수익 파이프라인 + 포트폴리오 -->
+<div class="slide" data-stage="3" data-sub="1">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">3-1</span><span class="slbl">Revenue Pipeline · 수익화</span></div>
+    <div class="st">5개 수익원이 <em>동시에 켜진다</em></div>
+    <div class="ss">단일 성과 수수료에 의존하지 않는다. 파이프라인 각 단계에서 서로 다른 수익이 발생하며, 캠페인 변동성을 흡수.</div>
+    <div class="sb">
+      <div class="card-grid g3" style="flex:none;">
+        <div class="card" style="border-left:4px solid var(--brand-red);">
+          <h4>(1) 성과 수수료 15%</h4>
+          <p>펀딩 성공액의 15%. 메이커 사전 비용 0.<br>일반 1~2.5억 → 1,500~3,750만/건<br>메가(큐비오X 30억) → <strong>4.5억/건</strong></p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--blue);">
+          <h4>(2) 예측 리포트</h4>
+          <p>1,200건 데이터 기반.<br>건당 <strong>100~300만원</strong>.<br>30분 자동 생성 (사람 2~3일)</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--gold);">
+          <h4>(3) 시딩 대행</h4>
+          <p>인플루언서 발굴~운영 풀 대행.<br>건당 <strong>500~1,500만원</strong>.<br>메이커 직접 시 200시간+ 절감</p>
+        </div>
+      </div>
+      <div class="card-grid g2" style="flex:none;">
+        <div class="card" style="border-left:4px solid var(--green);">
+          <h4>(4) 풀스택 패키지</h4>
+          <p>영상+LP+시딩+광고+이커머스. 외주 5~7곳 → 1곳.<br>건당 <strong>800~2,000만원</strong></p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--purple);">
+          <h4>(5) 컨설팅 AI</h4>
+          <p>수출바우처 GTM 보고서. AI 초안+휴먼터치.<br>건당 <strong>500~1,000만원</strong> (50~100페이지)</p>
+        </div>
+      </div>
+      <div class="hbox hbox-red" style="flex:none;">
+        <strong>실측 포트폴리오:</strong> 한셉트(2.3억) · 반지2.0(1.0억) · 페이서(1.5억) · 가돌(1.6억) · <strong>큐비오X(30억+ 메가)</strong> · 젠히트(6억+). 큐비오X 1건이 Year1 보수 시나리오를 단독 초과.
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- 3-2: 차별화 5축 + 랜딩페이지 임베드 -->
+<div class="slide" data-stage="3" data-sub="2">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">3-2</span><span class="slbl">Differentiation · 차별화</span></div>
+    <div class="st">세토웍스만 가능한 <em>5가지 무기</em> + 랜딩페이지</div>
+    <div class="ss">Jellop + Spray + 기타 누구도 동시에 보유하지 않은 5축. 랜딩페이지 안에 예측+시딩 맛보기를 임베드하여 리드 유입.</div>
+    <div class="sb">
+      <div class="card-grid g3" style="flex:none;">
+        <div class="card"><h4>α1 아시아 데이터 우위</h4><p>Jellop: 미국 회사, 아시아 취약<br>세토웍스: <strong>14년 1,200건</strong> 운영 노하우</p></div>
+        <div class="card"><h4>α2 진단+실행 풀스택</h4><p>Jellop: 광고만<br>세토웍스: 영상/LP/시딩/런칭 <strong>원스톱</strong></p></div>
+        <div class="card"><h4>α3 라스트 마일 2%</h4><p>"교육된 사람 + 로직 + 데이터"<br>자동화 98% + 사람 2% = <strong>디테일</strong></p></div>
+      </div>
+      <div class="card-grid g2" style="flex:none;">
+        <div class="card"><h4>α4 사전 예측 모델</h4><p>Jellop: 사후 대시보드만<br>세토웍스: <strong>1,200건 데이터 + AI 사전 예측</strong></p></div>
+        <div class="card"><h4>α5 인플루언서 시딩</h4><p>Spray: 뷰티 한정<br>세토웍스: <strong>테크/가젯 × 백커 전환</strong> 특화</p></div>
+      </div>
+      <div class="card" style="flex:none;border-top:3px solid var(--gold);">
+        <h4 style="color:var(--gold);">🌐 랜딩페이지 서비스 임베드</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="flow-step" style="flex:1;min-width:120px;">기업 정보 입력</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="flex:1;min-width:120px;">예측 솔루션 맛보기</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="flex:1;min-width:120px;">유사 성공사례 매칭</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="flex:1;min-width:120px;">이메일 자동 발송</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="flex:1;min-width:120px;background:rgba(255,0,59,.06);color:var(--brand-red);font-weight:800;">리드 전환</div>
+        </div>
+        <p style="margin-top:6px;font-size:11px;color:var(--muted);">기술: 아이프레임/링크이동/서브페이지 모두 가능. WebView 앱으로 iOS/Android 배포도 확인됨.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 4: 이커머스 전환
+     ══════════════════════════════════════════ -->
+
+<!-- 4-0: 스테이지 인트로 -->
+<div class="slide" data-stage="4" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si" style="justify-content:center;align-items:center;">
+    <div class="stage-intro" style="max-width:700px;text-align:center;">
+      <div class="stage-num">04</div>
+      <h2>이커머스 전환</h2>
+      <p>"한 번의 버튼으로 입점→판매→마케팅"<br>크라우드펀딩에서 섭렵한 데이터와 고객을 이커머스로 부드럽게 전환한다.<br>바이어 발굴(LinkedIn 70~80%) + 물류 결합 = 풀스택 GTM.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;">
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🔍 바이어 발굴</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">📄 상세페이지 엔진</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">🚀 자적 유통</div>
+        <div style="background:rgba(255,255,255,.1);padding:8px 16px;border-radius:8px;font-size:12px;">📊 키워드 서비스</div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- 4-1: 바이어 발굴 + 상세페이지 + 자적유통 + 펀딩후 로드맵 -->
+<div class="slide" data-stage="4" data-sub="1">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">4-1</span><span class="slbl">E-commerce Services · 이커머스 서비스</span></div>
+    <div class="st">바이어 발굴 + 상세페이지 + <em>자적 유통</em></div>
+    <div class="ss">펀딩은 "신제품 마케팅 채널"로 재정의. 이커머스가 매출 주력. 바이어 발굴이 판매 실적과 직결.</div>
+    <div class="sb">
+      <div class="card-grid g2">
+        <div class="card" style="border-top:3px solid var(--blue);">
+          <h4 style="color:var(--blue);">🔍 LinkedIn 바이어 발굴</h4>
+          <p>• 해외 바이어의 <strong>70~80%</strong>가 LinkedIn에 존재<br>
+          • 자동 제안 발송 → 판매 실적 직결<br>
+          • 고비즈코리아 바이어 20~30만 DB 접근 가능<br>
+          • 스크롤링 자동화 검토 중<br>
+          <strong>→ 바이어 발굴 + 물류 결합 = 풀스택 GTM</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold);">
+          <h4 style="color:var(--gold);">📄 상세페이지 생성 엔진</h4>
+          <p>• 펀딩 상세페이지 = 고난이도 (자동화 어려움)<br>
+          • <strong>이커머스 상세페이지 = 패턴 있어서 가능</strong><br>
+          • 라쿠텐 상세페이지 자동화 즉시 검토<br>
+          • 사진 집어넣고 글 조공 → 이미 3~4년 전에 있었음<br>
+          • 우리는 더 고도화된 레벨<br>
+          <strong>→ 입점 장벽 제거</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">🚀 자적 유통 시스템</h4>
+          <p>• 한 번의 버튼으로 입점→판매→마케팅<br>
+          • 예측 → 상세페이지 → 마케팅 → 입점 → 판매 = <strong>원스톱</strong><br>
+          • 큐텐/라쿠텐/아마존 동시 확장<br>
+          <strong>→ "보고서가 아니라 실행까지 연결해야 계약이 된다"</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--purple);">
+          <h4 style="color:var(--purple);">📈 펀딩 종료 후 로드맵 자동 제안</h4>
+          <p>• 펀딩 종료 = 끝이 아니라 시작<br>
+          • 자동 추천: 일본/대만/이커머스/D2C/바이어<br>
+          • "이 제품은 일본 아마존에 가시면 됩니다" 수준<br>
+          • 큐텐 키워드 (어드민에서 인기 키워드 제공)<br>
+          • 라쿠텐 키워드 데이터 없음 = <strong>기회</strong><br>
+          <strong>→ 백커 → 리피트 → LTV 1.8~2.5배</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 5: 내부 자동화
+     ══════════════════════════════════════════ -->
+
+<!-- 5-0: 스테이지 인트로 -->
+<div class="slide" data-stage="5" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">5</span><span class="slbl">Internal Automation · 내부 자동화</span></div>
+    <div class="st">업무 80~90% <em>자동화 목표</em></div>
+    <div class="ss">업무 비중 70%는 내부 자동화. 컨설팅 보고서 AI, CRM 시스템, 뉴스레터/커뮤니티, 비용 관리 자동화.</div>
+    <div class="sb">
+      <div class="card-grid g2">
+        <div class="card" style="border-top:3px solid var(--purple);">
+          <h4 style="color:var(--purple);">📝 컨설팅 보고서 AI</h4>
+          <p>• 수출바우처 3종: GTM / 판로확대 / 바이어발굴<br>
+          • 단가 ~10만원/페이지, 500만급=50~60p, 1000만급=100p+<br>
+          • AI 초안 + 휴먼터치 편집 (AI 검출 회피 필수)<br>
+          • 이퀄라이저 비유: 파라미터화된 보고서<br>
+          • 대상 국가: 미국, 일본, 대만<br>
+          <strong>→ 보고서의 가치 = 실행 연결 (원스톱)</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--cyan);">
+          <h4 style="color:var(--cyan);">💼 자체 CRM 시스템 (Plug 대체)</h4>
+          <p>• Plug CRM 한계: 로딩, 필터, 이중입력<br>
+          • 1차: 엑셀 Export → 조건값 필터링 (즉시)<br>
+          • 2차: Plug 복제 + DB 이전 (2주)<br>
+          • 3차~5차: 풀 CRM (6개월)<br>
+          • 리드 소스: 인바운드+아웃바운드+전시회+기존고객<br>
+          • Plug 드롭 1,193+763개<br>
+          <strong>→ Salesforce 1,500만원 도입 실패 → 자체 구축</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold);">
+          <h4 style="color:var(--gold);">📰 뉴스레터/커뮤니티</h4>
+          <p>• 킥스타터 생태계 연결<br>
+          • 백커 커뮤니티 + 뉴스레터 운영<br>
+          • 리드 너처링 파이프라인<br>
+          • 콘텐츠 5대 키워드: Money/Sex/Fun/Health/Time<br>
+          <strong>→ 장기 관심층 리타겟팅</strong></p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <h4 style="color:var(--green);">⚙️ 7개 자동화 체인</h4>
+          <p>• A. 사전 예측 리포트 (30분, 사람 2~3일)<br>
+          • B. 메이커 영입 스크리닝 (일 100건)<br>
+          • C. 인플루언서 발굴/매칭 (매일 자동)<br>
+          • D. 광고 카피 자가진화 (A/B 비용 0원)<br>
+          • E. 6채널 일일 인사이트 (새벽 자동)<br>
+          • F. 미팅→액션 자동화 (회의록 0분)<br>
+          • G. 펀딩→이커머스 자동 전환<br>
+          <strong>→ Stage A 클라우드만으로 풀스택 검증</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 6: 결론
+     ══════════════════════════════════════════ -->
+
+<!-- 6-0: 매출 시뮬레이션 + 투자 계획 -->
+<div class="slide" data-stage="6" data-sub="0">
+  <div class="stage-bar">
+    <div class="stage-pill done" onclick="goStage(0)">도입</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(1)">1. 킥스타터</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(2)">2. 인플루언서</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(3)">3. 글로벌 펀딩</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(4)">4. 이커머스</div><div class="stage-sep"></div>
+    <div class="stage-pill done" onclick="goStage(5)">5. 내부 자동화</div><div class="stage-sep"></div>
+    <div class="stage-pill active" onclick="goStage(6)">결론</div>
+    <div class="stage-bar-right"><img src="setoworks_logo_4x.png" alt="SETOWORKS"></div>
+  </div>
+  <div class="si">
+    <div class="stag"><span class="snum">결론</span><span class="slbl">Conclusion · 최종 결론</span></div>
+    <div class="st">Year 1 +9~12억, Year 4 <em>126억</em></div>
+    <div class="ss">"세토웍스는 14년 1,200건 펀딩 운영 데이터 위에 데이터 기반 자동화를 구축해, 클라우드 최소 투자로 시작해 Year 1 +9~12억(기존 50억의 +20%), Year 4 126억(2.5배)을 만든다."</div>
+    <div class="sb">
+      <div class="card-grid g3" style="flex:none;">
+        <div class="kpi" style="border-top:3px solid var(--green);"><div class="label">보수 (월1건)</div><div class="value" style="color:var(--green);">4.5억</div></div>
+        <div class="kpi" style="border-top:3px solid var(--blue);"><div class="label">중간 (월2건)</div><div class="value" style="color:var(--blue);">9.6억</div></div>
+        <div class="kpi" style="border-top:3px solid var(--brand-red);"><div class="label">적극 (월4건)</div><div class="value">19.8억</div></div>
+      </div>
+      <div class="card" style="flex:none;">
+        <h4>📋 다음 7일 액션</h4>
+        <div class="card-grid g3" style="gap:6px;">
+          <div style="background:rgba(255,0,59,.03);border:1px solid rgba(255,0,59,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--brand-red);">01</strong> 킥스타터 예측 솔루션 1단계<br><span style="color:var(--muted);">2,701건 상세 데이터 기반 스코어링</span>
+          </div>
+          <div style="background:rgba(30,86,176,.03);border:1px solid rgba(30,86,176,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--blue);">02</strong> 슈퍼백커 트래킹 서비스<br><span style="color:var(--muted);">파워백커 행동 분석 → 메이커 인사이트</span>
+          </div>
+          <div style="background:rgba(212,132,26,.03);border:1px solid rgba(212,132,26,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--gold);">03</strong> 트렌드/랭킹 서비스<br><span style="color:var(--muted);">24시간 급등, 카테고리별 TOP</span>
+          </div>
+          <div style="background:rgba(13,124,95,.03);border:1px solid rgba(13,124,95,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--green);">04</strong> 인플루언서 시딩 시스템<br><span style="color:var(--muted);">59명 DB + Pure Score + 벤치마크</span>
+          </div>
+          <div style="background:rgba(109,40,217,.03);border:1px solid rgba(109,40,217,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--purple);">05</strong> 글로벌 펀딩 2단계 설계<br><span style="color:var(--muted);">와디즈/마쿠아케/잭잭 모델 확장</span>
+          </div>
+          <div style="background:rgba(8,145,178,.03);border:1px solid rgba(8,145,178,.1);border-radius:8px;padding:10px;font-size:11px;">
+            <strong style="color:var(--cyan);">06</strong> 내부 자동화 착수<br><span style="color:var(--muted);">보고서 AI + CRM + 비용 관리</span>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;gap:8px;">
+        <div class="hbox hbox-green" style="flex:1;"><strong>Stage A 예산:</strong> ~월 50만원 + 인건비. Stage B는 Phase 2 검증 후.</div>
+        <div class="hbox hbox-blue" style="flex:1;"><strong>인력:</strong> 자동화 엔지니어 1 + 데이터 1 + PM 1 = 최소 3인.</div>
+        <div class="hbox hbox-gold" style="flex:1;"><strong>선점:</strong> "방향이 맞으면 적자를 버티면서 선점하는 거야." — 카카오톡 전략</div>
+      </div>
+      <div style="flex:none;text-align:center;padding:8px;">
+        <a href="/" target="_blank" style="display:inline-block;padding:12px 28px;background:var(--brand-red);color:#fff;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;">세토웍스 플랫폼 전체 보기</a>
+        <a href="/kickstarter-insight.html" target="_blank" style="display:inline-block;padding:12px 28px;background:var(--charcoal);color:#fff;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;margin-left:12px;">KS 인사이트 엔진</a>
+      </div>
+    </div>
+  </div>
+  <div class="bnav"><div class="bnav-brand"><span>SETOWORKS</span> | Jellop+α Roadmap v5</div><div class="bnav-pos"></div><div class="bnav-ctrl"><button class="bnav-btn" onclick="go(-1)">&#8592;</button><button class="bnav-btn" onclick="go(1)">&#8594;</button></div></div>
+</div>
+
+</div>
+
+<script>
+// ─── Navigation System ───
+const slides = document.querySelectorAll('.slide');
+const TOTAL = slides.length;
+let cur = 0;
+
+function render() {
+  slides.forEach((s, i) => {
+    s.classList.remove('active', 'exit-left');
+    if (i === cur) s.classList.add('active');
+    else if (i < cur) s.classList.add('exit-left');
+  });
+  // Update all position indicators
+  document.querySelectorAll('[id^="pos"]').forEach(el => {
+    const slide = slides[cur];
+    const stage = slide.dataset.stage;
+    const sub = slide.dataset.sub;
+    const stageNames = ['도입','1.킥스타터','2.인플루언서','3.글로벌펀딩','4.이커머스','5.자동화','결론'];
+    // Count slides in this stage
+    const stageSlides = document.querySelectorAll('[data-stage="'+stage+'"]');
+    el.textContent = stageNames[stage] + ' ' + (parseInt(sub)+1) + '/' + stageSlides.length + '  (' + (cur+1) + '/' + TOTAL + ')';
+  });
+  // Update stage pills
+  const curStage = parseInt(slides[cur].dataset.stage);
+  document.querySelectorAll('.stage-pill').forEach((pill, i) => {
+    pill.classList.remove('active', 'done');
+    // Each slide has its own stage bar, so we need to update per-slide
+  });
+  // Update current slide's stage bar
+  const curSlide = slides[cur];
+  curSlide.querySelectorAll('.stage-pill').forEach((pill, i) => {
+    pill.classList.remove('active', 'done');
+    if (i === curStage) pill.classList.add('active');
+    else if (i < curStage) pill.classList.add('done');
+  });
+}
+
+function go(dir) {
+  const n = cur + dir;
+  if (n < 0 || n >= TOTAL) return;
+  cur = n;
+  render();
+}
+
+function goStage(stage) {
+  // Find first slide of this stage
+  for (let i = 0; i < TOTAL; i++) {
+    if (parseInt(slides[i].dataset.stage) === stage) {
+      cur = i;
+      render();
+      return;
+    }
+  }
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+});
+
+// Touch
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+});
+
+// Date
+(function(){
+  var el = document.getElementById('deck-date');
+  if (el) el.textContent = new Date().toISOString().slice(0,10);
+})();
+
+render();
+</script>
+</body>
+</html>
