@@ -300,8 +300,8 @@ tr:hover{background:#f8fafc;}
 <div class="acc" id="acc-geo">
   <div class="acc-head" onclick="toggleAcc('acc-geo')">
     <div class="acc-icon">GE</div>
-    <h2>지역 & AI/ESG 트렌드</h2>
-    <span class="acc-summary">30개국+ · 14개 통화 · AI/ESG 독점 데이터</span>
+    <h2>지역 & 킥스타터 특수 지표</h2>
+    <span class="acc-summary">30개국+ · 14개 통화 · AI 사용/친환경/추천 배지 분석</span>
     <span class="acc-arrow">&#x25BC;</span>
   </div>
   <div class="acc-body">
@@ -311,11 +311,34 @@ tr:hover{background:#f8fafc;}
         <div class="card"><h3>통화 분포</h3><div class="chart-wrap" style="height:200px;"><canvas id="ch-currency"></canvas></div><div style="margin-top:12px;"><table id="tbl-country"><thead><tr><th>국가</th><th class="num">프로젝트</th><th class="num">성공률</th><th class="num">평균 모금액</th></tr></thead><tbody></tbody></table></div></div>
       </div>
     </div>
-    <div class="section" id="sec-trend"><div class="section-head"><div class="sec-icon">08</div><h2>AI & ESG 트렌드</h2></div>
+    <div class="section" id="sec-trend"><div class="section-head"><div class="sec-icon">08</div><h2>킥스타터 특수 지표</h2></div>
       <div class="g3">
-        <div class="card"><h3>AI 공시</h3><div class="insight-box"><div class="ib-title">AI 사용 공시율</div><div class="ib-num" id="val-ai">-</div><div style="color:var(--muted);font-size:10px;">킥스타터 필수 필드화</div></div></div>
-        <div class="card"><h3>환경 공시</h3><div class="insight-box"><div class="ib-title">환경 공시 보유 시 성공률</div><div class="ib-num">+19.5pp</div><div style="color:var(--muted);font-size:10px;">53.1% vs 33.6%</div></div><div id="env-detail" style="margin-top:8px;"></div></div>
-        <div class="card"><h3>Project We Love 효과</h3><div class="insight-box"><div class="ib-title">PWL 배지 효과</div><div class="ib-num">+36.8pp</div><div style="color:var(--muted);font-size:10px;">71.9% vs 35.1%</div></div><div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div></div>
+        <div class="card">
+          <h3>AI 사용 여부 표시</h3>
+          <div class="insight-box">
+            <div class="ib-title">AI 사용 프로젝트 비율</div>
+            <div class="ib-num" id="val-ai">-</div>
+            <div style="color:var(--muted);font-size:10px;">킥스타터가 2024년부터 모든 프로젝트에 AI 사용 여부를 의무 표시하도록 함. 이 데이터로 AI 활용 프로젝트 트렌드를 추적할 수 있음.</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>친환경 프로젝트 표시</h3>
+          <div class="insight-box">
+            <div class="ib-title">친환경 표시 프로젝트 성공률 차이</div>
+            <div class="ib-num">+19.5pp</div>
+            <div style="color:var(--muted);font-size:10px;">킥스타터가 제공하는 환경 관련 약속(친환경 소재, 탄소 감축 등)을 표시한 프로젝트가 미표시 대비 성공률 19.5%p 높음. ESG 관심이 후원에 직접 영향.</div>
+          </div>
+          <div id="env-detail" style="margin-top:8px;"></div>
+        </div>
+        <div class="card">
+          <h3>킥스타터 추천 (Project We Love)</h3>
+          <div class="insight-box">
+            <div class="ib-title">킥스타터 편집팀이 직접 선정한 추천 프로젝트</div>
+            <div class="ib-num">+36.8pp</div>
+            <div style="color:var(--muted);font-size:10px;">추천 배지 받은 프로젝트 71.9% 성공 vs 미선정 35.1% — 가장 강력한 외부 신호 중 하나</div>
+          </div>
+          <div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div>
+        </div>
       </div>
     </div>
   </div>
@@ -900,12 +923,12 @@ function buildTrendSection(details){
   document.getElementById('env-detail').innerHTML=`
     <div style="display:flex;gap:8px;">
       <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
-        <div style="font-size:9px;color:var(--ks-muted);">ESG 공시 있음</div>
+        <div style="font-size:9px;color:var(--ks-muted);">친환경 표시 있음</div>
         <div style="font-size:18px;font-weight:800;color:#10b981;">${fmtPct(envYesRate)}</div>
         <div style="font-size:9px;color:var(--ks-muted);">${envYes.length} 건</div>
       </div>
       <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
-        <div style="font-size:9px;color:var(--ks-muted);">ESG 공시 없음</div>
+        <div style="font-size:9px;color:var(--ks-muted);">친환경 표시 없음</div>
         <div style="font-size:18px;font-weight:800;color:var(--red);">${fmtPct(envNoRate)}</div>
         <div style="font-size:9px;color:var(--ks-muted);">${envNo.length} 건</div>
       </div>
@@ -1208,6 +1231,13 @@ async function main(){
         try{
           const ed=typeof p.extra_data==='string'?JSON.parse(p.extra_data):p.extra_data;
           if(ed){
+            // DB의 percent_funded를 extra_data에 주입 (extra_data에는 없음)
+            ed.percent_funded=p.percent_funded||0;
+            ed.backers_count=ed.backers_count||p.backers_count||0;
+            ed.pledged=ed.pledged||p.pledged||0;
+            ed.goal=ed.goal||p.goal||0;
+            // story_images가 URL 배열이면 개수로 변환
+            if(Array.isArray(ed.story_images))ed.story_images=ed.story_images.length;
             DETAILS.push({slug:p.external_id,ext_id:p.external_id,status:'ok',data:ed});
             // country can be object {name,code} or string
             if(ed.country){
