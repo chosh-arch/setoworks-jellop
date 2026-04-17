@@ -229,6 +229,25 @@
     animation:fadeUp .6s .55s ease-out both;
     flex-shrink:0;
   }
+  .card-date{
+    font-family:'Poppins',sans-serif;
+    font-size:.62rem;
+    color:rgba(255,255,255,0.3);
+    letter-spacing:.03em;
+    margin-top:2px;
+  }
+  .card-date::before{
+    content:'';
+    display:inline-block;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    margin-right:5px;
+    vertical-align:middle;
+  }
+  .card-date.fresh::before{ background:#05ce78; }
+  .card-date.recent::before{ background:#f59e0b; }
+
   .footer a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color .2s}
   .footer a:hover{color:rgba(255,255,255,0.6)}
 
@@ -284,7 +303,8 @@
         <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
       </div>
       <div class="card-title">전략 데크 (PPT)</div>
-      <div class="card-subtitle">Jellop+&alpha; 90일 로드맵 · 20슬라이드</div>
+      <div class="card-subtitle">Jellop+&alpha; 90일 로드맵 · 22슬라이드</div>
+      <div class="card-date" data-page="deck.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -299,7 +319,8 @@
         <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
       </div>
       <div class="card-title">크리에이터 관리</div>
-      <div class="card-subtitle">64 인플루언서 · 5개국 · 200 콘텐츠</div>
+      <div class="card-subtitle">59 인플루언서 · 8개국 · 4,500+ 콘텐츠</div>
+      <div class="card-date" data-page="influencer-admin.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -314,7 +335,8 @@
         <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
       </div>
       <div class="card-title">운영 대시보드</div>
-      <div class="card-subtitle">530 제품 · 6 캠페인 · 실시간 분석</div>
+      <div class="card-subtitle">3,398 제품 · 실시간 분석</div>
+      <div class="card-date" data-page="index.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -330,6 +352,7 @@
       </div>
       <div class="card-title">크롤링 모니터</div>
       <div class="card-subtitle">5 플랫폼 · 97 카테고리 · 실시간 모니터링</div>
+      <div class="card-date" data-page="crawl-monitor.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -345,6 +368,7 @@
       </div>
       <div class="card-title">사내 DB 인프라</div>
       <div class="card-subtitle">PostgreSQL 70테이블 · AI 연동 · NAS 통합</div>
+      <div class="card-date" data-page="db-infra.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -360,6 +384,7 @@
       </div>
       <div class="card-title">KS Insight Engine</div>
       <div class="card-subtitle">킥스타터 성공 예측 · 47개 인사이트</div>
+      <div class="card-date" data-page="kickstarter-insight.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -375,6 +400,7 @@
       </div>
       <div class="card-title">시스템 가이드</div>
       <div class="card-subtitle">전체 시스템 문서 · 운영 매뉴얼</div>
+      <div class="card-date" data-page="system-guide.html"></div>
       <div class="card-accent-line"></div>
     </a>
 
@@ -386,6 +412,28 @@
   <div>&copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a></div>
 </footer>
 <script>
+// 각 카드의 최신화 일자 자동 로드
+(function(){
+  var cards = document.querySelectorAll('.card-date[data-page]');
+  cards.forEach(function(el){
+    var page = el.dataset.page;
+    fetch('/' + page, {method:'HEAD'}).then(function(r){
+      var lm = r.headers.get('last-modified');
+      if (lm) {
+        var d = new Date(lm);
+        var now = new Date();
+        var diff = Math.floor((now - d) / (1000*60*60*24));
+        var dateStr = d.toLocaleDateString('ko-KR',{month:'2-digit',day:'2-digit'});
+        el.textContent = 'Updated ' + dateStr;
+        if (diff <= 1) el.classList.add('fresh');
+        else if (diff <= 3) el.classList.add('recent');
+      }
+    }).catch(function(){
+      el.textContent = '';
+    });
+  });
+})();
+
 // 최신 git commit 시간을 Vercel 배포 시간으로 표시
 (function(){
   var badge = document.getElementById('update-badge');
