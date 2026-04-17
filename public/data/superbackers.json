@@ -1,67 +1,883 @@
 {
-  "total_superbackers": 1398,
-  "with_backings_data": 1396,
-  "avg_backings": 322.0,
-  "median_backings": 169.0,
-  "max_backings": 8010,
-  "backings_distribution": [
-    {
-      "range": "1-50",
-      "count": 130
-    },
-    {
-      "range": "51-100",
-      "count": 257
-    },
-    {
-      "range": "101-300",
-      "count": 606
-    },
-    {
-      "range": "301-500",
-      "count": 174
-    },
-    {
-      "range": "501-1000",
-      "count": 153
-    },
-    {
-      "range": "1000+",
-      "count": 76
+  "kpi_live": {
+    "label": "live",
+    "count": 2618,
+    "pledged_usd": 91993236,
+    "pledged_krw": 126950663159,
+    "backers": 390667,
+    "success_rate": 41.0,
+    "success_count": 1073,
+    "with_sb": 929,
+    "with_sb_pct": 35.5,
+    "currencies": {
+      "USD": 1435,
+      "EUR": 416,
+      "GBP": 309,
+      "CAD": 120,
+      "HKD": 119,
+      "AUD": 60,
+      "JPY": 53,
+      "MXN": 43,
+      "PLN": 14,
+      "SGD": 13,
+      "SEK": 12,
+      "NZD": 10,
+      "CHF": 10,
+      "DKK": 4
     }
-  ],
+  },
+  "kpi_all": {
+    "label": "all",
+    "count": 3076,
+    "pledged_usd": 99500624,
+    "pledged_krw": 137310860857,
+    "backers": 453234,
+    "success_rate": 49.1,
+    "success_count": 1509,
+    "with_sb": 954,
+    "with_sb_pct": 31.0,
+    "currencies": {
+      "USD": 1691,
+      "EUR": 471,
+      "GBP": 360,
+      "CAD": 144,
+      "HKD": 141,
+      "JPY": 74,
+      "AUD": 71,
+      "MXN": 50,
+      "PLN": 17,
+      "SGD": 17,
+      "SEK": 13,
+      "NZD": 11,
+      "CHF": 11,
+      "DKK": 5
+    }
+  },
+  "usd_krw_rate": 1380,
   "sb_vs_success": [
     {
-      "label": "SB 0명",
-      "count": 1731,
-      "success_rate": 30.8,
-      "avg_funded": 217.4
+      "label": "SB 0",
+      "count": 2122,
+      "success_rate": 43.6
     },
     {
-      "label": "SB 1명",
-      "count": 530,
-      "success_rate": 48.1,
-      "avg_funded": 312.7
+      "label": "SB 1",
+      "count": 525,
+      "success_rate": 47.6
     },
     {
-      "label": "SB 2-3명",
-      "count": 281,
-      "success_rate": 71.5,
-      "avg_funded": 1236.8
+      "label": "SB 2-3",
+      "count": 276,
+      "success_rate": 71.0
     },
     {
-      "label": "SB 4-6명",
-      "count": 114,
-      "success_rate": 88.6,
-      "avg_funded": 1533.4
+      "label": "SB 4-6",
+      "count": 109,
+      "success_rate": 88.1
     },
     {
-      "label": "SB 7명+",
-      "count": 45,
-      "success_rate": 95.6,
-      "avg_funded": 1539.5
+      "label": "SB 7+",
+      "count": 44,
+      "success_rate": 95.5
     }
   ],
+  "sb_category_preference": [
+    {
+      "category": "Games",
+      "count": 758
+    },
+    {
+      "category": "Design",
+      "count": 384
+    },
+    {
+      "category": "Comics",
+      "count": 328
+    },
+    {
+      "category": "Technology",
+      "count": 291
+    },
+    {
+      "category": "Publishing",
+      "count": 107
+    },
+    {
+      "category": "Film & Video",
+      "count": 77
+    },
+    {
+      "category": "Art",
+      "count": 45
+    },
+    {
+      "category": "Fashion",
+      "count": 27
+    },
+    {
+      "category": null,
+      "count": 21
+    },
+    {
+      "category": "Music",
+      "count": 21
+    }
+  ],
+  "early_sb_signal": [
+    {
+      "label": "0",
+      "count": 1172,
+      "success_rate": 64.6
+    },
+    {
+      "label": "1",
+      "count": 904,
+      "success_rate": 40.2
+    },
+    {
+      "label": "2-3",
+      "count": 804,
+      "success_rate": 32.7
+    },
+    {
+      "label": "4+",
+      "count": 196,
+      "success_rate": 64.3
+    }
+  ],
+  "live_sb_projects": [
+    {
+      "name": "COUNTLESS LITTLE DEATHS #1 - 4: a spicy vampire epic",
+      "url": "https://www.kickstarter.com/projects/cheekycomics/countless-little-deaths-1-4-a-spicy-vamprie-epic",
+      "currency": "USD",
+      "pledged": 48133.0,
+      "pledged_usd": 48133,
+      "pledged_krw": 66423540,
+      "goal": 6900.0,
+      "goal_usd": 6900,
+      "goal_krw": 9522000,
+      "backers": 928,
+      "pf": 697.6,
+      "sb_count": 24,
+      "sb_power": 10,
+      "sb_score": 740,
+      "sb_names": [
+        "Winston Kou",
+        "Scott Schaper",
+        "Hargravius",
+        "Dion Doege",
+        "Daniel Melssen"
+      ],
+      "elapsed": 9,
+      "duration": 17,
+      "category": "Comics"
+    },
+    {
+      "name": "Sex Cells #7 - A Harley Quinn gone wild NSFW Comedy",
+      "url": "https://www.kickstarter.com/projects/curtkasady/sex-cells-babes-of-future-past-3",
+      "currency": "GBP",
+      "pledged": 16206.0,
+      "pledged_usd": 20420,
+      "pledged_krw": 28178993,
+      "goal": 1000.0,
+      "goal_usd": 1260,
+      "goal_krw": 1738800,
+      "backers": 308,
+      "pf": 1620.6,
+      "sb_count": 20,
+      "sb_power": 6,
+      "sb_score": 370,
+      "sb_names": [
+        "JustChris",
+        "Matthew DeLessio",
+        "N.M",
+        "Arno van Meurs",
+        "Armando Diaz Lombardo"
+      ],
+      "elapsed": 15,
+      "duration": 24,
+      "category": "Comics"
+    },
+    {
+      "name": "IRONIQ: Next-Gen Vacuum Steamer, All-in-One Garment Care",
+      "url": "https://www.kickstarter.com/projects/blast-by-magpie/ironiq-next-gen-vacuum-steamer-all-in-one-garment-care",
+      "currency": "USD",
+      "pledged": 118048.0,
+      "pledged_usd": 118048,
+      "pledged_krw": 162906240,
+      "goal": 5000.0,
+      "goal_usd": 5000,
+      "goal_krw": 6900000,
+      "backers": 1636,
+      "pf": 2361.0,
+      "sb_count": 12,
+      "sb_power": 4,
+      "sb_score": 300,
+      "sb_names": [
+        "kokobin",
+        "Ameet Khara",
+        "RL",
+        "SedemT",
+        "Steven"
+      ],
+      "elapsed": 17,
+      "duration": 39,
+      "category": "Technology"
+    },
+    {
+      "name": "TROUBLESHOOT",
+      "url": "https://www.kickstarter.com/projects/benjibajorek/troubleshoot",
+      "currency": "AUD",
+      "pledged": 3589.0,
+      "pledged_usd": 2333,
+      "pledged_krw": 3219333,
+      "goal": 4000.0,
+      "goal_usd": 2600,
+      "goal_krw": 3588000,
+      "backers": 77,
+      "pf": 89.7,
+      "sb_count": 5,
+      "sb_power": 3,
+      "sb_score": 260,
+      "sb_names": [
+        "Dino Buffetta Jr.",
+        "John O",
+        "Axel Kallesøe",
+        "Johnny Gonzales",
+        "Tuesday"
+      ],
+      "elapsed": 28,
+      "duration": 35,
+      "category": "Comics"
+    },
+    {
+      "name": "The House of Lowther: Vol. 3",
+      "url": "https://www.kickstarter.com/projects/fgs-omnibus/the-house-of-lowther-vol-3",
+      "currency": "USD",
+      "pledged": 51109.0,
+      "pledged_usd": 51109,
+      "pledged_krw": 70530420,
+      "goal": 6500.0,
+      "goal_usd": 6500,
+      "goal_krw": 8970000,
+      "backers": 784,
+      "pf": 786.3,
+      "sb_count": 9,
+      "sb_power": 3,
+      "sb_score": 250,
+      "sb_names": [
+        "Bart Kuiper",
+        "Joseph Valenzuela",
+        "Niall Gordon",
+        "Paul F Engelberg",
+        "Alex"
+      ],
+      "elapsed": 29,
+      "duration": 30,
+      "category": "Comics"
+    },
+    {
+      "name": "Blue Geisha THE DEVIL DRAWS HER BLADE",
+      "url": "https://www.kickstarter.com/projects/bleedingpulp/bleeding-pulp-presents-blue-geisha-5",
+      "currency": "USD",
+      "pledged": 14419.0,
+      "pledged_usd": 14419,
+      "pledged_krw": 19898220,
+      "goal": 6000.0,
+      "goal_usd": 6000,
+      "goal_krw": 8280000,
+      "backers": 356,
+      "pf": 240.3,
+      "sb_count": 7,
+      "sb_power": 4,
+      "sb_score": 250,
+      "sb_names": [
+        "Sheldon Albertson",
+        "John O",
+        "Juan",
+        "Christian Dannie Storgaard",
+        "Patrick Bierlein"
+      ],
+      "elapsed": 22,
+      "duration": 30,
+      "category": "Comics"
+    },
+    {
+      "name": "Family & Honour, an historical fiction mini-graphic-novel",
+      "url": "https://www.kickstarter.com/projects/redwulfcomics/family-and-honour-a-12th-century-historical-drama",
+      "currency": "GBP",
+      "pledged": 1334.0,
+      "pledged_usd": 1681,
+      "pledged_krw": 2319559,
+      "goal": 1632.0,
+      "goal_usd": 2056,
+      "goal_krw": 2837722,
+      "backers": 77,
+      "pf": 81.7,
+      "sb_count": 10,
+      "sb_power": 2,
+      "sb_score": 240,
+      "sb_names": [
+        "Henry McKeen",
+        "Tom McGrath",
+        "Paul F Engelberg",
+        "Chilano",
+        "Scott Peterson"
+      ],
+      "elapsed": 22,
+      "duration": 30,
+      "category": "Comics"
+    },
+    {
+      "name": "The Last Ember: A WAYPOINT Solo RPG Adventure",
+      "url": "https://www.kickstarter.com/projects/waypoint-rpg/the-last-ember-a-waypoint-solo-rpg-adventure",
+      "currency": "USD",
+      "pledged": 3391.0,
+      "pledged_usd": 3391,
+      "pledged_krw": 4679580,
+      "goal": 100.0,
+      "goal_usd": 100,
+      "goal_krw": 138000,
+      "backers": 141,
+      "pf": 3391.0,
+      "sb_count": 5,
+      "sb_power": 4,
+      "sb_score": 230,
+      "sb_names": [
+        "Ray",
+        "Rayhne Sinclair",
+        "Rebecca Paliwoda",
+        "Shalmirane",
+        "FireProof"
+      ],
+      "elapsed": 1,
+      "duration": 16,
+      "category": "Publishing"
+    },
+    {
+      "name": "Helwick Part III - The Den of Iniquity",
+      "url": "https://www.kickstarter.com/projects/terrabloks/helwick-part-iii-the-den-of-iniquity",
+      "currency": "GBP",
+      "pledged": 47190.0,
+      "pledged_usd": 59459,
+      "pledged_krw": 82053972,
+      "goal": 666.0,
+      "goal_usd": 839,
+      "goal_krw": 1158041,
+      "backers": 578,
+      "pf": 7085.6,
+      "sb_count": 11,
+      "sb_power": 3,
+      "sb_score": 220,
+      "sb_names": [
+        "Kraus",
+        "Kenneth Miller",
+        "Jerry Allen",
+        "Chimpchomp",
+        "mike groh"
+      ],
+      "elapsed": 15,
+      "duration": 17,
+      "category": "Games"
+    },
+    {
+      "name": "Jixa Lady Tiger Plus",
+      "url": "https://www.kickstarter.com/projects/brainiumgames/jixa-lady-tiger-plus",
+      "currency": "USD",
+      "pledged": 8808.0,
+      "pledged_usd": 8808,
+      "pledged_krw": 12155040,
+      "goal": 15000.0,
+      "goal_usd": 15000,
+      "goal_krw": 20700000,
+      "backers": 177,
+      "pf": 58.7,
+      "sb_count": 8,
+      "sb_power": 2,
+      "sb_score": 220,
+      "sb_names": [
+        "W",
+        "Fotios Zemenides",
+        "chsr357",
+        "Lutz Osterkorn",
+        "Diana"
+      ],
+      "elapsed": 16,
+      "duration": 45,
+      "category": "Games"
+    },
+    {
+      "name": "KLOKMAN | Spinning illuminated smart clock",
+      "url": "https://www.kickstarter.com/projects/kolkmannendesigners/klokman-spinning-illuminated-smart-clock",
+      "currency": "EUR",
+      "pledged": 14018.0,
+      "pledged_usd": 15139,
+      "pledged_krw": 20892427,
+      "goal": 5000.0,
+      "goal_usd": 5400,
+      "goal_krw": 7452000,
+      "backers": 95,
+      "pf": 280.4,
+      "sb_count": 3,
+      "sb_power": 3,
+      "sb_score": 190,
+      "sb_names": [
+        "Edon van Hees",
+        "SK1",
+        "citiboi"
+      ],
+      "elapsed": 11,
+      "duration": 30,
+      "category": "Technology"
+    },
+    {
+      "name": "AIROX: 145 PSI Cordless Dual-Compressor. Just 9.9 lb",
+      "url": "https://www.kickstarter.com/projects/magpietech/airox-145-psi-cordless-dual-compressor-station-just-99-lb",
+      "currency": "USD",
+      "pledged": 237811.0,
+      "pledged_usd": 237811,
+      "pledged_krw": 328179180,
+      "goal": 5000.0,
+      "goal_usd": 5000,
+      "goal_krw": 6900000,
+      "backers": 894,
+      "pf": 4756.2,
+      "sb_count": 14,
+      "sb_power": 2,
+      "sb_score": 180,
+      "sb_names": [
+        "Iurii Kriazhev",
+        "Erik",
+        "Bailey",
+        "Ben Nelson",
+        "Rip Odebralski"
+      ],
+      "elapsed": 1,
+      "duration": 60,
+      "category": "Technology"
+    },
+    {
+      "name": "MagGo GS: The Gaming Sling for Switch & Steam Deck",
+      "url": "https://www.kickstarter.com/projects/590628991/maggo-gs-the-magnetic-gaming-sling-for-switch-and-steam-deck",
+      "currency": "GBP",
+      "pledged": 28868.0,
+      "pledged_usd": 36374,
+      "pledged_krw": 50195678,
+      "goal": 3000.0,
+      "goal_usd": 3780,
+      "goal_krw": 5216400,
+      "backers": 343,
+      "pf": 962.3,
+      "sb_count": 8,
+      "sb_power": 2,
+      "sb_score": 170,
+      "sb_names": [
+        "T Sugiura",
+        "Katie Harwood",
+        "Neville Tse",
+        "Luca Niro",
+        "David Peabody"
+      ],
+      "elapsed": 29,
+      "duration": 36,
+      "category": "Design"
+    },
+    {
+      "name": "City of Venus: Dead City Vol.1 (Collecting issues 1 & 2)",
+      "url": "https://www.kickstarter.com/projects/cityofvenus/city-of-venus-dead-city-vol1-collecting-issues-1-and-2",
+      "currency": "USD",
+      "pledged": 6417.0,
+      "pledged_usd": 6417,
+      "pledged_krw": 8855460,
+      "goal": 2000.0,
+      "goal_usd": 2000,
+      "goal_krw": 2760000,
+      "backers": 49,
+      "pf": 320.8,
+      "sb_count": 3,
+      "sb_power": 2,
+      "sb_score": 170,
+      "sb_names": [
+        "Stuart Stilborn",
+        "Joseph Valenzuela",
+        "John Gentile"
+      ],
+      "elapsed": 40,
+      "duration": 49,
+      "category": "Comics"
+    },
+    {
+      "name": "Concrete Canvas: The Game of Authentic New York Street Art",
+      "url": "https://www.kickstarter.com/projects/intersection-games/concrete-canvas-the-game-of-authentic-new-york-street-art",
+      "currency": "USD",
+      "pledged": 35103.0,
+      "pledged_usd": 35103,
+      "pledged_krw": 48442140,
+      "goal": 10000.0,
+      "goal_usd": 10000,
+      "goal_krw": 13800000,
+      "backers": 321,
+      "pf": 351.0,
+      "sb_count": 8,
+      "sb_power": 2,
+      "sb_score": 170,
+      "sb_names": [
+        "Michael Guigliano",
+        "Dan Cheston",
+        "The Diced Onion",
+        "SteveRB511",
+        "David Abelson - Intersection Games"
+      ],
+      "elapsed": 16,
+      "duration": 23,
+      "category": "Games"
+    },
+    {
+      "name": "SCURRY: Tails of the Wasteland - River Rat Blues",
+      "url": "https://www.kickstarter.com/projects/macsmith/scurry-tails-of-the-wasteland-river-rat-blues",
+      "currency": "USD",
+      "pledged": 59196.0,
+      "pledged_usd": 59196,
+      "pledged_krw": 81690480,
+      "goal": 10000.0,
+      "goal_usd": 10000,
+      "goal_krw": 13800000,
+      "backers": 953,
+      "pf": 592.0,
+      "sb_count": 12,
+      "sb_power": 2,
+      "sb_score": 160,
+      "sb_names": [
+        "Shannara M S",
+        "Ashraam",
+        "mike mcintosh",
+        "AaronT",
+        "Jorge Alvarez"
+      ],
+      "elapsed": 16,
+      "duration": 34,
+      "category": "Comics"
+    },
+    {
+      "name": "CONSIGNED: A Living the Line Legal Benefit Anthology",
+      "url": "https://www.kickstarter.com/projects/strangedeath/consigned-a-living-the-line-legal-benefit-anthology",
+      "currency": "USD",
+      "pledged": 22177.0,
+      "pledged_usd": 22177,
+      "pledged_krw": 30604260,
+      "goal": 6669.0,
+      "goal_usd": 6669,
+      "goal_krw": 9203220,
+      "backers": 488,
+      "pf": 332.5,
+      "sb_count": 2,
+      "sb_power": 2,
+      "sb_score": 160,
+      "sb_names": [
+        "Jimbro",
+        "John O"
+      ],
+      "elapsed": 21,
+      "duration": 30,
+      "category": "Comics"
+    },
+    {
+      "name": "WIDOW UNEARTHED 4: Collectible Comic Book + Trading Cards!",
+      "url": "https://www.kickstarter.com/projects/mikewolfer/widow-unearthed-4-collectible-comic-book-trading-cards",
+      "currency": "USD",
+      "pledged": 3216.0,
+      "pledged_usd": 3216,
+      "pledged_krw": 4438080,
+      "goal": 1500.0,
+      "goal_usd": 1500,
+      "goal_krw": 2070000,
+      "backers": 67,
+      "pf": 214.4,
+      "sb_count": 2,
+      "sb_power": 2,
+      "sb_score": 160,
+      "sb_names": [
+        "Husker Dan",
+        "Simon Mark de Wolfe"
+      ],
+      "elapsed": 5,
+      "duration": 8,
+      "category": "Comics"
+    },
+    {
+      "name": "RIFTS®: PHASE WORLD®",
+      "url": "https://www.kickstarter.com/projects/star-anvil-studios/savage-phaseworld",
+      "currency": "USD",
+      "pledged": 59462.0,
+      "pledged_usd": 59462,
+      "pledged_krw": 82057560,
+      "goal": 25000.0,
+      "goal_usd": 25000,
+      "goal_krw": 34500000,
+      "backers": 646,
+      "pf": 237.8,
+      "sb_count": 7,
+      "sb_power": 2,
+      "sb_score": 160,
+      "sb_names": [
+        "Orko",
+        "Rich E Petch",
+        "Laukkanen Panu",
+        "Paul Sheppard",
+        "Joshua Danish"
+      ],
+      "elapsed": 15,
+      "duration": 24,
+      "category": "Games"
+    },
+    {
+      "name": "Aerathain - Divinity Undone - DnD 5 E Supplement",
+      "url": "https://www.kickstarter.com/projects/gearwheelgrimoires/aerathain-divinity-undone-dnd-5-e-supplement",
+      "currency": "EUR",
+      "pledged": 331.0,
+      "pledged_usd": 357,
+      "pledged_krw": 493322,
+      "goal": 100.0,
+      "goal_usd": 108,
+      "goal_krw": 149040,
+      "backers": 38,
+      "pf": 331.0,
+      "sb_count": 2,
+      "sb_power": 2,
+      "sb_score": 160,
+      "sb_names": [
+        "Ray",
+        "Chris Cheek"
+      ],
+      "elapsed": 0,
+      "duration": 30,
+      "category": "Games"
+    }
+  ],
+  "all_sb_projects": [
+    {
+      "name": "WILD WISPS Book One HARDCOVER: Collecting #1-6",
+      "url": "https://www.kickstarter.com/projects/patshand/wild-wisps-book-one-hardcover-collecting-1-6",
+      "pledged_usd": 29053,
+      "pledged_krw": 40093140,
+      "backers": 421,
+      "pf": 581.1,
+      "sb_count": 24,
+      "sb_power": 10,
+      "category": "Comics"
+    },
+    {
+      "name": "COUNTLESS LITTLE DEATHS #1 - 4: a spicy vampire epic",
+      "url": "https://www.kickstarter.com/projects/cheekycomics/countless-little-deaths-1-4-a-spicy-vamprie-epic",
+      "pledged_usd": 48133,
+      "pledged_krw": 66423540,
+      "backers": 928,
+      "pf": 697.6,
+      "sb_count": 24,
+      "sb_power": 10,
+      "category": "Comics"
+    },
+    {
+      "name": "Sex Cells #7 - A Harley Quinn gone wild NSFW Comedy",
+      "url": "https://www.kickstarter.com/projects/curtkasady/sex-cells-babes-of-future-past-3",
+      "pledged_usd": 20420,
+      "pledged_krw": 28178993,
+      "backers": 308,
+      "pf": 1620.6,
+      "sb_count": 20,
+      "sb_power": 6,
+      "category": "Comics"
+    },
+    {
+      "name": "AIROX: 145 PSI Cordless Dual-Compressor. Just 9.9 lb",
+      "url": "https://www.kickstarter.com/projects/magpietech/airox-145-psi-cordless-dual-compressor-station-just-99-lb",
+      "pledged_usd": 237811,
+      "pledged_krw": 328179180,
+      "backers": 894,
+      "pf": 4756.2,
+      "sb_count": 14,
+      "sb_power": 2,
+      "category": "Technology"
+    },
+    {
+      "name": "Stefan Feld City Collection 1-8 Kickstarter Special Edition",
+      "url": "https://www.kickstarter.com/projects/queen-games/stefan-feld-city-collection-1-6-kickstarter-special-edition",
+      "pledged_usd": 35481,
+      "pledged_krw": 48964111,
+      "backers": 231,
+      "pf": 328.5,
+      "sb_count": 13,
+      "sb_power": 1,
+      "category": "Games"
+    },
+    {
+      "name": "IRONIQ: Next-Gen Vacuum Steamer, All-in-One Garment Care",
+      "url": "https://www.kickstarter.com/projects/blast-by-magpie/ironiq-next-gen-vacuum-steamer-all-in-one-garment-care",
+      "pledged_usd": 118048,
+      "pledged_krw": 162906240,
+      "backers": 1636,
+      "pf": 2361.0,
+      "sb_count": 12,
+      "sb_power": 4,
+      "category": "Technology"
+    },
+    {
+      "name": "JOAT2.0 — The Ultimate Titanium EDC Tool for Everyday Fixes",
+      "url": "https://www.kickstarter.com/projects/fetoshk/joat-20-say-goodbye-to-the-tool-war-in-your-pocket",
+      "pledged_usd": 52174,
+      "pledged_krw": 71999858,
+      "backers": 294,
+      "pf": 1337.8,
+      "sb_count": 12,
+      "sb_power": 0,
+      "category": "Design"
+    },
+    {
+      "name": "SCURRY: Tails of the Wasteland - River Rat Blues",
+      "url": "https://www.kickstarter.com/projects/macsmith/scurry-tails-of-the-wasteland-river-rat-blues",
+      "pledged_usd": 59196,
+      "pledged_krw": 81690480,
+      "backers": 953,
+      "pf": 592.0,
+      "sb_count": 12,
+      "sb_power": 2,
+      "category": "Comics"
+    },
+    {
+      "name": "Thalassic II - Tropical Treasure",
+      "url": "https://www.kickstarter.com/projects/mariannelarsen/thalassic-ii-tropical-treasure",
+      "pledged_usd": 28803,
+      "pledged_krw": 39748195,
+      "backers": 281,
+      "pf": 587.8,
+      "sb_count": 12,
+      "sb_power": 0,
+      "category": "Games"
+    },
+    {
+      "name": "SVBSLEEP — Underwear for Sleep",
+      "url": "https://www.kickstarter.com/projects/svbflor/svbsleep-underwear-for-deeper-sleep",
+      "pledged_usd": 58588,
+      "pledged_krw": 80851440,
+      "backers": 664,
+      "pf": 1171.8,
+      "sb_count": 11,
+      "sb_power": 0,
+      "category": "Design"
+    },
+    {
+      "name": "TiKey 360 – Dual Quick-Release Keychain with 360° Rotation",
+      "url": "https://www.kickstarter.com/projects/sparkcube/tikey-360-360-swivel-dual-quick-release-keychain",
+      "pledged_usd": 38851,
+      "pledged_krw": 53614380,
+      "backers": 289,
+      "pf": 777.0,
+      "sb_count": 11,
+      "sb_power": 2,
+      "category": "Design"
+    },
+    {
+      "name": "Helwick Part III - The Den of Iniquity",
+      "url": "https://www.kickstarter.com/projects/terrabloks/helwick-part-iii-the-den-of-iniquity",
+      "pledged_usd": 59459,
+      "pledged_krw": 82053972,
+      "backers": 578,
+      "pf": 7085.6,
+      "sb_count": 11,
+      "sb_power": 3,
+      "category": "Games"
+    },
+    {
+      "name": "LOWLIFE: A DUNGEON DEGENERATES ROLE PLAYING GAME",
+      "url": "https://www.kickstarter.com/projects/seanaaberg/lowlife-a-dungeon-degenerates-role-playing-game",
+      "pledged_usd": 50473,
+      "pledged_krw": 69652740,
+      "backers": 395,
+      "pf": 140.2,
+      "sb_count": 11,
+      "sb_power": 2,
+      "category": "Games"
+    },
+    {
+      "name": "Garden Club: A Game of Clever Cultivation",
+      "url": "https://www.kickstarter.com/projects/chriscouch/garden-club",
+      "pledged_usd": 39497,
+      "pledged_krw": 54505860,
+      "backers": 587,
+      "pf": 395.0,
+      "sb_count": 11,
+      "sb_power": 0,
+      "category": "Games"
+    },
+    {
+      "name": "Family & Honour, an historical fiction mini-graphic-novel",
+      "url": "https://www.kickstarter.com/projects/redwulfcomics/family-and-honour-a-12th-century-historical-drama",
+      "pledged_usd": 1681,
+      "pledged_krw": 2319559,
+      "backers": 77,
+      "pf": 81.7,
+      "sb_count": 10,
+      "sb_power": 2,
+      "category": "Comics"
+    },
+    {
+      "name": "Unity Playing Cards - Volume Two",
+      "url": "https://www.kickstarter.com/projects/dripdropsounds/unity-playing-cards-volume-two",
+      "pledged_usd": 23537,
+      "pledged_krw": 32481060,
+      "backers": 211,
+      "pf": 204.7,
+      "sb_count": 10,
+      "sb_power": 0,
+      "category": "Games"
+    },
+    {
+      "name": "EightBells by Oceanus Brass",
+      "url": "https://www.kickstarter.com/projects/oceanusbrass/eight-bells",
+      "pledged_usd": 121454,
+      "pledged_krw": 167606520,
+      "backers": 880,
+      "pf": 12145.4,
+      "sb_count": 9,
+      "sb_power": 1,
+      "category": "Design"
+    },
+    {
+      "name": "RoveCup | Leakproof, Ready to Go, Made to Roam",
+      "url": "https://www.kickstarter.com/projects/delione-kitchenware/delione-rovecup-engineered-for-leakproof-excellence",
+      "pledged_usd": 62373,
+      "pledged_krw": 86074864,
+      "backers": 661,
+      "pf": 1225.2,
+      "sb_count": 9,
+      "sb_power": 1,
+      "category": "Design"
+    },
+    {
+      "name": "The House of Lowther: Vol. 3",
+      "url": "https://www.kickstarter.com/projects/fgs-omnibus/the-house-of-lowther-vol-3",
+      "pledged_usd": 51109,
+      "pledged_krw": 70530420,
+      "backers": 784,
+      "pf": 786.3,
+      "sb_count": 9,
+      "sb_power": 3,
+      "category": "Comics"
+    },
+    {
+      "name": "ISOLA26 | 365-Day Waterproof Adventure Jacket",
+      "url": "https://www.kickstarter.com/projects/levante/isola26-year-round-waterproof-adventure-jacket",
+      "pledged_usd": 519414,
+      "pledged_krw": 716791486,
+      "backers": 1875,
+      "pf": 6011.7,
+      "sb_count": 8,
+      "sb_power": 1,
+      "category": "Design"
+    }
+  ],
+  "total_superbackers": 1706,
+  "avg_backings": 316,
   "top_superbackers": [
     {
       "name": "The High Frontier",
@@ -79,6 +895,11 @@
       "projects": 1
     },
     {
+      "name": "Robert Clark",
+      "backings": 4283,
+      "projects": 0
+    },
+    {
       "name": "Ray",
       "backings": 4053,
       "projects": 7
@@ -87,6 +908,11 @@
       "name": "Natasha Light",
       "backings": 4015,
       "projects": 1
+    },
+    {
+      "name": "Ben Balestra",
+      "backings": 3970,
+      "projects": 0
     },
     {
       "name": "Winston Kou",
@@ -109,6 +935,11 @@
       "projects": 1
     },
     {
+      "name": "Courtland LaVallee",
+      "backings": 3044,
+      "projects": 0
+    },
+    {
       "name": "ShadOow",
       "backings": 2999,
       "projects": 1
@@ -122,50 +953,32 @@
       "name": "Stuart Stilborn",
       "backings": 2866,
       "projects": 2
-    },
-    {
-      "name": "Rayhne Sinclair",
-      "backings": 2777,
-      "projects": 1
-    },
-    {
-      "name": "Alejandro Mery",
-      "backings": 2693,
-      "projects": 1
-    },
-    {
-      "name": "Twist the Leaf",
-      "backings": 2591,
-      "projects": 1
-    },
-    {
-      "name": "Kirk Spencer",
-      "backings": 2225,
-      "projects": 1
-    },
-    {
-      "name": "Bear0104",
-      "backings": 2149,
-      "projects": 1
-    },
-    {
-      "name": "andrew moores",
-      "backings": 2140,
-      "projects": 1
-    },
-    {
-      "name": "John \"johnkzin\" Rudd",
-      "backings": 2059,
-      "projects": 1
-    },
-    {
-      "name": "Mr. A",
-      "backings": 1960,
-      "projects": 1
     }
   ],
-  "unique_projects": 970,
-  "multi_active": 276,
-  "creators_too": 54,
-  "crawl_status": "1396/1398 completed"
+  "backings_distribution": [
+    {
+      "range": "1-50",
+      "count": 165
+    },
+    {
+      "range": "51-100",
+      "count": 325
+    },
+    {
+      "range": "101-300",
+      "count": 742
+    },
+    {
+      "range": "301-500",
+      "count": 207
+    },
+    {
+      "range": "501-1000",
+      "count": 174
+    },
+    {
+      "range": "1000+",
+      "count": 91
+    }
+  ]
 }

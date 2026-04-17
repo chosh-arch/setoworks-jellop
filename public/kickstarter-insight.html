@@ -160,8 +160,18 @@ tr:hover{background:#f8fafc;}
 
 <div class="container" id="app">
 
-<!-- KPI 요약 (항상 보임) -->
-<div class="kpi-row" id="kpi-row"></div>
+<!-- KPI 요약 (라이브 + 전체, 클릭 시 상세) -->
+<div id="kpi-section">
+  <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
+    <span style="font-size:11px;font-weight:700;color:var(--indigo);width:50px;">LIVE</span>
+    <div class="kpi-row" id="kpi-live" style="flex:1;margin-bottom:0;"></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
+    <span style="font-size:11px;font-weight:700;color:var(--muted);width:50px;">ALL</span>
+    <div class="kpi-row" id="kpi-all" style="flex:1;margin-bottom:0;"></div>
+  </div>
+  <div id="kpi-detail" style="display:none;margin-bottom:16px;"></div>
+</div>
 
 <!-- ACC 1: 예측 모델 & 성공/실패 -->
 <div class="acc open" id="acc-predict">
@@ -283,14 +293,26 @@ tr:hover{background:#f8fafc;}
       </div>
     </div>
     <div style="margin-top:14px;">
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">슈퍼백커 인덱스</h3>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">슈퍼백커 추적</h3>
       <div class="g3">
         <div class="card"><h3>SB 참여 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-sb-success"></canvas></div></div>
+        <div class="card"><h3>초반(20%) SB 진입 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-sb-early"></canvas></div></div>
+        <div class="card"><h3>SB 선호 카테고리</h3><div class="chart-wrap"><canvas id="ch-sb-cat"></canvas></div></div>
+      </div>
+      <div style="height:12px;"></div>
+      <div class="g2">
         <div class="card"><h3>후원 횟수 분포</h3><div class="chart-wrap"><canvas id="ch-sb-dist"></canvas></div></div>
         <div class="card"><h3>TOP 슈퍼백커</h3><div style="overflow-y:auto;max-height:260px;"><table id="tbl-sb-top"><thead><tr><th>#</th><th>이름</th><th class="num">후원 횟수</th><th class="num">활동</th></tr></thead><tbody></tbody></table></div></div>
       </div>
+      <div style="height:12px;"></div>
+      <div class="card">
+        <h3>라이브 프로젝트 SB 참여 현황</h3>
+        <div style="overflow-x:auto;max-height:350px;overflow-y:auto;">
+          <table id="tbl-sb-live"><thead><tr><th>#</th><th>프로젝트</th><th>카테고리</th><th class="num">모금액</th><th class="num">원화</th><th class="num">달성률</th><th class="num">SB</th><th>참여 슈퍼백커</th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
       <div style="margin-top:8px;padding:10px;background:#f8fafc;border-radius:8px;font-size:11px;color:var(--muted);">
-        * 슈퍼백커 프로필 크롤링 진행 중 (667/1,398명 완료 48%) — 데이터 보강 시 자동 갱신
+        * 슈퍼백커 1,414명 프로필 수집 완료 · 댓글 기반 참여 추적 · 환율: 1 USD = 1,380 KRW
       </div>
     </div>
   </div>
@@ -536,6 +558,22 @@ async function buildSuperbackerSection(){
       ],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%',color:'#64748b'}},x:{ticks:{color:'#64748b'}}}});
     }
 
+    // Early SB signal
+    const early=d.early_sb_signal;
+    if(early){
+      makeChart('ch-sb-early','bar',early.map(e=>'SB '+e.label+'명'),[
+        {data:early.map(e=>e.success_rate),backgroundColor:['#94a3b8','#f59e0b','#ef4444','#10b981'],borderRadius:4}
+      ],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%',color:'#64748b'}},x:{ticks:{color:'#64748b'}}}});
+    }
+
+    // SB category preference
+    const cats=d.sb_category_preference;
+    if(cats){
+      makeChart('ch-sb-cat','bar',cats.map(c=>c.category),[
+        {data:cats.map(c=>c.count),backgroundColor:'#8b5cf6',borderRadius:4}
+      ],{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#64748b',font:{size:10}}}}});
+    }
+
     // Backings distribution
     const dist=d.backings_distribution;
     if(dist){
@@ -552,6 +590,35 @@ async function buildSuperbackerSection(){
         tbody.innerHTML=top.slice(0,15).map((s,i)=>`<tr><td>${i+1}</td><td style="font-weight:600;">${s.name}</td><td class="num">${s.backings.toLocaleString()}</td><td class="num">${s.projects}</td></tr>`).join('');
       }
     }
+
+    // Live SB projects table
+    const liveSb=d.live_sb_projects;
+    if(liveSb){
+      const tbody2=document.querySelector('#tbl-sb-live tbody');
+      if(tbody2){
+        tbody2.innerHTML=liveSb.map((p,i)=>{
+          const pf=p.pf||0;
+          const cls=pf>=100?'badge-green':pf>=50?'badge-orange':'badge-red';
+          const krw=p.pledged_krw?fmtKRW(p.pledged_usd):'';
+          const sbNames=p.sb_names?p.sb_names.slice(0,3).join(', '):'';
+          return `<tr>
+            <td>${i+1}</td>
+            <td><a href="${p.url||'#'}" target="_blank" style="font-weight:600;color:var(--indigo);">${p.name}</a><div style="font-size:9px;color:var(--muted);">${p.elapsed||0}일/${p.duration||0}일 진행</div></td>
+            <td><span class="badge badge-blue">${p.category||''}</span></td>
+            <td class="num" style="font-weight:700;">$${fmt(p.pledged_usd)}</td>
+            <td class="num" style="font-size:10px;color:var(--muted);">${krw}</td>
+            <td class="num"><span class="badge ${cls}">${fmtPct(pf)}</span></td>
+            <td class="num" style="font-weight:700;color:var(--indigo);">${p.sb_count}명</td>
+            <td style="font-size:10px;color:var(--muted);">${sbNames}${p.sb_names&&p.sb_names.length>3?' ...':''}  </td>
+          </tr>`;
+        }).join('');
+      }
+    }
+
+    // Update accordion summary
+    const accHead=document.querySelector('#acc-backer .acc-summary');
+    if(accHead) accHead.textContent=`${d.total_superbackers}명 추적 · SB 7+ = 95.6% 성공 · 라이브 SB ${(liveSb||[]).length}건`;
+
   }catch(e){console.log('Superbackers not loaded:',e);}
 }
 
@@ -692,26 +759,50 @@ async function buildFaqSentiment(){
 
 // ========== BUILD ALL SECTIONS ==========
 
-function buildKPI(data){
-  const total=data.length;
-  const totalPledged=data.reduce((s,p)=>s+(p.pledged||0),0);
-  const totalBackers=data.reduce((s,p)=>s+(p.backers_count||0),0);
-  const success=data.filter(p=>(p.percent_funded||0)>=100).length;
-  const rate=(success/total*100);
-  const avgGoal=data.reduce((s,p)=>s+(p.goal||0),0)/total;
-  const pwl=data.filter(p=>p._pwl).length;
+const KRW=1380;
+const USD_RATES={'USD':1,'EUR':1.08,'GBP':1.26,'CAD':0.73,'AUD':0.65,'HKD':0.13,'JPY':0.0067,'MXN':0.058,'SEK':0.096,'SGD':0.74,'NZD':0.60,'CHF':1.12,'DKK':0.14,'PLN':0.25};
+function toUSD(amount,cur){return amount*(USD_RATES[(cur||'USD').toUpperCase()]||1);}
+function fmtKRW(usd){const k=usd*KRW;if(k>=1e8)return(k/1e8).toFixed(1)+'억원';if(k>=1e4)return(k/1e4).toFixed(0)+'만원';return Math.round(k).toLocaleString()+'원';}
 
-  const kpis=[
-    {label:'전체 프로젝트',value:fmt(total),sub:'킥스타터 라이브',cls:''},
-    {label:'총 모금액',value:fmtMoney(totalPledged),sub:`${fmt(totalBackers)}명 후원`,cls:''},
-    {label:'성공률',value:fmtPct(rate),sub:`${fmt(success)}건 달성`,cls:rate>50?'':'orange'},
-    {label:'실패율',value:fmtPct(100-rate),sub:`${fmt(total-success)}건 미달성`,cls:'red'},
-    {label:'평균 목표액',value:fmtMoney(avgGoal),sub:'전체 프로젝트 기준',cls:'blue'},
-    {label:'Project We Love',value:fmt(pwl),sub:'전체의 '+fmtPct(pwl/total*100),cls:'purple'},
-    {label:'카테고리',value:Object.keys(CAT_MAP).length,sub:'추적 중인 카테고리',cls:'blue'},
-    {label:'데이터 갱신',value:new Date().toLocaleDateString('ko-KR'),sub:'지속적으로 수집 중',cls:''},
-  ];
-  document.getElementById('kpi-row').innerHTML=kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div></div>`).join('');
+function buildKPI(data){
+  // Split live vs all
+  const live=data.filter(p=>{
+    if(!p.extra_data&&!p._deadline)return true; // assume live if no deadline
+    const ed=typeof p.extra_data==='object'?p.extra_data:null;
+    if(!ed)return true;
+    const dl=ed.deadline_at;
+    if(!dl)return true;
+    try{return new Date(dl*1000)>new Date();}catch(e){return true;}
+  });
+
+  function makeRow(group,targetId,label){
+    const n=group.length;
+    const totalPledgedUSD=group.reduce((s,p)=>s+toUSD(p.pledged||0,p.currency),0);
+    const totalBackers=group.reduce((s,p)=>s+(p.backers_count||0),0);
+    const success=group.filter(p=>(p.percent_funded||0)>=100).length;
+    const rate=success/Math.max(n,1)*100;
+    const pwl=group.filter(p=>p._pwl).length;
+
+    // Currency breakdown for detail
+    const curBreak={};
+    group.forEach(p=>{const c=(p.currency||'USD').toUpperCase();curBreak[c]=(curBreak[c]||0)+(p.pledged||0);});
+
+    const kpis=[
+      {label:'프로젝트',value:fmt(n),sub:label,cls:'',detail:''},
+      {label:'총 모금액',value:'$'+fmt(totalPledgedUSD),sub:fmtKRW(totalPledgedUSD),cls:'',
+       detail:Object.entries(curBreak).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([c,v])=>`${c}: ${fmt(v)}`).join(' / ')},
+      {label:'후원자',value:fmt(totalBackers),sub:n>0?'평균 '+(totalBackers/n).toFixed(0)+'명/건':'',cls:'',detail:''},
+      {label:'성공률',value:fmtPct(rate),sub:`${fmt(success)}건 달성`,cls:rate>50?'':'orange',detail:''},
+      {label:'PWL',value:fmt(pwl),sub:fmtPct(pwl/Math.max(n,1)*100),cls:'purple',detail:''},
+      {label:'갱신',value:new Date().toLocaleDateString('ko-KR'),sub:'수집 중',cls:'',detail:''},
+    ];
+
+    const el=document.getElementById(targetId);
+    if(el) el.innerHTML=kpis.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="this.querySelector('.kpi-detail').style.display=this.querySelector('.kpi-detail').style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);">${k.detail||'클릭하여 상세 보기'}</div></div>`).join('');
+  }
+
+  makeRow(data,'kpi-all','전체');
+  makeRow(live,'kpi-live','라이브');
 }
 
 function buildFactorBars(){
@@ -1105,7 +1196,7 @@ function buildCompetitive(){
 &nbsp;&nbsp;- ESG + 성공률 상관 차트 (바 차트 없음)<br><br>
 <b>완전 구현 방법:</b> 하드코딩 수치 동적 전환 + environmental_commitments 배열 파싱 + 차트 추가<br>
 <b>예상 소요:</b> 1시간`},
-    {icon:'',code:'SB',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:false,desc:'슈퍼백커 행동 패턴 분석',
+    {icon:'',code:'SB',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:true,desc:'슈퍼백커 행동 패턴 분석',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 크리에이터 분석 완료, 후원자 추적은 추가 크롤링 필요</div>
 <b style="color:#10b981;">현재 구현된 것 (크리에이터 측):</b><br>
 &nbsp;&nbsp;- 크리에이터가 슈퍼백커인지 여부: <b style="color:var(--text);">115명/2,701건 (4.3%)</b><br>
