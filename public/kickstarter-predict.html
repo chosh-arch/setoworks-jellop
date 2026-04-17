@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>킥스타터 성공 예측 — Setoworks</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--indigo:#6366f1;--green:#10b981;--red:#ef4444;--orange:#f59e0b;--shadow:0 1px 3px rgba(0,0,0,.06);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);}
+.topbar{background:#fff;padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar h1{font-size:16px;font-weight:800;}
+.topbar h1 b{color:var(--indigo);}
+.topbar a{color:var(--muted);font-size:12px;text-decoration:none;border:1px solid var(--border);padding:5px 12px;border-radius:6px;}
+.container{max-width:960px;margin:0 auto;padding:24px;}
+
+.hero{text-align:center;padding:32px 0 24px;}
+.hero h2{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px;}
+.hero p{color:var(--muted);font-size:14px;max-width:500px;margin:0 auto;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+@media(max-width:700px){.grid{grid-template-columns:1fr;}}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:var(--shadow);}
+.card h3{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--text);}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.field select,.field input[type=number]{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;background:#fff;}
+.field input[type=range]{width:100%;margin-top:4px;}
+.field .range-val{font-size:20px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.field .range-sub{font-size:10px;color:var(--muted);}
+
+.result-card{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:12px;padding:28px;text-align:center;color:#fff;margin-bottom:20px;}
+.result-card .score{font-size:56px;font-weight:800;letter-spacing:-.04em;}
+.result-card .score-label{font-size:13px;opacity:.8;margin-top:4px;}
+.result-card .score-bar{height:8px;background:rgba(255,255,255,.2);border-radius:4px;margin:16px auto 0;max-width:300px;overflow:hidden;}
+.result-card .score-fill{height:100%;border-radius:4px;background:#fff;transition:width .5s;}
+
+.grade{display:inline-block;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700;margin-top:8px;}
+.grade-high{background:rgba(16,185,129,.15);color:#059669;}
+.grade-mid{background:rgba(245,158,11,.15);color:#d97706;}
+.grade-low{background:rgba(239,68,68,.15);color:#dc2626;}
+
+.factors{margin-top:16px;}
+.factor{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px;}
+.factor .f-name{width:120px;color:var(--muted);text-align:right;}
+.factor .f-bar{flex:1;height:18px;background:#f1f5f9;border-radius:4px;overflow:hidden;position:relative;}
+.factor .f-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:700;color:#fff;transition:width .5s;}
+.factor .f-val{width:45px;font-weight:700;font-size:11px;}
+
+.compare{margin-top:16px;}
+.compare table{width:100%;font-size:11px;border-collapse:collapse;}
+.compare th{text-align:left;font-size:10px;color:var(--muted);padding:6px;border-bottom:1px solid var(--border);}
+.compare td{padding:6px;border-bottom:1px solid #f1f5f9;}
+.compare .num{text-align:right;}
+
+.disclaimer{margin-top:20px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:11px;color:#92400e;line-height:1.6;}
+
+.model-info{margin-top:12px;padding:10px;background:#f8fafc;border-radius:6px;font-size:10px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1><b>킥스타터</b> 성공 예측</h1>
+  <div style="display:flex;gap:6px;">
+    <a href="/kickstarter-insight.html">인사이트 엔진</a>
+    <a href="/portal.html">포털</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <h2>내 프로젝트, 성공할 수 있을까?</h2>
+    <p>아래 정보를 입력하면 9,974건의 킥스타터 데이터를 기반으로 성공 가능성을 분석해 드립니다.</p>
+  </div>
+
+  <div id="result-area"></div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>기본 정보</h3>
+      <div class="field">
+        <label>카테고리</label>
+        <select id="in-cat" onchange="predict()">
+          <option value="Technology">Technology (기술)</option>
+          <option value="Games">Games (게임)</option>
+          <option value="Design" selected>Design (디자인)</option>
+          <option value="Film & Video">Film & Video (영상)</option>
+          <option value="Music">Music (음악)</option>
+          <option value="Publishing">Publishing (출판)</option>
+          <option value="Comics">Comics (만화)</option>
+          <option value="Art">Art (미술)</option>
+          <option value="Fashion">Fashion (패션)</option>
+          <option value="Food">Food (식품)</option>
+          <option value="Photography">Photography (사진)</option>
+          <option value="Crafts">Crafts (공예)</option>
+          <option value="Theater">Theater (연극)</option>
+          <option value="Dance">Dance (무용)</option>
+          <option value="Journalism">Journalism (저널리즘)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>국가</label>
+        <select id="in-country" onchange="predict()">
+          <option value="US" selected>미국 (US)</option>
+          <option value="GB">영국 (GB)</option>
+          <option value="CA">캐나다 (CA)</option>
+          <option value="HK">홍콩 (HK)</option>
+          <option value="DE">독일 (DE)</option>
+          <option value="JP">일본 (JP)</option>
+          <option value="AU">호주 (AU)</option>
+          <option value="FR">프랑스 (FR)</option>
+          <option value="IT">이탈리아 (IT)</option>
+          <option value="ES">스페인 (ES)</option>
+          <option value="Other">기타</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>목표 금액 (USD)</label>
+        <div class="range-val" id="goal-val">$10,000</div>
+        <input type="range" id="in-goal" min="100" max="500000" value="10000" step="100" oninput="updateGoal();predict()">
+        <div class="range-sub">최소 $100 ~ 최대 $500,000</div>
+      </div>
+      <div class="field">
+        <label>캠페인 기간 (일)</label>
+        <div class="range-val" id="dur-val">30일</div>
+        <input type="range" id="in-duration" min="7" max="60" value="30" oninput="updateDur();predict()">
+        <div class="range-sub">킥스타터 최대 60일</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>콘텐츠 준비</h3>
+      <div class="field">
+        <label>스토리 페이지 글자 수</label>
+        <div class="range-val" id="story-val">5,000자</div>
+        <input type="range" id="in-story" min="0" max="50000" value="5000" step="500" oninput="updateStory();predict()">
+        <div class="range-sub">성공 프로젝트 평균: 약 20,000자</div>
+      </div>
+      <div class="field">
+        <label>스토리 이미지 수</label>
+        <div class="range-val" id="img-val">5장</div>
+        <input type="range" id="in-images" min="0" max="50" value="5" oninput="updateImg();predict()">
+        <div class="range-sub">성공 프로젝트 평균: 약 15장</div>
+      </div>
+      <div class="field">
+        <label>리워드 티어 수</label>
+        <div class="range-val" id="reward-val">5개</div>
+        <input type="range" id="in-rewards" min="0" max="20" value="5" oninput="updateReward();predict()">
+        <div class="range-sub">최적 구간: 7~10개</div>
+      </div>
+      <div class="field">
+        <label>FAQ 수</label>
+        <div class="range-val" id="faq-val">0개</div>
+        <input type="range" id="in-faqs" min="0" max="20" value="0" oninput="updateFaq();predict()">
+        <div class="range-sub">FAQ가 있으면 성공률 +10%p</div>
+      </div>
+      <div class="field">
+        <label>프로모션 비디오</label>
+        <select id="in-video" onchange="predict()">
+          <option value="1" selected>있음</option>
+          <option value="0">없음</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="compare-area"></div>
+
+  <div class="disclaimer" id="disclaimer"></div>
+  <div class="model-info" id="model-info"></div>
+</div>
+
+<script>
+let PRED = null;
+
+function fmt(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toLocaleString();}
+function updateGoal(){document.getElementById('goal-val').textContent='$'+parseInt(document.getElementById('in-goal').value).toLocaleString();}
+function updateDur(){document.getElementById('dur-val').textContent=document.getElementById('in-duration').value+'일';}
+function updateStory(){document.getElementById('story-val').textContent=parseInt(document.getElementById('in-story').value).toLocaleString()+'자';}
+function updateImg(){document.getElementById('img-val').textContent=document.getElementById('in-images').value+'장';}
+function updateReward(){document.getElementById('reward-val').textContent=document.getElementById('in-rewards').value+'개';}
+function updateFaq(){document.getElementById('faq-val').textContent=document.getElementById('in-faqs').value+'개';}
+
+function findBucket(table, value){
+  for(const b of table){
+    if(value >= b.min && value < b.max) return b;
+  }
+  return table[table.length-1];
+}
+
+function predict(){
+  if(!PRED) return;
+
+  const goal = parseInt(document.getElementById('in-goal').value);
+  const duration = parseInt(document.getElementById('in-duration').value);
+  const story = parseInt(document.getElementById('in-story').value);
+  const images = parseInt(document.getElementById('in-images').value);
+  const rewards = parseInt(document.getElementById('in-rewards').value);
+  const faqs = parseInt(document.getElementById('in-faqs').value);
+  const video = parseInt(document.getElementById('in-video').value);
+  const cat = document.getElementById('in-cat').value;
+  const country = document.getElementById('in-country').value;
+
+  const T = PRED.scoring_tables;
+
+  // 각 변수별 예측 확률 가져오기
+  const scores = [
+    {name: '목표 금액', val: findBucket(T.goal, goal)?.predicted || 50, weight: 0.20},
+    {name: '캠페인 기간', val: findBucket(T.duration, duration)?.predicted || 50, weight: 0.15},
+    {name: '스토리 길이', val: findBucket(T.story_length, story)?.predicted || 50, weight: 0.20},
+    {name: '이미지 수', val: findBucket(T.story_images, images)?.predicted || 50, weight: 0.10},
+    {name: '리워드 수', val: findBucket(T.rewards_count, rewards)?.predicted || 50, weight: 0.12},
+    {name: 'FAQ', val: findBucket(T.faqs_count, faqs)?.predicted || 50, weight: 0.05},
+    {name: '카테고리', val: PRED.category_scores[cat]?.predicted || 50, weight: 0.10},
+    {name: '국가', val: PRED.country_scores[country]?.predicted || 50, weight: 0.05},
+    {name: '비디오', val: video ? 72 : 55, weight: 0.03},
+  ];
+
+  // 가중 평균
+  const totalWeight = scores.reduce((s, x) => s + x.weight, 0);
+  const finalScore = scores.reduce((s, x) => s + x.val * x.weight, 0) / totalWeight;
+  const roundedScore = Math.round(finalScore);
+
+  // Grade
+  let grade, gradeClass, gradeText;
+  if(roundedScore >= 70){ grade='높음'; gradeClass='grade-high'; gradeText='성공 가능성이 높은 조건입니다.'; }
+  else if(roundedScore >= 50){ grade='보통'; gradeClass='grade-mid'; gradeText='개선 여지가 있는 조건입니다.'; }
+  else{ grade='낮음'; gradeClass='grade-low'; gradeText='여러 항목의 개선이 필요합니다.'; }
+
+  // Result
+  document.getElementById('result-area').innerHTML = `
+    <div class="result-card">
+      <div style="font-size:12px;opacity:.7;">예측 성공 가능성</div>
+      <div class="score">${roundedScore}%</div>
+      <div class="score-label">${gradeText}</div>
+      <div class="score-bar"><div class="score-fill" style="width:${roundedScore}%;background:${roundedScore>=70?'#10b981':roundedScore>=50?'#f59e0b':'#ef4444'};"></div></div>
+      <span class="grade ${gradeClass}" style="margin-top:12px;">${grade}</span>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <h3>항목별 점수</h3>
+      <div class="factors">
+        ${scores.map(s => {
+          const color = s.val >= 70 ? '#10b981' : s.val >= 50 ? '#f59e0b' : '#ef4444';
+          return `<div class="factor">
+            <div class="f-name">${s.name}</div>
+            <div class="f-bar"><div class="f-fill" style="width:${s.val}%;background:${color};">${s.val > 30 ? s.val.toFixed(0) + '%' : ''}</div></div>
+            <div class="f-val" style="color:${color};">${s.val.toFixed(0)}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  // Compare area — 개선 가이드
+  const lowest = scores.filter(s => s.val < 60).sort((a, b) => a.val - b.val);
+  let advice = '';
+  if(lowest.length > 0){
+    advice = '<div class="card"><h3>개선 포인트</h3><div style="font-size:12px;line-height:1.8;color:var(--muted);">';
+    for(const s of lowest.slice(0, 3)){
+      let tip = '';
+      if(s.name === '목표 금액') tip = '목표 금액을 낮추면 달성 확률이 크게 올라갑니다. $5,000 이하 → 80%+';
+      else if(s.name === '스토리 길이') tip = '스토리 페이지를 10,000자 이상으로 충실하게 작성하세요.';
+      else if(s.name === '이미지 수') tip = '제품/과정 이미지를 15장 이상 포함하세요. 가장 강력한 성공 요인입니다.';
+      else if(s.name === '캠페인 기간') tip = '30일 이하로 설정하세요. 짧은 캠페인이 긴급성을 만듭니다.';
+      else if(s.name === '리워드 수') tip = '리워드 티어를 7~10개로 다양하게 구성하세요.';
+      else if(s.name === 'FAQ') tip = 'FAQ를 3개 이상 미리 작성하세요. 후원자 신뢰에 직접 영향합니다.';
+      else tip = '이 항목을 개선하면 성공 확률이 올라갑니다.';
+      advice += `<div style="margin-bottom:8px;padding:8px;background:#f8fafc;border-radius:6px;border-left:3px solid ${s.val<40?'#ef4444':'#f59e0b'};">
+        <b style="color:var(--text);">${s.name} (${s.val.toFixed(0)}%)</b> — ${tip}</div>`;
+    }
+    advice += '</div></div>';
+  }
+  document.getElementById('compare-area').innerHTML = advice;
+}
+
+async function init(){
+  const r = await fetch('/data/predictor.json');
+  PRED = await r.json();
+
+  document.getElementById('disclaimer').innerHTML = PRED.disclaimer;
+  document.getElementById('model-info').innerHTML =
+    `모델: ${PRED.model_info.name} | 정확도: ${PRED.model_info.test_accuracy}% (AUC ${PRED.model_info.test_auc}) | 학습 데이터: ${PRED.model_info.training_data.toLocaleString()}건 | 과적합 갭: ${PRED.model_info.gap}pp`;
+
+  predict();
+}
+init();
+</script>
+</body>
+</html>
