@@ -92,7 +92,7 @@ tr:hover{background:#f8fafc;}
 .factor-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px;}
 .factor-name{width:180px;text-align:right;color:var(--muted);font-weight:500;flex-shrink:0;}
 .factor-bar-bg{flex:1;background:#f1f5f9;border-radius:4px;height:20px;position:relative;overflow:hidden;}
-.factor-bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:700;color:#fff;transition:width .8s ease;}
+.factor-bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:700;color:var(--text);transition:width .8s ease;}
 .factor-val{width:60px;font-weight:700;font-size:11px;flex-shrink:0;}
 
 /* INSIGHT CARD — Tremor */
@@ -437,9 +437,9 @@ async function buildMLSection(){
     const mAccs=mNames.map(n=>models[n].test_acc*100);
     const shortNames=mNames.map(n=>n.replace('(정규화)','').replace('(최적화)','').trim().substring(0,15));
     makeChart('ch-ml-models','bar',shortNames,[
-      {label:'AUC',data:mAucs,backgroundColor:'rgba(5,206,120,.7)',borderRadius:4},
+      {label:'AUC',data:mAucs,backgroundColor:'rgba(16,185,129,.7)',borderRadius:4},
       {label:'Accuracy',data:mAccs,backgroundColor:'rgba(59,130,246,.7)',borderRadius:4},
-    ],{plugins:{legend:{display:true,labels:{color:'#7b7b9e',font:{size:10}}}},scales:{y:{min:75,max:95,ticks:{callback:v=>v+'%'}},x:{ticks:{font:{size:9}}}}});
+    ],{plugins:{legend:{display:true,labels:{color:'#64748b',font:{size:10}}}},scales:{y:{min:75,max:95,ticks:{callback:v=>v+'%'}},x:{ticks:{font:{size:9}}}}});
 
     // Feature importance bars
     const feats=ml.feature_importance.slice(0,15);
@@ -448,7 +448,7 @@ async function buildMLSection(){
     document.getElementById('ml-feat-bars').innerHTML=feats.map((f,i)=>{
       const w=f.score/maxScore*100;
       const nm=FEAT_KO[f.name]||f.name;
-      return `<div class="factor-row"><div class="factor-name" style="width:140px;font-size:10px;">${nm}</div><div class="factor-bar-bg" style="height:16px;"><div class="factor-bar-fill" style="width:${w}%;background:${i<3?'#05ce78':i<7?'#3b82f6':'#8b5cf6'};font-size:9px;">${w>30?(f.score*100).toFixed(1)+'%':''}</div></div><div class="factor-val" style="width:45px;font-size:10px;">${(f.score*100).toFixed(1)}%</div></div>`;
+      return `<div class="factor-row"><div class="factor-name" style="width:140px;font-size:10px;">${nm}</div><div class="factor-bar-bg" style="height:16px;"><div class="factor-bar-fill" style="width:${w}%;background:${i<3?'#10b981':i<7?'#3b82f6':'#8b5cf6'};font-size:9px;">${w>30?(f.score*100).toFixed(1)+'%':''}</div></div><div class="factor-val" style="width:45px;font-size:10px;">${(f.score*100).toFixed(1)}%</div></div>`;
     }).join('');
 
     // Detail panel
@@ -465,21 +465,21 @@ async function buildMLSection(){
           </table>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:8px;">
-          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+          <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:9px;color:var(--ks-muted);">실패 Precision</div>
             <div style="font-size:16px;font-weight:800;color:var(--ks-green);">${(cls['실패'].precision*100).toFixed(1)}%</div>
           </div>
-          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+          <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:9px;color:var(--ks-muted);">성공 Precision</div>
             <div style="font-size:16px;font-weight:800;color:var(--blue);">${(cls['성공'].precision*100).toFixed(1)}%</div>
           </div>
         </div>
         <div style="display:flex;gap:8px;">
-          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+          <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:9px;color:var(--ks-muted);">실패 Recall</div>
             <div style="font-size:16px;font-weight:800;color:var(--ks-green);">${(cls['실패'].recall*100).toFixed(1)}%</div>
           </div>
-          <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+          <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:9px;color:var(--ks-muted);">성공 Recall</div>
             <div style="font-size:16px;font-weight:800;color:var(--blue);">${(cls['성공'].recall*100).toFixed(1)}%</div>
           </div>
@@ -583,7 +583,7 @@ async function buildFaqSentiment(){
 
     // FAQ topic chart
     const topics=Object.entries(faq.topic_distribution).filter(([k])=>k!=='기타').sort((a,b)=>b[1]-a[1]);
-    makeChart('ch-faq-topics','bar',topics.map(t=>t[0]),[{data:topics.map(t=>t[1]),backgroundColor:'#fff',borderRadius:3}],{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#666'}},y:{ticks:{color:'#aaa',font:{size:10}}}}});
+    makeChart('ch-faq-topics','bar',topics.map(t=>t[0]),[{data:topics.map(t=>t[1]),backgroundColor:'#6366f1',borderRadius:3}],{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#64748b',font:{size:10}}}}});
 
     // FAQ category table
     const catTopics=faq.category_topics;
@@ -600,23 +600,23 @@ async function buildFaqSentiment(){
     const sVals=sfTopics.map(t=>faq.success_vs_fail.success_topics[t]||0);
     const fVals=sfTopics.map(t=>faq.success_vs_fail.fail_topics[t]||0);
     makeChart('ch-faq-diff','bar',sfTopics,[
-      {label:'성공',data:sVals,backgroundColor:'#fff',borderRadius:3},
+      {label:'성공',data:sVals,backgroundColor:'#6366f1',borderRadius:3},
       {label:'실패',data:fVals,backgroundColor:'#555',borderRadius:3},
-    ],{plugins:{legend:{display:true,labels:{color:'#666',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#666'}},x:{ticks:{color:'#888',font:{size:9}}}}});
+    ],{plugins:{legend:{display:true,labels:{color:'#64748b',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#64748b'}},x:{ticks:{color:'#64748b',font:{size:9}}}}});
 
     // Sentiment distribution
     const sd=sent.distribution;
     const sentLabels=['positive','negative','question','neutral'];
     const sentKo={'positive':'긍정','negative':'부정','question':'질문','neutral':'중립'};
-    const sentColors=['#fff','#ff4444','#0070f3','#333'];
-    makeChart('ch-sent-dist','doughnut',sentLabels.map(s=>sentKo[s]),[{data:sentLabels.map(s=>sd[s]||0),backgroundColor:sentColors,borderWidth:0}],{plugins:{legend:{display:true,position:'right',labels:{color:'#888',font:{size:10}}}}});
+    const sentColors=['#10b981','#ef4444','#3b82f6','#cbd5e1'];
+    makeChart('ch-sent-dist','doughnut',sentLabels.map(s=>sentKo[s]),[{data:sentLabels.map(s=>sd[s]||0),backgroundColor:sentColors,borderWidth:0}],{plugins:{legend:{display:true,position:'right',labels:{color:'#64748b',font:{size:10}}}}});
 
     // Sentiment success vs fail
     const svf=sent.success_vs_fail;
     makeChart('ch-sent-compare','bar',sentLabels.map(s=>sentKo[s]),[
-      {label:'성공 프로젝트',data:sentLabels.map(s=>svf.success[s]),backgroundColor:'#fff',borderRadius:3},
+      {label:'성공 프로젝트',data:sentLabels.map(s=>svf.success[s]),backgroundColor:'#6366f1',borderRadius:3},
       {label:'실패 프로젝트',data:sentLabels.map(s=>svf.fail[s]),backgroundColor:'#555',borderRadius:3},
-    ],{plugins:{legend:{display:true,labels:{color:'#666',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#666'}},x:{ticks:{color:'#888'}}}});
+    ],{plugins:{legend:{display:true,labels:{color:'#64748b',font:{size:10}}}},scales:{y:{ticks:{callback:v=>v+'%',color:'#64748b'}},x:{ticks:{color:'#64748b'}}}});
 
     // Sentiment findings
     const sf=svf.success, ff=svf.fail;
@@ -659,7 +659,7 @@ function buildKPI(data){
 
 function buildFactorBars(){
   const factors=[
-    {name:'크리에이터 슈퍼백커',delta:51.8,color:'#05ce78'},
+    {name:'크리에이터 슈퍼백커',delta:51.8,color:'#10b981'},
     {name:'스토리 2만자 이상',delta:46.8,color:'#3b82f6'},
     {name:'스토리 이미지 20장+',delta:42.6,color:'#8b5cf6'},
     {name:'Project We Love',delta:36.8,color:'#f59e0b'},
@@ -684,7 +684,7 @@ function buildGoalChart(data){
     const s=inB.filter(p=>(p.percent_funded||0)>=100).length;
     return inB.length>0?s/inB.length*100:0;
   });
-  makeChart('ch-goal','bar',buckets.map(b=>b.label),[{data:rates,backgroundColor:rates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%'}}}});
+  makeChart('ch-goal','bar',buckets.map(b=>b.label),[{data:rates,backgroundColor:rates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%'}}}});
 }
 
 function buildCategorySection(data){
@@ -700,7 +700,7 @@ function buildCategorySection(data){
   const sorted=Object.entries(cats).sort((a,b)=>b[1].count-a[1].count);
   const labels=sorted.map(s=>s[0]);
   const rates=sorted.map(s=>s[1].success/s[1].count*100);
-  makeChart('ch-cat-success','bar',labels,[{data:rates,backgroundColor:rates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
+  makeChart('ch-cat-success','bar',labels,[{data:rates,backgroundColor:rates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
 
   const tbody=document.querySelector('#tbl-cat tbody');
   tbody.innerHTML=sorted.map(([name,d])=>{
@@ -736,7 +736,7 @@ function buildRewardSection(details){
     const s=inB.filter(d=>(d.data?.percent_funded||0)>=100).length;
     return inB.length?s/inB.length*100:0;
   });
-  makeChart('ch-tier-success','bar',tierBuckets.map(b=>b.l),[{data:tierRates,backgroundColor:tierRates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-tier-success','bar',tierBuckets.map(b=>b.l),[{data:tierRates,backgroundColor:tierRates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 
   // Popular prices
   const priceMap={};
@@ -759,7 +759,7 @@ function buildContentCharts(details){
     const s=inB.filter(d=>(d.data?.percent_funded||0)>=100).length;
     return inB.length?s/inB.length*100:0;
   });
-  makeChart('ch-story','bar',storyBuckets.map(b=>b.l),[{data:storyRates,backgroundColor:storyRates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-story','bar',storyBuckets.map(b=>b.l),[{data:storyRates,backgroundColor:storyRates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 
   // Image count
   const imgBuckets=[{l:'0',min:0,max:0},{l:'1-5',min:1,max:5},{l:'6-10',min:6,max:10},{l:'11-20',min:11,max:20},{l:'20+',min:21,max:9999}];
@@ -768,7 +768,7 @@ function buildContentCharts(details){
     const s=inB.filter(d=>(d.data?.percent_funded||0)>=100).length;
     return inB.length?s/inB.length*100:0;
   });
-  makeChart('ch-images','bar',imgBuckets.map(b=>b.l),[{data:imgRates,backgroundColor:imgRates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-images','bar',imgBuckets.map(b=>b.l),[{data:imgRates,backgroundColor:imgRates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 
   // Duration
   const durBuckets=[{l:'≤15d',min:0,max:15},{l:'16-20d',min:16,max:20},{l:'21-30d',min:21,max:30},{l:'31-40d',min:31,max:40},{l:'41-60d',min:41,max:60}];
@@ -777,7 +777,7 @@ function buildContentCharts(details){
     const s=inB.filter(d=>(d.data?.percent_funded||0)>=100).length;
     return inB.length?s/inB.length*100:0;
   });
-  makeChart('ch-duration','bar',durBuckets.map(b=>b.l),[{data:durRates,backgroundColor:durRates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-duration','bar',durBuckets.map(b=>b.l),[{data:durRates,backgroundColor:durRates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 }
 
 function buildGeoSection(data){
@@ -792,13 +792,13 @@ function buildGeoSection(data){
   const sorted=Object.entries(countries).filter(e=>e[1].count>=5).sort((a,b)=>(b[1].success/b[1].count)-(a[1].success/a[1].count)).slice(0,15);
   const labels=sorted.map(s=>s[0]);
   const rates=sorted.map(s=>s[1].success/s[1].count*100);
-  makeChart('ch-country','bar',labels,[{data:rates,backgroundColor:rates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
+  makeChart('ch-country','bar',labels,[{data:rates,backgroundColor:rates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
 
   // Currency doughnut
   const currencies={};
   data.forEach(p=>{const c=(p.currency||'?').toUpperCase();currencies[c]=(currencies[c]||0)+1;});
   const sortedCur=Object.entries(currencies).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  makeChart('ch-currency','doughnut',sortedCur.map(c=>c[0]),[{data:sortedCur.map(c=>c[1]),backgroundColor:CHART_COLORS}],{plugins:{legend:{display:true,position:'right',labels:{color:'#7b7b9e',font:{size:10}}}}});
+  makeChart('ch-currency','doughnut',sortedCur.map(c=>c[0]),[{data:sortedCur.map(c=>c[1]),backgroundColor:CHART_COLORS}],{plugins:{legend:{display:true,position:'right',labels:{color:'#64748b',font:{size:10}}}}});
 
   // Country table
   const allCountries=Object.entries(countries).filter(e=>e[1].count>=3).sort((a,b)=>b[1].count-a[1].count).slice(0,12);
@@ -821,7 +821,7 @@ function buildFailureSection(data){
     {l:'500%+',fn:p=>(p.percent_funded||0)>=500},
   ];
   const counts=buckets.map(b=>data.filter(b.fn).length);
-  const colors=['#ef4444','#f97316','#f59e0b','#eab308','#22c55e','#05ce78','#3b82f6'];
+  const colors=['#ef4444','#f97316','#f59e0b','#eab308','#22c55e','#10b981','#3b82f6'];
   makeChart('ch-achieve','bar',buckets.map(b=>b.l),[{data:counts,backgroundColor:colors,borderRadius:4}],{plugins:{legend:{display:false}}});
 
   // Failure profile
@@ -835,8 +835,8 @@ function buildFailureSection(data){
   document.getElementById('failure-profile').innerHTML=`
     <div style="font-size:11px;line-height:1.8;color:var(--ks-muted);">
       <div style="margin-bottom:6px;color:var(--red);font-weight:700;font-size:12px;">100% 실패 프로젝트 프로필</div>
-      <div><span style="color:var(--red);">&#x2716;</span> 목표 금액 <b style="color:#fff;">${fmtMoney(fAvgGoal)}</b> (성공의 ${(fAvgGoal/sAvgGoal).toFixed(1)}배)</div>
-      <div><span style="color:var(--red);">&#x2716;</span> 후원자 평균 <b style="color:#fff;">${fmt(Math.round(fAvgBackers))}</b>명 (성공: ${fmt(Math.round(sAvgBackers))}명)</div>
+      <div><span style="color:var(--red);">&#x2716;</span> 목표 금액 <b style="color:var(--text);">${fmtMoney(fAvgGoal)}</b> (성공의 ${(fAvgGoal/sAvgGoal).toFixed(1)}배)</div>
+      <div><span style="color:var(--red);">&#x2716;</span> 후원자 평균 <b style="color:var(--text);">${fmt(Math.round(fAvgBackers))}</b>명 (성공: ${fmt(Math.round(sAvgBackers))}명)</div>
       <div><span style="color:var(--red);">&#x2716;</span> 스토리 7,166자 (성공의 1/3)</div>
       <div><span style="color:var(--red);">&#x2716;</span> 이미지 4.8장 (성공의 1/3)</div>
       <div><span style="color:var(--red);">&#x2716;</span> Project We Love 0.3%</div>
@@ -847,7 +847,7 @@ function buildFailureSection(data){
   // Compare table
   document.getElementById('compare-table').innerHTML=`
     <table style="font-size:11px;">
-      <tr><th></th><th class="num" style="color:#05ce78;">성공</th><th class="num" style="color:#ef4444;">실패</th><th class="num">격차</th></tr>
+      <tr><th></th><th class="num" style="color:#10b981;">성공</th><th class="num" style="color:#ef4444;">실패</th><th class="num">격차</th></tr>
       <tr><td>평균 목표액</td><td class="num">${fmtMoney(sAvgGoal)}</td><td class="num">${fmtMoney(fAvgGoal)}</td><td class="num">${(fAvgGoal/sAvgGoal).toFixed(1)}x</td></tr>
       <tr><td>평균 후원자</td><td class="num">${fmt(Math.round(sAvgBackers))}</td><td class="num">${fmt(Math.round(fAvgBackers))}</td><td class="num">${(sAvgBackers/Math.max(fAvgBackers,1)).toFixed(0)}x</td></tr>
       <tr><td>스토리 길이</td><td class="num">21.8K</td><td class="num">9.1K</td><td class="num">2.4x</td></tr>
@@ -866,7 +866,7 @@ function buildBackerSection(data,details){
     const s=inB.filter(p=>(p.percent_funded||0)>=100).length;
     return inB.length?s/inB.length*100:0;
   });
-  makeChart('ch-backers','bar',bBuckets.map(b=>b.l),[{data:bRates,backgroundColor:bRates.map(r=>r>=50?'#05ce78':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-backers','bar',bBuckets.map(b=>b.l),[{data:bRates,backgroundColor:bRates.map(r=>r>=50?'#10b981':r>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 
   // Pledge per backer by category
   const catPledge={};
@@ -886,7 +886,7 @@ function buildTrendSection(details){
   const pwlNo=details.filter(d=>!d.data?.is_project_we_love);
   const pwlYesRate=pwlYes.filter(d=>(d.data?.percent_funded||0)>=100).length/(pwlYes.length||1)*100;
   const pwlNoRate=pwlNo.filter(d=>(d.data?.percent_funded||0)>=100).length/(pwlNo.length||1)*100;
-  makeChart('ch-pwl','bar',['Project We Love 선정','미선정'],[{data:[pwlYesRate,pwlNoRate],backgroundColor:['#05ce78','#ef4444'],borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+  makeChart('ch-pwl','bar',['Project We Love 선정','미선정'],[{data:[pwlYesRate,pwlNoRate],backgroundColor:['#10b981','#ef4444'],borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
 
   // AI disclosure count
   const aiCount=details.filter(d=>d.data?.ai_disclosure).length;
@@ -899,12 +899,12 @@ function buildTrendSection(details){
   const envNoRate=envNo.filter(d=>(d.data?.percent_funded||0)>=100).length/(envNo.length||1)*100;
   document.getElementById('env-detail').innerHTML=`
     <div style="display:flex;gap:8px;">
-      <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
         <div style="font-size:9px;color:var(--ks-muted);">ESG 공시 있음</div>
-        <div style="font-size:18px;font-weight:800;color:#05ce78;">${fmtPct(envYesRate)}</div>
+        <div style="font-size:18px;font-weight:800;color:#10b981;">${fmtPct(envYesRate)}</div>
         <div style="font-size:9px;color:var(--ks-muted);">${envYes.length} 건</div>
       </div>
-      <div style="flex:1;background:#1e1e3a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;">
         <div style="font-size:9px;color:var(--ks-muted);">ESG 공시 없음</div>
         <div style="font-size:18px;font-weight:800;color:var(--red);">${fmtPct(envNoRate)}</div>
         <div style="font-size:9px;color:var(--ks-muted);">${envNo.length} 건</div>
@@ -926,7 +926,7 @@ function buildRankings(data){
       const cat=CAT_MAP[p.category_id]||'Other';
       const pf=p.percent_funded||0;
       const cls=pf>=100?'badge-green':pf>=50?'badge-orange':'badge-red';
-      return `<tr><td>${i+1}</td><td><a href="${p.url||'#'}" target="_blank" style="color:#fff;font-weight:500;">${(p.name||'').substring(0,55)}</a></td><td><span class="badge badge-blue">${cat}</span></td><td class="num">${fmtMoney(p.pledged)}</td><td class="num">${fmt(p.backers_count)}</td><td class="num"><span class="badge ${cls}">${fmtPct(pf)}</span></td><td class="num">${fmtMoney(p.goal)}</td></tr>`;
+      return `<tr><td>${i+1}</td><td><a href="${p.url||'#'}" target="_blank" style="color:var(--text);font-weight:500;">${(p.name||'').substring(0,55)}</a></td><td><span class="badge badge-blue">${cat}</span></td><td class="num">${fmtMoney(p.pledged)}</td><td class="num">${fmt(p.backers_count)}</td><td class="num"><span class="badge ${cls}">${fmtPct(pf)}</span></td><td class="num">${fmtMoney(p.goal)}</td></tr>`;
     }).join('');
   }
 
@@ -944,11 +944,11 @@ function buildRankings(data){
 function buildCompetitive(){
   const items=[
     {icon:'',code:'RW',title:'리워드 티어 분석',us:true,kt:false,bt:false,done:true,desc:'가격 분포, 최적 티어 수, 후원자 집중 가격대',
-     detail:'<b>보유 데이터:</b> 리워드 티어별 가격, 후원자 수, 배송일, 잔여수량, 아이템 목록<br><b>분석 완료:</b> 최적 가격대 도출($26-50 최다 후원), 티어 수 최적화(10-11개 최고 성공률 55%), 카테고리별 가격 전략<br><b>경쟁사:</b> KickTraq/BackerTracker 모두 리워드 데이터 없음 → <span style="color:#05ce78;">완전 독점 영역</span><br><b>대시보드:</b> 리워드 티어 최적화 섹션에서 가격 분포, 티어별 성공률, 인기 가격대 TOP15 확인 가능'},
+     detail:'<b>보유 데이터:</b> 리워드 티어별 가격, 후원자 수, 배송일, 잔여수량, 아이템 목록<br><b>분석 완료:</b> 최적 가격대 도출($26-50 최다 후원), 티어 수 최적화(10-11개 최고 성공률 55%), 카테고리별 가격 전략<br><b>경쟁사:</b> KickTraq/BackerTracker 모두 리워드 데이터 없음 → <span style="color:#10b981;">완전 독점 영역</span><br><b>대시보드:</b> 리워드 티어 최적화 섹션에서 가격 분포, 티어별 성공률, 인기 가격대 TOP15 확인 가능'},
     {icon:'',code:'FQ',title:'FAQ 패턴 마이닝',us:true,kt:false,bt:false,done:false,desc:'카테고리별 자주 묻는 질문 패턴',
-     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(5,206,120,.1);border-radius:8px;font-size:11px;"><b style="color:#05ce78;">즉시 구현 가능</b> — 데이터 충분</div>
-<b>보유 데이터:</b> 1,147개 프로젝트 × 평균 6.8개 = <b style="color:#fff;">총 7,750개 FAQ 텍스트</b> (질문+답변 전문)<br><br>
-<b style="color:#05ce78;">구현 방법 (3단계):</b><br>
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(16,185,129,.1);border-radius:8px;font-size:11px;"><b style="color:#10b981;">즉시 구현 가능</b> — 데이터 충분</div>
+<b>보유 데이터:</b> 1,147개 프로젝트 × 평균 6.8개 = <b style="color:var(--text);">총 7,750개 FAQ 텍스트</b> (질문+답변 전문)<br><br>
+<b style="color:#10b981;">구현 방법 (3단계):</b><br>
 <b>1단계 — 키워드 추출 (Python, 즉시):</b><br>
 &nbsp;&nbsp;- TF-IDF로 카테고리별 FAQ 핵심 키워드 TOP 20 추출<br>
 &nbsp;&nbsp;- 불용어 제거 후 n-gram(2~3단어 조합) 빈도 분석<br>
@@ -963,9 +963,9 @@ function buildCompetitive(){
 <b>소요 시간:</b> 1~2시간 (Python 스크립트 + 대시보드 섹션 추가)<br>
 <b>상업 가치:</b> 메이커 온보딩 도구로 SaaS화 가능 — 월 $29 플랜`},
     {icon:'',code:'ST',title:'댓글 감정 분석',us:true,kt:false,bt:false,done:false,desc:'댓글 감정 분석, 불만 시그널 감지',
-     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(5,206,120,.1);border-radius:8px;font-size:11px;"><b style="color:#05ce78;">즉시 구현 가능</b> — 데이터 충분</div>
-<b>보유 데이터:</b> 2,437개 프로젝트 × 평균 5.4개 = <b style="color:#fff;">총 13,277개 댓글</b> (본문, 작성자, 날짜, 배지)<br><br>
-<b style="color:#05ce78;">구현 방법 (3단계):</b><br>
+     detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(16,185,129,.1);border-radius:8px;font-size:11px;"><b style="color:#10b981;">즉시 구현 가능</b> — 데이터 충분</div>
+<b>보유 데이터:</b> 2,437개 프로젝트 × 평균 5.4개 = <b style="color:var(--text);">총 13,277개 댓글</b> (본문, 작성자, 날짜, 배지)<br><br>
+<b style="color:#10b981;">구현 방법 (3단계):</b><br>
 <b>1단계 — 키워드 기반 감정 분류 (즉시):</b><br>
 &nbsp;&nbsp;- 긍정 키워드: "love", "amazing", "excited", "can't wait", "backed"<br>
 &nbsp;&nbsp;- 부정 키워드: "scam", "refund", "disappointed", "delay", "no response"<br>
@@ -983,7 +983,7 @@ function buildCompetitive(){
 <b>고도화 (선택):</b> Claude API로 댓글 요약/분류 → 정확도 향상 (API 비용 발생)`},
     {icon:'',code:'FP',title:'실패 예측',us:true,kt:false,bt:false,done:'partial',desc:'100% 실패 판별, 위험 요인 스코어링',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습 완료, 개별 프로젝트 스코어링 미구현</div>
-<b style="color:#05ce78;">구현된 것:</b><br>
+<b style="color:#10b981;">구현된 것:</b><br>
 &nbsp;&nbsp;- XGBoost 정규화 모델 학습 완료 (AUC 0.91, 정확도 80.8%)<br>
 &nbsp;&nbsp;- 5개 모델 비교 + 하이퍼파라미터 최적화 (120회 탐색)<br>
 &nbsp;&nbsp;- Feature Importance TOP 15, Confusion Matrix 대시보드 표시<br>
@@ -1020,7 +1020,7 @@ function buildCompetitive(){
      detail:'<b>구현 완료:</b> 14개 통화, 30개국+ 분석 완료<br><b>핵심 발견:</b> HK 73.5% 성공 (건당 $845K 최고 효율), US 36.7% (경쟁 과밀), JP 53.8%<br><b>통화 분석:</b> USD 54.9%, EUR 15.9%, GBP 11.7%<br><b>대시보드:</b> 지역/통화 인텔리전스 섹션에서 국가별 성공률 차트, 통화 분포, 국가별 지표 확인 가능'},
     {icon:'',code:'AI',title:'AI 공시 추적',us:true,kt:false,bt:false,done:'partial',desc:'AI 사용 프로젝트 추적 (업계 최초)',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 공시율 숫자만 표시, 상세 분석 미구현</div>
-<b style="color:#05ce78;">구현된 것:</b><br>
+<b style="color:#10b981;">구현된 것:</b><br>
 &nbsp;&nbsp;- 전체 프로젝트 AI 공시 보유율 동적 계산 (1개 수치)<br>
 &nbsp;&nbsp;- 데이터 수집 완료 (fundingForAiAttribution, Consent, Option, otherAiDetails)<br><br>
 <b style="color:#ef4444;">미구현:</b><br>
@@ -1032,7 +1032,7 @@ function buildCompetitive(){
 <b>예상 소요:</b> 1~2시간 (데이터는 이미 보유, 시각화만 추가)`},
     {icon:'',code:'ES',title:'ESG 영향 분석',us:true,kt:false,bt:false,done:'partial',desc:'환경 공시와 성공률 상관관계',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 유무 비교 동적, 헤드라인 하드코딩</div>
-<b style="color:#05ce78;">구현된 것:</b><br>
+<b style="color:#10b981;">구현된 것:</b><br>
 &nbsp;&nbsp;- 환경 공시 보유/미보유 성공률 동적 비교 (2개 박스)<br>
 &nbsp;&nbsp;- 프로젝트 수 동적 카운팅<br><br>
 <b style="color:#ef4444;">미구현:</b><br>
@@ -1044,13 +1044,13 @@ function buildCompetitive(){
 <b>예상 소요:</b> 1시간`},
     {icon:'',code:'SB',title:'슈퍼백커 추적',us:true,kt:false,bt:false,done:false,desc:'슈퍼백커 행동 패턴 분석',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 크리에이터 분석 완료, 후원자 추적은 추가 크롤링 필요</div>
-<b style="color:#05ce78;">현재 구현된 것 (크리에이터 측):</b><br>
-&nbsp;&nbsp;- 크리에이터가 슈퍼백커인지 여부: <b style="color:#fff;">115명/2,701건 (4.3%)</b><br>
-&nbsp;&nbsp;- 슈퍼백커 크리에이터 성공률: <b style="color:#fff;">89.2%</b> (전체 대비 +51.8pp)<br>
+<b style="color:#10b981;">현재 구현된 것 (크리에이터 측):</b><br>
+&nbsp;&nbsp;- 크리에이터가 슈퍼백커인지 여부: <b style="color:var(--text);">115명/2,701건 (4.3%)</b><br>
+&nbsp;&nbsp;- 슈퍼백커 크리에이터 성공률: <b style="color:var(--text);">89.2%</b> (전체 대비 +51.8pp)<br>
 &nbsp;&nbsp;- ML 모델에서 최강 예측 변수로 확인됨<br><br>
-<b style="color:#05ce78;">현재 보유 데이터 (댓글 측):</b><br>
-&nbsp;&nbsp;- 댓글에 superbacker 배지 보유 사용자: <b style="color:#fff;">1,398명</b><br>
-&nbsp;&nbsp;- 슈퍼백커가 댓글 남긴 프로젝트: <b style="color:#fff;">1,899개</b><br>
+<b style="color:#10b981;">현재 보유 데이터 (댓글 측):</b><br>
+&nbsp;&nbsp;- 댓글에 superbacker 배지 보유 사용자: <b style="color:var(--text);">1,398명</b><br>
+&nbsp;&nbsp;- 슈퍼백커가 댓글 남긴 프로젝트: <b style="color:var(--text);">1,899개</b><br>
 &nbsp;&nbsp;- 이 데이터로 "슈퍼백커가 관심 갖는 프로젝트 특성" 일부 분석 가능<br><br>
 <b style="color:#ef4444;">미구현 (핵심 기능):</b><br>
 &nbsp;&nbsp;- 슈퍼백커 개인별 후원 프로젝트 목록 → <b>프로필 페이지 크롤링 필요</b><br>
@@ -1070,7 +1070,7 @@ function buildCompetitive(){
 <b>대표님 인용:</b> "슈퍼백커 트래킹? 저거면 우리 엄청 팔 수 있어"`},
     {icon:'',code:'ML',title:'성공 점수 (ML)',us:true,kt:false,bt:false,done:'partial',desc:'XGBoost 기반 다변수 예측 모델',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 모델 학습+평가 완료, 실시간 스코어링 미구현</div>
-<b style="color:#05ce78;">구현된 것:</b><br>
+<b style="color:#10b981;">구현된 것:</b><br>
 &nbsp;&nbsp;- XGBoost 정규화 모델 학습 (AUC 0.9097, 정확도 80.8%)<br>
 &nbsp;&nbsp;- 5개 모델 비교 차트 (XGBoost, LightGBM, RF, GB, LR)<br>
 &nbsp;&nbsp;- Feature Importance TOP 15 바 차트<br>
@@ -1106,7 +1106,7 @@ function buildCompetitive(){
 <b>예상 소요:</b> 크롤러 공유 (펀딩 추세와 동일) + 차트 UI 1일 = 첫 차트까지 약 2일`},
     {icon:'',code:'CQ',title:'콘텐츠 품질 점수',us:true,kt:false,bt:false,done:'partial',desc:'스토리 길이/이미지/FAQ 종합 점수',
      detail:`<div style="margin-bottom:8px;padding:8px;background:rgba(245,158,11,.1);border-radius:8px;font-size:11px;"><b style="color:#f59e0b;">부분 구현</b> — 상관관계 차트 3개 동적, 종합 점수 미구현</div>
-<b style="color:#05ce78;">구현된 것:</b><br>
+<b style="color:#10b981;">구현된 것:</b><br>
 &nbsp;&nbsp;- 스토리 길이별 성공률 차트 (6구간, 동적 계산)<br>
 &nbsp;&nbsp;- 이미지 수별 성공률 차트 (5구간, 동적 계산)<br>
 &nbsp;&nbsp;- 캠페인 기간별 성공률 차트 (5구간, 동적 계산)<br><br>
@@ -1130,18 +1130,18 @@ function buildCompetitive(){
     grid.innerHTML=items.map((it,i)=>{
       const exclusive=!it.kt&&!it.bt;
       const isActive=i===activeIdx;
-      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:transparent;border:1px solid ${isActive?'#fff':'#222'};border-radius:8px;padding:14px;text-align:center;transition:all .15s;${isActive?'background:#111;':''}">
-        ${it.done===true?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:900;">&#x2713;</div>':it.done==='partial'?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#ff8800;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:900;">&#xBD;</div>':''}
-        <div style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:#666;margin:0 auto 6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid #333;border-radius:6px;">${it.code||''}</div>
-        <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:#fff;':''}">${it.title}</div>
+      return `<div class="comp-card" data-idx="${i}" style="cursor:pointer;position:relative;background:${isActive?'#f8fafc':'#fff'};border:1px solid ${isActive?'var(--indigo)':'var(--border)'};border-radius:8px;padding:14px;text-align:center;transition:all .15s;${isActive?'box-shadow:0 0 0 2px rgba(99,102,241,.2);':''}">
+        ${it.done===true?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:900;">&#x2713;</div>':it.done==='partial'?'<div style="position:absolute;top:6px;right:6px;width:20px;height:20px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:900;">&#xBD;</div>':''}
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:#666;margin:0 auto 6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;">${it.code||''}</div>
+        <div style="font-size:11px;font-weight:700;margin-bottom:4px;${isActive||exclusive?'color:var(--text);':''}">${it.title}</div>
         <div style="font-size:9px;color:var(--ks-muted);margin-bottom:6px;">${it.desc}</div>
         <div style="display:flex;gap:4px;justify-content:center;font-size:9px;">
           <span class="badge badge-green">Seto</span>
           <span class="badge ${it.kt?'badge-orange':'badge-red'}">${it.kt?'KT':'KT &#x2716;'}</span>
           <span class="badge ${it.bt?'badge-orange':'badge-red'}">${it.bt?'BT':'BT &#x2716;'}</span>
         </div>
-        ${exclusive?'<div style="margin-top:4px;font-size:8px;color:#05ce78;font-weight:700;">독점</div>':''}
-        <div style="margin-top:6px;font-size:9px;color:${isActive?'#05ce78':'var(--ks-muted)'};font-weight:600;">${isActive?'&#x25B2; 상세 보기 중':'&#x25BC; 클릭하여 상세 보기'}</div>
+        ${exclusive?'<div style="margin-top:4px;font-size:8px;color:#10b981;font-weight:700;">독점</div>':''}
+        <div style="margin-top:6px;font-size:9px;color:${isActive?'#10b981':'var(--ks-muted)'};font-weight:600;">${isActive?'&#x25B2; 상세 보기 중':'&#x25BC; 클릭하여 상세 보기'}</div>
       </div>`;
     }).join('');
 
@@ -1159,7 +1159,7 @@ function buildCompetitive(){
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
               <span style="font-size:28px;">${it.code||''}</span>
               <div>
-                <div style="font-size:15px;font-weight:800;color:#05ce78;">${it.title}</div>
+                <div style="font-size:15px;font-weight:800;color:#10b981;">${it.title}</div>
                 <div style="font-size:11px;color:var(--ks-muted);">${it.desc}</div>
               </div>
               <div style="margin-left:auto;display:flex;gap:6px;">
@@ -1169,9 +1169,9 @@ function buildCompetitive(){
             </div>
             <div style="font-size:12px;line-height:1.8;color:var(--ks-text);">${it.detail}</div>
             <div style="margin-top:12px;display:flex;gap:12px;">
-              <div style="flex:1;background:rgba(5,206,120,.08);border-radius:8px;padding:10px;text-align:center;">
+              <div style="flex:1;background:rgba(16,185,129,.08);border-radius:8px;padding:10px;text-align:center;">
                 <div style="font-size:9px;color:var(--ks-muted);font-weight:600;">Setoworks</div>
-                <div style="font-size:16px;font-weight:800;color:#05ce78;margin-top:2px;">보유</div>
+                <div style="font-size:16px;font-weight:800;color:#10b981;margin-top:2px;">보유</div>
               </div>
               <div style="flex:1;background:${it.kt?'rgba(245,158,11,.08)':'rgba(239,68,68,.08)'};border-radius:8px;padding:10px;text-align:center;">
                 <div style="font-size:9px;color:var(--ks-muted);font-weight:600;">KickTraq</div>
