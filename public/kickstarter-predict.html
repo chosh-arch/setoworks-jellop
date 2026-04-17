@@ -85,46 +85,39 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:var(--bg);color:va
         <label>제품 카테고리</label>
         <select id="in-cat" onchange="predict()">
           <optgroup label="Technology (기술/전자)">
-            <option value="Technology" selected>Technology 전체</option>
-            <option value="Technology">- Hardware (하드웨어/가전)</option>
-            <option value="Technology">- Gadgets (가젯/소품)</option>
-            <option value="Technology">- Wearables (웨어러블)</option>
-            <option value="Technology">- Sound (음향기기)</option>
-            <option value="Technology">- Camera Equipment (카메라)</option>
-            <option value="Technology">- DIY Electronics (DIY 전자)</option>
-            <option value="Technology">- Robots (로봇)</option>
-            <option value="Technology">- 3D Printing (3D프린팅)</option>
-            <option value="Technology">- Apps (앱/소프트웨어)</option>
+            <option value="Hardware" selected>Hardware — 하드웨어/가전 (76.7%)</option>
+            <option value="Gadgets">Gadgets — 가젯/소품 (81.0%)</option>
+            <option value="Wearables">Wearables — 웨어러블 (40.0%)</option>
+            <option value="Sound">Sound — 음향기기 (90%)</option>
+            <option value="Camera Equipment">Camera — 카메라 장비 (88.9%)</option>
+            <option value="DIY Electronics">DIY Electronics (33.3%)</option>
+            <option value="Robots">Robots — 로봇 (40.0%)</option>
+            <option value="3D Printing">3D Printing (71.4%)</option>
+            <option value="Software">Software — 소프트웨어 (19.0%)</option>
+            <option value="Apps">Apps — 앱 (0.0%)</option>
           </optgroup>
           <optgroup label="Design (디자인/제품)">
-            <option value="Design">Product Design (제품 디자인)</option>
-            <option value="Design">Toys (완구)</option>
-            <option value="Design">Interactive Design (인터랙티브)</option>
+            <option value="Product Design">Product Design — 제품 디자인 (86.9%)</option>
+            <option value="Toys">Toys — 완구 (86.4%)</option>
           </optgroup>
           <optgroup label="Games (게임)">
-            <option value="Games">Tabletop Games (보드게임)</option>
-            <option value="Games">Video Games (비디오게임)</option>
-            <option value="Games">Gaming Hardware (게임기기)</option>
-            <option value="Games">Playing Cards (카드게임)</option>
+            <option value="Tabletop Games">Tabletop Games — 보드게임 (94.2%)</option>
+            <option value="Video Games">Video Games (61.3%)</option>
+            <option value="Gaming Hardware">Gaming Hardware (42.9%)</option>
+            <option value="Playing Cards">Playing Cards — 카드 (85.4%)</option>
           </optgroup>
-          <optgroup label="Fashion (패션/뷰티)">
-            <option value="Fashion">Accessories (액세서리)</option>
-            <option value="Fashion">Apparel (의류)</option>
-            <option value="Fashion">Jewelry (주얼리)</option>
-            <option value="Fashion">Footwear (신발)</option>
-          </optgroup>
-          <optgroup label="Food (식품/음료)">
-            <option value="Food">Food 전체</option>
-            <option value="Food">Drinks (음료)</option>
+          <optgroup label="Fashion (패션)">
+            <option value="Accessories">Accessories — 액세서리 (76.5%)</option>
+            <option value="Apparel">Apparel — 의류 (44.1%)</option>
           </optgroup>
           <optgroup label="기타">
-            <option value="Comics">Comics (만화)</option>
-            <option value="Publishing">Publishing (출판)</option>
-            <option value="Film & Video">Film & Video (영상)</option>
-            <option value="Music">Music (음악)</option>
-            <option value="Art">Art (미술)</option>
-            <option value="Photography">Photography (사진)</option>
-            <option value="Crafts">Crafts (공예)</option>
+            <option value="Comic Books">Comics — 만화 (96.8%)</option>
+            <option value="Publishing">Publishing — 출판</option>
+            <option value="Film & Video">Film & Video — 영상</option>
+            <option value="Music">Music — 음악</option>
+            <option value="Art">Art — 미술</option>
+            <option value="Photography">Photography — 사진</option>
+            <option value="Food">Food — 식품</option>
           </optgroup>
         </select>
       </div>
@@ -241,7 +234,7 @@ function predict(){
     {name: '이미지 수', val: findBucket(T.story_images, images)?.predicted || 50, weight: 0.10},
     {name: '리워드 수', val: findBucket(T.rewards_count, rewards)?.predicted || 50, weight: 0.12},
     {name: 'FAQ', val: findBucket(T.faqs_count, faqs)?.predicted || 50, weight: 0.05},
-    {name: '카테고리', val: PRED.category_scores[cat]?.predicted || 50, weight: 0.10},
+    {name: '카테고리', val: (PRED.subcategory_scores&&PRED.subcategory_scores[cat])?PRED.subcategory_scores[cat].predicted:(PRED.category_scores[cat]?.predicted||50), weight: 0.10},
     {name: '국가', val: PRED.country_scores[country]?.predicted || 50, weight: 0.05},
     {name: '비디오', val: video ? 72 : 55, weight: 0.03},
   ];
