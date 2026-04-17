@@ -1338,85 +1338,143 @@ function buildCompetitive(){
   render();
 }
 
-// ========== MAIN ==========
+// ========== MAIN (사전 계산 JSON 로드) ==========
 async function main(){
   try{
-    // 1단계: 전체 건수 파악 (가볍게)
-    setStatus('전체 프로젝트 수 확인 중...');
-    const countResp=await fetch(SB+'/rest/v1/projects?select=id&platform_id=eq.kickstarter',{headers:{apikey:SK,Authorization:'Bearer '+SK,'Prefer':'count=exact','Range':'0-0'}});
-    const totalCount=parseInt((countResp.headers.get('Content-Range')||'0-0/0').split('/')[1]);
+    setStatus('사전 계산 데이터 로딩...');
+    const [dashRes,mlRes,sbRes,tlRes,fqRes]=await Promise.all([
+      fetch('/data/dashboard.json'),
+      fetch('/data/ml_results.json'),
+      fetch('/data/superbackers.json'),
+      fetch('/data/timeline.json'),
+      fetch('/data/faq_sentiment.json'),
+    ]);
+    const D=await dashRes.json();
 
-    // 2단계: extra_data 있는 프로젝트만 로드 (핵심 데이터)
-    setStatus(`${totalCount.toLocaleString()}건 중 상세 데이터 로딩...`);
-    DATA=await sbGetAll('projects','&platform_id=eq.kickstarter&extra_data=not.is.null','name,pledged,goal,backers_count,percent_funded,currency,category_id,url,external_id,extra_data');
-    DATA._totalInDB=totalCount;
+    document.getElementById('meta-info').textContent=`DB ${(D.total_db||0).toLocaleString()}건 | 분석 ${(D.total_detail||0).toLocaleString()}건 | 라이브 ${(D.live_count||0).toLocaleString()}건 | 종료 ${(D.ended_count||0).toLocaleString()}건`;
 
-    // Parse extra_data for details inline
-    DETAILS=[];
-    let detailCount=0;
-    DATA.forEach(p=>{
-      // Normalize country from live data or extra_data
-      p._country=null;
-      p._pwl=false;
-      p._isLive=null; // null = unknown, true = live, false = ended
-      if(p.extra_data){
-        try{
-          const ed=typeof p.extra_data==='string'?JSON.parse(p.extra_data):p.extra_data;
-          if(ed){
-            // DB의 percent_funded를 extra_data에 주입 (extra_data에는 없음)
-            ed.percent_funded=p.percent_funded||0;
-            ed.backers_count=ed.backers_count||p.backers_count||0;
-            ed.pledged=ed.pledged||p.pledged||0;
-            ed.goal=ed.goal||p.goal||0;
-            // story_images가 URL 배열이면 개수로 변환
-            if(Array.isArray(ed.story_images))ed.story_images=ed.story_images.length;
-            // deadline을 p 객체에 직접 저장 (라이브 판별용)
-            if(ed.deadline_at){
-              try{p._deadline=new Date(parseInt(ed.deadline_at)*1000);p._isLive=p._deadline>new Date();}catch(e){p._isLive=null;}
-            }else{p._isLive=null;} // deadline 없으면 미분류
-            DETAILS.push({slug:p.external_id,ext_id:p.external_id,status:'ok',data:ed});
-            // country can be object {name,code} or string
-            if(ed.country){
-              p._country=typeof ed.country==='object'?ed.country.code||ed.country.name:ed.country;
-            }
-            p._pwl=!!ed.is_project_we_love;
-            // normalize comments field
-            if(!ed.comments&&ed.comments_sample)ed.comments=ed.comments_sample;
-            detailCount++;
-          }
-        }catch(e){}
-      }
-    });
-
-    setStatus(`${DATA.length}건 로드, ${detailCount}건 상세 파싱 완료. 렌더링 중...`);
-    const liveCount=DATA.filter(p=>p._isLive===true).length;
-    const endedCount=DATA.filter(p=>p._isLive===false).length;
-    const totalInDB=DATA._totalInDB||DATA.length;
-    document.getElementById('meta-info').textContent=`DB ${totalInDB.toLocaleString()}건 | 상세 ${DATA.length.toLocaleString()}건 | 라이브 ${liveCount.toLocaleString()}건 | 종료 ${endedCount.toLocaleString()}건 | ${new Date().toLocaleString('ko-KR')}`;
-
-    // Build all sections
-    buildKPI(DATA);
-    buildMLSection();
-    buildFactorBars();
-    buildGoalChart(DATA);
-    buildCategorySection(DATA);
-    if(DETAILS.length>0){
-      buildRewardSection(DETAILS);
-      buildContentCharts(DETAILS);
-      buildTrendSection(DETAILS);
+    // KPI — 사전 계산 데이터 사용
+    function renderKPIRow(kpi,targetId){
+      const el=document.getElementById(targetId);
+      if(!el||!kpi)return;
+      const items=[
+        {label:'프로젝트',value:fmt(kpi.count),sub:kpi.label==='live'?'라이브':'전체',cls:'',detail:``},
+        {label:'총 모금액',value:'$'+fmt(kpi.pledged_usd),sub:fmtKRW(kpi.pledged_usd),cls:'',
+         detail:kpi.currencies?Object.entries(kpi.currencies).map(([c,v])=>`${c}: ${fmt(v)}`).join(' / '):''},
+        {label:'후원자',value:fmt(kpi.backers),sub:kpi.count?'평균 '+Math.round(kpi.backers/kpi.count)+'명/건':'',cls:''},
+        {label:'성공률',value:fmtPct(kpi.success_rate),sub:fmt(kpi.success_count)+'건 달성',cls:kpi.success_rate>50?'':'orange'},
+        {label:'PWL',value:fmt(kpi.pwl),sub:fmtPct(kpi.pwl/Math.max(kpi.count,1)*100),cls:'purple'},
+      ];
+      el.innerHTML=items.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="var d=this.querySelector('.kpi-detail');d.style.display=d.style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);">${k.detail||''}</div></div>`).join('');
     }
-    buildGeoSection(DATA);
-    buildFailureSection(DATA);
-    buildBackerSection(DATA,DETAILS);
+    renderKPIRow(D.kpi_live,'kpi-live');
+    renderKPIRow(D.kpi_all,'kpi-all');
+
+    // ML Section
+    buildMLSection();
+
+    // Factor bars — from precomputed
+    if(D.factors){
+      const maxD=55;
+      const colors=['#10b981','#3b82f6','#8b5cf6','#f59e0b','#ec4899','#14b8a6','#06b6d4','#a855f7','#84cc16','#f97316'];
+      document.getElementById('factor-bars').innerHTML=D.factors.map((f,i)=>{
+        const w=Math.min(f.delta/maxD*100,100);
+        return `<div class="factor-row"><div class="factor-name">${f.name}</div><div class="factor-bar-bg"><div class="factor-bar-fill" style="width:${w}%;background:${colors[i%colors.length]};">${f.delta>15?'+'+f.delta+'pp':''}</div></div><div class="factor-val" style="color:${colors[i%colors.length]};">+${f.delta}pp</div></div>`;
+      }).join('');
+    }
+
+    // Goal chart
+    if(D.goal_vs_success){
+      const gd=D.goal_vs_success;
+      makeChart('ch-goal','bar',gd.map(g=>g.label),[{data:gd.map(g=>g.success_rate),backgroundColor:gd.map(g=>g.success_rate>=50?'#10b981':g.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{plugins:{legend:{display:false}},scales:{y:{max:100,ticks:{callback:v=>v+'%'}}}});
+    }
+
+    // Category
+    if(D.categories){
+      const cats=Object.entries(D.categories).sort((a,b)=>b[1].count-a[1].count);
+      makeChart('ch-cat-success','bar',cats.map(c=>c[0]),[{data:cats.map(c=>c[1].success_rate),backgroundColor:cats.map(c=>c[1].success_rate>=50?'#10b981':c[1].success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
+      const tbody=document.querySelector('#tbl-cat tbody');
+      if(tbody) tbody.innerHTML=cats.map(([n,d])=>{
+        const cls=d.success_rate>=50?'badge-green':d.success_rate>=30?'badge-orange':'badge-red';
+        return `<tr><td>${n}</td><td class="num">${d.count}</td><td class="num"><span class="badge ${cls}">${d.success_rate}%</span></td><td class="num">$${fmt(d.avg_pledged)}</td><td class="num">${fmt(d.avg_backers)}</td></tr>`;
+      }).join('');
+    }
+
+    // Reward (from precomputed)
+    if(D.reward_vs_success){
+      makeChart('ch-tier-success','bar',D.reward_vs_success.map(r=>r.label),[{data:D.reward_vs_success.map(r=>r.success_rate),backgroundColor:D.reward_vs_success.map(r=>r.success_rate>=50?'#10b981':r.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+    }
+
+    // Content charts
+    function renderBucketChart(id,data){
+      if(!data)return;
+      makeChart(id,'bar',data.map(d=>d.label),[{data:data.map(d=>d.success_rate),backgroundColor:data.map(d=>d.success_rate>=50?'#10b981':d.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+    }
+    renderBucketChart('ch-story',D.story_vs_success);
+    renderBucketChart('ch-images',D.image_vs_success);
+    renderBucketChart('ch-duration',D.duration_vs_success);
+    renderBucketChart('ch-backers',D.backer_vs_success);
+
+    // Geo
+    if(D.countries){
+      const co=Object.entries(D.countries).filter(([k,v])=>v.count>=5).sort((a,b)=>b[1].success_rate-a[1].success_rate).slice(0,15);
+      makeChart('ch-country','bar',co.map(c=>c[0]),[{data:co.map(c=>c[1].success_rate),backgroundColor:co.map(c=>c[1].success_rate>=50?'#10b981':c[1].success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{indexAxis:'y',scales:{x:{max:100,ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
+      if(D.currency_dist){
+        const cd=Object.entries(D.currency_dist).slice(0,8);
+        makeChart('ch-currency','doughnut',cd.map(c=>c[0]),[{data:cd.map(c=>c[1]),backgroundColor:CHART_COLORS}],{plugins:{legend:{display:true,position:'right',labels:{color:'#64748b',font:{size:10}}}}});
+      }
+      const tblCo=document.querySelector('#tbl-country tbody');
+      if(tblCo) tblCo.innerHTML=Object.entries(D.countries).filter(([k,v])=>v.count>=3).sort((a,b)=>b[1].count-a[1].count).slice(0,12).map(([n,d])=>{
+        const cls=d.success_rate>=50?'badge-green':d.success_rate>=30?'badge-orange':'badge-red';
+        return `<tr><td>${n}</td><td class="num">${d.count}</td><td class="num"><span class="badge ${cls}">${d.success_rate}%</span></td><td class="num">$${fmt(d.avg_pledged)}</td></tr>`;
+      }).join('');
+    }
+
+    // Achievement / Failure
+    if(D.achievement_dist){
+      const ad=D.achievement_dist;
+      const colors=['#ef4444','#f97316','#f59e0b','#eab308','#10b981','#6366f1','#8b5cf6'];
+      makeChart('ch-achieve','bar',ad.map(a=>a.label),[{data:ad.map(a=>a.count),backgroundColor:colors,borderRadius:4}],{plugins:{legend:{display:false}}});
+    }
+    if(D.failure_profile){
+      const fp=D.failure_profile;
+      document.getElementById('failure-profile').innerHTML=`<div style="font-size:11px;line-height:1.8;color:var(--muted);"><div style="margin-bottom:6px;color:var(--red);font-weight:700;">실패 프로젝트 프로필 (${fp.fail_count}건)</div><div>목표 금액 <b style="color:var(--text);">$${fmt(fp.fail_avg_goal)}</b> (성공의 ${(fp.fail_avg_goal/Math.max(fp.success_avg_goal,1)).toFixed(1)}배)</div><div>후원자 평균 <b style="color:var(--text);">${fmt(fp.fail_avg_backers)}</b>명 (성공: ${fmt(fp.success_avg_backers)}명)</div></div>`;
+    }
+    document.getElementById('compare-table').innerHTML=`<table style="font-size:11px;"><tr><th></th><th class="num" style="color:#10b981;">성공</th><th class="num" style="color:var(--red);">실패</th></tr><tr><td>평균 목표액</td><td class="num">$${fmt(D.failure_profile?.success_avg_goal)}</td><td class="num">$${fmt(D.failure_profile?.fail_avg_goal)}</td></tr><tr><td>평균 후원자</td><td class="num">${fmt(D.failure_profile?.success_avg_backers)}</td><td class="num">${fmt(D.failure_profile?.fail_avg_backers)}</td></tr></table>`;
+
+    // PWL / ENV
+    if(D.pwl) makeChart('ch-pwl','bar',['추천 선정','미선정'],[{data:[D.pwl.yes_rate,D.pwl.no_rate],backgroundColor:['#10b981','#ef4444'],borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{display:false}}});
+    if(D.env){
+      document.getElementById('env-detail').innerHTML=`<div style="display:flex;gap:8px;"><div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;color:var(--muted);">친환경 표시 있음</div><div style="font-size:18px;font-weight:800;color:#10b981;">${D.env.yes_rate}%</div><div style="font-size:9px;color:var(--muted);">${D.env.yes_count}건</div></div><div style="flex:1;background:#f1f5f9;border-radius:8px;padding:8px;text-align:center;"><div style="font-size:9px;color:var(--muted);">친환경 표시 없음</div><div style="font-size:18px;font-weight:800;color:var(--red);">${D.env.no_rate}%</div><div style="font-size:9px;color:var(--muted);">${D.env.no_count}건</div></div></div>`;
+    }
+
+    // Pledge per backer by category
+    if(D.categories){
+      const cp=Object.entries(D.categories).filter(([k,v])=>v.avg_backers>10).map(([k,v])=>({name:k,avg:v.avg_pledged/Math.max(v.avg_backers,1)})).sort((a,b)=>b.avg-a.avg).slice(0,10);
+      makeChart('ch-pledge-cat','bar',cp.map(c=>c.name),[{data:cp.map(c=>c.avg),backgroundColor:'#ec4899',borderRadius:4}],{indexAxis:'y',scales:{x:{ticks:{callback:v=>'$'+fmt(v)}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
+    }
+
+    // Rankings — from precomputed
+    if(D.rankings){
+      const tabs=document.querySelectorAll('#rank-tabs .tab');
+      function renderRank(sortBy){
+        const list=D.rankings[sortBy]||[];
+        document.querySelector('#tbl-rank tbody').innerHTML=list.map((p,i)=>{
+          const cls=p.pf>=100?'badge-green':p.pf>=50?'badge-orange':'badge-red';
+          return `<tr><td>${i+1}</td><td><a href="${p.url||'#'}" target="_blank" style="font-weight:600;color:var(--indigo);">${p.name}</a></td><td><span class="badge badge-blue">${p.cat}</span></td><td class="num" style="font-weight:700;">$${fmt(p.pledged_usd)}</td><td class="num">${fmt(p.backers)}</td><td class="num"><span class="badge ${cls}">${p.pf}%</span></td><td class="num">$${fmt(p.pledged_usd)}</td></tr>`;
+        }).join('');
+      }
+      tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');renderRank(tab.dataset.rank);}));
+      renderRank('pledged');
+    }
+
+    // External JSON sections
     buildSuperbackerSection();
     buildTimeline();
     buildFaqSentiment();
-    buildRankings(DATA);
     buildCompetitive();
 
-    // Hide loading
-    setTimeout(()=>document.getElementById('loading').classList.add('hide'),400);
-
+    setTimeout(()=>document.getElementById('loading').classList.add('hide'),300);
   }catch(e){
     setStatus('Error: '+e.message);
     console.error(e);
