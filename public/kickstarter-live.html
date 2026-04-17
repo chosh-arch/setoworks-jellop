@@ -3,65 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kickstarter Live Dashboard — Setoworks</title>
+<title>킥스타터 라이브 대시보드 — Setoworks</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
-:root { --ks-green: #05ce78; --ks-dark: #0f0f0f; --ks-card: #1a1a2e; --ks-border: #2a2a3e; --ks-text: #e0e0e0; --ks-muted: #8b8b9e; }
+:root { --ks-green:#10b981; --ks-dark:#f8fafc; --ks-card:#fff; --ks-border:#e2e8f0; --ks-text:#0f172a; --ks-muted:#64748b; --indigo:#6366f1; --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04); --shadow-lg:0 4px 12px rgba(0,0,0,.08); }
 * { box-sizing: border-box; }
 body { font-family: 'Inter','Noto Sans KR',sans-serif; background: var(--ks-dark); color: var(--ks-text); margin: 0; }
-.topbar { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%); padding: 16px 24px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; justify-content: space-between; }
-.topbar h1 { font-size: 20px; font-weight: 800; margin: 0; }
-.topbar h1 span { color: var(--ks-green); }
-.topbar .meta { font-size: 12px; color: var(--ks-muted); }
+.topbar { background:#fff; padding: 14px 24px; border-bottom: 1px solid var(--ks-border); display: flex; align-items: center; justify-content: space-between; position:sticky;top:0;z-index:100;box-shadow:0 1px 2px rgba(0,0,0,.04); }
+.topbar h1 { font-size: 16px; font-weight: 800; margin: 0; color:var(--ks-text); }
+.topbar h1 span { color: var(--indigo); }
+.topbar .meta { font-size: 11px; color: var(--ks-muted); }
 .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.kpi { background: var(--ks-card); border: 1px solid var(--ks-border); border-radius: 12px; padding: 16px; text-align: center; }
-.kpi .label { font-size: 11px; color: var(--ks-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.kpi .value { font-size: 28px; font-weight: 800; color: var(--ks-green); margin-top: 4px; font-variant-numeric: tabular-nums; }
-.kpi .sub { font-size: 11px; color: var(--ks-muted); margin-top: 2px; }
-.card { background: var(--ks-card); border: 1px solid var(--ks-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-.card h3 { font-size: 14px; font-weight: 700; margin: 0 0 12px 0; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.kpi { background:#fff; border: 1px solid var(--ks-border); border-radius: 10px; padding: 16px; text-align: center; box-shadow:var(--shadow); transition:box-shadow .2s; }
+.kpi:hover { box-shadow:var(--shadow-lg); }
+.kpi .label { font-size: 11px; color: var(--ks-muted); font-weight:500; }
+.kpi .value { font-size: 26px; font-weight: 800; color: var(--ks-text); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.kpi .sub { font-size: 10px; color: var(--ks-muted); margin-top: 2px; }
+.card { background:#fff; border: 1px solid var(--ks-border); border-radius: 10px; padding: 16px; margin-bottom: 16px; box-shadow:var(--shadow); }
+.card h3 { font-size: 14px; font-weight: 700; margin: 0 0 12px 0; color:var(--ks-text); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 @media(max-width:768px) { .row2, .row3 { grid-template-columns: 1fr; } }
 .chart-wrap { position: relative; height: 280px; }
 .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-.filter-bar select, .filter-bar input { background: #16162a; color: #e0e0e0; border: 1px solid var(--ks-border); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-family: inherit; }
+.filter-bar select, .filter-bar input { background:#fff; color:var(--ks-text); border: 1px solid var(--ks-border); border-radius: 8px; padding: 7px 12px; font-size: 13px; font-family: inherit; }
 .filter-bar input { min-width: 220px; }
 table { width: 100%; border-collapse: collapse; font-size: 12px; }
-th { background: #16162a; color: var(--ks-muted); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 0.04em; padding: 8px; text-align: left; position: sticky; top: 0; }
-td { padding: 8px; border-bottom: 1px solid var(--ks-border); vertical-align: middle; }
-tr:hover { background: rgba(5,206,120,.05); }
+th { background:#f8fafc; color: var(--ks-muted); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 0.04em; padding: 8px; text-align: left; position: sticky; top: 0; border-bottom:1px solid var(--ks-border); }
+td { padding: 8px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; color:var(--ks-text); }
+tr:hover { background: #f8fafc; }
 .num { text-align: right; font-variant-numeric: tabular-nums; }
-.badge-live { background: rgba(5,206,120,.15); color: var(--ks-green); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
-.badge-funded { background: rgba(59,130,246,.15); color: #60a5fa; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
-.progress-bar { background: #2a2a3e; border-radius: 4px; height: 6px; overflow: hidden; }
+.badge-live { background:#ecfdf5; color:#059669; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+.badge-funded { background:#eff6ff; color:#2563eb; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+.progress-bar { background: #e2e8f0; border-radius: 4px; height: 6px; overflow: hidden; }
 .progress-fill { background: var(--ks-green); height: 100%; border-radius: 4px; transition: width .3s; }
-.project-img { width: 60px; height: 34px; object-fit: cover; border-radius: 4px; background: #2a2a3e; }
-a { color: var(--ks-green); text-decoration: none; }
+.project-img { width: 60px; height: 34px; object-fit: cover; border-radius: 6px; background: #f1f5f9; }
+a { color: var(--indigo); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .loading { text-align: center; padding: 60px; color: var(--ks-muted); }
 .sort-btn { cursor: pointer; user-select: none; }
-.sort-btn:hover { color: var(--ks-green); }
-.back-btn { background: var(--ks-green); color: #0f0f0f; border: none; padding: 6px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; text-decoration: none; }
+.sort-btn:hover { color: var(--indigo); }
+.back-btn { background:var(--indigo); color:#fff; border: none; padding: 6px 16px; border-radius: 8px; font-weight: 600; font-size: 12px; cursor: pointer; text-decoration: none; transition:background .15s; }
+.back-btn:hover { background:#4f46e5; text-decoration:none; }
+.nav-links { display:flex;gap:8px;align-items:center; }
 </style>
 </head>
 <body>
 <div class="topbar">
   <div>
-    <h1><span>Kickstarter</span> Live Dashboard</h1>
+    <h1><span>킥스타터</span> 라이브 대시보드</h1>
     <div class="meta" id="meta-info">Loading...</div>
   </div>
-  <a href="/kickstarter-insight.html" class="back-btn" style="margin-right:8px;background:transparent;border:1px solid var(--ks-green);color:var(--ks-green);">Insight Engine</a>
-  <a href="/portal.html" class="back-btn">Portal</a>
+  <div class="nav-links">
+    <a href="/kickstarter-insight.html" class="back-btn" style="background:transparent;border:1px solid var(--ks-border);color:var(--ks-text);">인사이트 엔진</a>
+    <a href="/portal.html" class="back-btn">포털</a>
+  </div>
 </div>
 <div class="container">
   <div class="kpi-row" id="kpi-row"></div>
   <div class="row2" id="charts-row"></div>
   <div class="row3" id="charts-row2"></div>
   <div class="card">
-    <h3>📋 전체 프로젝트 목록</h3>
+    <h3>전체 프로젝트 목록</h3>
     <div class="filter-bar" id="filter-bar"></div>
     <div style="overflow-x:auto; max-height: 600px; overflow-y: auto;">
       <table id="project-table"><thead></thead><tbody></tbody></table>
@@ -187,45 +192,45 @@ function renderCharts() {
   // Staff pick vs normal
   var staffPick = DATA.filter(function(p){ return p.staff_pick; }).length;
 
-  var PALETTE = ['#05ce78','#3b82f6','#f59e0b','#ef4444','#8b5cf6','#ec4899','#14b8a6','#f97316','#06b6d4','#a855f7','#84cc16','#e11d48','#0ea5e9','#d946ef','#22c55e'];
+  var PALETTE = ['#6366f1','#8b5cf6','#06b6d4','#10b981','#f59e0b','#ef4444','#ec4899','#f97316','#3b82f6','#14b8a6','#84cc16','#e11d48','#0ea5e9','#d946ef','#22c55e'];
 
   document.getElementById('charts-row').innerHTML =
-    '<div class="card"><h3>📊 카테고리별 프로젝트 수 (Top 15)</h3><div class="chart-wrap"><canvas id="chart-cat"></canvas></div></div>' +
-    '<div class="card"><h3>🌍 국가별 분포 (Top 10)</h3><div class="chart-wrap"><canvas id="chart-country"></canvas></div></div>';
+    '<div class="card"><h3>카테고리별 프로젝트 수 (Top 15)</h3><div class="chart-wrap"><canvas id="chart-cat"></canvas></div></div>' +
+    '<div class="card"><h3>국가별 분포 (Top 10)</h3><div class="chart-wrap"><canvas id="chart-country"></canvas></div></div>';
 
   document.getElementById('charts-row2').innerHTML =
-    '<div class="card"><h3>💰 펀딩 달성률 분포</h3><div class="chart-wrap"><canvas id="chart-fund"></canvas></div></div>' +
-    '<div class="card"><h3>💵 모금액 분포</h3><div class="chart-wrap"><canvas id="chart-pledge"></canvas></div></div>' +
-    '<div class="card"><h3>⭐ Staff Pick 비율</h3><div class="chart-wrap"><canvas id="chart-staff"></canvas></div></div>';
+    '<div class="card"><h3>펀딩 달성률 분포</h3><div class="chart-wrap"><canvas id="chart-fund"></canvas></div></div>' +
+    '<div class="card"><h3>모금액 분포</h3><div class="chart-wrap"><canvas id="chart-pledge"></canvas></div></div>' +
+    '<div class="card"><h3>킥스타터 추천 (Staff Pick) 비율</h3><div class="chart-wrap"><canvas id="chart-staff"></canvas></div></div>';
 
   if (charts.cat) charts.cat.destroy();
   charts.cat = new Chart(document.getElementById('chart-cat'), {
     type: 'bar', data: { labels: top.map(function(x){return x[0];}), datasets: [{data: top.map(function(x){return x[1];}), backgroundColor: PALETTE, borderRadius: 4}] },
-    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#e0e0e0',font:{size:11}}}} }
+    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#0f172a',font:{size:11}}}} }
   });
 
   if (charts.country) charts.country.destroy();
   charts.country = new Chart(document.getElementById('chart-country'), {
     type: 'doughnut', data: { labels: coSorted.map(function(x){return x[0];}), datasets: [{data: coSorted.map(function(x){return x[1];}), backgroundColor: PALETTE, borderWidth: 0}] },
-    options: { responsive:true, maintainAspectRatio:false, cutout:'50%', plugins:{legend:{position:'right',labels:{color:'#e0e0e0',font:{size:11},boxWidth:12,padding:8}}} }
+    options: { responsive:true, maintainAspectRatio:false, cutout:'50%', plugins:{legend:{position:'right',labels:{color:'#0f172a',font:{size:11},boxWidth:12,padding:8}}} }
   });
 
   if (charts.fund) charts.fund.destroy();
   charts.fund = new Chart(document.getElementById('chart-fund'), {
-    type: 'bar', data: { labels: Object.keys(fundBuckets), datasets: [{data: Object.values(fundBuckets), backgroundColor: ['#ef4444','#f97316','#f59e0b','#eab308','#05ce78','#3b82f6','#8b5cf6'], borderRadius: 4}] },
-    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#8b8b9e'}}} }
+    type: 'bar', data: { labels: Object.keys(fundBuckets), datasets: [{data: Object.values(fundBuckets), backgroundColor: ['#ef4444','#f97316','#f59e0b','#eab308','#10b981','#6366f1','#8b5cf6'], borderRadius: 4}] },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#64748b'}}} }
   });
 
   if (charts.pledge) charts.pledge.destroy();
   charts.pledge = new Chart(document.getElementById('chart-pledge'), {
-    type: 'bar', data: { labels: Object.keys(pledgeBuckets), datasets: [{data: Object.values(pledgeBuckets), backgroundColor: ['#64748b','#06b6d4','#3b82f6','#8b5cf6','#d946ef','#f59e0b','#05ce78'], borderRadius: 4}] },
-    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#8b8b9e'}},y:{ticks:{color:'#8b8b9e'}}} }
+    type: 'bar', data: { labels: Object.keys(pledgeBuckets), datasets: [{data: Object.values(pledgeBuckets), backgroundColor: ['#64748b','#06b6d4','#3b82f6','#8b5cf6','#d946ef','#f59e0b','#10b981'], borderRadius: 4}] },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{ticks:{color:'#64748b'}},y:{ticks:{color:'#64748b'}}} }
   });
 
   if (charts.staff) charts.staff.destroy();
   charts.staff = new Chart(document.getElementById('chart-staff'), {
-    type: 'doughnut', data: { labels: ['Staff Pick','Normal'], datasets: [{data: [staffPick, DATA.length - staffPick], backgroundColor: ['#f59e0b','#2a2a3e'], borderWidth: 0}] },
-    options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{position:'bottom',labels:{color:'#e0e0e0',font:{size:12}}}} }
+    type: 'doughnut', data: { labels: ['Staff Pick','Normal'], datasets: [{data: [staffPick, DATA.length - staffPick], backgroundColor: ['#6366f1','#e2e8f0'], borderWidth: 0}] },
+    options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{position:'bottom',labels:{color:'#0f172a',font:{size:12}}}} }
   });
 }
 
@@ -281,7 +286,7 @@ function renderTable() {
   filtered.slice(0, 500).forEach(function(p) {
     var pf = p.percent_funded || 0;
     var barW = Math.min(100, pf);
-    var barColor = pf >= 100 ? '#05ce78' : pf >= 50 ? '#f59e0b' : '#ef4444';
+    var barColor = pf >= 100 ? '#10b981' : pf >= 50 ? '#f59e0b' : '#ef4444';
     tbody += '<tr>';
     tbody += '<td style="min-width:250px"><div style="display:flex;align-items:center;gap:8px;">';
     if (p.photo_url) tbody += '<img src="' + p.photo_url + '" class="project-img" onerror="this.style.display=\'none\'">';
