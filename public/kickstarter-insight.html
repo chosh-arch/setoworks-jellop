@@ -160,17 +160,19 @@ tr:hover{background:#f8fafc;}
 
 <div class="container" id="app">
 
-<!-- KPI 요약 (라이브 + 전체, 클릭 시 상세) -->
+<!-- KPI 요약 -->
 <div id="kpi-section">
-  <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
-    <span style="font-size:11px;font-weight:700;color:var(--indigo);width:50px;">LIVE</span>
-    <div class="kpi-row" id="kpi-live" style="flex:1;margin-bottom:0;"></div>
+  <div style="margin-bottom:6px;font-size:11px;color:var(--muted);">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;margin-right:4px;"></span>
+    <b style="color:var(--text);">진행 중</b> — 현재 킥스타터에서 후원 받고 있는 프로젝트
   </div>
-  <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;">
-    <span style="font-size:11px;font-weight:700;color:var(--muted);width:50px;">ALL</span>
-    <div class="kpi-row" id="kpi-all" style="flex:1;margin-bottom:0;"></div>
+  <div class="kpi-row" id="kpi-live" style="margin-bottom:12px;"></div>
+  <div style="margin-bottom:6px;font-size:11px;color:var(--muted);">
+    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--indigo);margin-right:4px;"></span>
+    <b style="color:var(--text);">결과 확정</b> — 캠페인이 끝나서 성공/실패가 결정된 프로젝트 (성공률 계산 기준)
   </div>
-  <div id="kpi-detail" style="display:none;margin-bottom:16px;"></div>
+  <div class="kpi-row" id="kpi-ended" style="margin-bottom:12px;"></div>
+  <div style="padding:8px 12px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:10px;color:var(--muted);margin-bottom:16px;" id="kpi-note"></div>
 </div>
 
 <!-- ACC 1: 예측 모델 & 성공/실패 -->
@@ -1372,28 +1374,32 @@ async function main(){
 
     document.getElementById('meta-info').textContent=`DB ${(D.total_db||0).toLocaleString()}건 | 분석 ${(D.total_parsed||0).toLocaleString()}건 (상세 ${(D.detail_crawled||0).toLocaleString()}) | 라이브 ${(D.live_count||0).toLocaleString()} | 종료 ${(D.ended_count||0).toLocaleString()}`;
 
-    // KPI — 사전 계산 데이터 사용 + 상세 크롤링 진행률 + 로컬 보유 정보
+    // KPI 렌더링
     function renderKPIRow(kpi,targetId){
       const el=document.getElementById(targetId);
       if(!el||!kpi)return;
-      const detailDone=kpi.detail_crawled||0;
-      const detailRate=kpi.count>0?(detailDone/kpi.count*100):0;
-      const localInfo=D.local_data||{months:36,size:'7.2GB',period:'2023-05~2026-04'};
+      const isLive=kpi.label==='live';
+      const isEnded=kpi.label==='ended';
       const items=[
-        {label:'프로젝트',value:fmt(kpi.count),sub:kpi.label==='live'?'라이브':'전체',cls:'',
-         detail:`Supabase: ${fmt(kpi.count)}건 (6개월 + 라이브)<br>로컬 보유: ${localInfo.months}개월 ${localInfo.size}<br>기간: ${localInfo.period}`},
-        {label:'총 모금액',value:'$'+fmt(kpi.pledged_usd),sub:fmtKRW(kpi.pledged_usd),cls:'',
-         detail:kpi.currencies?Object.entries(kpi.currencies).map(([c,v])=>`${c}: ${fmt(v)}`).join(' / '):''},
-        {label:'후원자',value:fmt(kpi.backers),sub:kpi.count?'평균 '+Math.round(kpi.backers/kpi.count)+'명/건':'',cls:''},
-        {label:'성공률',value:fmtPct(kpi.success_rate),sub:fmt(kpi.success_count)+'건 달성',cls:kpi.success_rate>50?'':'orange'},
-        {label:'상세 크롤링',value:fmtPct(detailRate),sub:`${fmt(detailDone)}/${fmt(kpi.count)} 완료`,cls:detailRate>=50?'':'orange',
-         detail:`완료: ${fmt(detailDone)}건 (리워드/FAQ/댓글/스토리)<br>대기: ${fmt(kpi.count-detailDone)}건 (목록만)<br>※ 프록시 확보될 때마다 점진 수집 중`},
-        {label:'PWL',value:fmt(kpi.pwl),sub:fmtPct(kpi.pwl/Math.max(kpi.count,1)*100),cls:'purple'},
+        {label:'프로젝트 수',value:fmt(kpi.count)+'건',sub:isLive?'현재 진행 중':isEnded?'캠페인 종료':'전체',cls:''},
+        {label:'총 모금액',value:'$'+fmt(kpi.pledged_usd),sub:'약 '+fmtKRW(kpi.pledged_usd),cls:'',
+         detail:kpi.currencies?'통화별: '+Object.entries(kpi.currencies).map(([c,v])=>`${c} ${fmt(v)}`).join(', '):''},
+        {label:'총 후원자',value:fmt(kpi.backers)+'명',sub:kpi.count?'프로젝트당 평균 '+Math.round(kpi.backers/kpi.count)+'명':'',cls:''},
       ];
+      if(kpi.success_rate!==null&&kpi.success_rate!==undefined){
+        items.push({label:'성공률',value:kpi.success_rate+'%',sub:'성공 '+fmt(kpi.success_count)+'건',cls:kpi.success_rate>50?'':'orange'});
+      }
+      if(isLive){
+        items.push({label:'평균 달성률',value:Math.round(kpi.count>0?kpi.backers/kpi.count:0)>0?'진행중':'수집중',sub:'데일리 추적 중',cls:'blue'});
+      }
       el.innerHTML=items.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="var d=this.querySelector('.kpi-detail');d.style.display=d.style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.5;">${k.detail||''}</div></div>`).join('');
     }
     renderKPIRow(D.kpi_live,'kpi-live');
-    renderKPIRow(D.kpi_all,'kpi-all');
+    renderKPIRow(D.kpi_ended,'kpi-ended');
+    // Data note
+    const noteEl=document.getElementById('kpi-note');
+    if(noteEl) noteEl.innerHTML=`DB 전체 <b>${(D.total_db||0).toLocaleString()}</b>건 중 분석 가능 <b>${(D.total_parsed||0).toLocaleString()}</b>건 · 상세 크롤링(리워드/FAQ/댓글) <b>${(D.detail_crawled||0).toLocaleString()}</b>건 · ${D.bias_note||''}`;
+
 
     // ML Section
     buildMLSection();

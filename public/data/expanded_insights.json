@@ -1,0 +1,579 @@
+{
+  "generated": "2026-04-17T14:48:41.676581",
+  "total_analyzed": 13255,
+  "known_outcome": 9971,
+  "yearly_trend": [
+    {
+      "year": 2023,
+      "count": 31,
+      "success_rate": 100.0
+    },
+    {
+      "year": 2024,
+      "count": 118,
+      "success_rate": 100.0
+    },
+    {
+      "year": 2025,
+      "count": 4663,
+      "success_rate": 65.4
+    },
+    {
+      "year": 2026,
+      "count": 5159,
+      "success_rate": 70.9
+    }
+  ],
+  "monthly_trend": [
+    {
+      "month": "2025-05",
+      "count": 20,
+      "success_rate": 100.0
+    },
+    {
+      "month": "2025-06",
+      "count": 58,
+      "success_rate": 100.0
+    },
+    {
+      "month": "2025-07",
+      "count": 44,
+      "success_rate": 100.0
+    },
+    {
+      "month": "2025-08",
+      "count": 42,
+      "success_rate": 100.0
+    },
+    {
+      "month": "2025-09",
+      "count": 59,
+      "success_rate": 100.0
+    },
+    {
+      "month": "2025-10",
+      "count": 1024,
+      "success_rate": 70.8
+    },
+    {
+      "month": "2025-11",
+      "count": 2004,
+      "success_rate": 63.3
+    },
+    {
+      "month": "2025-12",
+      "count": 1336,
+      "success_rate": 56.7
+    },
+    {
+      "month": "2026-01",
+      "count": 1943,
+      "success_rate": 65.1
+    },
+    {
+      "month": "2026-02",
+      "count": 1982,
+      "success_rate": 73.9
+    },
+    {
+      "month": "2026-03",
+      "count": 1194,
+      "success_rate": 76.3
+    },
+    {
+      "month": "2026-04",
+      "count": 40,
+      "success_rate": 50.0
+    }
+  ],
+  "staff_pick_effect": {
+    "yes_rate": 93.5,
+    "no_rate": 64.6,
+    "yes_count": 1440,
+    "no_count": 8531
+  },
+  "subcategory_top": [
+    {
+      "name": "Graphic Novels",
+      "count": 257,
+      "success_rate": 95.3
+    },
+    {
+      "name": "Technology",
+      "count": 21,
+      "success_rate": 95.2
+    },
+    {
+      "name": "Comic Books",
+      "count": 698,
+      "success_rate": 94.7
+    },
+    {
+      "name": "Tabletop Games",
+      "count": 1501,
+      "success_rate": 93.1
+    },
+    {
+      "name": "Crafts",
+      "count": 42,
+      "success_rate": 92.9
+    },
+    {
+      "name": "Anthologies",
+      "count": 97,
+      "success_rate": 89.7
+    },
+    {
+      "name": "Performances",
+      "count": 70,
+      "success_rate": 88.6
+    },
+    {
+      "name": "Country & Folk",
+      "count": 75,
+      "success_rate": 88.0
+    },
+    {
+      "name": "Illustration",
+      "count": 261,
+      "success_rate": 87.7
+    },
+    {
+      "name": "Gadgets",
+      "count": 188,
+      "success_rate": 87.2
+    },
+    {
+      "name": "Playing Cards",
+      "count": 216,
+      "success_rate": 86.6
+    },
+    {
+      "name": "Art Books",
+      "count": 92,
+      "success_rate": 85.9
+    },
+    {
+      "name": "Fiction",
+      "count": 605,
+      "success_rate": 82.1
+    },
+    {
+      "name": "Zines",
+      "count": 39,
+      "success_rate": 82.1
+    },
+    {
+      "name": "Painting",
+      "count": 92,
+      "success_rate": 81.5
+    },
+    {
+      "name": "Digital Art",
+      "count": 74,
+      "success_rate": 81.1
+    },
+    {
+      "name": "Indie Rock",
+      "count": 31,
+      "success_rate": 80.6
+    },
+    {
+      "name": "Photobooks",
+      "count": 113,
+      "success_rate": 79.6
+    },
+    {
+      "name": "Product Design",
+      "count": 743,
+      "success_rate": 79.3
+    },
+    {
+      "name": "Sculpture",
+      "count": 83,
+      "success_rate": 78.3
+    }
+  ],
+  "subcategory_bottom": [
+    {
+      "name": "Web",
+      "count": 65,
+      "success_rate": 23.1
+    },
+    {
+      "name": "Small Batch",
+      "count": 65,
+      "success_rate": 23.1
+    },
+    {
+      "name": "Ready-to-wear",
+      "count": 27,
+      "success_rate": 22.2
+    },
+    {
+      "name": "Candles",
+      "count": 27,
+      "success_rate": 22.2
+    },
+    {
+      "name": "Action",
+      "count": 34,
+      "success_rate": 20.6
+    },
+    {
+      "name": "Software",
+      "count": 95,
+      "success_rate": 20.0
+    },
+    {
+      "name": "Hip-Hop",
+      "count": 32,
+      "success_rate": 15.6
+    },
+    {
+      "name": "Mobile Games",
+      "count": 47,
+      "success_rate": 12.8
+    },
+    {
+      "name": "Apps",
+      "count": 170,
+      "success_rate": 9.4
+    },
+    {
+      "name": "Food Trucks",
+      "count": 20,
+      "success_rate": 0.0
+    }
+  ],
+  "goal_fine": [
+    {
+      "label": "<$500",
+      "count": 1602,
+      "success_rate": 93.3,
+      "avg_funded": 132958.1
+    },
+    {
+      "label": "$500-1K",
+      "count": 1207,
+      "success_rate": 84.3,
+      "avg_funded": 707.2
+    },
+    {
+      "label": "$1-2K",
+      "count": 1327,
+      "success_rate": 78.8,
+      "avg_funded": 852.4
+    },
+    {
+      "label": "$2-5K",
+      "count": 1912,
+      "success_rate": 71.5,
+      "avg_funded": 569.6
+    },
+    {
+      "label": "$5-10K",
+      "count": 1524,
+      "success_rate": 60.0,
+      "avg_funded": 497.0
+    },
+    {
+      "label": "$10-20K",
+      "count": 1155,
+      "success_rate": 53.3,
+      "avg_funded": 395.4
+    },
+    {
+      "label": "$20-50K",
+      "count": 822,
+      "success_rate": 36.4,
+      "avg_funded": 174.1
+    },
+    {
+      "label": "$50-100K",
+      "count": 282,
+      "success_rate": 26.6,
+      "avg_funded": 279.1
+    },
+    {
+      "label": "$100-500K",
+      "count": 117,
+      "success_rate": 23.1,
+      "avg_funded": 223.8
+    },
+    {
+      "label": "$500K+",
+      "count": 23,
+      "success_rate": 4.3,
+      "avg_funded": 4.9
+    }
+  ],
+  "country_results": [
+    {
+      "country": "US",
+      "count": 5333,
+      "success_rate": 67.9
+    },
+    {
+      "country": "GB",
+      "count": 1107,
+      "success_rate": 72.8
+    },
+    {
+      "country": "CA",
+      "count": 531,
+      "success_rate": 67.0
+    },
+    {
+      "country": "HK",
+      "count": 492,
+      "success_rate": 87.6
+    },
+    {
+      "country": "DE",
+      "count": 317,
+      "success_rate": 54.9
+    },
+    {
+      "country": "ES",
+      "count": 298,
+      "success_rate": 65.4
+    },
+    {
+      "country": "AU",
+      "count": 283,
+      "success_rate": 65.7
+    },
+    {
+      "country": "IT",
+      "count": 258,
+      "success_rate": 60.5
+    },
+    {
+      "country": "FR",
+      "count": 245,
+      "success_rate": 69.8
+    },
+    {
+      "country": "JP",
+      "count": 188,
+      "success_rate": 78.7
+    },
+    {
+      "country": "PL",
+      "count": 165,
+      "success_rate": 77.0
+    },
+    {
+      "country": "MX",
+      "count": 159,
+      "success_rate": 57.9
+    },
+    {
+      "country": "GR",
+      "count": 100,
+      "success_rate": 89.0
+    },
+    {
+      "country": "NL",
+      "count": 88,
+      "success_rate": 62.5
+    },
+    {
+      "country": "SG",
+      "count": 69,
+      "success_rate": 65.2
+    },
+    {
+      "country": "SE",
+      "count": 61,
+      "success_rate": 63.9
+    },
+    {
+      "country": "NZ",
+      "count": 52,
+      "success_rate": 71.2
+    },
+    {
+      "country": "CH",
+      "count": 48,
+      "success_rate": 45.8
+    },
+    {
+      "country": "IE",
+      "count": 45,
+      "success_rate": 66.7
+    },
+    {
+      "country": "BE",
+      "count": 40,
+      "success_rate": 52.5
+    }
+  ],
+  "duration_fine": [
+    {
+      "label": "1-14일",
+      "count": 996,
+      "success_rate": 89.9
+    },
+    {
+      "label": "15-21일",
+      "count": 1357,
+      "success_rate": 86.9
+    },
+    {
+      "label": "22-28일",
+      "count": 1080,
+      "success_rate": 82.8
+    },
+    {
+      "label": "29-30일",
+      "count": 3897,
+      "success_rate": 64.7
+    },
+    {
+      "label": "31-35일",
+      "count": 674,
+      "success_rate": 69.4
+    },
+    {
+      "label": "36-45일",
+      "count": 820,
+      "success_rate": 60.7
+    },
+    {
+      "label": "46-60일",
+      "count": 1145,
+      "success_rate": 35.2
+    }
+  ],
+  "backer_threshold": [
+    {
+      "label": "0명",
+      "count": 438,
+      "success_rate": 0.0
+    },
+    {
+      "label": "1-5명",
+      "count": 1601,
+      "success_rate": 8.8
+    },
+    {
+      "label": "6-10명",
+      "count": 751,
+      "success_rate": 36.1
+    },
+    {
+      "label": "11-25명",
+      "count": 1369,
+      "success_rate": 69.1
+    },
+    {
+      "label": "26-50명",
+      "count": 1452,
+      "success_rate": 87.0
+    },
+    {
+      "label": "51-100명",
+      "count": 1478,
+      "success_rate": 93.6
+    },
+    {
+      "label": "101-250명",
+      "count": 1507,
+      "success_rate": 98.5
+    },
+    {
+      "label": "251-500명",
+      "count": 678,
+      "success_rate": 99.6
+    },
+    {
+      "label": "501-1000명",
+      "count": 386,
+      "success_rate": 99.5
+    },
+    {
+      "label": "1000명+",
+      "count": 311,
+      "success_rate": 99.7
+    }
+  ],
+  "currency_results": [
+    {
+      "currency": "USD",
+      "count": 5334,
+      "success_rate": 67.9
+    },
+    {
+      "currency": "EUR",
+      "count": 1602,
+      "success_rate": 64.4
+    },
+    {
+      "currency": "GBP",
+      "count": 1107,
+      "success_rate": 72.8
+    },
+    {
+      "currency": "CAD",
+      "count": 530,
+      "success_rate": 67.0
+    },
+    {
+      "currency": "HKD",
+      "count": 492,
+      "success_rate": 87.6
+    },
+    {
+      "currency": "AUD",
+      "count": 283,
+      "success_rate": 65.7
+    },
+    {
+      "currency": "JPY",
+      "count": 188,
+      "success_rate": 78.7
+    },
+    {
+      "currency": "MXN",
+      "count": 159,
+      "success_rate": 57.9
+    },
+    {
+      "currency": "SGD",
+      "count": 69,
+      "success_rate": 65.2
+    },
+    {
+      "currency": "PLN",
+      "count": 58,
+      "success_rate": 86.2
+    },
+    {
+      "currency": "NZD",
+      "count": 52,
+      "success_rate": 71.2
+    },
+    {
+      "currency": "CHF",
+      "count": 35,
+      "success_rate": 40.0
+    },
+    {
+      "currency": "SEK",
+      "count": 33,
+      "success_rate": 60.6
+    },
+    {
+      "currency": "DKK",
+      "count": 18,
+      "success_rate": 77.8
+    },
+    {
+      "currency": "NOK",
+      "count": 11,
+      "success_rate": 45.5
+    }
+  ]
+}
