@@ -210,5 +210,23 @@
     "live_projects": 2488,
     "with_updates": 1157,
     "with_comments": 2437
-  }
+  },
+  "daily_tracking": [
+    {
+      "date": "2026-04-17",
+      "total_projects": 19927,
+      "total_pledged": 2625567373,
+      "total_backers": 4321347,
+      "funded_count": 18360,
+      "success_rate": 92.1,
+      "changes": {
+        "new": 0,
+        "pledged_up": 0,
+        "backers_up": 0,
+        "funded_new": 0
+      }
+    }
+  ],
+  "tracking_days": 1,
+  "last_update": "2026-04-17"
 }
