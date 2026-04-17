@@ -75,6 +75,16 @@ def audit_file(filepath, label):
     # 9. Korean labels (not English-only)
     check('한글 KPI 라벨', '프로젝트' in content or '전체' in content)
 
+    # 10. _isLive default must NOT be true (deadline 없는 프로젝트 라이브로 잘못 카운트 방지)
+    js_part = content[content.find('<script'):]
+    # 실행 코드에서 _isLive=true 할당이 있는지 (주석 제외)
+    import re as re2
+    live_true_assigns = [line.strip() for line in js_part.split('\n')
+                         if '_isLive=true' in line and not line.strip().startswith('//')]
+    bad_assigns = [l for l in live_true_assigns if 'p._isLive=true' in l or '_isLive=true;' in l]
+    check('_isLive default가 true 아님', len(bad_assigns) == 0,
+          f'_isLive=true 할당 {len(bad_assigns)}건: {bad_assigns[:2]}')
+
     return content
 
 # Audit both files

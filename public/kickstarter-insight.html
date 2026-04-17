@@ -1372,8 +1372,8 @@ async function main(){
             if(Array.isArray(ed.story_images))ed.story_images=ed.story_images.length;
             // deadline을 p 객체에 직접 저장 (라이브 판별용)
             if(ed.deadline_at){
-              try{p._deadline=new Date(parseInt(ed.deadline_at)*1000);p._isLive=p._deadline>new Date();}catch(e){p._isLive=true;}
-            }else{p._isLive=true;}
+              try{p._deadline=new Date(parseInt(ed.deadline_at)*1000);p._isLive=p._deadline>new Date();}catch(e){p._isLive=null;}
+            }else{p._isLive=null;} // deadline 없으면 미분류
             DETAILS.push({slug:p.external_id,ext_id:p.external_id,status:'ok',data:ed});
             // country can be object {name,code} or string
             if(ed.country){
