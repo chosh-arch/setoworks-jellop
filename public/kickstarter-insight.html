@@ -776,23 +776,42 @@ function buildKPI(data){
     const rate=success/Math.max(n,1)*100;
     const pwl=group.filter(p=>p._pwl).length;
 
-    // Currency breakdown for detail
+    // 상세 크롤링 완료 여부 (extra_data에 detail_crawled_at 또는 rewards 있으면)
+    const detailDone=group.filter(p=>{
+      try{
+        const ed=p.extra_data;
+        if(!ed)return false;
+        const parsed=typeof ed==='string'?JSON.parse(ed):ed;
+        return parsed.detail_crawled_at || (parsed.rewards && parsed.rewards.length>0);
+      }catch(e){return false;}
+    }).length;
+    const detailRate=detailDone/Math.max(n,1)*100;
+
+    // Currency breakdown
     const curBreak={};
     group.forEach(p=>{const c=(p.currency||'USD').toUpperCase();curBreak[c]=(curBreak[c]||0)+(p.pledged||0);});
 
+    // 로컬 데이터 정보 (전역 변수 LOCAL_INFO 참조)
+    const localInfo=window.LOCAL_INFO||{months:36,size:'7.2GB',total_records:'~270K/월'};
+
     const kpis=[
-      {label:'프로젝트',value:fmt(n),sub:label,cls:'',detail:''},
+      {label:'프로젝트',value:fmt(n),sub:label,cls:'',
+       detail:`Supabase: ${fmt(n)}건 (6개월 + 라이브)<br>로컬 보유: ${localInfo.months}개월 ${localInfo.size} (${localInfo.total_records})`},
       {label:'총 모금액',value:'$'+fmt(totalPledgedUSD),sub:fmtKRW(totalPledgedUSD),cls:'',
        detail:Object.entries(curBreak).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([c,v])=>`${c}: ${fmt(v)}`).join(' / ')},
       {label:'후원자',value:fmt(totalBackers),sub:n>0?'평균 '+(totalBackers/n).toFixed(0)+'명/건':'',cls:'',detail:''},
       {label:'성공률',value:fmtPct(rate),sub:`${fmt(success)}건 달성`,cls:rate>50?'':'orange',detail:''},
+      {label:'상세 크롤링',value:fmtPct(detailRate),sub:`${fmt(detailDone)}/${fmt(n)} 완료`,cls:detailRate>=50?'':'orange',
+       detail:`완료: ${fmt(detailDone)}건 (리워드/FAQ/댓글/스토리)<br>대기: ${fmt(n-detailDone)}건 (목록만)<br>※ 프록시 확보될 때마다 점진 수집`},
       {label:'PWL',value:fmt(pwl),sub:fmtPct(pwl/Math.max(n,1)*100),cls:'purple',detail:''},
-      {label:'갱신',value:new Date().toLocaleDateString('ko-KR'),sub:'수집 중',cls:'',detail:''},
     ];
 
     const el=document.getElementById(targetId);
-    if(el) el.innerHTML=kpis.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="this.querySelector('.kpi-detail').style.display=this.querySelector('.kpi-detail').style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);">${k.detail||'클릭하여 상세 보기'}</div></div>`).join('');
+    if(el) el.innerHTML=kpis.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="this.querySelector('.kpi-detail').style.display=this.querySelector('.kpi-detail').style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.5;">${k.detail||'클릭하여 상세 보기'}</div></div>`).join('');
   }
+
+  // 로컬 데이터 정보 (수동 갱신)
+  window.LOCAL_INFO={months:36,size:'7.2GB',total_records:'~270K/월',period:'2023-05 ~ 2026-04'};
 
   makeRow(data,'kpi-all','전체');
   makeRow(live,'kpi-live','라이브');
@@ -1353,19 +1372,25 @@ async function main(){
 
     document.getElementById('meta-info').textContent=`DB ${(D.total_db||0).toLocaleString()}건 | 분석 ${(D.total_detail||0).toLocaleString()}건 | 라이브 ${(D.live_count||0).toLocaleString()}건 | 종료 ${(D.ended_count||0).toLocaleString()}건`;
 
-    // KPI — 사전 계산 데이터 사용
+    // KPI — 사전 계산 데이터 사용 + 상세 크롤링 진행률 + 로컬 보유 정보
     function renderKPIRow(kpi,targetId){
       const el=document.getElementById(targetId);
       if(!el||!kpi)return;
+      const detailDone=kpi.detail_crawled||0;
+      const detailRate=kpi.count>0?(detailDone/kpi.count*100):0;
+      const localInfo=D.local_data||{months:36,size:'7.2GB',period:'2023-05~2026-04'};
       const items=[
-        {label:'프로젝트',value:fmt(kpi.count),sub:kpi.label==='live'?'라이브':'전체',cls:'',detail:``},
+        {label:'프로젝트',value:fmt(kpi.count),sub:kpi.label==='live'?'라이브':'전체',cls:'',
+         detail:`Supabase: ${fmt(kpi.count)}건 (6개월 + 라이브)<br>로컬 보유: ${localInfo.months}개월 ${localInfo.size}<br>기간: ${localInfo.period}`},
         {label:'총 모금액',value:'$'+fmt(kpi.pledged_usd),sub:fmtKRW(kpi.pledged_usd),cls:'',
          detail:kpi.currencies?Object.entries(kpi.currencies).map(([c,v])=>`${c}: ${fmt(v)}`).join(' / '):''},
         {label:'후원자',value:fmt(kpi.backers),sub:kpi.count?'평균 '+Math.round(kpi.backers/kpi.count)+'명/건':'',cls:''},
         {label:'성공률',value:fmtPct(kpi.success_rate),sub:fmt(kpi.success_count)+'건 달성',cls:kpi.success_rate>50?'':'orange'},
+        {label:'상세 크롤링',value:fmtPct(detailRate),sub:`${fmt(detailDone)}/${fmt(kpi.count)} 완료`,cls:detailRate>=50?'':'orange',
+         detail:`완료: ${fmt(detailDone)}건 (리워드/FAQ/댓글/스토리)<br>대기: ${fmt(kpi.count-detailDone)}건 (목록만)<br>※ 프록시 확보될 때마다 점진 수집 중`},
         {label:'PWL',value:fmt(kpi.pwl),sub:fmtPct(kpi.pwl/Math.max(kpi.count,1)*100),cls:'purple'},
       ];
-      el.innerHTML=items.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="var d=this.querySelector('.kpi-detail');d.style.display=d.style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);">${k.detail||''}</div></div>`).join('');
+      el.innerHTML=items.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="var d=this.querySelector('.kpi-detail');d.style.display=d.style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.5;">${k.detail||''}</div></div>`).join('');
     }
     renderKPIRow(D.kpi_live,'kpi-live');
     renderKPIRow(D.kpi_all,'kpi-all');
