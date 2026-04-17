@@ -276,7 +276,6 @@ tr:hover{background:#f8fafc;}
   <div class="acc-body">
     <div class="section" id="sec-backer"><div class="section-head"><div class="sec-icon">07</div><h2>후원자 행동 분석</h2></div>
       <div class="g3">
-        <div class="card"><h3>후원자 수 vs 성공률</h3><div class="chart-wrap"><canvas id="ch-backers"></canvas></div></div>
         <div class="card"><h3>카테고리별 평균 후원 단가</h3><div class="chart-wrap"><canvas id="ch-pledge-cat"></canvas></div></div>
         <div class="card"><h3>핵심 후원자 인사이트</h3>
           <div class="insight-box"><div class="ib-title">슈퍼백커 크리에이터 효과</div><div class="ib-num">+51.8pp</div><div style="color:var(--muted);font-size:10px;">슈퍼백커 크리에이터: 89.2% 성공</div></div>
@@ -743,7 +742,9 @@ const USD_RATES={'USD':1,'EUR':1.08,'GBP':1.26,'CAD':0.73,'AUD':0.65,'HKD':0.13,
 function toUSD(amount,cur){return amount*(USD_RATES[(cur||'USD').toUpperCase()]||1);}
 function fmtKRW(usd){const k=usd*KRW;if(k>=1e8)return(k/1e8).toFixed(1)+'억원';if(k>=1e4)return(k/1e4).toFixed(0)+'만원';return Math.round(k).toLocaleString()+'원';}
 
-function buildKPI(data){
+// === OLD DEAD CODE REMOVED (buildKPI~buildRankings) ===
+// All rendering now done in main() using pre-computed dashboard.json
+function _placeholder_removed(){
   // Split: _isLive=true(deadline확인 라이브), false(종료), null(미분류)
   const live=data.filter(p=>p._isLive===true);
 
@@ -1349,7 +1350,7 @@ async function main(){
     ]);
     const D=await dashRes.json();
 
-    document.getElementById('meta-info').textContent=`DB ${(D.total_db||0).toLocaleString()}건 | 분석 ${(D.total_parsed||0).toLocaleString()}건 (상세 ${(D.detail_crawled||0).toLocaleString()}) | 라이브 ${(D.live_count||0).toLocaleString()} | 종료 ${(D.ended_count||0).toLocaleString()}`;
+    document.getElementById('meta-info').textContent=`DB ${(D.total_db||0).toLocaleString()}건 | 분석 ${(D.total_parsed||0).toLocaleString()}건 (상세 ${(D.detail_count||0).toLocaleString()}) | 라이브 ${(D.live_count||0).toLocaleString()} | 종료 ${(D.ended_count||0).toLocaleString()}`;
 
     // KPI 렌더링
     function renderKPIRow(kpi,targetId){
@@ -1375,7 +1376,7 @@ async function main(){
     renderKPIRow(D.kpi_ended,'kpi-ended');
     // Data note
     const noteEl=document.getElementById('kpi-note');
-    if(noteEl) noteEl.innerHTML=`DB 전체 <b>${(D.total_db||0).toLocaleString()}</b>건 중 분석 가능 <b>${(D.total_parsed||0).toLocaleString()}</b>건 · 상세 크롤링(리워드/FAQ/댓글) <b>${(D.detail_crawled||0).toLocaleString()}</b>건 · ${D.bias_note||''}`;
+    if(noteEl) noteEl.innerHTML=`DB 전체 <b>${(D.total_db||0).toLocaleString()}</b>건 중 분석 가능 <b>${(D.total_parsed||0).toLocaleString()}</b>건 · 상세 크롤링(리워드/FAQ/댓글) <b>${(D.detail_count||0).toLocaleString()}</b>건 · ${D.note||''}`;
 
 
     // ML Section
@@ -1438,7 +1439,7 @@ async function main(){
       makeChart(id,'bar',data.map(d=>d.label),[{data:data.map(d=>d.success_rate),backgroundColor:data.map(d=>d.success_rate>=50?'#10b981':d.success_rate>=30?'#f59e0b':'#ef4444'),borderRadius:4}],{scales:{y:{max:100,ticks:{callback:v=>v+'%'}},x:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
     }
     renderBucketChart('ch-duration',D.duration_vs_success);
-    renderBucketChart('ch-backers',D.backer_vs_success);
+    renderBucketChart('ch-backers',D.backer_threshold);
 
     // Geo
     if(D.countries){
