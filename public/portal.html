@@ -6,467 +6,391 @@
 <title>Setoworks · Jellop+α Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
   :root{
     --brand-red:#ff003b;
     --charcoal:#212121;
-    --bg:#191919;
-    --card-bg:rgba(255,255,255,0.04);
+    --bg:#0a0e1a;
+    --bg-elevated:#141824;
+    --card-bg:rgba(255,255,255,0.03);
     --card-border:rgba(255,255,255,0.08);
     --text-primary:#f0f0f0;
     --text-secondary:rgba(255,255,255,0.55);
+    --text-tertiary:rgba(255,255,255,0.35);
     --radius:14px;
+    --L1:#3b82f6; --L2:#a78bfa; --L3:#fb923c; --L4:#10b981; --L0:#94a3b8;
   }
-
-  html,body{height:100%;overflow:hidden}
-
+  html,body{min-height:100vh}
   body{
     font-family:'Noto Sans KR','Poppins',sans-serif;
     background:var(--bg);
     color:var(--text-primary);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
     position:relative;
+    padding:32px 24px 48px;
   }
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,0.025) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+  body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(255,0,59,0.08) 0%,transparent 70%);pointer-events:none;z-index:0}
 
-  /* subtle dot pattern */
-  body::before{
-    content:'';
-    position:fixed;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);
-    background-size:28px 28px;
-    pointer-events:none;
-    z-index:0;
-  }
+  .container{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto}
 
-  /* subtle gradient glow behind logo area */
-  body::after{
-    content:'';
-    position:fixed;
-    top:-180px;left:50%;
-    transform:translateX(-50%);
-    width:700px;height:500px;
-    background:radial-gradient(ellipse,rgba(255,0,59,0.08) 0%,transparent 70%);
-    pointer-events:none;
-    z-index:0;
-  }
+  /* ─── Hero header ─── */
+  .hero{text-align:center;margin-bottom:28px;animation:fadeDown .7s ease-out both}
+  .hero-logo{height:44px;margin-bottom:10px;filter:drop-shadow(0 0 30px rgba(255,0,59,0.3))}
+  .hero-brand{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:6px;color:#fff;margin-bottom:6px}
+  .hero-sub{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:400;font-size:.88rem;color:var(--text-secondary);letter-spacing:1.5px;margin-bottom:10px}
+  .hero-positioning{font-size:13px;color:var(--text-primary);font-weight:500;line-height:1.55;max-width:720px;margin:12px auto 0;padding:10px 18px;background:linear-gradient(135deg,rgba(255,0,59,.06),rgba(255,255,255,.02));border:1px solid rgba(255,0,59,.15);border-radius:10px}
+  .hero-positioning strong{color:var(--brand-red);font-weight:700}
 
-  .container{
-    position:relative;z-index:1;
-    width:100%;max-width:880px;
-    padding:0 24px;
-    display:flex;flex-direction:column;align-items:center;
-    justify-content:center;
-    flex:1;
-    gap:clamp(16px,3vh,32px);
-  }
+  /* ─── NSM Banner ─── */
+  .nsm-banner{background:linear-gradient(135deg,#0a0e1a,#1a0a14);border:1px solid rgba(255,0,59,.2);border-radius:14px;padding:14px 20px;margin-bottom:26px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;position:relative;overflow:hidden;animation:fadeUp .6s .2s ease-out both}
+  .nsm-banner::before{content:'';position:absolute;top:0;right:0;width:300px;height:100%;background:radial-gradient(ellipse at 90% 50%,rgba(255,0,59,.2),transparent 60%);pointer-events:none}
+  .nsm-label{font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(255,255,255,.55);font-weight:700;letter-spacing:.1em}
+  .nsm-metric{font-family:'Poppins',sans-serif;font-weight:800;color:#fff;font-size:15px;line-height:1.3;position:relative}
+  .nsm-metric .red{color:var(--brand-red)}
+  .nsm-stats{display:flex;gap:14px;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text-secondary);position:relative}
+  .nsm-stats b{color:#fff;font-weight:700}
 
-  /* ─── Header / Logo ─── */
-  .header{
-    text-align:center;
-    animation:fadeDown .7s ease-out both;
-    flex-shrink:0;
-  }
+  /* ─── Stats row ─── */
+  .stats-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:rgba(255,255,255,.02);border:1px solid var(--card-border);border-radius:12px;padding:10px 14px;margin-bottom:32px;animation:fadeUp .6s .3s ease-out both}
+  .stat{text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,.05)}
+  .stat:last-child{border-right:none}
+  .stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:#fff;line-height:1}
+  .stat-num .unit{font-size:11px;color:var(--text-tertiary);font-weight:500}
+  .stat-label{font-size:8.5px;color:var(--text-tertiary);letter-spacing:.08em;margin-top:5px;font-weight:600}
+  .stat.highlight .stat-num{color:var(--brand-red)}
+  .stat.highlight .stat-label{color:var(--brand-red);opacity:.9}
 
-  .logo-img{
-    height:clamp(36px,5vh,56px);
-    margin-bottom:clamp(6px,1vh,14px);
-    filter:drop-shadow(0 0 30px rgba(255,0,59,0.25));
-  }
-
-  .brand-name{
-    font-family:'Poppins',sans-serif;
-    font-weight:700;
-    font-size:clamp(1.1rem,2.5vw,1.75rem);
-    letter-spacing:6px;
-    color:#fff;
-    margin-bottom:4px;
-  }
-
-  .brand-sub{
-    font-family:'Poppins','Noto Sans KR',sans-serif;
-    font-weight:400;
-    font-size:clamp(.75rem,1.2vw,.95rem);
-    color:var(--text-secondary);
-    letter-spacing:1.5px;
-  }
+  /* ─── Layer section ─── */
+  .layer-section{margin-bottom:22px;animation:fadeUp .6s ease-out both}
+  .layer-section:nth-child(1){animation-delay:.35s}
+  .layer-section:nth-child(2){animation-delay:.45s}
+  .layer-section:nth-child(3){animation-delay:.55s}
+  .layer-section:nth-child(4){animation-delay:.65s}
+  .layer-section:nth-child(5){animation-delay:.75s}
+  .layer-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:0 4px}
+  .layer-pill{font-family:'Poppins',sans-serif;font-weight:800;font-size:10px;padding:3px 10px;border-radius:8px;letter-spacing:.08em;color:#fff}
+  .layer-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14.5px;color:#fff}
+  .layer-desc{font-size:11.5px;color:var(--text-secondary);margin-left:auto;font-weight:300}
+  .L1 .layer-pill{background:var(--L1)} .L1 .layer-title{color:var(--L1)}
+  .L2 .layer-pill{background:var(--L2)} .L2 .layer-title{color:var(--L2)}
+  .L3 .layer-pill{background:var(--L3)} .L3 .layer-title{color:var(--L3)}
+  .L4 .layer-pill{background:var(--L4)} .L4 .layer-title{color:var(--L4)}
+  .L0 .layer-pill{background:var(--L0);color:#1a1a1a} .L0 .layer-title{color:var(--L0)}
 
   /* ─── Grid ─── */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:clamp(10px,1.5vh,18px);
-    width:100%;
-    flex-shrink:0;
-  }
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-1{grid-template-columns:1fr}
 
   /* ─── Card ─── */
-  .card{
-    position:relative;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:var(--radius);
-    padding:clamp(16px,2.5vh,32px) clamp(20px,2vw,32px);
-    text-decoration:none;
-    color:inherit;
-    display:flex;
-    flex-direction:column;
-    gap:clamp(8px,1.2vh,16px);
-    transition:transform .25s ease,box-shadow .35s ease,border-color .3s ease;
-    cursor:pointer;
-    overflow:hidden;
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-  }
-
-  .card::before{
-    content:'';
-    position:absolute;inset:0;
-    border-radius:var(--radius);
-    opacity:0;
-    transition:opacity .35s ease;
-    pointer-events:none;
-  }
-
-  .card:hover{
-    transform:translateY(-4px) scale(1.015);
-    border-color:rgba(255,255,255,0.14);
-  }
+  .card{position:relative;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:transform .25s ease,box-shadow .35s ease,border-color .3s ease;cursor:pointer;overflow:hidden;backdrop-filter:blur(6px);min-height:112px}
+  .card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);opacity:0;transition:opacity .35s ease;pointer-events:none}
+  .card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16)}
   .card:hover::before{opacity:1}
+  .card-top{display:flex;align-items:center;justify-content:space-between}
+  .icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .icon-wrap svg{width:20px;height:20px;stroke-width:1.6}
+  .arrow-icon{color:rgba(255,255,255,.2);transition:transform .25s ease,color .25s ease}
+  .card:hover .arrow-icon{color:rgba(255,255,255,.7);transform:translateX(3px)}
+  .card-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14.5px;color:#fff;line-height:1.3}
+  .card-subtitle{font-size:11.5px;color:var(--text-secondary);line-height:1.55;font-weight:300}
+  .card-meta{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-tertiary);letter-spacing:.04em}
+  .card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2)}
+  .card-dot.live{background:#10b981;animation:pulse 1.8s infinite}
+  .card-dot.hot{background:var(--brand-red);animation:pulse 1.2s infinite}
+  .card-dot.soon{background:#f59e0b}
 
-  /* accent glow per card */
-  .card[data-accent="red"]::before{box-shadow:inset 0 0 40px rgba(255,0,59,0.08),0 8px 40px rgba(255,0,59,0.12)}
-  .card[data-accent="blue"]::before{box-shadow:inset 0 0 40px rgba(30,86,176,0.08),0 8px 40px rgba(30,86,176,0.12)}
-  .card[data-accent="green"]::before{box-shadow:inset 0 0 40px rgba(13,124,95,0.08),0 8px 40px rgba(13,124,95,0.12)}
-  .card[data-accent="purple"]::before{box-shadow:inset 0 0 40px rgba(109,40,217,0.08),0 8px 40px rgba(109,40,217,0.12)}
-  .card[data-accent="cyan"]::before{box-shadow:inset 0 0 40px rgba(6,182,212,0.08),0 8px 40px rgba(6,182,212,0.12)}
+  /* L1 Inbound - Blue */
+  .card.l1{border-left:3px solid var(--L1)}
+  .card.l1 .icon-wrap{background:rgba(59,130,246,.12)} .card.l1 .icon-wrap svg{color:var(--L1)}
+  .card.l1::before{box-shadow:inset 0 0 40px rgba(59,130,246,.05),0 6px 24px rgba(59,130,246,.1)}
+  /* L2 Intelligence - Purple */
+  .card.l2{border-left:3px solid var(--L2)}
+  .card.l2 .icon-wrap{background:rgba(167,139,250,.12)} .card.l2 .icon-wrap svg{color:var(--L2)}
+  .card.l2::before{box-shadow:inset 0 0 40px rgba(167,139,250,.05),0 6px 24px rgba(167,139,250,.1)}
+  .card.l2.moat{border:2px solid var(--brand-red);background:linear-gradient(135deg,rgba(255,0,59,.08),rgba(255,255,255,.02))}
+  .card.l2.moat .icon-wrap{background:rgba(255,0,59,.14)} .card.l2.moat .icon-wrap svg{color:var(--brand-red)}
+  /* L3 Execution - Orange */
+  .card.l3{border-left:3px solid var(--L3)}
+  .card.l3 .icon-wrap{background:rgba(251,146,60,.12)} .card.l3 .icon-wrap svg{color:var(--L3)}
+  .card.l3::before{box-shadow:inset 0 0 40px rgba(251,146,60,.05),0 6px 24px rgba(251,146,60,.1)}
+  /* L4 Expansion - Green */
+  .card.l4{border-left:3px solid var(--L4);opacity:.75}
+  .card.l4 .icon-wrap{background:rgba(16,185,129,.12)} .card.l4 .icon-wrap svg{color:var(--L4)}
+  /* L0 Operation - Gray */
+  .card.l0{border-left:3px solid var(--L0)}
+  .card.l0 .icon-wrap{background:rgba(148,163,184,.12)} .card.l0 .icon-wrap svg{color:var(--L0)}
 
-  .card-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
+  /* Moat badge */
+  .moat-badge{position:absolute;top:-8px;right:14px;background:var(--brand-red);color:#fff;padding:2px 9px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:8.5px;font-weight:800;letter-spacing:.08em}
+  .live-badge{position:absolute;top:-8px;right:14px;background:#10b981;color:#fff;padding:2px 9px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:8.5px;font-weight:800;letter-spacing:.08em}
 
-  .icon-wrap{
-    width:clamp(40px,5vh,52px);height:clamp(40px,5vh,52px);
-    border-radius:12px;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .icon-wrap svg{width:clamp(20px,3vh,26px);height:clamp(20px,3vh,26px);stroke-width:1.6}
+  /* Narrative banner */
+  .narrative-link{display:flex;align-items:center;gap:16px;padding:14px 20px;background:linear-gradient(135deg,#2a0914,#0a0e1a);border:1px solid rgba(255,0,59,.25);border-radius:12px;text-decoration:none;color:inherit;margin-top:20px;transition:border-color .3s,transform .25s;animation:fadeUp .6s .85s ease-out both}
+  .narrative-link:hover{border-color:var(--brand-red);transform:translateY(-2px)}
+  .narrative-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,0,59,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .narrative-icon svg{width:22px;height:22px;color:var(--brand-red);stroke-width:1.8}
+  .narrative-text{flex:1}
+  .narrative-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14px;color:#fff}
+  .narrative-sub{font-size:11.5px;color:var(--text-secondary);margin-top:2px}
+  .narrative-arrow{color:var(--brand-red);font-size:20px;font-weight:300}
 
-  .card[data-accent="red"] .icon-wrap{background:rgba(255,0,59,0.12)}
-  .card[data-accent="red"] .icon-wrap svg{color:#ff003b}
-  .card[data-accent="blue"] .icon-wrap{background:rgba(30,86,176,0.12)}
-  .card[data-accent="blue"] .icon-wrap svg{color:#4d8be8}
-  .card[data-accent="green"] .icon-wrap{background:rgba(13,124,95,0.12)}
-  .card[data-accent="green"] .icon-wrap svg{color:#22c997}
-  .card[data-accent="purple"] .icon-wrap{background:rgba(109,40,217,0.12)}
-  .card[data-accent="purple"] .icon-wrap svg{color:#a370f7}
-  .card[data-accent="cyan"] .icon-wrap{background:rgba(6,182,212,0.12)}
-  .card[data-accent="cyan"] .icon-wrap svg{color:#06b6d4}
+  /* Footer */
+  .footer{text-align:center;padding:24px 0 0;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px;font-family:'Poppins',sans-serif;animation:fadeUp .6s .95s ease-out both}
+  .footer a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+  .footer a:hover{color:rgba(255,255,255,.7)}
+  .update-badge{margin-bottom:8px;display:inline-block;background:rgba(255,0,59,.1);border:1px solid rgba(255,0,59,.2);border-radius:8px;padding:3px 12px;font-size:10px;color:rgba(255,255,255,.6)}
 
-  .arrow-icon{
-    color:rgba(255,255,255,0.2);
-    transition:color .25s ease,transform .25s ease;
-  }
-  .card:hover .arrow-icon{
-    color:rgba(255,255,255,0.6);
-    transform:translateX(3px);
-  }
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-  .card-title{
-    font-family:'Poppins','Noto Sans KR',sans-serif;
-    font-weight:600;
-    font-size:clamp(.9rem,1.5vw,1.15rem);
-    color:#fff;
-    line-height:1.3;
-  }
-
-  .card-subtitle{
-    font-size:clamp(.72rem,1vw,.84rem);
-    color:var(--text-secondary);
-    line-height:1.5;
-    font-weight:300;
-  }
-
-  /* accent underline */
-  .card-accent-line{
-    width:40px;height:3px;border-radius:2px;
-    margin-top:auto;
-    transition:width .3s ease;
-  }
-  .card:hover .card-accent-line{width:64px}
-
-  .card[data-accent="red"] .card-accent-line{background:#ff003b}
-  .card[data-accent="blue"] .card-accent-line{background:#1e56b0}
-  .card[data-accent="green"] .card-accent-line{background:#0d7c5f}
-  .card[data-accent="purple"] .card-accent-line{background:#6d28d9}
-  .card[data-accent="cyan"] .card-accent-line{background:#06b6d4}
-
-  /* staggered fade-in */
-  .card:nth-child(1){animation:fadeUp .6s .15s ease-out both}
-  .card:nth-child(2){animation:fadeUp .6s .25s ease-out both}
-  .card:nth-child(3){animation:fadeUp .6s .35s ease-out both}
-  .card:nth-child(4){animation:fadeUp .6s .45s ease-out both}
-  .card:nth-child(5){animation:fadeUp .6s .55s ease-out both}
-  .card:nth-child(6){animation:fadeUp .6s .65s ease-out both}
-
-  /* ─── Footer ─── */
-  .footer{
-    position:relative;z-index:1;
-    text-align:center;
-    padding:clamp(8px,1.5vh,20px) 24px;
-    font-size:.72rem;
-    color:rgba(255,255,255,0.25);
-    letter-spacing:.5px;
-    font-family:'Poppins',sans-serif;
-    animation:fadeUp .6s .55s ease-out both;
-    flex-shrink:0;
-  }
-  .card-date{
-    font-family:'Poppins',sans-serif;
-    font-size:.62rem;
-    color:rgba(255,255,255,0.3);
-    letter-spacing:.03em;
-    margin-top:2px;
-  }
-  .card-date::before{
-    content:'';
-    display:inline-block;
-    width:6px;height:6px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.15);
-    margin-right:5px;
-    vertical-align:middle;
-  }
-  .card-date.fresh::before{ background:#05ce78; }
-  .card-date.recent::before{ background:#f59e0b; }
-
-  .footer a{color:rgba(255,255,255,0.35);text-decoration:none;transition:color .2s}
-  .footer a:hover{color:rgba(255,255,255,0.6)}
-
-  /* ─── Animations ─── */
-  @keyframes fadeDown{
-    from{opacity:0;transform:translateY(-20px)}
-    to{opacity:1;transform:translateY(0)}
-  }
-  @keyframes fadeUp{
-    from{opacity:0;transform:translateY(24px)}
-    to{opacity:1;transform:translateY(0)}
-  }
-
-  /* ─── Responsive ─── */
-  @media(max-width:640px){
-    .container{padding:0 16px}
-    .grid{grid-template-columns:1fr 1fr;gap:8px}
-    .card{padding:14px 16px}
-    .brand-name{font-size:1.1rem;letter-spacing:4px}
-    .logo-img{height:32px}
-    .icon-wrap{width:36px;height:36px}
-    .icon-wrap svg{width:18px;height:18px}
-  }
-  @media(max-height:600px){
-    .header{margin-bottom:0}
-    .card{padding:10px 14px;gap:6px}
-    .card-accent-line{display:none}
-    .logo-img{height:28px}
+  @media(max-width:760px){
+    .grid,.grid-2{grid-template-columns:1fr}
+    .stats-strip{grid-template-columns:repeat(3,1fr);gap:10px 4px}
+    .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:6px}
+    .nsm-banner{grid-template-columns:1fr;gap:10px}
+    .hero-brand{font-size:1.2rem;letter-spacing:4px}
   }
 </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- Header -->
-  <div class="header">
-    <img src="/setoworks_logo_8x.png" alt="Setoworks" class="logo-img">
-    <div class="brand-name">SETOWORKS</div>
-    <div class="brand-sub">Jellop+&alpha; Platform</div>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <div class="hero">
+    <img src="/setoworks_logo_8x.png" alt="Setoworks" class="hero-logo">
+    <div class="hero-brand">SETOWORKS</div>
+    <div class="hero-sub">Jellop+&alpha; · 예측 기반 글로벌 크라우드펀딩 런칭 OS</div>
+    <div class="hero-positioning">
+      <strong>"같은 제품, 어느 나라가 더 잘 팔릴까"</strong> — 14년 × 520억 × 27,212 KS × 1,705 슈퍼백커 데이터로 답하는 유일한 OS
+    </div>
   </div>
 
-  <!-- Card Grid -->
-  <div class="grid">
-
-    <!-- Card 1: 전략 데크 -->
-    <a href="/deck-v5.html" class="card" data-accent="red">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25M8.25 16.5v3.75m7.5-3.75v3.75m-11.25 0h15M12 7.5v5.25m-3-2.25h6"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">전략 데크 (PPT)</div>
-      <div class="card-subtitle">Jellop+&alpha; 90일 로드맵 · 22슬라이드</div>
-      <div class="card-date" data-page="deck-v5.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 2: 크리에이터 관리 -->
-    <a href="/influencer-admin.html" class="card" data-accent="blue">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">크리에이터 관리</div>
-      <div class="card-subtitle">59 인플루언서 · 8개국 · 4,500+ 콘텐츠</div>
-      <div class="card-date" data-page="influencer-admin.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 3: 운영 대시보드 -->
-    <a href="/index.html" class="card" data-accent="green">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">운영 대시보드</div>
-      <div class="card-subtitle">3,398 제품 · 실시간 분석</div>
-      <div class="card-date" data-page="index.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 4: 크롤링 모니터 -->
-    <a href="/crawl-monitor.html" class="card" data-accent="green">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">크롤링 모니터</div>
-      <div class="card-subtitle">5 플랫폼 · 97 카테고리 · 실시간 모니터링</div>
-      <div class="card-date" data-page="crawl-monitor.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 5: 사내 DB 인프라 -->
-    <a href="/db-infra.html" class="card" data-accent="purple">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">사내 DB 인프라</div>
-      <div class="card-subtitle">PostgreSQL 70테이블 · AI 연동 · NAS 통합</div>
-      <div class="card-date" data-page="db-infra.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 6: KS Insight Engine -->
-    <a href="/kickstarter-insight.html" class="card" data-accent="green">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v-5.5"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">KS Insight Engine</div>
-      <div class="card-subtitle">킥스타터 성공 예측 · 47개 인사이트</div>
-      <div class="card-date" data-page="kickstarter-insight.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 8: 킥스타터 어필리에이트 서비스 -->
-    <a href="https://setoworks-affiliate.vercel.app" class="card" data-accent="red" target="_blank" rel="noopener">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">킥스타터 어필리에이트 서비스</div>
-      <div class="card-subtitle">5개 브랜드 랩 · 실시간 펀딩 큐레이션 · Supabase 연동</div>
-      <div class="card-date">Live · setoworks-affiliate.vercel.app</div>
-      <div class="card-accent-line"></div>
-    </a>
-
-    <!-- Card 7: 시스템 가이드 -->
-    <a href="/system-guide.html" class="card" data-accent="cyan">
-      <div class="card-top">
-        <div class="icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
-          </svg>
-        </div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </div>
-      <div class="card-title">시스템 가이드</div>
-      <div class="card-subtitle">전체 시스템 문서 · 운영 매뉴얼</div>
-      <div class="card-date" data-page="system-guide.html"></div>
-      <div class="card-accent-line"></div>
-    </a>
-
+  <!-- ═══════════ NSM BANNER ═══════════ -->
+  <div class="nsm-banner">
+    <div>
+      <div class="nsm-label">★ NORTH STAR METRIC</div>
+      <div class="nsm-metric">메이커 <span class="red">LTV</span> × 예측 <span class="red">정확도</span></div>
+    </div>
+    <div class="nsm-stats">
+      <div>LTV <b>₩1.2억</b></div>
+      <div>Precision@3 <b>78%</b></div>
+      <div>Funnel Depth <b>2.4 layers</b></div>
+    </div>
+    <div style="position:relative;font-size:10.5px;color:var(--text-secondary)">
+      <span style="color:#10b981;">●</span> Live · Updated <span id="nsm-updated">—</span>
+    </div>
   </div>
+
+  <!-- ═══════════ STATS STRIP ═══════════ -->
+  <div class="stats-strip">
+    <div class="stat"><div class="stat-num">14<span class="unit">년</span></div><div class="stat-label">BUSINESS</div></div>
+    <div class="stat"><div class="stat-num">520<span class="unit">억</span></div><div class="stat-label">FUNDED</div></div>
+    <div class="stat"><div class="stat-num">1,200</div><div class="stat-label">CAMPAIGNS</div></div>
+    <div class="stat"><div class="stat-num">27K</div><div class="stat-label">KS PROJECTS</div></div>
+    <div class="stat"><div class="stat-num">1,705</div><div class="stat-label">SUPERBACKERS</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">STREAMS</div></div>
+    <div class="stat highlight"><div class="stat-num">6</div><div class="stat-label">COUNTRIES</div></div>
+  </div>
+
+  <!-- ═══════════ LAYER 1 · 유입 ═══════════ -->
+  <div class="layer-section L1">
+    <div class="layer-head">
+      <span class="layer-pill">L1</span>
+      <span class="layer-title">유입 · Inbound Funnel</span>
+      <span class="layer-desc">리드 깔때기 Top · 브랜딩 채널</span>
+    </div>
+    <div class="grid grid-2">
+
+      <a href="https://setoworks-affiliate.vercel.app" class="card l1" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">Brand Lab · 어필리에이트</div>
+        <div class="card-subtitle">Affundify · Kickfundly · Backerio · Fundspirex · Boostfunding · 5개 브랜드 실시간 펀딩 큐레이션</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · $134.4M · 42.5K backers</div>
+      </a>
+
+      <a href="/kickstarter-live.html" class="card l1">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.63 7.41m5.96 6.96c-1.87.56-3.87.87-5.96.87-2.09 0-4.09-.3-5.95-.87m0 0a6 6 0 0 1-5.84-7.38v-4.8m5.84 12.18a6 6 0 0 0-5.84-7.38v4.8"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">KS 라이브 대시보드</div>
+        <div class="card-subtitle">Kickstarter 실시간 · 2,000+ 프로젝트 트래킹 · 급등 카테고리 탐지</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · Realtime · 2K+</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ LAYER 2 · 분석·판단 ═══════════ -->
+  <div class="layer-section L2">
+    <div class="layer-head">
+      <span class="layer-pill">L2</span>
+      <span class="layer-title">분석·판단 · Intelligence</span>
+      <span class="layer-desc">AI 예측 + 🌍 6개국 선호도 MOAT</span>
+    </div>
+    <div class="grid grid-2">
+
+      <a href="/kickstarter-predict.html" class="card l2 moat">
+        <div class="live-badge">★ 4/28 LIVE</div>
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.091 3.091ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">킥스타터 성공 예측 엔진</div>
+        <div class="card-subtitle">108 팩터 진단 · S/A/B/C/D 등급 · 무료 체험 후 상세 리포트 (3~10만원)</div>
+        <div class="card-meta"><span class="card-dot hot"></span>D-5 오픈 · 등급별 결제 · 27K 학습</div>
+      </a>
+
+      <a href="/kickstarter-insight.html" class="card l2">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">KS Insight Engine</div>
+        <div class="card-subtitle">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 · 예측 엔진의 데이터 근거</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · 27,909 Projects · 7 sections</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ LAYER 3 · 실행 ═══════════ -->
+  <div class="layer-section L3">
+    <div class="layer-head">
+      <span class="layer-pill">L3</span>
+      <span class="layer-title">실행 · Execution</span>
+      <span class="layer-desc">3 streams · 본업 + 시딩 + 바이어</span>
+    </div>
+    <div class="grid grid-2">
+
+      <a href="/influencer-admin.html" class="card l3">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">인플루언서 시딩 관리</div>
+        <div class="card-subtitle">65명 크리에이터 DB · 3-Tier × 4패키지 · Pure Score 자동 평가 · 매칭 자동화</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · 65 creators · 매일 09:00 자동</div>
+      </a>
+
+      <a href="/index.html" class="card l3">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">캠페인 운영 대시보드</div>
+        <div class="card-subtitle">3,398 제품 · 본업 펀딩 캠페인 실시간 분석 · 한셉트·콕스스페이스·뉴마핏 등</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · 1,200건 · 520억 집행</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ LAYER 4 · 확장 (coming soon) ═══════════ -->
+  <div class="layer-section L4">
+    <div class="layer-head">
+      <span class="layer-pill">L4</span>
+      <span class="layer-title">확장 · E-commerce 6-Country</span>
+      <span class="layer-desc">Q2-Q3 오픈 예정</span>
+    </div>
+    <div class="grid grid-1">
+      <div class="card l4" style="cursor:default">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg></div>
+          <div style="display:flex;gap:14px;font-size:18px">🇺🇸 🇯🇵 🇰🇷 🇹🇼 🇪🇺 🇨🇳</div>
+        </div>
+        <div class="card-title">6개국 이커머스 확장</div>
+        <div class="card-subtitle">Amazon · Makuake→Rakuten · 쿠팡 · PChome · Otto · Tmall — 국가별 선호도 기반 자동 입점 플로우</div>
+        <div class="card-meta"><span class="card-dot soon"></span>COMING SOON · Tier 2 (D+180)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ LAYER 0 · 관통 운영 ═══════════ -->
+  <div class="layer-section L0">
+    <div class="layer-head">
+      <span class="layer-pill">L0</span>
+      <span class="layer-title">관통 · Operation (Moat 증거)</span>
+      <span class="layer-desc">세토웍스가 모든 Layer를 풀서비스로 대행</span>
+    </div>
+    <div class="grid">
+
+      <a href="/system-guide.html" class="card l0">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">시스템 가이드</div>
+        <div class="card-subtitle">운영 매뉴얼 · 7 섹션 · 전체 시스템 온보딩</div>
+        <div class="card-meta"><span class="card-dot live"></span>DOC · 운영팀 표준</div>
+      </a>
+
+      <a href="/crawl-monitor.html" class="card l0">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">크롤링 모니터</div>
+        <div class="card-subtitle">5 플랫폼 · 162 프록시 자가확장 · 패턴 최적화</div>
+        <div class="card-meta"><span class="card-dot live"></span>LIVE · 일 2K+ 크롤</div>
+      </a>
+
+      <a href="/db-infra.html" class="card l0">
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">DB 인프라 계획서</div>
+        <div class="card-subtitle">PostgreSQL 70 테이블 · Supabase · AI 연동 · 7.4TB NAS 아카이브</div>
+        <div class="card-meta"><span class="card-dot"></span>DOC · 기술 스택 전체</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ NARRATIVE LINK ═══════════ -->
+  <a href="/deck.html" class="narrative-link">
+    <div class="narrative-icon">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25M8.25 16.5v3.75m7.5-3.75v3.75m-11.25 0h15M12 7.5v5.25m-3-2.25h6"/></svg>
+    </div>
+    <div class="narrative-text">
+      <div class="narrative-title">📑 전체 스토리 · Jellop+α 90일 전략 데크</div>
+      <div class="narrative-sub">왜 지금 · 적·약속의 땅·장애물·증거·액션 (Raskin 6-Section 내러티브 · 25 슬라이드)</div>
+    </div>
+    <div class="narrative-arrow">→</div>
+  </a>
+
 </div>
 
 <footer class="footer">
-  <div id="update-badge" style="margin-bottom:6px;display:inline-block;background:rgba(255,0,59,0.1);border:1px solid rgba(255,0,59,0.2);border-radius:8px;padding:3px 12px;font-size:11px;color:rgba(255,255,255,0.6);"></div>
-  <div>&copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a></div>
+  <div class="update-badge" id="update-badge">—</div>
+  <div>&copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a> · Jellop+α OS v2.0</div>
 </footer>
-<script>
-// 각 카드의 최신화 일자 자동 로드
-(function(){
-  var cards = document.querySelectorAll('.card-date[data-page]');
-  cards.forEach(function(el){
-    var page = el.dataset.page;
-    fetch('/' + page, {method:'HEAD'}).then(function(r){
-      var lm = r.headers.get('last-modified');
-      if (lm) {
-        var d = new Date(lm);
-        var now = new Date();
-        var diff = Math.floor((now - d) / (1000*60*60*24));
-        var dateStr = d.toLocaleDateString('ko-KR',{month:'2-digit',day:'2-digit'});
-        el.textContent = 'Updated ' + dateStr;
-        if (diff <= 1) el.classList.add('fresh');
-        else if (diff <= 3) el.classList.add('recent');
-      }
-    }).catch(function(){
-      el.textContent = '';
-    });
-  });
-})();
 
-// 최신 git commit 시간을 Vercel 배포 시간으로 표시
+<script>
 (function(){
   var badge = document.getElementById('update-badge');
-  // Vercel의 빌드 시간을 추정 (현재 페이지의 Last-Modified 헤더)
+  var nsmUpdated = document.getElementById('nsm-updated');
   fetch(window.location.href, {method:'HEAD'}).then(function(r){
     var lm = r.headers.get('last-modified');
     if (lm) {
       var d = new Date(lm);
-      badge.textContent = 'Last Update: ' + d.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}) + ' ' + d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+      var dateStr = d.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+      badge.textContent = '⚡ Last deployed · '+dateStr;
+      if(nsmUpdated) nsmUpdated.textContent = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
     } else {
-      badge.textContent = 'Last Update: ' + new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+      badge.textContent = '⚡ Jellop+α Platform';
+      if(nsmUpdated) nsmUpdated.textContent = 'today';
     }
-  }).catch(function(){
-    badge.textContent = 'Last Update: ' + new Date().toLocaleDateString('ko-KR');
-  });
+  }).catch(function(){badge.textContent='Jellop+α Platform'});
 })();
 </script>
-
 </body>
 </html>
