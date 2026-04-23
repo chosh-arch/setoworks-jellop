@@ -6,16 +6,30 @@
 <title>킥스타터 인사이트 엔진 — Setoworks</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
 <style>
 :root {
-  --bg:#f8fafc; --card:#fff; --border:#e2e8f0; --text:#0f172a; --muted:#64748b;
+  --bg:#fafbfc; --card:#fff; --border:#e5e7eb; --text:#0a0e1a; --muted:#64748b;
   --green:#10b981; --red:#ef4444; --orange:#f59e0b; --blue:#3b82f6; --purple:#8b5cf6;
   --cyan:#06b6d4; --pink:#ec4899; --teal:#14b8a6; --indigo:#6366f1;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shadow-lg:0 4px 12px rgba(0,0,0,.08);
+  --brand:#ff003b; --brand-600:#e50035; --brand-50:#fff0f3;
+  --ink:#0a0e1a; --ink-2:#1a2033;
+  /* 2026 Section tints (Bento Grid) */
+  --t-market:#f5f7ff;    /* §1 청보라 */
+  --t-cat:#fffaf5;       /* §2 오렌지 */
+  --t-sb:#f0fdfa;        /* §3 민트 */
+  --t-fund:#fef2f8;      /* §4 핑크 */
+  --t-time:#f8fafc;      /* §5 그레이 */
+  --t-ai:#fff7ed;        /* §6 앰버 */
+  --t-predict:#f5f3ff;   /* §7 퍼플 */
+  --shadow:0 1px 2px rgba(10,14,26,.04),0 1px 2px rgba(10,14,26,.02);
+  --shadow-md:0 4px 14px rgba(10,14,26,.06);
+  --shadow-lg:0 12px 32px rgba(10,14,26,.1);
+  --radius-card:14px;
+  --radius-sm:8px;
   /* alias for existing JS references */
-  --ks-green:#10b981; --ks-dark:#f8fafc; --ks-card:#fff; --ks-border:#e2e8f0;
-  --ks-text:#0f172a; --ks-muted:#64748b;
+  --ks-green:#10b981; --ks-dark:#fafbfc; --ks-card:#fff; --ks-border:#e5e7eb;
+  --ks-text:#0a0e1a; --ks-muted:#64748b;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter','Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
@@ -51,11 +65,54 @@ code,pre,.mono{font-family:'JetBrains Mono','SF Mono','Consolas',monospace;}
 .kpi .sub{font-size:10px;color:var(--muted);margin-top:4px;}
 .kpi .value.red{color:var(--red);} .kpi .value.blue{color:var(--blue);} .kpi .value.orange{color:var(--orange);} .kpi .value.purple{color:var(--purple);}
 
-/* CARDS — Tremor shadow cards */
-.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:0;box-shadow:var(--shadow);transition:box-shadow .2s;}
-.card:hover{box-shadow:var(--shadow-lg);}
+/* CARDS — 2026 Bento style */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-card);padding:18px;margin-bottom:0;box-shadow:var(--shadow);transition:box-shadow .25s, transform .25s;}
+.card:hover{box-shadow:var(--shadow-md);}
 .card h3{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;color:var(--text);}
 .card h3 .tag{font-size:9px;background:#f1f5f9;color:var(--muted);padding:2px 6px;border-radius:4px;font-weight:500;}
+.card .eyebrow{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.6px;text-transform:uppercase;}
+.card .eyebrow + h3{font-size:15px;font-weight:700;margin-top:4px;}
+
+/* SECTION TINTS (2026 Bento grouping) */
+.tint-market{background:linear-gradient(135deg,var(--t-market) 0%,#fff 70%);}
+.tint-cat{background:linear-gradient(135deg,var(--t-cat) 0%,#fff 70%);}
+.tint-sb{background:linear-gradient(135deg,var(--t-sb) 0%,#fff 70%);}
+.tint-fund{background:linear-gradient(135deg,var(--t-fund) 0%,#fff 70%);}
+.tint-time{background:linear-gradient(135deg,var(--t-time) 0%,#fff 70%);}
+.tint-ai{background:linear-gradient(135deg,var(--t-ai) 0%,#fff 70%);}
+.tint-predict{background:linear-gradient(135deg,var(--t-predict) 0%,#fff 70%);}
+
+/* HERO KPI STRIP (2026) */
+.hero-strip{background:linear-gradient(135deg,#0a0e1a 0%,#1a2033 60%,#2d1b4e 100%);border-radius:18px;padding:28px;margin-bottom:24px;position:relative;overflow:hidden;}
+.hero-strip::before{content:"";position:absolute;top:-30%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,0,59,.35) 0%,transparent 65%);pointer-events:none;}
+.hero-strip::after{content:"";position:absolute;bottom:-30%;left:-10%;width:380px;height:380px;background:radial-gradient(circle,rgba(139,92,246,.25) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;}
+.hero-title{color:#fff;font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;}
+.hero-sub{color:#94a3b8;font-size:13px;margin-bottom:22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hero-sub .pill{background:rgba(255,255,255,.08);color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.12);}
+.hero-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.hero-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;transition:all .25s;backdrop-filter:blur(10px);}
+.hero-kpi:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.hero-kpi .h-label{font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.hero-kpi .h-value{font-size:24px;font-weight:800;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+.hero-kpi .h-sub{font-size:10px;color:#cbd5e1;margin-top:4px;}
+.hero-kpi .h-sub.up{color:#34d399;} .hero-kpi .h-sub.down{color:#f87171;}
+@media(max-width:900px){.hero-kpis{grid-template-columns:repeat(2,1fr);} .hero-title{font-size:20px;}}
+
+/* BENTO GRID (modular, 2026) */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;grid-auto-rows:minmax(160px,auto);}
+.bento > .card{margin:0;}
+.bento .span-3{grid-column:span 3;}
+.bento .span-4{grid-column:span 4;}
+.bento .span-5{grid-column:span 5;}
+.bento .span-6{grid-column:span 6;}
+.bento .span-7{grid-column:span 7;}
+.bento .span-8{grid-column:span 8;}
+.bento .span-9{grid-column:span 9;}
+.bento .span-12{grid-column:span 12;}
+.bento .row-2{grid-row:span 2;}
+@media(max-width:1200px){.bento{grid-template-columns:repeat(6,1fr);} .bento .span-3,.bento .span-4{grid-column:span 3;} .bento .span-5,.bento .span-6,.bento .span-7,.bento .span-8,.bento .span-9,.bento .span-12{grid-column:span 6;}}
+@media(max-width:700px){.bento{grid-template-columns:1fr;} .bento > *{grid-column:span 1 !important;grid-row:span 1 !important;}}
 
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -161,6 +218,22 @@ tr:hover{background:#f8fafc;}
 
 <div class="container" id="app">
 
+<!-- 🚀 HERO STRIP (2026 Bento Hero) -->
+<div class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-title">Kickstarter Intelligence 2026</div>
+    <div class="hero-sub">
+      <span class="pill">🗓️ 2023.04 — 2026.04 (3년치)</span>
+      <span class="pill">📊 27,909 프로젝트</span>
+      <span class="pill">💬 354,871 댓글</span>
+      <span class="pill">🎁 217,432 리워드</span>
+      <span class="pill">🕸️ 64,207 슈퍼백커</span>
+      <span id="hero-gen" style="margin-left:auto;opacity:.6;font-size:11px;"></span>
+    </div>
+    <div class="hero-kpis" id="hero-kpis"></div>
+  </div>
+</div>
+
 <!-- KPI 요약 -->
 <div id="kpi-section">
   <div style="margin-bottom:6px;font-size:11px;color:var(--muted);">
@@ -210,7 +283,7 @@ tr:hover{background:#f8fafc;}
 </div>
 
 <!-- ACC 2: 카테고리 & 리워드 -->
-<div class="acc" id="acc-category">
+<div class="acc open" id="acc-category">
   <div class="acc-head" onclick="toggleAcc('acc-category')">
     <div class="acc-icon">CT</div>
     <h2>카테고리 & 리워드</h2>
@@ -235,7 +308,7 @@ tr:hover{background:#f8fafc;}
 </div>
 
 <!-- ACC 3: 콘텐츠 & 타이밍 -->
-<div class="acc" id="acc-content">
+<div class="acc open" id="acc-content">
   <div class="acc-head" onclick="toggleAcc('acc-content')">
     <div class="acc-icon">TM</div>
     <h2>콘텐츠 & 타이밍</h2>
@@ -265,7 +338,7 @@ tr:hover{background:#f8fafc;}
 </div>
 
 <!-- ACC 4: 후원자 & 슈퍼백커 -->
-<div class="acc" id="acc-backer">
+<div class="acc open" id="acc-backer">
   <div class="acc-head" onclick="toggleAcc('acc-backer')">
     <div class="acc-icon">SB</div>
     <h2>후원자 & 슈퍼백커</h2>
@@ -311,7 +384,7 @@ tr:hover{background:#f8fafc;}
 </div>
 
 <!-- ACC 5: 지역 & 트렌드 -->
-<div class="acc" id="acc-geo">
+<div class="acc open" id="acc-geo">
   <div class="acc-head" onclick="toggleAcc('acc-geo')">
     <div class="acc-icon">GE</div>
     <h2>지역 & Staff Pick</h2>
@@ -337,7 +410,6 @@ tr:hover{background:#f8fafc;}
             <div class="ib-title">킥스타터 편집팀이 직접 선정하는 추천 프로젝트</div>
             <div id="sp-detail" style="margin-top:8px;font-size:12px;color:var(--sub);line-height:1.7;">로딩 중...</div>
           </div>
-          <div class="chart-wrap" style="height:150px;"><canvas id="ch-pwl"></canvas></div>
         </div>
       </div>
     </div>
@@ -345,7 +417,7 @@ tr:hover{background:#f8fafc;}
 </div>
 
 <!-- ACC 6: 텍스트 마이닝 -->
-<div class="acc" id="acc-text">
+<div class="acc open" id="acc-text">
   <div class="acc-head" onclick="toggleAcc('acc-text')">
     <div class="acc-icon">TX</div>
     <h2>텍스트 마이닝</h2>
@@ -382,6 +454,96 @@ tr:hover{background:#f8fafc;}
   <div class="card"><div style="overflow-x:auto;max-height:420px;overflow-y:auto;">
     <table id="tbl-rank" class="rank-table"><thead><tr><th>#</th><th>프로젝트</th><th>카테고리</th><th class="num">모금액</th><th class="num">후원자</th><th class="num">달성률</th><th class="num">목표</th></tr></thead><tbody></tbody></table>
   </div></div>
+</div>
+
+<!-- 📈 § 트렌드 & 시장 진화 (2026 Bento Grid) -->
+<div class="section" id="sec-trend">
+  <div class="section-head">
+    <div class="sec-icon" style="background:linear-gradient(135deg,#ff003b,#8b5cf6);">TR</div>
+    <h2>트렌드 & 시장 진화</h2>
+    <span class="sec-sub">3년치 · 종료일 기준 · Bento Layout</span>
+  </div>
+
+  <!-- KPI 밴드 -->
+  <div class="g4" style="margin-bottom:16px;" id="trend-kpis"></div>
+
+  <!-- 월별 총 펀딩액 + 프로젝트 수 듀얼 축 -->
+  <div class="card tint-market">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div>
+        <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">TIMELINE</div>
+        <h3 style="font-size:18px;font-weight:700;margin-top:4px;">월별 펀딩액 & 프로젝트 수 진화 (종료일 기준)</h3>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="badge" style="background:linear-gradient(135deg,#ff003b,#ec4899);color:#fff;padding:4px 10px;">SUCCESSFUL ONLY</span>
+      </div>
+    </div>
+    <div style="position:relative;height:340px;"><canvas id="tr-timeline"></canvas></div>
+  </div>
+
+  <!-- 펀딩 규모 변화 (Stacked Area) + 카테고리 히트맵 -->
+  <div class="g2" style="margin-top:16px;">
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">FUNDING SCALE</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">펀딩 규모 구간 분기별 변화</h3>
+      <div style="position:relative;height:260px;"><canvas id="tr-scale"></canvas></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">&lt;$1K, $1-10K, $10-50K, $50-100K, $100-500K, $500K-1M, $1M+</div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CATEGORY × TIME</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">카테고리 월별 활동 히트맵</h3>
+      <div id="tr-heatmap" style="height:280px;"></div>
+    </div>
+  </div>
+
+  <!-- 국가 성공률 + Staff Pick 효과 -->
+  <div class="g2" style="margin-top:16px;">
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">GEOGRAPHIC</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">국가별 분기 성공률 추세 (Top 10)</h3>
+      <div style="position:relative;height:260px;"><canvas id="tr-country"></canvas></div>
+    </div>
+    <div class="card tint-ai">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">STAFF PICK EFFECT</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">Staff Pick vs 일반 성공률 갭</h3>
+      <div style="position:relative;height:260px;"><canvas id="tr-staffpick"></canvas></div>
+    </div>
+  </div>
+
+  <!-- AI 사용 급증 + 캠페인 duration -->
+  <div class="g2" style="margin-top:16px;">
+    <div class="card tint-predict">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">EMERGING: AI DISCLOSURE</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">AI 사용 선언 프로젝트 급증 (KS 2024 신규 필드)</h3>
+      <div style="position:relative;height:220px;"><canvas id="tr-ai"></canvas></div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CAMPAIGN LENGTH</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">평균 캠페인 기간 추세</h3>
+      <div style="position:relative;height:220px;"><canvas id="tr-duration"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 슈퍼백커 네트워크 (Chord + Top List) -->
+  <div class="g2" style="margin-top:16px;">
+    <div class="card tint-sb">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">SUPERBACKER NETWORK</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">카테고리 횡단 슈퍼백커 흐름 (Chord)</h3>
+      <div id="tr-chord" style="height:400px;"></div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">TOP ACTIVISTS</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">Top 20 활동 슈퍼백커</h3>
+      <div id="tr-sb-top" style="max-height:400px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- 인사이트 카드 -->
+  <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;">
+    <div style="font-size:13px;color:#fbbf24;font-weight:600;letter-spacing:.5px;">💡 AI 데이터 인사이트</div>
+    <h3 style="font-size:18px;font-weight:700;margin-top:4px;margin-bottom:14px;">이번 분석에서 발견한 5가지 패턴</h3>
+    <div class="g2" id="tr-insights" style="gap:14px;"></div>
+  </div>
 </div>
 
 <!-- 경쟁 우위 맵 (항상 보임) -->
@@ -518,7 +680,29 @@ async function buildMLSection(){
 // ========== ACCORDION TOGGLE ==========
 function toggleAcc(id){
   const el=document.getElementById(id);
-  if(el)el.classList.toggle('open');
+  if(!el)return;
+  el.classList.toggle('open');
+  if(el.classList.contains('open')){
+    // 2-step resize: 즉시 + 300ms 후 (display 전환 완료 대기)
+    const resizeAll = () => {
+      try {
+        Object.values(charts||{}).forEach(c=>{
+          if(c && typeof c.resize==='function'){
+            try { c.resize(); c.update('none'); } catch(e){}
+          }
+        });
+        if(window.echarts){
+          el.querySelectorAll('[id^="tr-"]').forEach(d=>{
+            const inst = window.echarts.getInstanceByDom(d);
+            if(inst) inst.resize();
+          });
+        }
+        window.dispatchEvent(new Event('resize'));
+      } catch(e){ console.warn('resize failed',e); }
+    };
+    setTimeout(resizeAll, 50);
+    setTimeout(resizeAll, 400);
+  }
 }
 
 // ========== SUPERBACKER SECTION ==========
@@ -1020,7 +1204,7 @@ function buildBackerSection(data,details){
   makeChart('ch-pledge-cat','bar',cpSorted.map(c=>c.name),[{data:cpSorted.map(c=>c.avg),backgroundColor:'#ec4899',borderRadius:4}],{indexAxis:'y',scales:{x:{ticks:{callback:v=>'$'+fmt(v)}},y:{ticks:{font:{size:10}}}},plugins:{legend:{display:false}}});
 }
 
-function buildTrendSection(details){
+function buildLegacyTrendSection(details){
   // PWL chart
   const pwlYes=details.filter(d=>d.data?.is_project_we_love);
   const pwlNo=details.filter(d=>!d.data?.is_project_we_love);
@@ -1364,11 +1548,13 @@ async function main(){
          detail:kpi.currencies?'통화별: '+Object.entries(kpi.currencies).map(([c,v])=>`${c} ${fmt(v)}`).join(', '):''},
         {label:'총 후원자',value:fmt(kpi.backers)+'명',sub:kpi.count?'프로젝트당 평균 '+Math.round(kpi.backers/kpi.count)+'명':'',cls:''},
       ];
-      if(kpi.success_rate!==null&&kpi.success_rate!==undefined){
-        items.push({label:'성공률',value:kpi.success_rate+'%',sub:'성공 '+fmt(kpi.success_count)+'건',cls:kpi.success_rate>50?'':'orange'});
+      // 성공률: 결과 확정(isEnded)에서만 표시. 진행중(isLive)은 의미 없으니 숨김.
+      if(isEnded && kpi.success_rate!==null && kpi.success_rate!==undefined){
+        const sr = Math.round(kpi.success_rate * 10) / 10;  // 소수점 1자리 반올림
+        items.push({label:'성공률',value:sr.toFixed(1)+'%',sub:'성공 '+fmt(kpi.success_count)+'건',cls:sr>50?'':'orange'});
       }
       if(isLive){
-        items.push({label:'평균 달성률',value:Math.round(kpi.count>0?kpi.backers/kpi.count:0)>0?'진행중':'수집중',sub:'데일리 추적 중',cls:'blue'});
+        items.push({label:'평균 달성률',value:'추적중',sub:'실시간 추적 모드',cls:'blue'});
       }
       el.innerHTML=items.map(k=>`<div class="kpi" style="cursor:pointer;" onclick="var d=this.querySelector('.kpi-detail');d.style.display=d.style.display==='block'?'none':'block'"><div class="label">${k.label}</div><div class="value ${k.cls}">${k.value}</div><div class="sub">${k.sub}</div><div class="kpi-detail" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.5;">${k.detail||''}</div></div>`).join('');
     }
@@ -1377,6 +1563,26 @@ async function main(){
     // Data note
     const noteEl=document.getElementById('kpi-note');
     if(noteEl) noteEl.innerHTML=`DB 전체 <b>${(D.total_db||0).toLocaleString()}</b>건 중 분석 가능 <b>${(D.total_parsed||0).toLocaleString()}</b>건 · 상세 크롤링(리워드/FAQ/댓글) <b>${(D.detail_count||0).toLocaleString()}</b>건 · ${D.note||''}`;
+
+    // --- 🚀 HERO KPI STRIP (2026 2024년도 기반, dashboard.json) ---
+    {
+      const live = D.kpi_live || {};
+      const ended = D.kpi_ended || {};
+      const spGap = D.staff_pick ? (D.staff_pick.gap || 0) : 0;
+      const bestCat = (D.categories || []).sort((a,b)=>b.success_rate-a.success_rate)[0];
+      const heroItems = [
+        {l:'전체 프로젝트', v:fmt(D.total_db), s:'27,909 검증 완료'},
+        {l:'총 모금 (확정)', v:'$'+fmt(ended.pledged_usd||0), s:'성공 캠페인 USD 환산'},
+        {l:'평균 성공률', v:(ended.success_rate||0).toFixed(1)+'%', s:'최근 3년 결과 확정분'},
+        {l:'진행 중 라이브', v:fmt(live.count||0), s:'현재 펀딩 중'},
+        {l:'Staff Pick 효과', v:'+'+spGap.toFixed(1)+'pp', s:'일반 대비 성공률 갭', up:true},
+        {l:'최고 성공 카테고리', v:bestCat?bestCat.category:'-', s:bestCat?bestCat.success_rate.toFixed(1)+'% 성공률':''}
+      ];
+      document.getElementById('hero-kpis').innerHTML = heroItems.map(k=>
+        `<div class="hero-kpi"><div class="h-label">${k.l}</div><div class="h-value">${k.v}</div><div class="h-sub ${k.up?'up':''}">${k.s}</div></div>`
+      ).join('');
+      document.getElementById('hero-gen').textContent = 'Generated: ' + (D.generated||'').substring(0,10);
+    }
 
 
     // ML Section
@@ -1501,11 +1707,298 @@ async function main(){
     buildTimeline();
     buildFaqSentiment();
     buildCompetitive();
+    buildTrendSection();
 
     setTimeout(()=>document.getElementById('loading').classList.add('hide'),300);
   }catch(e){
     setStatus('Error: '+e.message);
     console.error(e);
+  }
+}
+
+// ============================================================
+// 📈 TREND & 슈퍼백커 네트워크 섹션 (2026 모던 디자인)
+// ============================================================
+async function buildTrendSection(){
+  let T;
+  try{ T = await fetch('trend_data.json?v='+Date.now()).then(r=>r.json()); }
+  catch(e){ console.warn('trend_data.json 로드 실패', e); return; }
+
+  const BRAND_RED = '#ff003b';
+  const PURPLE = '#8b5cf6';
+  const CYAN = '#06b6d4';
+  const EMERALD = '#10b981';
+  const AMBER = '#f59e0b';
+
+  // Chart.js 공통 옵션
+  const commonOpts = {
+    responsive:true, maintainAspectRatio:false,
+    animation:{duration:800, easing:'easeOutQuart'},
+    interaction:{mode:'index', intersect:false},
+    plugins:{
+      legend:{labels:{usePointStyle:true, padding:14, font:{size:11, weight:'600'}}},
+      tooltip:{
+        backgroundColor:'rgba(15,23,42,.95)', padding:12, cornerRadius:8,
+        titleFont:{size:12, weight:'700'}, bodyFont:{size:11}, boxPadding:6,
+        callbacks:{label:ctx=>` ${ctx.dataset.label}: ${typeof ctx.parsed.y==='number'?ctx.parsed.y.toLocaleString():ctx.parsed.y}`}
+      }
+    },
+    scales:{
+      x:{grid:{display:false}, ticks:{font:{size:10}, maxRotation:45, autoSkip:true, maxTicksLimit:12}},
+      y:{grid:{color:'#f1f5f9', drawBorder:false}, ticks:{font:{size:10}, callback:v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}}
+    }
+  };
+
+  const grad = (ctx, c1, c2) => {
+    const g = ctx.createLinearGradient(0,0,0,340);
+    g.addColorStop(0, c1); g.addColorStop(1, c2);
+    return g;
+  };
+
+  // --- 1. KPI 밴드 ---
+  const mt = T.monthly_trend || [];
+  const last6 = mt.slice(-6);
+  const prev6 = mt.slice(-12,-6);
+  const sum = arr => arr.reduce((a,b)=>a+(+b||0),0);
+  const s6p = sum(last6.map(m=>+m.total_pledged||0));
+  const p6p = sum(prev6.map(m=>+m.total_pledged||0));
+  const growth = p6p>0 ? ((s6p-p6p)/p6p*100).toFixed(1) : '-';
+  const s6projects = sum(last6.map(m=>+m.total||0));
+  const s6bak = sum(last6.map(m=>+m.total_backers||0));
+  const avgSR = last6.length? (last6.reduce((a,b)=>a+(+b.success_rate||0),0)/last6.length).toFixed(1) : '-';
+
+  document.getElementById('trend-kpis').innerHTML = `
+    <div class="card" style="background:linear-gradient(135deg,${BRAND_RED} 0%,#c70030 100%);color:#fff;">
+      <div style="font-size:11px;opacity:.85;font-weight:600;letter-spacing:.5px;">지난 6개월 펀딩액</div>
+      <div style="font-size:28px;font-weight:800;margin-top:4px;">$${fmt(s6p)}</div>
+      <div style="font-size:12px;opacity:.9;margin-top:4px;">전 6개월 대비 ${growth>0?'▲':'▼'} ${Math.abs(growth)}%</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,${PURPLE} 0%,#6d28d9 100%);color:#fff;">
+      <div style="font-size:11px;opacity:.85;font-weight:600;letter-spacing:.5px;">지난 6개월 프로젝트</div>
+      <div style="font-size:28px;font-weight:800;margin-top:4px;">${fmt(s6projects)}</div>
+      <div style="font-size:12px;opacity:.9;margin-top:4px;">평균 ${fmt(s6projects/6)}/월</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,${CYAN} 0%,#0891b2 100%);color:#fff;">
+      <div style="font-size:11px;opacity:.85;font-weight:600;letter-spacing:.5px;">지난 6개월 총 후원</div>
+      <div style="font-size:28px;font-weight:800;margin-top:4px;">${fmt(s6bak)}</div>
+      <div style="font-size:12px;opacity:.9;margin-top:4px;">고유 백커 누적</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,${EMERALD} 0%,#047857 100%);color:#fff;">
+      <div style="font-size:11px;opacity:.85;font-weight:600;letter-spacing:.5px;">평균 성공률</div>
+      <div style="font-size:28px;font-weight:800;margin-top:4px;">${avgSR}%</div>
+      <div style="font-size:12px;opacity:.9;margin-top:4px;">지난 6개월 기준</div>
+    </div>
+  `;
+
+  // --- 2. 타임라인 듀얼축 Area + Bar ---
+  {
+    const ctx = document.getElementById('tr-timeline').getContext('2d');
+    const labels = mt.map(m=>m.month);
+    new Chart(ctx, {
+      type:'bar',
+      data:{labels, datasets:[
+        {type:'bar', label:'프로젝트 수', data:mt.map(m=>+m.successful||0),
+         backgroundColor:grad(ctx,'rgba(139,92,246,.55)','rgba(139,92,246,.08)'),
+         borderRadius:4, barThickness:'flex', yAxisID:'y2', order:2},
+        {type:'line', label:'성공 펀딩액 ($)', data:mt.map(m=>+m.total_pledged||0),
+         borderColor:BRAND_RED, borderWidth:2.5, tension:.35, pointRadius:3, pointBackgroundColor:'#fff',
+         pointBorderColor:BRAND_RED, pointBorderWidth:2, fill:true,
+         backgroundColor:grad(ctx,'rgba(255,0,59,.25)','rgba(255,0,59,.02)'),
+         yAxisID:'y1', order:1}
+      ]},
+      options:{...commonOpts,
+        scales:{
+          x:commonOpts.scales.x,
+          y1:{position:'left', grid:{color:'#f1f5f9'}, ticks:{font:{size:10}, callback:v=>'$'+(v>=1e6?(v/1e6).toFixed(0)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v)}},
+          y2:{position:'right', grid:{display:false}, ticks:{font:{size:10}, color:PURPLE}}
+        }
+      }
+    });
+  }
+
+  // --- 3. 펀딩 규모 구간 Stacked Area ---
+  {
+    const ctx = document.getElementById('tr-scale').getContext('2d');
+    const fs = T.funding_scale || [];
+    const keys = [['under_1k','<$1K','#64748b'],['k1_10k','$1-10K','#06b6d4'],
+                  ['k10_50k','$10-50K','#10b981'],['k50_100k','$50-100K','#f59e0b'],
+                  ['k100_500k','$100-500K','#ef4444'],['k500k_1m','$500K-1M','#8b5cf6'],
+                  ['over_1m','$1M+','#0f172a']];
+    new Chart(ctx, {
+      type:'line',
+      data:{labels:fs.map(x=>x.quarter), datasets:keys.map(([k,l,c])=>({
+        label:l, data:fs.map(x=>+x[k]||0), borderColor:c, backgroundColor:c+'33',
+        borderWidth:1.2, tension:.3, fill:true, pointRadius:0
+      }))},
+      options:{...commonOpts, scales:{...commonOpts.scales, y:{...commonOpts.scales.y, stacked:true}}}
+    });
+  }
+
+  // --- 4. 카테고리 히트맵 (ECharts) ---
+  {
+    const ch = T.category_heatmap || [];
+    const months = [...new Set(ch.map(r=>r.month))].sort();
+    const cats = [...new Set(ch.map(r=>r.category))].filter(Boolean);
+    const data = ch.map(r=>[months.indexOf(r.month), cats.indexOf(r.category), +r.total||0]);
+    const mx = Math.max(...data.map(d=>d[2]), 1);
+    echarts.init(document.getElementById('tr-heatmap')).setOption({
+      tooltip:{position:'top', formatter:p=>`${cats[p.data[1]]} · ${months[p.data[0]]}<br><b>${p.data[2]}</b> projects`},
+      grid:{left:70, right:20, top:10, bottom:50},
+      xAxis:{type:'category', data:months, axisLabel:{rotate:45, fontSize:9, interval:2}, splitArea:{show:true}},
+      yAxis:{type:'category', data:cats, axisLabel:{fontSize:10}, splitArea:{show:true}},
+      visualMap:{min:0, max:mx, calculable:true, orient:'horizontal', left:'center', bottom:5,
+                 inRange:{color:['#fef2f2','#fca5a5','#ef4444','#c70030','#7f1d1d']}, textStyle:{fontSize:10}},
+      series:[{name:'projects', type:'heatmap', data, label:{show:false},
+               emphasis:{itemStyle:{shadowBlur:8, shadowColor:'rgba(0,0,0,.4)'}}}]
+    });
+  }
+
+  // --- 5. 국가 추세 Multi-line ---
+  {
+    const ctx = document.getElementById('tr-country').getContext('2d');
+    const ct = T.country_trend || [];
+    const quarters = [...new Set(ct.map(r=>r.quarter))].sort();
+    const countries = [...new Set(ct.map(r=>r.country))].filter(Boolean);
+    const colors = ['#ff003b','#8b5cf6','#06b6d4','#10b981','#f59e0b','#ec4899','#6366f1','#14b8a6','#ef4444','#0ea5e9'];
+    new Chart(ctx, {
+      type:'line',
+      data:{labels:quarters, datasets:countries.map((c,i)=>({
+        label:c, data:quarters.map(q=>{const r=ct.find(x=>x.country===c&&x.quarter===q);return r?+r.success_rate:null;}),
+        borderColor:colors[i%colors.length], backgroundColor:colors[i%colors.length]+'22',
+        borderWidth:2, tension:.3, pointRadius:2, spanGaps:true
+      }))},
+      options:{...commonOpts,
+        scales:{x:commonOpts.scales.x, y:{...commonOpts.scales.y, min:0, max:100, ticks:{...commonOpts.scales.y.ticks, callback:v=>v+'%'}}},
+        plugins:{...commonOpts.plugins, tooltip:{...commonOpts.plugins.tooltip, callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`}}}
+      }
+    });
+  }
+
+  // --- 6. Staff Pick 효과 ---
+  {
+    const ctx = document.getElementById('tr-staffpick').getContext('2d');
+    const sp = T.staff_pick_trend || [];
+    new Chart(ctx, {
+      type:'line',
+      data:{labels:sp.map(x=>x.month), datasets:[
+        {label:'Staff Pick 성공률', data:sp.map(x=>+x.sp_success_rate||null),
+         borderColor:AMBER, backgroundColor:'rgba(245,158,11,.15)', borderWidth:2.5, tension:.3, pointRadius:2, fill:true},
+        {label:'일반 성공률', data:sp.map(x=>+x.non_sp_success_rate||null),
+         borderColor:'#94a3b8', backgroundColor:'rgba(148,163,184,.1)', borderWidth:2, tension:.3, pointRadius:2, fill:true, borderDash:[4,3]}
+      ]},
+      options:{...commonOpts,
+        scales:{x:commonOpts.scales.x, y:{...commonOpts.scales.y, min:0, max:100, ticks:{...commonOpts.scales.y.ticks, callback:v=>v+'%'}}},
+        plugins:{...commonOpts.plugins, tooltip:{...commonOpts.plugins.tooltip, callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`}}}
+      }
+    });
+  }
+
+  // --- 7. AI disclosure 급증 ---
+  {
+    const ctx = document.getElementById('tr-ai').getContext('2d');
+    const ai = T.ai_trend || [];
+    new Chart(ctx, {
+      type:'bar',
+      data:{labels:ai.map(x=>x.month), datasets:[
+        {type:'bar', label:'AI 사용 프로젝트 수', data:ai.map(x=>+x.ai_involved||0),
+         backgroundColor:grad(ctx,'rgba(139,92,246,.85)','rgba(139,92,246,.15)'), borderRadius:3, yAxisID:'y2'},
+        {type:'line', label:'AI 사용 %', data:ai.map(x=>+x.ai_pct||0),
+         borderColor:'#ec4899', borderWidth:2.5, tension:.3, pointRadius:3, yAxisID:'y1'}
+      ]},
+      options:{...commonOpts,
+        scales:{
+          x:commonOpts.scales.x,
+          y1:{position:'left', min:0, max:50, grid:{color:'#f1f5f9'}, ticks:{font:{size:10}, callback:v=>v+'%'}},
+          y2:{position:'right', grid:{display:false}, ticks:{font:{size:10}}}
+        }
+      }
+    });
+  }
+
+  // --- 8. Duration 추세 ---
+  {
+    const ctx = document.getElementById('tr-duration').getContext('2d');
+    const dt = T.duration_trend || [];
+    new Chart(ctx, {
+      type:'line',
+      data:{labels:dt.map(x=>x.month), datasets:[
+        {label:'평균 캠페인 일수', data:dt.map(x=>+x.avg_duration||null),
+         borderColor:CYAN, backgroundColor:'rgba(6,182,212,.15)', borderWidth:2.5, tension:.3, pointRadius:0, fill:true},
+        {label:'성공 캠페인만', data:dt.map(x=>+x.avg_success_duration||null),
+         borderColor:EMERALD, backgroundColor:'rgba(16,185,129,.08)', borderWidth:2, tension:.3, pointRadius:0, borderDash:[5,3]}
+      ]},
+      options:commonOpts
+    });
+  }
+
+  // --- 9. 슈퍼백커 chord (ECharts graph) ---
+  {
+    const ch = T.category_chord || [];
+    const cats = [...new Set(ch.flatMap(x=>[x.from_cat, x.to_cat]))].filter(Boolean);
+    const colors = ['#ff003b','#8b5cf6','#06b6d4','#10b981','#f59e0b','#ec4899','#6366f1','#14b8a6','#ef4444','#0ea5e9','#84cc16','#f97316','#d946ef','#22c55e','#0891b2'];
+    const nodes = cats.map((c,i)=>({
+      name:c, symbolSize: 10 + Math.log(1 + ch.filter(x=>x.from_cat===c||x.to_cat===c).reduce((a,b)=>a+(+b.shared_authors||0),0)) * 5,
+      itemStyle:{color:colors[i%colors.length]}
+    }));
+    const links = ch.filter(x=>+x.shared_authors>=5).map(x=>({
+      source:x.from_cat, target:x.to_cat, value:+x.shared_authors,
+      lineStyle:{width: Math.log(1+(+x.shared_authors)) * 1.5, color:'source', opacity:.45, curveness:.2}
+    }));
+    echarts.init(document.getElementById('tr-chord')).setOption({
+      tooltip:{formatter:p=>p.dataType==='edge'?`${p.data.source} ↔ ${p.data.target}<br><b>${p.data.value}명</b> 공유`:p.data.name},
+      series:[{
+        type:'graph', layout:'circular', circular:{rotateLabel:true},
+        data:nodes, links, roam:true, label:{show:true, position:'right', fontSize:11, fontWeight:'600'},
+        edgeSymbol:['none','none'], emphasis:{focus:'adjacency', lineStyle:{width:4, opacity:1}}
+      }]
+    });
+  }
+
+  // --- 10. Top 20 슈퍼백커 리스트 ---
+  {
+    const sb = (T.superbacker_network || []).slice(0, 20);
+    const mx = Math.max(...sb.map(x=>+x.projects||0), 1);
+    document.getElementById('tr-sb-top').innerHTML = sb.map((s,i)=>{
+      const cats = s.category_counts ? Object.entries(s.category_counts).sort((a,b)=>b[1]-a[1]).slice(0,4) : [];
+      const pct = ((+s.projects/mx)*100).toFixed(0);
+      return `<div style="padding:10px 12px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:13px;color:#0f172a;">${i+1}. ${s.author}</div>
+          <div style="font-size:10px;color:#64748b;margin-top:2px;">${s.categories}개 카테고리 · max ${fmt(+s.max_backings)} backings</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
+            ${cats.map(([c,n])=>`<span style="background:#eef2ff;color:#6366f1;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;">${c} ${n}</span>`).join('')}
+          </div>
+        </div>
+        <div style="text-align:right;min-width:70px;">
+          <div style="font-weight:800;font-size:18px;color:#ff003b;">${s.projects}</div>
+          <div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;">projects</div>
+          <div style="height:4px;background:#f1f5f9;border-radius:2px;margin-top:4px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#ff003b,#8b5cf6);"></div></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // --- 11. 인사이트 카드 (데이터 기반 자동 도출) ---
+  {
+    const mt = T.monthly_trend || [];
+    const peakMonth = mt.reduce((m,x)=>(+x.total_pledged||0)>(+m.total_pledged||0)?x:m, mt[0]||{});
+    const growSnap = mt.length>=6 ? ((sum(mt.slice(-3).map(m=>+m.total||0))/Math.max(sum(mt.slice(-6,-3).map(m=>+m.total||0)),1)-1)*100).toFixed(1) : '-';
+    const aiPeak = (T.ai_trend||[]).reduce((m,x)=>(+x.ai_pct||0)>(+m.ai_pct||0)?x:m, {});
+    const topCountry = Object.entries((T.country_trend||[]).reduce((a,r)=>{a[r.country]=(a[r.country]||0)+(+r.pledged||0);return a;},{})).sort((a,b)=>b[1]-a[1])[0];
+    const topSB = (T.superbacker_network||[])[0];
+    const insights = [
+      {t:`💸 최대 월 펀딩액: ${peakMonth.month||'-'}`, v:`$${fmt(+peakMonth.total_pledged||0)}`, d:`해당 월 ${fmt(+peakMonth.successful||0)}개 성공 · 평균 $${fmt(+peakMonth.avg_pledged||0)}/프로젝트`},
+      {t:'📈 최근 분기 프로젝트 증가', v:`${growSnap>0?'+':''}${growSnap}%`, d:'최근 3개월 vs 이전 3개월 - 시장 팽창 중'},
+      {t:'🤖 AI 사용 선언 피크', v:`${aiPeak.ai_pct||0}%`, d:`${aiPeak.month||''} 기준. 2024년부터 도입된 신규 필드가 빠르게 확산 중`},
+      {t:`🌍 Top 펀딩 국가: ${topCountry?.[0]||'-'}`, v:`$${fmt(topCountry?.[1]||0)}`, d:'지난 3년 누적 성공 펀딩액 기준'},
+      {t:`🎯 최다 활동 슈퍼백커`, v:topSB?`${topSB.author}`:'-', d:topSB?`${topSB.projects}개 프로젝트 · ${topSB.categories}개 카테고리 횡단 · 댓글로 추적`:'-'}
+    ];
+    document.getElementById('tr-insights').innerHTML = insights.map(i=>`
+      <div style="padding:16px;background:rgba(255,255,255,.06);border-radius:10px;border:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:11px;color:#94a3b8;font-weight:600;letter-spacing:.3px;">${i.t}</div>
+        <div style="font-size:22px;font-weight:800;color:#fbbf24;margin:6px 0 4px 0;">${i.v}</div>
+        <div style="font-size:12px;color:#cbd5e1;line-height:1.5;">${i.d}</div>
+      </div>`).join('');
   }
 }
 

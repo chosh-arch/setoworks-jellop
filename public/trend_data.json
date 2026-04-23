@@ -1,0 +1,6968 @@
+{
+  "monthly_trend": [
+    {
+      "month": "2023-04",
+      "total": 1,
+      "successful": 1,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 15155,
+      "avg_pledged": 15155,
+      "total_backers": 145,
+      "avg_backers": 145
+    },
+    {
+      "month": "2023-05",
+      "total": 64,
+      "successful": 64,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 6262713,
+      "avg_pledged": 97855,
+      "total_backers": 17948,
+      "avg_backers": 280
+    },
+    {
+      "month": "2023-06",
+      "total": 148,
+      "successful": 148,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 10733554,
+      "avg_pledged": 72524,
+      "total_backers": 22350,
+      "avg_backers": 151
+    },
+    {
+      "month": "2023-07",
+      "total": 172,
+      "successful": 172,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 21482679,
+      "avg_pledged": 124899,
+      "total_backers": 23461,
+      "avg_backers": 136
+    },
+    {
+      "month": "2023-08",
+      "total": 149,
+      "successful": 149,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 6851756,
+      "avg_pledged": 45985,
+      "total_backers": 20344,
+      "avg_backers": 137
+    },
+    {
+      "month": "2023-09",
+      "total": 145,
+      "successful": 145,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 5788714,
+      "avg_pledged": 39922,
+      "total_backers": 18436,
+      "avg_backers": 127
+    },
+    {
+      "month": "2023-10",
+      "total": 188,
+      "successful": 188,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 3864022,
+      "avg_pledged": 20553,
+      "total_backers": 22281,
+      "avg_backers": 119
+    },
+    {
+      "month": "2023-11",
+      "total": 231,
+      "successful": 231,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 3835334,
+      "avg_pledged": 16603,
+      "total_backers": 27511,
+      "avg_backers": 119
+    },
+    {
+      "month": "2023-12",
+      "total": 181,
+      "successful": 181,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 9169938,
+      "avg_pledged": 50663,
+      "total_backers": 18663,
+      "avg_backers": 103
+    },
+    {
+      "month": "2024-01",
+      "total": 153,
+      "successful": 153,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 17974667,
+      "avg_pledged": 117481,
+      "total_backers": 18736,
+      "avg_backers": 122
+    },
+    {
+      "month": "2024-02",
+      "total": 237,
+      "successful": 237,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 12018217,
+      "avg_pledged": 50710,
+      "total_backers": 35828,
+      "avg_backers": 151
+    },
+    {
+      "month": "2024-03",
+      "total": 326,
+      "successful": 326,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 41447494,
+      "avg_pledged": 127140,
+      "total_backers": 67795,
+      "avg_backers": 208
+    },
+    {
+      "month": "2024-04",
+      "total": 376,
+      "successful": 376,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 32379715,
+      "avg_pledged": 86116,
+      "total_backers": 75841,
+      "avg_backers": 202
+    },
+    {
+      "month": "2024-05",
+      "total": 306,
+      "successful": 306,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 23241165,
+      "avg_pledged": 75952,
+      "total_backers": 58970,
+      "avg_backers": 193
+    },
+    {
+      "month": "2024-06",
+      "total": 378,
+      "successful": 378,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 27144361,
+      "avg_pledged": 71810,
+      "total_backers": 91466,
+      "avg_backers": 242
+    },
+    {
+      "month": "2024-07",
+      "total": 314,
+      "successful": 314,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 18254726,
+      "avg_pledged": 58136,
+      "total_backers": 43383,
+      "avg_backers": 139
+    },
+    {
+      "month": "2024-08",
+      "total": 378,
+      "successful": 378,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 38037443,
+      "avg_pledged": 100628,
+      "total_backers": 67805,
+      "avg_backers": 179
+    },
+    {
+      "month": "2024-09",
+      "total": 295,
+      "successful": 295,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 26683173,
+      "avg_pledged": 90451,
+      "total_backers": 73497,
+      "avg_backers": 249
+    },
+    {
+      "month": "2024-10",
+      "total": 485,
+      "successful": 485,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 29771312,
+      "avg_pledged": 61384,
+      "total_backers": 117740,
+      "avg_backers": 243
+    },
+    {
+      "month": "2024-11",
+      "total": 569,
+      "successful": 569,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 105372949,
+      "avg_pledged": 185190,
+      "total_backers": 123884,
+      "avg_backers": 218
+    },
+    {
+      "month": "2024-12",
+      "total": 557,
+      "successful": 557,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 65779357,
+      "avg_pledged": 118096,
+      "total_backers": 137360,
+      "avg_backers": 247
+    },
+    {
+      "month": "2025-01",
+      "total": 325,
+      "successful": 325,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 59597006,
+      "avg_pledged": 183375,
+      "total_backers": 62685,
+      "avg_backers": 193
+    },
+    {
+      "month": "2025-02",
+      "total": 444,
+      "successful": 444,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 58143176,
+      "avg_pledged": 130953,
+      "total_backers": 79893,
+      "avg_backers": 180
+    },
+    {
+      "month": "2025-03",
+      "total": 577,
+      "successful": 577,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 49942276,
+      "avg_pledged": 86555,
+      "total_backers": 133375,
+      "avg_backers": 231
+    },
+    {
+      "month": "2025-04",
+      "total": 633,
+      "successful": 633,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 74381021,
+      "avg_pledged": 117506,
+      "total_backers": 185168,
+      "avg_backers": 293
+    },
+    {
+      "month": "2025-05",
+      "total": 787,
+      "successful": 787,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 130446419,
+      "avg_pledged": 165751,
+      "total_backers": 197259,
+      "avg_backers": 251
+    },
+    {
+      "month": "2025-06",
+      "total": 704,
+      "successful": 704,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 62288858,
+      "avg_pledged": 88478,
+      "total_backers": 144371,
+      "avg_backers": 205
+    },
+    {
+      "month": "2025-07",
+      "total": 895,
+      "successful": 895,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 136210208,
+      "avg_pledged": 152190,
+      "total_backers": 204422,
+      "avg_backers": 228
+    },
+    {
+      "month": "2025-08",
+      "total": 753,
+      "successful": 753,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 375022306,
+      "avg_pledged": 498038,
+      "total_backers": 204884,
+      "avg_backers": 272
+    },
+    {
+      "month": "2025-09",
+      "total": 776,
+      "successful": 776,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 165751191,
+      "avg_pledged": 213597,
+      "total_backers": 208536,
+      "avg_backers": 269
+    },
+    {
+      "month": "2025-10",
+      "total": 997,
+      "successful": 997,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 148387812,
+      "avg_pledged": 148834,
+      "total_backers": 284273,
+      "avg_backers": 285
+    },
+    {
+      "month": "2025-11",
+      "total": 1736,
+      "successful": 1518,
+      "failed": 195,
+      "live": 0,
+      "canceled": 23,
+      "success_rate": 87.4,
+      "total_pledged": 213981105,
+      "avg_pledged": 140963,
+      "total_backers": 450046,
+      "avg_backers": 296
+    },
+    {
+      "month": "2025-12",
+      "total": 2210,
+      "successful": 1537,
+      "failed": 579,
+      "live": 0,
+      "canceled": 94,
+      "success_rate": 69.5,
+      "total_pledged": 370998717,
+      "avg_pledged": 241378,
+      "total_backers": 404642,
+      "avg_backers": 263
+    },
+    {
+      "month": "2026-01",
+      "total": 1659,
+      "successful": 1077,
+      "failed": 519,
+      "live": 0,
+      "canceled": 63,
+      "success_rate": 64.9,
+      "total_pledged": 227329456,
+      "avg_pledged": 211077,
+      "total_backers": 247058,
+      "avg_backers": 229
+    },
+    {
+      "month": "2026-02",
+      "total": 1996,
+      "successful": 1415,
+      "failed": 494,
+      "live": 0,
+      "canceled": 87,
+      "success_rate": 70.9,
+      "total_pledged": 178818895,
+      "avg_pledged": 126374,
+      "total_backers": 317930,
+      "avg_backers": 225
+    },
+    {
+      "month": "2026-03",
+      "total": 2582,
+      "successful": 1910,
+      "failed": 581,
+      "live": 0,
+      "canceled": 91,
+      "success_rate": 74.0,
+      "total_pledged": 262922752,
+      "avg_pledged": 137656,
+      "total_backers": 593895,
+      "avg_backers": 311
+    },
+    {
+      "month": "2026-04",
+      "total": 2676,
+      "successful": 1165,
+      "failed": 448,
+      "live": 949,
+      "canceled": 108,
+      "success_rate": 67.7,
+      "total_pledged": 179784377,
+      "avg_pledged": 154321,
+      "total_backers": 461091,
+      "avg_backers": 396
+    },
+    {
+      "month": "2026-05",
+      "total": 1650,
+      "successful": 0,
+      "failed": 0,
+      "live": 1588,
+      "canceled": 62,
+      "success_rate": 0.0,
+      "total_pledged": null,
+      "avg_pledged": null,
+      "total_backers": null,
+      "avg_backers": null
+    },
+    {
+      "month": "2026-06",
+      "total": 159,
+      "successful": 0,
+      "failed": 0,
+      "live": 150,
+      "canceled": 9,
+      "success_rate": 0.0,
+      "total_pledged": null,
+      "avg_pledged": null,
+      "total_backers": null,
+      "avg_backers": null
+    }
+  ],
+  "category_heatmap": [
+    {
+      "category": "Art",
+      "month": "2023-05",
+      "total": 8,
+      "successful": 8,
+      "pledged": 99796
+    },
+    {
+      "category": "Art",
+      "month": "2023-06",
+      "total": 29,
+      "successful": 29,
+      "pledged": 606069
+    },
+    {
+      "category": "Art",
+      "month": "2023-07",
+      "total": 31,
+      "successful": 31,
+      "pledged": 358601
+    },
+    {
+      "category": "Art",
+      "month": "2023-08",
+      "total": 40,
+      "successful": 40,
+      "pledged": 233376
+    },
+    {
+      "category": "Art",
+      "month": "2023-09",
+      "total": 21,
+      "successful": 21,
+      "pledged": 95868
+    },
+    {
+      "category": "Art",
+      "month": "2023-10",
+      "total": 34,
+      "successful": 34,
+      "pledged": 288756
+    },
+    {
+      "category": "Art",
+      "month": "2023-11",
+      "total": 39,
+      "successful": 39,
+      "pledged": 349627
+    },
+    {
+      "category": "Art",
+      "month": "2023-12",
+      "total": 34,
+      "successful": 34,
+      "pledged": 196335
+    },
+    {
+      "category": "Art",
+      "month": "2024-01",
+      "total": 19,
+      "successful": 19,
+      "pledged": 2636398
+    },
+    {
+      "category": "Art",
+      "month": "2024-02",
+      "total": 40,
+      "successful": 40,
+      "pledged": 869457
+    },
+    {
+      "category": "Art",
+      "month": "2024-03",
+      "total": 42,
+      "successful": 42,
+      "pledged": 464318
+    },
+    {
+      "category": "Art",
+      "month": "2024-04",
+      "total": 50,
+      "successful": 50,
+      "pledged": 1209585
+    },
+    {
+      "category": "Art",
+      "month": "2024-05",
+      "total": 55,
+      "successful": 55,
+      "pledged": 3743696
+    },
+    {
+      "category": "Art",
+      "month": "2024-06",
+      "total": 83,
+      "successful": 83,
+      "pledged": 1707336
+    },
+    {
+      "category": "Art",
+      "month": "2024-07",
+      "total": 97,
+      "successful": 97,
+      "pledged": 1116412
+    },
+    {
+      "category": "Art",
+      "month": "2024-08",
+      "total": 113,
+      "successful": 113,
+      "pledged": 6324357
+    },
+    {
+      "category": "Art",
+      "month": "2024-09",
+      "total": 74,
+      "successful": 74,
+      "pledged": 5486661
+    },
+    {
+      "category": "Art",
+      "month": "2024-10",
+      "total": 104,
+      "successful": 104,
+      "pledged": 1975597
+    },
+    {
+      "category": "Art",
+      "month": "2024-11",
+      "total": 103,
+      "successful": 103,
+      "pledged": 1316567
+    },
+    {
+      "category": "Art",
+      "month": "2024-12",
+      "total": 95,
+      "successful": 95,
+      "pledged": 821914
+    },
+    {
+      "category": "Art",
+      "month": "2025-01",
+      "total": 67,
+      "successful": 67,
+      "pledged": 370559
+    },
+    {
+      "category": "Art",
+      "month": "2025-02",
+      "total": 110,
+      "successful": 110,
+      "pledged": 1373450
+    },
+    {
+      "category": "Art",
+      "month": "2025-03",
+      "total": 104,
+      "successful": 104,
+      "pledged": 3568024
+    },
+    {
+      "category": "Art",
+      "month": "2025-04",
+      "total": 93,
+      "successful": 93,
+      "pledged": 1062508
+    },
+    {
+      "category": "Art",
+      "month": "2025-05",
+      "total": 100,
+      "successful": 100,
+      "pledged": 2053386
+    },
+    {
+      "category": "Art",
+      "month": "2025-06",
+      "total": 92,
+      "successful": 92,
+      "pledged": 1206386
+    },
+    {
+      "category": "Art",
+      "month": "2025-07",
+      "total": 104,
+      "successful": 104,
+      "pledged": 1830775
+    },
+    {
+      "category": "Art",
+      "month": "2025-08",
+      "total": 87,
+      "successful": 87,
+      "pledged": 1618492
+    },
+    {
+      "category": "Art",
+      "month": "2025-09",
+      "total": 91,
+      "successful": 91,
+      "pledged": 45993776
+    },
+    {
+      "category": "Art",
+      "month": "2025-10",
+      "total": 98,
+      "successful": 98,
+      "pledged": 913780
+    },
+    {
+      "category": "Art",
+      "month": "2025-11",
+      "total": 121,
+      "successful": 103,
+      "pledged": 2076020
+    },
+    {
+      "category": "Art",
+      "month": "2025-12",
+      "total": 136,
+      "successful": 96,
+      "pledged": 2274866
+    },
+    {
+      "category": "Art",
+      "month": "2026-01",
+      "total": 94,
+      "successful": 67,
+      "pledged": 936071
+    },
+    {
+      "category": "Art",
+      "month": "2026-02",
+      "total": 121,
+      "successful": 88,
+      "pledged": 727313
+    },
+    {
+      "category": "Art",
+      "month": "2026-03",
+      "total": 144,
+      "successful": 97,
+      "pledged": 1819495
+    },
+    {
+      "category": "Art",
+      "month": "2026-04",
+      "total": 122,
+      "successful": 50,
+      "pledged": 3231286
+    },
+    {
+      "category": "Art",
+      "month": "2026-05",
+      "total": 81,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Art",
+      "month": "2026-06",
+      "total": 9,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Comics",
+      "month": "2023-05",
+      "total": 4,
+      "successful": 4,
+      "pledged": 635503
+    },
+    {
+      "category": "Comics",
+      "month": "2023-06",
+      "total": 7,
+      "successful": 7,
+      "pledged": 210515
+    },
+    {
+      "category": "Comics",
+      "month": "2023-07",
+      "total": 9,
+      "successful": 9,
+      "pledged": 348102
+    },
+    {
+      "category": "Comics",
+      "month": "2023-08",
+      "total": 5,
+      "successful": 5,
+      "pledged": 79040
+    },
+    {
+      "category": "Comics",
+      "month": "2023-09",
+      "total": 6,
+      "successful": 6,
+      "pledged": 1106392
+    },
+    {
+      "category": "Comics",
+      "month": "2023-10",
+      "total": 3,
+      "successful": 3,
+      "pledged": 19509
+    },
+    {
+      "category": "Comics",
+      "month": "2023-11",
+      "total": 9,
+      "successful": 9,
+      "pledged": 47450
+    },
+    {
+      "category": "Comics",
+      "month": "2023-12",
+      "total": 12,
+      "successful": 12,
+      "pledged": 121530
+    },
+    {
+      "category": "Comics",
+      "month": "2024-01",
+      "total": 4,
+      "successful": 4,
+      "pledged": 45256
+    },
+    {
+      "category": "Comics",
+      "month": "2024-02",
+      "total": 7,
+      "successful": 7,
+      "pledged": 37294
+    },
+    {
+      "category": "Comics",
+      "month": "2024-03",
+      "total": 28,
+      "successful": 28,
+      "pledged": 982823
+    },
+    {
+      "category": "Comics",
+      "month": "2024-04",
+      "total": 12,
+      "successful": 12,
+      "pledged": 36806
+    },
+    {
+      "category": "Comics",
+      "month": "2024-05",
+      "total": 39,
+      "successful": 39,
+      "pledged": 836730
+    },
+    {
+      "category": "Comics",
+      "month": "2024-06",
+      "total": 30,
+      "successful": 30,
+      "pledged": 1601679
+    },
+    {
+      "category": "Comics",
+      "month": "2024-07",
+      "total": 21,
+      "successful": 21,
+      "pledged": 97176
+    },
+    {
+      "category": "Comics",
+      "month": "2024-08",
+      "total": 39,
+      "successful": 39,
+      "pledged": 511098
+    },
+    {
+      "category": "Comics",
+      "month": "2024-09",
+      "total": 44,
+      "successful": 44,
+      "pledged": 495882
+    },
+    {
+      "category": "Comics",
+      "month": "2024-10",
+      "total": 63,
+      "successful": 63,
+      "pledged": 2154432
+    },
+    {
+      "category": "Comics",
+      "month": "2024-11",
+      "total": 86,
+      "successful": 86,
+      "pledged": 2771708
+    },
+    {
+      "category": "Comics",
+      "month": "2024-12",
+      "total": 87,
+      "successful": 87,
+      "pledged": 3434579
+    },
+    {
+      "category": "Comics",
+      "month": "2025-01",
+      "total": 35,
+      "successful": 35,
+      "pledged": 826875
+    },
+    {
+      "category": "Comics",
+      "month": "2025-02",
+      "total": 38,
+      "successful": 38,
+      "pledged": 362835
+    },
+    {
+      "category": "Comics",
+      "month": "2025-03",
+      "total": 79,
+      "successful": 79,
+      "pledged": 581856
+    },
+    {
+      "category": "Comics",
+      "month": "2025-04",
+      "total": 145,
+      "successful": 145,
+      "pledged": 3032255
+    },
+    {
+      "category": "Comics",
+      "month": "2025-05",
+      "total": 215,
+      "successful": 215,
+      "pledged": 16803395
+    },
+    {
+      "category": "Comics",
+      "month": "2025-06",
+      "total": 162,
+      "successful": 162,
+      "pledged": 2734364
+    },
+    {
+      "category": "Comics",
+      "month": "2025-07",
+      "total": 188,
+      "successful": 188,
+      "pledged": 2942054
+    },
+    {
+      "category": "Comics",
+      "month": "2025-08",
+      "total": 197,
+      "successful": 197,
+      "pledged": 3228199
+    },
+    {
+      "category": "Comics",
+      "month": "2025-09",
+      "total": 193,
+      "successful": 193,
+      "pledged": 2859079
+    },
+    {
+      "category": "Comics",
+      "month": "2025-10",
+      "total": 251,
+      "successful": 251,
+      "pledged": 12166360
+    },
+    {
+      "category": "Comics",
+      "month": "2025-11",
+      "total": 284,
+      "successful": 277,
+      "pledged": 5382941
+    },
+    {
+      "category": "Comics",
+      "month": "2025-12",
+      "total": 235,
+      "successful": 215,
+      "pledged": 4613602
+    },
+    {
+      "category": "Comics",
+      "month": "2026-01",
+      "total": 134,
+      "successful": 125,
+      "pledged": 1809629
+    },
+    {
+      "category": "Comics",
+      "month": "2026-02",
+      "total": 200,
+      "successful": 185,
+      "pledged": 2648207
+    },
+    {
+      "category": "Comics",
+      "month": "2026-03",
+      "total": 291,
+      "successful": 275,
+      "pledged": 10796910
+    },
+    {
+      "category": "Comics",
+      "month": "2026-04",
+      "total": 324,
+      "successful": 188,
+      "pledged": 12813897
+    },
+    {
+      "category": "Comics",
+      "month": "2026-05",
+      "total": 145,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Comics",
+      "month": "2026-06",
+      "total": 8,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-05",
+      "total": 6,
+      "successful": 6,
+      "pledged": 3894790
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-06",
+      "total": 4,
+      "successful": 4,
+      "pledged": 17709
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-07",
+      "total": 7,
+      "successful": 7,
+      "pledged": 45789
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-08",
+      "total": 5,
+      "successful": 5,
+      "pledged": 29746
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-09",
+      "total": 3,
+      "successful": 3,
+      "pledged": 325910
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-10",
+      "total": 11,
+      "successful": 11,
+      "pledged": 75614
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-11",
+      "total": 17,
+      "successful": 17,
+      "pledged": 71924
+    },
+    {
+      "category": "Crafts",
+      "month": "2023-12",
+      "total": 8,
+      "successful": 8,
+      "pledged": 72811
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-01",
+      "total": 6,
+      "successful": 6,
+      "pledged": 9100523
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-02",
+      "total": 28,
+      "successful": 28,
+      "pledged": 1656798
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-03",
+      "total": 10,
+      "successful": 10,
+      "pledged": 1809499
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-04",
+      "total": 7,
+      "successful": 7,
+      "pledged": 4409
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-05",
+      "total": 4,
+      "successful": 4,
+      "pledged": 323626
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-06",
+      "total": 2,
+      "successful": 2,
+      "pledged": 1801
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-07",
+      "total": 17,
+      "successful": 17,
+      "pledged": 5912910
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-08",
+      "total": 19,
+      "successful": 19,
+      "pledged": 15167324
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-09",
+      "total": 13,
+      "successful": 13,
+      "pledged": 4466563
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-10",
+      "total": 12,
+      "successful": 12,
+      "pledged": 2235168
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-11",
+      "total": 16,
+      "successful": 16,
+      "pledged": 6129200
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-12",
+      "total": 9,
+      "successful": 9,
+      "pledged": 2437963
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-01",
+      "total": 8,
+      "successful": 8,
+      "pledged": 3928545
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-02",
+      "total": 18,
+      "successful": 18,
+      "pledged": 71029
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-03",
+      "total": 15,
+      "successful": 15,
+      "pledged": 4550542
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-04",
+      "total": 13,
+      "successful": 13,
+      "pledged": 545550
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-05",
+      "total": 16,
+      "successful": 16,
+      "pledged": 1580035
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-06",
+      "total": 10,
+      "successful": 10,
+      "pledged": 892578
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-07",
+      "total": 18,
+      "successful": 18,
+      "pledged": 9743464
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-08",
+      "total": 11,
+      "successful": 11,
+      "pledged": 453911
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-09",
+      "total": 7,
+      "successful": 7,
+      "pledged": 11879
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-10",
+      "total": 14,
+      "successful": 14,
+      "pledged": 22729
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-11",
+      "total": 19,
+      "successful": 12,
+      "pledged": 711480
+    },
+    {
+      "category": "Crafts",
+      "month": "2025-12",
+      "total": 34,
+      "successful": 13,
+      "pledged": 6689545
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-01",
+      "total": 31,
+      "successful": 9,
+      "pledged": 41597
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-02",
+      "total": 44,
+      "successful": 19,
+      "pledged": 9441126
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-03",
+      "total": 42,
+      "successful": 16,
+      "pledged": 1250845
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-04",
+      "total": 28,
+      "successful": 6,
+      "pledged": 1606486
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-05",
+      "total": 23,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-06",
+      "total": 2,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Dance",
+      "month": "2023-05",
+      "total": 2,
+      "successful": 2,
+      "pledged": 34811
+    },
+    {
+      "category": "Dance",
+      "month": "2023-06",
+      "total": 7,
+      "successful": 7,
+      "pledged": 44681
+    },
+    {
+      "category": "Dance",
+      "month": "2023-07",
+      "total": 3,
+      "successful": 3,
+      "pledged": 7162
+    },
+    {
+      "category": "Dance",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 4594
+    },
+    {
+      "category": "Dance",
+      "month": "2023-09",
+      "total": 5,
+      "successful": 5,
+      "pledged": 27959
+    },
+    {
+      "category": "Dance",
+      "month": "2023-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11858
+    },
+    {
+      "category": "Dance",
+      "month": "2024-02",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3134
+    },
+    {
+      "category": "Dance",
+      "month": "2024-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 21363
+    },
+    {
+      "category": "Dance",
+      "month": "2024-04",
+      "total": 5,
+      "successful": 5,
+      "pledged": 24841
+    },
+    {
+      "category": "Dance",
+      "month": "2024-05",
+      "total": 8,
+      "successful": 8,
+      "pledged": 60591
+    },
+    {
+      "category": "Dance",
+      "month": "2024-06",
+      "total": 3,
+      "successful": 3,
+      "pledged": 13651
+    },
+    {
+      "category": "Dance",
+      "month": "2024-07",
+      "total": 2,
+      "successful": 2,
+      "pledged": 0
+    },
+    {
+      "category": "Dance",
+      "month": "2024-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 16485
+    },
+    {
+      "category": "Dance",
+      "month": "2024-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 8106
+    },
+    {
+      "category": "Dance",
+      "month": "2024-11",
+      "total": 3,
+      "successful": 3,
+      "pledged": 23270
+    },
+    {
+      "category": "Dance",
+      "month": "2024-12",
+      "total": 2,
+      "successful": 2,
+      "pledged": 10262
+    },
+    {
+      "category": "Dance",
+      "month": "2025-01",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3596
+    },
+    {
+      "category": "Dance",
+      "month": "2025-03",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5070
+    },
+    {
+      "category": "Dance",
+      "month": "2025-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 27597
+    },
+    {
+      "category": "Dance",
+      "month": "2025-05",
+      "total": 4,
+      "successful": 4,
+      "pledged": 21094
+    },
+    {
+      "category": "Dance",
+      "month": "2025-07",
+      "total": 3,
+      "successful": 3,
+      "pledged": 65471
+    },
+    {
+      "category": "Dance",
+      "month": "2025-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 4476
+    },
+    {
+      "category": "Dance",
+      "month": "2025-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 9800
+    },
+    {
+      "category": "Dance",
+      "month": "2025-10",
+      "total": 4,
+      "successful": 4,
+      "pledged": 118978
+    },
+    {
+      "category": "Dance",
+      "month": "2025-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 13010
+    },
+    {
+      "category": "Dance",
+      "month": "2025-12",
+      "total": 4,
+      "successful": 1,
+      "pledged": 2995
+    },
+    {
+      "category": "Dance",
+      "month": "2026-01",
+      "total": 3,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Dance",
+      "month": "2026-02",
+      "total": 4,
+      "successful": 1,
+      "pledged": 5000
+    },
+    {
+      "category": "Dance",
+      "month": "2026-03",
+      "total": 5,
+      "successful": 1,
+      "pledged": 1000
+    },
+    {
+      "category": "Dance",
+      "month": "2026-04",
+      "total": 5,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Dance",
+      "month": "2026-05",
+      "total": 4,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Design",
+      "month": "2023-05",
+      "total": 10,
+      "successful": 10,
+      "pledged": 368442
+    },
+    {
+      "category": "Design",
+      "month": "2023-06",
+      "total": 12,
+      "successful": 12,
+      "pledged": 7914583
+    },
+    {
+      "category": "Design",
+      "month": "2023-07",
+      "total": 9,
+      "successful": 9,
+      "pledged": 4075183
+    },
+    {
+      "category": "Design",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 6506
+    },
+    {
+      "category": "Design",
+      "month": "2023-09",
+      "total": 8,
+      "successful": 8,
+      "pledged": 112303
+    },
+    {
+      "category": "Design",
+      "month": "2023-10",
+      "total": 12,
+      "successful": 12,
+      "pledged": 120252
+    },
+    {
+      "category": "Design",
+      "month": "2023-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 23137
+    },
+    {
+      "category": "Design",
+      "month": "2023-12",
+      "total": 3,
+      "successful": 3,
+      "pledged": 275464
+    },
+    {
+      "category": "Design",
+      "month": "2024-01",
+      "total": 4,
+      "successful": 4,
+      "pledged": 61830
+    },
+    {
+      "category": "Design",
+      "month": "2024-02",
+      "total": 11,
+      "successful": 11,
+      "pledged": 242133
+    },
+    {
+      "category": "Design",
+      "month": "2024-03",
+      "total": 21,
+      "successful": 21,
+      "pledged": 681893
+    },
+    {
+      "category": "Design",
+      "month": "2024-04",
+      "total": 19,
+      "successful": 19,
+      "pledged": 706700
+    },
+    {
+      "category": "Design",
+      "month": "2024-05",
+      "total": 23,
+      "successful": 23,
+      "pledged": 5899519
+    },
+    {
+      "category": "Design",
+      "month": "2024-06",
+      "total": 34,
+      "successful": 34,
+      "pledged": 1576807
+    },
+    {
+      "category": "Design",
+      "month": "2024-07",
+      "total": 16,
+      "successful": 16,
+      "pledged": 707725
+    },
+    {
+      "category": "Design",
+      "month": "2024-08",
+      "total": 22,
+      "successful": 22,
+      "pledged": 1094914
+    },
+    {
+      "category": "Design",
+      "month": "2024-09",
+      "total": 21,
+      "successful": 21,
+      "pledged": 3798749
+    },
+    {
+      "category": "Design",
+      "month": "2024-10",
+      "total": 68,
+      "successful": 68,
+      "pledged": 10355274
+    },
+    {
+      "category": "Design",
+      "month": "2024-11",
+      "total": 89,
+      "successful": 89,
+      "pledged": 40627219
+    },
+    {
+      "category": "Design",
+      "month": "2024-12",
+      "total": 112,
+      "successful": 112,
+      "pledged": 19449746
+    },
+    {
+      "category": "Design",
+      "month": "2025-01",
+      "total": 70,
+      "successful": 70,
+      "pledged": 36709012
+    },
+    {
+      "category": "Design",
+      "month": "2025-02",
+      "total": 58,
+      "successful": 58,
+      "pledged": 45335602
+    },
+    {
+      "category": "Design",
+      "month": "2025-03",
+      "total": 100,
+      "successful": 100,
+      "pledged": 18952298
+    },
+    {
+      "category": "Design",
+      "month": "2025-04",
+      "total": 79,
+      "successful": 79,
+      "pledged": 22808204
+    },
+    {
+      "category": "Design",
+      "month": "2025-05",
+      "total": 153,
+      "successful": 153,
+      "pledged": 87675569
+    },
+    {
+      "category": "Design",
+      "month": "2025-06",
+      "total": 130,
+      "successful": 130,
+      "pledged": 34848751
+    },
+    {
+      "category": "Design",
+      "month": "2025-07",
+      "total": 181,
+      "successful": 181,
+      "pledged": 59277627
+    },
+    {
+      "category": "Design",
+      "month": "2025-08",
+      "total": 147,
+      "successful": 147,
+      "pledged": 91951493
+    },
+    {
+      "category": "Design",
+      "month": "2025-09",
+      "total": 106,
+      "successful": 106,
+      "pledged": 87559105
+    },
+    {
+      "category": "Design",
+      "month": "2025-10",
+      "total": 124,
+      "successful": 124,
+      "pledged": 45201013
+    },
+    {
+      "category": "Design",
+      "month": "2025-11",
+      "total": 173,
+      "successful": 158,
+      "pledged": 33088260
+    },
+    {
+      "category": "Design",
+      "month": "2025-12",
+      "total": 222,
+      "successful": 177,
+      "pledged": 66128958
+    },
+    {
+      "category": "Design",
+      "month": "2026-01",
+      "total": 176,
+      "successful": 123,
+      "pledged": 70217155
+    },
+    {
+      "category": "Design",
+      "month": "2026-02",
+      "total": 180,
+      "successful": 135,
+      "pledged": 56956602
+    },
+    {
+      "category": "Design",
+      "month": "2026-03",
+      "total": 187,
+      "successful": 147,
+      "pledged": 67350419
+    },
+    {
+      "category": "Design",
+      "month": "2026-04",
+      "total": 234,
+      "successful": 97,
+      "pledged": 61850202
+    },
+    {
+      "category": "Design",
+      "month": "2026-05",
+      "total": 165,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Design",
+      "month": "2026-06",
+      "total": 9,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 15155
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-05",
+      "total": 18,
+      "successful": 18,
+      "pledged": 503925
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-06",
+      "total": 42,
+      "successful": 42,
+      "pledged": 1117447
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-07",
+      "total": 63,
+      "successful": 63,
+      "pledged": 15649732
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-08",
+      "total": 60,
+      "successful": 60,
+      "pledged": 3558988
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-09",
+      "total": 53,
+      "successful": 53,
+      "pledged": 3031646
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-10",
+      "total": 69,
+      "successful": 69,
+      "pledged": 1597119
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-11",
+      "total": 62,
+      "successful": 62,
+      "pledged": 1092184
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-12",
+      "total": 47,
+      "successful": 47,
+      "pledged": 3137165
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-01",
+      "total": 29,
+      "successful": 29,
+      "pledged": 4962283
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-02",
+      "total": 51,
+      "successful": 51,
+      "pledged": 3329016
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-03",
+      "total": 48,
+      "successful": 48,
+      "pledged": 12346221
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-04",
+      "total": 72,
+      "successful": 72,
+      "pledged": 5335899
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-05",
+      "total": 52,
+      "successful": 52,
+      "pledged": 4342882
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-06",
+      "total": 43,
+      "successful": 43,
+      "pledged": 9199804
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-07",
+      "total": 51,
+      "successful": 51,
+      "pledged": 4709211
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-08",
+      "total": 44,
+      "successful": 44,
+      "pledged": 7912870
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-09",
+      "total": 32,
+      "successful": 32,
+      "pledged": 5572045
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-10",
+      "total": 29,
+      "successful": 29,
+      "pledged": 1120047
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-11",
+      "total": 38,
+      "successful": 38,
+      "pledged": 4914982
+    },
+    {
+      "category": "Fashion",
+      "month": "2024-12",
+      "total": 43,
+      "successful": 43,
+      "pledged": 7455090
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-01",
+      "total": 15,
+      "successful": 15,
+      "pledged": 4571514
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-02",
+      "total": 20,
+      "successful": 20,
+      "pledged": 1108173
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-03",
+      "total": 46,
+      "successful": 46,
+      "pledged": 4709698
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-04",
+      "total": 43,
+      "successful": 43,
+      "pledged": 14430945
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-05",
+      "total": 33,
+      "successful": 33,
+      "pledged": 7475308
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-06",
+      "total": 36,
+      "successful": 36,
+      "pledged": 1068480
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-07",
+      "total": 42,
+      "successful": 42,
+      "pledged": 4742464
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-08",
+      "total": 27,
+      "successful": 27,
+      "pledged": 3282196
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-09",
+      "total": 24,
+      "successful": 24,
+      "pledged": 1551361
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-10",
+      "total": 47,
+      "successful": 47,
+      "pledged": 6353700
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-11",
+      "total": 59,
+      "successful": 48,
+      "pledged": 5705838
+    },
+    {
+      "category": "Fashion",
+      "month": "2025-12",
+      "total": 78,
+      "successful": 33,
+      "pledged": 3188091
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-01",
+      "total": 71,
+      "successful": 33,
+      "pledged": 3497073
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-02",
+      "total": 69,
+      "successful": 33,
+      "pledged": 28158691
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-03",
+      "total": 86,
+      "successful": 38,
+      "pledged": 8979626
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-04",
+      "total": 89,
+      "successful": 34,
+      "pledged": 13548247
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-05",
+      "total": 68,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-06",
+      "total": 8,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5128
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3876
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-11",
+      "total": 19,
+      "successful": 19,
+      "pledged": 931882
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-12",
+      "total": 16,
+      "successful": 16,
+      "pledged": 318981
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-01",
+      "total": 28,
+      "successful": 28,
+      "pledged": 676508
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-02",
+      "total": 14,
+      "successful": 14,
+      "pledged": 851985
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-03",
+      "total": 37,
+      "successful": 37,
+      "pledged": 517486
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-04",
+      "total": 56,
+      "successful": 56,
+      "pledged": 1349019
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-05",
+      "total": 17,
+      "successful": 17,
+      "pledged": 269752
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-06",
+      "total": 40,
+      "successful": 40,
+      "pledged": 1169735
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-07",
+      "total": 23,
+      "successful": 23,
+      "pledged": 222897
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-08",
+      "total": 26,
+      "successful": 26,
+      "pledged": 1117292
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-09",
+      "total": 32,
+      "successful": 32,
+      "pledged": 897218
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-10",
+      "total": 68,
+      "successful": 68,
+      "pledged": 2161112
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-11",
+      "total": 74,
+      "successful": 74,
+      "pledged": 2245972
+    },
+    {
+      "category": "Film & Video",
+      "month": "2024-12",
+      "total": 50,
+      "successful": 50,
+      "pledged": 7222017
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-01",
+      "total": 25,
+      "successful": 25,
+      "pledged": 261917
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-02",
+      "total": 35,
+      "successful": 35,
+      "pledged": 661387
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-03",
+      "total": 79,
+      "successful": 79,
+      "pledged": 2966069
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-04",
+      "total": 78,
+      "successful": 78,
+      "pledged": 3115230
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-05",
+      "total": 83,
+      "successful": 83,
+      "pledged": 1736851
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-06",
+      "total": 53,
+      "successful": 53,
+      "pledged": 3962441
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-07",
+      "total": 64,
+      "successful": 64,
+      "pledged": 1027513
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-08",
+      "total": 56,
+      "successful": 56,
+      "pledged": 1403512
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-09",
+      "total": 57,
+      "successful": 57,
+      "pledged": 1357769
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-10",
+      "total": 64,
+      "successful": 64,
+      "pledged": 2102508
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-11",
+      "total": 98,
+      "successful": 73,
+      "pledged": 2535642
+    },
+    {
+      "category": "Film & Video",
+      "month": "2025-12",
+      "total": 219,
+      "successful": 115,
+      "pledged": 2289101
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-01",
+      "total": 193,
+      "successful": 86,
+      "pledged": 2004805
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-02",
+      "total": 187,
+      "successful": 87,
+      "pledged": 746138
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-03",
+      "total": 261,
+      "successful": 131,
+      "pledged": 7064783
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-04",
+      "total": 336,
+      "successful": 94,
+      "pledged": 1540546
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-05",
+      "total": 244,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-06",
+      "total": 35,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Food",
+      "month": "2023-05",
+      "total": 3,
+      "successful": 3,
+      "pledged": 440304
+    },
+    {
+      "category": "Food",
+      "month": "2023-06",
+      "total": 19,
+      "successful": 19,
+      "pledged": 426381
+    },
+    {
+      "category": "Food",
+      "month": "2023-07",
+      "total": 23,
+      "successful": 23,
+      "pledged": 698375
+    },
+    {
+      "category": "Food",
+      "month": "2023-08",
+      "total": 20,
+      "successful": 20,
+      "pledged": 2805777
+    },
+    {
+      "category": "Food",
+      "month": "2023-09",
+      "total": 17,
+      "successful": 17,
+      "pledged": 437227
+    },
+    {
+      "category": "Food",
+      "month": "2023-10",
+      "total": 28,
+      "successful": 28,
+      "pledged": 1100185
+    },
+    {
+      "category": "Food",
+      "month": "2023-11",
+      "total": 23,
+      "successful": 23,
+      "pledged": 528339
+    },
+    {
+      "category": "Food",
+      "month": "2023-12",
+      "total": 18,
+      "successful": 18,
+      "pledged": 4570887
+    },
+    {
+      "category": "Food",
+      "month": "2024-01",
+      "total": 7,
+      "successful": 7,
+      "pledged": 94035
+    },
+    {
+      "category": "Food",
+      "month": "2024-02",
+      "total": 14,
+      "successful": 14,
+      "pledged": 1188015
+    },
+    {
+      "category": "Food",
+      "month": "2024-03",
+      "total": 23,
+      "successful": 23,
+      "pledged": 1087979
+    },
+    {
+      "category": "Food",
+      "month": "2024-04",
+      "total": 29,
+      "successful": 29,
+      "pledged": 581572
+    },
+    {
+      "category": "Food",
+      "month": "2024-05",
+      "total": 17,
+      "successful": 17,
+      "pledged": 273078
+    },
+    {
+      "category": "Food",
+      "month": "2024-06",
+      "total": 26,
+      "successful": 26,
+      "pledged": 771877
+    },
+    {
+      "category": "Food",
+      "month": "2024-07",
+      "total": 16,
+      "successful": 16,
+      "pledged": 2659735
+    },
+    {
+      "category": "Food",
+      "month": "2024-08",
+      "total": 11,
+      "successful": 11,
+      "pledged": 195100
+    },
+    {
+      "category": "Food",
+      "month": "2024-09",
+      "total": 13,
+      "successful": 13,
+      "pledged": 1074420
+    },
+    {
+      "category": "Food",
+      "month": "2024-10",
+      "total": 18,
+      "successful": 18,
+      "pledged": 4630567
+    },
+    {
+      "category": "Food",
+      "month": "2024-11",
+      "total": 9,
+      "successful": 9,
+      "pledged": 182486
+    },
+    {
+      "category": "Food",
+      "month": "2024-12",
+      "total": 15,
+      "successful": 15,
+      "pledged": 304076
+    },
+    {
+      "category": "Food",
+      "month": "2025-01",
+      "total": 9,
+      "successful": 9,
+      "pledged": 2748490
+    },
+    {
+      "category": "Food",
+      "month": "2025-02",
+      "total": 12,
+      "successful": 12,
+      "pledged": 292554
+    },
+    {
+      "category": "Food",
+      "month": "2025-03",
+      "total": 17,
+      "successful": 17,
+      "pledged": 226791
+    },
+    {
+      "category": "Food",
+      "month": "2025-04",
+      "total": 23,
+      "successful": 23,
+      "pledged": 514898
+    },
+    {
+      "category": "Food",
+      "month": "2025-05",
+      "total": 20,
+      "successful": 20,
+      "pledged": 564431
+    },
+    {
+      "category": "Food",
+      "month": "2025-06",
+      "total": 14,
+      "successful": 14,
+      "pledged": 294095
+    },
+    {
+      "category": "Food",
+      "month": "2025-07",
+      "total": 21,
+      "successful": 21,
+      "pledged": 6133445
+    },
+    {
+      "category": "Food",
+      "month": "2025-08",
+      "total": 12,
+      "successful": 12,
+      "pledged": 258843
+    },
+    {
+      "category": "Food",
+      "month": "2025-09",
+      "total": 9,
+      "successful": 9,
+      "pledged": 172177
+    },
+    {
+      "category": "Food",
+      "month": "2025-10",
+      "total": 21,
+      "successful": 21,
+      "pledged": 186864
+    },
+    {
+      "category": "Food",
+      "month": "2025-11",
+      "total": 41,
+      "successful": 28,
+      "pledged": 5171240
+    },
+    {
+      "category": "Food",
+      "month": "2025-12",
+      "total": 73,
+      "successful": 16,
+      "pledged": 378943
+    },
+    {
+      "category": "Food",
+      "month": "2026-01",
+      "total": 55,
+      "successful": 9,
+      "pledged": 62918
+    },
+    {
+      "category": "Food",
+      "month": "2026-02",
+      "total": 60,
+      "successful": 17,
+      "pledged": 223212
+    },
+    {
+      "category": "Food",
+      "month": "2026-03",
+      "total": 81,
+      "successful": 24,
+      "pledged": 2992094
+    },
+    {
+      "category": "Food",
+      "month": "2026-04",
+      "total": 83,
+      "successful": 20,
+      "pledged": 370993
+    },
+    {
+      "category": "Food",
+      "month": "2026-05",
+      "total": 61,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Food",
+      "month": "2026-06",
+      "total": 7,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Games",
+      "month": "2023-06",
+      "total": 1,
+      "successful": 1,
+      "pledged": 10630
+    },
+    {
+      "category": "Games",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11583
+    },
+    {
+      "category": "Games",
+      "month": "2023-09",
+      "total": 3,
+      "successful": 3,
+      "pledged": 34336
+    },
+    {
+      "category": "Games",
+      "month": "2023-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 114
+    },
+    {
+      "category": "Games",
+      "month": "2023-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 1853
+    },
+    {
+      "category": "Games",
+      "month": "2023-12",
+      "total": 5,
+      "successful": 5,
+      "pledged": 48002
+    },
+    {
+      "category": "Games",
+      "month": "2024-01",
+      "total": 16,
+      "successful": 16,
+      "pledged": 62750
+    },
+    {
+      "category": "Games",
+      "month": "2024-02",
+      "total": 13,
+      "successful": 13,
+      "pledged": 85968
+    },
+    {
+      "category": "Games",
+      "month": "2024-03",
+      "total": 25,
+      "successful": 25,
+      "pledged": 745015
+    },
+    {
+      "category": "Games",
+      "month": "2024-04",
+      "total": 32,
+      "successful": 32,
+      "pledged": 1292813
+    },
+    {
+      "category": "Games",
+      "month": "2024-05",
+      "total": 37,
+      "successful": 37,
+      "pledged": 1571371
+    },
+    {
+      "category": "Games",
+      "month": "2024-06",
+      "total": 37,
+      "successful": 37,
+      "pledged": 3310565
+    },
+    {
+      "category": "Games",
+      "month": "2024-07",
+      "total": 34,
+      "successful": 34,
+      "pledged": 1282768
+    },
+    {
+      "category": "Games",
+      "month": "2024-08",
+      "total": 47,
+      "successful": 47,
+      "pledged": 513057
+    },
+    {
+      "category": "Games",
+      "month": "2024-09",
+      "total": 35,
+      "successful": 35,
+      "pledged": 1215495
+    },
+    {
+      "category": "Games",
+      "month": "2024-10",
+      "total": 45,
+      "successful": 45,
+      "pledged": 2213158
+    },
+    {
+      "category": "Games",
+      "month": "2024-11",
+      "total": 43,
+      "successful": 43,
+      "pledged": 16201754
+    },
+    {
+      "category": "Games",
+      "month": "2024-12",
+      "total": 62,
+      "successful": 62,
+      "pledged": 3384492
+    },
+    {
+      "category": "Games",
+      "month": "2025-01",
+      "total": 44,
+      "successful": 44,
+      "pledged": 974085
+    },
+    {
+      "category": "Games",
+      "month": "2025-02",
+      "total": 61,
+      "successful": 61,
+      "pledged": 2052631
+    },
+    {
+      "category": "Games",
+      "month": "2025-03",
+      "total": 59,
+      "successful": 59,
+      "pledged": 2118839
+    },
+    {
+      "category": "Games",
+      "month": "2025-04",
+      "total": 67,
+      "successful": 67,
+      "pledged": 3988160
+    },
+    {
+      "category": "Games",
+      "month": "2025-05",
+      "total": 65,
+      "successful": 65,
+      "pledged": 2197017
+    },
+    {
+      "category": "Games",
+      "month": "2025-06",
+      "total": 63,
+      "successful": 63,
+      "pledged": 2070484
+    },
+    {
+      "category": "Games",
+      "month": "2025-07",
+      "total": 88,
+      "successful": 88,
+      "pledged": 42069179
+    },
+    {
+      "category": "Games",
+      "month": "2025-08",
+      "total": 66,
+      "successful": 66,
+      "pledged": 1720660
+    },
+    {
+      "category": "Games",
+      "month": "2025-09",
+      "total": 80,
+      "successful": 80,
+      "pledged": 2317897
+    },
+    {
+      "category": "Games",
+      "month": "2025-10",
+      "total": 149,
+      "successful": 149,
+      "pledged": 6415635
+    },
+    {
+      "category": "Games",
+      "month": "2025-11",
+      "total": 481,
+      "successful": 448,
+      "pledged": 90235470
+    },
+    {
+      "category": "Games",
+      "month": "2025-12",
+      "total": 501,
+      "successful": 422,
+      "pledged": 20464713
+    },
+    {
+      "category": "Games",
+      "month": "2026-01",
+      "total": 392,
+      "successful": 325,
+      "pledged": 10874818
+    },
+    {
+      "category": "Games",
+      "month": "2026-02",
+      "total": 533,
+      "successful": 465,
+      "pledged": 20887626
+    },
+    {
+      "category": "Games",
+      "month": "2026-03",
+      "total": 756,
+      "successful": 671,
+      "pledged": 67147104
+    },
+    {
+      "category": "Games",
+      "month": "2026-04",
+      "total": 668,
+      "successful": 358,
+      "pledged": 58837520
+    },
+    {
+      "category": "Games",
+      "month": "2026-05",
+      "total": 353,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Games",
+      "month": "2026-06",
+      "total": 25,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Journalism",
+      "month": "2023-05",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2004
+    },
+    {
+      "category": "Journalism",
+      "month": "2023-06",
+      "total": 2,
+      "successful": 2,
+      "pledged": 2778
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 1021
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-08",
+      "total": 3,
+      "successful": 3,
+      "pledged": 232917
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 4710
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-10",
+      "total": 3,
+      "successful": 3,
+      "pledged": 28136
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 63530
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-12",
+      "total": 3,
+      "successful": 3,
+      "pledged": 15654
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 5506
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-04",
+      "total": 3,
+      "successful": 3,
+      "pledged": 16196
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-05",
+      "total": 7,
+      "successful": 7,
+      "pledged": 69356
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-06",
+      "total": 6,
+      "successful": 6,
+      "pledged": 25534
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-07",
+      "total": 5,
+      "successful": 5,
+      "pledged": 250739
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-08",
+      "total": 1,
+      "successful": 1,
+      "pledged": 6689
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5196
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-11",
+      "total": 4,
+      "successful": 3,
+      "pledged": 31063
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-12",
+      "total": 6,
+      "successful": 2,
+      "pledged": 49349
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-01",
+      "total": 7,
+      "successful": 1,
+      "pledged": 503
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-02",
+      "total": 8,
+      "successful": 2,
+      "pledged": 10238
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-03",
+      "total": 13,
+      "successful": 1,
+      "pledged": 3926
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-04",
+      "total": 17,
+      "successful": 4,
+      "pledged": 114669
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-05",
+      "total": 6,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-06",
+      "total": 1,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Music",
+      "month": "2023-06",
+      "total": 9,
+      "successful": 9,
+      "pledged": 78141
+    },
+    {
+      "category": "Music",
+      "month": "2023-07",
+      "total": 17,
+      "successful": 17,
+      "pledged": 160019
+    },
+    {
+      "category": "Music",
+      "month": "2023-08",
+      "total": 6,
+      "successful": 6,
+      "pledged": 56574
+    },
+    {
+      "category": "Music",
+      "month": "2023-09",
+      "total": 17,
+      "successful": 17,
+      "pledged": 253032
+    },
+    {
+      "category": "Music",
+      "month": "2023-10",
+      "total": 14,
+      "successful": 14,
+      "pledged": 187683
+    },
+    {
+      "category": "Music",
+      "month": "2023-11",
+      "total": 45,
+      "successful": 45,
+      "pledged": 553493
+    },
+    {
+      "category": "Music",
+      "month": "2023-12",
+      "total": 23,
+      "successful": 23,
+      "pledged": 330796
+    },
+    {
+      "category": "Music",
+      "month": "2024-01",
+      "total": 16,
+      "successful": 16,
+      "pledged": 139369
+    },
+    {
+      "category": "Music",
+      "month": "2024-02",
+      "total": 15,
+      "successful": 15,
+      "pledged": 268753
+    },
+    {
+      "category": "Music",
+      "month": "2024-03",
+      "total": 42,
+      "successful": 42,
+      "pledged": 461713
+    },
+    {
+      "category": "Music",
+      "month": "2024-04",
+      "total": 42,
+      "successful": 42,
+      "pledged": 10488333
+    },
+    {
+      "category": "Music",
+      "month": "2024-05",
+      "total": 16,
+      "successful": 16,
+      "pledged": 212559
+    },
+    {
+      "category": "Music",
+      "month": "2024-06",
+      "total": 18,
+      "successful": 18,
+      "pledged": 186270
+    },
+    {
+      "category": "Music",
+      "month": "2024-07",
+      "total": 15,
+      "successful": 15,
+      "pledged": 118010
+    },
+    {
+      "category": "Music",
+      "month": "2024-08",
+      "total": 18,
+      "successful": 18,
+      "pledged": 211665
+    },
+    {
+      "category": "Music",
+      "month": "2024-09",
+      "total": 4,
+      "successful": 4,
+      "pledged": 99856
+    },
+    {
+      "category": "Music",
+      "month": "2024-10",
+      "total": 16,
+      "successful": 16,
+      "pledged": 217020
+    },
+    {
+      "category": "Music",
+      "month": "2024-11",
+      "total": 28,
+      "successful": 28,
+      "pledged": 268112
+    },
+    {
+      "category": "Music",
+      "month": "2024-12",
+      "total": 17,
+      "successful": 17,
+      "pledged": 201251
+    },
+    {
+      "category": "Music",
+      "month": "2025-01",
+      "total": 2,
+      "successful": 2,
+      "pledged": 20584
+    },
+    {
+      "category": "Music",
+      "month": "2025-02",
+      "total": 9,
+      "successful": 9,
+      "pledged": 117088
+    },
+    {
+      "category": "Music",
+      "month": "2025-03",
+      "total": 8,
+      "successful": 8,
+      "pledged": 23477
+    },
+    {
+      "category": "Music",
+      "month": "2025-04",
+      "total": 11,
+      "successful": 11,
+      "pledged": 120191
+    },
+    {
+      "category": "Music",
+      "month": "2025-05",
+      "total": 15,
+      "successful": 15,
+      "pledged": 161012
+    },
+    {
+      "category": "Music",
+      "month": "2025-06",
+      "total": 31,
+      "successful": 31,
+      "pledged": 777387
+    },
+    {
+      "category": "Music",
+      "month": "2025-07",
+      "total": 40,
+      "successful": 40,
+      "pledged": 594058
+    },
+    {
+      "category": "Music",
+      "month": "2025-08",
+      "total": 9,
+      "successful": 9,
+      "pledged": 159630
+    },
+    {
+      "category": "Music",
+      "month": "2025-09",
+      "total": 31,
+      "successful": 31,
+      "pledged": 810829
+    },
+    {
+      "category": "Music",
+      "month": "2025-10",
+      "total": 39,
+      "successful": 39,
+      "pledged": 481558
+    },
+    {
+      "category": "Music",
+      "month": "2025-11",
+      "total": 62,
+      "successful": 52,
+      "pledged": 810894
+    },
+    {
+      "category": "Music",
+      "month": "2025-12",
+      "total": 98,
+      "successful": 59,
+      "pledged": 664647
+    },
+    {
+      "category": "Music",
+      "month": "2026-01",
+      "total": 67,
+      "successful": 37,
+      "pledged": 419716
+    },
+    {
+      "category": "Music",
+      "month": "2026-02",
+      "total": 67,
+      "successful": 39,
+      "pledged": 2334205
+    },
+    {
+      "category": "Music",
+      "month": "2026-03",
+      "total": 95,
+      "successful": 67,
+      "pledged": 1494672
+    },
+    {
+      "category": "Music",
+      "month": "2026-04",
+      "total": 109,
+      "successful": 44,
+      "pledged": 771124
+    },
+    {
+      "category": "Music",
+      "month": "2026-05",
+      "total": 76,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Music",
+      "month": "2026-06",
+      "total": 11,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Photography",
+      "month": "2023-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 9445
+    },
+    {
+      "category": "Photography",
+      "month": "2023-11",
+      "total": 8,
+      "successful": 8,
+      "pledged": 163830
+    },
+    {
+      "category": "Photography",
+      "month": "2023-12",
+      "total": 6,
+      "successful": 6,
+      "pledged": 15583
+    },
+    {
+      "category": "Photography",
+      "month": "2024-01",
+      "total": 8,
+      "successful": 8,
+      "pledged": 44261
+    },
+    {
+      "category": "Photography",
+      "month": "2024-02",
+      "total": 3,
+      "successful": 3,
+      "pledged": 48190
+    },
+    {
+      "category": "Photography",
+      "month": "2024-03",
+      "total": 8,
+      "successful": 8,
+      "pledged": 139499
+    },
+    {
+      "category": "Photography",
+      "month": "2024-04",
+      "total": 6,
+      "successful": 6,
+      "pledged": 57847
+    },
+    {
+      "category": "Photography",
+      "month": "2024-05",
+      "total": 9,
+      "successful": 9,
+      "pledged": 167422
+    },
+    {
+      "category": "Photography",
+      "month": "2024-06",
+      "total": 12,
+      "successful": 12,
+      "pledged": 105144
+    },
+    {
+      "category": "Photography",
+      "month": "2024-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2046
+    },
+    {
+      "category": "Photography",
+      "month": "2024-11",
+      "total": 17,
+      "successful": 17,
+      "pledged": 137895
+    },
+    {
+      "category": "Photography",
+      "month": "2024-12",
+      "total": 15,
+      "successful": 15,
+      "pledged": 9274943
+    },
+    {
+      "category": "Photography",
+      "month": "2025-01",
+      "total": 19,
+      "successful": 19,
+      "pledged": 188194
+    },
+    {
+      "category": "Photography",
+      "month": "2025-02",
+      "total": 17,
+      "successful": 17,
+      "pledged": 134717
+    },
+    {
+      "category": "Photography",
+      "month": "2025-03",
+      "total": 4,
+      "successful": 4,
+      "pledged": 31966
+    },
+    {
+      "category": "Photography",
+      "month": "2025-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 10447
+    },
+    {
+      "category": "Photography",
+      "month": "2025-05",
+      "total": 11,
+      "successful": 11,
+      "pledged": 1446858
+    },
+    {
+      "category": "Photography",
+      "month": "2025-06",
+      "total": 21,
+      "successful": 21,
+      "pledged": 236199
+    },
+    {
+      "category": "Photography",
+      "month": "2025-07",
+      "total": 15,
+      "successful": 15,
+      "pledged": 111707
+    },
+    {
+      "category": "Photography",
+      "month": "2025-08",
+      "total": 21,
+      "successful": 21,
+      "pledged": 394618
+    },
+    {
+      "category": "Photography",
+      "month": "2025-09",
+      "total": 15,
+      "successful": 15,
+      "pledged": 371299
+    },
+    {
+      "category": "Photography",
+      "month": "2025-10",
+      "total": 16,
+      "successful": 16,
+      "pledged": 137380
+    },
+    {
+      "category": "Photography",
+      "month": "2025-11",
+      "total": 28,
+      "successful": 23,
+      "pledged": 249574
+    },
+    {
+      "category": "Photography",
+      "month": "2025-12",
+      "total": 32,
+      "successful": 25,
+      "pledged": 2428602
+    },
+    {
+      "category": "Photography",
+      "month": "2026-01",
+      "total": 37,
+      "successful": 25,
+      "pledged": 315775
+    },
+    {
+      "category": "Photography",
+      "month": "2026-02",
+      "total": 35,
+      "successful": 23,
+      "pledged": 157606
+    },
+    {
+      "category": "Photography",
+      "month": "2026-03",
+      "total": 39,
+      "successful": 29,
+      "pledged": 231038
+    },
+    {
+      "category": "Photography",
+      "month": "2026-04",
+      "total": 37,
+      "successful": 18,
+      "pledged": 151419
+    },
+    {
+      "category": "Photography",
+      "month": "2026-05",
+      "total": 23,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Photography",
+      "month": "2026-06",
+      "total": 4,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Publishing",
+      "month": "2023-12",
+      "total": 1,
+      "successful": 1,
+      "pledged": 1715
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-01",
+      "total": 3,
+      "successful": 3,
+      "pledged": 74240
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-02",
+      "total": 6,
+      "successful": 6,
+      "pledged": 27770
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-03",
+      "total": 7,
+      "successful": 7,
+      "pledged": 92771
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 19489
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-05",
+      "total": 7,
+      "successful": 7,
+      "pledged": 163165
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-06",
+      "total": 4,
+      "successful": 4,
+      "pledged": 52992
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-07",
+      "total": 6,
+      "successful": 6,
+      "pledged": 154345
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-08",
+      "total": 6,
+      "successful": 6,
+      "pledged": 110022
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-09",
+      "total": 7,
+      "successful": 7,
+      "pledged": 102859
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-10",
+      "total": 14,
+      "successful": 14,
+      "pledged": 421735
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-11",
+      "total": 13,
+      "successful": 13,
+      "pledged": 223224
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-12",
+      "total": 11,
+      "successful": 11,
+      "pledged": 118557
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-01",
+      "total": 5,
+      "successful": 5,
+      "pledged": 65126
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-02",
+      "total": 8,
+      "successful": 8,
+      "pledged": 48967
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-03",
+      "total": 12,
+      "successful": 12,
+      "pledged": 292301
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-04",
+      "total": 13,
+      "successful": 13,
+      "pledged": 933050
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-05",
+      "total": 21,
+      "successful": 21,
+      "pledged": 174464
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-06",
+      "total": 36,
+      "successful": 36,
+      "pledged": 662499
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-07",
+      "total": 59,
+      "successful": 59,
+      "pledged": 1437122
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-08",
+      "total": 69,
+      "successful": 69,
+      "pledged": 1526623
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-09",
+      "total": 100,
+      "successful": 100,
+      "pledged": 2530603
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-10",
+      "total": 95,
+      "successful": 95,
+      "pledged": 1366553
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-11",
+      "total": 227,
+      "successful": 187,
+      "pledged": 5087987
+    },
+    {
+      "category": "Publishing",
+      "month": "2025-12",
+      "total": 282,
+      "successful": 194,
+      "pledged": 4785884
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-01",
+      "total": 184,
+      "successful": 117,
+      "pledged": 2055585
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-02",
+      "total": 257,
+      "successful": 183,
+      "pledged": 2630936
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-03",
+      "total": 312,
+      "successful": 235,
+      "pledged": 4542875
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-04",
+      "total": 338,
+      "successful": 153,
+      "pledged": 2382831
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-05",
+      "total": 200,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-06",
+      "total": 18,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Technology",
+      "month": "2023-08",
+      "total": 1,
+      "successful": 1,
+      "pledged": 12001
+    },
+    {
+      "category": "Technology",
+      "month": "2023-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 281350
+    },
+    {
+      "category": "Technology",
+      "month": "2024-02",
+      "total": 21,
+      "successful": 21,
+      "pledged": 3352679
+    },
+    {
+      "category": "Technology",
+      "month": "2024-03",
+      "total": 27,
+      "successful": 27,
+      "pledged": 22031485
+    },
+    {
+      "category": "Technology",
+      "month": "2024-04",
+      "total": 31,
+      "successful": 31,
+      "pledged": 11104650
+    },
+    {
+      "category": "Technology",
+      "month": "2024-05",
+      "total": 15,
+      "successful": 15,
+      "pledged": 5208022
+    },
+    {
+      "category": "Technology",
+      "month": "2024-06",
+      "total": 23,
+      "successful": 23,
+      "pledged": 7272496
+    },
+    {
+      "category": "Technology",
+      "month": "2024-07",
+      "total": 7,
+      "successful": 7,
+      "pledged": 1242920
+    },
+    {
+      "category": "Technology",
+      "month": "2024-08",
+      "total": 12,
+      "successful": 12,
+      "pledged": 3723664
+    },
+    {
+      "category": "Technology",
+      "month": "2024-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 114677
+    },
+    {
+      "category": "Technology",
+      "month": "2024-10",
+      "total": 28,
+      "successful": 28,
+      "pledged": 1441578
+    },
+    {
+      "category": "Technology",
+      "month": "2024-11",
+      "total": 28,
+      "successful": 28,
+      "pledged": 29253102
+    },
+    {
+      "category": "Technology",
+      "month": "2024-12",
+      "total": 22,
+      "successful": 22,
+      "pledged": 11545529
+    },
+    {
+      "category": "Technology",
+      "month": "2025-01",
+      "total": 15,
+      "successful": 15,
+      "pledged": 4281224
+    },
+    {
+      "category": "Technology",
+      "month": "2025-02",
+      "total": 39,
+      "successful": 39,
+      "pledged": 3715476
+    },
+    {
+      "category": "Technology",
+      "month": "2025-03",
+      "total": 26,
+      "successful": 26,
+      "pledged": 6806331
+    },
+    {
+      "category": "Technology",
+      "month": "2025-04",
+      "total": 42,
+      "successful": 42,
+      "pledged": 23290652
+    },
+    {
+      "category": "Technology",
+      "month": "2025-05",
+      "total": 18,
+      "successful": 18,
+      "pledged": 3938471
+    },
+    {
+      "category": "Technology",
+      "month": "2025-06",
+      "total": 20,
+      "successful": 20,
+      "pledged": 9811100
+    },
+    {
+      "category": "Technology",
+      "month": "2025-07",
+      "total": 29,
+      "successful": 29,
+      "pledged": 4755689
+    },
+    {
+      "category": "Technology",
+      "month": "2025-08",
+      "total": 26,
+      "successful": 26,
+      "pledged": 259926062
+    },
+    {
+      "category": "Technology",
+      "month": "2025-09",
+      "total": 34,
+      "successful": 34,
+      "pledged": 18599920
+    },
+    {
+      "category": "Technology",
+      "month": "2025-10",
+      "total": 52,
+      "successful": 52,
+      "pledged": 72478351
+    },
+    {
+      "category": "Technology",
+      "month": "2025-11",
+      "total": 100,
+      "successful": 69,
+      "pledged": 57941067
+    },
+    {
+      "category": "Technology",
+      "month": "2025-12",
+      "total": 241,
+      "successful": 132,
+      "pledged": 253819518
+    },
+    {
+      "category": "Technology",
+      "month": "2026-01",
+      "total": 167,
+      "successful": 87,
+      "pledged": 133549715
+    },
+    {
+      "category": "Technology",
+      "month": "2026-02",
+      "total": 183,
+      "successful": 97,
+      "pledged": 52860260
+    },
+    {
+      "category": "Technology",
+      "month": "2026-03",
+      "total": 211,
+      "successful": 131,
+      "pledged": 88031338
+    },
+    {
+      "category": "Technology",
+      "month": "2026-04",
+      "total": 211,
+      "successful": 71,
+      "pledged": 21110707
+    },
+    {
+      "category": "Technology",
+      "month": "2026-05",
+      "total": 158,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Technology",
+      "month": "2026-06",
+      "total": 14,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Theater",
+      "month": "2023-05",
+      "total": 6,
+      "successful": 6,
+      "pledged": 67409
+    },
+    {
+      "category": "Theater",
+      "month": "2023-06",
+      "total": 13,
+      "successful": 13,
+      "pledged": 117030
+    },
+    {
+      "category": "Theater",
+      "month": "2023-07",
+      "total": 4,
+      "successful": 4,
+      "pledged": 32951
+    },
+    {
+      "category": "Theater",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 34007
+    },
+    {
+      "category": "Theater",
+      "month": "2023-09",
+      "total": 6,
+      "successful": 6,
+      "pledged": 22434
+    },
+    {
+      "category": "Theater",
+      "month": "2023-10",
+      "total": 4,
+      "successful": 4,
+      "pledged": 20660
+    },
+    {
+      "category": "Theater",
+      "month": "2023-11",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2360
+    },
+    {
+      "category": "Theater",
+      "month": "2023-12",
+      "total": 6,
+      "successful": 6,
+      "pledged": 49207
+    },
+    {
+      "category": "Theater",
+      "month": "2024-01",
+      "total": 9,
+      "successful": 9,
+      "pledged": 43943
+    },
+    {
+      "category": "Theater",
+      "month": "2024-02",
+      "total": 8,
+      "successful": 8,
+      "pledged": 45789
+    },
+    {
+      "category": "Theater",
+      "month": "2024-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 18655
+    },
+    {
+      "category": "Theater",
+      "month": "2024-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 6079
+    },
+    {
+      "category": "Theater",
+      "month": "2024-06",
+      "total": 4,
+      "successful": 4,
+      "pledged": 34576
+    },
+    {
+      "category": "Theater",
+      "month": "2024-07",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3676
+    },
+    {
+      "category": "Theater",
+      "month": "2024-09",
+      "total": 7,
+      "successful": 7,
+      "pledged": 19680
+    },
+    {
+      "category": "Theater",
+      "month": "2024-10",
+      "total": 6,
+      "successful": 6,
+      "pledged": 126189
+    },
+    {
+      "category": "Theater",
+      "month": "2024-11",
+      "total": 7,
+      "successful": 7,
+      "pledged": 89331
+    },
+    {
+      "category": "Theater",
+      "month": "2024-12",
+      "total": 5,
+      "successful": 5,
+      "pledged": 20170
+    },
+    {
+      "category": "Theater",
+      "month": "2025-01",
+      "total": 1,
+      "successful": 1,
+      "pledged": 4691
+    },
+    {
+      "category": "Theater",
+      "month": "2025-02",
+      "total": 4,
+      "successful": 4,
+      "pledged": 33769
+    },
+    {
+      "category": "Theater",
+      "month": "2025-03",
+      "total": 8,
+      "successful": 8,
+      "pledged": 141736
+    },
+    {
+      "category": "Theater",
+      "month": "2025-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 50153
+    },
+    {
+      "category": "Theater",
+      "month": "2025-05",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11354
+    },
+    {
+      "category": "Theater",
+      "month": "2025-06",
+      "total": 6,
+      "successful": 6,
+      "pledged": 16847
+    },
+    {
+      "category": "Theater",
+      "month": "2025-07",
+      "total": 8,
+      "successful": 8,
+      "pledged": 57135
+    },
+    {
+      "category": "Theater",
+      "month": "2025-08",
+      "total": 4,
+      "successful": 4,
+      "pledged": 9207
+    },
+    {
+      "category": "Theater",
+      "month": "2025-09",
+      "total": 6,
+      "successful": 6,
+      "pledged": 75705
+    },
+    {
+      "category": "Theater",
+      "month": "2025-10",
+      "total": 6,
+      "successful": 6,
+      "pledged": 109281
+    },
+    {
+      "category": "Theater",
+      "month": "2025-11",
+      "total": 11,
+      "successful": 10,
+      "pledged": 114386
+    },
+    {
+      "category": "Theater",
+      "month": "2025-12",
+      "total": 13,
+      "successful": 10,
+      "pledged": 151400
+    },
+    {
+      "category": "Theater",
+      "month": "2026-01",
+      "total": 13,
+      "successful": 6,
+      "pledged": 152088
+    },
+    {
+      "category": "Theater",
+      "month": "2026-02",
+      "total": 12,
+      "successful": 9,
+      "pledged": 243273
+    },
+    {
+      "category": "Theater",
+      "month": "2026-03",
+      "total": 21,
+      "successful": 14,
+      "pledged": 482602
+    },
+    {
+      "category": "Theater",
+      "month": "2026-04",
+      "total": 27,
+      "successful": 7,
+      "pledged": 88787
+    },
+    {
+      "category": "Theater",
+      "month": "2026-05",
+      "total": 13,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Theater",
+      "month": "2026-06",
+      "total": 3,
+      "successful": 0,
+      "pledged": null
+    }
+  ],
+  "funding_scale": [
+    {
+      "quarter": "2023-Q2",
+      "under_1k": 24,
+      "k1_10k": 105,
+      "k10_50k": 57,
+      "k50_100k": 10,
+      "k100_500k": 13,
+      "k500k_1m": 2,
+      "over_1m": 2,
+      "total": 213
+    },
+    {
+      "quarter": "2023-Q3",
+      "under_1k": 79,
+      "k1_10k": 232,
+      "k10_50k": 118,
+      "k50_100k": 13,
+      "k100_500k": 14,
+      "k500k_1m": 3,
+      "over_1m": 7,
+      "total": 466
+    },
+    {
+      "quarter": "2023-Q4",
+      "under_1k": 87,
+      "k1_10k": 305,
+      "k10_50k": 159,
+      "k50_100k": 27,
+      "k100_500k": 19,
+      "k500k_1m": 1,
+      "over_1m": 2,
+      "total": 600
+    },
+    {
+      "quarter": "2024-Q1",
+      "under_1k": 103,
+      "k1_10k": 359,
+      "k10_50k": 180,
+      "k50_100k": 27,
+      "k100_500k": 22,
+      "k500k_1m": 13,
+      "over_1m": 12,
+      "total": 716
+    },
+    {
+      "quarter": "2024-Q2",
+      "under_1k": 145,
+      "k1_10k": 488,
+      "k10_50k": 278,
+      "k50_100k": 63,
+      "k100_500k": 52,
+      "k500k_1m": 16,
+      "over_1m": 18,
+      "total": 1060
+    },
+    {
+      "quarter": "2024-Q3",
+      "under_1k": 172,
+      "k1_10k": 470,
+      "k10_50k": 220,
+      "k50_100k": 47,
+      "k100_500k": 51,
+      "k500k_1m": 10,
+      "over_1m": 17,
+      "total": 987
+    },
+    {
+      "quarter": "2024-Q4",
+      "under_1k": 192,
+      "k1_10k": 713,
+      "k10_50k": 431,
+      "k50_100k": 101,
+      "k100_500k": 116,
+      "k500k_1m": 24,
+      "over_1m": 34,
+      "total": 1611
+    },
+    {
+      "quarter": "2025-Q1",
+      "under_1k": 204,
+      "k1_10k": 632,
+      "k10_50k": 298,
+      "k50_100k": 74,
+      "k100_500k": 85,
+      "k500k_1m": 20,
+      "over_1m": 33,
+      "total": 1346
+    },
+    {
+      "quarter": "2025-Q2",
+      "under_1k": 235,
+      "k1_10k": 1013,
+      "k10_50k": 530,
+      "k50_100k": 115,
+      "k100_500k": 149,
+      "k500k_1m": 33,
+      "over_1m": 49,
+      "total": 2124
+    },
+    {
+      "quarter": "2025-Q3",
+      "under_1k": 292,
+      "k1_10k": 1116,
+      "k10_50k": 605,
+      "k50_100k": 136,
+      "k100_500k": 168,
+      "k500k_1m": 49,
+      "over_1m": 58,
+      "total": 2424
+    },
+    {
+      "quarter": "2025-Q4",
+      "under_1k": 541,
+      "k1_10k": 1878,
+      "k10_50k": 975,
+      "k50_100k": 235,
+      "k100_500k": 284,
+      "k500k_1m": 53,
+      "over_1m": 86,
+      "total": 4052
+    },
+    {
+      "quarter": "2026-Q1",
+      "under_1k": 700,
+      "k1_10k": 2109,
+      "k10_50k": 927,
+      "k50_100k": 209,
+      "k100_500k": 292,
+      "k500k_1m": 72,
+      "over_1m": 93,
+      "total": 4402
+    },
+    {
+      "quarter": "2026-Q2",
+      "under_1k": 147,
+      "k1_10k": 528,
+      "k10_50k": 294,
+      "k50_100k": 58,
+      "k100_500k": 81,
+      "k500k_1m": 21,
+      "over_1m": 36,
+      "total": 1165
+    }
+  ],
+  "country_trend": [
+    {
+      "country": "AU",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 57726
+    },
+    {
+      "country": "AU",
+      "quarter": "2023-Q3",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 112191
+    },
+    {
+      "country": "AU",
+      "quarter": "2023-Q4",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 156037
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q1",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 140852
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q2",
+      "total": 26,
+      "success_rate": 100.0,
+      "pledged": 302168
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q3",
+      "total": 25,
+      "success_rate": 100.0,
+      "pledged": 221674
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q4",
+      "total": 42,
+      "success_rate": 100.0,
+      "pledged": 455101
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q1",
+      "total": 45,
+      "success_rate": 100.0,
+      "pledged": 611498
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q2",
+      "total": 61,
+      "success_rate": 100.0,
+      "pledged": 3332502
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q3",
+      "total": 68,
+      "success_rate": 100.0,
+      "pledged": 2067165
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q4",
+      "total": 149,
+      "success_rate": 77.2,
+      "pledged": 2816182
+    },
+    {
+      "country": "AU",
+      "quarter": "2026-Q1",
+      "total": 159,
+      "success_rate": 68.6,
+      "pledged": 1864339
+    },
+    {
+      "country": "AU",
+      "quarter": "2026-Q2",
+      "total": 111,
+      "success_rate": 63.0,
+      "pledged": 660690
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q2",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 139646
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q3",
+      "total": 34,
+      "success_rate": 100.0,
+      "pledged": 497230
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q4",
+      "total": 40,
+      "success_rate": 100.0,
+      "pledged": 354577
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q1",
+      "total": 47,
+      "success_rate": 100.0,
+      "pledged": 1671278
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q2",
+      "total": 58,
+      "success_rate": 100.0,
+      "pledged": 889190
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q3",
+      "total": 70,
+      "success_rate": 100.0,
+      "pledged": 1075324
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q4",
+      "total": 100,
+      "success_rate": 100.0,
+      "pledged": 2227633
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q1",
+      "total": 75,
+      "success_rate": 100.0,
+      "pledged": 1288826
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q2",
+      "total": 103,
+      "success_rate": 100.0,
+      "pledged": 3117871
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q3",
+      "total": 121,
+      "success_rate": 100.0,
+      "pledged": 19807558
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q4",
+      "total": 244,
+      "success_rate": 81.6,
+      "pledged": 4053171
+    },
+    {
+      "country": "CA",
+      "quarter": "2026-Q1",
+      "total": 319,
+      "success_rate": 67.1,
+      "pledged": 3667126
+    },
+    {
+      "country": "CA",
+      "quarter": "2026-Q2",
+      "total": 223,
+      "success_rate": 60.4,
+      "pledged": 1731545
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q2",
+      "total": 2,
+      "success_rate": 100.0,
+      "pledged": 38533
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q3",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 118229
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q4",
+      "total": 12,
+      "success_rate": 100.0,
+      "pledged": 147632
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q1",
+      "total": 20,
+      "success_rate": 100.0,
+      "pledged": 111795
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q2",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 311476
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q3",
+      "total": 17,
+      "success_rate": 100.0,
+      "pledged": 105990
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q4",
+      "total": 41,
+      "success_rate": 100.0,
+      "pledged": 301227
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q1",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 322269
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q2",
+      "total": 39,
+      "success_rate": 100.0,
+      "pledged": 588804
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q3",
+      "total": 55,
+      "success_rate": 100.0,
+      "pledged": 583839
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q4",
+      "total": 160,
+      "success_rate": 73.8,
+      "pledged": 4364244
+    },
+    {
+      "country": "DE",
+      "quarter": "2026-Q1",
+      "total": 194,
+      "success_rate": 60.3,
+      "pledged": 1084631
+    },
+    {
+      "country": "DE",
+      "quarter": "2026-Q2",
+      "total": 136,
+      "success_rate": 43.1,
+      "pledged": 1670055
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q2",
+      "total": 2,
+      "success_rate": 100.0,
+      "pledged": 16798
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q3",
+      "total": 8,
+      "success_rate": 100.0,
+      "pledged": 345720
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q4",
+      "total": 14,
+      "success_rate": 100.0,
+      "pledged": 327515
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q1",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 95426
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q2",
+      "total": 32,
+      "success_rate": 100.0,
+      "pledged": 494739
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q3",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 185353
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q4",
+      "total": 57,
+      "success_rate": 100.0,
+      "pledged": 558062
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q1",
+      "total": 45,
+      "success_rate": 100.0,
+      "pledged": 400972
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q2",
+      "total": 56,
+      "success_rate": 100.0,
+      "pledged": 528069
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q3",
+      "total": 52,
+      "success_rate": 100.0,
+      "pledged": 550328
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q4",
+      "total": 152,
+      "success_rate": 80.3,
+      "pledged": 942563
+    },
+    {
+      "country": "ES",
+      "quarter": "2026-Q1",
+      "total": 203,
+      "success_rate": 68.5,
+      "pledged": 6481260
+    },
+    {
+      "country": "ES",
+      "quarter": "2026-Q2",
+      "total": 135,
+      "success_rate": 66.7,
+      "pledged": 287011
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q2",
+      "total": 6,
+      "success_rate": 100.0,
+      "pledged": 140770
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q3",
+      "total": 11,
+      "success_rate": 100.0,
+      "pledged": 60917
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q4",
+      "total": 17,
+      "success_rate": 100.0,
+      "pledged": 105136
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q1",
+      "total": 21,
+      "success_rate": 100.0,
+      "pledged": 567059
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q2",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 394541
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q3",
+      "total": 23,
+      "success_rate": 100.0,
+      "pledged": 174928
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q4",
+      "total": 31,
+      "success_rate": 100.0,
+      "pledged": 963608
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q1",
+      "total": 33,
+      "success_rate": 100.0,
+      "pledged": 3096798
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q2",
+      "total": 53,
+      "success_rate": 100.0,
+      "pledged": 1010854
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q3",
+      "total": 38,
+      "success_rate": 100.0,
+      "pledged": 569238
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q4",
+      "total": 130,
+      "success_rate": 81.5,
+      "pledged": 2463262
+    },
+    {
+      "country": "FR",
+      "quarter": "2026-Q1",
+      "total": 148,
+      "success_rate": 71.6,
+      "pledged": 1867484
+    },
+    {
+      "country": "FR",
+      "quarter": "2026-Q2",
+      "total": 124,
+      "success_rate": 71.4,
+      "pledged": 1330322
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q2",
+      "total": 22,
+      "success_rate": 100.0,
+      "pledged": 96034
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q3",
+      "total": 64,
+      "success_rate": 100.0,
+      "pledged": 489952
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q4",
+      "total": 80,
+      "success_rate": 100.0,
+      "pledged": 781620
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q1",
+      "total": 105,
+      "success_rate": 100.0,
+      "pledged": 848537
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q2",
+      "total": 162,
+      "success_rate": 100.0,
+      "pledged": 1682779
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q3",
+      "total": 147,
+      "success_rate": 100.0,
+      "pledged": 1258218
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q4",
+      "total": 186,
+      "success_rate": 100.0,
+      "pledged": 1950152
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q1",
+      "total": 184,
+      "success_rate": 100.0,
+      "pledged": 1609843
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q2",
+      "total": 266,
+      "success_rate": 100.0,
+      "pledged": 4991521
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q3",
+      "total": 274,
+      "success_rate": 100.0,
+      "pledged": 2978196
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q4",
+      "total": 535,
+      "success_rate": 81.1,
+      "pledged": 6839518
+    },
+    {
+      "country": "GB",
+      "quarter": "2026-Q1",
+      "total": 688,
+      "success_rate": 75.4,
+      "pledged": 5334642
+    },
+    {
+      "country": "GB",
+      "quarter": "2026-Q2",
+      "total": 529,
+      "success_rate": 71.2,
+      "pledged": 3475320
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 886840
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q3",
+      "total": 4,
+      "success_rate": 100.0,
+      "pledged": 232052
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q4",
+      "total": 10,
+      "success_rate": 100.0,
+      "pledged": 331415
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q1",
+      "total": 21,
+      "success_rate": 100.0,
+      "pledged": 22342429
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q2",
+      "total": 31,
+      "success_rate": 100.0,
+      "pledged": 15918428
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q3",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 5005480
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q4",
+      "total": 84,
+      "success_rate": 100.0,
+      "pledged": 61366213
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q1",
+      "total": 80,
+      "success_rate": 100.0,
+      "pledged": 24798507
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q2",
+      "total": 112,
+      "success_rate": 100.0,
+      "pledged": 65719352
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q3",
+      "total": 150,
+      "success_rate": 100.0,
+      "pledged": 138594643
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q4",
+      "total": 244,
+      "success_rate": 93.0,
+      "pledged": 351371244
+    },
+    {
+      "country": "HK",
+      "quarter": "2026-Q1",
+      "total": 312,
+      "success_rate": 88.5,
+      "pledged": 206906114
+    },
+    {
+      "country": "HK",
+      "quarter": "2026-Q2",
+      "total": 200,
+      "success_rate": 85.7,
+      "pledged": 31649381
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 264137
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q3",
+      "total": 4,
+      "success_rate": 100.0,
+      "pledged": 15280
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q4",
+      "total": 9,
+      "success_rate": 100.0,
+      "pledged": 27635
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q1",
+      "total": 14,
+      "success_rate": 100.0,
+      "pledged": 174775
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q2",
+      "total": 24,
+      "success_rate": 100.0,
+      "pledged": 987234
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q3",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 268379
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q4",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 422336
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q1",
+      "total": 33,
+      "success_rate": 100.0,
+      "pledged": 182355
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q2",
+      "total": 49,
+      "success_rate": 100.0,
+      "pledged": 846137
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q3",
+      "total": 41,
+      "success_rate": 100.0,
+      "pledged": 445129
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q4",
+      "total": 138,
+      "success_rate": 81.9,
+      "pledged": 2348658
+    },
+    {
+      "country": "IT",
+      "quarter": "2026-Q1",
+      "total": 173,
+      "success_rate": 61.3,
+      "pledged": 1616070
+    },
+    {
+      "country": "IT",
+      "quarter": "2026-Q2",
+      "total": 120,
+      "success_rate": 56.8,
+      "pledged": 215887
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 11856667
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q3",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 27360374
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q4",
+      "total": 10,
+      "success_rate": 100.0,
+      "pledged": 8337604
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q1",
+      "total": 18,
+      "success_rate": 100.0,
+      "pledged": 36158500
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q2",
+      "total": 24,
+      "success_rate": 100.0,
+      "pledged": 40108479
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q3",
+      "total": 34,
+      "success_rate": 100.0,
+      "pledged": 56412657
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q4",
+      "total": 36,
+      "success_rate": 100.0,
+      "pledged": 78372943
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q1",
+      "total": 43,
+      "success_rate": 100.0,
+      "pledged": 108600047
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q2",
+      "total": 62,
+      "success_rate": 100.0,
+      "pledged": 143463465
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q3",
+      "total": 76,
+      "success_rate": 100.0,
+      "pledged": 458035538
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q4",
+      "total": 95,
+      "success_rate": 87.4,
+      "pledged": 266048467
+    },
+    {
+      "country": "JP",
+      "quarter": "2026-Q1",
+      "total": 118,
+      "success_rate": 78.0,
+      "pledged": 320659569
+    },
+    {
+      "country": "JP",
+      "quarter": "2026-Q2",
+      "total": 83,
+      "success_rate": 88.0,
+      "pledged": 64575251
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q2",
+      "total": 134,
+      "success_rate": 100.0,
+      "pledged": 3008604
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q3",
+      "total": 267,
+      "success_rate": 100.0,
+      "pledged": 4531540
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q4",
+      "total": 347,
+      "success_rate": 100.0,
+      "pledged": 5096858
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q1",
+      "total": 394,
+      "success_rate": 100.0,
+      "pledged": 7912542
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q2",
+      "total": 577,
+      "success_rate": 100.0,
+      "pledged": 18817635
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q3",
+      "total": 527,
+      "success_rate": 100.0,
+      "pledged": 12941188
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q4",
+      "total": 874,
+      "success_rate": 100.0,
+      "pledged": 49519230
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q1",
+      "total": 655,
+      "success_rate": 100.0,
+      "pledged": 21805289
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q2",
+      "total": 1201,
+      "success_rate": 100.0,
+      "pledged": 38120332
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q3",
+      "total": 1398,
+      "success_rate": 100.0,
+      "pledged": 46071207
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q4",
+      "total": 2625,
+      "success_rate": 81.9,
+      "pledged": 79247119
+    },
+    {
+      "country": "US",
+      "quarter": "2026-Q1",
+      "total": 3302,
+      "success_rate": 69.3,
+      "pledged": 108083012
+    },
+    {
+      "country": "US",
+      "quarter": "2026-Q2",
+      "total": 2436,
+      "success_rate": 63.5,
+      "pledged": 71285759
+    }
+  ],
+  "reward_trend": [],
+  "staff_pick_trend": [
+    {
+      "month": "2023-04",
+      "total": 1,
+      "staff_pick": 1,
+      "sp_pct": 100.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": null
+    },
+    {
+      "month": "2023-05",
+      "total": 64,
+      "staff_pick": 14,
+      "sp_pct": 21.9,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-06",
+      "total": 148,
+      "staff_pick": 29,
+      "sp_pct": 19.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-07",
+      "total": 172,
+      "staff_pick": 34,
+      "sp_pct": 19.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-08",
+      "total": 149,
+      "staff_pick": 28,
+      "sp_pct": 18.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-09",
+      "total": 145,
+      "staff_pick": 38,
+      "sp_pct": 26.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-10",
+      "total": 188,
+      "staff_pick": 39,
+      "sp_pct": 20.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-11",
+      "total": 231,
+      "staff_pick": 62,
+      "sp_pct": 26.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-12",
+      "total": 181,
+      "staff_pick": 32,
+      "sp_pct": 17.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-01",
+      "total": 153,
+      "staff_pick": 33,
+      "sp_pct": 21.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-02",
+      "total": 237,
+      "staff_pick": 66,
+      "sp_pct": 27.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-03",
+      "total": 326,
+      "staff_pick": 72,
+      "sp_pct": 22.1,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-04",
+      "total": 376,
+      "staff_pick": 89,
+      "sp_pct": 23.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-05",
+      "total": 306,
+      "staff_pick": 75,
+      "sp_pct": 24.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-06",
+      "total": 378,
+      "staff_pick": 94,
+      "sp_pct": 24.9,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-07",
+      "total": 314,
+      "staff_pick": 62,
+      "sp_pct": 19.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-08",
+      "total": 378,
+      "staff_pick": 70,
+      "sp_pct": 18.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-09",
+      "total": 295,
+      "staff_pick": 59,
+      "sp_pct": 20.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-10",
+      "total": 485,
+      "staff_pick": 108,
+      "sp_pct": 22.3,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-11",
+      "total": 569,
+      "staff_pick": 152,
+      "sp_pct": 26.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-12",
+      "total": 557,
+      "staff_pick": 146,
+      "sp_pct": 26.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-01",
+      "total": 325,
+      "staff_pick": 70,
+      "sp_pct": 21.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-02",
+      "total": 444,
+      "staff_pick": 81,
+      "sp_pct": 18.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-03",
+      "total": 577,
+      "staff_pick": 130,
+      "sp_pct": 22.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-04",
+      "total": 633,
+      "staff_pick": 175,
+      "sp_pct": 27.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-05",
+      "total": 787,
+      "staff_pick": 217,
+      "sp_pct": 27.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-06",
+      "total": 704,
+      "staff_pick": 174,
+      "sp_pct": 24.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-07",
+      "total": 895,
+      "staff_pick": 218,
+      "sp_pct": 24.4,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-08",
+      "total": 753,
+      "staff_pick": 203,
+      "sp_pct": 27.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-09",
+      "total": 776,
+      "staff_pick": 181,
+      "sp_pct": 23.3,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-10",
+      "total": 997,
+      "staff_pick": 250,
+      "sp_pct": 25.1,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-11",
+      "total": 1736,
+      "staff_pick": 368,
+      "sp_pct": 21.2,
+      "sp_success_rate": 97.3,
+      "non_sp_success_rate": 84.8
+    },
+    {
+      "month": "2025-12",
+      "total": 2210,
+      "staff_pick": 348,
+      "sp_pct": 15.7,
+      "sp_success_rate": 93.7,
+      "non_sp_success_rate": 65.0
+    },
+    {
+      "month": "2026-01",
+      "total": 1659,
+      "staff_pick": 200,
+      "sp_pct": 12.1,
+      "sp_success_rate": 91.5,
+      "non_sp_success_rate": 61.3
+    },
+    {
+      "month": "2026-02",
+      "total": 1996,
+      "staff_pick": 284,
+      "sp_pct": 14.2,
+      "sp_success_rate": 94.7,
+      "non_sp_success_rate": 66.9
+    },
+    {
+      "month": "2026-03",
+      "total": 2582,
+      "staff_pick": 419,
+      "sp_pct": 16.2,
+      "sp_success_rate": 95.0,
+      "non_sp_success_rate": 69.9
+    },
+    {
+      "month": "2026-04",
+      "total": 2676,
+      "staff_pick": 413,
+      "sp_pct": 15.4,
+      "sp_success_rate": 94.6,
+      "non_sp_success_rate": 62.5
+    },
+    {
+      "month": "2026-05",
+      "total": 1650,
+      "staff_pick": 193,
+      "sp_pct": 11.7,
+      "sp_success_rate": null,
+      "non_sp_success_rate": 0.0
+    },
+    {
+      "month": "2026-06",
+      "total": 159,
+      "staff_pick": 8,
+      "sp_pct": 5.0,
+      "sp_success_rate": null,
+      "non_sp_success_rate": 0.0
+    }
+  ],
+  "superbacker_network": [
+    {
+      "author": "John O",
+      "max_backings": 1468,
+      "projects": 255,
+      "categories": 7,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Fashion": 3,
+        "Publishing": 1,
+        "Film & Video": 2
+      }
+    },
+    {
+      "author": "Sheldon Albertson",
+      "max_backings": 1538,
+      "projects": 126,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Marcus “Sleepy” Bledsoe",
+      "max_backings": 1020,
+      "projects": 88,
+      "categories": 1,
+      "category_counts": {
+        "Comics": 1
+      }
+    },
+    {
+      "author": "Chris",
+      "max_backings": 572,
+      "projects": 83,
+      "categories": 11,
+      "category_counts": {
+        "Art": 1,
+        "Food": 1,
+        "Games": 2,
+        "Music": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Publishing": 1,
+        "Technology": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Daniel",
+      "max_backings": 1842,
+      "projects": 82,
+      "categories": 8,
+      "category_counts": {
+        "Art": 1,
+        "Food": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Publishing": 2,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "David Roque",
+      "max_backings": 55,
+      "projects": 72,
+      "categories": 2,
+      "category_counts": {
+        "Design": 1,
+        "Fashion": 1
+      }
+    },
+    {
+      "author": "Alex",
+      "max_backings": 424,
+      "projects": 71,
+      "categories": 8,
+      "category_counts": {
+        "Art": 1,
+        "Food": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Joseph Valenzuela",
+      "max_backings": 1849,
+      "projects": 68,
+      "categories": 2,
+      "category_counts": {
+        "Games": 1,
+        "Comics": 1
+      }
+    },
+    {
+      "author": "Alberto Valdes",
+      "max_backings": 415,
+      "projects": 64,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 2,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "SK1",
+      "max_backings": 1177,
+      "projects": 64,
+      "categories": 3,
+      "category_counts": {
+        "Design": 1,
+        "Fashion": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Ray",
+      "max_backings": 4069,
+      "projects": 64,
+      "categories": 7,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Fashion": 2,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Kevin Black",
+      "max_backings": 235,
+      "projects": 64,
+      "categories": 4,
+      "category_counts": {
+        "Art": 2,
+        "Games": 1,
+        "Comics": 1,
+        "Publishing": 2
+      }
+    },
+    {
+      "author": "dominick jarvis",
+      "max_backings": 625,
+      "projects": 62,
+      "categories": 2,
+      "category_counts": {
+        "Comics": 1,
+        "Design": 1
+      }
+    },
+    {
+      "author": "Wilfried",
+      "max_backings": 221,
+      "projects": 60,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Comics": 3,
+        "Crafts": 1,
+        "Design": 1,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "Adam Hirshfield",
+      "max_backings": 298,
+      "projects": 57,
+      "categories": 3,
+      "category_counts": {
+        "Design": 1,
+        "Fashion": 4,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Josh",
+      "max_backings": 452,
+      "projects": 56,
+      "categories": 8,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Music": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Victor",
+      "max_backings": 644,
+      "projects": 54,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Design": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "David",
+      "max_backings": 1278,
+      "projects": 52,
+      "categories": 6,
+      "category_counts": {
+        "Food": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Technology": 2,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Penny Malis",
+      "max_backings": 216,
+      "projects": 52,
+      "categories": 4,
+      "category_counts": {
+        "Art": 3,
+        "Games": 1,
+        "Design": 1,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "Iain",
+      "max_backings": 703,
+      "projects": 51,
+      "categories": 8,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 2,
+        "Fashion": 1,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Michael",
+      "max_backings": 3324,
+      "projects": 50,
+      "categories": 7,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "andrew moores",
+      "max_backings": 2155,
+      "projects": 48,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Andrew Carver",
+      "max_backings": 341,
+      "projects": 47,
+      "categories": 3,
+      "category_counts": {
+        "Art": 1,
+        "Comics": 1,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "Allison",
+      "max_backings": 456,
+      "projects": 46,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 2,
+        "Design": 1,
+        "Fashion": 4
+      }
+    },
+    {
+      "author": "Axel Kallesøe",
+      "max_backings": 1326,
+      "projects": 46,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Publishing": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Courtland LaVallee",
+      "max_backings": 3050,
+      "projects": 46,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "K",
+      "max_backings": 995,
+      "projects": 46,
+      "categories": 7,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Robert",
+      "max_backings": 359,
+      "projects": 45,
+      "categories": 9,
+      "category_counts": {
+        "Art": 1,
+        "Food": 2,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Journalism": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Robman is Batin",
+      "max_backings": 841,
+      "projects": 44,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Design": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "BôƁ Backer",
+      "max_backings": 313,
+      "projects": 43,
+      "categories": 8,
+      "category_counts": {
+        "Art": 4,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 2,
+        "Design": 1,
+        "Fashion": 1,
+        "Publishing": 1,
+        "Technology": 2
+      }
+    },
+    {
+      "author": "Malkira",
+      "max_backings": 593,
+      "projects": 43,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Publishing": 1
+      }
+    },
+    {
+      "author": "M",
+      "max_backings": 204,
+      "projects": 43,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Iurii Kriazhev",
+      "max_backings": 707,
+      "projects": 41,
+      "categories": 6,
+      "category_counts": {
+        "Art": 1,
+        "Games": 2,
+        "Crafts": 1,
+        "Design": 4,
+        "Fashion": 2,
+        "Technology": 3
+      }
+    },
+    {
+      "author": "Sebastian",
+      "max_backings": 163,
+      "projects": 41,
+      "categories": 4,
+      "category_counts": {
+        "Comics": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Jimbro",
+      "max_backings": 1941,
+      "projects": 41,
+      "categories": 7,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 1,
+        "Fashion": 1,
+        "Publishing": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Paul McNamara",
+      "max_backings": 238,
+      "projects": 40,
+      "categories": 3,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1
+      }
+    },
+    {
+      "author": "Malcolm P",
+      "max_backings": 256,
+      "projects": 40,
+      "categories": 3,
+      "category_counts": {
+        "Food": 1,
+        "Design": 1,
+        "Technology": 2
+      }
+    },
+    {
+      "author": "Peter Braun",
+      "max_backings": 121,
+      "projects": 40,
+      "categories": 3,
+      "category_counts": {
+        "Games": 2,
+        "Design": 3,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Robert Clark",
+      "max_backings": 4289,
+      "projects": 40,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Publishing": 1,
+        "Photography": 1
+      }
+    },
+    {
+      "author": "Abby Braunsdorf",
+      "max_backings": 1082,
+      "projects": 39,
+      "categories": 5,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Publishing": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Kevin",
+      "max_backings": 3587,
+      "projects": 39,
+      "categories": 7,
+      "category_counts": {
+        "Art": 2,
+        "Food": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1,
+        "Fashion": 2,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Joe W",
+      "max_backings": 285,
+      "projects": 39,
+      "categories": 5,
+      "category_counts": {
+        "Games": 1,
+        "Crafts": 2,
+        "Design": 1,
+        "Publishing": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Abdullah",
+      "max_backings": 352,
+      "projects": 38,
+      "categories": 5,
+      "category_counts": {
+        "Food": 1,
+        "Design": 1,
+        "Fashion": 1,
+        "Technology": 1,
+        "Photography": 1
+      }
+    },
+    {
+      "author": "Joseph",
+      "max_backings": 387,
+      "projects": 38,
+      "categories": 7,
+      "category_counts": {
+        "Games": 1,
+        "Comics": 1,
+        "Crafts": 2,
+        "Design": 1,
+        "Publishing": 1,
+        "Technology": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "C.A.L. Picorikirby",
+      "max_backings": 371,
+      "projects": 38,
+      "categories": 6,
+      "category_counts": {
+        "Art": 1,
+        "Games": 2,
+        "Comics": 2,
+        "Design": 1,
+        "Fashion": 1,
+        "Film & Video": 1
+      }
+    },
+    {
+      "author": "Harm Beltman",
+      "max_backings": 397,
+      "projects": 37,
+      "categories": 3,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Music": 2
+      }
+    },
+    {
+      "author": "Adam",
+      "max_backings": 1271,
+      "projects": 37,
+      "categories": 6,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 2,
+        "Fashion": 1,
+        "Technology": 1
+      }
+    },
+    {
+      "author": "Thomas Layden",
+      "max_backings": 239,
+      "projects": 37,
+      "categories": 3,
+      "category_counts": {
+        "Crafts": 1,
+        "Design": 2,
+        "Technology": 5
+      }
+    },
+    {
+      "author": "William De Micheli",
+      "max_backings": 1678,
+      "projects": 37,
+      "categories": 1,
+      "category_counts": {
+        "Comics": 1
+      }
+    },
+    {
+      "author": "Ezekiel Zhong-Han Azib",
+      "max_backings": 1856,
+      "projects": 36,
+      "categories": 4,
+      "category_counts": {
+        "Art": 1,
+        "Games": 1,
+        "Comics": 1,
+        "Design": 1
+      }
+    }
+  ],
+  "category_chord": [
+    {
+      "from_cat": "Design",
+      "to_cat": "Technology",
+      "shared_authors": 976
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Games",
+      "shared_authors": 646
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Games",
+      "shared_authors": 567
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Fashion",
+      "shared_authors": 557
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Games",
+      "shared_authors": 421
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Design",
+      "shared_authors": 416
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Fashion",
+      "shared_authors": 353
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Technology",
+      "shared_authors": 323
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Comics",
+      "shared_authors": 309
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Design",
+      "shared_authors": 303
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Publishing",
+      "shared_authors": 263
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Technology",
+      "shared_authors": 240
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Publishing",
+      "shared_authors": 229
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Games",
+      "shared_authors": 225
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Publishing",
+      "shared_authors": 204
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Publishing",
+      "shared_authors": 190
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Design",
+      "shared_authors": 187
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Food",
+      "shared_authors": 160
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Technology",
+      "shared_authors": 152
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Technology",
+      "shared_authors": 148
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Fashion",
+      "shared_authors": 143
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Fashion",
+      "shared_authors": 120
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Crafts",
+      "shared_authors": 107
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Games",
+      "shared_authors": 102
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Games",
+      "shared_authors": 100
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Film & Video",
+      "shared_authors": 97
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Games",
+      "shared_authors": 96
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Technology",
+      "shared_authors": 95
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Publishing",
+      "shared_authors": 94
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Food",
+      "shared_authors": 89
+    },
+    {
+      "from_cat": "Publishing",
+      "to_cat": "Technology",
+      "shared_authors": 83
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Technology",
+      "shared_authors": 70
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Food",
+      "shared_authors": 69
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Film & Video",
+      "shared_authors": 61
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Crafts",
+      "shared_authors": 57
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Film & Video",
+      "shared_authors": 52
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Food",
+      "shared_authors": 52
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Food",
+      "shared_authors": 52
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Publishing",
+      "shared_authors": 50
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Publishing",
+      "shared_authors": 46
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Music",
+      "shared_authors": 39
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Film & Video",
+      "shared_authors": 38
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Music",
+      "shared_authors": 37
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Publishing",
+      "shared_authors": 36
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Music",
+      "shared_authors": 33
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Photography",
+      "shared_authors": 31
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Technology",
+      "shared_authors": 31
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Photography",
+      "shared_authors": 27
+    },
+    {
+      "from_cat": "Music",
+      "to_cat": "Publishing",
+      "shared_authors": 25
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Music",
+      "shared_authors": 25
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Photography",
+      "shared_authors": 24
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Photography",
+      "shared_authors": 23
+    },
+    {
+      "from_cat": "Music",
+      "to_cat": "Technology",
+      "shared_authors": 23
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Music",
+      "shared_authors": 19
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Music",
+      "shared_authors": 17
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Food",
+      "shared_authors": 17
+    },
+    {
+      "from_cat": "Photography",
+      "to_cat": "Publishing",
+      "shared_authors": 16
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Photography",
+      "shared_authors": 16
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Film & Video",
+      "shared_authors": 15
+    },
+    {
+      "from_cat": "Photography",
+      "to_cat": "Technology",
+      "shared_authors": 14
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Journalism",
+      "shared_authors": 13
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Music",
+      "shared_authors": 12
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Photography",
+      "shared_authors": 11
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Journalism",
+      "shared_authors": 11
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Journalism",
+      "shared_authors": 10
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Music",
+      "shared_authors": 7
+    },
+    {
+      "from_cat": "Journalism",
+      "to_cat": "Publishing",
+      "shared_authors": 7
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Photography",
+      "shared_authors": 7
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Journalism",
+      "shared_authors": 6
+    },
+    {
+      "from_cat": "Journalism",
+      "to_cat": "Technology",
+      "shared_authors": 6
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Photography",
+      "shared_authors": 5
+    },
+    {
+      "from_cat": "Fashion",
+      "to_cat": "Journalism",
+      "shared_authors": 5
+    },
+    {
+      "from_cat": "Design",
+      "to_cat": "Theater",
+      "shared_authors": 4
+    },
+    {
+      "from_cat": "Journalism",
+      "to_cat": "Music",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Journalism",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Journalism",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Games",
+      "to_cat": "Theater",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Art",
+      "to_cat": "Theater",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Crafts",
+      "to_cat": "Journalism",
+      "shared_authors": 3
+    },
+    {
+      "from_cat": "Technology",
+      "to_cat": "Theater",
+      "shared_authors": 2
+    },
+    {
+      "from_cat": "Comics",
+      "to_cat": "Theater",
+      "shared_authors": 2
+    },
+    {
+      "from_cat": "Music",
+      "to_cat": "Photography",
+      "shared_authors": 2
+    },
+    {
+      "from_cat": "Food",
+      "to_cat": "Theater",
+      "shared_authors": 1
+    },
+    {
+      "from_cat": "Publishing",
+      "to_cat": "Theater",
+      "shared_authors": 1
+    },
+    {
+      "from_cat": "Film & Video",
+      "to_cat": "Theater",
+      "shared_authors": 1
+    }
+  ],
+  "duration_trend": [
+    {
+      "month": "2023-04",
+      "avg_duration": 10.0,
+      "avg_success_duration": 10.0
+    },
+    {
+      "month": "2023-05",
+      "avg_duration": 23.8,
+      "avg_success_duration": 23.8
+    },
+    {
+      "month": "2023-06",
+      "avg_duration": 29.9,
+      "avg_success_duration": 29.9
+    },
+    {
+      "month": "2023-07",
+      "avg_duration": 29.9,
+      "avg_success_duration": 29.9
+    },
+    {
+      "month": "2023-08",
+      "avg_duration": 30.5,
+      "avg_success_duration": 30.5
+    },
+    {
+      "month": "2023-09",
+      "avg_duration": 30.6,
+      "avg_success_duration": 30.6
+    },
+    {
+      "month": "2023-10",
+      "avg_duration": 31.0,
+      "avg_success_duration": 31.0
+    },
+    {
+      "month": "2023-11",
+      "avg_duration": 29.6,
+      "avg_success_duration": 29.6
+    },
+    {
+      "month": "2023-12",
+      "avg_duration": 32.9,
+      "avg_success_duration": 32.9
+    },
+    {
+      "month": "2024-01",
+      "avg_duration": 33.4,
+      "avg_success_duration": 33.4
+    },
+    {
+      "month": "2024-02",
+      "avg_duration": 30.8,
+      "avg_success_duration": 30.8
+    },
+    {
+      "month": "2024-03",
+      "avg_duration": 30.7,
+      "avg_success_duration": 30.7
+    },
+    {
+      "month": "2024-04",
+      "avg_duration": 31.3,
+      "avg_success_duration": 31.3
+    },
+    {
+      "month": "2024-05",
+      "avg_duration": 29.8,
+      "avg_success_duration": 29.8
+    },
+    {
+      "month": "2024-06",
+      "avg_duration": 28.9,
+      "avg_success_duration": 28.9
+    },
+    {
+      "month": "2024-07",
+      "avg_duration": 29.3,
+      "avg_success_duration": 29.3
+    },
+    {
+      "month": "2024-08",
+      "avg_duration": 27.7,
+      "avg_success_duration": 27.7
+    },
+    {
+      "month": "2024-09",
+      "avg_duration": 28.7,
+      "avg_success_duration": 28.7
+    },
+    {
+      "month": "2024-10",
+      "avg_duration": 27.5,
+      "avg_success_duration": 27.5
+    },
+    {
+      "month": "2024-11",
+      "avg_duration": 29.7,
+      "avg_success_duration": 29.7
+    },
+    {
+      "month": "2024-12",
+      "avg_duration": 29.3,
+      "avg_success_duration": 29.3
+    },
+    {
+      "month": "2025-01",
+      "avg_duration": 30.7,
+      "avg_success_duration": 30.7
+    },
+    {
+      "month": "2025-02",
+      "avg_duration": 28.6,
+      "avg_success_duration": 28.6
+    },
+    {
+      "month": "2025-03",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-04",
+      "avg_duration": 29.2,
+      "avg_success_duration": 29.2
+    },
+    {
+      "month": "2025-05",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-06",
+      "avg_duration": 28.2,
+      "avg_success_duration": 28.2
+    },
+    {
+      "month": "2025-07",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-08",
+      "avg_duration": 28.9,
+      "avg_success_duration": 28.9
+    },
+    {
+      "month": "2025-09",
+      "avg_duration": 27.1,
+      "avg_success_duration": 27.1
+    },
+    {
+      "month": "2025-10",
+      "avg_duration": 27.6,
+      "avg_success_duration": 27.6
+    },
+    {
+      "month": "2025-11",
+      "avg_duration": 25.8,
+      "avg_success_duration": 25.8
+    },
+    {
+      "month": "2025-12",
+      "avg_duration": 30.0,
+      "avg_success_duration": 28.2
+    },
+    {
+      "month": "2026-01",
+      "avg_duration": 33.1,
+      "avg_success_duration": 29.6
+    },
+    {
+      "month": "2026-02",
+      "avg_duration": 29.4,
+      "avg_success_duration": 26.2
+    },
+    {
+      "month": "2026-03",
+      "avg_duration": 30.1,
+      "avg_success_duration": 27.3
+    },
+    {
+      "month": "2026-04",
+      "avg_duration": 31.1,
+      "avg_success_duration": 27.7
+    },
+    {
+      "month": "2026-05",
+      "avg_duration": 38.2,
+      "avg_success_duration": null
+    },
+    {
+      "month": "2026-06",
+      "avg_duration": 59.0,
+      "avg_success_duration": null
+    }
+  ],
+  "ai_trend": [
+    {
+      "month": "2024-01",
+      "total": 153,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-02",
+      "total": 237,
+      "ai_involved": 1,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2024-03",
+      "total": 326,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-04",
+      "total": 376,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-05",
+      "total": 306,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-06",
+      "total": 378,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-07",
+      "total": 314,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-08",
+      "total": 378,
+      "ai_involved": 1,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2024-09",
+      "total": 295,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-10",
+      "total": 485,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-11",
+      "total": 569,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2024-12",
+      "total": 557,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-01",
+      "total": 325,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-02",
+      "total": 444,
+      "ai_involved": 3,
+      "ai_pct": 0.7
+    },
+    {
+      "month": "2025-03",
+      "total": 577,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-04",
+      "total": 633,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-05",
+      "total": 787,
+      "ai_involved": 2,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2025-06",
+      "total": 704,
+      "ai_involved": 1,
+      "ai_pct": 0.1
+    },
+    {
+      "month": "2025-07",
+      "total": 895,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-08",
+      "total": 753,
+      "ai_involved": 3,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2025-09",
+      "total": 776,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-10",
+      "total": 997,
+      "ai_involved": 4,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2025-11",
+      "total": 1736,
+      "ai_involved": 6,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2025-12",
+      "total": 2210,
+      "ai_involved": 22,
+      "ai_pct": 1.0
+    },
+    {
+      "month": "2026-01",
+      "total": 1659,
+      "ai_involved": 16,
+      "ai_pct": 1.0
+    },
+    {
+      "month": "2026-02",
+      "total": 1996,
+      "ai_involved": 17,
+      "ai_pct": 0.9
+    },
+    {
+      "month": "2026-03",
+      "total": 2582,
+      "ai_involved": 22,
+      "ai_pct": 0.9
+    },
+    {
+      "month": "2026-04",
+      "total": 2676,
+      "ai_involved": 21,
+      "ai_pct": 0.8
+    },
+    {
+      "month": "2026-05",
+      "total": 1650,
+      "ai_involved": 12,
+      "ai_pct": 0.7
+    },
+    {
+      "month": "2026-06",
+      "total": 159,
+      "ai_involved": 4,
+      "ai_pct": 2.5
+    }
+  ]
+}
