@@ -1243,63 +1243,63 @@
   "factors": [
     {
       "name": "story_images",
-      "delta": 0
+      "delta": 55.0
     },
     {
       "name": "sb_total_backings",
-      "delta": 0
+      "delta": 23.7
     },
     {
       "name": "updates_total",
-      "delta": 0
+      "delta": 18.6
     },
     {
       "name": "log_goal",
-      "delta": 0
+      "delta": 15.5
     },
     {
       "name": "comments_count",
-      "delta": 0
+      "delta": 13.4
     },
     {
       "name": "is_pwl",
-      "delta": 0
+      "delta": 11.2
     },
     {
       "name": "cat_Film & Video",
-      "delta": 0
+      "delta": 10.5
     },
     {
       "name": "story_length",
-      "delta": 0
+      "delta": 10.2
     },
     {
       "name": "cur_HKD",
-      "delta": 0
+      "delta": 9.8
     },
     {
       "name": "staff_pick",
-      "delta": 0
+      "delta": 9.2
     },
     {
       "name": "duration",
-      "delta": 0
+      "delta": 8.8
     },
     {
       "name": "co_HK",
-      "delta": 0
+      "delta": 8.7
     },
     {
       "name": "has_video",
-      "delta": 0
+      "delta": 6.3
     },
     {
       "name": "sb_comment_count",
-      "delta": 0
+      "delta": 6.1
     },
     {
       "name": "co_JP",
-      "delta": 0
+      "delta": 6.0
     }
   ],
   "categories_array": [
