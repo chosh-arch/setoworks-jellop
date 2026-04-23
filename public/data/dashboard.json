@@ -46,7 +46,1263 @@
       "AUD": 12952337.480000006
     }
   },
-  "categories": [
+  "categories": {
+    "Games": {
+      "count": 4286,
+      "success": 3871,
+      "success_rate": 90.3,
+      "avg_pledged": 36224,
+      "avg_backers": 365,
+      "pledged_usd": 140221986,
+      "subcategories": []
+    },
+    "Comics": {
+      "count": 3370,
+      "success": 3283,
+      "success_rate": 97.4,
+      "avg_pledged": 15200,
+      "avg_backers": 232,
+      "pledged_usd": 49902619,
+      "subcategories": []
+    },
+    "Art": {
+      "count": 2755,
+      "success": 2558,
+      "success_rate": 92.8,
+      "avg_pledged": 9829,
+      "avg_backers": 117,
+      "pledged_usd": 25141830,
+      "subcategories": []
+    },
+    "Design": {
+      "count": 2728,
+      "success": 2483,
+      "success_rate": 91.0,
+      "avg_pledged": 66421,
+      "avg_backers": 397,
+      "pledged_usd": 164923412,
+      "subcategories": []
+    },
+    "Film & Video": {
+      "count": 2287,
+      "success": 1682,
+      "success_rate": 73.5,
+      "avg_pledged": 19397,
+      "avg_backers": 165,
+      "pledged_usd": 32626408,
+      "subcategories": []
+    },
+    "Publishing": {
+      "count": 2004,
+      "success": 1574,
+      "success_rate": 78.5,
+      "avg_pledged": 18546,
+      "avg_backers": 182,
+      "pledged_usd": 29191540,
+      "subcategories": []
+    },
+    "Fashion": {
+      "count": 1708,
+      "success": 1499,
+      "success_rate": 87.8,
+      "avg_pledged": 16444,
+      "avg_backers": 126,
+      "pledged_usd": 24649039,
+      "subcategories": []
+    },
+    "Technology": {
+      "count": 1567,
+      "success": 1106,
+      "success_rate": 70.6,
+      "avg_pledged": 215554,
+      "avg_backers": 595,
+      "pledged_usd": 238403063,
+      "subcategories": []
+    },
+    "Music": {
+      "count": 1037,
+      "success": 871,
+      "success_rate": 84.0,
+      "avg_pledged": 12403,
+      "avg_backers": 127,
+      "pledged_usd": 10802756,
+      "subcategories": []
+    },
+    "Food": {
+      "count": 874,
+      "success": 621,
+      "success_rate": 71.1,
+      "avg_pledged": 20011,
+      "avg_backers": 156,
+      "pledged_usd": 12426830,
+      "subcategories": []
+    },
+    "Unknown": {
+      "count": 540,
+      "success": 507,
+      "success_rate": 93.9,
+      "avg_pledged": 20515,
+      "avg_backers": 171,
+      "pledged_usd": 10401279,
+      "subcategories": []
+    },
+    "Crafts": {
+      "count": 524,
+      "success": 409,
+      "success_rate": 78.1,
+      "avg_pledged": 8094,
+      "avg_backers": 69,
+      "pledged_usd": 3310523,
+      "subcategories": []
+    },
+    "Photography": {
+      "count": 427,
+      "success": 378,
+      "success_rate": 88.5,
+      "avg_pledged": 9319,
+      "avg_backers": 93,
+      "pledged_usd": 3522463,
+      "subcategories": []
+    },
+    "Theater": {
+      "count": 229,
+      "success": 195,
+      "success_rate": 85.2,
+      "avg_pledged": 11229,
+      "avg_backers": 87,
+      "pledged_usd": 2189624,
+      "subcategories": []
+    },
+    "Journalism": {
+      "count": 93,
+      "success": 54,
+      "success_rate": 58.1,
+      "avg_pledged": 17198,
+      "avg_backers": 242,
+      "pledged_usd": 928700,
+      "subcategories": []
+    },
+    "Dance": {
+      "count": 90,
+      "success": 75,
+      "success_rate": 83.3,
+      "avg_pledged": 6780,
+      "avg_backers": 47,
+      "pledged_usd": 508503,
+      "subcategories": []
+    }
+  },
+  "goal_vs_success": [
+    {
+      "label": "<$1K",
+      "total": 7810,
+      "success": 7481,
+      "success_rate": 95.78745198463508
+    },
+    {
+      "label": "$1-5K",
+      "total": 8332,
+      "success": 7428,
+      "success_rate": 89.15026404224676
+    },
+    {
+      "label": "$5-10K",
+      "total": 3573,
+      "success": 2913,
+      "success_rate": 81.5281276238455
+    },
+    {
+      "label": "$10-25K",
+      "total": 3047,
+      "success": 2328,
+      "success_rate": 76.40301936330816
+    },
+    {
+      "label": "$25-50K",
+      "total": 1096,
+      "success": 685,
+      "success_rate": 62.5
+    },
+    {
+      "label": "$50-100K",
+      "total": 465,
+      "success": 247,
+      "success_rate": 53.118279569892465
+    },
+    {
+      "label": "$100-500K",
+      "total": 163,
+      "success": 74,
+      "success_rate": 45.39877300613497
+    },
+    {
+      "label": "$500K+",
+      "total": 24,
+      "success": 4,
+      "success_rate": 16.666666666666664
+    }
+  ],
+  "duration_vs_success": [
+    {
+      "label": "≤7d",
+      "total": 579,
+      "success": 555,
+      "success_rate": 95.85492227979275
+    },
+    {
+      "label": "8-14d",
+      "total": 1934,
+      "success": 1851,
+      "success_rate": 95.70837642192348
+    },
+    {
+      "label": "15-21d",
+      "total": 3542,
+      "success": 3343,
+      "success_rate": 94.38170525127046
+    },
+    {
+      "label": "22-30d",
+      "total": 12391,
+      "success": 10695,
+      "success_rate": 86.31264627552255
+    },
+    {
+      "label": "31-45d",
+      "total": 3841,
+      "success": 3283,
+      "success_rate": 85.4725331944806
+    },
+    {
+      "label": "45d+",
+      "total": 2232,
+      "success": 1439,
+      "success_rate": 64.47132616487455
+    }
+  ],
+  "countries": {
+    "US": {
+      "count": 13257,
+      "success": 11419,
+      "success_rate": 86.1,
+      "pledged_usd": 466440314
+    },
+    "GB": {
+      "count": 2928,
+      "success": 2596,
+      "success_rate": 88.7,
+      "pledged_usd": 40743778
+    },
+    "CA": {
+      "count": 1320,
+      "success": 1132,
+      "success_rate": 85.8,
+      "pledged_usd": 30225073
+    },
+    "HK": {
+      "count": 1156,
+      "success": 1091,
+      "success_rate": 94.4,
+      "pledged_usd": 118415629
+    },
+    "ES": {
+      "count": 727,
+      "success": 613,
+      "success_rate": 84.3,
+      "pledged_usd": 12110921
+    },
+    "DE": {
+      "count": 670,
+      "success": 514,
+      "success_rate": 76.7,
+      "pledged_usd": 10528621
+    },
+    "AU": {
+      "count": 668,
+      "success": 567,
+      "success_rate": 84.9,
+      "pledged_usd": 8446762
+    },
+    "FR": {
+      "count": 583,
+      "success": 501,
+      "success_rate": 85.9,
+      "pledged_usd": 13764510
+    },
+    "IT": {
+      "count": 576,
+      "success": 468,
+      "success_rate": 81.2,
+      "pledged_usd": 8439133
+    },
+    "JP": {
+      "count": 562,
+      "success": 521,
+      "success_rate": 92.7,
+      "pledged_usd": 11015929
+    },
+    "MX": {
+      "count": 383,
+      "success": 309,
+      "success_rate": 80.7,
+      "pledged_usd": 1185263
+    },
+    "PL": {
+      "count": 336,
+      "success": 294,
+      "success_rate": 87.5,
+      "pledged_usd": 3612082
+    },
+    "GR": {
+      "count": 208,
+      "success": 197,
+      "success_rate": 94.7,
+      "pledged_usd": 1276940
+    },
+    "NL": {
+      "count": 208,
+      "success": 174,
+      "success_rate": 83.7,
+      "pledged_usd": 5242358
+    },
+    "SG": {
+      "count": 181,
+      "success": 157,
+      "success_rate": 86.7,
+      "pledged_usd": 3027026
+    },
+    "SE": {
+      "count": 151,
+      "success": 128,
+      "success_rate": 84.8,
+      "pledged_usd": 1971714
+    },
+    "CH": {
+      "count": 97,
+      "success": 69,
+      "success_rate": 71.1,
+      "pledged_usd": 4043365
+    },
+    "BE": {
+      "count": 96,
+      "success": 75,
+      "success_rate": 78.1,
+      "pledged_usd": 980414
+    },
+    "NZ": {
+      "count": 95,
+      "success": 79,
+      "success_rate": 83.2,
+      "pledged_usd": 1551839
+    },
+    "IE": {
+      "count": 92,
+      "success": 77,
+      "success_rate": 83.7,
+      "pledged_usd": 1719344
+    }
+  },
+  "currency_dist": {
+    "JPY": 1697810924.0,
+    "HKD": 978856864.0,
+    "USD": 506733756.4799999,
+    "EUR": 63805603.18,
+    "CAD": 40061833.27999996,
+    "GBP": 34004078.39,
+    "MXN": 21014801.890000008,
+    "AUD": 13276825.480000006,
+    "SEK": 10481358.130000003,
+    "DKK": 4261028.68
+  },
+  "staff_pick": {
+    "pwl_total": 4898,
+    "pwl_success": 4798,
+    "pwl_success_rate": 97.95835034708044,
+    "non_pwl_total": 19621,
+    "non_pwl_success": 16368,
+    "non_pwl_success_rate": 83.42082462667551,
+    "gap": 14.537525720404929,
+    "yes_rate": 98.0,
+    "no_rate": 83.4,
+    "yes_count": 4798,
+    "no_count": 16368
+  },
+  "achievement_dist": [
+    {
+      "label": "<50%",
+      "count": 3153
+    },
+    {
+      "label": "50-99%",
+      "count": 177
+    },
+    {
+      "label": "100-199%",
+      "count": 9632
+    },
+    {
+      "label": "200-499%",
+      "count": 4812
+    },
+    {
+      "label": "500-999%",
+      "count": 2797
+    },
+    {
+      "label": "1000%+",
+      "count": 3939
+    }
+  ],
+  "failure_profile": {
+    "count": 2816,
+    "avg_achievement": 10.937810945273633,
+    "median_achievement": 2.0,
+    "under_10pct": 1939,
+    "under_25pct": 2353,
+    "under_50pct": 2661,
+    "fail_count": 2816,
+    "success_count": 21166,
+    "fail_avg_goal": 38673,
+    "success_avg_goal": 5671,
+    "fail_avg_backers": 13,
+    "success_avg_backers": 249
+  },
+  "price_distribution": [
+    {
+      "label": "<$10",
+      "count": 15510
+    },
+    {
+      "label": "$10-24",
+      "count": 37064
+    },
+    {
+      "label": "$25-49",
+      "count": 43856
+    },
+    {
+      "label": "$50-99",
+      "count": 43292
+    },
+    {
+      "label": "$100-249",
+      "count": 39470
+    },
+    {
+      "label": "$250-499",
+      "count": 17089
+    },
+    {
+      "label": "$500-999",
+      "count": 10238
+    },
+    {
+      "label": "$1000+",
+      "count": 10913
+    }
+  ],
+  "backer_threshold": [
+    {
+      "label": "0",
+      "total": 476,
+      "success": 6,
+      "success_rate": 1.2605042016806722
+    },
+    {
+      "label": "1-9",
+      "total": 3041,
+      "success": 1052,
+      "success_rate": 34.593883590924044
+    },
+    {
+      "label": "10-49",
+      "total": 7688,
+      "success": 6932,
+      "success_rate": 90.16649323621228
+    },
+    {
+      "label": "50-99",
+      "total": 4527,
+      "success": 4421,
+      "success_rate": 97.65849348354318
+    },
+    {
+      "label": "100-499",
+      "total": 6782,
+      "success": 6753,
+      "success_rate": 99.57239752285462
+    },
+    {
+      "label": "500-999",
+      "total": 1124,
+      "success": 1122,
+      "success_rate": 99.8220640569395
+    },
+    {
+      "label": "1K-5K",
+      "total": 778,
+      "success": 777,
+      "success_rate": 99.87146529562982
+    },
+    {
+      "label": "5K+",
+      "total": 103,
+      "success": 103,
+      "success_rate": 100.0
+    }
+  ],
+  "reward_vs_success": [
+    {
+      "label": "0",
+      "total": 34,
+      "success": 6,
+      "success_rate": 17.647058823529413
+    },
+    {
+      "label": "1-3",
+      "total": 3975,
+      "success": 2995,
+      "success_rate": 75.34591194968554
+    },
+    {
+      "label": "4-6",
+      "total": 8185,
+      "success": 6941,
+      "success_rate": 84.80146609651801
+    },
+    {
+      "label": "7-10",
+      "total": 7009,
+      "success": 6181,
+      "success_rate": 88.18661720644884
+    },
+    {
+      "label": "11-15",
+      "total": 3169,
+      "success": 2972,
+      "success_rate": 93.78352792679078
+    },
+    {
+      "label": "16+",
+      "total": 2147,
+      "success": 2071,
+      "success_rate": 96.46017699115043
+    }
+  ],
+  "price_stats": [],
+  "rankings": {
+    "pledged": [
+      {
+        "name": "The Official Cyberpunk Trading Card Game",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/cyberpunktcg/the-official-cyberpunk-trading-card-game",
+        "pledged_usd": 27530539,
+        "backers": 49035,
+        "pf": 27530.0
+      },
+      {
+        "name": "AWOL Vision Aetherion: Pixel-Clarity RGB Laser UST Projector",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/awolvision/awol-vision-aetherion-pixel-clarity-rgb-laser-ust-projector",
+        "pledged_usd": 18649456,
+        "backers": 7050,
+        "pf": 3729.0
+      },
+      {
+        "name": "NestWorks C500 - Next-Gen Smartest CNC with Industrial Power",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/959480926/nestworks-c500-next-gen-smartest-cnc-with-industrial-power",
+        "pledged_usd": 12458180,
+        "backers": 3328,
+        "pf": 25044.0
+      },
+      {
+        "name": "Makera Z1 Desktop CNC: Entry-level CNC, Pro-level Power",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/makera-inc/makera-z1-entry-level-cnc-pro-level-power",
+        "pledged_usd": 11907026,
+        "backers": 8009,
+        "pf": 11975.0
+      },
+      {
+        "name": "The Smith Blade (21-in-1 Titanium Multi-Tool)",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/hacksmith/the-smith-blade-21-in-1-titanium-multi-tool",
+        "pledged_usd": 11369497,
+        "backers": 38323,
+        "pf": 6145.0
+      },
+      {
+        "name": "Valerion VisionMaster: Cinematic-Grade RGB Laser Projector",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/valerionvisionmaster/valerion-visionmaster-cinematic-grade-rgb-laser-projector",
+        "pledged_usd": 10921452,
+        "backers": 4824,
+        "pf": 21842.0
+      },
+      {
+        "name": "LiberNovo Omni - World's First Dynamic Ergonomic Chair",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/libernovo/libernovo-omni-worlds-first-dynamic-ergonomic-chair",
+        "pledged_usd": 10235738,
+        "backers": 11620,
+        "pf": 20406.0
+      },
+      {
+        "name": "Slay the Spire: The Board Game - Downfall",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/contentiongames/sts-downfall",
+        "pledged_usd": 7624941,
+        "backers": 38134,
+        "pf": 15249.0
+      },
+      {
+        "name": "Lymow One｜Boundary-Free Robot Mower for Any Terrain and Size",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/lymowone/lymow-one-boundary-free-robot-mower-for-any-terrain-and-size",
+        "pledged_usd": 7488321,
+        "backers": 3415,
+        "pf": 24961.0
+      },
+      {
+        "name": "FibreSeeker 3-the First Consumer Continuous Fibre 3D Printer",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/1763117873/fibreseeker-3-the-first-personal-continuous-fibre-3d-printer",
+        "pledged_usd": 4698825,
+        "backers": 1539,
+        "pf": 9397.0
+      },
+      {
+        "name": "Pro Tripod by Peak Design",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/peak-design/pro-tripod-by-peak-design",
+        "pledged_usd": 4626123,
+        "backers": 5533,
+        "pf": 4626.0
+      },
+      {
+        "name": "Heliana & Ryoko's Guide to Mythozoology",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/dndshorts/ryoko-and-helianas-guide-to-mythozoology",
+        "pledged_usd": 4360638,
+        "backers": 18220,
+        "pf": 17442.0
+      },
+      {
+        "name": "Longer ePrint: the World's 1st Dual-head Personal UV Printer",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/longer3d/longer-eprint-the-worlds-1st-dual-head-personal-uv-printer",
+        "pledged_usd": 4239840,
+        "backers": 1599,
+        "pf": 8479.0
+      },
+      {
+        "name": "FluxPose: An occlusion free 6DOF FBT tracking system",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/fluxpose/fluxpose-an-occlusion-free-6dof-fbt-tracking-system",
+        "pledged_usd": 4085959,
+        "backers": 5099,
+        "pf": 1891.0
+      },
+      {
+        "name": "Circular Ring 2: World’s Most Advanced Health Tracking Ring",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/circular-ring/circular-ring-2-worlds-most-advanced-health-tracking-ring",
+        "pledged_usd": 4078500,
+        "backers": 13695,
+        "pf": 40785.0
+      },
+      {
+        "name": "Rokid Glasses, World's Lightest Full-function AI&AR Glasses",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/rokid/new-rokid-glassesworlds-lighest-full-function-ai-glasses",
+        "pledged_usd": 4013546,
+        "backers": 5875,
+        "pf": 20099.0
+      },
+      {
+        "name": "Halliday: #1st Proactive AI Glasses with Invisible Display",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/halliday-ai-glasses/halliday-proactive-ai-glasses-with-invisible-display",
+        "pledged_usd": 3305917,
+        "backers": 8023,
+        "pf": 16529.0
+      },
+      {
+        "name": "Night Storm X3: Native 4K Full-Color in Pitch-Black at 1500m",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/night-vision/night-storm-x3-native-4k-full-color-in-pitch-black-at-1500m",
+        "pledged_usd": 3242770,
+        "backers": 5867,
+        "pf": 32427.0
+      },
+      {
+        "name": "Kode Dot: The All-In-One Device for Makers, Hackers & Geeks",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/kode/kode-dot-the-all-in-one-pocket-size-maker-device",
+        "pledged_usd": 3125516,
+        "backers": 15079,
+        "pf": 62510.0
+      },
+      {
+        "name": "Tiiny AI Pocket Lab: The First Pocket-Size AI Supercomputer",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/tiinyai/tiiny-ai-pocket-lab",
+        "pledged_usd": 3069202,
+        "backers": 2181,
+        "pf": 30692.0
+      }
+    ],
+    "backers": [
+      {
+        "name": "The Official Cyberpunk Trading Card Game",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/cyberpunktcg/the-official-cyberpunk-trading-card-game",
+        "pledged_usd": 27530539,
+        "backers": 49035,
+        "pf": 27530.0
+      },
+      {
+        "name": "The Smith Blade (21-in-1 Titanium Multi-Tool)",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/hacksmith/the-smith-blade-21-in-1-titanium-multi-tool",
+        "pledged_usd": 11369497,
+        "backers": 38323,
+        "pf": 6145.0
+      },
+      {
+        "name": "Slay the Spire: The Board Game - Downfall",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/contentiongames/sts-downfall",
+        "pledged_usd": 7624941,
+        "backers": 38134,
+        "pf": 15249.0
+      },
+      {
+        "name": "AdventureQuest Worlds: Infinity",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/artix/adventurequest-worlds-infinity",
+        "pledged_usd": 2148519,
+        "backers": 28903,
+        "pf": 214851900.0
+      },
+      {
+        "name": "RiffTrax Makes MST3K! — Four NEW episodes in 2026!",
+        "cat": "Film & Video",
+        "url": "https://www.kickstarter.com/projects/rifftrax/rifftrax-makes-mst3k",
+        "pledged_usd": 2743736,
+        "backers": 22604,
+        "pf": 13718.0
+      },
+      {
+        "name": "MURDER DRONES: THE OFFICIAL GRAPHIC NOVEL",
+        "cat": "Comics",
+        "url": "https://www.kickstarter.com/projects/onipress/murder-drones",
+        "pledged_usd": 1804166,
+        "backers": 21807,
+        "pf": 36083.0
+      },
+      {
+        "name": "Epitome — The Immersive MMORPG with AI-Powered NPCs",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/epitomestudio/epitome-mmorpg",
+        "pledged_usd": 604249,
+        "backers": 20194,
+        "pf": 651.0
+      },
+      {
+        "name": "Bel's Fanfare",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/chibig/bels-fanfare",
+        "pledged_usd": 1209761,
+        "backers": 19649,
+        "pf": 2800.0
+      },
+      {
+        "name": "Heliana & Ryoko's Guide to Mythozoology",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/dndshorts/ryoko-and-helianas-guide-to-mythozoology",
+        "pledged_usd": 4360638,
+        "backers": 18220,
+        "pf": 17442.0
+      },
+      {
+        "name": "Dice Throne Vanguard",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/dicethrone/dice-throne-vanguard",
+        "pledged_usd": 1784099,
+        "backers": 16465,
+        "pf": 3568.0
+      },
+      {
+        "name": "MINDWAVE",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/holohammer/mindwave",
+        "pledged_usd": 443442,
+        "backers": 15247,
+        "pf": 1108.0
+      },
+      {
+        "name": "Kode Dot: The All-In-One Device for Makers, Hackers & Geeks",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/kode/kode-dot-the-all-in-one-pocket-size-maker-device",
+        "pledged_usd": 3125516,
+        "backers": 15079,
+        "pf": 62510.0
+      },
+      {
+        "name": "The Misen Carbon Nonstick Pan",
+        "cat": null,
+        "url": "https://www.kickstarter.com/projects/misenkitchen/the-misen-carbon-nonstick-pan",
+        "pledged_usd": 2356422,
+        "backers": 15002,
+        "pf": 9425.0
+      },
+      {
+        "name": "NeoSander: Mini Electric Reciprocating Detail Sander",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/hozodesign/neosander-mini-electric-reciprocating-detail-sander",
+        "pledged_usd": 2713732,
+        "backers": 14738,
+        "pf": 70670.0
+      },
+      {
+        "name": "Wonderful Neoran Valley",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/narastudio/wonderful-neoran-valley",
+        "pledged_usd": 991184,
+        "backers": 14199,
+        "pf": 917.0
+      },
+      {
+        "name": "Circular Ring 2: World’s Most Advanced Health Tracking Ring",
+        "cat": "Technology",
+        "url": "https://www.kickstarter.com/projects/circular-ring/circular-ring-2-worlds-most-advanced-health-tracking-ring",
+        "pledged_usd": 4078500,
+        "backers": 13695,
+        "pf": 40785.0
+      },
+      {
+        "name": "Elements of Truth by Veritasium",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/elements-of-truth/elements-of-truth-by-veritasium",
+        "pledged_usd": 1397368,
+        "backers": 13262,
+        "pf": 3776.0
+      },
+      {
+        "name": "Elestrals Awakened - A Mythological Monster Catcher RPG",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/elestrals/elestrals-awakened",
+        "pledged_usd": 1486903,
+        "backers": 13010,
+        "pf": 594.0
+      },
+      {
+        "name": "Bastions & Guildhalls: A Modular Map Maker",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/czepeku/bastions-and-guildhalls-a-modular-map-maker",
+        "pledged_usd": 569399,
+        "backers": 12836,
+        "pf": 3012.0
+      },
+      {
+        "name": "WAKFU: the Animated Series - Season 5",
+        "cat": "Film & Video",
+        "url": "https://www.kickstarter.com/projects/ankamaanimations/wakfu-the-animated-series-season-5",
+        "pledged_usd": 1928653,
+        "backers": 12213,
+        "pf": 357.0
+      }
+    ],
+    "percent": [
+      {
+        "name": "AdventureQuest Worlds: Infinity",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/artix/adventurequest-worlds-infinity",
+        "pledged_usd": 2148519,
+        "backers": 28903,
+        "pf": 214851900.0
+      },
+      {
+        "name": "Doom Cat",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/boardgame/doomcat",
+        "pledged_usd": 11760,
+        "backers": 311,
+        "pf": 1176000.0
+      },
+      {
+        "name": "The Stickseed Inn: 3 cabin resort in the woods of Michigan",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/s251/the-stickseed-inn-3-cabin-resort-in-the-woods-of-michigan",
+        "pledged_usd": 10735,
+        "backers": 113,
+        "pf": 1073500.0
+      },
+      {
+        "name": "CHRISTMAS BIG SET",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/christmas-set-sale-of-optimized-models",
+        "pledged_usd": 6687,
+        "backers": 92,
+        "pf": 619200.0
+      },
+      {
+        "name": "pocket soda",
+        "cat": "Food",
+        "url": "https://www.kickstarter.com/projects/williamosman2/pocket-soda",
+        "pledged_usd": 81454,
+        "backers": 1408,
+        "pf": 407270.0
+      },
+      {
+        "name": "Trains of the past",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/trains-of-the-past",
+        "pledged_usd": 2871,
+        "backers": 150,
+        "pf": 265800.0
+      },
+      {
+        "name": "Sale of architecture",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/sale-of-architecture",
+        "pledged_usd": 2672,
+        "backers": 42,
+        "pf": 247400.0
+      },
+      {
+        "name": "The Battle for Mars (New space expedition)",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dmodels3dprinting/the-battle-for-mars-new-space-expedition",
+        "pledged_usd": 2654,
+        "backers": 38,
+        "pf": 245700.0
+      },
+      {
+        "name": "D20 Heroes - STL files for 3D printing - D&D miniatures",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/minitaurus/d20-heroes-stl-files-for-3d-printing-dandd-miniatures",
+        "pledged_usd": 2355,
+        "backers": 108,
+        "pf": 218100.0
+      },
+      {
+        "name": "Smokpub Pro: Electric Whiskey Smoker and Food Infuser",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/smokpub/smokpub-pro-electric-cocktail-and-whiskey-colored-smoker",
+        "pledged_usd": 212667,
+        "backers": 2027,
+        "pf": 212667.0
+      },
+      {
+        "name": "The Space Wanderer 2",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dmodels3dprinting/the-space-wanderer-2",
+        "pledged_usd": 2049,
+        "backers": 165,
+        "pf": 189700.0
+      },
+      {
+        "name": "The Chloros Knife by Jafar-A Valid Custom Fixed Blade Knife.",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/lordjafar/the-midst-jafar-knife-the-custom-knife-for-outdoor-tools",
+        "pledged_usd": 1896,
+        "backers": 16,
+        "pf": 189600.0
+      },
+      {
+        "name": "BOOKOO: First IP67 Waterproof & Bluetooth Coffee Scale",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/bookoo/bookoo-100-waterproof-see-through-bluetooth-coffee-scale",
+        "pledged_usd": 474101,
+        "backers": 4460,
+        "pf": 185195.0
+      },
+      {
+        "name": "Ship for 3d printing",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/ship-for-3d-printing",
+        "pledged_usd": 1872,
+        "backers": 134,
+        "pf": 173300.0
+      },
+      {
+        "name": "OSAKA a Limited Fashion Collection Inspired by Japan",
+        "cat": "Fashion",
+        "url": "https://www.kickstarter.com/projects/mariofaiella/osaka",
+        "pledged_usd": 1685,
+        "backers": 9,
+        "pf": 156000.0
+      },
+      {
+        "name": "Trains of the past 2.0",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/trains-of-the-past-20",
+        "pledged_usd": 1317,
+        "backers": 64,
+        "pf": 121900.0
+      },
+      {
+        "name": "🌈⚔️ LGBT+ Epic Dark Fantasy Books of MM Romantasy Suspense",
+        "cat": "Publishing",
+        "url": "https://www.kickstarter.com/projects/suncatcherpress/lgbt-epic-dark-fantasy-book-series-of-queer-romantasy",
+        "pledged_usd": 1055,
+        "backers": 39,
+        "pf": 105500.0
+      },
+      {
+        "name": "The Oceanus Brass Tankard",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/oceanusbrass/tankard",
+        "pledged_usd": 253146,
+        "backers": 1038,
+        "pf": 101258.0
+      },
+      {
+        "name": "Cyber collection 6.0 by 3D Fortress",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/cyber-collection-60-by-3d-fortress",
+        "pledged_usd": 1043,
+        "backers": 11,
+        "pf": 96600.0
+      },
+      {
+        "name": "WW2 - Part 5 (Germany,USSR,USA,Italy)",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/world-war-ii-part-5",
+        "pledged_usd": 981,
+        "backers": 16,
+        "pf": 90800.0
+      }
+    ],
+    "pf": [
+      {
+        "name": "AdventureQuest Worlds: Infinity",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/artix/adventurequest-worlds-infinity",
+        "pledged_usd": 2148519,
+        "backers": 28903,
+        "pf": 214851900.0
+      },
+      {
+        "name": "Doom Cat",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/boardgame/doomcat",
+        "pledged_usd": 11760,
+        "backers": 311,
+        "pf": 1176000.0
+      },
+      {
+        "name": "The Stickseed Inn: 3 cabin resort in the woods of Michigan",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/s251/the-stickseed-inn-3-cabin-resort-in-the-woods-of-michigan",
+        "pledged_usd": 10735,
+        "backers": 113,
+        "pf": 1073500.0
+      },
+      {
+        "name": "CHRISTMAS BIG SET",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/christmas-set-sale-of-optimized-models",
+        "pledged_usd": 6687,
+        "backers": 92,
+        "pf": 619200.0
+      },
+      {
+        "name": "pocket soda",
+        "cat": "Food",
+        "url": "https://www.kickstarter.com/projects/williamosman2/pocket-soda",
+        "pledged_usd": 81454,
+        "backers": 1408,
+        "pf": 407270.0
+      },
+      {
+        "name": "Trains of the past",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/trains-of-the-past",
+        "pledged_usd": 2871,
+        "backers": 150,
+        "pf": 265800.0
+      },
+      {
+        "name": "Sale of architecture",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/sale-of-architecture",
+        "pledged_usd": 2672,
+        "backers": 42,
+        "pf": 247400.0
+      },
+      {
+        "name": "The Battle for Mars (New space expedition)",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dmodels3dprinting/the-battle-for-mars-new-space-expedition",
+        "pledged_usd": 2654,
+        "backers": 38,
+        "pf": 245700.0
+      },
+      {
+        "name": "D20 Heroes - STL files for 3D printing - D&D miniatures",
+        "cat": "Games",
+        "url": "https://www.kickstarter.com/projects/minitaurus/d20-heroes-stl-files-for-3d-printing-dandd-miniatures",
+        "pledged_usd": 2355,
+        "backers": 108,
+        "pf": 218100.0
+      },
+      {
+        "name": "Smokpub Pro: Electric Whiskey Smoker and Food Infuser",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/smokpub/smokpub-pro-electric-cocktail-and-whiskey-colored-smoker",
+        "pledged_usd": 212667,
+        "backers": 2027,
+        "pf": 212667.0
+      },
+      {
+        "name": "The Space Wanderer 2",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dmodels3dprinting/the-space-wanderer-2",
+        "pledged_usd": 2049,
+        "backers": 165,
+        "pf": 189700.0
+      },
+      {
+        "name": "The Chloros Knife by Jafar-A Valid Custom Fixed Blade Knife.",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/lordjafar/the-midst-jafar-knife-the-custom-knife-for-outdoor-tools",
+        "pledged_usd": 1896,
+        "backers": 16,
+        "pf": 189600.0
+      },
+      {
+        "name": "BOOKOO: First IP67 Waterproof & Bluetooth Coffee Scale",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/bookoo/bookoo-100-waterproof-see-through-bluetooth-coffee-scale",
+        "pledged_usd": 474101,
+        "backers": 4460,
+        "pf": 185195.0
+      },
+      {
+        "name": "Ship for 3d printing",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/ship-for-3d-printing",
+        "pledged_usd": 1872,
+        "backers": 134,
+        "pf": 173300.0
+      },
+      {
+        "name": "OSAKA a Limited Fashion Collection Inspired by Japan",
+        "cat": "Fashion",
+        "url": "https://www.kickstarter.com/projects/mariofaiella/osaka",
+        "pledged_usd": 1685,
+        "backers": 9,
+        "pf": 156000.0
+      },
+      {
+        "name": "Trains of the past 2.0",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/trains-of-the-past-20",
+        "pledged_usd": 1317,
+        "backers": 64,
+        "pf": 121900.0
+      },
+      {
+        "name": "🌈⚔️ LGBT+ Epic Dark Fantasy Books of MM Romantasy Suspense",
+        "cat": "Publishing",
+        "url": "https://www.kickstarter.com/projects/suncatcherpress/lgbt-epic-dark-fantasy-book-series-of-queer-romantasy",
+        "pledged_usd": 1055,
+        "backers": 39,
+        "pf": 105500.0
+      },
+      {
+        "name": "The Oceanus Brass Tankard",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/oceanusbrass/tankard",
+        "pledged_usd": 253146,
+        "backers": 1038,
+        "pf": 101258.0
+      },
+      {
+        "name": "Cyber collection 6.0 by 3D Fortress",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/cyber-collection-60-by-3d-fortress",
+        "pledged_usd": 1043,
+        "backers": 11,
+        "pf": 96600.0
+      },
+      {
+        "name": "WW2 - Part 5 (Germany,USSR,USA,Italy)",
+        "cat": "Design",
+        "url": "https://www.kickstarter.com/projects/3dfortressstudio/world-war-ii-part-5",
+        "pledged_usd": 981,
+        "backers": 16,
+        "pf": 90800.0
+      }
+    ]
+  },
+  "factors": [
+    {
+      "name": "story_images",
+      "delta": 0
+    },
+    {
+      "name": "sb_total_backings",
+      "delta": 0
+    },
+    {
+      "name": "updates_total",
+      "delta": 0
+    },
+    {
+      "name": "log_goal",
+      "delta": 0
+    },
+    {
+      "name": "comments_count",
+      "delta": 0
+    },
+    {
+      "name": "is_pwl",
+      "delta": 0
+    },
+    {
+      "name": "cat_Film & Video",
+      "delta": 0
+    },
+    {
+      "name": "story_length",
+      "delta": 0
+    },
+    {
+      "name": "cur_HKD",
+      "delta": 0
+    },
+    {
+      "name": "staff_pick",
+      "delta": 0
+    },
+    {
+      "name": "duration",
+      "delta": 0
+    },
+    {
+      "name": "co_HK",
+      "delta": 0
+    },
+    {
+      "name": "has_video",
+      "delta": 0
+    },
+    {
+      "name": "sb_comment_count",
+      "delta": 0
+    },
+    {
+      "name": "co_JP",
+      "delta": 0
+    }
+  ],
+  "categories_array": [
     {
       "category": "Games",
       "total": 4286,
@@ -192,95 +1448,7 @@
       "avg_backers": 47
     }
   ],
-  "goal_vs_success": [
-    {
-      "label": "<$1K",
-      "total": 7810,
-      "success": 7481,
-      "success_rate": 95.78745198463508
-    },
-    {
-      "label": "$1-5K",
-      "total": 8332,
-      "success": 7428,
-      "success_rate": 89.15026404224676
-    },
-    {
-      "label": "$5-10K",
-      "total": 3573,
-      "success": 2913,
-      "success_rate": 81.5281276238455
-    },
-    {
-      "label": "$10-25K",
-      "total": 3047,
-      "success": 2328,
-      "success_rate": 76.40301936330816
-    },
-    {
-      "label": "$25-50K",
-      "total": 1096,
-      "success": 685,
-      "success_rate": 62.5
-    },
-    {
-      "label": "$50-100K",
-      "total": 465,
-      "success": 247,
-      "success_rate": 53.118279569892465
-    },
-    {
-      "label": "$100-500K",
-      "total": 163,
-      "success": 74,
-      "success_rate": 45.39877300613497
-    },
-    {
-      "label": "$500K+",
-      "total": 24,
-      "success": 4,
-      "success_rate": 16.666666666666664
-    }
-  ],
-  "duration_vs_success": [
-    {
-      "label": "≤7d",
-      "total": 579,
-      "success": 555,
-      "success_rate": 95.85492227979275
-    },
-    {
-      "label": "8-14d",
-      "total": 1934,
-      "success": 1851,
-      "success_rate": 95.70837642192348
-    },
-    {
-      "label": "15-21d",
-      "total": 3542,
-      "success": 3343,
-      "success_rate": 94.38170525127046
-    },
-    {
-      "label": "22-30d",
-      "total": 12391,
-      "success": 10695,
-      "success_rate": 86.31264627552255
-    },
-    {
-      "label": "31-45d",
-      "total": 3841,
-      "success": 3283,
-      "success_rate": 85.4725331944806
-    },
-    {
-      "label": "45d+",
-      "total": 2232,
-      "success": 1439,
-      "success_rate": 64.47132616487455
-    }
-  ],
-  "countries": [
+  "countries_array": [
     {
       "country": "US",
       "total": 13257,
@@ -421,215 +1589,5 @@
       "success_rate": 83.69565217391305,
       "pledged_usd": 1719344
     }
-  ],
-  "currency_dist": [
-    {
-      "currency": "JPY",
-      "amount": 1697810924.0
-    },
-    {
-      "currency": "HKD",
-      "amount": 978856864.0
-    },
-    {
-      "currency": "USD",
-      "amount": 506733756.4799999
-    },
-    {
-      "currency": "EUR",
-      "amount": 63805603.18
-    },
-    {
-      "currency": "CAD",
-      "amount": 40061833.27999996
-    },
-    {
-      "currency": "GBP",
-      "amount": 34004078.39
-    },
-    {
-      "currency": "MXN",
-      "amount": 21014801.890000008
-    },
-    {
-      "currency": "AUD",
-      "amount": 13276825.480000006
-    },
-    {
-      "currency": "SEK",
-      "amount": 10481358.130000003
-    },
-    {
-      "currency": "DKK",
-      "amount": 4261028.68
-    }
-  ],
-  "staff_pick": {
-    "pwl_total": 4898,
-    "pwl_success": 4798,
-    "pwl_success_rate": 97.95835034708044,
-    "non_pwl_total": 19621,
-    "non_pwl_success": 16368,
-    "non_pwl_success_rate": 83.42082462667551,
-    "gap": 14.537525720404929,
-    "yes_rate": 97.95835034708044,
-    "no_rate": 83.42082462667551
-  },
-  "achievement_dist": [
-    {
-      "label": "<50%",
-      "count": 3153
-    },
-    {
-      "label": "50-99%",
-      "count": 177
-    },
-    {
-      "label": "100-199%",
-      "count": 9632
-    },
-    {
-      "label": "200-499%",
-      "count": 4812
-    },
-    {
-      "label": "500-999%",
-      "count": 2797
-    },
-    {
-      "label": "1000%+",
-      "count": 3939
-    }
-  ],
-  "failure_profile": {
-    "count": 2816,
-    "avg_achievement": 10.937810945273633,
-    "median_achievement": 2.0,
-    "under_10pct": 1939,
-    "under_25pct": 2353,
-    "under_50pct": 2661
-  },
-  "price_distribution": [
-    {
-      "label": "<$10",
-      "count": 15510
-    },
-    {
-      "label": "$10-24",
-      "count": 37064
-    },
-    {
-      "label": "$25-49",
-      "count": 43856
-    },
-    {
-      "label": "$50-99",
-      "count": 43292
-    },
-    {
-      "label": "$100-249",
-      "count": 39470
-    },
-    {
-      "label": "$250-499",
-      "count": 17089
-    },
-    {
-      "label": "$500-999",
-      "count": 10238
-    },
-    {
-      "label": "$1000+",
-      "count": 10913
-    }
-  ],
-  "backer_threshold": [
-    {
-      "label": "0",
-      "total": 476,
-      "success": 6,
-      "success_rate": 1.2605042016806722
-    },
-    {
-      "label": "1-9",
-      "total": 3041,
-      "success": 1052,
-      "success_rate": 34.593883590924044
-    },
-    {
-      "label": "10-49",
-      "total": 7688,
-      "success": 6932,
-      "success_rate": 90.16649323621228
-    },
-    {
-      "label": "50-99",
-      "total": 4527,
-      "success": 4421,
-      "success_rate": 97.65849348354318
-    },
-    {
-      "label": "100-499",
-      "total": 6782,
-      "success": 6753,
-      "success_rate": 99.57239752285462
-    },
-    {
-      "label": "500-999",
-      "total": 1124,
-      "success": 1122,
-      "success_rate": 99.8220640569395
-    },
-    {
-      "label": "1K-5K",
-      "total": 778,
-      "success": 777,
-      "success_rate": 99.87146529562982
-    },
-    {
-      "label": "5K+",
-      "total": 103,
-      "success": 103,
-      "success_rate": 100.0
-    }
-  ],
-  "reward_vs_success": [
-    {
-      "label": "0",
-      "total": 34,
-      "success": 6,
-      "success_rate": 17.647058823529413
-    },
-    {
-      "label": "1-3",
-      "total": 3975,
-      "success": 2995,
-      "success_rate": 75.34591194968554
-    },
-    {
-      "label": "4-6",
-      "total": 8185,
-      "success": 6941,
-      "success_rate": 84.80146609651801
-    },
-    {
-      "label": "7-10",
-      "total": 7009,
-      "success": 6181,
-      "success_rate": 88.18661720644884
-    },
-    {
-      "label": "11-15",
-      "total": 3169,
-      "success": 2972,
-      "success_rate": 93.78352792679078
-    },
-    {
-      "label": "16+",
-      "total": 2147,
-      "success": 2071,
-      "success_rate": 96.46017699115043
-    }
-  ],
-  "price_stats": []
+  ]
 }

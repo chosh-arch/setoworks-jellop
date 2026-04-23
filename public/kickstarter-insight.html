@@ -1569,7 +1569,9 @@ async function main(){
       const live = D.kpi_live || {};
       const ended = D.kpi_ended || {};
       const spGap = D.staff_pick ? (D.staff_pick.gap || 0) : 0;
-      const bestCat = (D.categories || []).sort((a,b)=>b.success_rate-a.success_rate)[0];
+      // categories는 object이므로 array로 변환 (Hero에서 sort용)
+      const catList = D.categories_array || (D.categories ? Object.entries(D.categories).map(([k,v])=>({category:k,...v,success_rate:v.success_rate})) : []);
+      const bestCat = catList.sort((a,b)=>(b.success_rate||0)-(a.success_rate||0))[0];
       const heroItems = [
         {l:'전체 프로젝트', v:fmt(D.total_db), s:'27,909 검증 완료'},
         {l:'총 모금 (확정)', v:'$'+fmt(ended.pledged_usd||0), s:'성공 캠페인 USD 환산'},
