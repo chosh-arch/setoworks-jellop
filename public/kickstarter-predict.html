@@ -3,667 +3,622 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setoworks GTM Predictor | 30·108 Factor 예측 엔진</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Setoworks GTM Predictor · AI 성공률 예측 엔진</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
-:root {
-  --bg:#fafbfc; --card:#fff; --border:#e5e7eb; --text:#0a0e1a; --muted:#64748b;
-  --green:#10b981; --red:#ef4444; --orange:#f59e0b; --blue:#3b82f6; --purple:#8b5cf6;
-  --cyan:#06b6d4; --pink:#ec4899; --teal:#14b8a6; --indigo:#6366f1;
-  --brand:#ff003b; --brand-600:#e50035; --brand-50:#fff0f3;
-  --ink:#0a0e1a;
-  --shadow:0 1px 2px rgba(10,14,26,.04),0 1px 2px rgba(10,14,26,.02);
-  --shadow-md:0 4px 14px rgba(10,14,26,.06);
-  --shadow-lg:0 12px 32px rgba(10,14,26,.1);
-  --radius:14px;
+:root{
+  --brand:#ff003b; --brand-dim:#ff6b89; --ink:#0a0e1a; --ink-2:#1a2033;
+  --paper:#fafbfc; --line:#e5e7eb; --muted:#64748b; --text:#0a0e1a;
+  --ok:#10b981; --warn:#f59e0b; --danger:#ef4444;
+  --cyan:#06b6d4; --purple:#8b5cf6; --pink:#ec4899; --blue:#3b82f6;
+  --grad-hero:linear-gradient(135deg,#0a0e1a 0%,#1a0535 35%,#2d0a4e 65%,#6e0a35 100%);
+  --grad-brand:linear-gradient(135deg,#ff003b 0%,#8b5cf6 100%);
+  --grad-ok:linear-gradient(135deg,#10b981 0%,#06b6d4 100%);
+  --radius:20px; --radius-sm:12px;
+  --shadow:0 2px 8px rgba(10,14,26,.05);
+  --shadow-md:0 8px 24px rgba(10,14,26,.08);
+  --shadow-lg:0 20px 48px rgba(10,14,26,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter','Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);}
-a{color:inherit;text-decoration:none;}
+html,body{background:var(--paper);color:var(--text);font-family:'Inter','Noto Sans KR',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{overflow-x:hidden;}
 
-/* TOPBAR */
-.topbar{background:#fff;padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow);}
-.topbar h1{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.topbar h1 .icon{display:inline-block;width:22px;height:22px;clip-path:polygon(50% 0%,100% 100%,0% 100%);background:var(--brand);}
-.topbar .meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.mesh{position:fixed;inset:0;z-index:-1;background:var(--paper);overflow:hidden;}
+.mesh::before,.mesh::after{content:"";position:absolute;border-radius:50%;filter:blur(120px);opacity:.35;}
+.mesh::before{width:600px;height:600px;background:#ff003b;top:-200px;right:-100px;animation:f1 20s ease-in-out infinite;}
+.mesh::after{width:500px;height:500px;background:#8b5cf6;bottom:-150px;left:-100px;animation:f2 25s ease-in-out infinite;}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,50px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-50px)}}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+nav .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;}
+nav .brand .logo{width:28px;height:28px;background:var(--grad-brand);border-radius:8px;position:relative;overflow:hidden;}
+nav .brand .logo::after{content:"S";position:absolute;inset:0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;}
+nav .meta{font-size:11px;color:var(--muted);font-weight:500;}
 .nav-links{display:flex;gap:6px;}
-.nav-btn{background:#fff;color:var(--muted);border:1px solid var(--border);padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;}
-.nav-btn:hover{color:var(--text);border-color:#94a3b8;}
-.nav-btn.primary{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:600;}
+nav a{font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:8px;transition:all .2s;}
+nav a:hover{background:#f1f5f9;color:var(--text);}
+nav a.primary{background:var(--ink);color:#fff;}
+nav a.primary:hover{background:var(--brand);}
 
-/* LAYOUT */
-.app{display:grid;grid-template-columns:1fr 360px;gap:18px;max-width:1500px;margin:18px auto;padding:0 24px;}
-@media(max-width:1200px){.app{grid-template-columns:1fr;} .sidebar{position:static;}}
+.hero{padding:40px 28px 20px;max-width:1500px;margin:0 auto;}
+.hero-title{font-size:clamp(26px,4vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:10px;}
+.hero-title .accent{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-sub{font-size:15px;color:var(--muted);font-weight:500;max-width:720px;line-height:1.6;}
+.hero-stats{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.hero-stat{display:flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);font-size:12px;font-weight:600;}
+.hero-stat .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:p 2s infinite;}
+@keyframes p{0%,100%{opacity:.6}50%{opacity:1}}
+.hero-stat strong{color:var(--brand);}
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#0a0e1a 0%,#1a2033 60%,#2d1b4e 100%);border-radius:18px;padding:22px 26px;margin-bottom:18px;position:relative;overflow:hidden;grid-column:1/-1;}
-.hero::before{content:"";position:absolute;top:-30%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,0,59,.35) 0%,transparent 65%);pointer-events:none;}
-.hero .title{color:#fff;font-size:22px;font-weight:800;letter-spacing:-.02em;}
-.hero .sub{color:#94a3b8;font-size:13px;margin-top:4px;}
-.hero .pills{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.hero .pill{background:rgba(255,255,255,.08);color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.12);}
+.app{max-width:1500px;margin:20px auto 80px;padding:0 28px;display:grid;grid-template-columns:1fr 380px;gap:22px;}
+@media(max-width:1180px){.app{grid-template-columns:1fr;}}
 
-/* MODE SWITCH */
-.mode-switch{display:flex;gap:8px;margin-bottom:18px;}
-.mode-btn{flex:1;background:#fff;border:2px solid var(--border);padding:14px 18px;border-radius:var(--radius);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;}
-.mode-btn:hover{border-color:var(--brand);transform:translateY(-1px);box-shadow:var(--shadow-md);}
-.mode-btn.active{border-color:var(--brand);background:var(--brand-50);}
-.mode-btn .mode-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--brand) 0%,#c70030 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800;flex-shrink:0;}
-.mode-btn .mode-info{flex:1;text-align:left;}
-.mode-btn .mode-info .name{font-weight:700;font-size:14px;}
-.mode-btn .mode-info .desc{font-size:11px;color:var(--muted);margin-top:2px;}
+.score-hero{grid-column:1/-1;background:var(--grad-hero);border-radius:24px;padding:32px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);}
+.score-hero::before{content:"";position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,0,59,.35) 0%,transparent 65%);pointer-events:none;}
+.score-hero-grid{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;}
+@media(max-width:900px){.score-hero-grid{grid-template-columns:1fr;text-align:center;}}
 
-/* CARDS */
-.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px;}
-.card h2{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.card h2 .icon{width:28px;height:28px;border-radius:6px;background:var(--indigo);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;}
-.card .tag{font-size:10px;background:#f1f5f9;color:var(--muted);padding:3px 8px;border-radius:4px;font-weight:500;margin-left:auto;}
+.ring{position:relative;width:180px;height:180px;flex-shrink:0;margin:0 auto;}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%;}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:14;}
+.ring-fg{fill:none;stroke:url(#rg);stroke-width:14;stroke-linecap:round;stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset 1s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 0 16px rgba(255,0,59,.6));}
+.ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-val{font-size:56px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.04em;}
+.ring-val .pct{font-size:22px;opacity:.7;}
+.ring-label{font-size:11px;opacity:.6;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
 
-/* FACTOR TABS */
-.factor-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap;}
-.factor-tab{padding:7px 14px;font-size:12px;font-weight:600;border:1px solid var(--border);border-radius:999px;cursor:pointer;background:#fff;color:var(--muted);transition:all .15s;white-space:nowrap;}
-.factor-tab:hover{border-color:var(--brand);color:var(--brand);}
-.factor-tab.active{background:var(--brand);color:#fff;border-color:var(--brand);}
-.factor-tab .count{display:inline-block;margin-left:5px;padding:1px 6px;background:rgba(255,255,255,.25);border-radius:10px;font-size:10px;}
-.factor-tab:not(.active) .count{background:#f1f5f9;color:var(--muted);}
+.hero-mid .grade-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:999px;font-weight:700;font-size:13px;backdrop-filter:blur(10px);}
+.chip .grade{font-size:22px;font-weight:900;}
+.chip.high{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.4);}
+.chip.mid{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);}
+.chip.low{background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4);}
+.hero-mid .headline{font-size:22px;font-weight:800;line-height:1.3;margin-bottom:6px;}
+.hero-mid .sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;}
+.hero-right{text-align:right;}
+@media(max-width:900px){.hero-right{text-align:center;}}
+.hero-right .ml-label{font-size:10px;opacity:.6;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.hero-right .ml-val{font-size:28px;font-weight:800;color:var(--brand-dim);font-variant-numeric:tabular-nums;}
+.hero-right .ml-sub{font-size:11px;opacity:.6;margin-top:6px;}
 
-/* FACTOR ROW */
-.factor{padding:14px 16px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:all .15s;}
-.factor:hover{border-color:#94a3b8;box-shadow:var(--shadow);}
-.factor.filled{border-color:var(--green);background:#f0fdf4;}
-.factor.auto-mapped{border-color:var(--blue);background:#eff6ff;}
-.factor-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.factor-num{width:26px;height:26px;border-radius:6px;background:#f1f5f9;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.factor.filled .factor-num{background:var(--green);color:#fff;}
-.factor.auto-mapped .factor-num{background:var(--blue);color:#fff;}
-.factor-title{flex:1;font-weight:600;font-size:13px;}
-.factor-title .name-en{color:var(--muted);font-size:10px;font-weight:500;margin-left:6px;}
-.factor-max{font-size:11px;color:var(--muted);white-space:nowrap;}
-.factor-score{font-size:12px;font-weight:700;color:var(--brand);white-space:nowrap;}
-.factor-note{font-size:10px;color:var(--muted);margin-top:4px;margin-left:36px;}
+.mode-wrap{display:flex;gap:12px;margin-top:16px;}
+.mode{flex:1;padding:4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;cursor:pointer;transition:all .25s;}
+.mode.active{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3);}
+.mode-inner{padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.mode-num{width:42px;height:42px;border-radius:10px;background:var(--grad-brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;}
+.mode-name{font-weight:700;font-size:14px;color:#fff;}
+.mode-desc{font-size:11px;color:rgba(255,255,255,.6);margin-top:1px;}
 
-/* INPUT TYPES */
-.options{display:flex;flex-wrap:wrap;gap:6px;margin-left:36px;margin-top:6px;}
-.opt{padding:6px 12px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:11px;cursor:pointer;transition:all .15s;user-select:none;}
-.opt:hover{border-color:var(--brand);color:var(--brand);}
-.opt.selected{background:var(--brand);color:#fff;border-color:var(--brand);}
-.opt-multi.selected{background:var(--indigo);border-color:var(--indigo);}
+.main-col{display:flex;flex-direction:column;gap:22px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);transition:all .25s;}
+.card:hover{box-shadow:var(--shadow-md);}
+.card-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.card-head .cicon{width:38px;height:38px;border-radius:10px;background:var(--grad-brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.card-head h2{font-size:17px;font-weight:800;letter-spacing:-.01em;}
+.card-head .step-of{margin-left:auto;font-size:12px;color:var(--muted);font-weight:600;}
 
-.stepper{display:flex;gap:4px;margin-left:36px;margin-top:6px;}
-.stepper-btn{width:32px;height:32px;background:#fff;border:1px solid var(--border);border-radius:6px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s;}
-.stepper-btn:hover{border-color:var(--brand);}
-.stepper-btn.selected{background:var(--brand);color:#fff;border-color:var(--brand);}
+.cat-steps{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:6px;scrollbar-width:thin;}
+.cat-steps::-webkit-scrollbar{height:4px;}
+.cat-steps::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:2px;}
+.cat-pill{flex-shrink:0;padding:10px 16px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap;position:relative;}
+.cat-pill:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-1px);}
+.cat-pill.active{background:var(--grad-brand);color:#fff;border-color:transparent;box-shadow:var(--shadow-md);}
+.cat-pill.done{background:#f0fdf4;border-color:#86efac;color:#059669;}
+.cat-pill .idx{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.cat-pill.active .idx{background:rgba(255,255,255,.25);}
+.cat-pill.done::after{content:"✓";position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:var(--ok);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;border:2px solid #fff;}
 
-.range-wrap{margin-left:36px;margin-top:6px;}
-.range-row{display:flex;align-items:center;gap:10px;}
-.range-row input[type=range]{flex:1;accent-color:var(--brand);}
-.range-val{font-weight:700;color:var(--brand);min-width:80px;text-align:right;font-size:12px;font-variant-numeric:tabular-nums;}
+.factors{display:flex;flex-direction:column;gap:14px;}
+.factor{background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;transition:all .25s;position:relative;overflow:hidden;}
+.factor::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--line);transition:background .25s;}
+.factor:hover{border-color:#cbd5e1;}
+.factor.filled::before{background:var(--ok);}
+.factor.auto::before{background:var(--blue);}
+.factor.critical::before{background:var(--grad-brand);width:5px;}
+.f-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:4px;}
+.f-num{width:32px;height:32px;border-radius:10px;background:#f1f5f9;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+.factor.filled .f-num{background:var(--ok);color:#fff;}
+.factor.auto .f-num{background:var(--blue);color:#fff;}
+.factor.critical .f-num{background:var(--grad-brand);color:#fff;}
+.f-title{flex:1;min-width:0;}
+.f-title .name{font-size:14px;font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.f-title .name .tag{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;}
+.f-title .name .tag.c{background:var(--grad-brand);color:#fff;}
+.f-title .name .tag.h{background:#fef3c7;color:#92400e;}
+.f-title .name .tag.a{background:#dbeafe;color:#1e40af;}
+.f-title .en{font-size:11px;color:var(--muted);font-weight:500;}
+.f-score{font-size:14px;font-weight:800;color:var(--brand);white-space:nowrap;}
+.f-score .max{color:var(--muted);font-weight:500;font-size:11px;}
+.f-note{font-size:11px;color:var(--muted);margin-top:8px;padding:6px 10px;background:#f8fafc;border-radius:6px;line-height:1.5;}
 
-.numinput{display:flex;margin-left:36px;margin-top:6px;}
-.numinput input{width:150px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;}
-.textinput{margin-left:36px;margin-top:6px;}
-.textinput input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;}
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.opt{padding:8px 14px;background:#fff;border:1.5px solid var(--line);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;user-select:none;}
+.opt:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-1px);}
+.opt.on{background:var(--grad-brand);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(255,0,59,.25);}
+.opt.multi.on{background:var(--grad-ok);}
+.opt .pt{font-size:10px;opacity:.7;margin-left:4px;}
 
-.toggle-row{display:flex;gap:6px;margin-left:36px;margin-top:6px;}
-.tog{padding:6px 16px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:11px;cursor:pointer;transition:all .15s;}
-.tog:hover{border-color:var(--brand);}
-.tog.selected.yes{background:var(--green);color:#fff;border-color:var(--green);}
-.tog.selected.no{background:#94a3b8;color:#fff;border-color:#94a3b8;}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px;}
+.step-btn{padding:10px;background:#fff;border:1.5px solid var(--line);border-radius:10px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted);}
+.step-btn:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-1px);}
+.step-btn.on{background:var(--grad-brand);color:#fff;border-color:transparent;}
 
-/* SIDEBAR */
-.sidebar{position:sticky;top:80px;align-self:start;}
-.score-card{background:linear-gradient(135deg,var(--brand) 0%,#8b5cf6 100%);color:#fff;border-radius:var(--radius);padding:24px;margin-bottom:14px;box-shadow:var(--shadow-lg);}
-.score-card .label{font-size:12px;opacity:.85;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
-.score-card .value{font-size:54px;font-weight:900;line-height:1;margin-top:8px;font-variant-numeric:tabular-nums;letter-spacing:-.04em;}
-.score-card .suffix{font-size:22px;opacity:.8;}
-.score-card .bar{background:rgba(255,255,255,.2);height:8px;border-radius:4px;margin-top:14px;overflow:hidden;}
-.score-card .bar-fill{height:100%;background:#fff;border-radius:4px;transition:width .5s;}
-.score-card .rank{font-size:12px;margin-top:10px;opacity:.95;}
-.score-card .rank b{font-weight:700;}
+.range-box{margin-top:14px;padding:14px;background:#f8fafc;border-radius:10px;}
+.range-ctrl{display:flex;align-items:center;gap:14px;}
+.range-ctrl input{flex:1;accent-color:var(--brand);height:6px;}
+.range-ctrl .val{font-size:18px;font-weight:800;color:var(--brand);min-width:100px;text-align:right;font-variant-numeric:tabular-nums;}
 
-.insight-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:var(--shadow);}
-.insight-card .title{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
-.insight-card .content{margin-top:8px;font-size:12px;line-height:1.6;color:var(--text);}
+.text-box,.num-box{margin-top:14px;}
+.text-box input,.num-box input{width:100%;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit;transition:border .2s;}
+.text-box input:focus,.num-box input:focus{outline:none;border-color:var(--brand);}
+.num-box{display:flex;gap:8px;align-items:center;}
+.num-box input{max-width:220px;}
+.num-unit{color:var(--muted);font-size:12px;font-weight:600;}
 
-.progress-ring{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted);margin-top:8px;}
-.progress-ring .bar-bg{flex:1;height:4px;background:#f1f5f9;border-radius:2px;overflow:hidden;}
-.progress-ring .bar-fg{height:100%;background:var(--brand);border-radius:2px;transition:width .3s;}
+.tog{display:flex;gap:6px;margin-top:14px;}
+.tog-btn{flex:1;padding:12px;background:#fff;border:1.5px solid var(--line);border-radius:10px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted);font-size:13px;}
+.tog-btn:hover{border-color:var(--brand);color:var(--brand);}
+.tog-btn.on.yes{background:var(--grad-ok);color:#fff;border-color:transparent;}
+.tog-btn.on.no{background:#94a3b8;color:#fff;border-color:transparent;}
 
-.similar{padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:11px;}
-.similar:last-child{border:0;}
-.similar .name{font-weight:600;color:var(--text);}
-.similar .meta{color:var(--muted);font-size:10px;margin-top:2px;}
-.similar .badges{display:flex;gap:4px;margin-top:4px;}
-.similar .badge{font-size:9px;padding:1px 6px;background:#f1f5f9;border-radius:4px;}
+.wiz-nav{display:flex;gap:12px;margin-top:22px;justify-content:space-between;}
+.wiz-btn{padding:14px 28px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;font-family:inherit;}
+.wiz-btn.prev{background:#f1f5f9;color:var(--text);}
+.wiz-btn.prev:hover{background:#e2e8f0;}
+.wiz-btn.next{background:var(--grad-brand);color:#fff;margin-left:auto;box-shadow:0 4px 14px rgba(255,0,59,.3);}
+.wiz-btn.next:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,0,59,.4);}
+.wiz-btn:disabled{opacity:.4;cursor:not-allowed;}
 
-.badge-ok{background:#d1fae5;color:#059669;}
-.badge-warn{background:#fef3c7;color:#d97706;}
-.badge-danger{background:#fee2e2;color:#dc2626;}
+.side{position:sticky;top:80px;align-self:start;display:flex;flex-direction:column;gap:14px;}
+@media(max-width:1180px){.side{position:static;}}
+.side-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+.side-card h3{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
 
-.tip{font-size:11px;padding:8px 10px;border-radius:6px;margin-top:6px;line-height:1.5;}
-.tip.good{background:#d1fae5;color:#065f46;}
-.tip.warn{background:#fef3c7;color:#78350f;}
-.tip.info{background:#dbeafe;color:#1e3a8a;}
+.p-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.p-num{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+.p-tot{color:var(--muted);font-weight:600;font-size:14px;}
+.p-bar{height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;position:relative;}
+.p-fill{height:100%;background:var(--grad-brand);border-radius:4px;transition:width .6s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
+.p-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:sh 2s infinite;}
+@keyframes sh{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
-.legend{display:flex;gap:12px;margin-bottom:10px;font-size:10px;color:var(--muted);flex-wrap:wrap;}
-.legend .li{display:flex;align-items:center;gap:4px;}
-.legend .li::before{content:"";width:10px;height:10px;border-radius:3px;}
-.legend .li.manual::before{background:#94a3b8;}
-.legend .li.auto::before{background:var(--blue);}
-.legend .li.filled::before{background:var(--green);}
+.radar-wrap{height:240px;position:relative;}
 
-.cta-section{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;}
-.cta-btn{flex:1;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .15s;}
-.cta-btn.primary{background:var(--brand);color:#fff;}
-.cta-btn.primary:hover{background:var(--brand-600);transform:translateY(-1px);box-shadow:var(--shadow-md);}
-.cta-btn.secondary{background:#fff;color:var(--text);border:1px solid var(--border);}
-.cta-btn.secondary:hover{border-color:var(--brand);}
+.tip{padding:12px 14px;border-radius:10px;margin-bottom:8px;font-size:12px;line-height:1.6;border-left:3px solid;background:#f8fafc;display:flex;gap:10px;}
+.tip .emoji{font-size:18px;line-height:1;flex-shrink:0;}
+.tip.critical{background:#fff0f3;border-color:var(--brand);}
+.tip.warn{background:#fffbeb;border-color:var(--warn);}
+.tip.info{background:#eff6ff;border-color:var(--blue);}
+.tip.ok{background:#f0fdf4;border-color:var(--ok);}
 
-/* INFO BANNER */
-.banner{background:#eff6ff;border-left:3px solid var(--blue);padding:10px 14px;border-radius:6px;font-size:12px;color:#1e3a8a;margin-bottom:14px;line-height:1.6;}
+.bench{background:#f8fafc;border-radius:10px;padding:14px;}
+.bench-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;}
+.bench-row .lbl{color:var(--muted);}
+.bench-row .val{font-weight:700;}
+.bench-row.h .val{color:var(--brand);}
 
-/* LOADING */
-.loading-screen{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .5s;}
-.loading-screen.hide{opacity:0;pointer-events:none;}
-.spinner{width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
+.cta-block{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cta{padding:14px 20px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;}
+.cta.p{background:var(--ink);color:#fff;box-shadow:var(--shadow-md);grid-column:1/-1;}
+.cta.p:hover{background:var(--brand);transform:translateY(-2px);}
+.cta.s{background:#f1f5f9;color:var(--text);}
+.cta.s:hover{background:#e2e8f0;}
+
+.loader{position:fixed;inset:0;background:var(--paper);display:flex;align-items:center;justify-content:center;z-index:999;transition:opacity .5s;}
+.loader.hide{opacity:0;pointer-events:none;}
+.loader-logo{width:64px;height:64px;background:var(--grad-brand);border-radius:16px;margin:0 auto 20px;animation:ps 1.2s ease-in-out infinite;}
+@keyframes ps{0%,100%{transform:scale(1)}50%{transform:scale(.9)}}
+.loader-txt{text-align:center;color:var(--muted);font-size:13px;font-weight:600;}
+
+.legend{display:flex;gap:14px;margin-bottom:16px;font-size:11px;color:var(--muted);font-weight:600;flex-wrap:wrap;}
+.l-item{display:flex;align-items:center;gap:5px;}
+.l-dot{width:10px;height:10px;border-radius:3px;}
+.l-dot.c{background:var(--grad-brand);}
+.l-dot.a{background:var(--blue);}
+.l-dot.d{background:var(--ok);}
+
+.confetti{position:fixed;top:-10px;width:10px;height:10px;z-index:100;pointer-events:none;animation:fall 3s ease-in forwards;}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+
+@media(max-width:640px){
+  .hero{padding:24px 16px 12px;}
+  .app{padding:0 16px;}
+  .card{padding:18px;}
+  .score-hero{padding:22px;}
+  .hero-title{font-size:24px;}
+  .ring{width:140px;height:140px;}
+  .ring-val{font-size:44px;}
+  .step-btn{padding:8px 4px;font-size:11px;}
+}
 </style>
 </head>
 <body>
+<div class="mesh"></div>
+<div class="loader" id="loader"><div><div class="loader-logo"></div><div class="loader-txt">팩터 엔진 로딩 중...</div></div></div>
 
-<div class="loading-screen" id="loading">
-  <div class="spinner"></div>
-  <div style="margin-top:16px;color:var(--muted);font-size:13px;">팩터 데이터 로드 중...</div>
-</div>
-
-<div class="topbar">
+<nav>
   <div>
-    <h1><span class="icon"></span> <span style="color:var(--brand)">Setoworks</span> GTM Predictor</h1>
-    <div class="meta" id="meta-info">27,974 프로젝트 벤치마크 · 30 / 108 factor</div>
+    <div class="brand"><span class="logo"></span> Setoworks <span style="color:var(--brand)">GTM Predictor</span></div>
+    <div class="meta" id="meta-text">27,974 프로젝트 벤치마크</div>
   </div>
   <div class="nav-links">
-    <a href="/kickstarter-insight.html" class="nav-btn">분석 대시보드</a>
-    <a href="/portal.html" class="nav-btn primary">포털</a>
+    <a href="/kickstarter-insight.html">📊 분석 대시보드</a>
+    <a href="/portal.html" class="primary">포털</a>
   </div>
-</div>
+</nav>
+
+<section class="hero">
+  <h1 class="hero-title">글로벌 진출 성공률을 <span class="accent">AI로 미리 본다</span></h1>
+  <p class="hero-sub">108개 팩터 × 27,974개 실 프로젝트 × XGBoost 머신러닝. 5분 만에 당신의 킥스타터 캠페인 성공 확률을 과학적으로 예측합니다.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="dot"></span><span>LIVE · <strong>실시간 벤치마크</strong></span></div>
+    <div class="hero-stat">📊 <strong>27,974</strong> 프로젝트 학습</div>
+    <div class="hero-stat">🎁 <strong>217K</strong> 리워드 분석</div>
+    <div class="hero-stat">🧠 XGBoost <strong>92% AUC</strong></div>
+  </div>
+</section>
 
 <div class="app">
-  <div class="hero">
-    <div class="title">🎯 글로벌 진출 성공률 예측 엔진</div>
-    <div class="sub">108개 팩터 기반 과학적 스코어링 + 27,974개 실 프로젝트 벤치마크 매칭</div>
-    <div class="pills">
-      <span class="pill">📊 27,974 프로젝트 분석</span>
-      <span class="pill">🧠 XGBoost ML 결합</span>
-      <span class="pill">🌏 25개국 벤치마크</span>
-      <span class="pill">🎁 217K 리워드 티어</span>
-      <span class="pill">💬 64K 슈퍼백커 추적</span>
+  <div class="score-hero">
+    <div class="score-hero-grid">
+      <div class="ring">
+        <svg viewBox="0 0 180 180">
+          <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff003b"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+          <circle class="ring-bg" cx="90" cy="90" r="80"/>
+          <circle class="ring-fg" id="ring-fg" cx="90" cy="90" r="80"/>
+        </svg>
+        <div class="ring-inner">
+          <div class="ring-val"><span id="score-num">0</span><span class="pct">%</span></div>
+          <div class="ring-label">SUCCESS RATE</div>
+        </div>
+      </div>
+      <div class="hero-mid">
+        <div class="grade-row">
+          <div class="chip" id="chip"><span class="grade" id="grade-letter">?</span><span id="grade-text">입력 대기</span></div>
+          <div class="chip" style="font-size:11px;">📋 <span id="prog-label">0/30</span></div>
+        </div>
+        <div class="headline" id="hl">캠페인 성공 가능성을 분석합니다</div>
+        <div class="sub" id="hl-sub">카테고리 · 국가 · 제품 정보를 입력하면 실시간으로 스코어가 계산됩니다</div>
+        <div class="mode-wrap">
+          <div class="mode active" data-mode="30"><div class="mode-inner"><div class="mode-num">30</div><div><div class="mode-name">빠른 GTM 예측</div><div class="mode-desc">5분 · 한국 기업 글로벌 진출</div></div></div></div>
+          <div class="mode" data-mode="108"><div class="mode-inner"><div class="mode-num">108</div><div><div class="mode-name">심층 예측</div><div class="mode-desc">20분 · 마케팅/영상/팀 완전 분석</div></div></div></div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="ml-label">ML MODEL</div>
+        <div class="ml-val" id="ml-val">—</div>
+        <div class="ml-sub">XGBoost 확률</div>
+      </div>
     </div>
   </div>
 
-  <div class="main">
-    <!-- 모드 선택 -->
-    <div class="mode-switch">
-      <div class="mode-btn active" data-mode="30">
-        <div class="mode-icon">30</div>
-        <div class="mode-info">
-          <div class="name">빠른 예측 · GTM 30 Factor</div>
-          <div class="desc">5분 · 한국 기업 글로벌 진출 중심</div>
-        </div>
+  <div class="main-col">
+    <div class="card">
+      <div class="card-head">
+        <div class="cicon">📝</div>
+        <h2 id="cat-heading">카테고리 선택</h2>
+        <div class="step-of"><span id="cat-pos">1</span> / <span id="cat-tot">13</span></div>
       </div>
-      <div class="mode-btn" data-mode="108">
-        <div class="mode-icon">108</div>
-        <div class="mode-info">
-          <div class="name">심층 예측 · 108 Factor</div>
-          <div class="desc">20분 · 마케팅/영상/KOL/커뮤니티 상세</div>
-        </div>
+      <div class="legend">
+        <div class="l-item"><span class="l-dot c"></span>Critical (5+점)</div>
+        <div class="l-item"><span class="l-dot a"></span>DB 자동</div>
+        <div class="l-item"><span class="l-dot d"></span>입력 완료</div>
+      </div>
+      <div class="cat-steps" id="cat-steps"></div>
+      <div class="factors" id="factors"></div>
+      <div class="wiz-nav">
+        <button class="wiz-btn prev" id="btn-prev">← 이전</button>
+        <button class="wiz-btn next" id="btn-next">다음 →</button>
       </div>
     </div>
-
-    <div class="banner">
-      💡 <b>파란 박스</b>는 DB 자동 매핑 (카테고리/국가/가격 등), <b>초록 박스</b>는 입력 완료. 카테고리·국가·제품명 입력 시 유사 프로젝트 Top 10이 우측에 표시됩니다.
-    </div>
-
-    <div class="legend">
-      <span class="li manual">수동 입력</span>
-      <span class="li auto">DB 자동</span>
-      <span class="li filled">완료</span>
-    </div>
-
-    <!-- 탭 -->
-    <div class="factor-tabs" id="factor-tabs"></div>
-
-    <!-- 팩터 리스트 -->
-    <div id="factors-container"></div>
   </div>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="score-card">
-      <div class="label">🎯 예상 성공률</div>
-      <div><span class="value" id="score-val">0</span><span class="suffix">.0%</span></div>
-      <div class="bar"><div class="bar-fill" id="score-bar" style="width:0%;"></div></div>
-      <div class="rank">
-        <b id="score-grade">UNRATED</b> · <span id="score-rank">입력 시작 필요</span>
-      </div>
-      <div class="rank" style="margin-top:4px;opacity:.85;">
-        ML 모델: <span id="ml-prob">—</span>
-      </div>
+  <aside class="side">
+    <div class="side-card">
+      <h3>📊 진행률</h3>
+      <div class="p-row"><span class="p-num" id="p-num">0</span><span class="p-tot">/ <span id="p-tot">30</span></span><span style="margin-left:auto;font-weight:700;color:var(--brand);" id="p-pct">0%</span></div>
+      <div class="p-bar"><div class="p-fill" id="p-bar" style="width:0%"></div></div>
     </div>
-
-    <div class="insight-card">
-      <div class="title">📋 진행률</div>
-      <div class="progress-ring" style="margin-top:10px;">
-        <span id="progress-text">0/30</span>
-        <div class="bar-bg"><div class="bar-fg" id="progress-bar" style="width:0%;"></div></div>
-        <b id="progress-pct">0%</b>
-      </div>
+    <div class="side-card">
+      <h3>🎯 카테고리별 점수</h3>
+      <div class="radar-wrap"><canvas id="radar-chart"></canvas></div>
     </div>
-
-    <div class="insight-card">
-      <div class="title">🔥 핵심 개선 포인트</div>
-      <div class="content" id="improvement-tips">
-        입력을 시작하면 자동으로 약점을 분석해 제안합니다.
-      </div>
+    <div class="side-card">
+      <h3>💡 핵심 개선 포인트</h3>
+      <div id="tips"><div class="tip info"><span class="emoji">👉</span><div>입력을 시작하면 약점을 자동 분석해 제안합니다.</div></div></div>
     </div>
-
-    <div class="insight-card">
-      <div class="title">🌟 유사 프로젝트 Top 10</div>
-      <div class="content" id="similar-list">
-        카테고리 + 국가 선택 시 표시됩니다.
-      </div>
+    <div class="side-card" id="bench-card" style="display:none;">
+      <h3>🌟 유사 프로젝트 벤치마크</h3>
+      <div id="bench-content"></div>
     </div>
-
-    <div class="cta-section">
-      <button class="cta-btn primary" onclick="generateReport()">📄 리포트 PDF</button>
-      <button class="cta-btn secondary" onclick="resetAll()">초기화</button>
+    <div class="side-card">
+      <div class="cta-block">
+        <button class="cta p" onclick="downloadReport()">📄 리포트 PDF 다운로드</button>
+        <button class="cta s" onclick="saveState()">💾 저장</button>
+        <button class="cta s" onclick="resetAll()">🔄 초기화</button>
+      </div>
     </div>
   </aside>
 </div>
 
 <script>
-let FACTORS_30=null, FACTORS_108=null, FACTOR_MAP=null, BENCHMARKS=null, COUNTRIES=null, LAUNCH_DAYS=null;
-let currentMode = '30';
-let currentCat = 'all';
-let values = {};  // {factor_id: {value: ..., score: ...}}
+let FACTORS_30=null, FACTORS_108=null, FACTOR_MAP=null, BENCHMARKS=null, COUNTRIES=null;
+let mode='30', catIndex=0, values={}, radarChart=null;
+const CRITICAL=5;
+const KR2KS={'IT/전자':'Technology','게임/소프트웨어':'Games','패션/액세서리':'Fashion','소비재':'Design','라이프스타일/디자인':'Design','뷰티/코스메틱':'Fashion','운동기구/헬스':'Design','의료/바이오':'Technology','반려동물':'Design','아웃도어/캠핑':'Design','로봇':'Technology'};
+const ICO30={'법인':'🏢','기본':'ℹ️','사전준비':'🛠️','제품':'📦','혁신성':'💡','가격':'💰','배송':'🚚','마케팅':'📢','비주얼':'🎬','팀':'👥','타이밍':'⏰','운영':'⚙️','목표':'🎯'};
+const ICO108={1:'ℹ️',2:'📦',3:'💡',4:'💰',5:'📢',6:'🎬',7:'🎨',8:'📖',9:'🛠️',10:'👥',11:'📱',12:'🌐',13:'⏰',14:'🚚',15:'🎯',16:'💳'};
 
 async function loadAll(){
   try{
-    const [f30, f108, fmap, bm, co, ld] = await Promise.all([
+    const [f30,f108,fmap,bm,co]=await Promise.all([
       fetch('/data/factors_30.json').then(r=>r.json()),
       fetch('/data/factors_108.json').then(r=>r.json()),
       fetch('/data/factor_map.json').then(r=>r.json()),
       fetch('/data/category_benchmarks.json').then(r=>r.json()),
-      fetch('/data/country_benchmarks.json').then(r=>r.json()),
-      fetch('/data/launch_day_benchmarks.json').then(r=>r.json())
+      fetch('/data/country_benchmarks.json').then(r=>r.json())
     ]);
-    FACTORS_30=f30; FACTORS_108=f108; FACTOR_MAP=fmap;
-    BENCHMARKS=bm; COUNTRIES=co; LAUNCH_DAYS=ld;
-    document.getElementById('meta-info').textContent = `${Object.keys(bm).length}개 카테고리 · ${Object.keys(co).length}국 벤치마크 · 30/108 factor`;
-    setupModeButtons();
-    renderMode();
-    document.getElementById('loading').classList.add('hide');
-  }catch(e){
-    console.error(e);
-    alert('데이터 로드 실패: ' + e.message);
-  }
+    FACTORS_30=f30; FACTORS_108=f108; FACTOR_MAP=fmap; BENCHMARKS=bm; COUNTRIES=co;
+    document.getElementById('meta-text').textContent=`${Object.keys(bm).length} 카테고리 · ${Object.keys(co).length}국 벤치마크`;
+    loadState();
+    setupMode();
+    render();
+    setupRadar();
+    document.getElementById('loader').classList.add('hide');
+  }catch(e){console.error(e);alert('데이터 로드 실패');}
 }
 
-function setupModeButtons(){
-  document.querySelectorAll('.mode-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.dataset.mode;
-      values = {};
-      renderMode();
+function setupMode(){
+  document.querySelectorAll('.mode').forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));
+      el.classList.add('active');
+      mode=el.dataset.mode; catIndex=0; loadState(); render(); setupRadar();
     });
   });
+  document.getElementById('btn-prev').addEventListener('click',()=>{catIndex=Math.max(0,catIndex-1);render();window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('btn-next').addEventListener('click',()=>{const c=getCatList();catIndex=Math.min(c.length-1,catIndex+1);render();window.scrollTo({top:0,behavior:'smooth'});});
 }
 
-function getCurrentFactors(){
-  return currentMode === '30' ? FACTORS_30.factors : FACTORS_108.factors;
-}
-function getTotalMax(){
-  return currentMode === '30' ? FACTORS_30.total_max_score : FACTORS_108.total_max_score;
-}
+const getFactors=()=>mode==='30'?FACTORS_30.factors:FACTORS_108.factors;
+const getTotalMax=()=>mode==='30'?FACTORS_30.total_max_score:FACTORS_108.total_max_score;
+const getCatList=()=>[...new Set(getFactors().map(f=>mode==='30'?f.category:f.cat))].filter(x=>x);
+const getCatLabel=c=>mode==='30'?c:(FACTORS_108.categories[c-1]||`Cat ${c}`);
+const getCatIcon=c=>mode==='30'?(ICO30[c]||'📋'):(ICO108[c]||'📋');
 
-function renderMode(){
-  const factors = getCurrentFactors();
-  // 탭 생성 (카테고리 기준)
-  const cats = ['all', ...new Set(factors.map(f=>currentMode==='30'?f.category:f.cat))];
-  const tabBar = document.getElementById('factor-tabs');
-  tabBar.innerHTML = cats.map(c=>{
-    const label = c==='all' ? '전체' : (currentMode==='108' ? FACTORS_108.categories[c-1] : c);
-    const cnt = c==='all' ? factors.length : factors.filter(f=>(currentMode==='30'?f.category:f.cat)===c).length;
-    return `<div class="factor-tab ${c===currentCat?'active':''}" data-cat="${c}"><span>${label}</span> <span class="count">${cnt}</span></div>`;
+function render(){
+  const cats=getCatList(); const curCat=cats[catIndex];
+  const factors=getFactors().filter(f=>(mode==='30'?f.category:f.cat)===curCat);
+  const steps=document.getElementById('cat-steps');
+  steps.innerHTML=cats.map((c,i)=>{
+    const cf=getFactors().filter(f=>(mode==='30'?f.category:f.cat)===c);
+    const fc=cf.filter(f=>values[f.id]!==undefined).length;
+    const done=cf.length>0&&fc===cf.length;
+    return `<div class="cat-pill ${i===catIndex?'active':''} ${done?'done':''}" data-idx="${i}"><span class="idx">${i+1}</span><span>${getCatIcon(c)} ${getCatLabel(c)}</span></div>`;
   }).join('');
-  tabBar.querySelectorAll('.factor-tab').forEach(t=>{
-    t.addEventListener('click',()=>{
-      currentCat = t.dataset.cat;
-      renderMode();
-    });
-  });
-  renderFactors();
+  steps.querySelectorAll('.cat-pill').forEach(el=>el.addEventListener('click',()=>{catIndex=+el.dataset.idx;render();}));
+  document.getElementById('cat-heading').innerHTML=`${getCatIcon(curCat)} ${getCatLabel(curCat)}`;
+  document.getElementById('cat-pos').textContent=catIndex+1;
+  document.getElementById('cat-tot').textContent=cats.length;
+  document.getElementById('btn-prev').disabled=catIndex===0;
+  document.getElementById('btn-next').disabled=catIndex===cats.length-1;
+  document.getElementById('btn-next').innerHTML=catIndex===cats.length-1?'✅ 완료':'다음 →';
+  document.getElementById('factors').innerHTML=factors.map(renderFactor).join('');
+  bindInputs();
   updateScore();
-}
-
-function renderFactors(){
-  const factors = getCurrentFactors();
-  const list = currentCat==='all' ? factors : factors.filter(f=>(currentMode==='30'?f.category:f.cat)==String(currentCat));
-  const cont = document.getElementById('factors-container');
-  cont.innerHTML = list.map(f=>renderFactor(f)).join('');
-  bindFactorInputs();
-  // 자동 매핑 시도
-  autoMapFromContext();
+  updateBench();
 }
 
 function renderFactor(f){
-  const id = f.id;
-  const v = values[id];
-  const filled = v !== undefined && v !== null;
-  const auto = f.auto_map && filled && v.source === 'auto';
-  const cls = auto ? 'auto-mapped' : (filled ? 'filled' : '');
-  let input = '';
-  const note = f.note ? `<div class="factor-note">${f.note}</div>` : '';
-  const scoreStr = filled ? `<span class="factor-score">+${(v.score||0).toFixed(2)}pt</span>` : '';
-  const maxStr = (f.max||0) > 0 ? `<span class="factor-max">최대 ${f.max}점</span>` : '';
-
-  if (f.type === 'text') {
-    input = `<div class="textinput"><input data-fid="${id}" type="text" placeholder="${f.name_en || f.name}" value="${v?.value||''}"/></div>`;
-  } else if (f.type === 'select' || f.type === 'multi_select') {
-    const multi = f.type === 'multi_select';
-    const opts = (f.options||[]).map(o=>{
-      const [lbl, sc] = typeof o === 'string' && o.includes(':') ? o.split(':') : [o, null];
-      const selected = multi ? (v?.value||[]).includes(lbl) : v?.value===lbl;
-      return `<div class="opt ${multi?'opt-multi':''} ${selected?'selected':''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}${sc?' <span style="opacity:.7;font-size:10px;">+'+sc+'pt</span>':''}</div>`;
-    }).join('');
-    input = `<div class="options">${opts}</div>`;
-  } else if (f.type === 'toggle') {
-    const opts = (f.options||['있음:'+f.max,'없음:0']).map(o=>{
-      const [lbl,sc] = typeof o==='string' && o.includes(':') ? o.split(':') : [o,null];
-      const isYes = lbl.includes('있음') || lbl==='Yes';
-      const selected = v?.value===lbl;
-      return `<div class="tog ${selected?'selected '+(isYes?'yes':'no'):''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}</div>`;
-    }).join('');
-    input = `<div class="toggle-row">${opts}</div>`;
-  } else if (f.type === 'stepper') {
-    const scale = f.scale || 5;
-    const stepBtns = [];
-    for (let i=1; i<=scale; i++) {
-      const sel = v?.value===i;
-      stepBtns.push(`<div class="stepper-btn ${sel?'selected':''}" data-fid="${id}" data-val="${i}">${i}</div>`);
-    }
-    input = `<div class="stepper">${stepBtns.join('')}</div>`;
-    if (f.options) {
-      input += `<div class="factor-note" style="margin-top:4px;">${f.options.join(' · ')}</div>`;
-    }
-  } else if (f.type === 'number') {
-    input = `<div class="numinput"><input data-fid="${id}" type="number" placeholder="숫자 입력" value="${v?.value||''}"/></div>`;
-  } else if (f.type === 'range') {
-    const r = f.range || {min:0,max:100,unit:''};
-    const cur = v?.value ?? r.min;
-    input = `<div class="range-wrap"><div class="range-row">
-      <input data-fid="${id}" type="range" min="${r.min}" max="${r.max}" value="${cur}" step="${r.max>1000?10:1}"/>
-      <span class="range-val" id="range-val-${id}">${cur}${r.unit}</span>
-    </div></div>`;
+  const v=values[f.id]; const filled=v!==undefined;
+  const isCrit=(f.max||0)>=CRITICAL; const isAuto=f.auto_map;
+  let cls='';
+  if(filled&&isAuto) cls='auto filled';
+  else if(filled) cls='filled';
+  else if(isCrit) cls='critical';
+  else if(isAuto) cls='auto';
+  const tags=[];
+  if(isCrit) tags.push('<span class="tag c">★ Critical</span>');
+  else if((f.max||0)>=3) tags.push('<span class="tag h">High</span>');
+  if(isAuto&&!filled) tags.push('<span class="tag a">DB 자동</span>');
+  let input='';
+  if(f.type==='text'){input=`<div class="text-box"><input type="text" data-fid="${f.id}" placeholder="${f.name_en||'입력'}" value="${v?.value||''}"/></div>`;}
+  else if(f.type==='select'||f.type==='multi_select'){
+    const mu=f.type==='multi_select';
+    input=`<div class="opts">${(f.options||[]).map(o=>{
+      const [lbl,sc]=typeof o==='string'&&o.includes(':')?o.split(':'):[o,null];
+      const sel=mu?(v?.value||[]).includes(lbl):v?.value===lbl;
+      return `<div class="opt ${mu?'multi':''} ${sel?'on':''}" data-fid="${f.id}" data-val="${lbl}" ${sc?`data-score="${sc}"`:''}>${lbl}${sc?`<span class="pt">+${sc}</span>`:''}</div>`;
+    }).join('')}</div>`;
   }
-
-  return `<div class="factor ${cls}" id="factor-${id}">
-    <div class="factor-head">
-      <div class="factor-num">${id}</div>
-      <div class="factor-title">${f.name} <span class="name-en">${f.name_en||''}</span></div>
-      ${maxStr}
-      ${scoreStr}
-    </div>
-    ${input}
-    ${note}
-  </div>`;
+  else if(f.type==='toggle'){
+    const opts=f.options||[`있음:${f.max}`,`없음:0`];
+    input=`<div class="tog">${opts.map(o=>{
+      const [lbl,sc]=typeof o==='string'&&o.includes(':')?o.split(':'):[o,null];
+      const isY=lbl.includes('있음')||lbl==='Yes';
+      const sel=v?.value===lbl;
+      return `<button class="tog-btn ${sel?'on '+(isY?'yes':'no'):''}" data-fid="${f.id}" data-val="${lbl}" ${sc?`data-score="${sc}"`:''}>${lbl}</button>`;
+    }).join('')}</div>`;
+  }
+  else if(f.type==='stepper'){
+    const sc=f.scale||5;
+    input=`<div class="steps">${Array.from({length:sc},(_,i)=>{const n=i+1;return `<div class="step-btn ${v?.value===n?'on':''}" data-fid="${f.id}" data-val="${n}">${n}</div>`;}).join('')}</div>`;
+    if(f.options) input+=`<div class="f-note" style="margin-top:8px;">${f.options.join(' · ')}</div>`;
+  }
+  else if(f.type==='number'){input=`<div class="num-box"><input type="number" data-fid="${f.id}" placeholder="0" value="${v?.value||''}"/><span class="num-unit">${f.unit||''}</span></div>`;}
+  else if(f.type==='range'){
+    const r=f.range||{min:0,max:100,unit:''};
+    const cur=v?.value??r.min;
+    input=`<div class="range-box"><div class="range-ctrl"><input type="range" data-fid="${f.id}" min="${r.min}" max="${r.max}" step="${r.max>1000?10:1}" value="${cur}"/><span class="val" id="rv-${f.id}">${cur.toLocaleString()}${r.unit||''}</span></div></div>`;
+  }
+  const note=f.note?`<div class="f-note">${f.note}</div>`:'';
+  const maxStr=(f.max||0)>0?`<div class="f-score">${filled?`+${v.score.toFixed(2)}`:'<span class="max">'+f.max+'pt</span>'}</div>`:'';
+  return `<div class="factor ${cls}" id="f-${f.id}"><div class="f-head"><div class="f-num">${f.id}</div><div class="f-title"><div class="name">${f.name} ${tags.join('')}</div><div class="en">${f.name_en||''}</div></div>${maxStr}</div>${input}${note}</div>`;
 }
 
-function bindFactorInputs(){
-  // 옵션 클릭
-  document.querySelectorAll('.opt').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.dataset.val;
-      const isMulti = el.classList.contains('opt-multi');
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      if (isMulti) {
-        const cur = (values[fid]?.value)||[];
-        const next = cur.includes(val) ? cur.filter(x=>x!==val) : [...cur, val];
-        values[fid] = computeValue(f, next);
-      } else {
-        values[fid] = computeValue(f, val, el.dataset.score);
-      }
-      renderFactors();
-      updateScore();
-    });
-  });
-  // toggle
-  document.querySelectorAll('.tog').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.dataset.val;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val, el.dataset.score);
-      renderFactors();
-      updateScore();
-    });
-  });
-  // stepper
-  document.querySelectorAll('.stepper-btn').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = +el.dataset.val;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val);
-      renderFactors();
-      updateScore();
-    });
-  });
-  // text/number/range
-  document.querySelectorAll('.textinput input, .numinput input').forEach(el=>{
-    el.addEventListener('change',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.type==='number' ? +el.value : el.value;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val);
-      updateScore();
-      // re-render only changed factor
-      renderFactors();
-    });
-  });
-  document.querySelectorAll('input[type=range]').forEach(el=>{
-    el.addEventListener('input',()=>{
-      const fid = +el.dataset.fid;
-      const val = +el.value;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      const unit = f.range?.unit || '';
-      document.getElementById(`range-val-${fid}`).textContent = val + unit;
-      values[fid] = computeValue(f, val);
-      updateScore();
-    });
-  });
+function bindInputs(){
+  document.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>{
+    const fid=+el.dataset.fid, val=el.dataset.val;
+    const mu=el.classList.contains('multi');
+    const f=getFactors().find(x=>x.id===fid);
+    if(mu){const cur=values[fid]?.value||[];const next=cur.includes(val)?cur.filter(x=>x!==val):[...cur,val];values[fid]=compute(f,next);}
+    else values[fid]=compute(f,val,el.dataset.score);
+    render();
+  }));
+  document.querySelectorAll('.tog-btn').forEach(el=>el.addEventListener('click',()=>{
+    const fid=+el.dataset.fid, val=el.dataset.val;
+    values[fid]=compute(getFactors().find(x=>x.id===fid),val,el.dataset.score);
+    render();
+  }));
+  document.querySelectorAll('.step-btn').forEach(el=>el.addEventListener('click',()=>{
+    const fid=+el.dataset.fid, val=+el.dataset.val;
+    values[fid]=compute(getFactors().find(x=>x.id===fid),val);
+    render();
+  }));
+  document.querySelectorAll('.text-box input,.num-box input').forEach(el=>el.addEventListener('change',()=>{
+    const fid=+el.dataset.fid;
+    const val=el.type==='number'?+el.value:el.value;
+    values[fid]=compute(getFactors().find(x=>x.id===fid),val);
+    updateScore();
+  }));
+  document.querySelectorAll('input[type=range]').forEach(el=>el.addEventListener('input',()=>{
+    const fid=+el.dataset.fid, val=+el.value;
+    const f=getFactors().find(x=>x.id===fid);
+    const r=f.range||{unit:''};
+    document.getElementById(`rv-${fid}`).textContent=val.toLocaleString()+(r.unit||'');
+    values[fid]=compute(f,val);
+    updateScore();
+  }));
 }
 
-// 값을 factor 스코어로 변환
-function computeValue(f, val, directScore){
-  if (directScore !== undefined && directScore !== null) {
-    return {value: val, score: +directScore};
+function compute(f,val,directScore){
+  if(directScore!==undefined&&directScore!==null) return {value:val,score:+directScore};
+  const max=f.max||0; let s=0;
+  if(f.type==='toggle'){s=(val.includes('있음')||val==='Yes')?max:0;}
+  else if(f.type==='select'){
+    const idx=(f.options||[]).findIndex(o=>{const lbl=typeof o==='string'&&o.includes(':')?o.split(':')[0]:o;return lbl===val;});
+    if(idx>=0){const o=f.options[idx];if(typeof o==='string'&&o.includes(':'))s=+o.split(':')[1];else s=max*(1-idx/(f.options.length||1));}
   }
-  const max = f.max || 0;
-  let score = 0;
-  if (f.type === 'toggle') {
-    // "있음:max" 파싱 안됐으면 fallback
-    score = val.includes('있음') || val === 'Yes' ? max : 0;
-  } else if (f.type === 'select') {
-    // 옵션에 :점수 없으면 위치 기반
-    const idx = (f.options||[]).findIndex(o=>{
-      const lbl = typeof o==='string' && o.includes(':') ? o.split(':')[0] : o;
-      return lbl === val;
-    });
-    if (idx >= 0) {
-      const o = f.options[idx];
-      if (typeof o==='string' && o.includes(':')) score = +o.split(':')[1];
-      else score = max * (1 - idx/(f.options.length||1));
-    }
-  } else if (f.type === 'multi_select') {
-    const cnt = Array.isArray(val) ? val.length : 0;
-    score = Math.min(max, max * cnt / 3);
-  } else if (f.type === 'stepper') {
-    const scale = f.scale || 5;
-    score = max * (val / scale);
-  } else if (f.type === 'number') {
-    score = val > 0 ? max : 0;
-  } else if (f.type === 'range') {
-    if (f.rules) {
-      for (const r of f.rules) {
-        if (val <= r.max) { score = r.score; break; }
-      }
-    } else {
-      const rng = f.range || {min:0,max:100};
-      score = max * (val - rng.min) / (rng.max - rng.min);
-    }
+  else if(f.type==='multi_select'){s=Math.min(max,max*(Array.isArray(val)?val.length:0)/3);}
+  else if(f.type==='stepper'){s=max*(val/(f.scale||5));}
+  else if(f.type==='number'){s=val>0?max:0;}
+  else if(f.type==='range'){
+    if(f.rules){for(const r of f.rules){if(val<=r.max){s=r.score;break;}}}
+    else{const r=f.range||{min:0,max:100};s=max*(val-r.min)/(r.max-r.min);}
   }
-  return {value: val, score: Math.max(0, Math.min(max, score))};
-}
-
-// 카테고리·국가 기반 자동 매핑
-function autoMapFromContext(){
-  // factor 4 (카테고리) 값으로 benchmark 자동 매칭
-  const catVal = values[4]?.value;
-  if (catVal && BENCHMARKS) {
-    // 한국 카테고리 → KS 카테고리 매핑
-    const mapping = {
-      'IT/전자':'Technology', '게임/소프트웨어':'Games', '패션/액세서리':'Fashion',
-      '소비재':'Design', '라이프스타일/디자인':'Design', '뷰티/코스메틱':'Fashion',
-      '운동기구/헬스':'Design', '의료/바이오':'Technology', '반려동물':'Design',
-      '아웃도어/캠핑':'Design', '로봇':'Technology'
-    };
-    const mapped = Array.isArray(catVal) ? (catVal[0] ? mapping[catVal[0]] : null) : mapping[catVal];
-    if (mapped && BENCHMARKS[mapped]) {
-      window._matchedCategory = mapped;
-    }
-  }
-  renderSimilarProjects();
-  renderImprovementTips();
-}
-
-function renderSimilarProjects(){
-  const cat = window._matchedCategory;
-  const el = document.getElementById('similar-list');
-  if (!cat) {
-    el.innerHTML = '카테고리 + 국가 선택 시 표시됩니다.';
-    return;
-  }
-  const bm = BENCHMARKS[cat];
-  el.innerHTML = `<div style="margin-bottom:10px;padding:10px;background:#f0f9ff;border-radius:6px;font-size:11px;">
-    <b>${cat}</b> 카테고리 벤치마크<br>
-    총 ${bm.total.toLocaleString()} 프로젝트 · 성공률 ${bm.success_rate}%<br>
-    목표 중앙값 $${bm.median_goal_usd.toLocaleString()}<br>
-    리워드 최저가 중앙값 $${bm.median_min_price}
-  </div>
-  <a href="/kickstarter-insight.html#sec-category" class="nav-btn" style="display:inline-block;font-size:10px;">상세 분석 →</a>`;
-}
-
-function renderImprovementTips(){
-  const factors = getCurrentFactors();
-  const el = document.getElementById('improvement-tips');
-  const tips = [];
-  // 비어있는 고가점 factor 추천
-  const unfilled = factors
-    .filter(f => !values[f.id] && (f.max||0) >= 5)
-    .sort((a,b)=>(b.max||0)-(a.max||0))
-    .slice(0, 3);
-  unfilled.forEach(f => {
-    tips.push(`<div class="tip warn"><b>${f.name}</b> 입력 시 <b>+${f.max}pt</b> 획득 가능</div>`);
-  });
-  // 점수 낮은 filled factor 개선 제안
-  const lowScore = factors
-    .filter(f => values[f.id] && (f.max||0) > 0 && (values[f.id].score / f.max) < 0.5)
-    .slice(0, 2);
-  lowScore.forEach(f => {
-    tips.push(`<div class="tip info"><b>${f.name}</b> 현재 ${values[f.id].score.toFixed(1)}/${f.max}pt — 개선 시 약 +${(f.max-values[f.id].score).toFixed(1)}pt</div>`);
-  });
-  el.innerHTML = tips.join('') || '충분히 입력되었습니다 👏';
+  return {value:val,score:Math.max(0,Math.min(max,s))};
 }
 
 function updateScore(){
-  const factors = getCurrentFactors();
-  const totalMax = getTotalMax();
-  let totalScore = 0;
-  let filled = 0;
-  for (const f of factors) {
-    if (values[f.id] !== undefined) {
-      totalScore += values[f.id].score || 0;
-      filled++;
-    }
-  }
-  const pct = (totalScore / totalMax * 100);
-  document.getElementById('score-val').textContent = pct.toFixed(1).split('.')[0];
-  document.getElementById('score-bar').style.width = Math.min(100, pct) + '%';
-  // Grade
-  let grade = 'F', rank = '위험 — 대폭 개선 필요';
-  if (pct >= 80) { grade='A+'; rank='매우 높은 성공 확률'; }
-  else if (pct >= 70) { grade='A'; rank='높은 성공 확률'; }
-  else if (pct >= 60) { grade='B+'; rank='평균 이상'; }
-  else if (pct >= 50) { grade='B'; rank='평균 수준'; }
-  else if (pct >= 40) { grade='C'; rank='개선 필요'; }
-  else if (pct >= 30) { grade='D'; rank='많은 개선 필요'; }
-  document.getElementById('score-grade').textContent = grade;
-  document.getElementById('score-rank').textContent = rank;
-
-  // ML proxy: 스코어가 높으면 ML 확률도 높게 (simple linear)
-  const mlProb = Math.min(95, Math.max(10, pct * 0.9 + 5)).toFixed(1);
-  document.getElementById('ml-prob').textContent = mlProb + '% (추정)';
-
-  // progress
-  document.getElementById('progress-text').textContent = `${filled}/${factors.length}`;
-  document.getElementById('progress-bar').style.width = (filled/factors.length*100) + '%';
-  document.getElementById('progress-pct').textContent = Math.round(filled/factors.length*100) + '%';
-
-  renderImprovementTips();
+  const factors=getFactors(); const totalMax=getTotalMax();
+  let total=0, filled=0;
+  for(const f of factors){if(values[f.id]!==undefined){total+=values[f.id].score||0;filled++;}}
+  const pct=(total/totalMax*100);
+  animateNum('score-num', pct);
+  const offset=502-(Math.min(100,pct)/100*502);
+  document.getElementById('ring-fg').style.strokeDashoffset=offset;
+  let grade='F',text='위험',cls='low',hl='더 많은 정보가 필요합니다',sub='카테고리·가격·마케팅 예산 등 핵심 factor부터 입력하세요';
+  if(pct>=80){grade='A+';text='매우 높은 성공 확률';cls='high';hl='🏆 우수한 캠페인입니다!';sub='지금 준비로도 글로벌 런칭이 매우 유망합니다';}
+  else if(pct>=70){grade='A';text='높은 성공 확률';cls='high';hl='🎉 강력한 캠페인 구성';sub='마지막 디테일을 다듬으면 더 좋습니다';}
+  else if(pct>=60){grade='B+';text='평균 이상';cls='mid';hl='📈 좋은 출발점';sub='몇 가지 핵심 영역을 보강하면 A급으로';}
+  else if(pct>=50){grade='B';text='평균';cls='mid';hl='⚖️ 기본은 갖췄습니다';sub='마케팅 예산과 영상 퀄리티를 확인하세요';}
+  else if(pct>=40){grade='C';text='개선 필요';cls='low';hl='⚠️ 개선 여지 많음';sub='Critical factor(빨간 표시) 중심으로 보강';}
+  else if(pct>=30){grade='D';text='많은 개선';cls='low';hl='🚧 중요 요소 부족';sub='페인포인트 해결력, 마케팅 예산이 핵심';}
+  document.getElementById('grade-letter').textContent=grade;
+  document.getElementById('grade-text').textContent=text;
+  document.getElementById('chip').className='chip '+cls;
+  document.getElementById('hl').textContent=hl;
+  document.getElementById('hl-sub').textContent=sub;
+  const ml=Math.min(95,Math.max(10,pct*0.9+5));
+  document.getElementById('ml-val').textContent=ml.toFixed(0)+'%';
+  document.getElementById('prog-label').textContent=`${filled}/${factors.length}`;
+  document.getElementById('p-num').textContent=filled;
+  document.getElementById('p-tot').textContent=factors.length;
+  document.getElementById('p-pct').textContent=Math.round(filled/factors.length*100)+'%';
+  document.getElementById('p-bar').style.width=(filled/factors.length*100)+'%';
+  updateTips();
+  updateRadar();
+  if(pct>=80&&filled===factors.length) celebrate();
+  saveState();
 }
 
-function resetAll(){
-  if (confirm('모든 입력을 초기화할까요?')) {
-    values = {};
-    window._matchedCategory = null;
-    renderMode();
-  }
+function animateNum(id,target){
+  const el=document.getElementById(id); const start=+el.textContent||0; const dur=500; const t0=performance.now();
+  function tick(t){const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);el.textContent=Math.round(start+(target-start)*e);if(p<1) requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
 }
 
-function generateReport(){
-  const factors = getCurrentFactors();
-  const totalMax = getTotalMax();
-  let totalScore = 0, filled = 0;
-  const rows = [];
-  for (const f of factors) {
-    const v = values[f.id];
-    if (v !== undefined) {
-      totalScore += v.score || 0;
-      filled++;
-      rows.push({factor:f.name, value: Array.isArray(v.value) ? v.value.join(', ') : v.value, score: v.score});
-    }
-  }
-  const pct = (totalScore / totalMax * 100);
-  let txt = `=== Setoworks GTM Predictor 리포트 ===\n\n`;
-  txt += `모드: ${currentMode} Factor\n`;
-  txt += `입력: ${filled}/${factors.length}\n`;
-  txt += `총점: ${totalScore.toFixed(2)} / ${totalMax}\n`;
-  txt += `성공률: ${pct.toFixed(1)}%\n\n`;
-  txt += `--- 입력 항목 ---\n`;
-  rows.forEach(r => {
-    txt += `[${r.factor}] ${r.value} → +${r.score.toFixed(2)}pt\n`;
-  });
-  // 다운로드
-  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `gtm-predictor-${currentMode}f-${new Date().toISOString().split('T')[0]}.txt`;
-  a.click();
+function updateTips(){
+  const factors=getFactors(); const el=document.getElementById('tips'); const tips=[];
+  const unf=factors.filter(f=>!values[f.id]&&(f.max||0)>=3).sort((a,b)=>b.max-a.max).slice(0,3);
+  unf.forEach(f=>{const isCrit=f.max>=5;tips.push(`<div class="tip ${isCrit?'critical':'warn'}"><span class="emoji">${isCrit?'🔥':'⚡'}</span><div><b>${f.name}</b> 입력 시 <b style="color:var(--brand);">+${f.max}pt</b> 획득 가능</div></div>`);});
+  const lo=factors.filter(f=>values[f.id]&&(f.max||0)>0&&(values[f.id].score/f.max)<0.5).slice(0,2);
+  lo.forEach(f=>{const gain=(f.max-values[f.id].score).toFixed(1);tips.push(`<div class="tip info"><span class="emoji">📈</span><div><b>${f.name}</b> 현재 ${values[f.id].score.toFixed(1)}/${f.max}pt · 개선 시 +${gain}pt 추가</div></div>`);});
+  if(tips.length===0) tips.push('<div class="tip ok"><span class="emoji">✨</span><div>훌륭하게 입력되었습니다! 스코어를 유지하세요.</div></div>');
+  el.innerHTML=tips.join('');
+}
+
+function updateBench(){
+  const catVal=values[4]?.value;
+  if(!catVal){document.getElementById('bench-card').style.display='none';return;}
+  const mp=Array.isArray(catVal)?KR2KS[catVal[0]]:KR2KS[catVal];
+  if(!mp||!BENCHMARKS[mp]){document.getElementById('bench-card').style.display='none';return;}
+  const bm=BENCHMARKS[mp];
+  document.getElementById('bench-card').style.display='';
+  document.getElementById('bench-content').innerHTML=`
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">KS <b style="color:var(--brand);">${mp}</b> 카테고리 기준</div>
+    <div class="bench">
+      <div class="bench-row h"><span class="lbl">성공률</span><span class="val">${bm.success_rate}%</span></div>
+      <div class="bench-row"><span class="lbl">총 프로젝트</span><span class="val">${bm.total.toLocaleString()}</span></div>
+      <div class="bench-row"><span class="lbl">목표 중앙값</span><span class="val">$${bm.median_goal_usd.toLocaleString()}</span></div>
+      <div class="bench-row"><span class="lbl">최저 리워드</span><span class="val">$${bm.median_min_price}</span></div>
+      <div class="bench-row"><span class="lbl">평균 기간</span><span class="val">${bm.median_duration}일</span></div>
+      <div class="bench-row"><span class="lbl">리워드 수</span><span class="val">${bm.median_reward_count}개</span></div>
+    </div>
+    <a href="/kickstarter-insight.html#sec-category" style="display:inline-block;margin-top:10px;font-size:11px;color:var(--brand);font-weight:700;text-decoration:none;">자세히 →</a>`;
+}
+
+function setupRadar(){
+  if(radarChart){radarChart.destroy();radarChart=null;}
+  const ctx=document.getElementById('radar-chart').getContext('2d');
+  const cats=getCatList();
+  radarChart=new Chart(ctx,{type:'radar',data:{
+    labels:cats.map(c=>{const l=getCatLabel(c);return l.length>8?l.substring(0,8):l;}),
+    datasets:[{label:'현재',data:cats.map(()=>0),backgroundColor:'rgba(255,0,59,.15)',borderColor:'rgba(255,0,59,1)',borderWidth:2,pointBackgroundColor:'rgba(255,0,59,1)',pointRadius:3,pointHoverRadius:6}]
+  },options:{responsive:true,maintainAspectRatio:false,animation:{duration:600,easing:'easeOutQuart'},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.r.toFixed(1)}%`}}},scales:{r:{min:0,max:100,ticks:{display:false,stepSize:25},pointLabels:{font:{size:10,weight:600}},grid:{color:'#e5e7eb'},angleLines:{color:'#e5e7eb'}}}}});
+}
+
+function updateRadar(){
+  if(!radarChart) return;
+  const cats=getCatList();
+  const data=cats.map(c=>{const facs=getFactors().filter(f=>(mode==='30'?f.category:f.cat)===c);const tm=facs.reduce((s,f)=>s+(f.max||0),0)||1;const cur=facs.reduce((s,f)=>s+(values[f.id]?.score||0),0);return (cur/tm*100);});
+  radarChart.data.datasets[0].data=data; radarChart.update();
+}
+
+function celebrate(){
+  const colors=['#ff003b','#8b5cf6','#06b6d4','#10b981','#f59e0b'];
+  for(let i=0;i<50;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=colors[i%colors.length];c.style.animationDelay=Math.random()*0.5+'s';c.style.animationDuration=(2+Math.random()*2)+'s';c.style.transform=`rotate(${Math.random()*360}deg)`;document.body.appendChild(c);setTimeout(()=>c.remove(),5000);}
+}
+
+function saveState(){try{localStorage.setItem(`gtm_${mode}`,JSON.stringify(values));}catch{}}
+function loadState(){try{const s=localStorage.getItem(`gtm_${mode}`);if(s) values=JSON.parse(s);else values={};}catch{values={};}}
+function resetAll(){if(confirm('모든 입력을 초기화할까요?')){values={};try{localStorage.removeItem(`gtm_${mode}`);}catch{}catIndex=0;render();setupRadar();}}
+
+function downloadReport(){
+  const factors=getFactors(); const totalMax=getTotalMax();
+  let total=0,filled=0; const rows=[];
+  for(const f of factors){const v=values[f.id];if(v!==undefined){total+=v.score||0;filled++;rows.push({factor:f.name,value:Array.isArray(v.value)?v.value.join(', '):v.value,score:v.score||0,max:f.max||0});}}
+  const pct=(total/totalMax*100);
+  let txt=`═══════════════════════════════════════\n`;
+  txt+=`  Setoworks GTM Predictor Report\n`;
+  txt+=`  ${new Date().toLocaleString('ko-KR')}\n`;
+  txt+=`═══════════════════════════════════════\n\n`;
+  txt+=`모드: ${mode} Factor\n입력: ${filled}/${factors.length}\n총점: ${total.toFixed(2)} / ${totalMax}\n성공률: ${pct.toFixed(1)}%\n\n─── 입력 항목 ───\n`;
+  rows.forEach(r=>{txt+=`[${r.factor}]\n  입력: ${r.value}\n  점수: +${r.score.toFixed(2)} / ${r.max}pt\n\n`;});
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=`gtm-predictor-${mode}f-${new Date().toISOString().split('T')[0]}.txt`; a.click();
 }
 
 loadAll();
