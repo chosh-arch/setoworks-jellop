@@ -485,43 +485,49 @@ tr:hover{background:#f8fafc;}
   <!-- 펀딩 규모 변화 (Stacked Area) + 카테고리 히트맵 -->
   <div class="g2" style="margin-top:16px;">
     <div class="card">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">FUNDING SCALE</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">펀딩 규모 구간 분기별 변화</h3>
-      <div style="position:relative;height:260px;"><canvas id="tr-scale"></canvas></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:8px;">&lt;$1K, $1-10K, $10-50K, $50-100K, $100-500K, $500K-1M, $1M+</div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">FUNDING SCALE · 펀딩 규모 분포</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">펀딩 규모 구간 분기별 변화</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">성공 프로젝트를 <b>최종 모금액 구간별</b>로 나눠 분기별 변화. 상위 1M+ 프로젝트 수 증가 = 대형 캠페인 비중 확대 지표.</div>
+      <div style="position:relative;height:240px;"><canvas id="tr-scale"></canvas></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">구간: &lt;$1K / $1-10K / $10-50K / $50-100K / $100-500K / $500K-1M / $1M+</div>
     </div>
     <div class="card">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CATEGORY × TIME</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">카테고리 월별 활동 히트맵</h3>
-      <div id="tr-heatmap" style="height:280px;"></div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CATEGORY × TIME · 카테고리 × 시간</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">카테고리 월별 활동 히트맵</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">가로 = 월, 세로 = 카테고리. 진한 색 = 해당 월 프로젝트 많음. 카테고리 <b>시즌성</b> + 최근 트렌딩 파악 가능.</div>
+      <div id="tr-heatmap" style="height:260px;"></div>
     </div>
   </div>
 
   <!-- 국가 성공률 + Staff Pick 효과 -->
   <div class="g2" style="margin-top:16px;">
     <div class="card">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">GEOGRAPHIC</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">국가별 분기 성공률 추세 (Top 10)</h3>
-      <div style="position:relative;height:260px;"><canvas id="tr-country"></canvas></div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">GEOGRAPHIC · 국가별 추세</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">국가별 분기 성공률 추세 (Top 10)</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">각 국가에서 분기별로 마감된 프로젝트의 <b>성공 비율</b> 변화. 시장별 특성·시즌성·경쟁 강도를 비교할 수 있음 (예: 일본 88%, 홍콩 85%는 Top 성공 시장).</div>
+      <div style="position:relative;height:240px;"><canvas id="tr-country"></canvas></div>
     </div>
     <div class="card tint-ai">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">STAFF PICK EFFECT</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">Staff Pick vs 일반 성공률 갭</h3>
-      <div style="position:relative;height:260px;"><canvas id="tr-staffpick"></canvas></div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">STAFF PICK EFFECT · 편집팀 추천 효과</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">Staff Pick vs 일반 성공률 비교</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">킥스타터 <b>편집팀이 선정하는 "Project We Love"</b> 프로젝트의 성공률 vs 일반 프로젝트. Staff Pick은 홈 전면 노출 + 뉴스레터 포함 → <b>평균 +14.5%p 높음</b>.</div>
+      <div style="position:relative;height:240px;"><canvas id="tr-staffpick"></canvas></div>
     </div>
   </div>
 
   <!-- AI 사용 급증 + 캠페인 duration -->
   <div class="g2" style="margin-top:16px;">
     <div class="card tint-predict">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">EMERGING: AI DISCLOSURE</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">AI 사용 선언 프로젝트 급증 (KS 2024 신규 필드)</h3>
-      <div style="position:relative;height:220px;"><canvas id="tr-ai"></canvas></div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">EMERGING · AI DISCLOSURE</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">AI 사용 선언 프로젝트 급증</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">2024.08부터 KS가 <b>"AI를 제작에 사용했나요?"</b> 필수 공개 도입. 프로젝트 중 AI 명시 비율 변화 — 크리에이티브 도구 채택 가늠자.</div>
+      <div style="position:relative;height:200px;"><canvas id="tr-ai"></canvas></div>
     </div>
     <div class="card">
-      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CAMPAIGN LENGTH</div>
-      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:14px;">평균 캠페인 기간 추세</h3>
-      <div style="position:relative;height:220px;"><canvas id="tr-duration"></canvas></div>
+      <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">CAMPAIGN LENGTH · 캠페인 기간</div>
+      <h3 style="font-size:16px;font-weight:700;margin-top:4px;margin-bottom:6px;">평균 캠페인 기간 추세</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;">캠페인 런칭~마감 일수 평균. 짧은 캠페인(14-30일) 성공률이 높은 편 (긴 캠페인은 FOMO 약함).</div>
+      <div style="position:relative;height:200px;"><canvas id="tr-duration"></canvas></div>
     </div>
   </div>
 
