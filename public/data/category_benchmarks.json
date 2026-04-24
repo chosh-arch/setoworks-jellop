@@ -1,0 +1,122 @@
+{
+  "Art": {
+    "total": 2755,
+    "success_rate": 92.8,
+    "median_min_price": 11,
+    "median_goal_usd": 756,
+    "median_duration": 30.0,
+    "median_reward_count": 7
+  },
+  "Games": {
+    "total": 4286,
+    "success_rate": 90.3,
+    "median_min_price": 10,
+    "median_goal_usd": 680,
+    "median_duration": 25.0,
+    "median_reward_count": 5
+  },
+  "Design": {
+    "total": 2728,
+    "success_rate": 91.0,
+    "median_min_price": 48,
+    "median_goal_usd": 3300,
+    "median_duration": 30.0,
+    "median_reward_count": 6
+  },
+  "Technology": {
+    "total": 1567,
+    "success_rate": 70.6,
+    "median_min_price": 49,
+    "median_goal_usd": 5000,
+    "median_duration": 30.0,
+    "median_reward_count": 5
+  },
+  "Comics": {
+    "total": 3370,
+    "success_rate": 97.4,
+    "median_min_price": 7,
+    "median_goal_usd": 1890,
+    "median_duration": 30.0,
+    "median_reward_count": 10
+  },
+  "Publishing": {
+    "total": 2004,
+    "success_rate": 78.5,
+    "median_min_price": 10,
+    "median_goal_usd": 2148,
+    "median_duration": 30.0,
+    "median_reward_count": 7
+  },
+  "Film & Video": {
+    "total": 2287,
+    "success_rate": 73.5,
+    "median_min_price": 10,
+    "median_goal_usd": 5000,
+    "median_duration": 30.0,
+    "median_reward_count": 7
+  },
+  "Fashion": {
+    "total": 1708,
+    "success_rate": 87.8,
+    "median_min_price": 15,
+    "median_goal_usd": 2040,
+    "median_duration": 30.0,
+    "median_reward_count": 7
+  },
+  "Music": {
+    "total": 1037,
+    "success_rate": 84.0,
+    "median_min_price": 11,
+    "median_goal_usd": 5434,
+    "median_duration": 30.0,
+    "median_reward_count": 8
+  },
+  "Crafts": {
+    "total": 524,
+    "success_rate": 78.1,
+    "median_min_price": 15,
+    "median_goal_usd": 1000,
+    "median_duration": 30.0,
+    "median_reward_count": 6
+  },
+  "Theater": {
+    "total": 229,
+    "success_rate": 85.2,
+    "median_min_price": 15,
+    "median_goal_usd": 4410,
+    "median_duration": 30.0,
+    "median_reward_count": 6
+  },
+  "Photography": {
+    "total": 427,
+    "success_rate": 88.5,
+    "median_min_price": 20,
+    "median_goal_usd": 1500,
+    "median_duration": 30.0,
+    "median_reward_count": 6
+  },
+  "Food": {
+    "total": 874,
+    "success_rate": 71.1,
+    "median_min_price": 13,
+    "median_goal_usd": 10000,
+    "median_duration": 30.0,
+    "median_reward_count": 7
+  },
+  "Dance": {
+    "total": 90,
+    "success_rate": 83.3,
+    "median_min_price": 15,
+    "median_goal_usd": 3400,
+    "median_duration": 33.0,
+    "median_reward_count": 6
+  },
+  "Journalism": {
+    "total": 93,
+    "success_rate": 58.1,
+    "median_min_price": 10,
+    "median_goal_usd": 3780,
+    "median_duration": 30.0,
+    "median_reward_count": 5
+  }
+}

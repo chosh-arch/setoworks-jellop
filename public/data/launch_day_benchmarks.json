@@ -1,0 +1,44 @@
+[
+  {
+    "dow": 0,
+    "day": "일요일",
+    "total": 1601,
+    "success_rate": 81.3
+  },
+  {
+    "dow": 1,
+    "day": "월요일",
+    "total": 2542,
+    "success_rate": 82.6
+  },
+  {
+    "dow": 2,
+    "day": "화요일",
+    "total": 5754,
+    "success_rate": 88.8
+  },
+  {
+    "dow": 3,
+    "day": "수요일",
+    "total": 5207,
+    "success_rate": 88.9
+  },
+  {
+    "dow": 4,
+    "day": "목요일",
+    "total": 3445,
+    "success_rate": 85.3
+  },
+  {
+    "dow": 5,
+    "day": "금요일",
+    "total": 3203,
+    "success_rate": 85.1
+  },
+  {
+    "dow": 6,
+    "day": "토요일",
+    "total": 2767,
+    "success_rate": 85.3
+  }
+]

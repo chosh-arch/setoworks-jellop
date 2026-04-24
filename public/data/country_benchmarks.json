@@ -1,0 +1,127 @@
+{
+  "US": {
+    "name": "the United States",
+    "total": 13257,
+    "success_rate": 86.1
+  },
+  "GB": {
+    "name": "the United Kingdom",
+    "total": 2928,
+    "success_rate": 88.7
+  },
+  "CA": {
+    "name": "Canada",
+    "total": 1320,
+    "success_rate": 85.8
+  },
+  "PL": {
+    "name": "Poland",
+    "total": 336,
+    "success_rate": 87.5
+  },
+  "HK": {
+    "name": "Hong Kong",
+    "total": 1156,
+    "success_rate": 94.4
+  },
+  "ES": {
+    "name": "Spain",
+    "total": 727,
+    "success_rate": 84.3
+  },
+  "GR": {
+    "name": "Greece",
+    "total": 208,
+    "success_rate": 94.7
+  },
+  "MX": {
+    "name": "Mexico",
+    "total": 383,
+    "success_rate": 80.7
+  },
+  "DE": {
+    "name": "Germany",
+    "total": 670,
+    "success_rate": 76.7
+  },
+  "SG": {
+    "name": "Singapore",
+    "total": 181,
+    "success_rate": 86.7
+  },
+  "IT": {
+    "name": "Italy",
+    "total": 576,
+    "success_rate": 81.2
+  },
+  "IE": {
+    "name": "Ireland",
+    "total": 92,
+    "success_rate": 83.7
+  },
+  "FR": {
+    "name": "France",
+    "total": 583,
+    "success_rate": 85.9
+  },
+  "NO": {
+    "name": "Norway",
+    "total": 43,
+    "success_rate": 81.4
+  },
+  "AT": {
+    "name": "Austria",
+    "total": 57,
+    "success_rate": 71.9
+  },
+  "NL": {
+    "name": "the Netherlands",
+    "total": 208,
+    "success_rate": 83.7
+  },
+  "SE": {
+    "name": "Sweden",
+    "total": 151,
+    "success_rate": 84.8
+  },
+  "JP": {
+    "name": "Japan",
+    "total": 562,
+    "success_rate": 92.7
+  },
+  "AU": {
+    "name": "Australia",
+    "total": 668,
+    "success_rate": 84.9
+  },
+  "CH": {
+    "name": "Switzerland",
+    "total": 97,
+    "success_rate": 71.1
+  },
+  "SI": {
+    "name": "Slovenia",
+    "total": 26,
+    "success_rate": 84.6
+  },
+  "BE": {
+    "name": "Belgium",
+    "total": 96,
+    "success_rate": 78.1
+  },
+  "DK": {
+    "name": "Denmark",
+    "total": 91,
+    "success_rate": 89.0
+  },
+  "NZ": {
+    "name": "New Zealand",
+    "total": 95,
+    "success_rate": 83.2
+  },
+  "LU": {
+    "name": "Luxembourg",
+    "total": 8,
+    "success_rate": 75.0
+  }
+}

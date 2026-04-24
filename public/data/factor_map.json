@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "note": "30 factor (GTM) ↔ 108 factor 매핑 + DB 자동 매핑 정의",
+  "map_30_to_108": {
+    "4": [2, 3],
+    "5": [4, 5],
+    "6": [6],
+    "9": [7, 19],
+    "10": [15],
+    "11": [21, 23],
+    "12": [26, 27],
+    "13": [30],
+    "15": [101],
+    "16": [36],
+    "17": [40, 41],
+    "18": [42, 80],
+    "19": [37, 38, 39, 43, 44],
+    "20": [45, 46, 47],
+    "21": [66],
+    "22": [67],
+    "24": [75],
+    "25": [94],
+    "26": [104]
+  },
+  "unique_to_30": [1, 2, 14, 23, 27, 28, 29, 30],
+  "db_auto_mapping": {
+    "description": "Supabase projects.extra_data에서 자동 추출 가능한 factor",
+    "factor_30": {
+      "4": {"path": "parent_category", "type": "map_kickstarter_category"},
+      "5": {"path": "country.code", "type": "direct"},
+      "9": {"path": "_computed_from_story_length_and_images", "type": "heuristic"},
+      "12": {"path": "rewards[*].amount", "type": "array_min_or_median"},
+      "13": {"path": "rewards[*].name+amount", "type": "regex_early_bird"},
+      "15": {"path": "rewards[*].shipping_summary", "type": "parse"},
+      "20": {"path": "video_preview", "type": "exists"},
+      "24": {"path": "_creator_other_projects", "type": "count_query"},
+      "25": {"path": "duration", "type": "direct"},
+      "26": {"path": "_creator_other_projects", "type": "count_query"}
+    },
+    "factor_108": {
+      "2": {"path": "parent_category"},
+      "3": {"path": "category_name"},
+      "4": {"path": "country.code"},
+      "26": {"path": "rewards[0].amount"},
+      "27": {"path": "rewards[*].amount", "type": "max"},
+      "29": {"path": "rewards", "type": "length"},
+      "30": {"path": "rewards[*] 'Super Early Bird' regex"},
+      "31": {"path": "rewards[*] 'Early Bird' regex"},
+      "32": {"path": "rewards[*] 'Bundle|Pack' regex"},
+      "54": {"path": "story_images", "type": "length"},
+      "65": {"path": "faqs_count"},
+      "75": {"path": "_creator_query"},
+      "92": {"path": "launched_at -> weekday"},
+      "94": {"path": "duration"},
+      "95": {"path": "launched_at -> season"},
+      "96": {"path": "_category_trend_from_trend_data_json"},
+      "99": {"path": "rewards[*].estimated_delivery"},
+      "101": {"path": "rewards[*].shipping_summary -> free/paid"},
+      "102": {"path": "parent_category + _success_rate_of_category"},
+      "103": {"path": "is_project_we_love"},
+      "104": {"path": "_creator_other_projects_count"},
+      "108": {"path": "goal.amount / category_median_goal"}
+    }
+  },
+  "scoring_weights": {
+    "auto_weight": 0.4,
+    "manual_weight": 0.6,
+    "ml_weight": 0.3,
+    "rule_weight": 0.7,
+    "note": "최종 = rule_based*0.7 + ml_xgboost*0.3"
+  }
+}
