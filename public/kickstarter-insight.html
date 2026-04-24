@@ -465,6 +465,12 @@ tr:hover{background:#f8fafc;}
     <span class="sec-sub">3년치 · 종료일 기준 · Bento Layout</span>
   </div>
 
+  <!-- 데이터 신뢰 구간 안내 -->
+  <div style="background:#fffbeb;border-left:3px solid #f59e0b;padding:10px 14px;margin-bottom:14px;border-radius:6px;font-size:12px;color:#78350f;line-height:1.6;">
+    <b>📌 데이터 신뢰 구간 안내</b><br>
+    2025년 11월 이전 데이터는 <b>Webrobots 성공 아카이브</b> 기반으로 <u>실패 프로젝트 샘플이 부재</u>합니다. 따라서 <b>성공률·Staff Pick 효과·국가별 비교</b>는 <b>2025-11 이후 실시간 크롤링 데이터</b>만 표시합니다 (프로젝트 수·펀딩 규모 등 절대 지표는 전체 기간 유효).
+  </div>
+
   <!-- KPI 밴드 -->
   <div class="g4" style="margin-bottom:16px;" id="trend-kpis"></div>
 
@@ -1774,7 +1780,9 @@ async function buildTrendSection(){
   const growth = p6p>0 ? ((s6p-p6p)/p6p*100).toFixed(1) : '-';
   const s6projects = sum(last6.map(m=>+m.total||0));
   const s6bak = sum(last6.map(m=>+m.total_backers||0));
-  const avgSR = last6.length? (last6.reduce((a,b)=>a+(+b.success_rate||0),0)/last6.length).toFixed(1) : '-';
+  // success_rate는 null 가능 (2025-11 이전은 편향 데이터로 제외)
+  const validSR = last6.filter(m => m.success_rate != null);
+  const avgSR = validSR.length? (validSR.reduce((a,b)=>a+(+b.success_rate||0),0)/validSR.length).toFixed(1) : '-';
 
   document.getElementById('trend-kpis').innerHTML = `
     <div class="card" style="background:linear-gradient(135deg,${BRAND_RED} 0%,#c70030 100%);color:#fff;">

@@ -9,7 +9,7 @@
       "successful": 64,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 6262713,
       "avg_pledged": 97855,
       "total_backers": 17948,
@@ -21,7 +21,7 @@
       "successful": 148,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 10733554,
       "avg_pledged": 72524,
       "total_backers": 22350,
@@ -33,7 +33,7 @@
       "successful": 172,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 21482679,
       "avg_pledged": 124899,
       "total_backers": 23461,
@@ -45,7 +45,7 @@
       "successful": 149,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 6851756,
       "avg_pledged": 45985,
       "total_backers": 20344,
@@ -57,7 +57,7 @@
       "successful": 145,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 5788714,
       "avg_pledged": 39922,
       "total_backers": 18436,
@@ -69,7 +69,7 @@
       "successful": 188,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 3864022,
       "avg_pledged": 20553,
       "total_backers": 22281,
@@ -81,7 +81,7 @@
       "successful": 231,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 3835334,
       "avg_pledged": 16603,
       "total_backers": 27511,
@@ -93,7 +93,7 @@
       "successful": 181,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 9169938,
       "avg_pledged": 50663,
       "total_backers": 18663,
@@ -105,7 +105,7 @@
       "successful": 153,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 17974667,
       "avg_pledged": 117481,
       "total_backers": 18736,
@@ -117,7 +117,7 @@
       "successful": 237,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 12018217,
       "avg_pledged": 50710,
       "total_backers": 35828,
@@ -129,7 +129,7 @@
       "successful": 326,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 41447494,
       "avg_pledged": 127140,
       "total_backers": 67795,
@@ -141,7 +141,7 @@
       "successful": 376,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 32379715,
       "avg_pledged": 86116,
       "total_backers": 75841,
@@ -153,7 +153,7 @@
       "successful": 306,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 23241165,
       "avg_pledged": 75952,
       "total_backers": 58970,
@@ -165,7 +165,7 @@
       "successful": 378,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 27144361,
       "avg_pledged": 71810,
       "total_backers": 91466,
@@ -177,7 +177,7 @@
       "successful": 314,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 18254726,
       "avg_pledged": 58136,
       "total_backers": 43383,
@@ -189,7 +189,7 @@
       "successful": 378,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 38037443,
       "avg_pledged": 100628,
       "total_backers": 67805,
@@ -201,7 +201,7 @@
       "successful": 295,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 26683173,
       "avg_pledged": 90451,
       "total_backers": 73497,
@@ -213,7 +213,7 @@
       "successful": 485,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 29771312,
       "avg_pledged": 61384,
       "total_backers": 117740,
@@ -225,7 +225,7 @@
       "successful": 569,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 105372949,
       "avg_pledged": 185190,
       "total_backers": 123884,
@@ -237,7 +237,7 @@
       "successful": 557,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 65779357,
       "avg_pledged": 118096,
       "total_backers": 137360,
@@ -249,7 +249,7 @@
       "successful": 325,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 59597006,
       "avg_pledged": 183375,
       "total_backers": 62685,
@@ -261,7 +261,7 @@
       "successful": 444,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 58143176,
       "avg_pledged": 130953,
       "total_backers": 79893,
@@ -273,7 +273,7 @@
       "successful": 577,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 49942276,
       "avg_pledged": 86555,
       "total_backers": 133375,
@@ -285,7 +285,7 @@
       "successful": 633,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 74381021,
       "avg_pledged": 117506,
       "total_backers": 185168,
@@ -297,7 +297,7 @@
       "successful": 787,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 130446419,
       "avg_pledged": 165751,
       "total_backers": 197259,
@@ -309,7 +309,7 @@
       "successful": 704,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 62288858,
       "avg_pledged": 88478,
       "total_backers": 144371,
@@ -321,7 +321,7 @@
       "successful": 895,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 136210208,
       "avg_pledged": 152190,
       "total_backers": 204422,
@@ -333,7 +333,7 @@
       "successful": 753,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 375022306,
       "avg_pledged": 498038,
       "total_backers": 204884,
@@ -345,7 +345,7 @@
       "successful": 776,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 165751191,
       "avg_pledged": 213597,
       "total_backers": 208536,
@@ -357,7 +357,7 @@
       "successful": 997,
       "failed": 0,
       "canceled": 0,
-      "success_rate": 100.0,
+      "success_rate": null,
       "total_pledged": 148387812,
       "avg_pledged": 148834,
       "total_backers": 284273,
@@ -3652,76 +3652,6 @@
   "country_trend": [
     {
       "country": "AU",
-      "quarter": "2023-Q2",
-      "total": 5,
-      "success_rate": 100.0,
-      "pledged": 57726
-    },
-    {
-      "country": "AU",
-      "quarter": "2023-Q3",
-      "total": 13,
-      "success_rate": 100.0,
-      "pledged": 112191
-    },
-    {
-      "country": "AU",
-      "quarter": "2023-Q4",
-      "total": 16,
-      "success_rate": 100.0,
-      "pledged": 156037
-    },
-    {
-      "country": "AU",
-      "quarter": "2024-Q1",
-      "total": 13,
-      "success_rate": 100.0,
-      "pledged": 140852
-    },
-    {
-      "country": "AU",
-      "quarter": "2024-Q2",
-      "total": 26,
-      "success_rate": 100.0,
-      "pledged": 302168
-    },
-    {
-      "country": "AU",
-      "quarter": "2024-Q3",
-      "total": 25,
-      "success_rate": 100.0,
-      "pledged": 221674
-    },
-    {
-      "country": "AU",
-      "quarter": "2024-Q4",
-      "total": 42,
-      "success_rate": 100.0,
-      "pledged": 455101
-    },
-    {
-      "country": "AU",
-      "quarter": "2025-Q1",
-      "total": 45,
-      "success_rate": 100.0,
-      "pledged": 611498
-    },
-    {
-      "country": "AU",
-      "quarter": "2025-Q2",
-      "total": 61,
-      "success_rate": 100.0,
-      "pledged": 3332502
-    },
-    {
-      "country": "AU",
-      "quarter": "2025-Q3",
-      "total": 68,
-      "success_rate": 100.0,
-      "pledged": 2067165
-    },
-    {
-      "country": "AU",
       "quarter": "2025-Q4",
       "total": 149,
       "success_rate": 77.2,
@@ -3740,76 +3670,6 @@
       "total": 43,
       "success_rate": 67.4,
       "pledged": 660690
-    },
-    {
-      "country": "CA",
-      "quarter": "2023-Q2",
-      "total": 13,
-      "success_rate": 100.0,
-      "pledged": 139646
-    },
-    {
-      "country": "CA",
-      "quarter": "2023-Q3",
-      "total": 34,
-      "success_rate": 100.0,
-      "pledged": 497230
-    },
-    {
-      "country": "CA",
-      "quarter": "2023-Q4",
-      "total": 40,
-      "success_rate": 100.0,
-      "pledged": 354577
-    },
-    {
-      "country": "CA",
-      "quarter": "2024-Q1",
-      "total": 47,
-      "success_rate": 100.0,
-      "pledged": 1671278
-    },
-    {
-      "country": "CA",
-      "quarter": "2024-Q2",
-      "total": 58,
-      "success_rate": 100.0,
-      "pledged": 889190
-    },
-    {
-      "country": "CA",
-      "quarter": "2024-Q3",
-      "total": 70,
-      "success_rate": 100.0,
-      "pledged": 1075324
-    },
-    {
-      "country": "CA",
-      "quarter": "2024-Q4",
-      "total": 100,
-      "success_rate": 100.0,
-      "pledged": 2227633
-    },
-    {
-      "country": "CA",
-      "quarter": "2025-Q1",
-      "total": 75,
-      "success_rate": 100.0,
-      "pledged": 1288826
-    },
-    {
-      "country": "CA",
-      "quarter": "2025-Q2",
-      "total": 103,
-      "success_rate": 100.0,
-      "pledged": 3117871
-    },
-    {
-      "country": "CA",
-      "quarter": "2025-Q3",
-      "total": 121,
-      "success_rate": 100.0,
-      "pledged": 19807558
     },
     {
       "country": "CA",
@@ -3834,69 +3694,6 @@
     },
     {
       "country": "DE",
-      "quarter": "2023-Q3",
-      "total": 16,
-      "success_rate": 100.0,
-      "pledged": 118229
-    },
-    {
-      "country": "DE",
-      "quarter": "2023-Q4",
-      "total": 12,
-      "success_rate": 100.0,
-      "pledged": 147632
-    },
-    {
-      "country": "DE",
-      "quarter": "2024-Q1",
-      "total": 20,
-      "success_rate": 100.0,
-      "pledged": 111795
-    },
-    {
-      "country": "DE",
-      "quarter": "2024-Q2",
-      "total": 19,
-      "success_rate": 100.0,
-      "pledged": 311476
-    },
-    {
-      "country": "DE",
-      "quarter": "2024-Q3",
-      "total": 17,
-      "success_rate": 100.0,
-      "pledged": 105990
-    },
-    {
-      "country": "DE",
-      "quarter": "2024-Q4",
-      "total": 41,
-      "success_rate": 100.0,
-      "pledged": 301227
-    },
-    {
-      "country": "DE",
-      "quarter": "2025-Q1",
-      "total": 30,
-      "success_rate": 100.0,
-      "pledged": 322269
-    },
-    {
-      "country": "DE",
-      "quarter": "2025-Q2",
-      "total": 39,
-      "success_rate": 100.0,
-      "pledged": 588804
-    },
-    {
-      "country": "DE",
-      "quarter": "2025-Q3",
-      "total": 55,
-      "success_rate": 100.0,
-      "pledged": 583839
-    },
-    {
-      "country": "DE",
       "quarter": "2025-Q4",
       "total": 160,
       "success_rate": 73.8,
@@ -3915,69 +3712,6 @@
       "total": 60,
       "success_rate": 46.7,
       "pledged": 1670055
-    },
-    {
-      "country": "ES",
-      "quarter": "2023-Q3",
-      "total": 8,
-      "success_rate": 100.0,
-      "pledged": 345720
-    },
-    {
-      "country": "ES",
-      "quarter": "2023-Q4",
-      "total": 14,
-      "success_rate": 100.0,
-      "pledged": 327515
-    },
-    {
-      "country": "ES",
-      "quarter": "2024-Q1",
-      "total": 16,
-      "success_rate": 100.0,
-      "pledged": 95426
-    },
-    {
-      "country": "ES",
-      "quarter": "2024-Q2",
-      "total": 32,
-      "success_rate": 100.0,
-      "pledged": 494739
-    },
-    {
-      "country": "ES",
-      "quarter": "2024-Q3",
-      "total": 30,
-      "success_rate": 100.0,
-      "pledged": 185353
-    },
-    {
-      "country": "ES",
-      "quarter": "2024-Q4",
-      "total": 57,
-      "success_rate": 100.0,
-      "pledged": 558062
-    },
-    {
-      "country": "ES",
-      "quarter": "2025-Q1",
-      "total": 45,
-      "success_rate": 100.0,
-      "pledged": 400972
-    },
-    {
-      "country": "ES",
-      "quarter": "2025-Q2",
-      "total": 56,
-      "success_rate": 100.0,
-      "pledged": 528069
-    },
-    {
-      "country": "ES",
-      "quarter": "2025-Q3",
-      "total": 52,
-      "success_rate": 100.0,
-      "pledged": 550328
     },
     {
       "country": "ES",
@@ -4002,76 +3736,6 @@
     },
     {
       "country": "FR",
-      "quarter": "2023-Q2",
-      "total": 6,
-      "success_rate": 100.0,
-      "pledged": 140770
-    },
-    {
-      "country": "FR",
-      "quarter": "2023-Q3",
-      "total": 11,
-      "success_rate": 100.0,
-      "pledged": 60917
-    },
-    {
-      "country": "FR",
-      "quarter": "2023-Q4",
-      "total": 17,
-      "success_rate": 100.0,
-      "pledged": 105136
-    },
-    {
-      "country": "FR",
-      "quarter": "2024-Q1",
-      "total": 21,
-      "success_rate": 100.0,
-      "pledged": 567059
-    },
-    {
-      "country": "FR",
-      "quarter": "2024-Q2",
-      "total": 16,
-      "success_rate": 100.0,
-      "pledged": 394541
-    },
-    {
-      "country": "FR",
-      "quarter": "2024-Q3",
-      "total": 23,
-      "success_rate": 100.0,
-      "pledged": 174928
-    },
-    {
-      "country": "FR",
-      "quarter": "2024-Q4",
-      "total": 31,
-      "success_rate": 100.0,
-      "pledged": 963608
-    },
-    {
-      "country": "FR",
-      "quarter": "2025-Q1",
-      "total": 33,
-      "success_rate": 100.0,
-      "pledged": 3096798
-    },
-    {
-      "country": "FR",
-      "quarter": "2025-Q2",
-      "total": 53,
-      "success_rate": 100.0,
-      "pledged": 1010854
-    },
-    {
-      "country": "FR",
-      "quarter": "2025-Q3",
-      "total": 38,
-      "success_rate": 100.0,
-      "pledged": 569238
-    },
-    {
-      "country": "FR",
       "quarter": "2025-Q4",
       "total": 130,
       "success_rate": 81.5,
@@ -4090,76 +3754,6 @@
       "total": 55,
       "success_rate": 72.7,
       "pledged": 1330322
-    },
-    {
-      "country": "GB",
-      "quarter": "2023-Q2",
-      "total": 22,
-      "success_rate": 100.0,
-      "pledged": 96034
-    },
-    {
-      "country": "GB",
-      "quarter": "2023-Q3",
-      "total": 64,
-      "success_rate": 100.0,
-      "pledged": 489952
-    },
-    {
-      "country": "GB",
-      "quarter": "2023-Q4",
-      "total": 80,
-      "success_rate": 100.0,
-      "pledged": 781620
-    },
-    {
-      "country": "GB",
-      "quarter": "2024-Q1",
-      "total": 105,
-      "success_rate": 100.0,
-      "pledged": 848537
-    },
-    {
-      "country": "GB",
-      "quarter": "2024-Q2",
-      "total": 162,
-      "success_rate": 100.0,
-      "pledged": 1682779
-    },
-    {
-      "country": "GB",
-      "quarter": "2024-Q3",
-      "total": 147,
-      "success_rate": 100.0,
-      "pledged": 1258218
-    },
-    {
-      "country": "GB",
-      "quarter": "2024-Q4",
-      "total": 186,
-      "success_rate": 100.0,
-      "pledged": 1950152
-    },
-    {
-      "country": "GB",
-      "quarter": "2025-Q1",
-      "total": 184,
-      "success_rate": 100.0,
-      "pledged": 1609843
-    },
-    {
-      "country": "GB",
-      "quarter": "2025-Q2",
-      "total": 266,
-      "success_rate": 100.0,
-      "pledged": 4991521
-    },
-    {
-      "country": "GB",
-      "quarter": "2025-Q3",
-      "total": 274,
-      "success_rate": 100.0,
-      "pledged": 2978196
     },
     {
       "country": "GB",
@@ -4184,69 +3778,6 @@
     },
     {
       "country": "HK",
-      "quarter": "2023-Q2",
-      "total": 5,
-      "success_rate": 100.0,
-      "pledged": 886840
-    },
-    {
-      "country": "HK",
-      "quarter": "2023-Q4",
-      "total": 10,
-      "success_rate": 100.0,
-      "pledged": 331415
-    },
-    {
-      "country": "HK",
-      "quarter": "2024-Q1",
-      "total": 21,
-      "success_rate": 100.0,
-      "pledged": 22342429
-    },
-    {
-      "country": "HK",
-      "quarter": "2024-Q2",
-      "total": 31,
-      "success_rate": 100.0,
-      "pledged": 15918428
-    },
-    {
-      "country": "HK",
-      "quarter": "2024-Q3",
-      "total": 19,
-      "success_rate": 100.0,
-      "pledged": 5005480
-    },
-    {
-      "country": "HK",
-      "quarter": "2024-Q4",
-      "total": 84,
-      "success_rate": 100.0,
-      "pledged": 61366213
-    },
-    {
-      "country": "HK",
-      "quarter": "2025-Q1",
-      "total": 80,
-      "success_rate": 100.0,
-      "pledged": 24798507
-    },
-    {
-      "country": "HK",
-      "quarter": "2025-Q2",
-      "total": 112,
-      "success_rate": 100.0,
-      "pledged": 65719352
-    },
-    {
-      "country": "HK",
-      "quarter": "2025-Q3",
-      "total": 150,
-      "success_rate": 100.0,
-      "pledged": 138594643
-    },
-    {
-      "country": "HK",
       "quarter": "2025-Q4",
       "total": 244,
       "success_rate": 93.0,
@@ -4265,69 +3796,6 @@
       "total": 82,
       "success_rate": 87.8,
       "pledged": 31649381
-    },
-    {
-      "country": "IT",
-      "quarter": "2023-Q2",
-      "total": 5,
-      "success_rate": 100.0,
-      "pledged": 264137
-    },
-    {
-      "country": "IT",
-      "quarter": "2023-Q4",
-      "total": 9,
-      "success_rate": 100.0,
-      "pledged": 27635
-    },
-    {
-      "country": "IT",
-      "quarter": "2024-Q1",
-      "total": 14,
-      "success_rate": 100.0,
-      "pledged": 174775
-    },
-    {
-      "country": "IT",
-      "quarter": "2024-Q2",
-      "total": 24,
-      "success_rate": 100.0,
-      "pledged": 987234
-    },
-    {
-      "country": "IT",
-      "quarter": "2024-Q3",
-      "total": 19,
-      "success_rate": 100.0,
-      "pledged": 268379
-    },
-    {
-      "country": "IT",
-      "quarter": "2024-Q4",
-      "total": 30,
-      "success_rate": 100.0,
-      "pledged": 422336
-    },
-    {
-      "country": "IT",
-      "quarter": "2025-Q1",
-      "total": 33,
-      "success_rate": 100.0,
-      "pledged": 182355
-    },
-    {
-      "country": "IT",
-      "quarter": "2025-Q2",
-      "total": 49,
-      "success_rate": 100.0,
-      "pledged": 846137
-    },
-    {
-      "country": "IT",
-      "quarter": "2025-Q3",
-      "total": 41,
-      "success_rate": 100.0,
-      "pledged": 445129
     },
     {
       "country": "IT",
@@ -4352,76 +3820,6 @@
     },
     {
       "country": "JP",
-      "quarter": "2023-Q2",
-      "total": 5,
-      "success_rate": 100.0,
-      "pledged": 11856667
-    },
-    {
-      "country": "JP",
-      "quarter": "2023-Q3",
-      "total": 16,
-      "success_rate": 100.0,
-      "pledged": 27360374
-    },
-    {
-      "country": "JP",
-      "quarter": "2023-Q4",
-      "total": 10,
-      "success_rate": 100.0,
-      "pledged": 8337604
-    },
-    {
-      "country": "JP",
-      "quarter": "2024-Q1",
-      "total": 18,
-      "success_rate": 100.0,
-      "pledged": 36158500
-    },
-    {
-      "country": "JP",
-      "quarter": "2024-Q2",
-      "total": 24,
-      "success_rate": 100.0,
-      "pledged": 40108479
-    },
-    {
-      "country": "JP",
-      "quarter": "2024-Q3",
-      "total": 34,
-      "success_rate": 100.0,
-      "pledged": 56412657
-    },
-    {
-      "country": "JP",
-      "quarter": "2024-Q4",
-      "total": 36,
-      "success_rate": 100.0,
-      "pledged": 78372943
-    },
-    {
-      "country": "JP",
-      "quarter": "2025-Q1",
-      "total": 43,
-      "success_rate": 100.0,
-      "pledged": 108600047
-    },
-    {
-      "country": "JP",
-      "quarter": "2025-Q2",
-      "total": 62,
-      "success_rate": 100.0,
-      "pledged": 143463465
-    },
-    {
-      "country": "JP",
-      "quarter": "2025-Q3",
-      "total": 76,
-      "success_rate": 100.0,
-      "pledged": 458035538
-    },
-    {
-      "country": "JP",
       "quarter": "2025-Q4",
       "total": 95,
       "success_rate": 87.4,
@@ -4440,76 +3838,6 @@
       "total": 25,
       "success_rate": 88.0,
       "pledged": 64575251
-    },
-    {
-      "country": "US",
-      "quarter": "2023-Q2",
-      "total": 134,
-      "success_rate": 100.0,
-      "pledged": 3008604
-    },
-    {
-      "country": "US",
-      "quarter": "2023-Q3",
-      "total": 267,
-      "success_rate": 100.0,
-      "pledged": 4531540
-    },
-    {
-      "country": "US",
-      "quarter": "2023-Q4",
-      "total": 347,
-      "success_rate": 100.0,
-      "pledged": 5096858
-    },
-    {
-      "country": "US",
-      "quarter": "2024-Q1",
-      "total": 394,
-      "success_rate": 100.0,
-      "pledged": 7912542
-    },
-    {
-      "country": "US",
-      "quarter": "2024-Q2",
-      "total": 577,
-      "success_rate": 100.0,
-      "pledged": 18817635
-    },
-    {
-      "country": "US",
-      "quarter": "2024-Q3",
-      "total": 527,
-      "success_rate": 100.0,
-      "pledged": 12941188
-    },
-    {
-      "country": "US",
-      "quarter": "2024-Q4",
-      "total": 874,
-      "success_rate": 100.0,
-      "pledged": 49519230
-    },
-    {
-      "country": "US",
-      "quarter": "2025-Q1",
-      "total": 655,
-      "success_rate": 100.0,
-      "pledged": 21805289
-    },
-    {
-      "country": "US",
-      "quarter": "2025-Q2",
-      "total": 1201,
-      "success_rate": 100.0,
-      "pledged": 38120332
-    },
-    {
-      "country": "US",
-      "quarter": "2025-Q3",
-      "total": 1398,
-      "success_rate": 100.0,
-      "pledged": 46071207
     },
     {
       "country": "US",
@@ -4534,246 +3862,6 @@
     }
   ],
   "staff_pick_trend": [
-    {
-      "month": "2023-05",
-      "total": 64,
-      "staff_pick": 14,
-      "sp_pct": 21.9,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-06",
-      "total": 148,
-      "staff_pick": 29,
-      "sp_pct": 19.6,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-07",
-      "total": 172,
-      "staff_pick": 34,
-      "sp_pct": 19.8,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-08",
-      "total": 149,
-      "staff_pick": 28,
-      "sp_pct": 18.8,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-09",
-      "total": 145,
-      "staff_pick": 38,
-      "sp_pct": 26.2,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-10",
-      "total": 188,
-      "staff_pick": 39,
-      "sp_pct": 20.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-11",
-      "total": 231,
-      "staff_pick": 62,
-      "sp_pct": 26.8,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2023-12",
-      "total": 181,
-      "staff_pick": 32,
-      "sp_pct": 17.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-01",
-      "total": 153,
-      "staff_pick": 33,
-      "sp_pct": 21.6,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-02",
-      "total": 237,
-      "staff_pick": 66,
-      "sp_pct": 27.8,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-03",
-      "total": 326,
-      "staff_pick": 72,
-      "sp_pct": 22.1,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-04",
-      "total": 376,
-      "staff_pick": 89,
-      "sp_pct": 23.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-05",
-      "total": 306,
-      "staff_pick": 75,
-      "sp_pct": 24.5,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-06",
-      "total": 378,
-      "staff_pick": 94,
-      "sp_pct": 24.9,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-07",
-      "total": 314,
-      "staff_pick": 62,
-      "sp_pct": 19.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-08",
-      "total": 378,
-      "staff_pick": 70,
-      "sp_pct": 18.5,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-09",
-      "total": 295,
-      "staff_pick": 59,
-      "sp_pct": 20.0,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-10",
-      "total": 485,
-      "staff_pick": 108,
-      "sp_pct": 22.3,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-11",
-      "total": 569,
-      "staff_pick": 152,
-      "sp_pct": 26.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2024-12",
-      "total": 557,
-      "staff_pick": 146,
-      "sp_pct": 26.2,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-01",
-      "total": 325,
-      "staff_pick": 70,
-      "sp_pct": 21.5,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-02",
-      "total": 444,
-      "staff_pick": 81,
-      "sp_pct": 18.2,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-03",
-      "total": 577,
-      "staff_pick": 130,
-      "sp_pct": 22.5,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-04",
-      "total": 633,
-      "staff_pick": 175,
-      "sp_pct": 27.6,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-05",
-      "total": 787,
-      "staff_pick": 217,
-      "sp_pct": 27.6,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-06",
-      "total": 704,
-      "staff_pick": 174,
-      "sp_pct": 24.7,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-07",
-      "total": 895,
-      "staff_pick": 218,
-      "sp_pct": 24.4,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-08",
-      "total": 753,
-      "staff_pick": 203,
-      "sp_pct": 27.0,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-09",
-      "total": 776,
-      "staff_pick": 181,
-      "sp_pct": 23.3,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
-    {
-      "month": "2025-10",
-      "total": 997,
-      "staff_pick": 250,
-      "sp_pct": 25.1,
-      "sp_success_rate": 100.0,
-      "non_sp_success_rate": 100.0
-    },
     {
       "month": "2025-11",
       "total": 1736,
@@ -6258,5 +5346,7 @@
       "shared_authors": 1
     }
   ],
-  "reward_trend": []
+  "reward_trend": [],
+  "trust_since": "2025-11",
+  "trust_note": "2025-11 이전 데이터는 Webrobots 성공 아카이브 기반이라 실패 프로젝트 부재 편향이 있음. 성공률/Staff Pick 효과 등 비교 메트릭은 2025-11부터만 표시."
 }
