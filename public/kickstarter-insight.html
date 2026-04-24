@@ -577,6 +577,69 @@ tr:hover{background:#f8fafc;}
     </div>
   </div>
 
+  <!-- 🏅 슈퍼백커 인텔리전스 (인터랙티브) -->
+  <div class="card tint-sb" style="margin-top:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:14px;">
+      <div>
+        <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.5px;">SUPERBACKER INTELLIGENCE · 슈퍼백커 인텔리전스</div>
+        <h3 style="font-size:18px;font-weight:700;margin-top:4px;">후원 건수 기준 동적 필터</h3>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5;">슬라이더로 후원 건수 임계값 조정 → Top 리스트·선호 카테고리·분포가 실시간으로 변화. 코어(1000+), 활동형(250+), 일반(25+) 그룹 파악.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border-radius:999px;border:1px solid var(--border);">
+        <span style="font-size:11px;color:var(--muted);font-weight:600;">필터 결과</span>
+        <span id="sb-filter-count" style="font-size:20px;font-weight:800;color:var(--brand,#ff003b);">13,461</span>
+        <span style="font-size:11px;color:var(--muted);">명</span>
+      </div>
+    </div>
+
+    <!-- 임계값 슬라이더 -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:700;color:var(--text);">🎚️ 최소 후원 건수 (Max backings ≥)</div>
+        <div style="font-size:14px;font-weight:800;color:var(--brand,#ff003b);font-variant-numeric:tabular-nums;" id="sb-threshold-val">25</div>
+      </div>
+      <input type="range" id="sb-threshold" min="0" max="1000" step="25" value="25" style="width:100%;accent-color:#ff003b;"/>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px;">
+        <span>0</span><span>25</span><span>100</span><span>250</span><span>500</span><span>1000+</span>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+        <button class="sb-preset" data-val="25" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">⭐ 일반 (25+)</button>
+        <button class="sb-preset" data-val="60" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">💎 경험자 (60+)</button>
+        <button class="sb-preset" data-val="100" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">🔥 전문가 (100+)</button>
+        <button class="sb-preset" data-val="250" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">🚀 활동형 (250+)</button>
+        <button class="sb-preset" data-val="500" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">💫 헤비 (500+)</button>
+        <button class="sb-preset" data-val="1000" style="font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;">👑 VIP (1000+)</button>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:14px;">
+      <!-- 후원 건수 분포 -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.5px;margin-bottom:8px;">BACKINGS DISTRIBUTION</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;">후원 건수 구간별 인원</div>
+        <div style="position:relative;height:220px;"><canvas id="sb-dist-chart"></canvas></div>
+      </div>
+      <!-- 선호 카테고리 -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.5px;margin-bottom:8px;">PREFERRED CATEGORIES</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;">선호 카테고리 (참여 횟수)</div>
+        <div style="position:relative;height:220px;"><canvas id="sb-pref-chart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Top 리스트 -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div>
+          <div style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.5px;">TOP 20 FILTERED</div>
+          <div style="font-size:14px;font-weight:700;margin-top:2px;">임계값 조건 만족 Top 20</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);">후원 건수 순</div>
+      </div>
+      <div id="sb-top-list" style="max-height:400px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
   <!-- 인사이트 카드 -->
   <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;">
     <div style="font-size:13px;color:#fbbf24;font-weight:600;letter-spacing:.5px;">💡 AI 데이터 인사이트</div>
@@ -2087,6 +2150,80 @@ async function buildTrendSection(){
         </div>
       </div>`;
     }).join('');
+  }
+
+  // --- 11a. 슈퍼백커 인텔리전스 (Threshold slider) ---
+  {
+    let SB_RAW = null;
+    let sbDistChart = null, sbPrefChart = null;
+    try { SB_RAW = await fetch('/data/superbackers_raw.json').then(r=>r.json()); } catch(e){ console.warn('sb raw load failed', e); }
+    const slider = document.getElementById('sb-threshold');
+    const valEl = document.getElementById('sb-threshold-val');
+    const cntEl = document.getElementById('sb-filter-count');
+
+    function renderSB(threshold){
+      if (!SB_RAW) return;
+      const filtered = SB_RAW.superbackers.filter(s => s.max_backings >= threshold);
+      cntEl.textContent = filtered.length.toLocaleString();
+      const distBuckets = [[25,49,'25-49'],[50,99,'50-99'],[100,249,'100-249'],[250,499,'250-499'],[500,999,'500-999'],[1000,99999,'1000+']];
+      const distCounts = distBuckets.map(b=>filtered.filter(s=>s.max_backings>=b[0]&&s.max_backings<=b[1]).length);
+      const distLabels = distBuckets.map(b=>b[2]);
+      if (sbDistChart) sbDistChart.destroy();
+      sbDistChart = new Chart(document.getElementById('sb-dist-chart').getContext('2d'), {
+        type:'bar',
+        data:{labels:distLabels, datasets:[{data:distCounts, backgroundColor:['#94a3b8','#06b6d4','#8b5cf6','#ff003b','#f59e0b','#0f172a'], borderRadius:6}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+'명'}}},scales:{x:{ticks:{font:{size:10,weight:600}}},y:{ticks:{font:{size:10},callback:v=>v.toLocaleString()}}}}
+      });
+      const catAgg = {};
+      filtered.forEach(s=>{
+        Object.entries(s.categories||{}).forEach(([c,n])=>{
+          if (!c || c==='null' || c==='Unknown' || c.toLowerCase()==='unknown') return;
+          catAgg[c] = (catAgg[c]||0) + n;
+        });
+      });
+      const catArr = Object.entries(catAgg).sort((a,b)=>b[1]-a[1]).slice(0,15);
+      const colors = ['#ff003b','#8b5cf6','#06b6d4','#10b981','#f59e0b','#ec4899','#6366f1','#14b8a6','#ef4444','#0ea5e9','#84cc16','#f97316','#d946ef','#22c55e','#0891b2'];
+      if (sbPrefChart) sbPrefChart.destroy();
+      sbPrefChart = new Chart(document.getElementById('sb-pref-chart').getContext('2d'), {
+        type:'bar',
+        data:{labels:catArr.map(c=>c[0]), datasets:[{data:catArr.map(c=>c[1]), backgroundColor:catArr.map((_,i)=>colors[i%colors.length]), borderRadius:4}]},
+        options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x.toLocaleString()+'회 참여'}}},scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:11,weight:600}}}}}
+      });
+      const top = filtered.slice(0, 20);
+      document.getElementById('sb-top-list').innerHTML = top.map((s,i)=>{
+        const cats = Object.entries(s.categories||{}).filter(([c])=>c&&c!=='null'&&c!=='Unknown').sort((a,b)=>b[1]-a[1]).slice(0,3);
+        return `<div style="padding:10px 0;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:12px;">
+          <div style="width:28px;height:28px;border-radius:8px;background:${i<3?'linear-gradient(135deg,#ff003b,#8b5cf6)':'#f1f5f9'};color:${i<3?'#fff':'#64748b'};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;">${i+1}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:13px;color:var(--text);">${s.author}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px;">
+              ${s.projects_commented}개 프로젝트 · ${cats.map(([c])=>`<span style=\"background:#eef2ff;color:#6366f1;padding:1px 6px;border-radius:4px;font-weight:600;margin-right:3px;\">${c}</span>`).join('')}
+              ${s.is_creator?'<span style="background:#fff0f3;color:#c70030;padding:1px 6px;border-radius:4px;font-weight:700;">🏆 크리에이터</span>':''}
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:800;font-size:15px;color:#ff003b;font-variant-numeric:tabular-nums;">${s.max_backings.toLocaleString()}</div>
+            <div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;">BACKED</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    if (slider) {
+      slider.addEventListener('input', e=>{
+        valEl.textContent = (+e.target.value).toLocaleString();
+        renderSB(+e.target.value);
+      });
+      document.querySelectorAll('.sb-preset').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const v = +btn.dataset.val;
+          slider.value = v;
+          valEl.textContent = v.toLocaleString();
+          renderSB(v);
+        });
+      });
+      renderSB(25);
+    }
   }
 
   // --- 11. 인사이트 카드 (데이터 기반 자동 도출) ---
