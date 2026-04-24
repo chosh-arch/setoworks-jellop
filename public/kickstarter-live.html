@@ -63,6 +63,18 @@ a:hover { text-decoration: underline; }
   </div>
 </div>
 <div class="container">
+  <!-- 🎯 요약 Hero -->
+  <div style="background:linear-gradient(135deg,#0a0e1a 0%,#1a0535 40%,#6e0a35 100%);border-radius:18px;padding:24px 28px;margin-bottom:20px;color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 32px rgba(10,14,26,.15);">
+    <div style="position:absolute;top:-50%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,0,59,.35) 0%,transparent 65%);pointer-events:none;"></div>
+    <div style="position:relative;">
+      <div style="font-size:11px;opacity:.7;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">LIVE · 실시간 데이터</div>
+      <h1 style="font-size:26px;font-weight:900;margin-top:4px;letter-spacing:-.02em;">🔴 지금 이 순간 진행 중인 프로젝트</h1>
+      <div style="font-size:13px;opacity:.75;margin-top:6px;">Supabase 실시간 동기화 · 정렬/필터/검색 · 상세 분석은 <a href="/kickstarter-insight.html" style="color:#ff6b89;font-weight:700;text-decoration:underline;">인사이트 엔진</a>으로</div>
+      <div id="hero-summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:16px;">
+        <!-- JS inject -->
+      </div>
+    </div>
+  </div>
   <div class="kpi-row" id="kpi-row"></div>
   <div class="row2" id="charts-row"></div>
   <div class="row3" id="charts-row2"></div>
@@ -141,6 +153,18 @@ function renderKPIs() {
   var avgFunded = d.length ? d.reduce(function(s,p){ return s + (p.percent_funded||0); },0) / d.length : 0;
   var countries = {}; d.forEach(function(p){ var c=p.country||'?'; countries[c]=(countries[c]||0)+1; });
   var cats = {}; d.forEach(function(p){ var c=p.category_name||p.subcategory||'?'; cats[c]=(cats[c]||0)+1; });
+
+  // Hero 요약 (맨 위, 검정 배경)
+  var hs = document.getElementById('hero-summary');
+  if (hs) {
+    hs.innerHTML =
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">전체 진행 중</div><div style="font-size:22px;font-weight:900;margin-top:2px;">' + fmt(d.length) + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">실시간 모금액</div><div style="font-size:22px;font-weight:900;margin-top:2px;">$' + fmt(totalPledged) + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">활성 후원자</div><div style="font-size:22px;font-weight:900;margin-top:2px;">' + fmt(totalBackers) + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">달성 (100%+)</div><div style="font-size:22px;font-weight:900;margin-top:2px;color:#4ade80;">' + funded + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">평균 달성률</div><div style="font-size:22px;font-weight:900;margin-top:2px;color:#ff6b89;">' + Math.round(avgFunded) + '%</div></div>' +
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;backdrop-filter:blur(10px);"><div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;font-weight:700;">참여 국가</div><div style="font-size:22px;font-weight:900;margin-top:2px;">' + Object.keys(countries).length + '</div></div>';
+  }
 
   document.getElementById('kpi-row').innerHTML =
     '<div class="kpi"><div class="label">전체 프로젝트</div><div class="value">' + fmt(d.length) + '</div><div class="sub">킥스타터 라이브</div></div>' +

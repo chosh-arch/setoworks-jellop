@@ -235,6 +235,32 @@ tr:hover{background:#f8fafc;}
   </div>
 </div>
 
+<!-- 📌 핵심 인사이트 요약 — 한 화면 -->
+<div id="tldr-section" style="margin-bottom:20px;">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
+    <div>
+      <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">TL;DR · 이 대시보드가 말하는 것</div>
+      <h2 style="font-size:20px;font-weight:800;margin-top:4px;letter-spacing:-.01em;">핵심 발견 6가지 · 스크롤하면 상세 분석</h2>
+    </div>
+    <a href="#sec-trend" style="font-size:12px;color:var(--brand);font-weight:700;text-decoration:none;white-space:nowrap;">상세 보기 ↓</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;" id="tldr-grid">
+    <!-- 6개 카드 JS로 주입 -->
+  </div>
+  <style>
+  @media(max-width:900px){#tldr-grid{grid-template-columns:repeat(2,1fr)!important;}}
+  @media(max-width:600px){#tldr-grid{grid-template-columns:1fr!important;}}
+  .tldr-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;transition:all .25s;position:relative;overflow:hidden;cursor:pointer;}
+  .tldr-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(10,14,26,.08);border-color:var(--brand);}
+  .tldr-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-brand,linear-gradient(90deg,#ff003b,#8b5cf6));}
+  .tldr-card .tldr-icon{font-size:22px;margin-bottom:10px;display:inline-block;width:40px;height:40px;border-radius:10px;line-height:40px;text-align:center;}
+  .tldr-card .tldr-label{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
+  .tldr-card .tldr-val{font-size:26px;font-weight:900;letter-spacing:-.02em;margin-top:4px;color:var(--text);}
+  .tldr-card .tldr-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;}
+  .tldr-card .tldr-tag{display:inline-block;font-size:9px;padding:2px 8px;border-radius:4px;background:#fff0f3;color:#c70030;font-weight:700;margin-top:8px;}
+  </style>
+</div>
+
 <!-- KPI 요약 -->
 <div id="kpi-section">
   <div style="margin-bottom:6px;font-size:11px;color:var(--muted);">
@@ -1597,6 +1623,74 @@ async function main(){
         `<div class="hero-kpi"><div class="h-label">${k.l}</div><div class="h-value">${k.v}</div><div class="h-sub ${k.up?'up':''}">${k.s}</div></div>`
       ).join('');
       document.getElementById('hero-gen').textContent = 'Generated: ' + (D.generated||'').substring(0,10);
+    }
+
+    // --- 📌 TL;DR 핵심 인사이트 6카드 ---
+    {
+      const catList = D.categories_array || (D.categories ? Object.entries(D.categories).map(([k,v])=>({category:k,...v})) : []);
+      const bestCat = [...catList].sort((a,b)=>(b.success_rate||0)-(a.success_rate||0))[0];
+      const topRank = (D.rankings?.pledged || [])[0];
+      const coList = D.countries_array || (D.countries ? Object.entries(D.countries).map(([k,v])=>({country:k,...v})) : []);
+      const topCo = [...coList].sort((a,b)=>(b.count||0)-(a.count||0))[0];
+      const spGap = D.staff_pick?.gap || 0;
+      const avgBacker = D.kpi_ended?.count ? Math.round((D.kpi_ended.backers||0)/D.kpi_ended.count) : 0;
+      const topSp = [].concat((D.top_superbackers) || []);
+      const cards = [
+        {
+          ico:'🏆', iconBg:'linear-gradient(135deg,#fff0f3,#fce7f3)',
+          label:'최고 성공률 카테고리',
+          val: bestCat ? bestCat.category : '-',
+          sub: bestCat ? `${bestCat.success_rate.toFixed(1)}% 성공 · ${bestCat.total.toLocaleString()}개 프로젝트` : '',
+          tag: '가장 안전한 선택'
+        },
+        {
+          ico:'💰', iconBg:'linear-gradient(135deg,#fffbeb,#fef3c7)',
+          label:'최대 모금 프로젝트',
+          val: topRank ? '$'+fmt(topRank.pledged_usd) : '-',
+          sub: topRank ? topRank.name.substring(0,42) : '',
+          tag: topRank ? topRank.cat : ''
+        },
+        {
+          ico:'🌍', iconBg:'linear-gradient(135deg,#eff6ff,#dbeafe)',
+          label:'최대 시장',
+          val: topCo ? topCo.country : '-',
+          sub: topCo ? `${topCo.count.toLocaleString()}건 · 성공률 ${topCo.success_rate.toFixed(1)}%` : '',
+          tag: '국가 Top 1'
+        },
+        {
+          ico:'⭐', iconBg:'linear-gradient(135deg,#f0fdf4,#d1fae5)',
+          label:'Staff Pick 효과',
+          val: '+'+spGap.toFixed(1)+'%p',
+          sub: '편집팀 추천 시 일반 대비 성공률 급증',
+          tag: 'Project We Love'
+        },
+        {
+          ico:'👥', iconBg:'linear-gradient(135deg,#f5f3ff,#ede9fe)',
+          label:'프로젝트당 평균 후원자',
+          val: avgBacker.toLocaleString() + '명',
+          sub: `총 ${fmt(D.kpi_ended?.backers||0)}명 누적`,
+          tag: '백커 규모'
+        },
+        {
+          ico:'📈', iconBg:'linear-gradient(135deg,#f0fdfa,#ccfbf1)',
+          label:'시장 성장률 (3년)',
+          val: '40×',
+          sub: '월 프로젝트 수: 2023.05 64건 → 2026.03 2,582건',
+          tag: '3년 연평균 폭발 성장'
+        }
+      ];
+      const grid = document.getElementById('tldr-grid');
+      if (grid) {
+        grid.innerHTML = cards.map(c=>`
+          <div class="tldr-card" onclick="window.location.hash='sec-trend'">
+            <div class="tldr-icon" style="background:${c.iconBg};">${c.ico}</div>
+            <div class="tldr-label">${c.label}</div>
+            <div class="tldr-val">${c.val}</div>
+            <div class="tldr-sub">${c.sub}</div>
+            ${c.tag?`<span class="tldr-tag">${c.tag}</span>`:''}
+          </div>
+        `).join('');
+      }
     }
 
 
