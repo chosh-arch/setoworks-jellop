@@ -1640,7 +1640,7 @@ async function main(){
           ico:'🏆', iconBg:'linear-gradient(135deg,#fff0f3,#fce7f3)',
           label:'최고 성공률 카테고리',
           val: bestCat ? bestCat.category : '-',
-          sub: bestCat ? `${bestCat.success_rate.toFixed(1)}% 성공 · ${bestCat.total.toLocaleString()}개 프로젝트` : '',
+          sub: bestCat ? `${(bestCat.success_rate||0).toFixed(1)}% 성공 · ${(bestCat.total||bestCat.count||0).toLocaleString()}개 프로젝트` : '',
           tag: '가장 안전한 선택'
         },
         {
@@ -1654,7 +1654,7 @@ async function main(){
           ico:'🌍', iconBg:'linear-gradient(135deg,#eff6ff,#dbeafe)',
           label:'최대 시장',
           val: topCo ? topCo.country : '-',
-          sub: topCo ? `${topCo.count.toLocaleString()}건 · 성공률 ${topCo.success_rate.toFixed(1)}%` : '',
+          sub: topCo ? `${(topCo.count||topCo.total||0).toLocaleString()}건 · 성공률 ${(topCo.success_rate||0).toFixed(1)}%` : '',
           tag: '국가 Top 1'
         },
         {
