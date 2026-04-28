@@ -1,232 +1,53 @@
 {
+  "generated": "2026-04-28T09:53:32.388008",
   "campaign_progress": [
     {
-      "label": "0-10%",
-      "count": 197,
-      "avg_funded": 201.1,
-      "success_rate": 32.0,
-      "avg_days": 1.7
+      "duration_group": "45일 이하",
+      "total": 3841,
+      "success": 3283,
+      "success_rate": 85.4725331944806,
+      "avg_pledged_usd": 76350,
+      "avg_backers": 372
     },
     {
-      "label": "10-20%",
-      "count": 177,
-      "avg_funded": 220.4,
-      "success_rate": 28.8,
-      "avg_days": 5.6
+      "duration_group": "30일 이하",
+      "total": 15252,
+      "success": 13400,
+      "success_rate": 87.85733018620509,
+      "avg_pledged_usd": 27706,
+      "avg_backers": 250
     },
     {
-      "label": "20-30%",
-      "count": 317,
-      "avg_funded": 318.3,
-      "success_rate": 36.0,
-      "avg_days": 8.8
+      "duration_group": "15일 이하",
+      "total": 3194,
+      "success": 3044,
+      "success_rate": 95.30369442705073,
+      "avg_pledged_usd": 8972,
+      "avg_backers": 116
     },
     {
-      "label": "30-50%",
-      "count": 545,
-      "avg_funded": 541.3,
-      "success_rate": 40.0,
-      "avg_days": 14.6
-    },
-    {
-      "label": "50-70%",
-      "count": 519,
-      "avg_funded": 413.2,
-      "success_rate": 42.6,
-      "avg_days": 21.4
-    },
-    {
-      "label": "70-90%",
-      "count": 475,
-      "avg_funded": 462.8,
-      "success_rate": 47.4,
-      "avg_days": 29.6
-    },
-    {
-      "label": "90-100%",
-      "count": 258,
-      "avg_funded": 639.3,
-      "success_rate": 57.0,
-      "avg_days": 33.0
+      "duration_group": "45일 초과",
+      "total": 2232,
+      "success": 1439,
+      "success_rate": 64.47132616487455,
+      "avg_pledged_usd": 69441,
+      "avg_backers": 239
     }
   ],
   "updates": {
-    "total_projects": 1157,
-    "first_update_timing": [
-      {
-        "label": "1일 이내",
-        "count": 671,
-        "success_rate": 69.4
-      },
-      {
-        "label": "2-3일",
-        "count": 141,
-        "success_rate": 63.1
-      },
-      {
-        "label": "4-7일",
-        "count": 182,
-        "success_rate": 55.5
-      },
-      {
-        "label": "8-14일",
-        "count": 88,
-        "success_rate": 52.3
-      },
-      {
-        "label": "15일+",
-        "count": 75,
-        "success_rate": 58.7
-      }
-    ],
-    "frequency_vs_success": [
-      {
-        "label": "0개",
-        "count": 1544,
-        "success_rate": 25.1,
-        "avg_funded": 279.5
-      },
-      {
-        "label": "1개",
-        "count": 457,
-        "success_rate": 58.4,
-        "avg_funded": 494.7
-      },
-      {
-        "label": "2-3개",
-        "count": 391,
-        "success_rate": 65.7,
-        "avg_funded": 528.9
-      },
-      {
-        "label": "4-5개",
-        "count": 164,
-        "success_rate": 70.1,
-        "avg_funded": 635.6
-      },
-      {
-        "label": "6개+",
-        "count": 145,
-        "success_rate": 73.8,
-        "avg_funded": 1138.4
-      }
-    ],
-    "phase_distribution": [
-      {
-        "phase": "초반(0-20%)",
-        "total": 1718,
-        "success": 1120,
-        "success_pct": 65.2
-      },
-      {
-        "phase": "중반(20-50%)",
-        "total": 1034,
-        "success": 715,
-        "success_pct": 69.1
-      },
-      {
-        "phase": "후반(50-80%)",
-        "total": 522,
-        "success": 392,
-        "success_pct": 75.1
-      },
-      {
-        "phase": "막판(80-100%)",
-        "total": 178,
-        "success": 158,
-        "success_pct": 88.8
-      }
-    ]
+    "total_updates": 167723,
+    "projects_with_updates": 21626,
+    "avg_updates_success": 7.538032693943117,
+    "avg_updates_failed": 1.0415482954545454
   },
   "comments": {
-    "total_projects": 2437,
-    "phase_distribution": [
-      {
-        "phase": "첫 10%",
-        "comments": 9765,
-        "success_proj": 866,
-        "fail_proj": 1473
-      },
-      {
-        "phase": "초반(10-30%)",
-        "comments": 1527,
-        "success_proj": 349,
-        "fail_proj": 225
-      },
-      {
-        "phase": "중반(30-60%)",
-        "comments": 1221,
-        "success_proj": 276,
-        "fail_proj": 95
-      },
-      {
-        "phase": "후반(60-90%)",
-        "comments": 547,
-        "success_proj": 137,
-        "fail_proj": 37
-      },
-      {
-        "phase": "막판(90-100%)",
-        "comments": 217,
-        "success_proj": 45,
-        "fail_proj": 4
-      }
-    ],
-    "early_3day_impact": [
-      {
-        "label": "0건",
-        "count": 353,
-        "success_rate": 73.7,
-        "avg_funded": 1304.5
-      },
-      {
-        "label": "1-2건",
-        "count": 733,
-        "success_rate": 50.3,
-        "avg_funded": 326.7
-      },
-      {
-        "label": "3-5건",
-        "count": 1096,
-        "success_rate": 26.0,
-        "avg_funded": 190.8
-      },
-      {
-        "label": "6-10건",
-        "count": 422,
-        "success_rate": 32.7,
-        "avg_funded": 308.1
-      },
-      {
-        "label": "10건+",
-        "count": 97,
-        "success_rate": 83.5,
-        "avg_funded": 975.4
-      }
-    ]
+    "avg_all": 13.502435126702686,
+    "avg_successful": 15.610355772419346,
+    "avg_failed": 3.8834399431414357
   },
   "summary": {
-    "total_analyzed": 2701,
-    "live_projects": 2488,
-    "with_updates": 1157,
-    "with_comments": 2437
-  },
-  "daily_tracking": [
-    {
-      "date": "2026-04-17",
-      "total_projects": 19927,
-      "total_pledged": 2625567373,
-      "total_backers": 4321347,
-      "funded_count": 18360,
-      "success_rate": 92.1,
-      "changes": {
-        "new": 0,
-        "pledged_up": 0,
-        "backers_up": 0,
-        "funded_new": 0
-      }
-    }
-  ],
-  "tracking_days": 1,
-  "last_update": "2026-04-17"
+    "total_projects": 27284,
+    "success_rate": 86.32489090093397,
+    "note": "27,909 프로젝트 전체 기준"
+  }
 }

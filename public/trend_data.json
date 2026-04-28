@@ -1,15 +1,26 @@
 {
-  "generated": "2026-04-24T01:11:12Z",
-  "cutoff": "2026-04-24",
-  "note": "종료된 프로젝트만 집계 (LIVE 제외) — 트렌드 왜곡 방지",
   "monthly_trend": [
+    {
+      "month": "2023-04",
+      "total": 1,
+      "successful": 1,
+      "failed": 0,
+      "live": 0,
+      "canceled": 0,
+      "success_rate": 100.0,
+      "total_pledged": 15155,
+      "avg_pledged": 15155,
+      "total_backers": 145,
+      "avg_backers": 145
+    },
     {
       "month": "2023-05",
       "total": 64,
       "successful": 64,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 6262713,
       "avg_pledged": 97855,
       "total_backers": 17948,
@@ -20,8 +31,9 @@
       "total": 148,
       "successful": 148,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 10733554,
       "avg_pledged": 72524,
       "total_backers": 22350,
@@ -32,8 +44,9 @@
       "total": 172,
       "successful": 172,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 21482679,
       "avg_pledged": 124899,
       "total_backers": 23461,
@@ -44,8 +57,9 @@
       "total": 149,
       "successful": 149,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 6851756,
       "avg_pledged": 45985,
       "total_backers": 20344,
@@ -56,8 +70,9 @@
       "total": 145,
       "successful": 145,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 5788714,
       "avg_pledged": 39922,
       "total_backers": 18436,
@@ -68,8 +83,9 @@
       "total": 188,
       "successful": 188,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 3864022,
       "avg_pledged": 20553,
       "total_backers": 22281,
@@ -80,8 +96,9 @@
       "total": 231,
       "successful": 231,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 3835334,
       "avg_pledged": 16603,
       "total_backers": 27511,
@@ -92,8 +109,9 @@
       "total": 181,
       "successful": 181,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 9169938,
       "avg_pledged": 50663,
       "total_backers": 18663,
@@ -104,8 +122,9 @@
       "total": 153,
       "successful": 153,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 17974667,
       "avg_pledged": 117481,
       "total_backers": 18736,
@@ -116,8 +135,9 @@
       "total": 237,
       "successful": 237,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 12018217,
       "avg_pledged": 50710,
       "total_backers": 35828,
@@ -128,8 +148,9 @@
       "total": 326,
       "successful": 326,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 41447494,
       "avg_pledged": 127140,
       "total_backers": 67795,
@@ -140,8 +161,9 @@
       "total": 376,
       "successful": 376,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 32379715,
       "avg_pledged": 86116,
       "total_backers": 75841,
@@ -152,8 +174,9 @@
       "total": 306,
       "successful": 306,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 23241165,
       "avg_pledged": 75952,
       "total_backers": 58970,
@@ -164,8 +187,9 @@
       "total": 378,
       "successful": 378,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 27144361,
       "avg_pledged": 71810,
       "total_backers": 91466,
@@ -176,8 +200,9 @@
       "total": 314,
       "successful": 314,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 18254726,
       "avg_pledged": 58136,
       "total_backers": 43383,
@@ -188,8 +213,9 @@
       "total": 378,
       "successful": 378,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 38037443,
       "avg_pledged": 100628,
       "total_backers": 67805,
@@ -200,8 +226,9 @@
       "total": 295,
       "successful": 295,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 26683173,
       "avg_pledged": 90451,
       "total_backers": 73497,
@@ -212,8 +239,9 @@
       "total": 485,
       "successful": 485,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 29771312,
       "avg_pledged": 61384,
       "total_backers": 117740,
@@ -224,8 +252,9 @@
       "total": 569,
       "successful": 569,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 105372949,
       "avg_pledged": 185190,
       "total_backers": 123884,
@@ -236,8 +265,9 @@
       "total": 557,
       "successful": 557,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 65779357,
       "avg_pledged": 118096,
       "total_backers": 137360,
@@ -248,8 +278,9 @@
       "total": 325,
       "successful": 325,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 59597006,
       "avg_pledged": 183375,
       "total_backers": 62685,
@@ -260,8 +291,9 @@
       "total": 444,
       "successful": 444,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 58143176,
       "avg_pledged": 130953,
       "total_backers": 79893,
@@ -272,8 +304,9 @@
       "total": 577,
       "successful": 577,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 49942276,
       "avg_pledged": 86555,
       "total_backers": 133375,
@@ -284,8 +317,9 @@
       "total": 633,
       "successful": 633,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 74381021,
       "avg_pledged": 117506,
       "total_backers": 185168,
@@ -296,8 +330,9 @@
       "total": 787,
       "successful": 787,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 130446419,
       "avg_pledged": 165751,
       "total_backers": 197259,
@@ -308,8 +343,9 @@
       "total": 704,
       "successful": 704,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 62288858,
       "avg_pledged": 88478,
       "total_backers": 144371,
@@ -320,8 +356,9 @@
       "total": 895,
       "successful": 895,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 136210208,
       "avg_pledged": 152190,
       "total_backers": 204422,
@@ -332,8 +369,9 @@
       "total": 753,
       "successful": 753,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 375022306,
       "avg_pledged": 498038,
       "total_backers": 204884,
@@ -344,8 +382,9 @@
       "total": 776,
       "successful": 776,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 165751191,
       "avg_pledged": 213597,
       "total_backers": 208536,
@@ -356,8 +395,9 @@
       "total": 997,
       "successful": 997,
       "failed": 0,
+      "live": 0,
       "canceled": 0,
-      "success_rate": null,
+      "success_rate": 100.0,
       "total_pledged": 148387812,
       "avg_pledged": 148834,
       "total_backers": 284273,
@@ -368,6 +408,7 @@
       "total": 1736,
       "successful": 1518,
       "failed": 195,
+      "live": 0,
       "canceled": 23,
       "success_rate": 87.4,
       "total_pledged": 213981105,
@@ -380,6 +421,7 @@
       "total": 2210,
       "successful": 1537,
       "failed": 579,
+      "live": 0,
       "canceled": 94,
       "success_rate": 69.5,
       "total_pledged": 370998717,
@@ -392,6 +434,7 @@
       "total": 1659,
       "successful": 1077,
       "failed": 519,
+      "live": 0,
       "canceled": 63,
       "success_rate": 64.9,
       "total_pledged": 227329456,
@@ -404,6 +447,7 @@
       "total": 1996,
       "successful": 1415,
       "failed": 494,
+      "live": 0,
       "canceled": 87,
       "success_rate": 70.9,
       "total_pledged": 178818895,
@@ -416,6 +460,7 @@
       "total": 2582,
       "successful": 1910,
       "failed": 581,
+      "live": 0,
       "canceled": 91,
       "success_rate": 74.0,
       "total_pledged": 262922752,
@@ -425,15 +470,42 @@
     },
     {
       "month": "2026-04",
-      "total": 1701,
+      "total": 2676,
       "successful": 1165,
       "failed": 448,
-      "canceled": 88,
-      "success_rate": 68.5,
+      "live": 949,
+      "canceled": 108,
+      "success_rate": 67.7,
       "total_pledged": 179784377,
       "avg_pledged": 154321,
       "total_backers": 461091,
       "avg_backers": 396
+    },
+    {
+      "month": "2026-05",
+      "total": 1650,
+      "successful": 0,
+      "failed": 0,
+      "live": 1588,
+      "canceled": 62,
+      "success_rate": 0.0,
+      "total_pledged": null,
+      "avg_pledged": null,
+      "total_backers": null,
+      "avg_backers": null
+    },
+    {
+      "month": "2026-06",
+      "total": 159,
+      "successful": 0,
+      "failed": 0,
+      "live": 150,
+      "canceled": 9,
+      "success_rate": 0.0,
+      "total_pledged": null,
+      "avg_pledged": null,
+      "total_backers": null,
+      "avg_backers": null
     }
   ],
   "category_heatmap": [
@@ -685,9 +757,23 @@
     {
       "category": "Art",
       "month": "2026-04",
-      "total": 77,
+      "total": 122,
       "successful": 50,
       "pledged": 3231286
+    },
+    {
+      "category": "Art",
+      "month": "2026-05",
+      "total": 81,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Art",
+      "month": "2026-06",
+      "total": 9,
+      "successful": 0,
+      "pledged": null
     },
     {
       "category": "Comics",
@@ -937,9 +1023,23 @@
     {
       "category": "Comics",
       "month": "2026-04",
-      "total": 205,
+      "total": 324,
       "successful": 188,
       "pledged": 12813897
+    },
+    {
+      "category": "Comics",
+      "month": "2026-05",
+      "total": 145,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Comics",
+      "month": "2026-06",
+      "total": 8,
+      "successful": 0,
+      "pledged": null
     },
     {
       "category": "Crafts",
@@ -1031,6 +1131,13 @@
       "total": 4,
       "successful": 4,
       "pledged": 323626
+    },
+    {
+      "category": "Crafts",
+      "month": "2024-06",
+      "total": 2,
+      "successful": 2,
+      "pledged": 1801
     },
     {
       "category": "Crafts",
@@ -1182,9 +1289,30 @@
     {
       "category": "Crafts",
       "month": "2026-04",
-      "total": 19,
+      "total": 28,
       "successful": 6,
       "pledged": 1606486
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-05",
+      "total": 23,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Crafts",
+      "month": "2026-06",
+      "total": 2,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Dance",
+      "month": "2023-05",
+      "total": 2,
+      "successful": 2,
+      "pledged": 34811
     },
     {
       "category": "Dance",
@@ -1202,10 +1330,38 @@
     },
     {
       "category": "Dance",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 4594
+    },
+    {
+      "category": "Dance",
       "month": "2023-09",
       "total": 5,
       "successful": 5,
       "pledged": 27959
+    },
+    {
+      "category": "Dance",
+      "month": "2023-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11858
+    },
+    {
+      "category": "Dance",
+      "month": "2024-02",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3134
+    },
+    {
+      "category": "Dance",
+      "month": "2024-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 21363
     },
     {
       "category": "Dance",
@@ -1230,10 +1386,59 @@
     },
     {
       "category": "Dance",
+      "month": "2024-07",
+      "total": 2,
+      "successful": 2,
+      "pledged": 0
+    },
+    {
+      "category": "Dance",
+      "month": "2024-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 16485
+    },
+    {
+      "category": "Dance",
+      "month": "2024-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 8106
+    },
+    {
+      "category": "Dance",
       "month": "2024-11",
       "total": 3,
       "successful": 3,
       "pledged": 23270
+    },
+    {
+      "category": "Dance",
+      "month": "2024-12",
+      "total": 2,
+      "successful": 2,
+      "pledged": 10262
+    },
+    {
+      "category": "Dance",
+      "month": "2025-01",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3596
+    },
+    {
+      "category": "Dance",
+      "month": "2025-03",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5070
+    },
+    {
+      "category": "Dance",
+      "month": "2025-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 27597
     },
     {
       "category": "Dance",
@@ -1251,10 +1456,31 @@
     },
     {
       "category": "Dance",
+      "month": "2025-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 4476
+    },
+    {
+      "category": "Dance",
+      "month": "2025-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 9800
+    },
+    {
+      "category": "Dance",
       "month": "2025-10",
       "total": 4,
       "successful": 4,
       "pledged": 118978
+    },
+    {
+      "category": "Dance",
+      "month": "2025-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 13010
     },
     {
       "category": "Dance",
@@ -1285,6 +1511,20 @@
       "pledged": 1000
     },
     {
+      "category": "Dance",
+      "month": "2026-04",
+      "total": 5,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Dance",
+      "month": "2026-05",
+      "total": 4,
+      "successful": 0,
+      "pledged": null
+    },
+    {
       "category": "Design",
       "month": "2023-05",
       "total": 10,
@@ -1307,6 +1547,13 @@
     },
     {
       "category": "Design",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 6506
+    },
+    {
+      "category": "Design",
       "month": "2023-09",
       "total": 8,
       "successful": 8,
@@ -1318,6 +1565,13 @@
       "total": 12,
       "successful": 12,
       "pledged": 120252
+    },
+    {
+      "category": "Design",
+      "month": "2023-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 23137
     },
     {
       "category": "Design",
@@ -1518,9 +1772,30 @@
     {
       "category": "Design",
       "month": "2026-04",
-      "total": 136,
+      "total": 234,
       "successful": 97,
       "pledged": 61850202
+    },
+    {
+      "category": "Design",
+      "month": "2026-05",
+      "total": 165,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Design",
+      "month": "2026-06",
+      "total": 9,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Fashion",
+      "month": "2023-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 15155
     },
     {
       "category": "Fashion",
@@ -1770,9 +2045,37 @@
     {
       "category": "Fashion",
       "month": "2026-04",
-      "total": 60,
+      "total": 89,
       "successful": 34,
       "pledged": 13548247
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-05",
+      "total": 68,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Fashion",
+      "month": "2026-06",
+      "total": 8,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5128
+    },
+    {
+      "category": "Film & Video",
+      "month": "2023-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3876
     },
     {
       "category": "Film & Video",
@@ -1980,9 +2283,23 @@
     {
       "category": "Film & Video",
       "month": "2026-04",
-      "total": 210,
+      "total": 336,
       "successful": 94,
       "pledged": 1540546
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-05",
+      "total": 244,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Film & Video",
+      "month": "2026-06",
+      "total": 35,
+      "successful": 0,
+      "pledged": null
     },
     {
       "category": "Food",
@@ -2232,9 +2549,37 @@
     {
       "category": "Food",
       "month": "2026-04",
-      "total": 54,
+      "total": 83,
       "successful": 20,
       "pledged": 370993
+    },
+    {
+      "category": "Food",
+      "month": "2026-05",
+      "total": 61,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Food",
+      "month": "2026-06",
+      "total": 7,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Games",
+      "month": "2023-06",
+      "total": 1,
+      "successful": 1,
+      "pledged": 10630
+    },
+    {
+      "category": "Games",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11583
     },
     {
       "category": "Games",
@@ -2242,6 +2587,20 @@
       "total": 3,
       "successful": 3,
       "pledged": 34336
+    },
+    {
+      "category": "Games",
+      "month": "2023-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 114
+    },
+    {
+      "category": "Games",
+      "month": "2023-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 1853
     },
     {
       "category": "Games",
@@ -2442,9 +2801,44 @@
     {
       "category": "Games",
       "month": "2026-04",
-      "total": 430,
+      "total": 668,
       "successful": 358,
       "pledged": 58837520
+    },
+    {
+      "category": "Games",
+      "month": "2026-05",
+      "total": 353,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Games",
+      "month": "2026-06",
+      "total": 25,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Journalism",
+      "month": "2023-05",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2004
+    },
+    {
+      "category": "Journalism",
+      "month": "2023-06",
+      "total": 2,
+      "successful": 2,
+      "pledged": 2778
+    },
+    {
+      "category": "Journalism",
+      "month": "2024-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 1021
     },
     {
       "category": "Journalism",
@@ -2455,6 +2849,13 @@
     },
     {
       "category": "Journalism",
+      "month": "2024-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 4710
+    },
+    {
+      "category": "Journalism",
       "month": "2024-10",
       "total": 3,
       "successful": 3,
@@ -2462,10 +2863,24 @@
     },
     {
       "category": "Journalism",
+      "month": "2024-11",
+      "total": 2,
+      "successful": 2,
+      "pledged": 63530
+    },
+    {
+      "category": "Journalism",
       "month": "2024-12",
       "total": 3,
       "successful": 3,
       "pledged": 15654
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 5506
     },
     {
       "category": "Journalism",
@@ -2494,6 +2909,20 @@
       "total": 5,
       "successful": 5,
       "pledged": 250739
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-08",
+      "total": 1,
+      "successful": 1,
+      "pledged": 6689
+    },
+    {
+      "category": "Journalism",
+      "month": "2025-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 5196
     },
     {
       "category": "Journalism",
@@ -2533,9 +2962,23 @@
     {
       "category": "Journalism",
       "month": "2026-04",
-      "total": 14,
+      "total": 17,
       "successful": 4,
       "pledged": 114669
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-05",
+      "total": 6,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Journalism",
+      "month": "2026-06",
+      "total": 1,
+      "successful": 0,
+      "pledged": null
     },
     {
       "category": "Music",
@@ -2672,6 +3115,13 @@
     },
     {
       "category": "Music",
+      "month": "2025-01",
+      "total": 2,
+      "successful": 2,
+      "pledged": 20584
+    },
+    {
+      "category": "Music",
       "month": "2025-02",
       "total": 9,
       "successful": 9,
@@ -2771,9 +3221,30 @@
     {
       "category": "Music",
       "month": "2026-04",
-      "total": 71,
+      "total": 109,
       "successful": 44,
       "pledged": 771124
+    },
+    {
+      "category": "Music",
+      "month": "2026-05",
+      "total": 76,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Music",
+      "month": "2026-06",
+      "total": 11,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Photography",
+      "month": "2023-10",
+      "total": 2,
+      "successful": 2,
+      "pledged": 9445
     },
     {
       "category": "Photography",
@@ -2833,6 +3304,13 @@
     },
     {
       "category": "Photography",
+      "month": "2024-10",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2046
+    },
+    {
+      "category": "Photography",
       "month": "2024-11",
       "total": 17,
       "successful": 17,
@@ -2865,6 +3343,13 @@
       "total": 4,
       "successful": 4,
       "pledged": 31966
+    },
+    {
+      "category": "Photography",
+      "month": "2025-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 10447
     },
     {
       "category": "Photography",
@@ -2946,9 +3431,30 @@
     {
       "category": "Photography",
       "month": "2026-04",
-      "total": 20,
+      "total": 37,
       "successful": 18,
       "pledged": 151419
+    },
+    {
+      "category": "Photography",
+      "month": "2026-05",
+      "total": 23,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Photography",
+      "month": "2026-06",
+      "total": 4,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Publishing",
+      "month": "2023-12",
+      "total": 1,
+      "successful": 1,
+      "pledged": 1715
     },
     {
       "category": "Publishing",
@@ -2970,6 +3476,13 @@
       "total": 7,
       "successful": 7,
       "pledged": 92771
+    },
+    {
+      "category": "Publishing",
+      "month": "2024-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 19489
     },
     {
       "category": "Publishing",
@@ -3135,9 +3648,37 @@
     {
       "category": "Publishing",
       "month": "2026-04",
-      "total": 223,
+      "total": 338,
       "successful": 153,
       "pledged": 2382831
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-05",
+      "total": 200,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Publishing",
+      "month": "2026-06",
+      "total": 18,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Technology",
+      "month": "2023-08",
+      "total": 1,
+      "successful": 1,
+      "pledged": 12001
+    },
+    {
+      "category": "Technology",
+      "month": "2023-09",
+      "total": 1,
+      "successful": 1,
+      "pledged": 281350
     },
     {
       "category": "Technology",
@@ -3187,6 +3728,13 @@
       "total": 12,
       "successful": 12,
       "pledged": 3723664
+    },
+    {
+      "category": "Technology",
+      "month": "2024-09",
+      "total": 2,
+      "successful": 2,
+      "pledged": 114677
     },
     {
       "category": "Technology",
@@ -3317,9 +3865,23 @@
     {
       "category": "Technology",
       "month": "2026-04",
-      "total": 138,
+      "total": 211,
       "successful": 71,
       "pledged": 21110707
+    },
+    {
+      "category": "Technology",
+      "month": "2026-05",
+      "total": 158,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Technology",
+      "month": "2026-06",
+      "total": 14,
+      "successful": 0,
+      "pledged": null
     },
     {
       "category": "Theater",
@@ -3344,6 +3906,13 @@
     },
     {
       "category": "Theater",
+      "month": "2023-08",
+      "total": 2,
+      "successful": 2,
+      "pledged": 34007
+    },
+    {
+      "category": "Theater",
       "month": "2023-09",
       "total": 6,
       "successful": 6,
@@ -3355,6 +3924,13 @@
       "total": 4,
       "successful": 4,
       "pledged": 20660
+    },
+    {
+      "category": "Theater",
+      "month": "2023-11",
+      "total": 1,
+      "successful": 1,
+      "pledged": 2360
     },
     {
       "category": "Theater",
@@ -3379,10 +3955,31 @@
     },
     {
       "category": "Theater",
+      "month": "2024-03",
+      "total": 2,
+      "successful": 2,
+      "pledged": 18655
+    },
+    {
+      "category": "Theater",
+      "month": "2024-04",
+      "total": 1,
+      "successful": 1,
+      "pledged": 6079
+    },
+    {
+      "category": "Theater",
       "month": "2024-06",
       "total": 4,
       "successful": 4,
       "pledged": 34576
+    },
+    {
+      "category": "Theater",
+      "month": "2024-07",
+      "total": 1,
+      "successful": 1,
+      "pledged": 3676
     },
     {
       "category": "Theater",
@@ -3414,6 +4011,13 @@
     },
     {
       "category": "Theater",
+      "month": "2025-01",
+      "total": 1,
+      "successful": 1,
+      "pledged": 4691
+    },
+    {
+      "category": "Theater",
       "month": "2025-02",
       "total": 4,
       "successful": 4,
@@ -3425,6 +4029,20 @@
       "total": 8,
       "successful": 8,
       "pledged": 141736
+    },
+    {
+      "category": "Theater",
+      "month": "2025-04",
+      "total": 2,
+      "successful": 2,
+      "pledged": 50153
+    },
+    {
+      "category": "Theater",
+      "month": "2025-05",
+      "total": 2,
+      "successful": 2,
+      "pledged": 11354
     },
     {
       "category": "Theater",
@@ -3499,9 +4117,23 @@
     {
       "category": "Theater",
       "month": "2026-04",
-      "total": 17,
+      "total": 27,
       "successful": 7,
       "pledged": 88787
+    },
+    {
+      "category": "Theater",
+      "month": "2026-05",
+      "total": 13,
+      "successful": 0,
+      "pledged": null
+    },
+    {
+      "category": "Theater",
+      "month": "2026-06",
+      "total": 3,
+      "successful": 0,
+      "pledged": null
     }
   ],
   "funding_scale": [
@@ -3652,6 +4284,76 @@
   "country_trend": [
     {
       "country": "AU",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 57726
+    },
+    {
+      "country": "AU",
+      "quarter": "2023-Q3",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 112191
+    },
+    {
+      "country": "AU",
+      "quarter": "2023-Q4",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 156037
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q1",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 140852
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q2",
+      "total": 26,
+      "success_rate": 100.0,
+      "pledged": 302168
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q3",
+      "total": 25,
+      "success_rate": 100.0,
+      "pledged": 221674
+    },
+    {
+      "country": "AU",
+      "quarter": "2024-Q4",
+      "total": 42,
+      "success_rate": 100.0,
+      "pledged": 455101
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q1",
+      "total": 45,
+      "success_rate": 100.0,
+      "pledged": 611498
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q2",
+      "total": 61,
+      "success_rate": 100.0,
+      "pledged": 3332502
+    },
+    {
+      "country": "AU",
+      "quarter": "2025-Q3",
+      "total": 68,
+      "success_rate": 100.0,
+      "pledged": 2067165
+    },
+    {
+      "country": "AU",
       "quarter": "2025-Q4",
       "total": 149,
       "success_rate": 77.2,
@@ -3667,9 +4369,79 @@
     {
       "country": "AU",
       "quarter": "2026-Q2",
-      "total": 43,
-      "success_rate": 67.4,
+      "total": 111,
+      "success_rate": 63.0,
       "pledged": 660690
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q2",
+      "total": 13,
+      "success_rate": 100.0,
+      "pledged": 139646
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q3",
+      "total": 34,
+      "success_rate": 100.0,
+      "pledged": 497230
+    },
+    {
+      "country": "CA",
+      "quarter": "2023-Q4",
+      "total": 40,
+      "success_rate": 100.0,
+      "pledged": 354577
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q1",
+      "total": 47,
+      "success_rate": 100.0,
+      "pledged": 1671278
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q2",
+      "total": 58,
+      "success_rate": 100.0,
+      "pledged": 889190
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q3",
+      "total": 70,
+      "success_rate": 100.0,
+      "pledged": 1075324
+    },
+    {
+      "country": "CA",
+      "quarter": "2024-Q4",
+      "total": 100,
+      "success_rate": 100.0,
+      "pledged": 2227633
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q1",
+      "total": 75,
+      "success_rate": 100.0,
+      "pledged": 1288826
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q2",
+      "total": 103,
+      "success_rate": 100.0,
+      "pledged": 3117871
+    },
+    {
+      "country": "CA",
+      "quarter": "2025-Q3",
+      "total": 121,
+      "success_rate": 100.0,
+      "pledged": 19807558
     },
     {
       "country": "CA",
@@ -3688,9 +4460,79 @@
     {
       "country": "CA",
       "quarter": "2026-Q2",
-      "total": 93,
-      "success_rate": 62.4,
+      "total": 223,
+      "success_rate": 60.4,
       "pledged": 1731545
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q2",
+      "total": 2,
+      "success_rate": 100.0,
+      "pledged": 38533
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q3",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 118229
+    },
+    {
+      "country": "DE",
+      "quarter": "2023-Q4",
+      "total": 12,
+      "success_rate": 100.0,
+      "pledged": 147632
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q1",
+      "total": 20,
+      "success_rate": 100.0,
+      "pledged": 111795
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q2",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 311476
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q3",
+      "total": 17,
+      "success_rate": 100.0,
+      "pledged": 105990
+    },
+    {
+      "country": "DE",
+      "quarter": "2024-Q4",
+      "total": 41,
+      "success_rate": 100.0,
+      "pledged": 301227
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q1",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 322269
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q2",
+      "total": 39,
+      "success_rate": 100.0,
+      "pledged": 588804
+    },
+    {
+      "country": "DE",
+      "quarter": "2025-Q3",
+      "total": 55,
+      "success_rate": 100.0,
+      "pledged": 583839
     },
     {
       "country": "DE",
@@ -3709,9 +4551,79 @@
     {
       "country": "DE",
       "quarter": "2026-Q2",
-      "total": 60,
-      "success_rate": 46.7,
+      "total": 136,
+      "success_rate": 43.1,
       "pledged": 1670055
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q2",
+      "total": 2,
+      "success_rate": 100.0,
+      "pledged": 16798
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q3",
+      "total": 8,
+      "success_rate": 100.0,
+      "pledged": 345720
+    },
+    {
+      "country": "ES",
+      "quarter": "2023-Q4",
+      "total": 14,
+      "success_rate": 100.0,
+      "pledged": 327515
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q1",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 95426
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q2",
+      "total": 32,
+      "success_rate": 100.0,
+      "pledged": 494739
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q3",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 185353
+    },
+    {
+      "country": "ES",
+      "quarter": "2024-Q4",
+      "total": 57,
+      "success_rate": 100.0,
+      "pledged": 558062
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q1",
+      "total": 45,
+      "success_rate": 100.0,
+      "pledged": 400972
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q2",
+      "total": 56,
+      "success_rate": 100.0,
+      "pledged": 528069
+    },
+    {
+      "country": "ES",
+      "quarter": "2025-Q3",
+      "total": 52,
+      "success_rate": 100.0,
+      "pledged": 550328
     },
     {
       "country": "ES",
@@ -3730,9 +4642,79 @@
     {
       "country": "ES",
       "quarter": "2026-Q2",
-      "total": 52,
-      "success_rate": 76.9,
+      "total": 135,
+      "success_rate": 66.7,
       "pledged": 287011
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q2",
+      "total": 6,
+      "success_rate": 100.0,
+      "pledged": 140770
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q3",
+      "total": 11,
+      "success_rate": 100.0,
+      "pledged": 60917
+    },
+    {
+      "country": "FR",
+      "quarter": "2023-Q4",
+      "total": 17,
+      "success_rate": 100.0,
+      "pledged": 105136
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q1",
+      "total": 21,
+      "success_rate": 100.0,
+      "pledged": 567059
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q2",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 394541
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q3",
+      "total": 23,
+      "success_rate": 100.0,
+      "pledged": 174928
+    },
+    {
+      "country": "FR",
+      "quarter": "2024-Q4",
+      "total": 31,
+      "success_rate": 100.0,
+      "pledged": 963608
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q1",
+      "total": 33,
+      "success_rate": 100.0,
+      "pledged": 3096798
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q2",
+      "total": 53,
+      "success_rate": 100.0,
+      "pledged": 1010854
+    },
+    {
+      "country": "FR",
+      "quarter": "2025-Q3",
+      "total": 38,
+      "success_rate": 100.0,
+      "pledged": 569238
     },
     {
       "country": "FR",
@@ -3751,9 +4733,79 @@
     {
       "country": "FR",
       "quarter": "2026-Q2",
-      "total": 55,
-      "success_rate": 72.7,
+      "total": 124,
+      "success_rate": 71.4,
       "pledged": 1330322
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q2",
+      "total": 22,
+      "success_rate": 100.0,
+      "pledged": 96034
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q3",
+      "total": 64,
+      "success_rate": 100.0,
+      "pledged": 489952
+    },
+    {
+      "country": "GB",
+      "quarter": "2023-Q4",
+      "total": 80,
+      "success_rate": 100.0,
+      "pledged": 781620
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q1",
+      "total": 105,
+      "success_rate": 100.0,
+      "pledged": 848537
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q2",
+      "total": 162,
+      "success_rate": 100.0,
+      "pledged": 1682779
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q3",
+      "total": 147,
+      "success_rate": 100.0,
+      "pledged": 1258218
+    },
+    {
+      "country": "GB",
+      "quarter": "2024-Q4",
+      "total": 186,
+      "success_rate": 100.0,
+      "pledged": 1950152
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q1",
+      "total": 184,
+      "success_rate": 100.0,
+      "pledged": 1609843
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q2",
+      "total": 266,
+      "success_rate": 100.0,
+      "pledged": 4991521
+    },
+    {
+      "country": "GB",
+      "quarter": "2025-Q3",
+      "total": 274,
+      "success_rate": 100.0,
+      "pledged": 2978196
     },
     {
       "country": "GB",
@@ -3772,9 +4824,79 @@
     {
       "country": "GB",
       "quarter": "2026-Q2",
-      "total": 204,
-      "success_rate": 75.0,
+      "total": 529,
+      "success_rate": 71.2,
       "pledged": 3475320
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 886840
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q3",
+      "total": 4,
+      "success_rate": 100.0,
+      "pledged": 232052
+    },
+    {
+      "country": "HK",
+      "quarter": "2023-Q4",
+      "total": 10,
+      "success_rate": 100.0,
+      "pledged": 331415
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q1",
+      "total": 21,
+      "success_rate": 100.0,
+      "pledged": 22342429
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q2",
+      "total": 31,
+      "success_rate": 100.0,
+      "pledged": 15918428
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q3",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 5005480
+    },
+    {
+      "country": "HK",
+      "quarter": "2024-Q4",
+      "total": 84,
+      "success_rate": 100.0,
+      "pledged": 61366213
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q1",
+      "total": 80,
+      "success_rate": 100.0,
+      "pledged": 24798507
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q2",
+      "total": 112,
+      "success_rate": 100.0,
+      "pledged": 65719352
+    },
+    {
+      "country": "HK",
+      "quarter": "2025-Q3",
+      "total": 150,
+      "success_rate": 100.0,
+      "pledged": 138594643
     },
     {
       "country": "HK",
@@ -3793,9 +4915,79 @@
     {
       "country": "HK",
       "quarter": "2026-Q2",
-      "total": 82,
-      "success_rate": 87.8,
+      "total": 200,
+      "success_rate": 85.7,
       "pledged": 31649381
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 264137
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q3",
+      "total": 4,
+      "success_rate": 100.0,
+      "pledged": 15280
+    },
+    {
+      "country": "IT",
+      "quarter": "2023-Q4",
+      "total": 9,
+      "success_rate": 100.0,
+      "pledged": 27635
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q1",
+      "total": 14,
+      "success_rate": 100.0,
+      "pledged": 174775
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q2",
+      "total": 24,
+      "success_rate": 100.0,
+      "pledged": 987234
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q3",
+      "total": 19,
+      "success_rate": 100.0,
+      "pledged": 268379
+    },
+    {
+      "country": "IT",
+      "quarter": "2024-Q4",
+      "total": 30,
+      "success_rate": 100.0,
+      "pledged": 422336
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q1",
+      "total": 33,
+      "success_rate": 100.0,
+      "pledged": 182355
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q2",
+      "total": 49,
+      "success_rate": 100.0,
+      "pledged": 846137
+    },
+    {
+      "country": "IT",
+      "quarter": "2025-Q3",
+      "total": 41,
+      "success_rate": 100.0,
+      "pledged": 445129
     },
     {
       "country": "IT",
@@ -3814,9 +5006,79 @@
     {
       "country": "IT",
       "quarter": "2026-Q2",
-      "total": 35,
-      "success_rate": 60.0,
+      "total": 120,
+      "success_rate": 56.8,
       "pledged": 215887
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q2",
+      "total": 5,
+      "success_rate": 100.0,
+      "pledged": 11856667
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q3",
+      "total": 16,
+      "success_rate": 100.0,
+      "pledged": 27360374
+    },
+    {
+      "country": "JP",
+      "quarter": "2023-Q4",
+      "total": 10,
+      "success_rate": 100.0,
+      "pledged": 8337604
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q1",
+      "total": 18,
+      "success_rate": 100.0,
+      "pledged": 36158500
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q2",
+      "total": 24,
+      "success_rate": 100.0,
+      "pledged": 40108479
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q3",
+      "total": 34,
+      "success_rate": 100.0,
+      "pledged": 56412657
+    },
+    {
+      "country": "JP",
+      "quarter": "2024-Q4",
+      "total": 36,
+      "success_rate": 100.0,
+      "pledged": 78372943
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q1",
+      "total": 43,
+      "success_rate": 100.0,
+      "pledged": 108600047
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q2",
+      "total": 62,
+      "success_rate": 100.0,
+      "pledged": 143463465
+    },
+    {
+      "country": "JP",
+      "quarter": "2025-Q3",
+      "total": 76,
+      "success_rate": 100.0,
+      "pledged": 458035538
     },
     {
       "country": "JP",
@@ -3835,9 +5097,79 @@
     {
       "country": "JP",
       "quarter": "2026-Q2",
-      "total": 25,
+      "total": 83,
       "success_rate": 88.0,
       "pledged": 64575251
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q2",
+      "total": 134,
+      "success_rate": 100.0,
+      "pledged": 3008604
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q3",
+      "total": 267,
+      "success_rate": 100.0,
+      "pledged": 4531540
+    },
+    {
+      "country": "US",
+      "quarter": "2023-Q4",
+      "total": 347,
+      "success_rate": 100.0,
+      "pledged": 5096858
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q1",
+      "total": 394,
+      "success_rate": 100.0,
+      "pledged": 7912542
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q2",
+      "total": 577,
+      "success_rate": 100.0,
+      "pledged": 18817635
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q3",
+      "total": 527,
+      "success_rate": 100.0,
+      "pledged": 12941188
+    },
+    {
+      "country": "US",
+      "quarter": "2024-Q4",
+      "total": 874,
+      "success_rate": 100.0,
+      "pledged": 49519230
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q1",
+      "total": 655,
+      "success_rate": 100.0,
+      "pledged": 21805289
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q2",
+      "total": 1201,
+      "success_rate": 100.0,
+      "pledged": 38120332
+    },
+    {
+      "country": "US",
+      "quarter": "2025-Q3",
+      "total": 1398,
+      "success_rate": 100.0,
+      "pledged": 46071207
     },
     {
       "country": "US",
@@ -3856,12 +5188,261 @@
     {
       "country": "US",
       "quarter": "2026-Q2",
-      "total": 907,
-      "success_rate": 66.9,
+      "total": 2436,
+      "success_rate": 63.5,
       "pledged": 71285759
     }
   ],
+  "reward_trend": [],
   "staff_pick_trend": [
+    {
+      "month": "2023-04",
+      "total": 1,
+      "staff_pick": 1,
+      "sp_pct": 100.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": null
+    },
+    {
+      "month": "2023-05",
+      "total": 64,
+      "staff_pick": 14,
+      "sp_pct": 21.9,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-06",
+      "total": 148,
+      "staff_pick": 29,
+      "sp_pct": 19.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-07",
+      "total": 172,
+      "staff_pick": 34,
+      "sp_pct": 19.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-08",
+      "total": 149,
+      "staff_pick": 28,
+      "sp_pct": 18.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-09",
+      "total": 145,
+      "staff_pick": 38,
+      "sp_pct": 26.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-10",
+      "total": 188,
+      "staff_pick": 39,
+      "sp_pct": 20.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-11",
+      "total": 231,
+      "staff_pick": 62,
+      "sp_pct": 26.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2023-12",
+      "total": 181,
+      "staff_pick": 32,
+      "sp_pct": 17.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-01",
+      "total": 153,
+      "staff_pick": 33,
+      "sp_pct": 21.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-02",
+      "total": 237,
+      "staff_pick": 66,
+      "sp_pct": 27.8,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-03",
+      "total": 326,
+      "staff_pick": 72,
+      "sp_pct": 22.1,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-04",
+      "total": 376,
+      "staff_pick": 89,
+      "sp_pct": 23.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-05",
+      "total": 306,
+      "staff_pick": 75,
+      "sp_pct": 24.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-06",
+      "total": 378,
+      "staff_pick": 94,
+      "sp_pct": 24.9,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-07",
+      "total": 314,
+      "staff_pick": 62,
+      "sp_pct": 19.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-08",
+      "total": 378,
+      "staff_pick": 70,
+      "sp_pct": 18.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-09",
+      "total": 295,
+      "staff_pick": 59,
+      "sp_pct": 20.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-10",
+      "total": 485,
+      "staff_pick": 108,
+      "sp_pct": 22.3,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-11",
+      "total": 569,
+      "staff_pick": 152,
+      "sp_pct": 26.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2024-12",
+      "total": 557,
+      "staff_pick": 146,
+      "sp_pct": 26.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-01",
+      "total": 325,
+      "staff_pick": 70,
+      "sp_pct": 21.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-02",
+      "total": 444,
+      "staff_pick": 81,
+      "sp_pct": 18.2,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-03",
+      "total": 577,
+      "staff_pick": 130,
+      "sp_pct": 22.5,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-04",
+      "total": 633,
+      "staff_pick": 175,
+      "sp_pct": 27.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-05",
+      "total": 787,
+      "staff_pick": 217,
+      "sp_pct": 27.6,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-06",
+      "total": 704,
+      "staff_pick": 174,
+      "sp_pct": 24.7,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-07",
+      "total": 895,
+      "staff_pick": 218,
+      "sp_pct": 24.4,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-08",
+      "total": 753,
+      "staff_pick": 203,
+      "sp_pct": 27.0,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-09",
+      "total": 776,
+      "staff_pick": 181,
+      "sp_pct": 23.3,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
+    {
+      "month": "2025-10",
+      "total": 997,
+      "staff_pick": 250,
+      "sp_pct": 25.1,
+      "sp_success_rate": 100.0,
+      "non_sp_success_rate": 100.0
+    },
     {
       "month": "2025-11",
       "total": 1736,
@@ -3904,368 +5485,27 @@
     },
     {
       "month": "2026-04",
-      "total": 1701,
-      "staff_pick": 277,
-      "sp_pct": 16.3,
+      "total": 2676,
+      "staff_pick": 413,
+      "sp_pct": 15.4,
       "sp_success_rate": 94.6,
-      "non_sp_success_rate": 63.4
-    }
-  ],
-  "duration_trend": [
-    {
-      "month": "2023-04",
-      "avg_duration": 10.0,
-      "avg_success_duration": 10.0
+      "non_sp_success_rate": 62.5
     },
     {
-      "month": "2023-05",
-      "avg_duration": 23.8,
-      "avg_success_duration": 23.8
+      "month": "2026-05",
+      "total": 1650,
+      "staff_pick": 193,
+      "sp_pct": 11.7,
+      "sp_success_rate": null,
+      "non_sp_success_rate": 0.0
     },
     {
-      "month": "2023-06",
-      "avg_duration": 29.9,
-      "avg_success_duration": 29.9
-    },
-    {
-      "month": "2023-07",
-      "avg_duration": 29.9,
-      "avg_success_duration": 29.9
-    },
-    {
-      "month": "2023-08",
-      "avg_duration": 30.5,
-      "avg_success_duration": 30.5
-    },
-    {
-      "month": "2023-09",
-      "avg_duration": 30.6,
-      "avg_success_duration": 30.6
-    },
-    {
-      "month": "2023-10",
-      "avg_duration": 31.0,
-      "avg_success_duration": 31.0
-    },
-    {
-      "month": "2023-11",
-      "avg_duration": 29.6,
-      "avg_success_duration": 29.6
-    },
-    {
-      "month": "2023-12",
-      "avg_duration": 32.9,
-      "avg_success_duration": 32.9
-    },
-    {
-      "month": "2024-01",
-      "avg_duration": 33.4,
-      "avg_success_duration": 33.4
-    },
-    {
-      "month": "2024-02",
-      "avg_duration": 30.8,
-      "avg_success_duration": 30.8
-    },
-    {
-      "month": "2024-03",
-      "avg_duration": 30.7,
-      "avg_success_duration": 30.7
-    },
-    {
-      "month": "2024-04",
-      "avg_duration": 31.3,
-      "avg_success_duration": 31.3
-    },
-    {
-      "month": "2024-05",
-      "avg_duration": 29.8,
-      "avg_success_duration": 29.8
-    },
-    {
-      "month": "2024-06",
-      "avg_duration": 28.9,
-      "avg_success_duration": 28.9
-    },
-    {
-      "month": "2024-07",
-      "avg_duration": 29.3,
-      "avg_success_duration": 29.3
-    },
-    {
-      "month": "2024-08",
-      "avg_duration": 27.7,
-      "avg_success_duration": 27.7
-    },
-    {
-      "month": "2024-09",
-      "avg_duration": 28.7,
-      "avg_success_duration": 28.7
-    },
-    {
-      "month": "2024-10",
-      "avg_duration": 27.5,
-      "avg_success_duration": 27.5
-    },
-    {
-      "month": "2024-11",
-      "avg_duration": 29.7,
-      "avg_success_duration": 29.7
-    },
-    {
-      "month": "2024-12",
-      "avg_duration": 29.3,
-      "avg_success_duration": 29.3
-    },
-    {
-      "month": "2025-01",
-      "avg_duration": 30.7,
-      "avg_success_duration": 30.7
-    },
-    {
-      "month": "2025-02",
-      "avg_duration": 28.6,
-      "avg_success_duration": 28.6
-    },
-    {
-      "month": "2025-03",
-      "avg_duration": 29.4,
-      "avg_success_duration": 29.4
-    },
-    {
-      "month": "2025-04",
-      "avg_duration": 29.2,
-      "avg_success_duration": 29.2
-    },
-    {
-      "month": "2025-05",
-      "avg_duration": 29.4,
-      "avg_success_duration": 29.4
-    },
-    {
-      "month": "2025-06",
-      "avg_duration": 28.2,
-      "avg_success_duration": 28.2
-    },
-    {
-      "month": "2025-07",
-      "avg_duration": 29.4,
-      "avg_success_duration": 29.4
-    },
-    {
-      "month": "2025-08",
-      "avg_duration": 28.9,
-      "avg_success_duration": 28.9
-    },
-    {
-      "month": "2025-09",
-      "avg_duration": 27.1,
-      "avg_success_duration": 27.1
-    },
-    {
-      "month": "2025-10",
-      "avg_duration": 27.6,
-      "avg_success_duration": 27.6
-    },
-    {
-      "month": "2025-11",
-      "avg_duration": 25.8,
-      "avg_success_duration": 25.8
-    },
-    {
-      "month": "2025-12",
-      "avg_duration": 30.0,
-      "avg_success_duration": 28.2
-    },
-    {
-      "month": "2026-01",
-      "avg_duration": 33.1,
-      "avg_success_duration": 29.6
-    },
-    {
-      "month": "2026-02",
-      "avg_duration": 29.4,
-      "avg_success_duration": 26.2
-    },
-    {
-      "month": "2026-03",
-      "avg_duration": 30.1,
-      "avg_success_duration": 27.3
-    },
-    {
-      "month": "2026-04",
-      "avg_duration": 30.8,
-      "avg_success_duration": 27.7
-    }
-  ],
-  "ai_trend": [
-    {
-      "month": "2024-01",
-      "total": 153,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-02",
-      "total": 237,
-      "ai_involved": 1,
-      "ai_pct": 0.4
-    },
-    {
-      "month": "2024-03",
-      "total": 326,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-04",
-      "total": 376,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-05",
-      "total": 306,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-06",
-      "total": 378,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-07",
-      "total": 314,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-08",
-      "total": 378,
-      "ai_involved": 1,
-      "ai_pct": 0.3
-    },
-    {
-      "month": "2024-09",
-      "total": 295,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-10",
-      "total": 485,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2024-11",
-      "total": 569,
-      "ai_involved": 1,
-      "ai_pct": 0.2
-    },
-    {
-      "month": "2024-12",
-      "total": 557,
-      "ai_involved": 1,
-      "ai_pct": 0.2
-    },
-    {
-      "month": "2025-01",
-      "total": 325,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2025-02",
-      "total": 444,
-      "ai_involved": 3,
-      "ai_pct": 0.7
-    },
-    {
-      "month": "2025-03",
-      "total": 577,
-      "ai_involved": 1,
-      "ai_pct": 0.2
-    },
-    {
-      "month": "2025-04",
-      "total": 633,
-      "ai_involved": 1,
-      "ai_pct": 0.2
-    },
-    {
-      "month": "2025-05",
-      "total": 787,
-      "ai_involved": 2,
-      "ai_pct": 0.3
-    },
-    {
-      "month": "2025-06",
-      "total": 704,
-      "ai_involved": 1,
-      "ai_pct": 0.1
-    },
-    {
-      "month": "2025-07",
-      "total": 895,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2025-08",
-      "total": 753,
-      "ai_involved": 3,
-      "ai_pct": 0.4
-    },
-    {
-      "month": "2025-09",
-      "total": 776,
-      "ai_involved": 0,
-      "ai_pct": 0.0
-    },
-    {
-      "month": "2025-10",
-      "total": 997,
-      "ai_involved": 4,
-      "ai_pct": 0.4
-    },
-    {
-      "month": "2025-11",
-      "total": 1736,
-      "ai_involved": 6,
-      "ai_pct": 0.3
-    },
-    {
-      "month": "2025-12",
-      "total": 2210,
-      "ai_involved": 22,
-      "ai_pct": 1.0
-    },
-    {
-      "month": "2026-01",
-      "total": 1659,
-      "ai_involved": 16,
-      "ai_pct": 1.0
-    },
-    {
-      "month": "2026-02",
-      "total": 1996,
-      "ai_involved": 17,
-      "ai_pct": 0.9
-    },
-    {
-      "month": "2026-03",
-      "total": 2582,
-      "ai_involved": 22,
-      "ai_pct": 0.9
-    },
-    {
-      "month": "2026-04",
-      "total": 1701,
-      "ai_involved": 11,
-      "ai_pct": 0.6
+      "month": "2026-06",
+      "total": 159,
+      "staff_pick": 8,
+      "sp_pct": 5.0,
+      "sp_success_rate": null,
+      "non_sp_success_rate": 0.0
     }
   ],
   "superbacker_network": [
@@ -5346,7 +6586,383 @@
       "shared_authors": 1
     }
   ],
-  "reward_trend": [],
-  "trust_since": "2025-11",
-  "trust_note": "2025-11 이전 데이터는 Webrobots 성공 아카이브 기반이라 실패 프로젝트 부재 편향이 있음. 성공률/Staff Pick 효과 등 비교 메트릭은 2025-11부터만 표시."
+  "duration_trend": [
+    {
+      "month": "2023-04",
+      "avg_duration": 10.0,
+      "avg_success_duration": 10.0
+    },
+    {
+      "month": "2023-05",
+      "avg_duration": 23.8,
+      "avg_success_duration": 23.8
+    },
+    {
+      "month": "2023-06",
+      "avg_duration": 29.9,
+      "avg_success_duration": 29.9
+    },
+    {
+      "month": "2023-07",
+      "avg_duration": 29.9,
+      "avg_success_duration": 29.9
+    },
+    {
+      "month": "2023-08",
+      "avg_duration": 30.5,
+      "avg_success_duration": 30.5
+    },
+    {
+      "month": "2023-09",
+      "avg_duration": 30.6,
+      "avg_success_duration": 30.6
+    },
+    {
+      "month": "2023-10",
+      "avg_duration": 31.0,
+      "avg_success_duration": 31.0
+    },
+    {
+      "month": "2023-11",
+      "avg_duration": 29.6,
+      "avg_success_duration": 29.6
+    },
+    {
+      "month": "2023-12",
+      "avg_duration": 32.9,
+      "avg_success_duration": 32.9
+    },
+    {
+      "month": "2024-01",
+      "avg_duration": 33.4,
+      "avg_success_duration": 33.4
+    },
+    {
+      "month": "2024-02",
+      "avg_duration": 30.8,
+      "avg_success_duration": 30.8
+    },
+    {
+      "month": "2024-03",
+      "avg_duration": 30.7,
+      "avg_success_duration": 30.7
+    },
+    {
+      "month": "2024-04",
+      "avg_duration": 31.3,
+      "avg_success_duration": 31.3
+    },
+    {
+      "month": "2024-05",
+      "avg_duration": 29.8,
+      "avg_success_duration": 29.8
+    },
+    {
+      "month": "2024-06",
+      "avg_duration": 28.9,
+      "avg_success_duration": 28.9
+    },
+    {
+      "month": "2024-07",
+      "avg_duration": 29.3,
+      "avg_success_duration": 29.3
+    },
+    {
+      "month": "2024-08",
+      "avg_duration": 27.7,
+      "avg_success_duration": 27.7
+    },
+    {
+      "month": "2024-09",
+      "avg_duration": 28.7,
+      "avg_success_duration": 28.7
+    },
+    {
+      "month": "2024-10",
+      "avg_duration": 27.5,
+      "avg_success_duration": 27.5
+    },
+    {
+      "month": "2024-11",
+      "avg_duration": 29.7,
+      "avg_success_duration": 29.7
+    },
+    {
+      "month": "2024-12",
+      "avg_duration": 29.3,
+      "avg_success_duration": 29.3
+    },
+    {
+      "month": "2025-01",
+      "avg_duration": 30.7,
+      "avg_success_duration": 30.7
+    },
+    {
+      "month": "2025-02",
+      "avg_duration": 28.6,
+      "avg_success_duration": 28.6
+    },
+    {
+      "month": "2025-03",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-04",
+      "avg_duration": 29.2,
+      "avg_success_duration": 29.2
+    },
+    {
+      "month": "2025-05",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-06",
+      "avg_duration": 28.2,
+      "avg_success_duration": 28.2
+    },
+    {
+      "month": "2025-07",
+      "avg_duration": 29.4,
+      "avg_success_duration": 29.4
+    },
+    {
+      "month": "2025-08",
+      "avg_duration": 28.9,
+      "avg_success_duration": 28.9
+    },
+    {
+      "month": "2025-09",
+      "avg_duration": 27.1,
+      "avg_success_duration": 27.1
+    },
+    {
+      "month": "2025-10",
+      "avg_duration": 27.6,
+      "avg_success_duration": 27.6
+    },
+    {
+      "month": "2025-11",
+      "avg_duration": 25.8,
+      "avg_success_duration": 25.8
+    },
+    {
+      "month": "2025-12",
+      "avg_duration": 30.0,
+      "avg_success_duration": 28.2
+    },
+    {
+      "month": "2026-01",
+      "avg_duration": 33.1,
+      "avg_success_duration": 29.6
+    },
+    {
+      "month": "2026-02",
+      "avg_duration": 29.4,
+      "avg_success_duration": 26.2
+    },
+    {
+      "month": "2026-03",
+      "avg_duration": 30.1,
+      "avg_success_duration": 27.3
+    },
+    {
+      "month": "2026-04",
+      "avg_duration": 31.1,
+      "avg_success_duration": 27.7
+    },
+    {
+      "month": "2026-05",
+      "avg_duration": 38.2,
+      "avg_success_duration": null
+    },
+    {
+      "month": "2026-06",
+      "avg_duration": 59.0,
+      "avg_success_duration": null
+    }
+  ],
+  "ai_trend": [
+    {
+      "month": "2024-01",
+      "total": 153,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-02",
+      "total": 237,
+      "ai_involved": 1,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2024-03",
+      "total": 326,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-04",
+      "total": 376,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-05",
+      "total": 306,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-06",
+      "total": 378,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-07",
+      "total": 314,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-08",
+      "total": 378,
+      "ai_involved": 1,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2024-09",
+      "total": 295,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-10",
+      "total": 485,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2024-11",
+      "total": 569,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2024-12",
+      "total": 557,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-01",
+      "total": 325,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-02",
+      "total": 444,
+      "ai_involved": 3,
+      "ai_pct": 0.7
+    },
+    {
+      "month": "2025-03",
+      "total": 577,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-04",
+      "total": 633,
+      "ai_involved": 1,
+      "ai_pct": 0.2
+    },
+    {
+      "month": "2025-05",
+      "total": 787,
+      "ai_involved": 2,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2025-06",
+      "total": 704,
+      "ai_involved": 1,
+      "ai_pct": 0.1
+    },
+    {
+      "month": "2025-07",
+      "total": 895,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-08",
+      "total": 753,
+      "ai_involved": 3,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2025-09",
+      "total": 776,
+      "ai_involved": 0,
+      "ai_pct": 0.0
+    },
+    {
+      "month": "2025-10",
+      "total": 997,
+      "ai_involved": 4,
+      "ai_pct": 0.4
+    },
+    {
+      "month": "2025-11",
+      "total": 1736,
+      "ai_involved": 6,
+      "ai_pct": 0.3
+    },
+    {
+      "month": "2025-12",
+      "total": 2210,
+      "ai_involved": 22,
+      "ai_pct": 1.0
+    },
+    {
+      "month": "2026-01",
+      "total": 1659,
+      "ai_involved": 16,
+      "ai_pct": 1.0
+    },
+    {
+      "month": "2026-02",
+      "total": 1996,
+      "ai_involved": 17,
+      "ai_pct": 0.9
+    },
+    {
+      "month": "2026-03",
+      "total": 2582,
+      "ai_involved": 22,
+      "ai_pct": 0.9
+    },
+    {
+      "month": "2026-04",
+      "total": 2676,
+      "ai_involved": 21,
+      "ai_pct": 0.8
+    },
+    {
+      "month": "2026-05",
+      "total": 1650,
+      "ai_involved": 12,
+      "ai_pct": 0.7
+    },
+    {
+      "month": "2026-06",
+      "total": 159,
+      "ai_involved": 4,
+      "ai_pct": 2.5
+    }
+  ]
 }

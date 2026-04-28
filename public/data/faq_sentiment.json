@@ -1,324 +1,146 @@
 {
+  "generated": "2026-04-28T09:53:47.210634",
   "faq": {
-    "total": 7819,
-    "model": "Linear SVC",
-    "model_accuracy": 92.0,
-    "model_f1": 0.8726,
-    "model_cv_acc": 90.8,
-    "other_before": 4146,
-    "other_after": 0,
-    "topic_distribution": {
-      "일정/시기": 3195,
-      "후원/리워드": 957,
-      "배송/물류": 872,
-      "제품 스펙": 864,
-      "캠페인 관련": 797,
-      "A/S/지원": 430,
-      "가격/결제": 217,
-      "늦은 후원": 158,
-      "스트레치골": 143,
-      "환불/취소": 108,
-      "해외 배송": 78
-    },
-    "category_topics": {
-      "Games": {
-        "total": 1857,
-        "topics": {
-          "일정/시기": 802,
-          "후원/리워드": 254,
-          "캠페인 관련": 204,
-          "배송/물류": 187,
-          "제품 스펙": 180,
-          "A/S/지원": 72,
-          "가격/결제": 46,
-          "늦은 후원": 44,
-          "스트레치골": 32,
-          "해외 배송": 21,
-          "환불/취소": 15
-        }
+    "total_faqs": 68216,
+    "distribution": [
+      {
+        "label": "0",
+        "total": 15060,
+        "success": 13003,
+        "success_rate": 86.34130146082337
       },
-      "Technology": {
-        "total": 1852,
-        "topics": {
-          "일정/시기": 761,
-          "제품 스펙": 250,
-          "A/S/지원": 180,
-          "후원/리워드": 169,
-          "배송/물류": 167,
-          "캠페인 관련": 147,
-          "가격/결제": 63,
-          "늦은 후원": 40,
-          "환불/취소": 29,
-          "스트레치골": 27,
-          "해외 배송": 19
-        }
+      {
+        "label": "1-5",
+        "total": 5315,
+        "success": 4628,
+        "success_rate": 87.07431796801505
       },
-      "Design": {
-        "total": 1496,
-        "topics": {
-          "일정/시기": 531,
-          "제품 스펙": 233,
-          "배송/물류": 203,
-          "후원/리워드": 186,
-          "캠페인 관련": 123,
-          "A/S/지원": 94,
-          "가격/결제": 55,
-          "환불/취소": 28,
-          "늦은 후원": 25,
-          "해외 배송": 11,
-          "스트레치골": 7
-        }
+      {
+        "label": "6-10",
+        "total": 2555,
+        "success": 2146,
+        "success_rate": 83.9921722113503
       },
-      "Publishing": {
-        "total": 626,
-        "topics": {
-          "일정/시기": 221,
-          "배송/물류": 111,
-          "후원/리워드": 92,
-          "캠페인 관련": 81,
-          "제품 스펙": 39,
-          "스트레치골": 20,
-          "A/S/지원": 15,
-          "가격/결제": 14,
-          "늦은 후원": 13,
-          "해외 배송": 11,
-          "환불/취소": 9
-        }
+      {
+        "label": "11-20",
+        "total": 1361,
+        "success": 1191,
+        "success_rate": 87.50918442321822
       },
-      "Film & Video": {
-        "total": 384,
-        "topics": {
-          "일정/시기": 201,
-          "캠페인 관련": 60,
-          "후원/리워드": 47,
-          "제품 스펙": 20,
-          "스트레치골": 16,
-          "A/S/지원": 16,
-          "배송/물류": 8,
-          "가격/결제": 6,
-          "환불/취소": 5,
-          "늦은 후원": 3,
-          "해외 배송": 2
-        }
-      },
-      "Comics": {
-        "total": 361,
-        "topics": {
-          "일정/시기": 141,
-          "배송/물류": 58,
-          "후원/리워드": 54,
-          "캠페인 관련": 41,
-          "제품 스펙": 31,
-          "A/S/지원": 10,
-          "스트레치골": 8,
-          "늦은 후원": 8,
-          "환불/취소": 5,
-          "가격/결제": 3,
-          "해외 배송": 2
-        }
-      },
-      "Fashion": {
-        "total": 258,
-        "topics": {
-          "일정/시기": 92,
-          "제품 스펙": 44,
-          "배송/물류": 35,
-          "후원/리워드": 33,
-          "캠페인 관련": 28,
-          "A/S/지원": 6,
-          "가격/결제": 6,
-          "환불/취소": 5,
-          "늦은 후원": 5,
-          "스트레치골": 4
-        }
-      },
-      "Music": {
-        "total": 200,
-        "topics": {
-          "일정/시기": 97,
-          "후원/리워드": 26,
-          "캠페인 관련": 20,
-          "제품 스펙": 17,
-          "배송/물류": 13,
-          "A/S/지원": 8,
-          "스트레치골": 7,
-          "가격/결제": 6,
-          "늦은 후원": 5,
-          "환불/취소": 1
-        }
-      },
-      "Food": {
-        "total": 193,
-        "topics": {
-          "일정/시기": 93,
-          "후원/리워드": 24,
-          "배송/물류": 20,
-          "캠페인 관련": 19,
-          "제품 스펙": 12,
-          "A/S/지원": 8,
-          "스트레치골": 5,
-          "늦은 후원": 5,
-          "가격/결제": 4,
-          "환불/취소": 2,
-          "해외 배송": 1
-        }
-      },
-      "Art": {
-        "total": 166,
-        "topics": {
-          "일정/시기": 66,
-          "캠페인 관련": 29,
-          "배송/물류": 16,
-          "후원/리워드": 15,
-          "제품 스펙": 13,
-          "A/S/지원": 8,
-          "스트레치골": 7,
-          "해외 배송": 5,
-          "가격/결제": 4,
-          "환불/취소": 3
-        }
-      },
-      "NaN": {
-        "total": 146,
-        "topics": {
-          "일정/시기": 68,
-          "후원/리워드": 21,
-          "배송/물류": 18,
-          "캠페인 관련": 10,
-          "제품 스펙": 10,
-          "A/S/지원": 6,
-          "스트레치골": 4,
-          "해외 배송": 3,
-          "늦은 후원": 2,
-          "환불/취소": 2,
-          "가격/결제": 2
-        }
-      },
-      "Crafts": {
-        "total": 90,
-        "topics": {
-          "일정/시기": 32,
-          "배송/물류": 14,
-          "캠페인 관련": 14,
-          "후원/리워드": 10,
-          "제품 스펙": 8,
-          "A/S/지원": 3,
-          "가격/결제": 3,
-          "환불/취소": 2,
-          "늦은 후원": 2,
-          "해외 배송": 1,
-          "스트레치골": 1
-        }
+      {
+        "label": "20+",
+        "total": 228,
+        "success": 198,
+        "success_rate": 86.8421052631579
       }
-    },
-    "success_vs_fail": {
-      "success_topics": {
-        "일정/시기": 37.0,
-        "제품 스펙": 12.1,
-        "A/S/지원": 6.1,
-        "캠페인 관련": 8.6,
-        "후원/리워드": 13.8,
-        "해외 배송": 1.1,
-        "배송/물류": 13.2,
-        "가격/결제": 3.3,
-        "스트레치골": 1.1,
-        "환불/취소": 1.7,
-        "늦은 후원": 2.1
-      },
-      "fail_topics": {
-        "일정/시기": 45.5,
-        "캠페인 관련": 12.1,
-        "배송/물류": 8.7,
-        "제품 스펙": 9.8,
-        "스트레치골": 2.8,
-        "후원/리워드": 10.4,
-        "A/S/지원": 4.8,
-        "가격/결제": 2.2,
-        "늦은 후원": 2.0,
-        "해외 배송": 0.9,
-        "환불/취소": 1.0
-      }
-    },
-    "all_models": {
-      "Logistic Regression": {
-        "accuracy": 89.3,
-        "f1": 0.7668,
-        "cv_acc": 88.5
-      },
-      "Multinomial NB": {
-        "accuracy": 82.7,
-        "f1": 0.6614,
-        "cv_acc": 81.1
-      },
-      "Linear SVC": {
-        "accuracy": 92.0,
-        "f1": 0.8726,
-        "cv_acc": 90.8
-      },
-      "Random Forest": {
-        "accuracy": 83.9,
-        "f1": 0.6707,
-        "cv_acc": 84.2
-      }
-    }
+    ],
+    "note": "FAQ 수가 많을수록 성공률이 높은 경향"
   },
-  "sentiment": {
-    "total_comments": 13348,
-    "model": "Linear SVC",
-    "model_accuracy": 89.2,
-    "model_f1": 0.7685,
-    "model_cv_acc": 90.1,
-    "superbacker_comments": 4387,
-    "distribution": {
-      "neutral": 8930,
-      "positive": 2271,
-      "question": 2067,
-      "negative": 80
+  "sentiment": [
+    {
+      "category": "Design",
+      "comments_analyzed": 34336,
+      "superbacker_ratio": 31.153890959925445,
+      "avg_comment_length": 127.97008970177073,
+      "engagement_score": 47.6
     },
-    "success_vs_fail": {
-      "success": {
-        "positive": 26.9,
-        "negative": 1.0,
-        "question": 28.1,
-        "neutral": 44.0
-      },
-      "fail": {
-        "positive": 7.0,
-        "negative": 0.2,
-        "question": 2.7,
-        "neutral": 90.1
-      }
+    {
+      "category": "Games",
+      "comments_analyzed": 32476,
+      "superbacker_ratio": 32.94740731617195,
+      "avg_comment_length": 122.44189555363961,
+      "engagement_score": 47.1
     },
-    "superbacker_vs_normal": {
-      "superbacker": {
-        "positive": 13.3,
-        "negative": 0.6,
-        "question": 16.8,
-        "neutral": 69.3
-      },
-      "normal": {
-        "positive": 18.8,
-        "negative": 0.6,
-        "question": 14.8,
-        "neutral": 65.7
-      }
+    {
+      "category": "Technology",
+      "comments_analyzed": 20102,
+      "superbacker_ratio": 22.470400955128845,
+      "avg_comment_length": 127.73510098497663,
+      "engagement_score": 43.2
     },
-    "all_models": {
-      "Logistic Regression": {
-        "accuracy": 89.7,
-        "f1": 0.669,
-        "cv_acc": 90.1
-      },
-      "Multinomial NB": {
-        "accuracy": 81.9,
-        "f1": 0.5924,
-        "cv_acc": 83.2
-      },
-      "Linear SVC": {
-        "accuracy": 89.2,
-        "f1": 0.7685,
-        "cv_acc": 90.1
-      }
+    {
+      "category": "Comics",
+      "comments_analyzed": 18020,
+      "superbacker_ratio": 50.41620421753608,
+      "avg_comment_length": 100.66820199778024,
+      "engagement_score": 50.4
+    },
+    {
+      "category": "Art",
+      "comments_analyzed": 10519,
+      "superbacker_ratio": 36.676490160661665,
+      "avg_comment_length": 118.69721456412206,
+      "engagement_score": 48.0
+    },
+    {
+      "category": "Fashion",
+      "comments_analyzed": 8665,
+      "superbacker_ratio": 32.740911713791114,
+      "avg_comment_length": 111.39757645701097,
+      "engagement_score": 44.2
+    },
+    {
+      "category": "Film & Video",
+      "comments_analyzed": 7908,
+      "superbacker_ratio": 6.866464339908952,
+      "avg_comment_length": 83.43550834597876,
+      "engagement_score": 24.3
+    },
+    {
+      "category": "Publishing",
+      "comments_analyzed": 7369,
+      "superbacker_ratio": 19.677025376577554,
+      "avg_comment_length": 99.65192020626951,
+      "engagement_score": 34.8
+    },
+    {
+      "category": "Food",
+      "comments_analyzed": 3940,
+      "superbacker_ratio": 20.380710659898476,
+      "avg_comment_length": 88.96395939086294,
+      "engagement_score": 32.4
+    },
+    {
+      "category": "Music",
+      "comments_analyzed": 3286,
+      "superbacker_ratio": 7.273280584297018,
+      "avg_comment_length": 93.6110772976263,
+      "engagement_score": 27.0
+    },
+    {
+      "category": "Unknown",
+      "comments_analyzed": 3054,
+      "superbacker_ratio": 30.189914865749834,
+      "avg_comment_length": 117.02881466928618,
+      "engagement_score": 44.4
+    },
+    {
+      "category": "Crafts",
+      "comments_analyzed": 2014,
+      "superbacker_ratio": 30.039721946375376,
+      "avg_comment_length": 103.90019860973187,
+      "engagement_score": 41.0
+    },
+    {
+      "category": "Photography",
+      "comments_analyzed": 933,
+      "superbacker_ratio": 14.469453376205788,
+      "avg_comment_length": 93.7556270096463,
+      "engagement_score": 30.7
+    },
+    {
+      "category": "Theater",
+      "comments_analyzed": 642,
+      "superbacker_ratio": 5.451713395638629,
+      "avg_comment_length": 78.14330218068535,
+      "engagement_score": 22.3
+    },
+    {
+      "category": "Journalism",
+      "comments_analyzed": 522,
+      "superbacker_ratio": 9.578544061302683,
+      "avg_comment_length": 87.16475095785441,
+      "engagement_score": 26.6
     }
-  }
+  ]
 }

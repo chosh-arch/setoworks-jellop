@@ -1,13 +1,13 @@
 {
-  "generated": "2026-04-23T13:35:47.614729",
-  "total_db": 27212,
-  "total_parsed": 27212,
-  "detail_count": 27212,
+  "generated": "2026-04-28T09:52:56.520738",
+  "total_db": 27284,
+  "total_parsed": 27284,
+  "detail_count": 27284,
   "live_count": 2687,
   "ended_count": 24519,
   "success_count": 21166,
   "fail_count": 2816,
-  "note": "27,909 Kickstarter 프로젝트 전체 분석 기준. 27,212건 모두 상세 데이터 포함.",
+  "note": "27,909 Kickstarter 프로젝트 전체 분석 기준. 27,284건 모두 상세 데이터 포함.",
   "kpi_live": {
     "label": "live",
     "count": 2687,
@@ -285,141 +285,121 @@
       "count": 13257,
       "success": 11419,
       "success_rate": 86.1,
-      "pledged_usd": 466440314,
-      "avg_pledged": 40848
+      "pledged_usd": 466440314
     },
     "GB": {
       "count": 2928,
       "success": 2596,
       "success_rate": 88.7,
-      "pledged_usd": 40743778,
-      "avg_pledged": 15695
+      "pledged_usd": 40743778
     },
     "CA": {
       "count": 1320,
       "success": 1132,
       "success_rate": 85.8,
-      "pledged_usd": 30225073,
-      "avg_pledged": 26701
+      "pledged_usd": 30225073
     },
     "HK": {
       "count": 1156,
       "success": 1091,
       "success_rate": 94.4,
-      "pledged_usd": 118415629,
-      "avg_pledged": 108539
+      "pledged_usd": 118415629
     },
     "ES": {
       "count": 727,
       "success": 613,
       "success_rate": 84.3,
-      "pledged_usd": 12110921,
-      "avg_pledged": 19757
+      "pledged_usd": 12110921
     },
     "DE": {
       "count": 670,
       "success": 514,
       "success_rate": 76.7,
-      "pledged_usd": 10528621,
-      "avg_pledged": 20484
+      "pledged_usd": 10528621
     },
     "AU": {
       "count": 668,
       "success": 567,
       "success_rate": 84.9,
-      "pledged_usd": 8446762,
-      "avg_pledged": 14897
+      "pledged_usd": 8446762
     },
     "FR": {
       "count": 583,
       "success": 501,
       "success_rate": 85.9,
-      "pledged_usd": 13764510,
-      "avg_pledged": 27474
+      "pledged_usd": 13764510
     },
     "IT": {
       "count": 576,
       "success": 468,
       "success_rate": 81.2,
-      "pledged_usd": 8439133,
-      "avg_pledged": 18032
+      "pledged_usd": 8439133
     },
     "JP": {
       "count": 562,
       "success": 521,
       "success_rate": 92.7,
-      "pledged_usd": 11015929,
-      "avg_pledged": 21144
+      "pledged_usd": 11015929
     },
     "MX": {
       "count": 383,
       "success": 309,
       "success_rate": 80.7,
-      "pledged_usd": 1185263,
-      "avg_pledged": 3836
+      "pledged_usd": 1185263
     },
     "PL": {
       "count": 336,
       "success": 294,
       "success_rate": 87.5,
-      "pledged_usd": 3612082,
-      "avg_pledged": 12286
+      "pledged_usd": 3612082
     },
     "GR": {
       "count": 208,
       "success": 197,
       "success_rate": 94.7,
-      "pledged_usd": 1276940,
-      "avg_pledged": 6482
+      "pledged_usd": 1276940
     },
     "NL": {
       "count": 208,
       "success": 174,
       "success_rate": 83.7,
-      "pledged_usd": 5242358,
-      "avg_pledged": 30128
+      "pledged_usd": 5242358
     },
     "SG": {
       "count": 181,
       "success": 157,
       "success_rate": 86.7,
-      "pledged_usd": 3027026,
-      "avg_pledged": 19280
+      "pledged_usd": 3027026
     },
     "SE": {
       "count": 151,
       "success": 128,
       "success_rate": 84.8,
-      "pledged_usd": 1971714,
-      "avg_pledged": 15404
+      "pledged_usd": 1971714
     },
     "CH": {
       "count": 97,
       "success": 69,
       "success_rate": 71.1,
-      "pledged_usd": 4043365,
-      "avg_pledged": 58599
+      "pledged_usd": 4043365
     },
     "BE": {
       "count": 96,
       "success": 75,
       "success_rate": 78.1,
-      "pledged_usd": 980414,
-      "avg_pledged": 13072
+      "pledged_usd": 980414
     },
     "NZ": {
       "count": 95,
       "success": 79,
       "success_rate": 83.2,
-      "pledged_usd": 1551839,
-      "avg_pledged": 19644
+      "pledged_usd": 1551839
     },
     "IE": {
       "count": 92,
       "success": 77,
       "success_rate": 83.7,
-      "pledged_usd": 1719344,
-      "avg_pledged": 22329
+      "pledged_usd": 1719344
     }
   },
   "currency_dist": {
@@ -437,15 +417,15 @@
   "staff_pick": {
     "pwl_total": 4898,
     "pwl_success": 4798,
-    "pwl_success_rate": 98.0,
+    "pwl_success_rate": 97.95835034708044,
     "non_pwl_total": 19621,
     "non_pwl_success": 16368,
-    "non_pwl_success_rate": 83.4,
-    "gap": 14.5,
-    "yes_rate": 98.0,
-    "no_rate": 83.4,
+    "non_pwl_success_rate": 83.42082462667551,
+    "gap": 14.537525720404929,
     "yes_count": 4798,
-    "no_count": 16368
+    "no_count": 16368,
+    "yes_rate": 97.95835034708044,
+    "no_rate": 83.42082462667551
   },
   "achievement_dist": [
     {
@@ -571,45 +551,6 @@
       "success_rate": 100.0
     }
   ],
-  "reward_vs_success": [
-    {
-      "label": "0",
-      "total": 34,
-      "success": 6,
-      "success_rate": 17.647058823529413
-    },
-    {
-      "label": "1-3",
-      "total": 3975,
-      "success": 2995,
-      "success_rate": 75.34591194968554
-    },
-    {
-      "label": "4-6",
-      "total": 8185,
-      "success": 6941,
-      "success_rate": 84.80146609651801
-    },
-    {
-      "label": "7-10",
-      "total": 7009,
-      "success": 6181,
-      "success_rate": 88.18661720644884
-    },
-    {
-      "label": "11-15",
-      "total": 3169,
-      "success": 2972,
-      "success_rate": 93.78352792679078
-    },
-    {
-      "label": "16+",
-      "total": 2147,
-      "success": 2071,
-      "success_rate": 96.46017699115043
-    }
-  ],
-  "price_stats": [],
   "rankings": {
     "pledged": [
       {
@@ -1263,63 +1204,63 @@
   "factors": [
     {
       "name": "story_images",
-      "delta": 55.0
+      "delta": 0
     },
     {
       "name": "sb_total_backings",
-      "delta": 23.7
+      "delta": 0
     },
     {
       "name": "updates_total",
-      "delta": 18.6
+      "delta": 0
     },
     {
       "name": "log_goal",
-      "delta": 15.5
+      "delta": 0
     },
     {
       "name": "comments_count",
-      "delta": 13.4
+      "delta": 0
     },
     {
       "name": "is_pwl",
-      "delta": 11.2
+      "delta": 0
     },
     {
       "name": "cat_Film & Video",
-      "delta": 10.5
+      "delta": 0
     },
     {
       "name": "story_length",
-      "delta": 10.2
+      "delta": 0
     },
     {
       "name": "cur_HKD",
-      "delta": 9.8
+      "delta": 0
     },
     {
       "name": "staff_pick",
-      "delta": 9.2
+      "delta": 0
     },
     {
       "name": "duration",
-      "delta": 8.8
+      "delta": 0
     },
     {
       "name": "co_HK",
-      "delta": 8.7
+      "delta": 0
     },
     {
       "name": "has_video",
-      "delta": 6.3
+      "delta": 0
     },
     {
       "name": "sb_comment_count",
-      "delta": 6.1
+      "delta": 0
     },
     {
       "name": "co_JP",
-      "delta": 6.0
+      "delta": 0
     }
   ],
   "categories_array": [
@@ -1610,96 +1551,52 @@
       "pledged_usd": 1719344
     }
   ],
-  "popular_prices": [
+  "reward_vs_success": [
     {
-      "price": 20,
-      "count": 13156,
-      "backers": 280597,
-      "avg": 21
+      "label": "0",
+      "total": 34,
+      "success": 6,
+      "success_rate": 17.647058823529413
     },
     {
-      "price": 10,
-      "count": 12840,
-      "backers": 248092,
-      "avg": 19
+      "label": "1-3",
+      "total": 3975,
+      "success": 2995,
+      "success_rate": 75.34591194968554
     },
     {
-      "price": 25,
-      "count": 12378,
-      "backers": 298659,
-      "avg": 24
+      "label": "4-6",
+      "total": 8185,
+      "success": 6941,
+      "success_rate": 84.80146609651801
     },
     {
-      "price": 15,
-      "count": 12254,
-      "backers": 276492,
-      "avg": 23
+      "label": "7-10",
+      "total": 7009,
+      "success": 6181,
+      "success_rate": 88.18661720644884
     },
     {
-      "price": 100,
-      "count": 11296,
-      "backers": 335157,
-      "avg": 30
+      "label": "11-15",
+      "total": 3169,
+      "success": 2972,
+      "success_rate": 93.78352792679078
     },
     {
-      "price": 30,
-      "count": 10667,
-      "backers": 276685,
-      "avg": 26
-    },
-    {
-      "price": 50,
-      "count": 9468,
-      "backers": 272262,
-      "avg": 29
-    },
-    {
-      "price": 40,
-      "count": 8484,
-      "backers": 301846,
-      "avg": 36
-    },
-    {
-      "price": 125,
-      "count": 8474,
-      "backers": 275219,
-      "avg": 32
-    },
-    {
-      "price": 150,
-      "count": 7884,
-      "backers": 224771,
-      "avg": 29
-    },
-    {
-      "price": 5,
-      "count": 7302,
-      "backers": 122075,
-      "avg": 17
-    },
-    {
-      "price": 35,
-      "count": 6751,
-      "backers": 184810,
-      "avg": 27
-    },
-    {
-      "price": 200,
-      "count": 5364,
-      "backers": 140489,
-      "avg": 26
-    },
-    {
-      "price": 45,
-      "count": 5360,
-      "backers": 173814,
-      "avg": 32
-    },
-    {
-      "price": 75,
-      "count": 5179,
-      "backers": 120368,
-      "avg": 23
+      "label": "16+",
+      "total": 2147,
+      "success": 2071,
+      "success_rate": 96.46017699115043
     }
-  ]
+  ],
+  "price_stats": {
+    "count": 0,
+    "p10": 0,
+    "p25": 0,
+    "p50": 0,
+    "p75": 0,
+    "p90": 0,
+    "p99": 0,
+    "avg": 0
+  }
 }

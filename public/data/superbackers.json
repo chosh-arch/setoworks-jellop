@@ -1,987 +1,834 @@
 {
-  "kpi_live": {
-    "label": "live",
-    "count": 1483,
-    "pledged_usd": 22931052,
-    "pledged_krw": 31644856739,
-    "backers": 168004,
-    "success_rate": 38.6,
-    "success_count": 572,
-    "with_sb": 504,
-    "with_sb_pct": 34.0,
-    "currencies": {
-      "USD": 802,
-      "EUR": 233,
-      "GBP": 183,
-      "CAD": 67,
-      "HKD": 65,
-      "AUD": 36,
-      "JPY": 33,
-      "MXN": 25,
-      "PLN": 8,
-      "NZD": 8,
-      "CHF": 7,
-      "SEK": 7,
-      "SGD": 6,
-      "DKK": 3
-    }
-  },
+  "generated": "2026-04-28T09:53:24.941843",
   "kpi_all": {
-    "label": "all",
-    "count": 2343,
-    "pledged_usd": 40649428,
-    "pledged_krw": 56096214275,
-    "backers": 295042,
-    "success_rate": 53.5,
-    "success_count": 1254,
-    "with_sb": 519,
-    "with_sb_pct": 22.2,
-    "currencies": {
-      "USD": 1239,
-      "EUR": 369,
-      "GBP": 290,
-      "HKD": 117,
-      "CAD": 107,
-      "JPY": 59,
-      "AUD": 58,
-      "MXN": 43,
-      "PLN": 15,
-      "SGD": 13,
-      "NZD": 10,
-      "CHF": 9,
-      "SEK": 8,
-      "DKK": 5,
-      "NOK": 1
-    }
+    "total_superbackers_estimated": 13461,
+    "superbacker_comments": 46476,
+    "superbacker_creators": 1690,
+    "projects_with_sb_comments": 11633
   },
-  "usd_krw_rate": 1380,
-  "sb_vs_success": [
+  "top_superbackers": [
     {
-      "label": "SB 0",
-      "count": 1824,
-      "success_rate": 51.4
+      "author": "John O",
+      "projects_count": 255,
+      "categories_count": 7,
+      "max_backings": 1468,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Film & Video",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 107.45098039215686
     },
     {
-      "label": "SB 1",
-      "count": 289,
-      "success_rate": 49.1
+      "author": "Sheldon Albertson",
+      "projects_count": 128,
+      "categories_count": 5,
+      "max_backings": 1538,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 108.59375
     },
     {
-      "label": "SB 2-3",
-      "count": 145,
-      "success_rate": 66.2
+      "author": "Marcus “Sleepy” Bledsoe",
+      "projects_count": 88,
+      "categories_count": 1,
+      "max_backings": 1020,
+      "categories": [
+        "Comics"
+      ],
+      "success_rate": 98.86363636363636
     },
     {
-      "label": "SB 4-6",
-      "count": 59,
-      "success_rate": 91.5
+      "author": "Daniel",
+      "projects_count": 83,
+      "categories_count": 8,
+      "max_backings": 1842,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Food",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 138.55421686746988
     },
     {
-      "label": "SB 7+",
-      "count": 26,
-      "success_rate": 92.3
+      "author": "Chris",
+      "projects_count": 83,
+      "categories_count": 11,
+      "max_backings": 572,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Film & Video",
+        "Food",
+        "Games",
+        "Music",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 101.20481927710843
+    },
+    {
+      "author": "Alex",
+      "projects_count": 73,
+      "categories_count": 8,
+      "max_backings": 424,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Food",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 98.63013698630137
+    },
+    {
+      "author": "David Roque",
+      "projects_count": 72,
+      "categories_count": 2,
+      "max_backings": 55,
+      "categories": [
+        "Design",
+        "Fashion"
+      ],
+      "success_rate": 255.55555555555554
+    },
+    {
+      "author": "Joseph Valenzuela",
+      "projects_count": 68,
+      "categories_count": 2,
+      "max_backings": 1849,
+      "categories": [
+        "Comics",
+        "Games"
+      ],
+      "success_rate": 107.35294117647058
+    },
+    {
+      "author": "Ray",
+      "projects_count": 65,
+      "categories_count": 7,
+      "max_backings": 4069,
+      "categories": [
+        "Art",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 98.46153846153847
+    },
+    {
+      "author": "SK1",
+      "projects_count": 65,
+      "categories_count": 3,
+      "max_backings": 1177,
+      "categories": [
+        "Design",
+        "Fashion",
+        "Technology"
+      ],
+      "success_rate": 110.76923076923077
+    },
+    {
+      "author": "Alberto Valdes",
+      "projects_count": 64,
+      "categories_count": 4,
+      "max_backings": 415,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 106.25
+    },
+    {
+      "author": "Kevin Black",
+      "projects_count": 64,
+      "categories_count": 4,
+      "max_backings": 235,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 112.5
+    },
+    {
+      "author": "dominick jarvis",
+      "projects_count": 62,
+      "categories_count": 2,
+      "max_backings": 625,
+      "categories": [
+        "Comics",
+        "Design"
+      ],
+      "success_rate": 101.61290322580645
+    },
+    {
+      "author": "Adam Hirshfield",
+      "projects_count": 62,
+      "categories_count": 3,
+      "max_backings": 298,
+      "categories": [
+        "Design",
+        "Fashion",
+        "Technology"
+      ],
+      "success_rate": 133.8709677419355
+    },
+    {
+      "author": "Wilfried",
+      "projects_count": 61,
+      "categories_count": 5,
+      "max_backings": 221,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Publishing"
+      ],
+      "success_rate": 118.0327868852459
+    },
+    {
+      "author": "Josh",
+      "projects_count": 58,
+      "categories_count": 8,
+      "max_backings": 452,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Games",
+        "Music",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 106.89655172413792
+    },
+    {
+      "author": "David",
+      "projects_count": 56,
+      "categories_count": 6,
+      "max_backings": 1278,
+      "categories": [
+        "Comics",
+        "Design",
+        "Film & Video",
+        "Food",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 148.21428571428572
+    },
+    {
+      "author": "Victor",
+      "projects_count": 54,
+      "categories_count": 4,
+      "max_backings": 644,
+      "categories": [
+        "Art",
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 112.96296296296295
+    },
+    {
+      "author": "Penny Malis",
+      "projects_count": 53,
+      "categories_count": 4,
+      "max_backings": 216,
+      "categories": [
+        "Art",
+        "Design",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 167.9245283018868
+    },
+    {
+      "author": "Iain",
+      "projects_count": 53,
+      "categories_count": 8,
+      "max_backings": 703,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 122.64150943396226
+    },
+    {
+      "author": "Michael",
+      "projects_count": 51,
+      "categories_count": 7,
+      "max_backings": 3324,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 111.76470588235294
+    },
+    {
+      "author": "andrew moores",
+      "projects_count": 48,
+      "categories_count": 4,
+      "max_backings": 2155,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 95.83333333333334
+    },
+    {
+      "author": "Allison",
+      "projects_count": 47,
+      "categories_count": 4,
+      "max_backings": 456,
+      "categories": [
+        "Art",
+        "Design",
+        "Fashion",
+        "Games"
+      ],
+      "success_rate": 106.38297872340425
+    },
+    {
+      "author": "Andrew Carver",
+      "projects_count": 47,
+      "categories_count": 3,
+      "max_backings": 341,
+      "categories": [
+        "Art",
+        "Comics",
+        "Publishing"
+      ],
+      "success_rate": 106.38297872340425
+    },
+    {
+      "author": "Courtland LaVallee",
+      "projects_count": 46,
+      "categories_count": 4,
+      "max_backings": 3050,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Publishing"
+      ],
+      "success_rate": 100.0
+    },
+    {
+      "author": "K",
+      "projects_count": 46,
+      "categories_count": 7,
+      "max_backings": 995,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Film & Video",
+        "Games"
+      ],
+      "success_rate": 132.6086956521739
+    },
+    {
+      "author": "Axel Kallesøe",
+      "projects_count": 46,
+      "categories_count": 5,
+      "max_backings": 1326,
+      "categories": [
+        "Art",
+        "Comics",
+        "Film & Video",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 73.91304347826086
+    },
+    {
+      "author": "Robert",
+      "projects_count": 45,
+      "categories_count": 9,
+      "max_backings": 359,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Food",
+        "Games",
+        "Journalism",
+        "Technology"
+      ],
+      "success_rate": 117.77777777777779
+    },
+    {
+      "author": "Robman is Batin",
+      "projects_count": 44,
+      "categories_count": 4,
+      "max_backings": 841,
+      "categories": [
+        "Art",
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 127.27272727272727
+    },
+    {
+      "author": "Malkira",
+      "projects_count": 43,
+      "categories_count": 4,
+      "max_backings": 593,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 102.32558139534885
+    },
+    {
+      "author": "M",
+      "projects_count": 43,
+      "categories_count": 5,
+      "max_backings": 204,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 137.2093023255814
+    },
+    {
+      "author": "BôƁ Backer",
+      "projects_count": 43,
+      "categories_count": 8,
+      "max_backings": 313,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 141.86046511627907
+    },
+    {
+      "author": "Peter Braun",
+      "projects_count": 43,
+      "categories_count": 3,
+      "max_backings": 121,
+      "categories": [
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 155.8139534883721
+    },
+    {
+      "author": "Sebastian",
+      "projects_count": 42,
+      "categories_count": 4,
+      "max_backings": 163,
+      "categories": [
+        "Comics",
+        "Design",
+        "Fashion",
+        "Technology"
+      ],
+      "success_rate": 150.0
+    },
+    {
+      "author": "Iurii Kriazhev",
+      "projects_count": 41,
+      "categories_count": 6,
+      "max_backings": 707,
+      "categories": [
+        "Art",
+        "Crafts",
+        "Design",
+        "Fashion",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 158.53658536585365
+    },
+    {
+      "author": "Kevin",
+      "projects_count": 41,
+      "categories_count": 7,
+      "max_backings": 3587,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Food",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 104.8780487804878
+    },
+    {
+      "author": "Jimbro",
+      "projects_count": 41,
+      "categories_count": 7,
+      "max_backings": 1941,
+      "categories": [
+        "Art",
+        "Comics",
+        "Crafts",
+        "Fashion",
+        "Film & Video",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 102.4390243902439
+    },
+    {
+      "author": "Malcolm P",
+      "projects_count": 40,
+      "categories_count": 3,
+      "max_backings": 256,
+      "categories": [
+        "Design",
+        "Food",
+        "Technology"
+      ],
+      "success_rate": 142.5
+    },
+    {
+      "author": "Joe W",
+      "projects_count": 40,
+      "categories_count": 5,
+      "max_backings": 285,
+      "categories": [
+        "Crafts",
+        "Design",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 110.00000000000001
+    },
+    {
+      "author": "Robert Clark",
+      "projects_count": 40,
+      "categories_count": 5,
+      "max_backings": 4289,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games",
+        "Photography",
+        "Publishing"
+      ],
+      "success_rate": 100.0
+    },
+    {
+      "author": "Joseph",
+      "projects_count": 40,
+      "categories_count": 7,
+      "max_backings": 387,
+      "categories": [
+        "Comics",
+        "Crafts",
+        "Design",
+        "Film & Video",
+        "Games",
+        "Publishing",
+        "Technology"
+      ],
+      "success_rate": 105.0
+    },
+    {
+      "author": "Paul McNamara",
+      "projects_count": 40,
+      "categories_count": 3,
+      "max_backings": 238,
+      "categories": [
+        "Art",
+        "Comics",
+        "Games"
+      ],
+      "success_rate": 110.00000000000001
+    },
+    {
+      "author": "Abdullah",
+      "projects_count": 39,
+      "categories_count": 5,
+      "max_backings": 352,
+      "categories": [
+        "Design",
+        "Fashion",
+        "Food",
+        "Photography",
+        "Technology"
+      ],
+      "success_rate": 115.38461538461537
+    },
+    {
+      "author": "Harm Beltman",
+      "projects_count": 39,
+      "categories_count": 3,
+      "max_backings": 397,
+      "categories": [
+        "Art",
+        "Games",
+        "Music"
+      ],
+      "success_rate": 146.15384615384613
+    },
+    {
+      "author": "Abby Braunsdorf",
+      "projects_count": 39,
+      "categories_count": 5,
+      "max_backings": 1082,
+      "categories": [
+        "Art",
+        "Comics",
+        "Film & Video",
+        "Games",
+        "Publishing"
+      ],
+      "success_rate": 102.56410256410255
+    },
+    {
+      "author": "C.A.L. Picorikirby",
+      "projects_count": 38,
+      "categories_count": 6,
+      "max_backings": 371,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Film & Video",
+        "Games"
+      ],
+      "success_rate": 121.05263157894737
+    },
+    {
+      "author": "Thomas Layden",
+      "projects_count": 38,
+      "categories_count": 3,
+      "max_backings": 239,
+      "categories": [
+        "Crafts",
+        "Design",
+        "Technology"
+      ],
+      "success_rate": 221.0526315789474
+    },
+    {
+      "author": "William De Micheli",
+      "projects_count": 37,
+      "categories_count": 1,
+      "max_backings": 1678,
+      "categories": [
+        "Comics"
+      ],
+      "success_rate": 118.91891891891892
+    },
+    {
+      "author": "Adam",
+      "projects_count": 37,
+      "categories_count": 6,
+      "max_backings": 1271,
+      "categories": [
+        "Art",
+        "Comics",
+        "Design",
+        "Fashion",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 135.13513513513513
+    },
+    {
+      "author": "Backer Number 9",
+      "projects_count": 36,
+      "categories_count": 4,
+      "max_backings": 397,
+      "categories": [
+        "Art",
+        "Design",
+        "Games",
+        "Technology"
+      ],
+      "success_rate": 105.55555555555556
     }
   ],
   "sb_category_preference": [
     {
-      "category": "Unknown",
-      "count": 455
+      "category": "Games",
+      "count": 10700
     },
     {
       "category": "Design",
-      "count": 215
-    },
-    {
-      "category": "Games",
-      "count": 170
+      "count": 10697
     },
     {
       "category": "Comics",
-      "count": 164
+      "count": 9085
     },
     {
       "category": "Technology",
-      "count": 43
-    },
-    {
-      "category": "Publishing",
-      "count": 31
-    },
-    {
-      "category": "Film & Video",
-      "count": 23
+      "count": 4517
     },
     {
       "category": "Art",
-      "count": 11
+      "count": 3858
+    },
+    {
+      "category": "Fashion",
+      "count": 2837
+    },
+    {
+      "category": "Publishing",
+      "count": 1450
+    },
+    {
+      "category": "Food",
+      "count": 803
+    },
+    {
+      "category": "Crafts",
+      "count": 605
+    },
+    {
+      "category": "Film & Video",
+      "count": 543
+    },
+    {
+      "category": "Music",
+      "count": 239
     },
     {
       "category": "Photography",
-      "count": 11
+      "count": 135
     },
     {
-      "category": null,
-      "count": 8
-    }
-  ],
-  "early_sb_signal": [
-    {
-      "label": "0",
-      "count": 1698,
-      "success_rate": 57.4
+      "category": "Journalism",
+      "count": 50
     },
     {
-      "label": "1",
-      "count": 296,
-      "success_rate": 45.6
-    },
-    {
-      "label": "2-3",
-      "count": 275,
-      "success_rate": 33.1
-    },
-    {
-      "label": "4+",
-      "count": 74,
-      "success_rate": 71.6
-    }
-  ],
-  "live_sb_projects": [
-    {
-      "name": "Sex Cells #7 - A Harley Quinn gone wild NSFW Comedy",
-      "url": "https://www.kickstarter.com/projects/curtkasady/sex-cells-babes-of-future-past-3",
-      "currency": "GBP",
-      "pledged": 16206.0,
-      "pledged_usd": 20420,
-      "pledged_krw": 28178993,
-      "goal": 1000.0,
-      "goal_usd": 1260,
-      "goal_krw": 1738800,
-      "backers": 308,
-      "pf": 1620.6,
-      "sb_count": 20,
-      "sb_power": 6,
-      "sb_score": 370,
-      "sb_names": [
-        "JustChris",
-        "Matthew DeLessio",
-        "N.M",
-        "Arno van Meurs",
-        "Armando Diaz Lombardo"
-      ],
-      "elapsed": 15,
-      "duration": 24,
-      "category": "Comics"
-    },
-    {
-      "name": "TROUBLESHOOT",
-      "url": "https://www.kickstarter.com/projects/benjibajorek/troubleshoot",
-      "currency": "AUD",
-      "pledged": 3589.0,
-      "pledged_usd": 2333,
-      "pledged_krw": 3219333,
-      "goal": 4000.0,
-      "goal_usd": 2600,
-      "goal_krw": 3588000,
-      "backers": 77,
-      "pf": 89.7,
-      "sb_count": 5,
-      "sb_power": 3,
-      "sb_score": 260,
-      "sb_names": [
-        "Dino Buffetta Jr.",
-        "John O",
-        "Axel Kallesøe",
-        "Johnny Gonzales",
-        "Tuesday"
-      ],
-      "elapsed": 28,
-      "duration": 35,
-      "category": "Comics"
-    },
-    {
-      "name": "The House of Lowther: Vol. 3",
-      "url": "https://www.kickstarter.com/projects/fgs-omnibus/the-house-of-lowther-vol-3",
-      "currency": "USD",
-      "pledged": 49060.0,
-      "pledged_usd": 49060,
-      "pledged_krw": 67702800,
-      "goal": 6500.0,
-      "goal_usd": 6500,
-      "goal_krw": 8970000,
-      "backers": 748,
-      "pf": 754.8,
-      "sb_count": 9,
-      "sb_power": 3,
-      "sb_score": 250,
-      "sb_names": [
-        "Bart Kuiper",
-        "Joseph Valenzuela",
-        "Niall Gordon",
-        "Paul F Engelberg",
-        "Alex"
-      ],
-      "elapsed": 29,
-      "duration": 30,
-      "category": "Unknown"
-    },
-    {
-      "name": "Blue Geisha THE DEVIL DRAWS HER BLADE",
-      "url": "https://www.kickstarter.com/projects/bleedingpulp/bleeding-pulp-presents-blue-geisha-5",
-      "currency": "USD",
-      "pledged": 14419.0,
-      "pledged_usd": 14419,
-      "pledged_krw": 19898220,
-      "goal": 6000.0,
-      "goal_usd": 6000,
-      "goal_krw": 8280000,
-      "backers": 356,
-      "pf": 240.3,
-      "sb_count": 7,
-      "sb_power": 4,
-      "sb_score": 250,
-      "sb_names": [
-        "Sheldon Albertson",
-        "John O",
-        "Juan",
-        "Christian Dannie Storgaard",
-        "Patrick Bierlein"
-      ],
-      "elapsed": 22,
-      "duration": 30,
-      "category": "Comics"
-    },
-    {
-      "name": "Family & Honour, an historical fiction mini-graphic-novel",
-      "url": "https://www.kickstarter.com/projects/redwulfcomics/family-and-honour-a-12th-century-historical-drama",
-      "currency": "GBP",
-      "pledged": 1334.0,
-      "pledged_usd": 1681,
-      "pledged_krw": 2319559,
-      "goal": 1632.0,
-      "goal_usd": 2056,
-      "goal_krw": 2837722,
-      "backers": 77,
-      "pf": 81.7,
-      "sb_count": 10,
-      "sb_power": 2,
-      "sb_score": 240,
-      "sb_names": [
-        "Henry McKeen",
-        "Tom McGrath",
-        "Paul F Engelberg",
-        "Chilano",
-        "Scott Peterson"
-      ],
-      "elapsed": 22,
-      "duration": 30,
-      "category": "Comics"
-    },
-    {
-      "name": "The Last Ember: A WAYPOINT Solo RPG Adventure",
-      "url": "https://www.kickstarter.com/projects/waypoint-rpg/the-last-ember-a-waypoint-solo-rpg-adventure",
-      "currency": "USD",
-      "pledged": 3391.0,
-      "pledged_usd": 3391,
-      "pledged_krw": 4679580,
-      "goal": 100.0,
-      "goal_usd": 100,
-      "goal_krw": 138000,
-      "backers": 141,
-      "pf": 3391.0,
-      "sb_count": 5,
-      "sb_power": 4,
-      "sb_score": 230,
-      "sb_names": [
-        "Ray",
-        "Rayhne Sinclair",
-        "Rebecca Paliwoda",
-        "Shalmirane",
-        "FireProof"
-      ],
-      "elapsed": 1,
-      "duration": 16,
-      "category": "Publishing"
-    },
-    {
-      "name": "Helwick Part III - The Den of Iniquity",
-      "url": "https://www.kickstarter.com/projects/terrabloks/helwick-part-iii-the-den-of-iniquity",
-      "currency": "GBP",
-      "pledged": 45399.0,
-      "pledged_usd": 57203,
-      "pledged_krw": 78939781,
-      "goal": 666.0,
-      "goal_usd": 839,
-      "goal_krw": 1158041,
-      "backers": 569,
-      "pf": 6816.7,
-      "sb_count": 11,
-      "sb_power": 3,
-      "sb_score": 220,
-      "sb_names": [
-        "Kraus",
-        "Kenneth Miller",
-        "Jerry Allen",
-        "Chimpchomp",
-        "mike groh"
-      ],
-      "elapsed": 15,
-      "duration": 17,
-      "category": "Unknown"
-    },
-    {
-      "name": "Jixa Lady Tiger Plus",
-      "url": "https://www.kickstarter.com/projects/brainiumgames/jixa-lady-tiger-plus",
-      "currency": "USD",
-      "pledged": 8223.0,
-      "pledged_usd": 8223,
-      "pledged_krw": 11347740,
-      "goal": 15000.0,
-      "goal_usd": 15000,
-      "goal_krw": 20700000,
-      "backers": 165,
-      "pf": 54.8,
-      "sb_count": 8,
-      "sb_power": 2,
-      "sb_score": 220,
-      "sb_names": [
-        "W",
-        "Fotios Zemenides",
-        "chsr357",
-        "Lutz Osterkorn",
-        "Diana"
-      ],
-      "elapsed": 16,
-      "duration": 45,
-      "category": "Unknown"
-    },
-    {
-      "name": "KLOKMAN | Spinning illuminated smart clock",
-      "url": "https://www.kickstarter.com/projects/kolkmannendesigners/klokman-spinning-illuminated-smart-clock",
-      "currency": "EUR",
-      "pledged": 12727.0,
-      "pledged_usd": 13745,
-      "pledged_krw": 18968321,
-      "goal": 5000.0,
-      "goal_usd": 5400,
-      "goal_krw": 7452000,
-      "backers": 86,
-      "pf": 254.5,
-      "sb_count": 3,
-      "sb_power": 3,
-      "sb_score": 190,
-      "sb_names": [
-        "Edon van Hees",
-        "SK1",
-        "citiboi"
-      ],
-      "elapsed": 11,
-      "duration": 30,
-      "category": "Unknown"
-    },
-    {
-      "name": "AIROX: 145 PSI Cordless Dual-Compressor. Just 9.9 lb",
-      "url": "https://www.kickstarter.com/projects/magpietech/airox-145-psi-cordless-dual-compressor-station-just-99-lb",
-      "currency": "USD",
-      "pledged": 237811.0,
-      "pledged_usd": 237811,
-      "pledged_krw": 328179180,
-      "goal": 5000.0,
-      "goal_usd": 5000,
-      "goal_krw": 6900000,
-      "backers": 894,
-      "pf": 4756.2,
-      "sb_count": 14,
-      "sb_power": 2,
-      "sb_score": 180,
-      "sb_names": [
-        "Iurii Kriazhev",
-        "Erik",
-        "Bailey",
-        "Ben Nelson",
-        "Rip Odebralski"
-      ],
-      "elapsed": 1,
-      "duration": 60,
-      "category": "Technology"
-    },
-    {
-      "name": "City of Venus: Dead City Vol.1 (Collecting issues 1 & 2)",
-      "url": "https://www.kickstarter.com/projects/cityofvenus/city-of-venus-dead-city-vol1-collecting-issues-1-and-2",
-      "currency": "USD",
-      "pledged": 6417.0,
-      "pledged_usd": 6417,
-      "pledged_krw": 8855460,
-      "goal": 2000.0,
-      "goal_usd": 2000,
-      "goal_krw": 2760000,
-      "backers": 49,
-      "pf": 320.8,
-      "sb_count": 3,
-      "sb_power": 2,
-      "sb_score": 170,
-      "sb_names": [
-        "Stuart Stilborn",
-        "Joseph Valenzuela",
-        "John Gentile"
-      ],
-      "elapsed": 40,
-      "duration": 49,
-      "category": "Comics"
-    },
-    {
-      "name": "CONSIGNED: A Living the Line Legal Benefit Anthology",
-      "url": "https://www.kickstarter.com/projects/strangedeath/consigned-a-living-the-line-legal-benefit-anthology",
-      "currency": "USD",
-      "pledged": 21459.0,
-      "pledged_usd": 21459,
-      "pledged_krw": 29613420,
-      "goal": 6669.0,
-      "goal_usd": 6669,
-      "goal_krw": 9203220,
-      "backers": 465,
-      "pf": 321.8,
-      "sb_count": 2,
-      "sb_power": 2,
-      "sb_score": 160,
-      "sb_names": [
-        "Jimbro",
-        "John O"
-      ],
-      "elapsed": 21,
-      "duration": 30,
-      "category": "Unknown"
-    },
-    {
-      "name": "SCURRY: Tails of the Wasteland - River Rat Blues",
-      "url": "https://www.kickstarter.com/projects/macsmith/scurry-tails-of-the-wasteland-river-rat-blues",
-      "currency": "USD",
-      "pledged": 59196.0,
-      "pledged_usd": 59196,
-      "pledged_krw": 81690480,
-      "goal": 10000.0,
-      "goal_usd": 10000,
-      "goal_krw": 13800000,
-      "backers": 953,
-      "pf": 592.0,
-      "sb_count": 12,
-      "sb_power": 2,
-      "sb_score": 160,
-      "sb_names": [
-        "Shannara M S",
-        "Ashraam",
-        "mike mcintosh",
-        "AaronT",
-        "Jorge Alvarez"
-      ],
-      "elapsed": 16,
-      "duration": 34,
-      "category": "Comics"
-    },
-    {
-      "name": "Aerathain - Divinity Undone - DnD 5 E Supplement",
-      "url": "https://www.kickstarter.com/projects/gearwheelgrimoires/aerathain-divinity-undone-dnd-5-e-supplement",
-      "currency": "EUR",
-      "pledged": 331.0,
-      "pledged_usd": 357,
-      "pledged_krw": 493322,
-      "goal": 100.0,
-      "goal_usd": 108,
-      "goal_krw": 149040,
-      "backers": 38,
-      "pf": 331.0,
-      "sb_count": 2,
-      "sb_power": 2,
-      "sb_score": 160,
-      "sb_names": [
-        "Ray",
-        "Chris Cheek"
-      ],
-      "elapsed": 0,
-      "duration": 30,
-      "category": "Games"
-    },
-    {
-      "name": "LOWLIFE: A DUNGEON DEGENERATES ROLE PLAYING GAME",
-      "url": "https://www.kickstarter.com/projects/seanaaberg/lowlife-a-dungeon-degenerates-role-playing-game",
-      "currency": "USD",
-      "pledged": 50473.0,
-      "pledged_usd": 50473,
-      "pledged_krw": 69652740,
-      "goal": 36000.0,
-      "goal_usd": 36000,
-      "goal_krw": 49680000,
-      "backers": 395,
-      "pf": 140.2,
-      "sb_count": 11,
-      "sb_power": 2,
-      "sb_score": 150,
-      "sb_names": [
-        "IronWolf AK",
-        "Louis Lamia",
-        "RedEyeRake",
-        "Bookseller",
-        "Phil B"
-      ],
-      "elapsed": 2,
-      "duration": 17,
-      "category": "Games"
-    },
-    {
-      "name": "Stefan Feld City Collection 1-8 Kickstarter Special Edition",
-      "url": "https://www.kickstarter.com/projects/queen-games/stefan-feld-city-collection-1-6-kickstarter-special-edition",
-      "currency": "EUR",
-      "pledged": 26826.0,
-      "pledged_usd": 28972,
-      "pledged_krw": 39981470,
-      "goal": 10000.0,
-      "goal_usd": 10800,
-      "goal_krw": 14904000,
-      "backers": 184,
-      "pf": 268.3,
-      "sb_count": 13,
-      "sb_power": 1,
-      "sb_score": 150,
-      "sb_names": [
-        "Feld Fan",
-        "yixi",
-        "Marc",
-        "Warlock Bylandt",
-        "Andy Yiangou"
-      ],
-      "elapsed": 6,
-      "duration": 7,
-      "category": "Unknown"
-    },
-    {
-      "name": "Assassin Roommate books 2 & 3",
-      "url": "https://www.kickstarter.com/projects/rocketship/assassin-roommate-volumes-2-and-3",
-      "currency": "USD",
-      "pledged": 6652.0,
-      "pledged_usd": 6652,
-      "pledged_krw": 9179760,
-      "goal": 3000.0,
-      "goal_usd": 3000,
-      "goal_krw": 4140000,
-      "backers": 104,
-      "pf": 221.7,
-      "sb_count": 4,
-      "sb_power": 3,
-      "sb_score": 150,
-      "sb_names": [
-        "MythSigh",
-        "Paul Hendricks",
-        "Purple Parfait",
-        "Skye Kilaen"
-      ],
-      "elapsed": 1,
-      "duration": 30,
-      "category": "Comics"
-    },
-    {
-      "name": "EATi One — 10-in-1 Titanium Adventure Utensil",
-      "url": "https://www.kickstarter.com/projects/septemstudio/eati-one-all-in-one-titanium-adventure-utensil",
-      "currency": "GBP",
-      "pledged": 39361.0,
-      "pledged_usd": 49595,
-      "pledged_krw": 68440907,
-      "goal": 3000.0,
-      "goal_usd": 3780,
-      "goal_krw": 5216400,
-      "backers": 845,
-      "pf": 1312.0,
-      "sb_count": 5,
-      "sb_power": 2,
-      "sb_score": 140,
-      "sb_names": [
-        "Ebrahim Al-Bishri",
-        "Andrea",
-        "Masuhiro Kotani",
-        "Brad",
-        "Leon"
-      ],
-      "elapsed": 15,
-      "duration": 36,
-      "category": "Design"
-    },
-    {
-      "name": "Moonlight Dragon Trilogy Complete Deluxe Romantasy Hardcover",
-      "url": "https://www.kickstarter.com/projects/nicoletteandrews/dragonsdevotion",
-      "currency": "USD",
-      "pledged": 6944.0,
-      "pledged_usd": 6944,
-      "pledged_krw": 9582720,
-      "goal": 5000.0,
-      "goal_usd": 5000,
-      "goal_krw": 6900000,
-      "backers": 94,
-      "pf": 138.9,
-      "sb_count": 5,
-      "sb_power": 2,
-      "sb_score": 140,
-      "sb_names": [
-        "Alexandra Corrsin",
-        "Qavee",
-        "Lycan Cass",
-        "Juliana C.",
-        "Lorelai"
-      ],
-      "elapsed": 2,
-      "duration": 16,
-      "category": "Publishing"
-    },
-    {
-      "name": "Titania Phases 5 & 6 (Age of Darkness & Time for Heroes)",
-      "url": "https://www.kickstarter.com/projects/828819612/titania-phases-5-and-6-age-of-darkness-and-time-for-heroes",
-      "currency": "EUR",
-      "pledged": 13784.0,
-      "pledged_usd": 14887,
-      "pledged_krw": 20543674,
-      "goal": 30000.0,
-      "goal_usd": 32400,
-      "goal_krw": 44712000,
-      "backers": 236,
-      "pf": 45.9,
-      "sb_count": 6,
-      "sb_power": 1,
-      "sb_score": 130,
-      "sb_names": [
-        "Anthony Martin",
-        "Momo",
-        "Terry F Jackson",
-        "Teddy Muntan",
-        "Alex Arizona"
-      ],
-      "elapsed": 23,
-      "duration": 25,
-      "category": "Comics"
-    }
-  ],
-  "all_sb_projects": [
-    {
-      "name": "Sex Cells #7 - A Harley Quinn gone wild NSFW Comedy",
-      "url": "https://www.kickstarter.com/projects/curtkasady/sex-cells-babes-of-future-past-3",
-      "pledged_usd": 20420,
-      "pledged_krw": 28178993,
-      "backers": 308,
-      "pf": 1620.6,
-      "sb_count": 20,
-      "sb_power": 6,
-      "category": "Comics"
-    },
-    {
-      "name": "AIROX: 145 PSI Cordless Dual-Compressor. Just 9.9 lb",
-      "url": "https://www.kickstarter.com/projects/magpietech/airox-145-psi-cordless-dual-compressor-station-just-99-lb",
-      "pledged_usd": 237811,
-      "pledged_krw": 328179180,
-      "backers": 894,
-      "pf": 4756.2,
-      "sb_count": 14,
-      "sb_power": 2,
-      "category": "Technology"
-    },
-    {
-      "name": "Stefan Feld City Collection 1-8 Kickstarter Special Edition",
-      "url": "https://www.kickstarter.com/projects/queen-games/stefan-feld-city-collection-1-6-kickstarter-special-edition",
-      "pledged_usd": 28972,
-      "pledged_krw": 39981470,
-      "backers": 184,
-      "pf": 268.3,
-      "sb_count": 13,
-      "sb_power": 1,
-      "category": "Unknown"
-    },
-    {
-      "name": "SCURRY: Tails of the Wasteland - River Rat Blues",
-      "url": "https://www.kickstarter.com/projects/macsmith/scurry-tails-of-the-wasteland-river-rat-blues",
-      "pledged_usd": 59196,
-      "pledged_krw": 81690480,
-      "backers": 953,
-      "pf": 592.0,
-      "sb_count": 12,
-      "sb_power": 2,
-      "category": "Comics"
-    },
-    {
-      "name": "Thalassic II - Tropical Treasure",
-      "url": "https://www.kickstarter.com/projects/mariannelarsen/thalassic-ii-tropical-treasure",
-      "pledged_usd": 26600,
-      "pledged_krw": 36708386,
-      "backers": 253,
-      "pf": 542.9,
-      "sb_count": 12,
-      "sb_power": 0,
-      "category": "Unknown"
-    },
-    {
-      "name": "SVBSLEEP — Underwear for Sleep",
-      "url": "https://www.kickstarter.com/projects/svbflor/svbsleep-underwear-for-deeper-sleep",
-      "pledged_usd": 56758,
-      "pledged_krw": 78326040,
-      "backers": 644,
-      "pf": 1135.2,
-      "sb_count": 11,
-      "sb_power": 0,
-      "category": "Unknown"
-    },
-    {
-      "name": "TiKey 360 – Dual Quick-Release Keychain with 360° Rotation",
-      "url": "https://www.kickstarter.com/projects/sparkcube/tikey-360-360-swivel-dual-quick-release-keychain",
-      "pledged_usd": 38851,
-      "pledged_krw": 53614380,
-      "backers": 289,
-      "pf": 777.0,
-      "sb_count": 11,
-      "sb_power": 2,
-      "category": "Design"
-    },
-    {
-      "name": "Helwick Part III - The Den of Iniquity",
-      "url": "https://www.kickstarter.com/projects/terrabloks/helwick-part-iii-the-den-of-iniquity",
-      "pledged_usd": 57203,
-      "pledged_krw": 78939781,
-      "backers": 569,
-      "pf": 6816.7,
-      "sb_count": 11,
-      "sb_power": 3,
-      "category": "Unknown"
-    },
-    {
-      "name": "LOWLIFE: A DUNGEON DEGENERATES ROLE PLAYING GAME",
-      "url": "https://www.kickstarter.com/projects/seanaaberg/lowlife-a-dungeon-degenerates-role-playing-game",
-      "pledged_usd": 50473,
-      "pledged_krw": 69652740,
-      "backers": 395,
-      "pf": 140.2,
-      "sb_count": 11,
-      "sb_power": 2,
-      "category": "Games"
-    },
-    {
-      "name": "Family & Honour, an historical fiction mini-graphic-novel",
-      "url": "https://www.kickstarter.com/projects/redwulfcomics/family-and-honour-a-12th-century-historical-drama",
-      "pledged_usd": 1681,
-      "pledged_krw": 2319559,
-      "backers": 77,
-      "pf": 81.7,
-      "sb_count": 10,
-      "sb_power": 2,
-      "category": "Comics"
-    },
-    {
-      "name": "RoveCup | Leakproof, Ready to Go, Made to Roam",
-      "url": "https://www.kickstarter.com/projects/delione-kitchenware/delione-rovecup-engineered-for-leakproof-excellence",
-      "pledged_usd": 62373,
-      "pledged_krw": 86074864,
-      "backers": 661,
-      "pf": 1225.2,
-      "sb_count": 9,
-      "sb_power": 1,
-      "category": "Design"
-    },
-    {
-      "name": "The House of Lowther: Vol. 3",
-      "url": "https://www.kickstarter.com/projects/fgs-omnibus/the-house-of-lowther-vol-3",
-      "pledged_usd": 49060,
-      "pledged_krw": 67702800,
-      "backers": 748,
-      "pf": 754.8,
-      "sb_count": 9,
-      "sb_power": 3,
-      "category": "Unknown"
-    },
-    {
-      "name": "ISOLA26 | 365-Day Waterproof Adventure Jacket",
-      "url": "https://www.kickstarter.com/projects/levante/isola26-year-round-waterproof-adventure-jacket",
-      "pledged_usd": 519414,
-      "pledged_krw": 716791486,
-      "backers": 1875,
-      "pf": 6011.7,
-      "sb_count": 8,
-      "sb_power": 1,
-      "category": "Design"
-    },
-    {
-      "name": "Razor Rinser 2.0: Making Shaving Easier and Cleaner",
-      "url": "https://www.kickstarter.com/projects/thecleanshave/razor-rinser-20-making-shaving-easier-and-cleaner",
-      "pledged_usd": 123485,
-      "pledged_krw": 170409300,
-      "backers": 3098,
-      "pf": 1543.6,
-      "sb_count": 8,
-      "sb_power": 1,
-      "category": "Design"
-    },
-    {
-      "name": "Pirates & Plunder: 5E Seafaring Options for D&D and TOV",
-      "url": "https://www.kickstarter.com/projects/koboldpress/pirates-and-plunder-seafaring-options-for-5e-dandd-and-tov",
-      "pledged_usd": 71117,
-      "pledged_krw": 98140908,
-      "backers": 879,
-      "pf": 129.9,
-      "sb_count": 8,
-      "sb_power": 2,
-      "category": "Games"
-    },
-    {
-      "name": "Oakspire - A cozy tableau-building game of wood and wonder",
-      "url": "https://www.kickstarter.com/projects/lucky-duck-games/oakspire",
-      "pledged_usd": 108339,
-      "pledged_krw": 149507986,
-      "backers": 1403,
-      "pf": 501.6,
-      "sb_count": 8,
-      "sb_power": 0,
-      "category": "Unknown"
-    },
-    {
-      "name": "Jixa Lady Tiger Plus",
-      "url": "https://www.kickstarter.com/projects/brainiumgames/jixa-lady-tiger-plus",
-      "pledged_usd": 8223,
-      "pledged_krw": 11347740,
-      "backers": 165,
-      "pf": 54.8,
-      "sb_count": 8,
-      "sb_power": 2,
-      "category": "Unknown"
-    },
-    {
-      "name": "MEZMOPEN LIGHT: Forever Breakable Ti Pen + MezmoStand",
-      "url": "https://www.kickstarter.com/projects/mezmoglobe/mezmopen-light-4ever-breakable-titanium-fidget-pen",
-      "pledged_usd": 150556,
-      "pledged_krw": 207767473,
-      "backers": 1316,
-      "pf": 1991.5,
-      "sb_count": 8,
-      "sb_power": 1,
-      "category": "Design"
-    },
-    {
-      "name": "HEYfold Mini: A Reusable Notebook System for Life on the Go",
-      "url": "https://www.kickstarter.com/projects/heyii/heyfold-mini-notebook",
-      "pledged_usd": 74959,
-      "pledged_krw": 103443420,
-      "backers": 763,
-      "pf": 1499.2,
-      "sb_count": 7,
-      "sb_power": 0,
-      "category": "Unknown"
-    },
-    {
-      "name": "Snack Grabber!",
-      "url": "https://www.kickstarter.com/projects/fourthoption/snack-grabber",
-      "pledged_usd": 11057,
-      "pledged_krw": 15258660,
-      "backers": 402,
-      "pf": 110.6,
-      "sb_count": 7,
-      "sb_power": 2,
-      "category": "Design"
-    }
-  ],
-  "total_superbackers": 1706,
-  "avg_backings": 316,
-  "top_superbackers": [
-    {
-      "name": "The High Frontier",
-      "backings": 8010,
-      "projects": 1
-    },
-    {
-      "name": "Boldigl",
-      "backings": 4579,
-      "projects": 2
-    },
-    {
-      "name": "Stephen SIsk",
-      "backings": 4355,
-      "projects": 1
-    },
-    {
-      "name": "Robert Clark",
-      "backings": 4283,
-      "projects": 0
-    },
-    {
-      "name": "Ray",
-      "backings": 4053,
-      "projects": 7
-    },
-    {
-      "name": "Natasha Light",
-      "backings": 4015,
-      "projects": 1
-    },
-    {
-      "name": "Ben Balestra",
-      "backings": 3970,
-      "projects": 0
-    },
-    {
-      "name": "Winston Kou",
-      "backings": 3663,
-      "projects": 2
-    },
-    {
-      "name": "Scott Schaper",
-      "backings": 3126,
-      "projects": 2
-    },
-    {
-      "name": "Henry McKeen",
-      "backings": 3101,
-      "projects": 1
-    },
-    {
-      "name": "Steven Byrd",
-      "backings": 3084,
-      "projects": 1
-    },
-    {
-      "name": "Courtland LaVallee",
-      "backings": 3044,
-      "projects": 0
-    },
-    {
-      "name": "ShadOow",
-      "backings": 2999,
-      "projects": 1
-    },
-    {
-      "name": "Damon Griffin",
-      "backings": 2983,
-      "projects": 1
-    },
-    {
-      "name": "Stuart Stilborn",
-      "backings": 2866,
-      "projects": 2
+      "category": "Theater",
+      "count": 35
     }
   ],
   "backings_distribution": [
     {
-      "range": "1-50",
-      "count": 165
+      "label": "1-9",
+      "count": 1
     },
     {
-      "range": "51-100",
-      "count": 325
+      "label": "10-49",
+      "count": 1050
     },
     {
-      "range": "101-300",
-      "count": 742
+      "label": "50-99",
+      "count": 2930
     },
     {
-      "range": "301-500",
-      "count": 207
+      "label": "100-499",
+      "count": 7890
     },
     {
-      "range": "501-1000",
-      "count": 174
+      "label": "500-999",
+      "count": 1120
     },
     {
-      "range": "1000+",
-      "count": 91
+      "label": "1K-5K",
+      "count": 462
+    },
+    {
+      "label": "5K+",
+      "count": 8
     }
-  ]
+  ],
+  "sb_vs_success": [
+    {
+      "label": "0%",
+      "total": 9460,
+      "success": 4618,
+      "success_rate": 48.81606765327696
+    },
+    {
+      "label": "<20%",
+      "total": 1504,
+      "success": 1343,
+      "success_rate": 89.29521276595744
+    },
+    {
+      "label": "20-39%",
+      "total": 2975,
+      "success": 2733,
+      "success_rate": 91.8655462184874
+    },
+    {
+      "label": "40-59%",
+      "total": 2642,
+      "success": 2510,
+      "success_rate": 95.00378501135503
+    },
+    {
+      "label": "60%+",
+      "total": 4512,
+      "success": 4379,
+      "success_rate": 97.052304964539
+    }
+  ],
+  "total_superbackers": 13461,
+  "usd_krw_rate": 1388,
+  "avg_backings": 266.10586137731224,
+  "note": "댓글 샘플 기반 (프로젝트당 최대 30개). 전체 슈퍼백커 수는 추정치."
 }

@@ -1,521 +1,353 @@
 {
+  "generated": "2026-04-28T09:54:00.846154",
   "track_a": {
-    "name": "XGBoost (기본 변수)",
-    "features": [
-      "목표금액",
-      "캠페인기간",
-      "비디오유무",
-      "카테고리",
-      "국가"
-    ],
-    "training_data": 10006,
-    "auc": 0.8173,
-    "accuracy": 78.1,
-    "cv_auc": 0.8041,
-    "note": "결과 확정 10006건으로 학습. Webrobots+우리 크롤링 데이터 혼합."
+    "name": "Category-based Basic Predictor",
+    "description": "카테고리 + 국가 + 기간 기반 기본 예측",
+    "accuracy_note": "24,519건 기준 확률 매칭"
   },
   "track_b": {
-    "name": "XGBoost (콘텐츠 변수)",
-    "features": [
-      "스토리길이",
-      "이미지수",
-      "리워드수",
-      "FAQ수"
-    ],
-    "training_data": 843,
-    "auc": 0.8323,
-    "note": "상세 크롤링 843건만으로 학습. 샘플 수 제한으로 참고용."
+    "name": "Multi-factor Advanced",
+    "description": "슈퍼백커 밀도, 댓글 엔게이지먼트, FAQ, 업데이트 빈도 포함",
+    "factors": [
+      "category_rate",
+      "country_rate",
+      "duration_fit",
+      "goal_fit",
+      "staff_pick",
+      "sb_density"
+    ]
   },
+  "category_scores": [
+    {
+      "category": "Games",
+      "score": 90.3,
+      "samples": 4286,
+      "avg_pledged_usd": 36224
+    },
+    {
+      "category": "Comics",
+      "score": 97.4,
+      "samples": 3370,
+      "avg_pledged_usd": 15200
+    },
+    {
+      "category": "Art",
+      "score": 92.8,
+      "samples": 2755,
+      "avg_pledged_usd": 9829
+    },
+    {
+      "category": "Design",
+      "score": 91.0,
+      "samples": 2728,
+      "avg_pledged_usd": 66421
+    },
+    {
+      "category": "Film & Video",
+      "score": 73.5,
+      "samples": 2287,
+      "avg_pledged_usd": 19397
+    },
+    {
+      "category": "Publishing",
+      "score": 78.5,
+      "samples": 2004,
+      "avg_pledged_usd": 18546
+    },
+    {
+      "category": "Fashion",
+      "score": 87.8,
+      "samples": 1708,
+      "avg_pledged_usd": 16444
+    },
+    {
+      "category": "Technology",
+      "score": 70.6,
+      "samples": 1567,
+      "avg_pledged_usd": 215554
+    },
+    {
+      "category": "Music",
+      "score": 84.0,
+      "samples": 1037,
+      "avg_pledged_usd": 12403
+    },
+    {
+      "category": "Food",
+      "score": 71.1,
+      "samples": 874,
+      "avg_pledged_usd": 20011
+    },
+    {
+      "category": "Unknown",
+      "score": 93.9,
+      "samples": 540,
+      "avg_pledged_usd": 20515
+    },
+    {
+      "category": "Crafts",
+      "score": 78.1,
+      "samples": 524,
+      "avg_pledged_usd": 8094
+    },
+    {
+      "category": "Photography",
+      "score": 88.5,
+      "samples": 427,
+      "avg_pledged_usd": 9319
+    },
+    {
+      "category": "Theater",
+      "score": 85.2,
+      "samples": 229,
+      "avg_pledged_usd": 11229
+    },
+    {
+      "category": "Journalism",
+      "score": 58.1,
+      "samples": 93,
+      "avg_pledged_usd": 17198
+    },
+    {
+      "category": "Dance",
+      "score": 83.3,
+      "samples": 90,
+      "avg_pledged_usd": 6780
+    }
+  ],
+  "country_scores": [
+    {
+      "country": "US",
+      "score": 86.1,
+      "samples": 13257
+    },
+    {
+      "country": "GB",
+      "score": 88.7,
+      "samples": 2928
+    },
+    {
+      "country": "CA",
+      "score": 85.8,
+      "samples": 1320
+    },
+    {
+      "country": "HK",
+      "score": 94.4,
+      "samples": 1156
+    },
+    {
+      "country": "ES",
+      "score": 84.3,
+      "samples": 727
+    },
+    {
+      "country": "DE",
+      "score": 76.7,
+      "samples": 670
+    },
+    {
+      "country": "AU",
+      "score": 84.9,
+      "samples": 668
+    },
+    {
+      "country": "FR",
+      "score": 85.9,
+      "samples": 583
+    },
+    {
+      "country": "IT",
+      "score": 81.2,
+      "samples": 576
+    },
+    {
+      "country": "JP",
+      "score": 92.7,
+      "samples": 562
+    },
+    {
+      "country": "MX",
+      "score": 80.7,
+      "samples": 383
+    },
+    {
+      "country": "PL",
+      "score": 87.5,
+      "samples": 336
+    },
+    {
+      "country": "GR",
+      "score": 94.7,
+      "samples": 208
+    },
+    {
+      "country": "NL",
+      "score": 83.7,
+      "samples": 208
+    },
+    {
+      "country": "SG",
+      "score": 86.7,
+      "samples": 181
+    }
+  ],
   "scoring_tables": {
+    "duration": [
+      {
+        "label": "≤7d",
+        "total": 579,
+        "success": 555,
+        "success_rate": 95.85492227979275
+      },
+      {
+        "label": "8-14d",
+        "total": 1934,
+        "success": 1851,
+        "success_rate": 95.70837642192348
+      },
+      {
+        "label": "15-21d",
+        "total": 3542,
+        "success": 3343,
+        "success_rate": 94.38170525127046
+      },
+      {
+        "label": "22-30d",
+        "total": 12391,
+        "success": 10695,
+        "success_rate": 86.31264627552255
+      },
+      {
+        "label": "31-45d",
+        "total": 3841,
+        "success": 3283,
+        "success_rate": 85.4725331944806
+      },
+      {
+        "label": "45d+",
+        "total": 2232,
+        "success": 1439,
+        "success_rate": 64.47132616487455
+      }
+    ],
     "goal": [
       {
-        "label": "<$500",
-        "min": 0,
-        "max": 500,
-        "predicted": 92.9,
-        "actual": 93.4,
-        "count": 1651
+        "label": "<$1K",
+        "total": 7810,
+        "success": 7481,
+        "success_rate": 95.78745198463508
       },
       {
-        "label": "$500-1K",
-        "min": 500,
-        "max": 1000,
-        "predicted": 85.4,
-        "actual": 84.2,
-        "count": 1222
-      },
-      {
-        "label": "$1-2K",
-        "min": 1000,
-        "max": 2000,
-        "predicted": 78.3,
-        "actual": 78.5,
-        "count": 1328
-      },
-      {
-        "label": "$2-5K",
-        "min": 2000,
-        "max": 5000,
-        "predicted": 71.4,
-        "actual": 71.5,
-        "count": 1925
+        "label": "$1-5K",
+        "total": 8332,
+        "success": 7428,
+        "success_rate": 89.15026404224676
       },
       {
         "label": "$5-10K",
-        "min": 5000,
-        "max": 10000,
-        "predicted": 60.2,
-        "actual": 59.9,
-        "count": 1532
+        "total": 3573,
+        "success": 2913,
+        "success_rate": 81.5281276238455
       },
       {
         "label": "$10-25K",
-        "min": 10000,
-        "max": 25000,
-        "predicted": 49.5,
-        "actual": 50.9,
-        "count": 1370
+        "total": 3047,
+        "success": 2328,
+        "success_rate": 76.40301936330816
       },
       {
         "label": "$25-50K",
-        "min": 25000,
-        "max": 50000,
-        "predicted": 33.9,
-        "actual": 33.8,
-        "count": 577
+        "total": 1096,
+        "success": 685,
+        "success_rate": 62.5
       },
       {
-        "label": "$50K+",
-        "min": 50000,
-        "max": 1000000000000.0,
-        "predicted": 23.2,
-        "actual": 23.2,
-        "count": 401
+        "label": "$50-100K",
+        "total": 465,
+        "success": 247,
+        "success_rate": 53.118279569892465
+      },
+      {
+        "label": "$100-500K",
+        "total": 163,
+        "success": 74,
+        "success_rate": 45.39877300613497
+      },
+      {
+        "label": "$500K+",
+        "total": 24,
+        "success": 4,
+        "success_rate": 16.666666666666664
       }
     ],
-    "duration": [
-      {
-        "label": "1-14일",
-        "min": 1,
-        "max": 15,
-        "predicted": 89.6,
-        "actual": 89.9,
-        "count": 996
-      },
-      {
-        "label": "15-21일",
-        "min": 15,
-        "max": 22,
-        "predicted": 86.5,
-        "actual": 87.0,
-        "count": 1364
-      },
-      {
-        "label": "22-30일",
-        "min": 22,
-        "max": 31,
-        "predicted": 68.8,
-        "actual": 68.7,
-        "count": 4998
-      },
-      {
-        "label": "31-45일",
-        "min": 31,
-        "max": 46,
-        "predicted": 64.1,
-        "actual": 64.8,
-        "count": 1499
-      },
-      {
-        "label": "46-60일",
-        "min": 46,
-        "max": 61,
-        "predicted": 35.7,
-        "actual": 35.3,
-        "count": 1147
-      }
-    ],
-    "story_length": [
-      {
-        "label": "<1K",
-        "min": 0,
-        "max": 1000,
-        "actual": 100.0,
-        "count": 17
-      },
-      {
-        "label": "1-5K",
-        "min": 1000,
-        "max": 5000,
-        "actual": 97.8,
-        "count": 182
-      },
-      {
-        "label": "5-10K",
-        "min": 5000,
-        "max": 10000,
-        "actual": 98.7,
-        "count": 225
-      },
-      {
-        "label": "10-20K",
-        "min": 10000,
-        "max": 20000,
-        "actual": 99.2,
-        "count": 238
-      },
-      {
-        "label": "20K+",
-        "min": 20000,
-        "max": 1000000000.0,
-        "actual": 100.0,
-        "count": 181
-      }
-    ],
-    "story_images": [
-      {
-        "label": "0",
-        "min": 0,
-        "max": 1,
-        "actual": 95.4,
-        "count": 87
-      },
-      {
-        "label": "1-5",
-        "min": 1,
-        "max": 6,
-        "actual": 98.6,
-        "count": 148
-      },
-      {
-        "label": "6-10",
-        "min": 6,
-        "max": 11,
-        "actual": 98.0,
-        "count": 151
-      },
-      {
-        "label": "11-20",
-        "min": 11,
-        "max": 21,
-        "actual": 100.0,
-        "count": 457
-      }
-    ],
-    "rewards_count": [
-      {
-        "label": "1-3",
-        "min": 1,
-        "max": 4,
-        "actual": 98.6,
-        "count": 140
-      },
-      {
-        "label": "4-6",
-        "min": 4,
-        "max": 7,
-        "actual": 98.7,
-        "count": 300
-      },
-      {
-        "label": "7-10",
-        "min": 7,
-        "max": 11,
-        "actual": 99.6,
-        "count": 253
-      },
-      {
-        "label": "10+",
-        "min": 10,
-        "max": 999,
-        "actual": 98.9,
-        "count": 182
-      }
-    ],
-    "faqs_count": [
-      {
-        "label": "0",
-        "min": 0,
-        "max": 1,
-        "actual": 99.1,
-        "count": 540
-      },
-      {
-        "label": "1-3",
-        "min": 1,
-        "max": 4,
-        "actual": 99.2,
-        "count": 120
-      },
-      {
-        "label": "4-6",
-        "min": 4,
-        "max": 7,
-        "actual": 99.0,
-        "count": 99
-      },
-      {
-        "label": "7+",
-        "min": 7,
-        "max": 999,
-        "actual": 97.6,
-        "count": 84
-      }
-    ]
+    "staff_pick_boost": 14.5
   },
-  "category_scores": {
-    "Art": {
-      "predicted": 67.8,
-      "actual": 67.9,
-      "count": 9611
+  "subcategory_goal_median": [
+    {
+      "category": "Games",
+      "median_goal_usd": 10867
     },
-    "Design": {
-      "predicted": 94.1,
-      "actual": 98.0,
-      "count": 50
+    {
+      "category": "Comics",
+      "median_goal_usd": 4560
     },
-    "Dance": {
-      "predicted": 91.4,
-      "actual": 100.0,
-      "count": 67
+    {
+      "category": "Art",
+      "median_goal_usd": 2949
     },
-    "Comics": {
-      "predicted": 94.9,
-      "actual": 100.0,
-      "count": 13
+    {
+      "category": "Design",
+      "median_goal_usd": 19926
     },
-    "Fashion": {
-      "predicted": 91.1,
-      "actual": 95.6,
-      "count": 45
+    {
+      "category": "Film & Video",
+      "median_goal_usd": 5819
     },
-    "Film & Video": {
-      "predicted": 91.8,
-      "actual": 41.7,
-      "count": 12
+    {
+      "category": "Publishing",
+      "median_goal_usd": 5564
     },
-    "Technology": {
-      "predicted": 95.4,
-      "actual": 95.5,
-      "count": 22
+    {
+      "category": "Fashion",
+      "median_goal_usd": 4933
     },
-    "Crafts": {
-      "predicted": 92.8,
-      "actual": 96.2,
-      "count": 79
+    {
+      "category": "Technology",
+      "median_goal_usd": 64666
     },
-    "Music": {
-      "predicted": 86.0,
-      "actual": 79.5,
-      "count": 39
+    {
+      "category": "Music",
+      "median_goal_usd": 3721
     },
-    "Games": {
-      "predicted": 92.5,
-      "actual": 86.5,
-      "count": 37
+    {
+      "category": "Food",
+      "median_goal_usd": 6003
     },
-    "Food": {
-      "predicted": 86.9,
-      "actual": 80.0,
-      "count": 10
+    {
+      "category": "Unknown",
+      "median_goal_usd": 6155
+    },
+    {
+      "category": "Crafts",
+      "median_goal_usd": 2428
+    },
+    {
+      "category": "Photography",
+      "median_goal_usd": 2796
+    },
+    {
+      "category": "Theater",
+      "median_goal_usd": 3369
+    },
+    {
+      "category": "Journalism",
+      "median_goal_usd": 5159
+    },
+    {
+      "category": "Dance",
+      "median_goal_usd": 2034
     }
-  },
-  "country_scores": {
-    "HK": {
-      "predicted": 87.3,
-      "actual": 87.7,
-      "count": 495
-    },
-    "US": {
-      "predicted": 68.1,
-      "actual": 68.1,
-      "count": 5353
-    },
-    "Other": {
-      "predicted": 66.5,
-      "actual": 66.8,
-      "count": 921
-    },
-    "JP": {
-      "predicted": 77.9,
-      "actual": 78.9,
-      "count": 190
-    },
-    "FR": {
-      "predicted": 69.2,
-      "actual": 69.9,
-      "count": 246
-    },
-    "GB": {
-      "predicted": 72.1,
-      "actual": 72.8,
-      "count": 1108
-    },
-    "DE": {
-      "predicted": 56.8,
-      "actual": 55.0,
-      "count": 318
-    },
-    "IT": {
-      "predicted": 60.7,
-      "actual": 60.8,
-      "count": 260
-    },
-    "CA": {
-      "predicted": 66.3,
-      "actual": 67.1,
-      "count": 532
-    },
-    "ES": {
-      "predicted": 65.4,
-      "actual": 65.7,
-      "count": 300
-    },
-    "AU": {
-      "predicted": 66.9,
-      "actual": 65.7,
-      "count": 283
-    }
-  },
-  "disclaimer": "본 예측은 킥스타터 완료 프로젝트 통계 분석에 기반한 참고 자료이며, 실제 결과를 보장하지 않습니다. 콘텐츠 변수(스토리/이미지/리워드/FAQ)는 상세 크롤링 데이터 795건 기준으로 신뢰도가 제한적입니다.",
-  "subcategory_scores": {
-    "Hardware": {
-      "predicted": 76.7,
-      "count": 30,
-      "parent": "Technology"
-    },
-    "Gadgets": {
-      "predicted": 81.0,
-      "count": 21,
-      "parent": "Technology"
-    },
-    "Wearables": {
-      "predicted": 40.0,
-      "count": 5,
-      "parent": "Technology",
-      "note": "샘플 적음"
-    },
-    "Sound": {
-      "predicted": 90.0,
-      "count": 2,
-      "parent": "Technology",
-      "note": "샘플 적음"
-    },
-    "Software": {
-      "predicted": 19.0,
-      "count": 21,
-      "parent": "Technology"
-    },
-    "Apps": {
-      "predicted": 0.0,
-      "count": 46,
-      "parent": "Technology"
-    },
-    "Web": {
-      "predicted": 7.7,
-      "count": 13,
-      "parent": "Technology"
-    },
-    "Camera Equipment": {
-      "predicted": 88.9,
-      "count": 9,
-      "parent": "Technology"
-    },
-    "DIY Electronics": {
-      "predicted": 33.3,
-      "count": 9,
-      "parent": "Technology"
-    },
-    "Robots": {
-      "predicted": 40.0,
-      "count": 5,
-      "parent": "Technology",
-      "note": "샘플 적음"
-    },
-    "3D Printing": {
-      "predicted": 71.4,
-      "count": 7,
-      "parent": "Technology"
-    },
-    "Product Design": {
-      "predicted": 86.9,
-      "count": 206,
-      "parent": "Design"
-    },
-    "Toys": {
-      "predicted": 86.4,
-      "count": 22,
-      "parent": "Design"
-    },
-    "Tabletop Games": {
-      "predicted": 94.2,
-      "count": 362,
-      "parent": "Games"
-    },
-    "Video Games": {
-      "predicted": 61.3,
-      "count": 62,
-      "parent": "Games"
-    },
-    "Gaming Hardware": {
-      "predicted": 42.9,
-      "count": 7,
-      "parent": "Games",
-      "note": "샘플 적음"
-    },
-    "Playing Cards": {
-      "predicted": 85.4,
-      "count": 48,
-      "parent": "Games"
-    },
-    "Accessories": {
-      "predicted": 76.5,
-      "count": 34,
-      "parent": "Fashion"
-    },
-    "Apparel": {
-      "predicted": 44.1,
-      "count": 34,
-      "parent": "Fashion"
-    },
-    "Jewelry": {
-      "predicted": 50.0,
-      "count": 10,
-      "parent": "Fashion",
-      "note": "샘플 적음"
-    },
-    "Comic Books": {
-      "predicted": 96.8,
-      "count": 218,
-      "parent": "Comics"
-    },
-    "Graphic Novels": {
-      "predicted": 97.1,
-      "count": 69,
-      "parent": "Comics"
-    }
-  },
-  "subcategory_goal_median": {
-    "Hardware": 2023,
-    "Gadgets": 2000,
-    "Product Design": 2985,
-    "Robots": 2600,
-    "Wearables": 1950,
-    "Software": 1290,
-    "Apps": 21836,
-    "Toys": 2000,
-    "Video Games": 6488,
-    "Tabletop Games": 432,
-    "Sound": 3250,
-    "Camera Equipment": 5088,
-    "Playing Cards": 1000,
-    "Comic Books": 3000,
-    "Graphic Novels": 3000,
-    "Accessories": 2000,
-    "Apparel": 3000,
-    "Film & Video": 5000,
-    "Music": 3000,
-    "Art": 2000,
-    "Publishing": 3000
-  }
+  ],
+  "disclaimer": "27,909 프로젝트 기반 집계. 2026-04-28 갱신."
 }
