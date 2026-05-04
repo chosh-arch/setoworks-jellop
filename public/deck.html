@@ -246,10 +246,20 @@ body{
 .rev-bar-leg-i strong{color:var(--charcoal);font-weight:700;font-family:'DM Mono',monospace;font-size:12px;margin-left:auto;}
 
 /* MAKER VALUE (s5) */
-.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1;}
-.val-card{background:var(--wh);border:1px solid var(--bd);border-radius:8px;padding:5px 7px;display:flex;flex-direction:column;gap:2px;border-top:3px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;}
+.val-card{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:12px 14px 10px;display:flex;flex-direction:column;gap:6px;border-top:3px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
 .val-card-icon{display:none;}
-.val-card-t{font-size:12.5px;font-weight:800;color:var(--charcoal);}
+.val-card-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.25;}
+.val-card-sub{font-size:11.5px;color:var(--ink700);font-weight:600;line-height:1.4;}
+.val-card-sub em{color:var(--brand-red);font-style:normal;font-weight:800;}
+.val-card-bullets{list-style:none;padding:0;margin:2px 0 0;display:flex;flex-direction:column;gap:3px;}
+.val-card-bullets li{font-size:10.5px;color:var(--slate);line-height:1.45;padding-left:10px;position:relative;}
+.val-card-bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--brand-red);border-radius:50%;}
+.val-card-bullets strong{color:var(--charcoal);font-weight:700;}
+.val-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);}
+.val-card-stat{text-align:center;}
+.val-card-stat .vn{font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);line-height:1;}
+.val-card-stat .vl{font-size:9.5px;color:var(--mu);margin-top:2px;line-height:1.2;}
 .val-card-d{font-size:11.5px;color:var(--slate);line-height:1.5;font-weight:400;}
 .val-card-d strong{color:var(--charcoal);font-weight:700;}
 .val-card-roi{margin-top:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--brand-red);background:rgba(255,0,59,.08);padding:5px 10px;border-radius:5px;align-self:flex-start;}
@@ -759,20 +769,40 @@ body{
       <div id="pipe-panels" style="flex:1;position:relative;overflow:hidden;">
 
         <!-- Panel 0: Overview (default) -->
-        <div class="pipe-panel" data-pipe="0" style="display:flex;flex-direction:column;gap:9px;">
-          <div class="pipe-detail">
-            <div class="pipe-card" style="border-left-color:var(--blue);"><div class="pipe-card-n">1+2. 발굴·분류</div><div class="pipe-card-d">6개 플랫폼 수집 → Pure Score → <strong>5-Tier 자동 분류</strong></div></div>
-            <div class="pipe-card" style="border-left-color:var(--purple);"><div class="pipe-card-n">3. 데이터 매칭</div><div class="pipe-card-d">카테고리 매칭 + 데이터 분석 → 메이커별 추천 리스트</div><div class="pipe-rev">수익 ② 리포트</div></div>
-            <div class="pipe-card" style="border-left-color:var(--gold);"><div class="pipe-card-n">4. 컨택</div><div class="pipe-card-d">이메일 + Comment-to-DM + 현지 에이전트</div></div>
-            <div class="pipe-card" style="border-left-color:var(--brand-red);"><div class="pipe-card-n">5. 시딩·운영</div><div class="pipe-card-d">나노 시딩 / 미드 계약 / 메가 앵커</div><div class="pipe-rev">수익 ③ 시딩</div></div>
-            <div class="pipe-card" style="border-left-color:var(--green);"><div class="pipe-card-n">6+7. 측정·수익</div><div class="pipe-card-d">UTM 추적 → ROI → <strong>15% 성과 수수료</strong></div><div class="pipe-rev">수익 ①④</div></div>
+        <div class="pipe-panel" data-pipe="0" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- KPI strip: 파이프라인 1회전 핵심 수치 -->
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;flex:none;">
+            <div style="background:var(--ink100);border-left:3px solid var(--brand-red);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">발굴 풀</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">6,000+</div><div style="font-size:9.5px;color:var(--slate);">90일/6채널 누적</div></div>
+            <div style="background:var(--ink100);border-left:3px solid var(--blue);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">매칭 정확도</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">±15%</div><div style="font-size:9.5px;color:var(--slate);">예측 신뢰구간</div></div>
+            <div style="background:var(--ink100);border-left:3px solid var(--gold);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">컨택 응답률</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">25~35%</div><div style="font-size:9.5px;color:var(--slate);">이메일+DM</div></div>
+            <div style="background:var(--ink100);border-left:3px solid var(--brand-red);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">시딩 게시율</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">30~50%</div><div style="font-size:9.5px;color:var(--slate);">나노 무료시딩</div></div>
+            <div style="background:var(--ink100);border-left:3px solid var(--green);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">광고 ROAS</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">3~7x</div><div style="font-size:9.5px;color:var(--slate);">Meta·Google·TT</div></div>
+            <div style="background:var(--ink100);border-left:3px solid var(--charcoal);padding:7px 10px;border-radius:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;letter-spacing:.4px;text-transform:uppercase;">수익원</div><div style="font-family:'DM Mono',monospace;font-size:15px;font-weight:800;color:var(--charcoal);">5종</div><div style="font-size:9.5px;color:var(--slate);">동시 발생</div></div>
           </div>
+
+          <!-- 7단계 카드 (확장) -->
+          <div class="pipe-detail" style="grid-template-columns:repeat(5,1fr);gap:6px;">
+            <div class="pipe-card" style="border-left-color:var(--blue);padding:8px 10px;"><div class="pipe-card-n" style="font-size:11px;">1+2. 발굴·분류</div><div class="pipe-card-d" style="font-size:10.5px;">6개 플랫폼 수집 → <strong>Pure Score 100점</strong> → 5-Tier 자동 분류</div><div style="font-size:9.5px;color:var(--mu);margin-top:3px;">YouTube·TikTok·IG·Dcard·Threads·FB</div></div>
+            <div class="pipe-card" style="border-left-color:var(--purple);padding:8px 10px;"><div class="pipe-card-n" style="font-size:11px;">3. 데이터 매칭</div><div class="pipe-card-d" style="font-size:10.5px;">카테고리·톤·지역 룰 매칭 → 메이커별 <strong>TOP 100 추천</strong></div><div class="pipe-rev" style="margin-top:3px;font-size:9.5px;padding:2px 6px;">수익 ② 예측 리포트</div></div>
+            <div class="pipe-card" style="border-left-color:var(--gold);padding:8px 10px;"><div class="pipe-card-n" style="font-size:11px;">4. 컨택</div><div class="pipe-card-d" style="font-size:10.5px;">이메일·Comment-to-DM·TikTok Marketplace·현지 에이전트 <strong>4경로 우회</strong></div><div style="font-size:9.5px;color:var(--mu);margin-top:3px;">DM 차단 우회·응답률 25~35%</div></div>
+            <div class="pipe-card" style="border-left-color:var(--brand-red);padding:8px 10px;"><div class="pipe-card-n" style="font-size:11px;">5. 시딩·운영</div><div class="pipe-card-d" style="font-size:10.5px;">나노 50~150 무료시딩 / 미드 5~15 계약 / <strong>메가 1~3 앵커</strong></div><div class="pipe-rev" style="margin-top:3px;font-size:9.5px;padding:2px 6px;">수익 ③ 시딩 + ④ 풀스택</div></div>
+            <div class="pipe-card" style="border-left-color:var(--green);padding:8px 10px;"><div class="pipe-card-n" style="font-size:11px;">6+7. 측정·수익</div><div class="pipe-card-d" style="font-size:10.5px;">UTM·GA4·KS 레퍼럴 <strong>실시간 ROI</strong> → 15% 성과 수수료</div><div class="pipe-rev" style="margin-top:3px;font-size:9.5px;padding:2px 6px;">수익 ① 성과 + ⑤ 컨설팅</div></div>
+          </div>
+
+          <!-- 5종 수익원 (with 단가) -->
           <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;flex:none;">
-            <div class="ibox" style="background:rgba(255,0,59,.05);border-left:3px solid var(--brand-red);font-size:11px;padding:6px 8px;line-height:1.4;"><strong style="color:var(--brand-red);">① 성과 수수료</strong><br>펀딩액 15%</div>
-            <div class="ibox" style="background:var(--bl2);border-left:3px solid var(--blue);font-size:11px;padding:6px 8px;line-height:1.4;"><strong style="color:var(--blue);">② 예측 리포트</strong><br>100~300만/건</div>
-            <div class="ibox" style="background:var(--gl);border-left:3px solid var(--gold);font-size:11px;padding:6px 8px;line-height:1.4;"><strong style="color:var(--gold);">③ 시딩 대행</strong><br>500~1,500만/건</div>
-            <div class="ibox" style="background:var(--grl);border-left:3px solid var(--green);font-size:11px;padding:6px 8px;line-height:1.4;"><strong style="color:var(--green);">④ 풀스택</strong><br>800~2,000만/건</div>
-            <div class="ibox" style="background:var(--pl);border-left:3px solid var(--purple);font-size:11px;padding:6px 8px;line-height:1.4;"><strong style="color:var(--purple);">⑤ 컨설팅</strong><br>500~1,000만/건</div>
+            <div class="ibox" style="background:rgba(255,0,59,.05);border-left:3px solid var(--brand-red);font-size:10.5px;padding:7px 9px;line-height:1.4;"><strong style="color:var(--brand-red);font-size:11px;">① 성과 수수료</strong><br><span style="font-family:'DM Mono',monospace;font-weight:700;">펀딩액 15%</span><br><span style="color:var(--mu);font-size:9.5px;">일반 1,500~3,750만 · 메가 4.5억</span></div>
+            <div class="ibox" style="background:var(--bl2);border-left:3px solid var(--blue);font-size:10.5px;padding:7px 9px;line-height:1.4;"><strong style="color:var(--blue);font-size:11px;">② 예측 리포트</strong><br><span style="font-family:'DM Mono',monospace;font-weight:700;">100~300만/건</span><br><span style="color:var(--mu);font-size:9.5px;">30분 자동 생성 · 사람 2~3일</span></div>
+            <div class="ibox" style="background:var(--gl);border-left:3px solid var(--gold);font-size:10.5px;padding:7px 9px;line-height:1.4;"><strong style="color:var(--gold);font-size:11px;">③ 시딩 대행</strong><br><span style="font-family:'DM Mono',monospace;font-weight:700;">500~1,500만/건</span><br><span style="color:var(--mu);font-size:9.5px;">발굴~운영 전체 패키지</span></div>
+            <div class="ibox" style="background:var(--grl);border-left:3px solid var(--green);font-size:10.5px;padding:7px 9px;line-height:1.4;"><strong style="color:var(--green);font-size:11px;">④ 풀스택</strong><br><span style="font-family:'DM Mono',monospace;font-weight:700;">800~2,000만/건</span><br><span style="color:var(--mu);font-size:9.5px;">영상+LP+시딩+광고+이커머스</span></div>
+            <div class="ibox" style="background:var(--pl);border-left:3px solid var(--purple);font-size:10.5px;padding:7px 9px;line-height:1.4;"><strong style="color:var(--purple);font-size:11px;">⑤ 컨설팅 GTM</strong><br><span style="font-family:'DM Mono',monospace;font-weight:700;">500~1,000만/건</span><br><span style="color:var(--mu);font-size:9.5px;">수출바우처 50~100p AI 보고서</span></div>
+          </div>
+
+          <!-- 인사이트 풋터: 단일 캠페인 시뮬레이션 -->
+          <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:6px;flex:none;background:var(--ink100);padding:8px 10px;border-radius:8px;border-left:3px solid var(--charcoal);">
+            <div><div style="font-size:9.5px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.4px;">단일 일반 캠페인 (펀딩 1.5억 가정)</div><div style="font-size:11px;color:var(--charcoal);font-weight:600;line-height:1.5;margin-top:2px;">예측 200만 + 시딩 1,000만 + 풀스택 1,500만 + 성과 2,250만 = <strong style="color:var(--brand-red);font-family:'DM Mono',monospace;">4,950만</strong></div></div>
+            <div style="border-left:1px dashed var(--bd2);padding-left:10px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.4px;">메가 캠페인 (30억 큐비오X급)</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:800;color:var(--brand-red);">≈ 4.5억 / 1건</div></div>
+            <div style="border-left:1px dashed var(--bd2);padding-left:10px;"><div style="font-size:9.5px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.4px;">캠페인 변동성</div><div style="font-size:11px;color:var(--charcoal);font-weight:600;line-height:1.4;">5개 수익원으로 <strong>분산 흡수</strong> → 단일 실패 충격 ↓</div></div>
           </div>
         </div>
 
@@ -1178,34 +1208,94 @@ body{
     <div class="sb">
       <div class="val-grid">
         <div class="val-card" style="border-top-color:var(--brand-red);">
-          <div class="val-card-icon"></div><div class="val-card-t">사전 예측 → 리스크 0</div>
-          <div class="val-card-d"><strong>1,200건 실적 데이터</strong> 기반 펀딩액 예측 + 수출바우처 GTM 보고서 AI 자동 생성. 보고서가 아니라 실행까지 연결한다.</div>
-          <div class="val-card-roi">매몰비용 절감: 3,000만원+/제품</div>
+          <div class="val-card-t">① 사전 예측 → 리스크 0</div>
+          <div class="val-card-sub"><em>14년·1,200건 운영 데이터 + KS 27,986건 분석</em>으로 펀딩 전에 결과를 본다.</div>
+          <ul class="val-card-bullets">
+            <li><strong>예측 리포트:</strong> 카테고리·가격·국가별 성공확률 + 예상 펀딩액 신뢰구간</li>
+            <li><strong>수출바우처 GTM:</strong> AI 초안 → 휴먼 편집 → 50~100p 보고서 자동 생성</li>
+            <li><strong>유사 사례 3건</strong> 자동 추출 → 가격·리워드·시딩 전략 즉시 비교</li>
+            <li>사람이 만들면 2~3일 → <strong>30분 자동 생성</strong></li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">3,000만+</div><div class="vl">매몰비용 절감</div></div>
+            <div class="val-card-stat"><div class="vn">±15%</div><div class="vl">예측 신뢰구간</div></div>
+            <div class="val-card-stat"><div class="vn">30분</div><div class="vl">리포트 생성</div></div>
+          </div>
         </div>
         <div class="val-card" style="border-top-color:var(--blue);">
-          <div class="val-card-icon"></div><div class="val-card-t">자동화 인플루언서 시딩</div>
-          <div class="val-card-d">메이커 직접 = <strong>1인당 8회 × 100명 = 800회</strong>. 세토웍스가 TikTok API + 사람 라스트 마일로 대행.</div>
-          <div class="val-card-roi">시딩 운영 시간 절감: 200시간+/캠페인</div>
+          <div class="val-card-t">② 자동화 인플루언서 시딩</div>
+          <div class="val-card-sub">메이커 직접 = <em>1인당 8회 × 100명 = 800회</em> 휴먼 컨택. 세토웍스가 자동화로 흡수한다.</div>
+          <ul class="val-card-bullets">
+            <li><strong>발굴:</strong> 6개 플랫폼 일일 100명+ → 90일 6,000명 풀</li>
+            <li><strong>분류:</strong> Pure Score 100점 룰 + 5-Tier(나노~메가) 자동 등급</li>
+            <li><strong>컨택:</strong> 이메일 + Comment-to-DM + TikTok Marketplace + 현지 에이전트</li>
+            <li><strong>운영:</strong> 나노 50~150명 동시 시딩 → 게시율 30~50%</li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">200h+</div><div class="vl">시간 절감/캠페인</div></div>
+            <div class="val-card-stat"><div class="vn">98%</div><div class="vl">자동화 비율</div></div>
+            <div class="val-card-stat"><div class="vn">6,000+</div><div class="vl">90일 인플 풀</div></div>
+          </div>
         </div>
         <div class="val-card" style="border-top-color:var(--gold);">
-          <div class="val-card-icon"></div><div class="val-card-t">풀스택 원스톱</div>
-          <div class="val-card-d">영상·LP·광고·시딩·이커머스 한 곳에서. 메이커는 <strong>제품 개발에만 집중</strong>. 외주 5~7곳 → 1곳.</div>
-          <div class="val-card-roi">외주 관리 비용 절감: 50%+</div>
+          <div class="val-card-t">③ 풀스택 원스톱</div>
+          <div class="val-card-sub">영상·LP·광고·시딩·이커머스 → <em>외주 5~7곳을 세토웍스 1곳으로</em>.</div>
+          <ul class="val-card-bullets">
+            <li><strong>크리에이티브:</strong> 인하우스 영상팀 + 카피 A/B (8안 동시 운영)</li>
+            <li><strong>퍼포먼스:</strong> Meta·Google·TikTok Ads 자체 운영 → ROAS 3~7x</li>
+            <li><strong>인프라:</strong> LP·이메일·DM 전부 세토웍스 시스템 위에서</li>
+            <li>메이커는 <strong>제품 개발에만 집중</strong> — 운영 부담 0</li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">50%+</div><div class="vl">외주관리 비 절감</div></div>
+            <div class="val-card-stat"><div class="vn">3~7x</div><div class="vl">광고 ROAS</div></div>
+            <div class="val-card-stat"><div class="vn">5→1</div><div class="vl">벤더 통합</div></div>
+          </div>
         </div>
         <div class="val-card" style="border-top-color:var(--green);">
-          <div class="val-card-icon"></div><div class="val-card-t">성과 수수료 = 사전 비용 0</div>
-          <div class="val-card-d">메인 수익원이 <strong>성과 수수료 15%</strong>. 펀딩 성공해야만 비용 발생. 세토웍스가 메이커와 같은 배에 탄다.</div>
-          <div class="val-card-roi">초기 자본 부담: 0원</div>
+          <div class="val-card-t">④ 성과 수수료 = 사전 비용 0</div>
+          <div class="val-card-sub">메인 수익원이 <em>성과 수수료 15%</em> — 펀딩 성공해야만 비용 발생. 세토웍스가 같은 배에 탄다.</div>
+          <ul class="val-card-bullets">
+            <li><strong>업계 표준 15%</strong> 모델 — 메이커 초기 자본 부담 0원</li>
+            <li><strong>실측 일반 펀딩 1~2.5억</strong> → 건당 1,500~3,750만 수수료</li>
+            <li><strong>메가 케이스(큐비오X 30억)</strong> → 건당 4.5억 → 단일 캠페인 손익분기 돌파</li>
+            <li>실패 시 메이커 손실 = 제품 비용만, 세토웍스 손실 = 운영 인건비</li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">0원</div><div class="vl">초기 자본</div></div>
+            <div class="val-card-stat"><div class="vn">15%</div><div class="vl">성과 수수료</div></div>
+            <div class="val-card-stat"><div class="vn">4.5억</div><div class="vl">메가 1건 매출</div></div>
+          </div>
         </div>
         <div class="val-card" style="border-top-color:var(--purple);">
-          <div class="val-card-icon"></div><div class="val-card-t">아시아 네이티브 운영</div>
-          <div class="val-card-d">한·일·대만·동남아 언어/세금/물류를 자체 커버한다. <strong>2021 100만불 수출의 탑 + 전문무역상사</strong> 인증.</div>
-          <div class="val-card-roi">현지화 실패 리스크: 90% 절감</div>
+          <div class="val-card-t">⑤ 아시아 네이티브 운영</div>
+          <div class="val-card-sub">한·일·대만·동남아 <em>언어·세금·물류·인플루언서</em>를 자체 커버. 미국식 마케팅사가 못 하는 영역.</div>
+          <ul class="val-card-bullets">
+            <li><strong>2021 100만불 수출의 탑</strong> + <strong>전문무역상사</strong> 정부 인증 보유</li>
+            <li><strong>한국·일본·대만·홍콩·싱가포르</strong> 5개국 백커 응대 + VAT 처리</li>
+            <li><strong>현지 에이전트:</strong> 대만 1·일본 1 — DM·전화·미팅 라스트 마일</li>
+            <li>Dcard·Threads·LINE 등 <strong>미국 플레이어가 모르는 채널</strong> 자체 크롤링</li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">5개국</div><div class="vl">네이티브 운영</div></div>
+            <div class="val-card-stat"><div class="vn">90%↓</div><div class="vl">현지화 리스크</div></div>
+            <div class="val-card-stat"><div class="vn">14년</div><div class="vl">수출 누적</div></div>
+          </div>
         </div>
         <div class="val-card" style="border-top-color:var(--charcoal);">
-          <div class="val-card-icon"></div><div class="val-card-t">펀딩 → 이커머스 자동 연결</div>
-          <div class="val-card-d">펀딩 종료 = 끝이 아니라 <strong>이커머스 시작</strong>. 백커 → 리피트 → LTV. 단발성 → 연속성.</div>
-          <div class="val-card-roi">LTV 증가: 1.8~2.5배</div>
+          <div class="val-card-t">⑥ 펀딩 → 이커머스 자동 연결</div>
+          <div class="val-card-sub">펀딩 종료 = 끝이 아니라 <em>이커머스 시작</em>. 백커 → 리피트 → LTV로 연속 매출.</div>
+          <ul class="val-card-bullets">
+            <li><strong>백커 DB → Shopify·Amazon·자사몰</strong> 자동 이전 + 재구매 트리거</li>
+            <li><strong>인플루언서 콘텐츠</strong>를 Whitelist Ads 소재로 6개월간 재활용</li>
+            <li><strong>이메일·SMS 마케팅</strong> n8n 자동화 — 펀딩 종료 후 30·60·90일 시퀀스</li>
+            <li>슈퍼백커 13,461명 DB 활용 → <strong>다음 캠페인 1일차 컨버전</strong> 확보</li>
+          </ul>
+          <div class="val-card-stats">
+            <div class="val-card-stat"><div class="vn">1.8~2.5x</div><div class="vl">LTV 증가</div></div>
+            <div class="val-card-stat"><div class="vn">90일</div><div class="vl">자동 시퀀스</div></div>
+            <div class="val-card-stat"><div class="vn">13,461</div><div class="vl">슈퍼백커 DB</div></div>
+          </div>
         </div>
       </div>
     </div>
