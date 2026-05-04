@@ -2665,6 +2665,55 @@ body{
           </tbody>
         </table>
       </div>
+      <!-- Layer 별 ROI 요약 + Tier 통합 순서 (하단 채움) -->
+      <div style="flex:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+        <div class="card" style="padding:11px 13px;border-top:3px solid var(--green);display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><span style="background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:800;">Layer A</span><div style="font-size:11.5px;font-weight:800;color:var(--charcoal);">무료/공공 (5종)</div></div>
+          <div style="font-size:10.5px;color:var(--ink700);font-weight:600;line-height:1.4;">MVP 단계 — <strong style="color:var(--green);">월 $0</strong> 운영 가능</div>
+          <ul style="list-style:none;padding:0;margin:3px 0 0;display:flex;flex-direction:column;gap:3px;font-size:10px;color:var(--slate);line-height:1.45;">
+            <li>· UN Comtrade · ImportYeti</li>
+            <li>· buyKorea · tradeKorea · GobizKorea</li>
+            <li>· 정부 공식 + OSS 크롤러</li>
+            <li>· 합법성 100% (공공 데이터)</li>
+          </ul>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--green);">5소스</div><div style="font-size:9px;color:var(--mu);">통합</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--green);">70M</div><div style="font-size:9px;color:var(--mu);">BOL 기록</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--green);">$0</div><div style="font-size:9px;color:var(--mu);">월 비용</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:11px 13px;border-top:3px solid var(--gold);display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><span style="background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:800;">Layer B</span><div style="font-size:11.5px;font-weight:800;color:var(--charcoal);">유료/SaaS (5종)</div></div>
+          <div style="font-size:10.5px;color:var(--ink700);font-weight:600;line-height:1.4;">Scale 단계 — <strong style="color:var(--gold);">월 $300+</strong> 정밀 매칭</div>
+          <ul style="list-style:none;padding:0;margin:3px 0 0;display:flex;flex-direction:column;gap:3px;font-size:10px;color:var(--slate);line-height:1.45;">
+            <li>· Apollo.io · RangeMe · Apify</li>
+            <li>· Hunter.io · People Data Labs</li>
+            <li>· Real-time 검증 + Sequence</li>
+            <li>· Bounce rate 5% 이하 보장</li>
+          </ul>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--gold);">2.75억</div><div style="font-size:9px;color:var(--mu);">Apollo 컨택</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--gold);">15K</div><div style="font-size:9px;color:var(--mu);">RangeMe 바이어</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--gold);">$300</div><div style="font-size:9px;color:var(--mu);">월 비용</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:11px 13px;border-top:3px solid var(--brand-red);display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><span style="background:#dbeafe;color:#1e3a8a;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:800;">Layer C</span><div style="font-size:11.5px;font-weight:800;color:var(--charcoal);">자체 자산 (2종)</div></div>
+          <div style="font-size:10.5px;color:var(--ink700);font-weight:600;line-height:1.4;">Moat — <strong style="color:var(--brand-red);">14년 누적</strong> 경쟁사 0</div>
+          <ul style="list-style:none;padding:0;margin:3px 0 0;display:flex;flex-direction:column;gap:3px;font-size:10px;color:var(--slate);line-height:1.45;">
+            <li>· KS 슈퍼백커 13,461명</li>
+            <li>· 자체 캠페인 1,200건 · 520억</li>
+            <li>· Lookalike Seed 매칭</li>
+            <li>· CPA 40% 절감 (실측 vs Cold)</li>
+          </ul>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--brand-red);">13,461</div><div style="font-size:9px;color:var(--mu);">슈퍼백커</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--brand-red);">520억</div><div style="font-size:9px;color:var(--mu);">캠페인 자산</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--brand-red);">CPA-40%</div><div style="font-size:9px;color:var(--mu);">vs Cold</div></div>
+          </div>
+        </div>
+      </div>
+
       <div class="ibox ibox-green" style="flex:none;font-size:12.5px;">
         <strong>Tier 1 (Day 0-90) 통합 순서:</strong> ① UN Comtrade API 키 발급 → ② ImportYeti OSS 크롤러 (hughie21/Customs-Crawler, MIT) → ③ buyKorea/tradeKorea 계정 + 스크래퍼 → ④ Hunter.io $49 플랜 → ⑤ Apollo.io Tier 2에서 추가. <strong>Layer A·C만으로 MVP 출시 가능 — 월 $50 미만.</strong>
       </div>
