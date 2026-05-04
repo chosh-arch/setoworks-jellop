@@ -206,7 +206,8 @@ body{
 .pipe-tag-human{background:rgba(212,132,26,.12);color:var(--gold);}
 .pipe-tag-both{background:rgba(109,40,217,.12);color:var(--purple);}
 .pipe-tag-auto{background:rgba(255,0,59,.1);color:var(--brand-red);}
-.pipe-panel{animation:fadeUp .4s cubic-bezier(.4,0,.2,1) both;}
+.pipe-panel{animation:fadeUp .4s cubic-bezier(.4,0,.2,1) both;position:absolute;inset:0;}
+.pipe-panel[data-pipe="0"]{display:flex;flex-direction:column;}
 .pipe-step{transition:all .2s ease;}
 .pipe-step:hover{background:var(--sll);}
 .pipe-step.pipe-active{background:var(--brand-red);}.pipe-step.pipe-active .pipe-sn,.pipe-step.pipe-active .pipe-sl{color:#fff;}.pipe-step.pipe-active .pipe-tag{background:rgba(255,255,255,.25);color:#fff;}
