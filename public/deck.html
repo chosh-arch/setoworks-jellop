@@ -1985,6 +1985,60 @@ body{
           </div>
         </div>
       </div>
+      <!-- Phase별 KPI / 산출물 / 결정 게이트 (하단 채움) -->
+      <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-content:start;">
+        <div class="card" style="padding:10px 12px;border-top:3px solid var(--blue);display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Phase 1 · Day 1-30</div><div style="font-size:9.5px;color:var(--blue);font-weight:700;">인프라 토대</div></div>
+          <div style="font-size:11.5px;font-weight:800;color:var(--charcoal);line-height:1.3;">목표: 코드 자동화 파이프라인 검증</div>
+          <div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;">산출물</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px;font-size:10.5px;color:var(--slate);line-height:1.45;">
+            <li>· Stage A 클라우드 환경 가동</li>
+            <li>· n8n 7개 자동화 체인</li>
+            <li>· 100건 PoC 크롤링 완료</li>
+            <li>· 시드 인플루언서 30명 컨택</li>
+          </ul>
+          <div style="margin-top:auto;background:rgba(30,86,176,.06);border-left:3px solid var(--blue);padding:6px 9px;border-radius:5px;"><div style="font-size:9px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Day 30 결정 게이트</div><div style="font-size:10px;color:var(--charcoal);font-weight:600;line-height:1.4;">PoC 100건 + LP 1종 정상 → Phase 2 진입</div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">$50</div><div style="font-size:9px;color:var(--mu);">월 비용</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">100건</div><div style="font-size:9px;color:var(--mu);">PoC 검증</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">30일</div><div style="font-size:9px;color:var(--mu);">완료 목표</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:10px 12px;border-top:3px solid var(--gold);display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Phase 2 · Day 31-60</div><div style="font-size:9.5px;color:var(--gold);font-weight:700;">파이프라인 실증</div></div>
+          <div style="font-size:11.5px;font-weight:800;color:var(--charcoal);line-height:1.3;">목표: 예측 모델 v0.1 + 첫 라이브</div>
+          <div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;">산출물</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px;font-size:10.5px;color:var(--slate);line-height:1.45;">
+            <li>· 1,200건 데이터 정제 완료</li>
+            <li>· 예측 모델 v0.1 백테스트 R²≥0.6</li>
+            <li>· 대만 LP 라이브 + TikTok 5명</li>
+            <li>· 뉴스레터 1호 발송</li>
+          </ul>
+          <div style="margin-top:auto;background:rgba(212,132,26,.06);border-left:3px solid var(--gold);padding:6px 9px;border-radius:5px;"><div style="font-size:9px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Day 60 결정 게이트</div><div style="font-size:10px;color:var(--charcoal);font-weight:600;line-height:1.4;">R²≥0.6 + 첫 전환 확인 → 서버 발주</div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">R²≥0.6</div><div style="font-size:9px;color:var(--mu);">v0.1 정확도</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">1,200</div><div style="font-size:9px;color:var(--mu);">DB 적재 건</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">1.5K만</div><div style="font-size:9px;color:var(--mu);">서버 일회</div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:10px 12px;border-top:3px solid var(--green);display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:baseline;gap:6px;"><div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Phase 3 · Day 61-90</div><div style="font-size:9.5px;color:var(--green);font-weight:700;">확장 진입</div></div>
+          <div style="font-size:11.5px;font-weight:800;color:var(--charcoal);line-height:1.3;">목표: 유료 베타 3사 + 플라이휠 1회전</div>
+          <div style="font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;">산출물</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px;font-size:10.5px;color:var(--slate);line-height:1.45;">
+            <li>· 유료 베타 3사 + v0.2 가동</li>
+            <li>· 인플루언서 100명+ 시딩</li>
+            <li>· 예측 R²≥0.7 + 6채널 분석</li>
+            <li>· 90일 보고 + Q2 전략</li>
+          </ul>
+          <div style="margin-top:auto;background:rgba(13,124,95,.06);border-left:3px solid var(--green);padding:6px 9px;border-radius:5px;"><div style="font-size:9px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.4px;">Day 90 결정 게이트</div><div style="font-size:10px;color:var(--charcoal);font-weight:600;line-height:1.4;">유료 베타 3사 + R²≥0.7 → Q2 확장</div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding-top:6px;border-top:1px dashed var(--bd);">
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">3사</div><div style="font-size:9px;color:var(--mu);">유료 베타</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">100명+</div><div style="font-size:9px;color:var(--mu);">시딩 가동</div></div>
+            <div style="text-align:center;"><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);">R²≥0.7</div><div style="font-size:9px;color:var(--mu);">v0.2 정확도</div></div>
+          </div>
+        </div>
+      </div>
       <div class="ibox ibox-blue" style="flex:none;"><strong>플라이휠 1회전 = 90일.</strong> Phase 1 클라우드 검증 → Phase 2 서버 발주 결정 → Phase 3 유료 베타 + 데이터 누적. 매 Phase 끝에서 다음 Phase 진행 여부 의사결정.</div>
     </div>
   </div>
