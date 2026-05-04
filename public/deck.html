@@ -278,20 +278,36 @@ body{
 .val-card-roi{margin-top:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--brand-red);background:rgba(255,0,59,.08);padding:5px 10px;border-radius:5px;align-self:flex-start;}
 
 /* differentiation 5 cards */
-.diff-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;flex:1;}
-.diff-card{background:var(--wh);border:1px solid var(--bd);border-radius:8px;padding:5px 7px;display:flex;flex-direction:column;gap:2px;border-top:3px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
-.diff-num{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;font-size:18px;font-weight:800;color:var(--charcoal);line-height:1;}
-.diff-t{font-size:12px;font-weight:800;color:var(--charcoal);line-height:1.3;}
-.diff-vs{display:flex;flex-direction:column;gap:6px;margin-top:5px;}
-.diff-row{font-size:12.5px;line-height:1.55;display:flex;gap:6px;}
+.diff-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;flex:1;}
+.diff-card{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:11px 12px 9px;display:flex;flex-direction:column;gap:7px;border-top:3px solid;box-shadow:0 1px 3px rgba(15,37,69,.05);}
+.diff-num{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;font-size:22px;font-weight:800;color:var(--charcoal);line-height:1;}
+.diff-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.25;}
+.diff-vs{display:flex;flex-direction:column;gap:5px;margin-top:3px;}
+.diff-row{font-size:11px;line-height:1.5;display:flex;gap:6px;}
+.diff-detail{margin-top:4px;}
+.diff-detail-h{font-size:9.5px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.diff-detail ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px;}
+.diff-detail li{font-size:10.5px;color:var(--slate);line-height:1.45;padding-left:10px;position:relative;}
+.diff-detail li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--brand-red);border-radius:50%;}
+.diff-detail strong{color:var(--charcoal);font-weight:700;}
+.diff-evidence{margin-top:auto;background:var(--ink100);padding:6px 8px;border-radius:5px;font-size:10px;color:var(--ink700);line-height:1.45;border-left:2px solid var(--brand-red);}
+.diff-evidence b{display:block;font-size:9px;color:var(--brand-red);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;font-weight:700;}
 .diff-k{font-weight:700;flex-shrink:0;width:42px;font-family:'DM Mono',monospace;font-size:11px;}
 .diff-v{color:var(--slate);}
 .diff-v strong{color:var(--charcoal);font-weight:700;}
 
 /* 6채널 */
-.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;flex:1;}
-.ch-card{background:var(--wh);border:1px solid var(--bd);border-radius:8px;padding:5px 7px;display:flex;flex-direction:column;gap:2px;border-left:3px solid;}
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;}
+.ch-card{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:11px 13px 9px;display:flex;flex-direction:column;gap:6px;border-left:3px solid;}
 .ch-h{display:flex;align-items:center;gap:9px;}
+.ch-bullets{list-style:none;padding:0;margin:3px 0 0;display:flex;flex-direction:column;gap:4px;}
+.ch-bullets li{font-size:10.5px;color:var(--slate);line-height:1.45;padding-left:10px;position:relative;}
+.ch-bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--brand-red);border-radius:50%;}
+.ch-bullets strong{color:var(--charcoal);font-weight:700;}
+.ch-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);}
+.ch-stat{text-align:center;}
+.ch-stat .cn{font-family:'DM Mono',monospace;font-size:12px;font-weight:800;color:var(--charcoal);line-height:1;}
+.ch-stat .cl{font-size:9px;color:var(--mu);margin-top:2px;line-height:1.2;}
 .ch-icon{font-size:14px;}
 .ch-t{font-size:12.5px;font-weight:800;color:var(--charcoal);}
 .ch-d{font-size:11.5px;color:var(--slate);line-height:1.5;font-weight:400;}
@@ -1512,6 +1528,13 @@ body{
             <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">미국 회사 — 한·일·대만 취약</span></div>
             <div class="diff-row"><span class="diff-k" style="color:var(--blue);">SWK</span><span class="diff-v"><strong>14년 1,200건 운영</strong></span></div>
           </div>
+          <div class="diff-detail"><div class="diff-detail-h">세토웍스 자산</div><ul>
+            <li>한·일·대만·홍콩·싱가포르 <strong>5개국 백커 응대</strong></li>
+            <li>마쿠아케 공식 파트너 (한국 1위)</li>
+            <li>Dcard·LINE·Threads 자체 크롤러</li>
+            <li>일본·대만 <strong>현지 에이전트 2인</strong></li>
+          </ul></div>
+          <div class="diff-evidence"><b>경쟁 격차</b>Jellop이 동일 역량 구축에 5~7년 + 현지 채용 필요. 시간 = 진입장벽.</div>
         </div>
         <div class="diff-card" style="border-top-color:var(--gold);">
           <div class="diff-num">α2</div><div class="diff-t">진단+실행 풀스택</div>
@@ -1519,6 +1542,13 @@ body{
             <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">광고 운영만</span></div>
             <div class="diff-row"><span class="diff-k" style="color:var(--blue);">SWK</span><span class="diff-v">영상·LP·시딩·런칭 원스톱</span></div>
           </div>
+          <div class="diff-detail"><div class="diff-detail-h">통합 범위</div><ul>
+            <li>인하우스 영상팀 (8안 A/B)</li>
+            <li>LP 디자인+개발 자체 툴</li>
+            <li>Meta·Google·TikTok Ads 직접 운영</li>
+            <li><strong>외주 5~7곳 → 1곳</strong> 통합</li>
+          </ul></div>
+          <div class="diff-evidence"><b>메이커 ROI</b>관리 비용 50%↓ + 의사결정 속도 3x → 펀딩 결과 직결.</div>
         </div>
         <div class="diff-card" style="border-top-color:var(--purple);background:#faf5ff;">
           <div class="diff-num" style="color:var(--purple);">α3</div><div class="diff-t" style="color:var(--purple);">라스트 마일 2%<br>(사람+자동화)</div>
@@ -1526,6 +1556,13 @@ body{
             <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">자동화만 — 디테일 구멍</span></div>
             <div class="diff-row"><span class="diff-k" style="color:var(--blue);">SWK</span><span class="diff-v">교육된 사람 + 로직</span></div>
           </div>
+          <div class="diff-detail"><div class="diff-detail-h">98% 자동화 + 2% 사람</div><ul>
+            <li>SOP 문서화된 라스트 마일</li>
+            <li>현지 에이전트 DM·전화·미팅</li>
+            <li>예외 케이스 즉시 에스컬레이션</li>
+            <li>전환율 차이 = 마지막 2%에서 나옴</li>
+          </ul></div>
+          <div class="diff-evidence"><b>경쟁 함정</b>완전 자동화는 결제·환불 등 마지막 디테일에서 무너진다.</div>
         </div>
         <div class="diff-card" style="border-top-color:var(--green);">
           <div class="diff-num">α4</div><div class="diff-t">사전 예측 모델</div>
@@ -1533,6 +1570,13 @@ body{
             <div class="diff-row"><span class="diff-k" style="color:var(--red);">JLP</span><span class="diff-v">사후 대시보드만</span></div>
             <div class="diff-row"><span class="diff-k" style="color:var(--blue);">SWK</span><span class="diff-v">데이터 분석 + <strong>1,200건 실적 데이터</strong></span></div>
           </div>
+          <div class="diff-detail"><div class="diff-detail-h">예측 학습 데이터</div><ul>
+            <li>자체 1,200건 (14년 누적)</li>
+            <li>KS 27,986건 분석 (자체 크롤)</li>
+            <li>슈퍼백커 13,461명 댓글 패턴</li>
+            <li><strong>±15% 신뢰구간</strong> 예측</li>
+          </ul></div>
+          <div class="diff-evidence"><b>판매 무기</b>"사전에 결과를 보여준다" → 메이커 의사결정 기준 제공.</div>
         </div>
         <div class="diff-card" style="border-top-color:var(--brand-red);background:#fff5f7;">
           <div class="diff-num" style="color:var(--brand-red);">α5</div><div class="diff-t" style="color:var(--brand-red);">인플루언서 시딩<br>(Spray 흡수)</div>
@@ -1540,6 +1584,13 @@ body{
             <div class="diff-row"><span class="diff-k" style="color:var(--mu);">SPR</span><span class="diff-v">바이럴 스코어 — 뷰티 한정</span></div>
             <div class="diff-row"><span class="diff-k" style="color:var(--blue);">SWK</span><span class="diff-v">테크/가젯 × 백커 전환</span></div>
           </div>
+          <div class="diff-detail"><div class="diff-detail-h">차별화 포인트</div><ul>
+            <li>Pure Score 100점 자체 알고리즘</li>
+            <li>나노 50~150명 대량 시딩</li>
+            <li>전환율 = 백커 매출 추적</li>
+            <li><strong>13 카테고리 모두 커버</strong></li>
+          </ul></div>
+          <div class="diff-evidence"><b>Spray 한계</b>뷰티만 강함. 테크/가젯/라이프스타일 백커 풀 0.</div>
         </div>
       </div>
       <div class="ibox ibox-brand" style="flex:none;">
@@ -1559,12 +1610,90 @@ body{
     <div class="ss">서로 다른 6개 채널을 한 명의 잠재 백커로 결합 — 14년 누적 운영 데이터 + 6채널 실시간 신호</div>
     <div class="sb">
       <div class="ch-grid">
-        <div class="ch-card" style="border-left-color:var(--blue);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">광고 클릭 (Meta·Google)</div></div><div class="ch-d">UTM·디바이스·관심사 · ROAS. <strong>가장 초기 단계의 1차 신호</strong>.</div><div class="ch-meta">→ TimescaleDB</div></div>
-        <div class="ch-card" style="border-left-color:var(--gold);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">펀딩 백커 (Kickstarter)</div></div><div class="ch-d">백커 ID·금액·리워드. <strong>실제 결제까지 도달한 핵심 신호</strong>.</div><div class="ch-meta">→ PostgreSQL</div></div>
-        <div class="ch-card" style="border-left-color:var(--green);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">이커머스 구매</div></div><div class="ch-d">Shopify/Cafe24. <strong>리피트 + LTV</strong> 추적.</div><div class="ch-meta">→ PG + TimescaleDB</div></div>
-        <div class="ch-card" style="border-left-color:var(--brand-red);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">인플루언서 시청자 (TikTok)</div></div><div class="ch-d">TikTok Creator API. 시청자 지역·연령·관심사. <strong>α5 시딩의 핵심</strong>.</div><div class="ch-meta">→ PG + Qdrant</div></div>
-        <div class="ch-card" style="border-left-color:var(--purple);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">뉴스레터 구독</div></div><div class="ch-d">자체 뉴스레터 오픈·CTR. <strong>장기 관심층</strong> 리타겟팅.</div><div class="ch-meta">→ PostgreSQL</div></div>
-        <div class="ch-card" style="border-left-color:var(--charcoal);"><div class="ch-h"><span class="ch-icon"></span><div class="ch-t">OCR 회의록 인사이트</div></div><div class="ch-d">메이커 미팅 STT/OCR → 자동 요약. <strong>정성 데이터</strong>.</div><div class="ch-meta">→ Qdrant + ES</div></div>
+        <div class="ch-card" style="border-left-color:var(--blue);">
+          <div class="ch-h"><div class="ch-t">① 광고 클릭 (Meta·Google·TT)</div></div>
+          <div class="ch-d">UTM·디바이스·관심사 · ROAS — <strong>가장 초기 단계 1차 신호</strong>.</div>
+          <ul class="ch-bullets">
+            <li>Meta Ads Manager API 자동 동기화</li>
+            <li>Google Ads + GA4 퍼널 추적</li>
+            <li>TikTok Pixel + Spark Ads</li>
+            <li>UTM 표준화 (n8n 자동 생성)</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">3~7x</div><div class="cl">평균 ROAS</div></div>
+            <div class="ch-stat"><div class="cn">실시간</div><div class="cl">TimescaleDB</div></div>
+          </div>
+        </div>
+        <div class="ch-card" style="border-left-color:var(--gold);">
+          <div class="ch-h"><div class="ch-t">② 펀딩 백커 (KS·인디·마쿠)</div></div>
+          <div class="ch-d">백커 ID·금액·리워드 — <strong>실제 결제 도달 핵심 신호</strong>.</div>
+          <ul class="ch-bullets">
+            <li>Kickstarter GraphQL 자체 크롤러</li>
+            <li>마쿠아케 공식 파트너 API</li>
+            <li>인디고고·텀블벅·Wadiz 통합</li>
+            <li>슈퍼백커 13,461명 댓글 매칭</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">27,986</div><div class="cl">KS 누적</div></div>
+            <div class="ch-stat"><div class="cn">PostgreSQL</div><div class="cl">정형 적재</div></div>
+          </div>
+        </div>
+        <div class="ch-card" style="border-left-color:var(--green);">
+          <div class="ch-h"><div class="ch-t">③ 이커머스 구매</div></div>
+          <div class="ch-d">Shopify·Cafe24·Amazon — <strong>리피트 + LTV</strong> 추적.</div>
+          <ul class="ch-bullets">
+            <li>백커 → 자사몰 자동 이전</li>
+            <li>Amazon FBA/MCF 연동</li>
+            <li>30·60·90일 자동 시퀀스</li>
+            <li>LTV 1.8~2.5x 추적</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">90일</div><div class="cl">시퀀스</div></div>
+            <div class="ch-stat"><div class="cn">PG+TS</div><div class="cl">통합 적재</div></div>
+          </div>
+        </div>
+        <div class="ch-card" style="border-left-color:var(--brand-red);">
+          <div class="ch-h"><div class="ch-t">④ 인플루언서 시청자 (TT·YT·IG)</div></div>
+          <div class="ch-d">시청자 지역·연령·관심사 — <strong>α5 시딩의 핵심</strong>.</div>
+          <ul class="ch-bullets">
+            <li>TikTok Creator API + Apify</li>
+            <li>YouTube Data API (가동 中, 65명)</li>
+            <li>IG Graph API + 콘텐츠 임베딩</li>
+            <li>Pure Score 100점 자동 등급</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">6,000+</div><div class="cl">90일 풀</div></div>
+            <div class="ch-stat"><div class="cn">PG+Qdrant</div><div class="cl">벡터 검색</div></div>
+          </div>
+        </div>
+        <div class="ch-card" style="border-left-color:var(--purple);">
+          <div class="ch-h"><div class="ch-t">⑤ 뉴스레터·DM 구독</div></div>
+          <div class="ch-d">자체 뉴스레터 오픈·CTR — <strong>장기 관심층</strong> 리타겟팅.</div>
+          <ul class="ch-bullets">
+            <li>Stibee/Mailchimp 통합</li>
+            <li>오픈/클릭 행동 패턴 학습</li>
+            <li>제품 카테고리별 세그먼트</li>
+            <li>n8n 자동 시퀀스 트리거</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">25%↑</div><div class="cl">평균 오픈율</div></div>
+            <div class="ch-stat"><div class="cn">PostgreSQL</div><div class="cl">행동 적재</div></div>
+          </div>
+        </div>
+        <div class="ch-card" style="border-left-color:var(--charcoal);">
+          <div class="ch-h"><div class="ch-t">⑥ OCR·STT 회의록 인사이트</div></div>
+          <div class="ch-d">메이커 미팅 STT/OCR 자동 요약 — <strong>정성 데이터</strong>.</div>
+          <ul class="ch-bullets">
+            <li>Whisper STT 한·일·중·영</li>
+            <li>회의록 자동 요약 + 액션 추출</li>
+            <li>메이커 페인포인트 키워드 인덱싱</li>
+            <li>RAG로 다음 미팅 컨텍스트 연결</li>
+          </ul>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="cn">자동</div><div class="cl">10분 내</div></div>
+            <div class="ch-stat"><div class="cn">Qdrant+ES</div><div class="cl">벡터+검색</div></div>
+          </div>
+        </div>
       </div>
       <div class="ch-merge">
         <div class="ch-merge-l">→ 1</div>
