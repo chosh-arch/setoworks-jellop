@@ -252,13 +252,15 @@ body{
 .val-card-t{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.25;}
 .val-card-sub{font-size:11.5px;color:var(--ink700);font-weight:600;line-height:1.4;}
 .val-card-sub em{color:var(--brand-red);font-style:normal;font-weight:800;}
-.val-card-bullets{list-style:none;padding:0;margin:2px 0 0;display:flex;flex-direction:column;gap:3px;}
-.val-card-bullets li{font-size:10.5px;color:var(--slate);line-height:1.45;padding-left:10px;position:relative;}
-.val-card-bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:var(--brand-red);border-radius:50%;}
+.val-card-bullets{list-style:none;padding:0;margin:2px 0 0;display:flex;flex-direction:column;gap:4px;}
+.val-card-bullets li{font-size:11px;color:var(--slate);line-height:1.5;padding-left:11px;position:relative;}
+.val-card-bullets li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;background:var(--brand-red);border-radius:50%;}
 .val-card-bullets strong{color:var(--charcoal);font-weight:700;}
-.val-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px;border-top:1px dashed var(--bd);}
+.val-card-evidence{margin-top:6px;background:var(--ink100);border-left:3px solid var(--ink300);padding:7px 9px;border-radius:5px;font-size:10.5px;color:var(--ink700);line-height:1.5;}
+.val-card-evidence b{display:block;font-size:9.5px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;font-weight:700;}
+.val-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:7px;border-top:1px dashed var(--bd);}
 .val-card-stat{text-align:center;}
-.val-card-stat .vn{font-family:'DM Mono',monospace;font-size:13px;font-weight:800;color:var(--charcoal);line-height:1;}
+.val-card-stat .vn{font-family:'DM Mono',monospace;font-size:13.5px;font-weight:800;color:var(--charcoal);line-height:1;}
 .val-card-stat .vl{font-size:9.5px;color:var(--mu);margin-top:2px;line-height:1.2;}
 .val-card-d{font-size:11.5px;color:var(--slate);line-height:1.5;font-weight:400;}
 .val-card-d strong{color:var(--charcoal);font-weight:700;}
@@ -1216,6 +1218,7 @@ body{
             <li><strong>유사 사례 3건</strong> 자동 추출 → 가격·리워드·시딩 전략 즉시 비교</li>
             <li>사람이 만들면 2~3일 → <strong>30분 자동 생성</strong></li>
           </ul>
+          <div class="val-card-evidence"><b>증거</b>KS 27,986건 + 자체 1,200건 학습. 카테고리별 성공률 분포 + 슈퍼백커 13,461명 댓글 패턴 → 가격대·리워드 구조·국가 가중치 자동 산출.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">3,000만+</div><div class="vl">매몰비용 절감</div></div>
             <div class="val-card-stat"><div class="vn">±15%</div><div class="vl">예측 신뢰구간</div></div>
@@ -1231,6 +1234,7 @@ body{
             <li><strong>컨택:</strong> 이메일 + Comment-to-DM + TikTok Marketplace + 현지 에이전트</li>
             <li><strong>운영:</strong> 나노 50~150명 동시 시딩 → 게시율 30~50%</li>
           </ul>
+          <div class="val-card-evidence"><b>증거</b>YouTube 누적 65명 가동 中 + TikTok·IG·Dcard·Threads·FB 순차 추가. n8n 워크플로우 + 프록시 풀 + Apify로 컨택 라스트마일 자동화.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">200h+</div><div class="vl">시간 절감/캠페인</div></div>
             <div class="val-card-stat"><div class="vn">98%</div><div class="vl">자동화 비율</div></div>
@@ -1246,6 +1250,7 @@ body{
             <li><strong>인프라:</strong> LP·이메일·DM 전부 세토웍스 시스템 위에서</li>
             <li>메이커는 <strong>제품 개발에만 집중</strong> — 운영 부담 0</li>
           </ul>
+          <div class="val-card-evidence"><b>실측 사례</b>한셉트·콕스스페이스·뉴마핏·가돌·큐비오X·닥터서플라이 — 6개 캠페인 풀스택 운영. 메이커는 제품 디자인·QC만, 마케팅 0인.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">50%+</div><div class="vl">외주관리 비 절감</div></div>
             <div class="val-card-stat"><div class="vn">3~7x</div><div class="vl">광고 ROAS</div></div>
@@ -1261,6 +1266,7 @@ body{
             <li><strong>메가 케이스(큐비오X 30억)</strong> → 건당 4.5억 → 단일 캠페인 손익분기 돌파</li>
             <li>실패 시 메이커 손실 = 제품 비용만, 세토웍스 손실 = 운영 인건비</li>
           </ul>
+          <div class="val-card-evidence"><b>인센티브 정렬</b>세토웍스가 펀딩 실패 시 0원 회수 → 사전 검증·선택을 까다롭게 할 수밖에 없음. 메이커는 "마케팅사가 일 안 하면 어쩌지" 걱정 0.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">0원</div><div class="vl">초기 자본</div></div>
             <div class="val-card-stat"><div class="vn">15%</div><div class="vl">성과 수수료</div></div>
@@ -1276,6 +1282,7 @@ body{
             <li><strong>현지 에이전트:</strong> 대만 1·일본 1 — DM·전화·미팅 라스트 마일</li>
             <li>Dcard·Threads·LINE 등 <strong>미국 플레이어가 모르는 채널</strong> 자체 크롤링</li>
           </ul>
+          <div class="val-card-evidence"><b>차별점</b>Jellop·Funded Today 등 미국 마케팅사는 영어권 백커만 푸시. 세토웍스는 일본 1.6만·대만 1.4만 백커 풀에 직접 도달.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">5개국</div><div class="vl">네이티브 운영</div></div>
             <div class="val-card-stat"><div class="vn">90%↓</div><div class="vl">현지화 리스크</div></div>
@@ -1291,6 +1298,7 @@ body{
             <li><strong>이메일·SMS 마케팅</strong> n8n 자동화 — 펀딩 종료 후 30·60·90일 시퀀스</li>
             <li>슈퍼백커 13,461명 DB 활용 → <strong>다음 캠페인 1일차 컨버전</strong> 확보</li>
           </ul>
+          <div class="val-card-evidence"><b>구조적 우위</b>업계 평균 펀딩 후 사라지는 LP·광고 자산을 6개월 재활용 → 이커머스 매출이 펀딩의 1.8~2.5배. 단발 캠페인 → 연속 매출 전환.</div>
           <div class="val-card-stats">
             <div class="val-card-stat"><div class="vn">1.8~2.5x</div><div class="vl">LTV 증가</div></div>
             <div class="val-card-stat"><div class="vn">90일</div><div class="vl">자동 시퀀스</div></div>
