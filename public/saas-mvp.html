@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks Crowdfunding Intelligence — SaaS Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --em:#3ECF8E;--em-dim:rgba(62,207,142,.12);--em-edge:rgba(62,207,142,.28);
+  --bg:#0a0a0a;--sidebar-bg:#060606;--surface:#101010;--surface-2:#181818;
+  --card:rgba(255,255,255,.04);--card-hi:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.08);--border-hi:rgba(255,255,255,.16);
+  --text:#ededed;--text-dim:#a8a8a8;--muted:#666;
+  --red:#ef4444;--yellow:#f59e0b;--blue:#6366f1;--orange:#f97316;
+  --cyan:#06b6d4;--purple:#a370f7;--pink:#ec4899;
+  --sidebar-w:240px;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Pretendard','Inter','Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+a{color:var(--em);text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+code,kbd{font-family:var(--mono)}
+
+/* ==== Sidebar ==== */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--sidebar-bg);border-right:1px solid var(--border);overflow-y:auto;z-index:10;display:flex;flex-direction:column}
+.sidebar-logo{padding:18px 20px 16px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.sidebar-logo a{color:#fff;font-size:15px;font-weight:800;letter-spacing:-.02em}
+.sidebar-logo a span{color:var(--em)}
+.sidebar-logo .sub{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.1em}
+.sidebar-section{padding:14px 12px 4px}
+.sidebar-section .lbl{font-size:9.5px;color:var(--muted);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 8px 6px}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;color:var(--text-dim);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;text-decoration:none}
+.sidebar-link:hover{background:rgba(255,255,255,.04);color:#fff}
+.sidebar-link.active{background:var(--em-dim);color:var(--em);font-weight:600}
+.sidebar-link .num{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:14px}
+.sidebar-link.active .num{color:var(--em)}
+.sidebar-link .badge{margin-left:auto;font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.08);color:var(--text-dim)}
+.sidebar-link.active .badge{background:rgba(62,207,142,.18);color:var(--em)}
+.sidebar-footer{margin-top:auto;padding:12px 20px;border-top:1px solid var(--border);font-size:9px;color:#333;line-height:1.6}
+
+/* ==== Main ==== */
+.main{margin-left:var(--sidebar-w);min-height:100vh;position:relative;z-index:1}
+.topbar{position:sticky;top:0;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;gap:14px;z-index:5}
+.topbar-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--em);background:var(--em-dim);padding:4px 10px;border-radius:20px;border:1px solid var(--em-edge);font-weight:600}
+.topbar-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--em);box-shadow:0 0 8px var(--em);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.topbar-title{font-size:13px;color:var(--text-dim);font-weight:500}
+.topbar-spacer{flex:1}
+.topbar-cta{padding:7px 14px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid var(--border-hi);color:var(--text);transition:all .15s}
+.topbar-cta:hover{border-color:var(--em);color:var(--em)}
+.topbar-cta.primary{background:var(--em);color:#000;border-color:var(--em)}
+.topbar-cta.primary:hover{background:#5ee5a8;color:#000}
+
+.page{padding:36px 48px 60px;max-width:1380px;margin:0 auto}
+
+/* Page hero */
+.hero{margin-bottom:32px}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--em);letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.hero h1{font-size:38px;font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:14px}
+.hero h1 em{color:var(--em);font-style:normal}
+.hero-sub{font-size:15px;color:var(--text-dim);max-width:760px;line-height:1.6}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero-meta-pill{font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);padding:5px 10px;border-radius:4px;color:var(--text-dim)}
+.hero-meta-pill b{color:var(--em);font-weight:700;margin-right:4px}
+
+/* KPI strip */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.kpi-l{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.kpi-v{font-family:var(--mono);font-size:24px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.02em}
+.kpi-d{font-size:11px;color:var(--text-dim);margin-top:4px}
+
+/* Section */
+.section{margin-top:36px}
+.section-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.section-h .num{font-family:var(--mono);width:28px;height:28px;border-radius:6px;background:var(--em-dim);color:var(--em);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.section-h h2{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.section-h .tail{margin-left:auto;font-size:11.5px;color:var(--muted)}
+
+/* Card grid */
+.card-grid{display:grid;gap:14px}
+.cg-3{grid-template-columns:repeat(3,1fr)}
+.cg-2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:all .15s}
+.card:hover{background:var(--card-hi);border-color:var(--border-hi)}
+.card-h{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.card-h .dot{width:8px;height:8px;border-radius:50%;background:var(--em)}
+.card-t{font-size:14px;font-weight:700;color:#fff}
+.card-d{font-size:12.5px;color:var(--text-dim);line-height:1.55}
+
+/* Demo console */
+.demo{display:grid;grid-template-columns:380px 1fr;gap:16px;margin-top:8px}
+.demo-input{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+.demo-input h3{font-size:13px;color:#fff;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.demo-input h3::before{content:"INPUT";font-family:var(--mono);font-size:9px;color:var(--em);background:var(--em-dim);padding:2px 6px;border-radius:3px;letter-spacing:.06em}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;color:var(--text-dim);font-weight:600;margin-bottom:5px;letter-spacing:.02em}
+.field input,.field select,.field textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:#fff;font-size:13px;font-family:inherit;transition:border .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--em)}
+.field textarea{resize:vertical;min-height:64px;font-family:var(--mono);font-size:11.5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field-hint{font-size:10px;color:var(--muted);margin-top:4px}
+.btn-run{width:100%;background:var(--em);color:#000;font-weight:700;font-size:13px;padding:11px 16px;border-radius:6px;margin-top:6px;letter-spacing:.02em;transition:all .15s}
+.btn-run:hover{background:#5ee5a8}
+.btn-run:disabled{opacity:.4;cursor:not-allowed}
+
+.demo-output{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px;min-height:560px}
+.demo-output-h{display:flex;align-items:center;gap:8px;font-size:13px;color:#fff;font-weight:700}
+.demo-output-h::before{content:"OUTPUT";font-family:var(--mono);font-size:9px;color:var(--em);background:var(--em-dim);padding:2px 6px;border-radius:3px;letter-spacing:.06em}
+.demo-output-h .meta{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:500}
+.empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;font-family:var(--mono);text-align:center;gap:8px}
+.empty::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted);opacity:.5}
+
+/* Output cards */
+.out-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.out-cell{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.out-cell .l{font-family:var(--mono);font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-weight:600}
+.out-cell .v{font-family:var(--mono);font-size:18px;font-weight:800;color:var(--em);line-height:1;letter-spacing:-.01em}
+.out-cell .v.neutral{color:#fff}
+.out-cell .v.warn{color:var(--yellow)}
+.out-cell .v.bad{color:var(--red)}
+.out-cell .d{font-size:10.5px;color:var(--text-dim);margin-top:4px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl thead th{background:var(--surface-2);color:var(--muted);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl tbody td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+.tbl tbody tr:hover{background:var(--surface-2)}
+.tbl .mono{font-family:var(--mono);color:#fff}
+.tbl .accent{color:var(--em);font-weight:700}
+.tbl .dim{color:var(--muted)}
+.tbl .pill{display:inline-block;padding:1px 7px;border-radius:10px;font-family:var(--mono);font-size:9.5px;font-weight:700}
+.tbl .pill.ok{background:rgba(62,207,142,.15);color:var(--em)}
+.tbl .pill.warn{background:rgba(245,158,11,.15);color:var(--yellow)}
+.tbl .pill.bad{background:rgba(239,68,68,.15);color:var(--red)}
+
+/* Charts */
+.chart-wrap{position:relative;height:240px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px}
+.chart-wrap canvas{max-height:100%}
+
+/* Code block */
+.code{background:#000;border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:11.5px;color:#a8e6c0;line-height:1.65;overflow-x:auto;white-space:pre}
+.code .k{color:#7ec0ee}.code .s{color:#f59e0b}.code .c{color:#666}.code .n{color:#ec4899}
+
+/* Loading shimmer */
+.shimmer{position:relative;overflow:hidden;background:var(--surface-2)}
+.shimmer::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(62,207,142,.06),transparent);animation:shimmer 1.4s infinite}
+@keyframes shimmer{to{transform:translateX(100%)}from{transform:translateX(-100%)}}
+
+/* Pricing */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.price-card.highlighted{background:linear-gradient(180deg,rgba(62,207,142,.1),rgba(62,207,142,.02));border-color:var(--em-edge);position:relative}
+.price-card.highlighted::before{content:"MOST POPULAR";position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;background:var(--em);color:#000;padding:3px 9px;border-radius:10px;font-weight:800;letter-spacing:.06em}
+.price-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase}
+.price-amount{font-family:var(--mono);font-size:36px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.02em}
+.price-amount span{font-size:14px;color:var(--muted);font-weight:500;margin-left:4px}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.price-feats li{font-size:12.5px;color:var(--text-dim);padding-left:20px;position:relative}
+.price-feats li::before{content:"✓";position:absolute;left:0;top:0;color:var(--em);font-weight:700}
+.price-cta{margin-top:auto;padding:10px;background:transparent;border:1px solid var(--em-edge);color:var(--em);border-radius:6px;font-weight:700;font-size:13px;text-align:center;transition:all .15s}
+.price-cta:hover{background:var(--em);color:#000}
+.price-card.highlighted .price-cta{background:var(--em);color:#000;border-color:var(--em)}
+.price-card.highlighted .price-cta:hover{background:#5ee5a8}
+
+/* Page route helper */
+.page-view{display:none}
+.page-view.active{display:block}
+
+/* Tier ribbon (Pure Score) */
+.tier-row{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;flex-wrap:wrap}
+.tier-pill{padding:3px 9px;border-radius:14px;font-weight:700;font-size:10px}
+.tier-nano{background:rgba(16,185,129,.18);color:#10b981}
+.tier-micro{background:rgba(20,184,166,.18);color:#14b8a6}
+.tier-mid{background:rgba(99,102,241,.18);color:#6366f1}
+.tier-macro{background:rgba(245,158,11,.18);color:#f59e0b}
+.tier-mega{background:rgba(239,68,68,.18);color:#ef4444}
+
+/* Bar mini visualization */
+.bar-row{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;padding:5px 0;font-size:11.5px}
+.bar-row .lbl{color:var(--text-dim)}
+.bar-row .val{font-family:var(--mono);font-weight:700;color:#fff;text-align:right}
+.bar-track{height:8px;background:var(--surface-2);border-radius:4px;position:relative;overflow:hidden}
+.bar-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--em),#5ee5a8);border-radius:4px;transition:width .8s cubic-bezier(.16,1,.3,1)}
+
+/* Spinner */
+.spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--em);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:1100px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.kpi-row,.cg-3,.out-grid,.price-grid{grid-template-columns:1fr 1fr}.demo{grid-template-columns:1fr}}
+@media(max-width:640px){.kpi-row,.cg-3,.cg-2,.out-grid,.price-grid{grid-template-columns:1fr}.page{padding:24px 18px 50px}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <a href="/"><span>●</span> SETOWORKS</a>
+    <span class="sub">Crowdfunding Intelligence Suite</span>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="lbl">Overview</div>
+    <a class="sidebar-link active" data-route="overview"><span class="num">00</span>Suite Overview<span class="badge">v0.1</span></a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="lbl">Products · 5</div>
+    <a class="sidebar-link" data-route="fop"><span class="num">01</span>Funding Predictor<span class="badge">FOP</span></a>
+    <a class="sidebar-link" data-route="lookalike"><span class="num">02</span>Backer Lookalike<span class="badge">API</span></a>
+    <a class="sidebar-link" data-route="purescore"><span class="num">03</span>Pure Score<span class="badge">API</span></a>
+    <a class="sidebar-link" data-route="radar"><span class="num">04</span>Trend Radar<span class="badge">Live</span></a>
+    <a class="sidebar-link" data-route="buyer"><span class="num">05</span>Buyer Match<span class="badge">B2B</span></a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="lbl">Resources</div>
+    <a class="sidebar-link" data-route="pricing"><span class="num">$</span>Pricing</a>
+    <a class="sidebar-link" data-route="api"><span class="num">{ }</span>API Docs</a>
+  </div>
+
+  <div class="sidebar-footer">
+    Powered by <a>Setoworks</a> · 14yrs · 1,200 launches · 520억 KRW<br>
+    Data: 27,986 KS + 13,461 superbackers
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- ============ TOPBAR ============ -->
+  <div class="topbar">
+    <span class="topbar-tag">LIVE · v0.1 MVP</span>
+    <span class="topbar-title" id="route-title">Suite Overview</span>
+    <span class="topbar-spacer"></span>
+    <button class="topbar-cta">Sign in</button>
+    <button class="topbar-cta primary">Get API key →</button>
+  </div>
+
+  <!-- ============ PAGE: OVERVIEW ============ -->
+  <div class="page page-view active" data-page="overview">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Setoworks Intelligence Suite</div>
+      <h1>크라우드펀딩의 결과를<br>론칭 전에 <em>예측·매칭·검증</em>한다.</h1>
+      <p class="hero-sub">14년·1,200건 펀딩 운영 데이터 + Kickstarter 27,986건 자체 크롤 + 슈퍼백커 13,461명 행동 패턴을 학습한 5개 AI 제품. 메이커·광고대행사·마케팅사가 사람 개입 없이 30분 내에 의사결정 데이터를 받는다.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>1,200+</b>자체 캠페인 학습</div>
+        <div class="hero-meta-pill"><b>27,986</b>KS 메타 분석</div>
+        <div class="hero-meta-pill"><b>13,461</b>슈퍼백커 DB</div>
+        <div class="hero-meta-pill"><b>±15%</b>예측 신뢰구간</div>
+        <div class="hero-meta-pill"><b>5개국</b>아시아 네이티브</div>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-l">Predictions Run</div><div class="kpi-v">12,847</div><div class="kpi-d">last 30 days</div></div>
+      <div class="kpi"><div class="kpi-l">Avg Accuracy</div><div class="kpi-v">±14.2%</div><div class="kpi-d">funding outcome</div></div>
+      <div class="kpi"><div class="kpi-l">API Calls</div><div class="kpi-v">3.2M</div><div class="kpi-d">this month</div></div>
+      <div class="kpi"><div class="kpi-l">Active Tenants</div><div class="kpi-v">142</div><div class="kpi-d">paying customers</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">P</span><h2>5개 제품 구성</h2><span class="tail">click any card to demo</span></div>
+      <div class="card-grid cg-3">
+        <div class="card" onclick="route('fop')" style="cursor:pointer">
+          <div class="card-h"><span class="dot" style="background:var(--em)"></span><span class="card-t">01 · Funding Outcome Predictor</span></div>
+          <div class="card-d">제품 1줄 입력 → 예상 펀딩액 + ±15% 신뢰구간 + 유사 사례 3건 + 추천 인플루언서 TOP 20 + Tier별 예산.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px"><b>30분</b>자동 생성</span><span class="hero-meta-pill" style="font-size:9.5px"><b>$300</b>per report</span></div>
+        </div>
+        <div class="card" onclick="route('lookalike')" style="cursor:pointer">
+          <div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">02 · Backer Lookalike API</span></div>
+          <div class="card-d">카테고리·가격대 → Meta·Google·TikTok 광고 시드 (CSV·JSON). 슈퍼백커 13,461명 행동 패턴 기반.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px"><b>$0.05</b>per lookup</span><span class="hero-meta-pill" style="font-size:9.5px"><b>CPA -40%</b></span></div>
+        </div>
+        <div class="card" onclick="route('purescore')" style="cursor:pointer">
+          <div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">03 · Pure Score API</span></div>
+          <div class="card-d">인플루언서 핸들 → 100점 점수 + 5-Tier 등급 + 봇 비율 추정 + 게시 ER 트렌드.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px"><b>$0.02</b>per score</span><span class="hero-meta-pill" style="font-size:9.5px"><b>5-Tier</b>auto</span></div>
+        </div>
+        <div class="card" onclick="route('radar')" style="cursor:pointer">
+          <div class="card-h"><span class="dot" style="background:var(--cyan)"></span><span class="card-t">04 · CF Trend Radar</span></div>
+          <div class="card-d">매일 자동 갱신되는 카테고리·국가·가격대별 트렌드 보드. 신규 핫 카테고리 알림.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px"><b>$99</b>/월</span><span class="hero-meta-pill" style="font-size:9.5px"><b>매일 09:00</b></span></div>
+        </div>
+        <div class="card" onclick="route('buyer')" style="cursor:pointer">
+          <div class="card-h"><span class="dot" style="background:var(--purple)"></span><span class="card-t">05 · Buyer Match API</span></div>
+          <div class="card-d">HS 코드·제품 → TOP 30 글로벌 바이어 + 컨택 경로 + 예상 응답률.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px"><b>$299</b>per list</span><span class="hero-meta-pill" style="font-size:9.5px"><b>5-factor</b>scoring</span></div>
+        </div>
+        <div class="card" style="background:linear-gradient(135deg,var(--em-dim),transparent);border-color:var(--em-edge)">
+          <div class="card-h"><span class="dot" style="background:var(--em);box-shadow:0 0 8px var(--em)"></span><span class="card-t">★ Suite Bundle</span></div>
+          <div class="card-d">5개 제품 통합 월정액 + API 토큰 공유. Startup $499 · Agency $1,499 · Enterprise $4,999.</div>
+          <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span class="hero-meta-pill" style="font-size:9.5px;background:var(--em-dim);border-color:var(--em-edge);color:var(--em)"><b>-40%</b>vs 단품</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>왜 Setoworks인가</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--em)"></span><span class="card-t">남이 못 만드는 데이터</span></div><div class="card-d">14년 1,200건 자체 결과 + KS GraphQL 직접 + 슈퍼백커 13,461명 댓글 패턴. 경쟁사 동등 자산 구축에 5~7년 + 현지 채용 필요.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">완전 자동 · 사람 개입 0</span></div><div class="card-d">입력 → 자동 추론 → API 응답. 보고서는 30분 자동 생성. 사람이 필요한 영역은 "최종 선택"뿐 — 그래서 SaaS가 가능하다.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--purple)"></span><span class="card-t">아시아 네이티브</span></div><div class="card-d">한·일·대만·홍콩·싱가포르 5개국 백커 풀 + Dcard·LINE·Threads 자체 크롤. 미국식 마케팅사가 못 들어오는 시장.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: FOP ============ -->
+  <div class="page page-view" data-page="fop">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Product 01 · Funding Outcome Predictor</div>
+      <h1>론칭 전에 <em>펀딩 결과</em>를 본다.</h1>
+      <p class="hero-sub">제품 정보 1줄을 입력하면 ±15% 신뢰구간으로 예상 펀딩액 + 유사 성공 사례 3건 + 추천 인플루언서 TOP 20 + Tier별 시딩 예산을 30분 내에 자동 생성합니다.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>±15%</b>신뢰구간</div>
+        <div class="hero-meta-pill"><b>30분</b>생성 시간</div>
+        <div class="hero-meta-pill"><b>27,986</b>학습 케이스</div>
+        <div class="hero-meta-pill"><b>$300</b>per report</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>Demo Console</h2><span class="tail">try with sample data</span></div>
+      <div class="demo">
+        <div class="demo-input">
+          <h3>Predict funding outcome</h3>
+          <div class="field">
+            <label>Product name</label>
+            <input id="fop-name" type="text" placeholder="e.g. Foldable laptop stand" value="Pro Foldable Aluminum Laptop Stand">
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Category</label>
+              <select id="fop-cat">
+                <option>Tech / Gadgets</option><option>Product Design</option><option>Tabletop Games</option><option>Home / Lifestyle</option><option>Apparel</option><option>Food & Craft</option>
+              </select>
+            </div>
+            <div class="field"><label>Target country</label>
+              <select id="fop-country">
+                <option>US</option><option>JP</option><option>KR</option><option>TW</option><option>GB</option><option>DE</option><option>FR</option><option>CN</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Pledge price (USD)</label>
+              <input id="fop-price" type="number" value="89" min="1" max="9999">
+            </div>
+            <div class="field"><label>Funding goal (USD)</label>
+              <input id="fop-goal" type="number" value="20000" min="500" max="9999999">
+            </div>
+          </div>
+          <div class="field"><label>Maker history</label>
+            <select id="fop-maker">
+              <option value="first">First-time maker</option>
+              <option value="repeat">1~3 prior launches</option>
+              <option value="serial">4+ launches (Superlaunch)</option>
+            </select>
+          </div>
+          <div class="field"><label>Story preview (optional)</label>
+            <textarea id="fop-story" placeholder="Paste 2-3 lines of your campaign story for tone analysis...">A premium folding laptop stand built with aerospace-grade aluminum, designed for digital nomads and remote workers.</textarea>
+          </div>
+          <button class="btn-run" onclick="runFOP()">Run prediction →</button>
+          <div class="field-hint">Latency ~12s · Mock data in MVP — production uses 1,200 ground-truth campaigns + 27,986 KS</div>
+        </div>
+
+        <div class="demo-output" id="fop-out">
+          <div class="demo-output-h">Prediction Report<span class="meta">awaiting input...</span></div>
+          <div class="empty">Run prediction to see output</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">I</span><h2>What's inside the report</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot"></span><span class="card-t">예상 펀딩액 + 신뢰구간</span></div><div class="card-d">P10·P50·P90 분포로 보수·중간·적극 시나리오 제공. KS 27,986건 카테고리×가격×국가 회귀 학습.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">유사 성공 사례 3건</span></div><div class="card-d">자체 1,200건 + KS DB에서 카테고리·가격·메이커 이력 가장 가까운 캠페인 자동 추출 + 결과 비교.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">추천 인플루언서 TOP 20</span></div><div class="card-d">제품 카테고리 × 인플루언서 콘텐츠 임베딩 일치도 + Pure Score 가중. 5-Tier 균형으로 출력.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: LOOKALIKE ============ -->
+  <div class="page page-view" data-page="lookalike">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Product 02 · Backer Lookalike API</div>
+      <h1>슈퍼백커 13,461명을 <em>광고 시드</em>로 직접 사용한다.</h1>
+      <p class="hero-sub">카테고리·가격대를 입력하면 Meta·Google·TikTok 광고 매니저에 즉시 업로드 가능한 lookalike seed CSV/JSON을 반환합니다. 자체 캠페인 1,200건 결과로 검증된 백커 행동 패턴 기반.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>13,461</b>슈퍼백커 풀</div>
+        <div class="hero-meta-pill"><b>CPA -40%</b>vs cold</div>
+        <div class="hero-meta-pill"><b>$0.05</b>per lookup</div>
+        <div class="hero-meta-pill"><b>CSV·JSON·Audience</b></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>Demo Console</h2></div>
+      <div class="demo">
+        <div class="demo-input">
+          <h3>Generate lookalike seed</h3>
+          <div class="field"><label>Product category</label>
+            <select id="lk-cat"><option>Tech / Gadgets</option><option>Product Design</option><option>Tabletop Games</option><option>Home / Lifestyle</option><option>Apparel</option><option>Food & Craft</option></select>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Min pledge $</label><input id="lk-min" type="number" value="50"></div>
+            <div class="field"><label>Max pledge $</label><input id="lk-max" type="number" value="500"></div>
+          </div>
+          <div class="field"><label>Target platform</label>
+            <select id="lk-platform"><option>Meta (Facebook · Instagram)</option><option>Google Ads · YouTube</option><option>TikTok Ads</option><option>All 3 (combined)</option></select>
+          </div>
+          <div class="field"><label>Geographic focus</label>
+            <select id="lk-geo"><option>US</option><option>Asia (KR·JP·TW)</option><option>EU</option><option>Global</option></select>
+          </div>
+          <div class="field"><label>Output format</label>
+            <select id="lk-fmt"><option>CSV (email hash · phone hash)</option><option>JSON (Meta-ready)</option><option>Custom Audience push (direct)</option></select>
+          </div>
+          <button class="btn-run" onclick="runLK()">Generate seed →</button>
+          <div class="field-hint">PII hashed · GDPR/CCPA compliant · ~5s latency</div>
+        </div>
+
+        <div class="demo-output" id="lk-out">
+          <div class="demo-output-h">Lookalike Seed<span class="meta">awaiting input...</span></div>
+          <div class="empty">Run generator to see seed sample</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PURESCORE ============ -->
+  <div class="page page-view" data-page="purescore">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Product 03 · Pure Score API</div>
+      <h1>인플루언서 검증을 <em>자동화 로직</em>으로.</h1>
+      <p class="hero-sub">TikTok·YouTube·Instagram 핸들을 입력하면 100점 척도 + 5-Tier 등급 + 봇 비율 추정 + 콘텐츠 일관성 점수가 즉시 반환됩니다. 5축(업로드 30 + 조회비 25 + 참여 20 + 일관성 15 + 성장 10) 자체 알고리즘.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>5축</b>자체 가중</div>
+        <div class="hero-meta-pill"><b>5-Tier</b>나노~메가</div>
+        <div class="hero-meta-pill"><b>$0.02</b>per score</div>
+        <div class="hero-meta-pill"><b>3 platforms</b>TT·YT·IG</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>Demo Console</h2></div>
+      <div class="demo">
+        <div class="demo-input">
+          <h3>Score an influencer</h3>
+          <div class="field"><label>Platform</label>
+            <select id="ps-plat"><option>TikTok</option><option>YouTube</option><option>Instagram</option></select>
+          </div>
+          <div class="field"><label>Handle / Channel ID</label>
+            <input id="ps-handle" type="text" value="@gadgetreviewer">
+          </div>
+          <div class="field"><label>Category context</label>
+            <select id="ps-cat"><option>Tech / Gadgets</option><option>Product Design</option><option>Lifestyle</option><option>Beauty</option><option>Gaming</option><option>Education</option></select>
+          </div>
+          <div class="field"><label>Country target</label>
+            <select id="ps-country"><option>US</option><option>JP</option><option>KR</option><option>TW</option><option>Global</option></select>
+          </div>
+          <button class="btn-run" onclick="runPS()">Score now →</button>
+          <div class="field-hint">Latency ~3s · Re-scores cached for 24h</div>
+        </div>
+
+        <div class="demo-output" id="ps-out">
+          <div class="demo-output-h">Pure Score Report<span class="meta">awaiting input...</span></div>
+          <div class="empty">Score an influencer to see breakdown</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">T</span><h2>5-Tier 분류 기준</h2></div>
+      <table class="tbl">
+        <thead><tr><th>Tier</th><th>Followers</th><th>ER 평균</th><th>Pure Score</th><th>운영 모드</th><th>예산</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tbl pill" style="background:rgba(16,185,129,.15);color:#10b981">Nano</span></td><td class="mono">1K~10K</td><td class="mono">8~12%</td><td class="mono accent">70+</td><td>대량 무료 시딩 50~150</td><td class="dim">제품 단가만</td></tr>
+          <tr><td><span class="tbl pill" style="background:rgba(20,184,166,.15);color:#14b8a6">Micro</span></td><td class="mono">10K~50K</td><td class="mono">6~9%</td><td class="mono accent">65+</td><td>소액 계약 5~15</td><td class="dim">15~50만/편</td></tr>
+          <tr><td><span class="tbl pill" style="background:rgba(99,102,241,.15);color:#6366f1">Mid</span></td><td class="mono">50K~300K</td><td class="mono">4~6%</td><td class="mono accent">60+</td><td>계약·검수·게시</td><td class="dim">15~200만/편</td></tr>
+          <tr><td><span class="tbl pill" style="background:rgba(245,158,11,.15);color:#f59e0b">Macro</span></td><td class="mono">300K~1M</td><td class="mono">3~5%</td><td class="mono accent">55+</td><td>단독 영상 + 라이브</td><td class="dim">200~1,000만</td></tr>
+          <tr><td><span class="tbl pill" style="background:rgba(239,68,68,.15);color:#ef4444">Mega</span></td><td class="mono">1M+</td><td class="mono">2~3%</td><td class="mono accent">50+</td><td>앵커 + IP 제휴</td><td class="dim">1,000만+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: RADAR ============ -->
+  <div class="page page-view" data-page="radar">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Product 04 · CF Trend Radar</div>
+      <h1>매일 <em>크라우드펀딩 트렌드</em>를 자동 갱신한다.</h1>
+      <p class="hero-sub">Kickstarter·Indiegogo·Makuake·Wadiz·ZecZec 5개 플랫폼을 매일 09:00 자동 수집해 카테고리·국가·가격대별 트렌드 변화를 보드로 보여줍니다. Mordor Intelligence 시장조사 보고서 대체.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>5개 플랫폼</b>크롤링</div>
+        <div class="hero-meta-pill"><b>매일 09:00</b>자동 갱신</div>
+        <div class="hero-meta-pill"><b>$99</b>/월</div>
+        <div class="hero-meta-pill"><b>13 카테고리</b>×<b>8개국</b></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">L</span><h2>Live Trend Board</h2><span class="tail">last sync 14m ago</span></div>
+      <div class="card-grid cg-2">
+        <div class="card">
+          <div class="card-h"><span class="dot"></span><span class="card-t">카테고리별 평균 펀딩액 (지난 30일)</span></div>
+          <div class="chart-wrap" style="margin-top:12px"><canvas id="ch-radar-cat"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="dot" style="background:var(--cyan)"></span><span class="card-t">국가별 신규 캠페인 수 (주별)</span></div>
+          <div class="chart-wrap" style="margin-top:12px"><canvas id="ch-radar-country"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">H</span><h2>지금 뜨는 카테고리 — Top 5</h2></div>
+      <table class="tbl">
+        <thead><tr><th>#</th><th>Category</th><th>30d Δ</th><th>Avg pledged</th><th>Success rate</th><th>Top country</th><th>Insight</th></tr></thead>
+        <tbody>
+          <tr><td class="accent mono">1</td><td><strong>EV Bike Accessories</strong></td><td class="accent mono">+38.4%</td><td class="mono">$184K</td><td><span class="tbl pill ok">62%</span></td><td>US · DE</td><td class="dim">e-bike 보급 + 액세서리 수요 폭증</td></tr>
+          <tr><td class="accent mono">2</td><td><strong>AI Productivity Tools</strong></td><td class="accent mono">+27.8%</td><td class="mono">$92K</td><td><span class="tbl pill ok">58%</span></td><td>US · JP</td><td class="dim">개인 AI 비서·메모 앱 수요 상승</td></tr>
+          <tr><td class="mono">3</td><td><strong>Foldable Travel Gear</strong></td><td class="mono">+19.2%</td><td class="mono">$71K</td><td><span class="tbl pill ok">54%</span></td><td>JP · TW</td><td class="dim">아시아 여행 회복 동반 상승</td></tr>
+          <tr><td class="mono">4</td><td><strong>Sustainable Apparel</strong></td><td class="mono">+12.6%</td><td class="mono">$48K</td><td><span class="tbl pill warn">41%</span></td><td>EU</td><td class="dim">유럽 ESG 입법 영향</td></tr>
+          <tr><td class="mono">5</td><td><strong>Modular Tabletop</strong></td><td class="mono">+9.4%</td><td class="mono">$132K</td><td><span class="tbl pill ok">67%</span></td><td>US</td><td class="dim">3D printing 결합 모듈러 보드게임</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">A</span><h2>Alert Feed (last 24h)</h2></div>
+      <div class="card-grid cg-2">
+        <div class="card" style="border-left:3px solid var(--em)"><div class="card-h"><span class="dot"></span><span class="card-t">🔥 EV Bike Accessories</span></div><div class="card-d">5월 5일 신규 캠페인 23건(전주比 +156%). 평균 펀딩 1.7배 상승. <strong>지금이 진입 타이밍.</strong></div></div>
+        <div class="card" style="border-left:3px solid var(--yellow)"><div class="card-h"><span class="dot" style="background:var(--yellow)"></span><span class="card-t">⚠ Smart Watch 카테고리 둔화</span></div><div class="card-d">평균 펀딩 -23% MoM. 시장 포화. <strong>차별화 포인트 없으면 진입 보류.</strong></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: BUYER ============ -->
+  <div class="page page-view" data-page="buyer">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Product 05 · Global Buyer Match</div>
+      <h1>HS 코드 1줄 → <em>TOP 30 글로벌 바이어</em>.</h1>
+      <p class="hero-sub">제품 HS 코드와 카테고리를 입력하면 5요소 가중 스코어링(category_fit·country_demand·recency·deal_size·platform_overlap)으로 매칭한 TOP 30 바이어 + 컨택 경로 + 예상 응답률을 반환합니다.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-pill"><b>UN Comtrade</b></div>
+        <div class="hero-meta-pill"><b>ImportYeti 70M</b>BOL</div>
+        <div class="hero-meta-pill"><b>Apollo 2.75억</b>contacts</div>
+        <div class="hero-meta-pill"><b>$299</b>per list</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>Demo Console</h2></div>
+      <div class="demo">
+        <div class="demo-input">
+          <h3>Find global buyers</h3>
+          <div class="field"><label>Product</label><input id="bm-prod" type="text" value="Foldable laptop stand"></div>
+          <div class="field-row">
+            <div class="field"><label>HS Code</label><input id="bm-hs" type="text" value="9404.21"></div>
+            <div class="field"><label>Category</label>
+              <select id="bm-cat"><option>Home / Office</option><option>Tech Accessories</option><option>Apparel</option><option>Beauty</option><option>Food</option></select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Target country</label>
+              <select id="bm-country"><option>US</option><option>JP</option><option>EU (DE·FR·UK)</option><option>SE Asia</option></select>
+            </div>
+            <div class="field"><label>MOQ</label><input id="bm-moq" type="number" value="500"></div>
+          </div>
+          <div class="field"><label>Output detail</label>
+            <select id="bm-fmt"><option>TOP 30 + emails</option><option>TOP 30 + emails + LinkedIn</option><option>TOP 100 raw</option></select>
+          </div>
+          <button class="btn-run" onclick="runBM()">Find buyers →</button>
+          <div class="field-hint">Latency ~25s · Email verified via Hunter.io · Output CSV/JSON</div>
+        </div>
+
+        <div class="demo-output" id="bm-out">
+          <div class="demo-output-h">Buyer Match List<span class="meta">awaiting input...</span></div>
+          <div class="empty">Run search to see TOP buyers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">F</span><h2>Scoring formula</h2></div>
+      <div class="code"><span class="c">// 5-factor weighted score (sb3 model)</span>
+<span class="k">match_score</span> = <span class="n">0.35</span> × <span class="s">category_fit</span>
+              + <span class="n">0.25</span> × <span class="s">country_demand</span>
+              + <span class="n">0.20</span> × <span class="s">recency_of_activity</span>
+              + <span class="n">0.10</span> × <span class="s">deal_size_match</span>
+              + <span class="n">0.10</span> × <span class="s">platform_overlap</span>
+
+<span class="c">// Returns top-K buyers with score ≥ 0.65</span>
+<span class="c">// v1 (Tier 1): factors 1-3 → Precision@30 ≥ 15%</span>
+<span class="c">// v2 (Tier 2): all 5 factors + Apollo enrich → Precision@30 ≥ 50%</span></div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PRICING ============ -->
+  <div class="page page-view" data-page="pricing">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ Pricing · Per-product or Bundle</div>
+      <h1>스타트업부터 <em>대형 에이전시</em>까지.</h1>
+      <p class="hero-sub">개별 제품은 종량제, Suite Bundle은 월정액. 자체 캠페인 운영 중인 메이커는 free trial 제공.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Suite Bundle (5개 제품 통합)</h2></div>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-name">Startup</div>
+          <div class="price-amount">$499<span>/mo</span></div>
+          <ul class="price-feats">
+            <li>FOP 리포트 5건/월</li>
+            <li>Lookalike API 50K 룩업/월</li>
+            <li>Pure Score 10K 점수/월</li>
+            <li>Trend Radar 1 user</li>
+            <li>Buyer Match 2 list/월</li>
+            <li>Email support</li>
+          </ul>
+          <a class="price-cta">Start free 14-day trial</a>
+        </div>
+        <div class="price-card highlighted">
+          <div class="price-name">Agency</div>
+          <div class="price-amount">$1,499<span>/mo</span></div>
+          <ul class="price-feats">
+            <li>FOP 리포트 30건/월</li>
+            <li>Lookalike API 500K 룩업/월</li>
+            <li>Pure Score 100K 점수/월</li>
+            <li>Trend Radar 5 users</li>
+            <li>Buyer Match 10 list/월</li>
+            <li>Slack support · 24h SLA</li>
+            <li>API key (5 tokens)</li>
+          </ul>
+          <a class="price-cta">Get started</a>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Enterprise</div>
+          <div class="price-amount">$4,999<span>/mo</span></div>
+          <ul class="price-feats">
+            <li>FOP 무제한</li>
+            <li>Lookalike 무제한</li>
+            <li>Pure Score 무제한</li>
+            <li>Trend Radar 무제한 users</li>
+            <li>Buyer Match 무제한</li>
+            <li>Dedicated account manager</li>
+            <li>Custom training data</li>
+            <li>SOC2 / GDPR docs</li>
+          </ul>
+          <a class="price-cta">Contact sales</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">P</span><h2>Per-product pricing</h2></div>
+      <table class="tbl">
+        <thead><tr><th>Product</th><th>Unit</th><th>Price</th><th>Volume break</th><th>Free trial</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FOP · Funding Predictor</strong></td><td>per report</td><td class="accent mono">$300</td><td>$200 @ 50+/mo · $150 @ 200+/mo</td><td>1 free report</td></tr>
+          <tr><td><strong>Backer Lookalike API</strong></td><td>per lookup</td><td class="accent mono">$0.05</td><td>$0.03 @ 1M+/mo · $0.02 @ 10M+/mo</td><td>10K free</td></tr>
+          <tr><td><strong>Pure Score API</strong></td><td>per score</td><td class="accent mono">$0.02</td><td>$0.01 @ 100K+/mo</td><td>1K free</td></tr>
+          <tr><td><strong>CF Trend Radar</strong></td><td>per seat/mo</td><td class="accent mono">$99</td><td>$79 @ 5+ seats · $49 @ 20+</td><td>14-day trial</td></tr>
+          <tr><td><strong>Global Buyer Match</strong></td><td>per list (TOP 30)</td><td class="accent mono">$299</td><td>$199 @ 10+/mo · $149 @ 50+/mo</td><td>1 free list</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: API DOCS ============ -->
+  <div class="page page-view" data-page="api">
+    <div class="hero">
+      <div class="hero-eyebrow">▸ API Documentation · v0.1</div>
+      <h1>REST API · <em>Bearer auth</em>.</h1>
+      <p class="hero-sub">Base URL <code style="color:var(--em);background:var(--surface-2);padding:2px 8px;border-radius:4px">https://api.setoworks.com/v1</code>. JSON in/out, rate limit 1000/min, 99.9% SLA.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">F</span><h2>FOP · Predict funding outcome</h2></div>
+      <div class="code"><span class="c"># Request</span>
+<span class="k">POST</span> /v1/fop/predict
+<span class="k">Authorization:</span> <span class="s">Bearer sk_live_xxx</span>
+<span class="k">Content-Type:</span> <span class="s">application/json</span>
+
+{
+  <span class="s">"product_name"</span>: <span class="s">"Pro Foldable Laptop Stand"</span>,
+  <span class="s">"category"</span>: <span class="s">"tech_gadgets"</span>,
+  <span class="s">"country"</span>: <span class="s">"US"</span>,
+  <span class="s">"price_usd"</span>: <span class="n">89</span>,
+  <span class="s">"goal_usd"</span>: <span class="n">20000</span>,
+  <span class="s">"maker_history"</span>: <span class="s">"first"</span>
+}
+
+<span class="c"># Response (200)</span>
+{
+  <span class="s">"prediction_id"</span>: <span class="s">"pred_8a3f..."</span>,
+  <span class="s">"funded_usd"</span>: { <span class="s">"p10"</span>: <span class="n">31200</span>, <span class="s">"p50"</span>: <span class="n">87500</span>, <span class="s">"p90"</span>: <span class="n">142000</span> },
+  <span class="s">"confidence"</span>: <span class="n">0.84</span>,
+  <span class="s">"similar_cases"</span>: [<span class="s">"camp_a1"</span>, <span class="s">"camp_b7"</span>, <span class="s">"camp_c3"</span>],
+  <span class="s">"recommended_influencers"</span>: [...],
+  <span class="s">"tier_budgets"</span>: { <span class="s">"nano"</span>: <span class="s">"$0"</span>, <span class="s">"micro"</span>: <span class="s">"$2,500"</span>, ... }
+}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">L</span><h2>Lookalike · Generate seed</h2></div>
+      <div class="code"><span class="k">POST</span> /v1/lookalike/seed
+
+{ <span class="s">"category"</span>: <span class="s">"tech_gadgets"</span>, <span class="s">"price_min"</span>: <span class="n">50</span>, <span class="s">"price_max"</span>: <span class="n">500</span>, <span class="s">"platform"</span>: <span class="s">"meta"</span>, <span class="s">"format"</span>: <span class="s">"csv"</span> }
+
+<span class="c"># Returns signed CSV download URL (24h expiry)</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">P</span><h2>Pure Score · Score handle</h2></div>
+      <div class="code"><span class="k">GET</span> /v1/purescore?platform=tiktok&handle=@gadgetreviewer&category=tech
+
+<span class="c"># Response</span>
+{ <span class="s">"score"</span>: <span class="n">82.4</span>, <span class="s">"tier"</span>: <span class="s">"micro"</span>, <span class="s">"breakdown"</span>: { <span class="s">"upload"</span>: <span class="n">28</span>, <span class="s">"reach"</span>: <span class="n">22</span>, ... }, <span class="s">"bot_ratio"</span>: <span class="n">0.04</span> }</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* ===== Routing ===== */
+const TITLES = {overview:'Suite Overview',fop:'01 · Funding Predictor',lookalike:'02 · Backer Lookalike',purescore:'03 · Pure Score',radar:'04 · Trend Radar',buyer:'05 · Buyer Match',pricing:'Pricing',api:'API Docs'};
+function route(name){
+  document.querySelectorAll('.sidebar-link').forEach(a=>a.classList.toggle('active',a.dataset.route===name));
+  document.querySelectorAll('.page-view').forEach(p=>p.classList.toggle('active',p.dataset.page===name));
+  document.getElementById('route-title').textContent=TITLES[name]||'';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='radar') initRadarCharts();
+}
+document.querySelectorAll('.sidebar-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();route(a.dataset.route)}));
+
+/* ===== Mock data utils ===== */
+const fmt = n => n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n.toFixed(0);
+const fmtUsd = n => '$'+n.toLocaleString();
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+async function withSpinner(elId, work){
+  const el=document.getElementById(elId);
+  el.innerHTML=`<div class="demo-output-h">Generating...<span class="meta"><span class="spin"></span></span></div><div class="empty">Running model...</div>`;
+  await sleep(800+Math.random()*1200);
+  el.innerHTML = await work();
+}
+
+/* ===== FOP runner ===== */
+async function runFOP(){
+  const name=document.getElementById('fop-name').value;
+  const cat=document.getElementById('fop-cat').value;
+  const country=document.getElementById('fop-country').value;
+  const price=+document.getElementById('fop-price').value;
+  const goal=+document.getElementById('fop-goal').value;
+  const maker=document.getElementById('fop-maker').value;
+
+  await withSpinner('fop-out', async()=>{
+    // Mock prediction logic
+    const base = goal * (cat.includes('Tech')?4.2:cat.includes('Tabletop')?6.8:cat.includes('Product')?3.5:2.4);
+    const makerMult = maker==='serial'?1.6:maker==='repeat'?1.2:1.0;
+    const p50 = Math.round(base * makerMult * (0.85+Math.random()*0.3));
+    const p10 = Math.round(p50 * 0.55);
+    const p90 = Math.round(p50 * 1.65);
+    const conf = (0.78+Math.random()*0.12).toFixed(2);
+    const goalPct = Math.round(p50/goal*100);
+    const successProb = Math.min(98, Math.max(12, Math.round(50 + (goalPct-100)/4)));
+
+    // similar cases (mock)
+    const similar = [
+      {name:'Compact Laptop Stand Pro', cat, country:'US', funded:Math.round(p50*0.92), backers:Math.round(p50*0.92/price*1.15)},
+      {name:'TravelStand Aluminum',     cat, country:'JP', funded:Math.round(p50*1.08), backers:Math.round(p50*1.08/price*1.05)},
+      {name:'FlexBook Mount',            cat, country:'US', funded:Math.round(p50*0.85), backers:Math.round(p50*0.85/price*1.22)}
+    ];
+    const tierBudget = {nano:0, micro:Math.round(p50*0.04), mid:Math.round(p50*0.08), macro:Math.round(p50*0.06), mega:0};
+    const influencers = [
+      {handle:'@gadgetreviewer', tier:'mid', score:82, fit:0.94},
+      {handle:'@tech.unboxed', tier:'micro', score:78, fit:0.91},
+      {handle:'@minimaldesks', tier:'mid', score:75, fit:0.88},
+      {handle:'@wfh.gear', tier:'nano', score:71, fit:0.86},
+      {handle:'@dailycarry', tier:'micro', score:69, fit:0.84}
+    ];
+
+    return `
+      <div class="demo-output-h">Prediction Report<span class="meta">pred_${Math.random().toString(36).slice(2,10)} · ${(0.8+Math.random()*0.3).toFixed(1)}s</span></div>
+      <div class="out-grid">
+        <div class="out-cell"><div class="l">P50 (median)</div><div class="v">${fmtUsd(p50)}</div><div class="d">${goalPct}% of goal</div></div>
+        <div class="out-cell"><div class="l">P10 — P90</div><div class="v neutral" style="font-size:13px">${fmtUsd(p10)} — ${fmtUsd(p90)}</div><div class="d">±${Math.round((p90-p10)/p50/2*100)}% range</div></div>
+        <div class="out-cell"><div class="l">Success prob.</div><div class="v ${successProb>=70?'':successProb>=40?'warn':'bad'}">${successProb}%</div><div class="d">model confidence ${conf}</div></div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Similar cases (auto-matched)</div>
+        <table class="tbl">
+          <thead><tr><th>Campaign</th><th>Country</th><th>Funded</th><th>Backers</th><th>Δ vs you</th></tr></thead>
+          <tbody>${similar.map(s=>`<tr><td>${s.name}</td><td>${s.country}</td><td class="mono accent">${fmtUsd(s.funded)}</td><td class="mono">${s.backers.toLocaleString()}</td><td class="mono dim">${(s.funded/p50*100-100).toFixed(0)}%</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Recommended influencers (TOP 5 of 20)</div>
+        <table class="tbl">
+          <thead><tr><th>Handle</th><th>Tier</th><th>Pure Score</th><th>Fit</th></tr></thead>
+          <tbody>${influencers.map(i=>`<tr><td class="mono">${i.handle}</td><td><span class="tbl pill" style="background:rgba(99,102,241,.15);color:#6366f1">${i.tier}</span></td><td class="mono accent">${i.score}</td><td class="mono">${i.fit.toFixed(2)}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Tier budget allocation</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">${Object.entries(tierBudget).map(([k,v])=>`<span class="hero-meta-pill"><b>${k}</b>${v?fmtUsd(v):'무료시딩'}</span>`).join('')}</div>
+      </div>`;
+  });
+}
+
+/* ===== Lookalike runner ===== */
+async function runLK(){
+  const cat=document.getElementById('lk-cat').value;
+  const min=document.getElementById('lk-min').value;
+  const max=document.getElementById('lk-max').value;
+  const platform=document.getElementById('lk-platform').value;
+  const geo=document.getElementById('lk-geo').value;
+  const fmt=document.getElementById('lk-fmt').value;
+
+  await withSpinner('lk-out', async()=>{
+    const seedSize = 8000 + Math.floor(Math.random()*5000);
+    const matchRate = (78+Math.random()*12).toFixed(1);
+    const cpaSavings = (32+Math.random()*15).toFixed(0);
+    const sample = [
+      {h:'a3f7c9...', e:'****@gmail.com', country:'US', backings:42, last:'2 mo'},
+      {h:'8b2e1d...', e:'****@kakao.com', country:'KR', backings:18, last:'5 mo'},
+      {h:'4c9a72...', e:'****@yahoo.co.jp', country:'JP', backings:67, last:'1 mo'},
+      {h:'6d8ef4...', e:'****@gmail.com', country:'TW', backings:23, last:'3 mo'},
+      {h:'1a5b2c...', e:'****@hotmail.com', country:'US', backings:89, last:'2 wk'}
+    ];
+
+    return `
+      <div class="demo-output-h">Lookalike Seed<span class="meta">job_${Math.random().toString(36).slice(2,8)} · ready in ${(2+Math.random()*3).toFixed(1)}s</span></div>
+      <div class="out-grid">
+        <div class="out-cell"><div class="l">Seed size</div><div class="v">${seedSize.toLocaleString()}</div><div class="d">PII-hashed records</div></div>
+        <div class="out-cell"><div class="l">Match rate</div><div class="v">${matchRate}%</div><div class="d">expected on ${platform.split(' ')[0]}</div></div>
+        <div class="out-cell"><div class="l">CPA savings</div><div class="v">-${cpaSavings}%</div><div class="d">vs. cold acquisition</div></div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Sample records (5 of ${seedSize.toLocaleString()})</div>
+        <table class="tbl">
+          <thead><tr><th>SHA256</th><th>Masked email</th><th>Country</th><th>Backings</th><th>Last active</th></tr></thead>
+          <tbody>${sample.map(s=>`<tr><td class="mono dim">${s.h}</td><td class="mono">${s.e}</td><td>${s.country}</td><td class="mono accent">${s.backings}</td><td class="dim">${s.last}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Download / push</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="topbar-cta primary" style="padding:8px 14px">Download CSV (${(seedSize*0.06/1024).toFixed(1)} MB)</button><button class="topbar-cta">JSON</button><button class="topbar-cta">Push to Meta Audience</button></div>
+        <div class="field-hint" style="margin-top:8px">Audience expires in 90 days · GDPR/CCPA hashed · Compatible with Facebook Ads Manager Custom Audience uploader</div>
+      </div>`;
+  });
+}
+
+/* ===== Pure Score runner ===== */
+async function runPS(){
+  const plat=document.getElementById('ps-plat').value;
+  const handle=document.getElementById('ps-handle').value;
+  const cat=document.getElementById('ps-cat').value;
+  const country=document.getElementById('ps-country').value;
+
+  await withSpinner('ps-out', async()=>{
+    const breakdown = {
+      upload:Math.round(20+Math.random()*10),
+      reach:Math.round(15+Math.random()*10),
+      engagement:Math.round(13+Math.random()*7),
+      consistency:Math.round(9+Math.random()*6),
+      growth:Math.round(5+Math.random()*5)
+    };
+    const score = breakdown.upload+breakdown.reach+breakdown.engagement+breakdown.consistency+breakdown.growth;
+    const tier = score>=80?{n:'Mega',c:'mega'}:score>=70?{n:'Macro',c:'macro'}:score>=60?{n:'Mid',c:'mid'}:score>=50?{n:'Micro',c:'micro'}:{n:'Nano',c:'nano'};
+    const followers = score>=80?'1.4M':score>=70?'420K':score>=60?'180K':score>=50?'42K':'8.5K';
+    const er = score>=80?'2.4%':score>=70?'3.8%':score>=60?'5.2%':score>=50?'7.6%':'10.4%';
+    const botRatio = (Math.random()*0.08).toFixed(3);
+
+    return `
+      <div class="demo-output-h">Pure Score<span class="meta">${plat} · ${handle} · ${(0.5+Math.random()*0.6).toFixed(1)}s</span></div>
+      <div class="out-grid">
+        <div class="out-cell"><div class="l">Total score</div><div class="v">${score}<span style="color:var(--muted);font-size:13px">/100</span></div><div class="d">5-axis weighted</div></div>
+        <div class="out-cell"><div class="l">Tier</div><div class="v"><span class="tier-pill tier-${tier.c}" style="font-size:12px">${tier.n}</span></div><div class="d">${followers} followers · ER ${er}</div></div>
+        <div class="out-cell"><div class="l">Bot ratio</div><div class="v ${botRatio<0.05?'':'warn'}">${(botRatio*100).toFixed(1)}%</div><div class="d">${botRatio<0.05?'clean':'flagged'}</div></div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">5-axis breakdown</div>
+        ${[
+          {l:'Upload frequency',v:breakdown.upload,max:30},
+          {l:'Reach (avg views)',v:breakdown.reach,max:25},
+          {l:'Engagement rate',v:breakdown.engagement,max:20},
+          {l:'Content consistency',v:breakdown.consistency,max:15},
+          {l:'Growth trend',v:breakdown.growth,max:10}
+        ].map(b=>`<div class="bar-row"><span class="lbl">${b.l}</span><div class="bar-track"><div class="bar-fill" style="width:${b.v/b.max*100}%"></div></div><span class="val">${b.v}/${b.max}</span></div>`).join('')}
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Recommendation for "${cat}" campaign</div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--text-dim);line-height:1.6">
+          ${score>=70?`<strong style="color:var(--em)">✓ Recommended</strong> for ${cat.toLowerCase()} campaigns targeting ${country}. Tier-${tier.c} fits ${tier.c==='mid'?'mid-budget contracts (15~200만/편)':tier.c==='nano'||tier.c==='micro'?'mass seeding (50~150 simultaneous)':'anchor placements'}.`:`<strong style="color:var(--yellow)">⚠ Below recommended threshold</strong> for direct seeding. Consider rescore in 60 days.`}
+        </div>
+      </div>`;
+  });
+}
+
+/* ===== Buyer Match runner ===== */
+async function runBM(){
+  await withSpinner('bm-out', async()=>{
+    const buyers = [
+      {name:'Mark Chen',role:'BedBath Sr Buyer',country:'US',hs:'9404.21',recent:'2 mo',score:0.91,email:'m.chen@***',tier:'A'},
+      {name:'Sarah Johnson',role:'Wayfair Buyer',country:'US',hs:'9403.20',recent:'1 mo',score:0.88,email:'s.johnson@***',tier:'A'},
+      {name:'David Kim',role:'Target Sourcing',country:'US',hs:'9404.21',recent:'5 mo',score:0.83,email:'d.kim@***',tier:'A'},
+      {name:'Emily Park',role:'Costco Asia',country:'US',hs:'9404.21',recent:'7 mo',score:0.78,email:'e.park@***',tier:'B'},
+      {name:'Lisa Wang',role:'Amazon VM',country:'US',hs:'9404.21',recent:'3 mo',score:0.77,email:'l.wang@***',tier:'B'},
+      {name:'Jacob Tan',role:'Best Buy Sourcing',country:'US',hs:'9404.21',recent:'4 mo',score:0.74,email:'j.tan@***',tier:'B'},
+      {name:'Rachel Lee',role:'Williams-Sonoma',country:'US',hs:'9403.20',recent:'6 mo',score:0.72,email:'r.lee@***',tier:'B'}
+    ];
+    const avgResp = (28+Math.random()*8).toFixed(1);
+
+    return `
+      <div class="demo-output-h">TOP 30 Buyers<span class="meta">job_${Math.random().toString(36).slice(2,8)} · ${(20+Math.random()*8).toFixed(0)}s</span></div>
+      <div class="out-grid">
+        <div class="out-cell"><div class="l">Buyers found</div><div class="v">30</div><div class="d">score ≥ 0.65</div></div>
+        <div class="out-cell"><div class="l">Avg response</div><div class="v">${avgResp}%</div><div class="d">est. cold-email reply</div></div>
+        <div class="out-cell"><div class="l">Verified emails</div><div class="v">28<span style="color:var(--muted);font-size:13px">/30</span></div><div class="d">Hunter.io confirmed</div></div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px">Top 7 buyers (preview)</div>
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Buyer · Role</th><th>Country</th><th>Last deal</th><th>Score</th><th>Tier</th><th>Email</th></tr></thead>
+          <tbody>${buyers.map((b,i)=>`<tr><td class="mono dim">${i+1}</td><td><strong>${b.name}</strong> · <span class="dim">${b.role}</span></td><td>${b.country}</td><td class="dim">${b.recent}</td><td class="mono accent">${b.score.toFixed(2)}</td><td><span class="tbl pill ${b.tier==='A'?'ok':'warn'}">${b.tier}</span></td><td class="mono dim">${b.email}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="topbar-cta primary" style="padding:8px 14px">Download full CSV</button><button class="topbar-cta">Push to Apollo Sequence</button><button class="topbar-cta">Generate cold-email draft</button></div>`;
+  });
+}
+
+/* ===== Radar charts ===== */
+let radarInited = false;
+function initRadarCharts(){
+  if(radarInited) return;
+  radarInited = true;
+  const opts = {
+    plugins:{legend:{labels:{color:'#a8a8a8',font:{size:11,family:'Pretendard'}}}},
+    scales:{
+      x:{ticks:{color:'#666',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},
+      y:{ticks:{color:'#666',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}}
+    },
+    maintainAspectRatio:false,
+    responsive:true
+  };
+  new Chart(document.getElementById('ch-radar-cat'),{
+    type:'bar',
+    data:{
+      labels:['EV Bike','AI Tools','Travel','Apparel','Tabletop','Home','Beauty','Food'],
+      datasets:[{
+        label:'Avg pledged ($K)',
+        data:[184,92,71,48,132,67,54,38],
+        backgroundColor:'rgba(62,207,142,.7)',
+        borderColor:'#3ECF8E',
+        borderWidth:1,
+        borderRadius:4
+      }]
+    },
+    options:opts
+  });
+  new Chart(document.getElementById('ch-radar-country'),{
+    type:'line',
+    data:{
+      labels:['W-4','W-3','W-2','W-1','This wk'],
+      datasets:[
+        {label:'US',data:[124,142,156,148,167],borderColor:'#3ECF8E',backgroundColor:'rgba(62,207,142,.1)',tension:.3,fill:true},
+        {label:'JP',data:[68,72,84,91,98],borderColor:'#06b6d4',backgroundColor:'rgba(6,182,212,.1)',tension:.3,fill:true},
+        {label:'KR',data:[45,52,49,58,62],borderColor:'#a370f7',backgroundColor:'rgba(163,112,247,.1)',tension:.3,fill:true},
+        {label:'TW',data:[28,34,32,38,44],borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.1)',tension:.3,fill:true}
+      ]
+    },
+    options:opts
+  });
+}
+
+/* hash routing */
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(TITLES[h])route(h)});
+const init=location.hash.slice(1);if(TITLES[init])route(init);
+</script>
+</body>
+</html>
