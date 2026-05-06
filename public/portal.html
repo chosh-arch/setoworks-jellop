@@ -82,6 +82,7 @@
   /* ─── Grid ─── */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
   .grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(3,1fr)}
   .grid-1{grid-template-columns:1fr}
 
   /* ─── Card ─── */
@@ -148,7 +149,7 @@
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
   @media(max-width:760px){
-    .grid,.grid-2{grid-template-columns:1fr}
+    .grid,.grid-2,.grid-3{grid-template-columns:1fr}
     .stats-strip{grid-template-columns:repeat(3,1fr);gap:10px 4px}
     .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:6px}
     .nsm-banner{grid-template-columns:1fr;gap:10px}
@@ -233,9 +234,9 @@
     <div class="layer-head">
       <span class="layer-pill">L2</span>
       <span class="layer-title">분석·판단 · Intelligence</span>
-      <span class="layer-desc">AI 예측 + 🌍 6개국 선호도 MOAT</span>
+      <span class="layer-desc">AI 예측 + 🌍 6개국 선호도 MOAT + SaaS Suite</span>
     </div>
-    <div class="grid grid-2">
+    <div class="grid grid-3">
 
       <a href="/kickstarter-predict.html" class="card l2 moat">
         <div class="live-badge">★ 4/28 LIVE</div>
@@ -256,6 +257,17 @@
         <div class="card-title">KS Insight Engine</div>
         <div class="card-subtitle">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 · 예측 엔진의 데이터 근거</div>
         <div class="card-meta"><span class="card-dot live"></span>LIVE · 27,909 Projects · 7 sections</div>
+      </a>
+
+      <a href="/saas-mvp.html" class="card l2 moat">
+        <div class="live-badge">★ NEW · 5/6 MVP</div>
+        <div class="card-top">
+          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
+          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </div>
+        <div class="card-title">SaaS Suite · 5 제품</div>
+        <div class="card-subtitle">FOP 펀딩 예측 · Backer Lookalike API · Pure Score · Trend Radar · Buyer Match — 14년 데이터 자산을 글로벌 SaaS로</div>
+        <div class="card-meta"><span class="card-dot hot"></span>v0.1 MVP · Demo Console · API Docs</div>
       </a>
 
     </div>
