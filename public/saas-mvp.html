@@ -240,6 +240,102 @@ code,kbd{font-family:var(--mono)}
 
 @media(max-width:900px){.step-flow{grid-template-columns:1fr}.step-flow .step{border-radius:0!important;border-left:1px solid var(--border)!important}.step-flow .step::after{display:none}.impact,.usecase{grid-template-columns:1fr}}
 
+/* ROI Calculator */
+.roi{background:linear-gradient(180deg,rgba(62,207,142,.04),transparent);border:1px solid var(--em-edge);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start}
+.roi-controls .field label{color:var(--text)}
+.roi-controls .field input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;background:var(--surface-2);border-radius:3px;outline:none;border:none;padding:0}
+.roi-controls .field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--em);border-radius:50%;cursor:pointer;box-shadow:0 0 8px rgba(62,207,142,.4)}
+.roi-controls .field input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--em);border-radius:50%;cursor:pointer;border:none}
+.roi-controls .range-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
+.roi-controls .range-val{font-family:var(--mono);font-size:14px;color:var(--em);font-weight:700;margin-top:4px}
+.roi-result{display:flex;flex-direction:column;gap:10px}
+.roi-h{font-family:var(--mono);font-size:10px;color:var(--em);letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.roi-table{width:100%;border-collapse:collapse;font-size:13px}
+.roi-table thead th{background:var(--surface-2);color:var(--muted);font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;text-align:right}
+.roi-table thead th:first-child{text-align:left}
+.roi-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);text-align:right}
+.roi-table tbody td:first-child{text-align:left;color:var(--text-dim);font-weight:500}
+.roi-table tbody td.before{font-family:var(--mono);color:var(--text-dim);text-decoration:line-through}
+.roi-table tbody td.after{font-family:var(--mono);color:var(--em);font-weight:700;font-size:14px}
+.roi-table tbody td.delta{font-family:var(--mono);font-weight:700}
+.roi-table tbody td.delta.pos{color:var(--em)}
+.roi-table tbody td.delta.neg{color:var(--red)}
+.roi-savings{margin-top:12px;background:var(--em);color:#000;padding:14px 18px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.roi-savings .l{font-size:12px;font-weight:700;letter-spacing:.04em}
+.roi-savings .v{font-family:var(--mono);font-size:24px;font-weight:800;letter-spacing:-.02em}
+
+/* Code tabs */
+.tabs{display:flex;gap:2px;background:var(--surface-2);padding:3px;border-radius:8px;margin-bottom:10px;width:fit-content}
+.tab{padding:6px 14px;border-radius:5px;font-size:11.5px;font-weight:600;color:var(--text-dim);cursor:pointer;font-family:var(--mono);letter-spacing:.04em;transition:all .15s}
+.tab:hover{color:#fff}
+.tab.active{background:var(--em);color:#000}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Heatmap */
+.hm{display:grid;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface)}
+.hm-row{display:grid;grid-template-columns:120px repeat(8,1fr);min-height:38px}
+.hm-row.h{background:var(--surface-2)}
+.hm-cell{padding:10px 8px;font-size:11px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-weight:600;border-right:1px solid rgba(0,0,0,.15);border-bottom:1px solid rgba(255,255,255,.04);text-align:center;line-height:1.2;cursor:default;transition:transform .12s}
+.hm-cell:hover{transform:scale(1.05);z-index:2;box-shadow:0 0 0 1px var(--em)}
+.hm-cell.lbl{background:var(--surface-2);color:var(--text-dim);font-size:10.5px;justify-content:flex-start;padding-left:14px;font-weight:600;cursor:default}
+.hm-cell.lbl:hover{transform:none;box-shadow:none}
+.hm-cell.h{background:var(--surface-2);color:var(--muted);font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.hm-cell.h:hover{transform:none;box-shadow:none}
+.hm-legend{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:10px;color:var(--muted);font-family:var(--mono)}
+.hm-legend-bar{flex:1;max-width:240px;height:8px;background:linear-gradient(90deg,rgba(62,207,142,.05),rgba(62,207,142,1));border-radius:4px}
+
+/* Bulk uploader */
+.bulk{display:grid;grid-template-columns:340px 1fr;gap:14px}
+.bulk-input{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+.bulk-textarea{width:100%;min-height:240px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;color:#fff;font-family:var(--mono);font-size:11px;line-height:1.6;resize:vertical}
+.bulk-textarea:focus{outline:none;border-color:var(--em)}
+.bulk-result{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;min-height:340px}
+
+/* Bot detection cards */
+.bot-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bot-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.bot-card.clean{border-left:3px solid var(--em)}
+.bot-card.flagged{border-left:3px solid var(--red);background:rgba(239,68,68,.04)}
+.bot-card .b-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.bot-card .b-h .pill{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:10px;font-weight:700}
+.bot-card.clean .pill{background:var(--em-dim);color:var(--em)}
+.bot-card.flagged .pill{background:rgba(239,68,68,.18);color:var(--red)}
+.bot-card .b-handle{font-family:var(--mono);font-size:13px;color:#fff;font-weight:700}
+.bot-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.bot-stat{background:var(--surface-2);padding:8px 10px;border-radius:6px}
+.bot-stat .l{font-family:var(--mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.bot-stat .v{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;margin-top:2px}
+.bot-stat .v.bad{color:var(--red)}
+.bot-stat .v.ok{color:var(--em)}
+
+/* Alert template */
+.alert-mock{background:#1a1f2e;border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.65;color:var(--text)}
+.alert-mock .header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.alert-mock .header .ico{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.alert-mock .header .ico.slack{background:#4a154b;color:#ecb22e}
+.alert-mock .header .ico.email{background:#ea4335;color:#fff}
+.alert-mock .header .name{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.alert-mock .body{font-size:12px;color:var(--text-dim);white-space:pre-wrap}
+.alert-mock .body strong{color:var(--em);font-weight:700}
+.alert-mock .actions{margin-top:10px;display:flex;gap:6px}
+.alert-mock .btn-mock{padding:5px 11px;background:var(--surface-2);border:1px solid var(--border);border-radius:5px;font-size:10.5px;color:var(--text-dim);font-family:'Pretendard',sans-serif;font-weight:600}
+
+/* Email generator */
+.email-mock{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0;overflow:hidden}
+.email-mock-h{padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:3px;font-size:11px}
+.email-mock-h .row{display:flex;gap:8px;color:var(--text-dim)}
+.email-mock-h .row .k{color:var(--muted);font-family:var(--mono);font-weight:600;width:50px;text-transform:uppercase;font-size:9.5px;letter-spacing:.06em;padding-top:1px}
+.email-mock-h .row .v{flex:1}
+.email-mock-h .subj{color:#fff;font-weight:700}
+.email-mock-body{padding:16px;font-size:12.5px;color:var(--text);line-height:1.65;white-space:pre-wrap}
+.email-mock-body .var{background:var(--em-dim);color:var(--em);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:11px}
+.email-lang{display:flex;gap:0;margin-bottom:10px;border-bottom:1px solid var(--border)}
+.email-lang button{padding:8px 14px;font-size:11.5px;color:var(--text-dim);border-bottom:2px solid transparent;font-weight:600;letter-spacing:.04em}
+.email-lang button.active{color:var(--em);border-bottom-color:var(--em)}
+
+@media(max-width:900px){.roi,.bulk{grid-template-columns:1fr}.hm-row{grid-template-columns:80px repeat(4,1fr)}.hm-cell:nth-child(n+6){display:none}.bot-cards{grid-template-columns:1fr}}
+
 @media(max-width:1100px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.kpi-row,.cg-3,.out-grid,.price-grid{grid-template-columns:1fr 1fr}.demo{grid-template-columns:1fr}}
 @media(max-width:640px){.kpi-row,.cg-3,.cg-2,.out-grid,.price-grid{grid-template-columns:1fr}.page{padding:24px 18px 50px}.hero h1{font-size:28px}}
 </style>
@@ -572,6 +668,162 @@ code,kbd{font-family:var(--mono)}
         <div class="uc"><div class="uc-tag">이커머스</div><div class="uc-t">펀딩 후 자사몰 리타겟팅</div><div class="uc-d">펀딩 종료 후 Shopify·자사몰로 백커 이전. 슈퍼백커 시드로 재구매 캠페인.</div><div class="uc-result">→ LTV 1.8~2.5x</div></div>
       </div>
     </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">R</span><h2>ROI Calculator (인터랙티브)</h2><span class="tail">slide to simulate your campaign</span></div>
+      <div class="roi">
+        <div class="roi-controls">
+          <div class="field">
+            <label>목표 백커 수</label>
+            <input type="range" id="lk-roi-backers" min="100" max="5000" step="50" value="1000" oninput="calcLKROI()">
+            <div class="range-row"><span>100</span><span>5,000</span></div>
+            <div class="range-val" id="lk-roi-backers-v">1,000명</div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label>제품 가격 (USD)</label>
+            <input type="range" id="lk-roi-price" min="20" max="500" step="5" value="89" oninput="calcLKROI()">
+            <div class="range-row"><span>$20</span><span>$500</span></div>
+            <div class="range-val" id="lk-roi-price-v">$89</div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label>광고 플랫폼</label>
+            <select id="lk-roi-plat" onchange="calcLKROI()">
+              <option value="meta">Meta (FB·IG)</option>
+              <option value="google">Google · YouTube</option>
+              <option value="tiktok">TikTok Ads</option>
+            </select>
+          </div>
+        </div>
+        <div class="roi-result">
+          <div class="roi-h">예상 비용 비교 (cold vs Setoworks lookalike)</div>
+          <table class="roi-table">
+            <thead><tr><th>지표</th><th>Cold</th><th>Lookalike</th><th>Δ</th></tr></thead>
+            <tbody id="lk-roi-tbody"></tbody>
+          </table>
+          <div class="roi-savings"><span class="l">캠페인당 광고비 절감액</span><span class="v" id="lk-roi-savings">$16,000</span></div>
+          <div style="font-size:10.5px;color:var(--muted);font-family:var(--mono);margin-top:4px">* 기반: Cold CPA $30~50 / Lookalike CPA $15~25 평균. 카테고리·국가별 ±20% 변동.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">{ }</span><h2>Integration code (3 platforms)</h2></div>
+      <div class="tabs">
+        <button class="tab active" onclick="lkTab('meta')">Meta Ads</button>
+        <button class="tab" onclick="lkTab('google')">Google Ads</button>
+        <button class="tab" onclick="lkTab('tiktok')">TikTok Ads</button>
+        <button class="tab" onclick="lkTab('node')">Node.js</button>
+        <button class="tab" onclick="lkTab('python')">Python</button>
+      </div>
+      <div class="tab-panel active" data-lktab="meta">
+        <div class="code"><span class="c"># 1. Generate seed via Setoworks API</span>
+<span class="k">curl</span> -X <span class="k">POST</span> https://api.setoworks.com/v1/lookalike/seed \
+  -H <span class="s">"Authorization: Bearer sk_live_xxx"</span> \
+  -d <span class="s">'{"category":"tech_gadgets","price_min":50,"price_max":500,"platform":"meta","format":"meta_audience"}'</span>
+
+<span class="c"># Response: { "audience_url": "https://...meta.csv", "size": 12309 }</span>
+
+<span class="c"># 2. Push to Meta Custom Audience (auto)</span>
+<span class="k">curl</span> -X <span class="k">POST</span> https://graph.facebook.com/v19.0/act_<ACCOUNT_ID>/customaudiences \
+  -d <span class="s">"name=Setoworks_Lookalike_Tech_2026"</span> \
+  -d <span class="s">"subtype=CUSTOM"</span> \
+  -d <span class="s">"customer_file_source=USER_PROVIDED_ONLY"</span> \
+  -d <span class="s">"access_token=<META_TOKEN>"</span>
+
+<span class="c"># 3. Create lookalike (Meta auto-expands to ~10M lookalikes)</span>
+<span class="k">curl</span> -X <span class="k">POST</span> https://graph.facebook.com/v19.0/act_<ACCOUNT_ID>/customaudiences \
+  -d <span class="s">"subtype=LOOKALIKE"</span> \
+  -d <span class="s">'lookalike_spec={"type":"similarity","ratio":0.01,"country":"US"}'</span> \
+  -d <span class="s">"origin_audience_id=<SEED_AUDIENCE_ID>"</span></div>
+      </div>
+      <div class="tab-panel" data-lktab="google">
+        <div class="code"><span class="c"># Google Ads Customer Match — push hashed emails directly</span>
+<span class="k">POST</span> https://googleads.googleapis.com/v15/customers/<CUSTOMER_ID>/offlineUserDataJobs:create
+{
+  <span class="s">"job"</span>: {
+    <span class="s">"type"</span>: <span class="s">"CUSTOMER_MATCH_USER_LIST"</span>,
+    <span class="s">"customerMatchUserListMetadata"</span>: {
+      <span class="s">"userList"</span>: <span class="s">"customers/123/userLists/Setoworks_Lookalike"</span>
+    }
+  }
+}
+
+<span class="c"># Then add operations from Setoworks seed (each row = sha256 email)</span>
+<span class="k">POST</span> .../offlineUserDataJobs/<JOB_ID>:addOperations
+{ <span class="s">"operations"</span>: [{<span class="s">"create"</span>:{<span class="s">"userIdentifiers"</span>:[{<span class="s">"hashedEmail"</span>:<span class="s">"8b2e1d4f..."</span>}]}}, ...] }</div>
+      </div>
+      <div class="tab-panel" data-lktab="tiktok">
+        <div class="code"><span class="c"># TikTok Ads — File Custom Audience</span>
+<span class="k">POST</span> https://business-api.tiktok.com/open_api/v1.3/dmp/custom_audience/file/upload/
+{
+  <span class="s">"advertiser_id"</span>: <span class="s">"123"</span>,
+  <span class="s">"file_name"</span>: <span class="s">"setoworks_lookalike_tech_2026.csv"</span>,
+  <span class="s">"file"</span>: <span class="s">"&#60;multipart from /v1/lookalike/seed?format=tiktok&#62;"</span>
+}
+
+<span class="c"># Auto-creates Lookalike with 1% similarity in target country</span>
+<span class="k">POST</span> .../dmp/custom_audience/lookalike/create/
+{
+  <span class="s">"advertiser_id"</span>: <span class="s">"123"</span>,
+  <span class="s">"source_audience_id"</span>: <span class="s">"&#60;UPLOADED_AUDIENCE&#62;"</span>,
+  <span class="s">"region_id"</span>: [<span class="s">"6252001"</span>], <span class="c"># US</span>
+  <span class="s">"audience_size"</span>: <span class="s">"NARROW"</span>
+}</div>
+      </div>
+      <div class="tab-panel" data-lktab="node">
+        <div class="code"><span class="k">import</span> Setoworks <span class="k">from</span> <span class="s">'@setoworks/sdk'</span>
+
+<span class="k">const</span> sdk = <span class="k">new</span> Setoworks({apiKey: process.env.SETOWORKS_KEY})
+
+<span class="c">// 1. Generate seed</span>
+<span class="k">const</span> seed = <span class="k">await</span> sdk.lookalike.create({
+  category: <span class="s">'tech_gadgets'</span>,
+  priceMin: <span class="n">50</span>, priceMax: <span class="n">500</span>,
+  platform: <span class="s">'meta'</span>,
+  geography: <span class="s">'US'</span>,
+  format: <span class="s">'meta_audience'</span>
+})
+
+<span class="c">// 2. Auto-push to Meta (built-in connector)</span>
+<span class="k">const</span> audience = <span class="k">await</span> sdk.lookalike.pushToMeta(seed.id, {
+  metaAccessToken: process.env.META_TOKEN,
+  adAccountId: <span class="s">'act_xxx'</span>,
+  audienceName: <span class="s">'Setoworks_Lookalike_Tech_2026'</span>
+})
+
+console.log(<span class="s">`Audience created: ${audience.metaAudienceId}, size: ${seed.size}`</span>)</div>
+      </div>
+      <div class="tab-panel" data-lktab="python">
+        <div class="code"><span class="k">from</span> setoworks <span class="k">import</span> Setoworks
+
+sdk = Setoworks(api_key=os.environ[<span class="s">"SETOWORKS_KEY"</span>])
+
+<span class="c"># 1. Generate seed</span>
+seed = sdk.lookalike.create(
+    category=<span class="s">"tech_gadgets"</span>,
+    price_min=<span class="n">50</span>, price_max=<span class="n">500</span>,
+    platform=<span class="s">"meta"</span>, geography=<span class="s">"US"</span>,
+    output_format=<span class="s">"meta_audience"</span>
+)
+print(<span class="s">f"Seed: {seed.size} records · CPA est. ${seed.estimated_cpa}"</span>)
+
+<span class="c"># 2. Auto-push (Meta · Google · TikTok)</span>
+audience = sdk.lookalike.push_to_meta(
+    seed_id=seed.id,
+    meta_token=os.environ[<span class="s">"META_TOKEN"</span>],
+    ad_account=<span class="s">"act_xxx"</span>
+)</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">C</span><h2>Real campaign result · 한셉트 (실측)</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot"></span><span class="card-t">캠페인 개요</span></div><div class="card-d"><strong style="color:#fff">한셉트 노트북 스탠드</strong><br>Kickstarter US 타겟 · 30일 펀딩 · 목표 $20,000<br>광고 채널: Meta + Google YouTube</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">시드 적용 결과</span></div><div class="card-d">슈퍼백커 13,461명 → Tech·$50~200 필터 → 9,840 시드<br>Meta 매치율 81% → Lookalike 1% 약 1.4M 도달<br>30일 누적 광고 노출 4.2M</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--em)"></span><span class="card-t">최종 성과</span></div><div class="card-d"><strong style="color:var(--em)">백커 1,847명 / $164K 펀딩 (목표 820%)</strong><br>광고비 $22,400 / CPA $12.1 / ROAS 7.3x<br>cold campaign 동일 산업 평균 대비 <strong style="color:var(--em)">CPA -64%</strong></div></div>
+      </div>
+    </div>
   </div>
 
   <!-- ============ PAGE: PURESCORE ============ -->
@@ -674,6 +926,63 @@ code,kbd{font-family:var(--mono)}
         <div class="uc"><div class="uc-tag">PR 에이전시</div><div class="uc-t">봇 인플 사전 차단</div><div class="uc-d">캠페인 시작 전 봇 비율 5% 초과 인플 자동 제외. 클라이언트 손실 방지.</div><div class="uc-result">→ 봇 노출 사고 0건</div></div>
       </div>
     </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">B</span><h2>Bulk Score Uploader · 100명 일괄</h2><span class="tail">paste handles → instant score</span></div>
+      <div class="bulk">
+        <div class="bulk-input">
+          <h3 style="font-size:13px;color:#fff;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="font-family:var(--mono);font-size:9px;color:var(--em);background:var(--em-dim);padding:2px 6px;border-radius:3px;letter-spacing:.06em">CSV</span>One handle per line</h3>
+          <textarea class="bulk-textarea" id="ps-bulk" spellcheck="false">@gadgetreviewer
+@tech.unboxed
+@minimaldesks
+@wfh.gear
+@dailycarry
+@mountainmaker
+@deskdesigners
+@workspacepro
+@productcrafted
+@studiotech</textarea>
+          <div class="field" style="margin-top:10px"><label>Category context</label>
+            <select id="ps-bulk-cat"><option>Tech / Gadgets</option><option>Product Design</option><option>Lifestyle</option><option>Beauty</option></select>
+          </div>
+          <button class="btn-run" onclick="runBulkPS()">Score all (100 max) →</button>
+          <div class="field-hint">$0.02/score · 100명 = $2 · 평균 4초 처리</div>
+        </div>
+        <div class="bulk-result" id="ps-bulk-out">
+          <div class="demo-output-h">Bulk Score Result<span class="meta">awaiting input...</span></div>
+          <div class="empty">Paste handles → click Score all</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>Bot Detection Showcase · 정상 vs 의심</h2></div>
+      <div class="bot-cards">
+        <div class="bot-card clean">
+          <div class="b-h"><span class="pill">CLEAN · 1.4%</span><span class="b-handle">@gadgetreviewer · TikTok</span></div>
+          <div class="card-d" style="font-size:11.5px;color:var(--text-dim);line-height:1.55;margin-bottom:6px">자연스러운 성장 곡선 + 댓글 NLP 진성 비율 96% + 팔로워 활동 패턴 분포 균질.</div>
+          <div class="bot-stats">
+            <div class="bot-stat"><div class="l">팔로워 가입일 분포</div><div class="v ok">균질</div></div>
+            <div class="bot-stat"><div class="l">댓글 NLP 진성</div><div class="v ok">96%</div></div>
+            <div class="bot-stat"><div class="l">프로필 완성도</div><div class="v ok">88%</div></div>
+            <div class="bot-stat"><div class="l">활동 시간대</div><div class="v ok">자연스러움</div></div>
+          </div>
+        </div>
+        <div class="bot-card flagged">
+          <div class="b-h"><span class="pill">FLAGGED · 38.2%</span><span class="b-handle">@viral_now_001 · Instagram</span></div>
+          <div class="card-d" style="font-size:11.5px;color:var(--text-dim);line-height:1.55;margin-bottom:6px">3주 만에 100K 팔로워 급증 + 동일 가입일 클러스터 64% + 봇 댓글 ("Nice!" 4단어 반복) 41% 검출.</div>
+          <div class="bot-stats">
+            <div class="bot-stat"><div class="l">팔로워 가입일 분포</div><div class="v bad">7일에 64%</div></div>
+            <div class="bot-stat"><div class="l">댓글 NLP 진성</div><div class="v bad">59%</div></div>
+            <div class="bot-stat"><div class="l">프로필 완성도</div><div class="v bad">31%</div></div>
+            <div class="bot-stat"><div class="l">활동 시간대</div><div class="v bad">UTC+0 집중</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:14px 16px;background:var(--em-dim);border:1px solid var(--em-edge);border-radius:10px;font-size:12.5px;color:var(--text);line-height:1.6">
+        <strong style="color:var(--em)">→ 5% 초과 봇 비율 자동 플래그.</strong> 캠페인 시작 전 자동 필터링되므로 광고비·제품 발송 손실을 사전 차단. <span style="color:var(--text-dim)">(Modash·HypeAuditor는 별도 $200/월 추가 모듈에서만 제공 — 우리는 모든 점수 호출에 기본 포함.)</span>
+      </div>
+    </div>
   </div>
 
   <!-- ============ PAGE: RADAR ============ -->
@@ -767,6 +1076,74 @@ code,kbd{font-family:var(--mono)}
         <div class="uc"><div class="uc-tag">VC·인큐베이터</div><div class="uc-t">시장 모니터링</div><div class="uc-d">포트폴리오사 카테고리별 시장 사이즈·CAGR 자동 트래킹. 다음 라운드 의사결정용.</div><div class="uc-result">→ 분기 리포트 자동화</div></div>
         <div class="uc"><div class="uc-tag">미디어·트렌드 리서치</div><div class="uc-t">기사·블로그 컨텐츠 소스</div><div class="uc-d">"이번주 떠오른 펀딩 카테고리" 콘텐츠 자동 생성. 데이터 기반 기사.</div><div class="uc-result">→ 콘텐츠 생산 5x</div></div>
       </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">G</span><h2>Country × Category Heatmap (지난 30일 평균 펀딩액)</h2><span class="tail">click cell to drill-down</span></div>
+      <div class="hm" id="radar-hm"></div>
+      <div class="hm-legend"><span>$0</span><div class="hm-legend-bar"></div><span>$200K+</span><span style="margin-left:auto">색이 진할수록 높은 펀딩액 · 색 없음 = 데이터 부족</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">A</span><h2>Alert Templates · Slack & Email</h2><span class="tail">실제 발송 메시지 미리보기</span></div>
+      <div class="card-grid cg-2">
+        <div class="alert-mock">
+          <div class="header">
+            <div class="ico slack">#</div>
+            <div><div style="color:#fff;font-size:12px;font-weight:700">#trend-alerts</div><div class="name">Setoworks Radar · Today 09:00</div></div>
+          </div>
+          <div class="body">🔥 <strong>EV Bike Accessories</strong> 카테고리 급등 감지
+
+· 신규 캠페인: <strong>+156% WoW</strong> (23건)
+· 평균 펀딩액: <strong>$184K</strong> (1.7배 ↑)
+· 성공률: <strong>62%</strong> (vs 전체 평균 41%)
+· Top 국가: US·DE
+· 키워드: 배터리·접이식·통근
+
+→ <strong>지금이 진입 타이밍. 24h 내 검토 권장.</strong></div>
+          <div class="actions">
+            <button class="btn-mock">📊 카테고리 상세</button>
+            <button class="btn-mock">⏸ 무시</button>
+            <button class="btn-mock">📌 watchlist 추가</button>
+          </div>
+        </div>
+        <div class="alert-mock">
+          <div class="header">
+            <div class="ico email">@</div>
+            <div><div style="color:#fff;font-size:12px;font-weight:700">Weekly Digest · 5월 3주차</div><div class="name">trends@setoworks.com → me</div></div>
+          </div>
+          <div class="body"><strong>이번주 뜨는 3 / 식는 2</strong>
+
+✓ EV Bike Accessories — <strong>+38.4%</strong> Avg $184K
+✓ AI Productivity Tools — <strong>+27.8%</strong> Avg $92K
+✓ Foldable Travel Gear — <strong>+19.2%</strong> Avg $71K
+
+⚠ Smart Watches — <strong>-23%</strong> 시장 포화
+⚠ Fitness Trackers — <strong>-18%</strong> 차별화 부재
+
+가입한 watchlist (Tech·Lifestyle): 3건 신규 매치
+→ 대시보드에서 상세 보기</div>
+          <div class="actions">
+            <button class="btn-mock">📈 전체 트렌드</button>
+            <button class="btn-mock">⚙ 알림 설정</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">P</span><h2>Historical accuracy · 우리 알림이 얼마나 맞았나</h2></div>
+      <table class="cmp">
+        <thead><tr><th>알림 카테고리 (감지일)</th><th>감지 시점</th><th>당시 평균</th><th>3개월 후</th><th class="us">결과</th></tr></thead>
+        <tbody>
+          <tr><td>EV Bike Accessories</td><td class="dim">2025-12-04</td><td class="mono">$108K</td><td class="mono">$184K</td><td class="us">+70% ✓ 적중</td></tr>
+          <tr><td>AI Productivity Tools</td><td class="dim">2026-01-12</td><td class="mono">$58K</td><td class="mono">$92K</td><td class="us">+58% ✓ 적중</td></tr>
+          <tr><td>Modular Tabletop</td><td class="dim">2025-11-22</td><td class="mono">$84K</td><td class="mono">$132K</td><td class="us">+57% ✓ 적중</td></tr>
+          <tr><td>Foldable Travel Gear</td><td class="dim">2026-02-18</td><td class="mono">$52K</td><td class="mono">$71K</td><td class="us">+36% ✓ 적중</td></tr>
+          <tr><td>VR Accessories</td><td class="dim">2026-01-30</td><td class="mono">$74K</td><td class="mono">$68K</td><td class="warn">-8% ⚠ 미적중</td></tr>
+          <tr><td colspan="4"><strong style="color:var(--em)">12개월 누적 정확도</strong> (감지 카테고리가 3개월 후 +20%↑ 유지)</td><td class="us"><strong>78%</strong></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -872,6 +1249,151 @@ code,kbd{font-family:var(--mono)}
         <div class="uc"><div class="uc-tag">제조사·메이커</div><div class="uc-t">해외 수출 시작</div><div class="uc-d">펀딩 후 양산 시점 → 미국·일본 바이어 30명 한 번에 컨택. KOTRA 박람회 대체.</div><div class="uc-result">→ 첫 수출 계약 2개월</div></div>
         <div class="uc"><div class="uc-tag">상사·종합무역</div><div class="uc-t">신규 카테고리 진출</div><div class="uc-d">기존 상품군 외 신규 HS 코드 진입 시 바이어 풀 자동 생성. Apollo Sequence로 직발송.</div><div class="uc-result">→ 영업 인력 50%↓</div></div>
         <div class="uc"><div class="uc-tag">정부·KOTRA</div><div class="uc-t">중소기업 매칭 자동화</div><div class="uc-d">수출지원사업 참여 기업 1,000개 일괄 매칭. 박람회·미팅 사전 준비.</div><div class="uc-result">→ 매칭률 3x</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">G</span><h2>Country breakdown · TOP 30 결과 분포</h2></div>
+      <div class="card-grid cg-2">
+        <div class="card">
+          <div class="card-h"><span class="dot"></span><span class="card-t">국가별 바이어 수 + 평균 응답률</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+            <div class="bar-row"><span class="lbl">🇺🇸 United States</span><div class="bar-track"><div class="bar-fill" style="width:73%"></div></div><span class="val">12 / 38%</span></div>
+            <div class="bar-row"><span class="lbl">🇩🇪 Germany</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:linear-gradient(90deg,var(--blue),#8b9fff)"></div></div><span class="val">6 / 32%</span></div>
+            <div class="bar-row"><span class="lbl">🇯🇵 Japan</span><div class="bar-track"><div class="bar-fill" style="width:42%;background:linear-gradient(90deg,var(--purple),#c9a8ff)"></div></div><span class="val">4 / 41%</span></div>
+            <div class="bar-row"><span class="lbl">🇬🇧 United Kingdom</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:linear-gradient(90deg,var(--orange),#ffa97b)"></div></div><span class="val">3 / 28%</span></div>
+            <div class="bar-row"><span class="lbl">🇫🇷 France</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,var(--cyan),#67d8ec)"></div></div><span class="val">2 / 22%</span></div>
+            <div class="bar-row"><span class="lbl">🇨🇦 Canada</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,var(--yellow),#ffcc6e)"></div></div><span class="val">2 / 35%</span></div>
+            <div class="bar-row"><span class="lbl">🇦🇺 Australia</span><div class="bar-track"><div class="bar-fill" style="width:8%;background:linear-gradient(90deg,var(--pink),#ff8bbe)"></div></div><span class="val">1 / 18%</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">바이어 등급 분포 (Tier A/B/C)</span></div>
+          <table class="tbl" style="margin-top:12px">
+            <thead><tr><th>Tier</th><th>기준</th><th>건수</th><th>응답률</th><th>가격대</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tbl pill ok">A</span></td><td>Score ≥ 0.85 + 최근 3개월 거래</td><td class="mono accent">12</td><td class="mono accent">42%</td><td class="dim">$50K~500K</td></tr>
+              <tr><td><span class="tbl pill warn">B</span></td><td>Score 0.70~0.85 + 6개월 내 거래</td><td class="mono">14</td><td class="mono">28%</td><td class="dim">$10K~100K</td></tr>
+              <tr><td><span class="tbl pill" style="background:rgba(99,102,241,.15);color:#6366f1">C</span></td><td>Score 0.65~0.70 + 12개월 내 거래</td><td class="mono">4</td><td class="mono">14%</td><td class="dim">$5K~30K</td></tr>
+              <tr><td colspan="2"><strong>전체 평균</strong></td><td class="mono accent">30</td><td class="mono accent">31.6%</td><td class="dim">vs cold 5%</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:12px;padding:10px 12px;background:var(--em-dim);border-radius:6px;font-size:11px;color:var(--text-dim);line-height:1.5">
+            <strong style="color:var(--em)">권장:</strong> Tier A 12명 우선 24h 내 발송 → 응답률 42% 기대 → 5명 회신 시 즉시 미팅. Tier B는 1주차에 후속.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">E</span><h2>Cold Email Generator · 다국어 자동</h2><span class="tail">버튼 누르면 즉시 발송 가능 메일 생성</span></div>
+      <div class="card" style="padding:20px 22px">
+        <div class="email-lang">
+          <button class="active" onclick="emailLang(this,'en')">English</button>
+          <button onclick="emailLang(this,'jp')">日本語</button>
+          <button onclick="emailLang(this,'de')">Deutsch</button>
+          <button onclick="emailLang(this,'kr')">한국어</button>
+        </div>
+
+        <div class="email-mock" data-elang="en">
+          <div class="email-mock-h">
+            <div class="row"><span class="k">From</span><span class="v">team@yourcompany.com</span></div>
+            <div class="row"><span class="k">To</span><span class="v">m.chen@bedbath.com (Mark Chen · Sr Buyer)</span></div>
+            <div class="row"><span class="k">Subject</span><span class="v subj">Foldable laptop stand · 30 days post-Kickstarter, ready for retail</span></div>
+          </div>
+          <div class="email-mock-body">Hi Mark,
+
+I noticed BedBath placed an order on <span class="var">HS 9404.21</span> with <span class="var">Wayfair Asia</span> last quarter — sourcing similar stands for your office category.
+
+We just closed a Kickstarter campaign for the <span class="var">Pro Foldable Aluminum Laptop Stand</span> with <span class="var">$164K / 1,847 backers</span> in the US. Inventory ships in 6 weeks. MOQ <span class="var">500 units</span>, FOB <span class="var">$22</span>.
+
+3 reasons this fits BedBath:
+- Aluminum aerospace-grade · 5-year warranty
+- Already validated by 1,800+ US backers
+- Fits your Q3 dropship category roadmap
+
+Open to a 15-min call this Tuesday or Wednesday?
+
+Best,
+[Your name]</div>
+        </div>
+
+        <div class="email-mock" data-elang="jp" style="display:none">
+          <div class="email-mock-h">
+            <div class="row"><span class="k">From</span><span class="v">team@yourcompany.com</span></div>
+            <div class="row"><span class="k">To</span><span class="v">tanaka@rakuten-buyer.co.jp (田中様)</span></div>
+            <div class="row"><span class="k">Subject</span><span class="v subj">折りたたみノートPCスタンド · 楽天マーケット向け新商品ご提案</span></div>
+          </div>
+          <div class="email-mock-body">田中様
+
+お世話になっております。
+楽天が <span class="var">HS 9404.21</span> カテゴリで <span class="var">PChome Japan</span> 経由で類似商品の輸入実績がございます。
+
+当社は先日 <span class="var">Makuake</span> にて <span class="var">Pro Foldable Aluminum Laptop Stand</span> のクラウドファンディングを成功裏に完了 (<span class="var">¥21M / 1,200名サポーター</span>)。
+
+ご提案条件:
+- MOQ <span class="var">500個</span>, FOB <span class="var">$22</span>
+- 航空輸送可能 · 在庫6週間後
+- 5年品質保証
+
+来週、15分のオンラインミーティングのお時間いただけますでしょうか?
+
+何卒よろしくお願いいたします。
+[お名前]</div>
+        </div>
+
+        <div class="email-mock" data-elang="de" style="display:none">
+          <div class="email-mock-h">
+            <div class="row"><span class="k">From</span><span class="v">team@yourcompany.com</span></div>
+            <div class="row"><span class="k">To</span><span class="v">m.weber@otto-sourcing.de (Markus Weber · Senior Buyer)</span></div>
+            <div class="row"><span class="k">Subject</span><span class="v subj">Foldable Laptop Stand · Validated US/Japan, ready for DACH</span></div>
+          </div>
+          <div class="email-mock-body">Sehr geehrter Herr Weber,
+
+Otto hat im Q1 <span class="var">HS 9404.21</span> Produkte über <span class="var">Westwing</span> bezogen — passender Office-Bereich.
+
+Wir haben kürzlich auf <span class="var">Kickstarter</span> 1.847 Backer mit <span class="var">$164K</span> erreicht. Produktion läuft, Versand in 6 Wochen.
+
+Konditionen:
+- MOQ <span class="var">500 Stk</span>, FOB <span class="var">$22</span>
+- DDP Hamburg möglich
+- 5 Jahre Garantie · CE/RoHS
+
+15-Min Call diese Woche?
+
+Mit freundlichen Grüßen
+[Name]</div>
+        </div>
+
+        <div class="email-mock" data-elang="kr" style="display:none">
+          <div class="email-mock-h">
+            <div class="row"><span class="k">From</span><span class="v">team@yourcompany.com</span></div>
+            <div class="row"><span class="k">To</span><span class="v">park@coupang-mfc.com (박OO 매니저)</span></div>
+            <div class="row"><span class="k">Subject</span><span class="v subj">접이식 노트북 스탠드 · KS 1,847 백커 검증, 쿠팡 입점 제안</span></div>
+          </div>
+          <div class="email-mock-body">박매니저님 안녕하세요.
+
+쿠팡이 작년 Q4부터 <span class="var">HS 9404.21</span> 카테고리에서 자체 입점 강화 중인 것으로 보입니다.
+
+당사는 최근 <span class="var">Kickstarter</span>에서 <span class="var">$164K / 1,847 백커</span>로 캠페인을 마쳤고, 양산 6주 후 입고 가능합니다.
+
+입점 조건:
+- MOQ <span class="var">500개</span>, FOB <span class="var">$22</span>
+- 직매입 또는 위탁판매 모두 협상 가능
+- 5년 품질 보증, KC 인증 진행 중
+
+이번 주 미팅 15분 가능하실까요?
+
+감사합니다.
+[이름]</div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="topbar-cta primary" style="padding:8px 14px">Generate for all 30 buyers (CSV)</button>
+          <button class="topbar-cta">Push to Apollo Sequence</button>
+          <button class="topbar-cta">Edit template</button>
+        </div>
+        <div style="margin-top:8px;font-size:10.5px;color:var(--muted);font-family:var(--mono)">* 이름·회사·HS·과거 거래 자동 삽입 (Apollo + ImportYeti). 다국어 GPT-4 번역 검수.</div>
       </div>
     </div>
   </div>
@@ -1252,6 +1774,128 @@ function initRadarCharts(){
     },
     options:opts
   });
+}
+
+/* ===== Lookalike ROI Calculator ===== */
+function calcLKROI(){
+  const backers = +document.getElementById('lk-roi-backers').value;
+  const price = +document.getElementById('lk-roi-price').value;
+  const plat = document.getElementById('lk-roi-plat').value;
+  document.getElementById('lk-roi-backers-v').textContent = backers.toLocaleString()+'명';
+  document.getElementById('lk-roi-price-v').textContent = '$'+price;
+  // Cold CPA varies by platform: meta $40, google $35, tt $32
+  const coldCPA = {meta:40, google:35, tiktok:32}[plat];
+  const lkCPA   = {meta:18, google:17, tiktok:15}[plat];
+  const coldSpend = backers * coldCPA;
+  const lkSpend = backers * lkCPA;
+  const savings = coldSpend - lkSpend;
+  const coldRevenue = backers * price;
+  const lkRevenue = backers * price;
+  const coldROAS = (coldRevenue/coldSpend).toFixed(1);
+  const lkROAS = (lkRevenue/lkSpend).toFixed(1);
+  const coldCVR = 0.8, lkCVR = 2.1;
+  document.getElementById('lk-roi-tbody').innerHTML = `
+    <tr><td>CPA (백커당 광고비)</td><td class="before">$${coldCPA}</td><td class="after">$${lkCPA}</td><td class="delta pos">-${Math.round((coldCPA-lkCPA)/coldCPA*100)}%</td></tr>
+    <tr><td>전환율 (광고 → 백커)</td><td class="before">${coldCVR}%</td><td class="after">${lkCVR}%</td><td class="delta pos">+${(lkCVR/coldCVR).toFixed(1)}x</td></tr>
+    <tr><td>총 광고비 지출</td><td class="before">$${coldSpend.toLocaleString()}</td><td class="after">$${lkSpend.toLocaleString()}</td><td class="delta pos">-$${savings.toLocaleString()}</td></tr>
+    <tr><td>예상 펀딩 매출</td><td class="before">$${coldRevenue.toLocaleString()}</td><td class="after">$${lkRevenue.toLocaleString()}</td><td class="delta dim">동일</td></tr>
+    <tr><td>ROAS</td><td class="before">${coldROAS}x</td><td class="after">${lkROAS}x</td><td class="delta pos">+${(lkROAS-coldROAS).toFixed(1)}x</td></tr>`;
+  document.getElementById('lk-roi-savings').textContent = '$'+savings.toLocaleString();
+}
+calcLKROI();
+
+/* ===== Lookalike code tabs ===== */
+function lkTab(name){
+  document.querySelectorAll('[data-lktab]').forEach(p=>p.classList.toggle('active', p.dataset.lktab===name));
+  // find the tab buttons within the same .tabs container
+  document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.toggle('active', b.textContent.toLowerCase().includes(name) || (name==='node' && b.textContent.includes('Node')) || (name==='python' && b.textContent.includes('Python')) || (name==='meta' && b.textContent.includes('Meta')) || (name==='google' && b.textContent.includes('Google')) || (name==='tiktok' && b.textContent.includes('TikTok'))));
+}
+
+/* ===== Pure Score · Bulk uploader ===== */
+function runBulkPS(){
+  const handles = document.getElementById('ps-bulk').value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,100);
+  const cat = document.getElementById('ps-bulk-cat').value;
+  const out = document.getElementById('ps-bulk-out');
+  out.innerHTML = `<div class="demo-output-h">Bulk Score Result<span class="meta"><span class="spin"></span> ${handles.length}명 처리 중...</span></div>`;
+  setTimeout(()=>{
+    const rows = handles.map((h,i)=>{
+      // deterministic-ish score from handle
+      let seed = 0;
+      for(let c of h) seed = (seed*31 + c.charCodeAt(0)) & 0xffff;
+      const score = 35 + (seed % 60);
+      const tier = score>=80?{n:'Mega',c:'mega'}:score>=70?{n:'Macro',c:'macro'}:score>=60?{n:'Mid',c:'mid'}:score>=50?{n:'Micro',c:'micro'}:{n:'Nano',c:'nano'};
+      const followers = score>=80?'1.4M':score>=70?'420K':score>=60?'180K':score>=50?'42K':'8.5K';
+      const er = (12 - score/12).toFixed(1)+'%';
+      const bot = (Math.abs(((seed*17)%100))/1000).toFixed(3);
+      const recommend = score>=70 && +bot<0.05;
+      return {h,score,tier,followers,er,bot,recommend};
+    });
+    const recommended = rows.filter(r=>r.recommend).length;
+    const flagged = rows.filter(r=>+r.bot>=0.05).length;
+    out.innerHTML = `
+      <div class="demo-output-h">Bulk Score Result<span class="meta">${handles.length}명 · ${(handles.length*0.04).toFixed(1)}s · $${(handles.length*0.02).toFixed(2)}</span></div>
+      <div class="out-grid">
+        <div class="out-cell"><div class="l">Total scored</div><div class="v">${handles.length}</div><div class="d">${cat}</div></div>
+        <div class="out-cell"><div class="l">Recommended (≥70 + clean)</div><div class="v">${recommended}</div><div class="d">즉시 시딩 가능</div></div>
+        <div class="out-cell"><div class="l">⚠ Bot flagged (≥5%)</div><div class="v ${flagged>0?'warn':''}">${flagged}</div><div class="d">캠페인 제외 권장</div></div>
+      </div>
+      <div style="overflow:auto;max-height:280px"><table class="tbl">
+        <thead><tr><th>Handle</th><th>Score</th><th>Tier</th><th>Followers</th><th>ER</th><th>Bot</th><th>추천</th></tr></thead>
+        <tbody>${rows.map(r=>`<tr><td class="mono">${r.h}</td><td class="mono accent">${r.score}</td><td><span class="tier-pill tier-${r.tier.c}">${r.tier.n}</span></td><td class="mono">${r.followers}</td><td class="mono">${r.er}</td><td class="mono ${+r.bot>=0.05?'dim':''}" style="${+r.bot>=0.05?'color:var(--red)':''}">${(+r.bot*100).toFixed(1)}%</td><td>${r.recommend?'<span class="tbl pill ok">✓</span>':+r.bot>=0.05?'<span class="tbl pill bad">⨯</span>':'<span class="tbl pill warn">−</span>'}</td></tr>`).join('')}</tbody>
+      </table></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="topbar-cta primary" style="padding:7px 12px">Download CSV</button><button class="topbar-cta">Push to influencer DB</button></div>`;
+  }, 1100);
+}
+
+/* ===== Trend Radar Heatmap ===== */
+function buildHeatmap(){
+  const el = document.getElementById('radar-hm');
+  if(!el || el.dataset.built) return;
+  el.dataset.built = '1';
+  const cats = ['EV Bike','AI Tools','Travel','Apparel','Tabletop','Home','Beauty','Food','Tech Acc.','Pet','Outdoor','Edu','Gaming'];
+  const countries = ['US','JP','KR','TW','GB','DE','FR','CN'];
+  // mock matrix (K USD)
+  const matrix = {
+    'EV Bike':     [184, 76, 38, 22, 96, 142, 67, 18],
+    'AI Tools':    [92, 64, 34, 28, 71, 58, 42, 12],
+    'Travel':      [54, 71, 32, 38, 62, 48, 35, 22],
+    'Apparel':     [38, 28, 24, 18, 34, 48, 31, 14],
+    'Tabletop':    [132, 38, 18, 12, 84, 76, 48, 8],
+    'Home':        [67, 42, 38, 22, 51, 62, 41, 18],
+    'Beauty':      [41, 32, 28, 24, 38, 28, 24, 32],
+    'Food':        [34, 22, 18, 14, 28, 32, 26, 12],
+    'Tech Acc.':   [98, 84, 38, 32, 76, 64, 48, 24],
+    'Pet':         [42, 38, 22, 18, 34, 38, 28, 14],
+    'Outdoor':     [78, 32, 28, 24, 58, 84, 38, 12],
+    'Edu':         [38, 48, 22, 18, 32, 28, 24, 22],
+    'Gaming':      [124, 92, 38, 28, 92, 86, 58, 38]
+  };
+  const max = 200;
+  let html = `<div class="hm-row h"><div class="hm-cell h lbl">CATEGORY \\ 국가</div>${countries.map(c=>`<div class="hm-cell h">${c}</div>`).join('')}</div>`;
+  cats.forEach(cat=>{
+    html += `<div class="hm-row"><div class="hm-cell lbl">${cat}</div>`;
+    matrix[cat].forEach(v=>{
+      const intensity = Math.min(v/max, 1);
+      const bg = `rgba(62,207,142,${(0.05 + intensity*0.85).toFixed(2)})`;
+      const txt = intensity>0.45 ? '#000' : '#fff';
+      html += `<div class="hm-cell" style="background:${bg};color:${txt}" title="${cat} · ${countries[matrix[cat].indexOf(v)]} · $${v}K">$${v}K</div>`;
+    });
+    html += `</div>`;
+  });
+  el.innerHTML = html;
+}
+
+/* hook into route */
+const _route = route;
+route = function(name){
+  _route(name);
+  if(name==='radar') setTimeout(buildHeatmap, 100);
+};
+
+/* ===== Email language switch ===== */
+function emailLang(btn, lang){
+  document.querySelectorAll('.email-lang button').forEach(b=>b.classList.toggle('active', b===btn));
+  document.querySelectorAll('[data-elang]').forEach(e=>e.style.display = e.dataset.elang===lang ? '' : 'none');
 }
 
 /* hash routing */
