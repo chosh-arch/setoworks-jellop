@@ -194,6 +194,52 @@ code,kbd{font-family:var(--mono)}
 .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--em);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* Step flow (How it works) */
+.step-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:6px}
+.step-flow .step{position:relative;padding:18px 16px;background:var(--card);border:1px solid var(--border);border-radius:0}
+.step-flow .step:first-child{border-radius:10px 0 0 10px}
+.step-flow .step:last-child{border-radius:0 10px 10px 0}
+.step-flow .step:not(:first-child){border-left:none}
+.step-flow .step-n{font-family:var(--mono);font-size:10px;color:var(--em);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.step-flow .step-t{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.step-flow .step-d{font-size:11px;color:var(--text-dim);line-height:1.5}
+.step-flow .step-d code{background:var(--surface-2);padding:1px 5px;border-radius:3px;color:var(--em);font-size:10px}
+.step-flow .step::after{content:"";position:absolute;right:-8px;top:50%;transform:translateY(-50%) rotate(45deg);width:14px;height:14px;background:var(--card);border-top:1px solid var(--border);border-right:1px solid var(--border);z-index:2}
+.step-flow .step:last-child::after{display:none}
+
+/* Comparison table */
+.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.cmp thead th{background:var(--surface-2);color:var(--muted);font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.cmp thead th.us{color:var(--em);background:rgba(62,207,142,.08)}
+.cmp tbody td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top}
+.cmp tbody td:first-child{color:#fff;font-weight:600;font-size:12.5px}
+.cmp tbody td.us{background:rgba(62,207,142,.04);color:var(--em);font-weight:600}
+.cmp tbody td.bad{color:var(--red)}
+.cmp tbody td.warn{color:var(--yellow)}
+.cmp .check{color:var(--em);font-family:var(--mono)}
+.cmp .x{color:var(--red);font-family:var(--mono)}
+
+/* Impact metrics */
+.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.impact-cell{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.impact-cell .l{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.impact-cell .row{display:flex;align-items:baseline;gap:10px}
+.impact-cell .before{font-family:var(--mono);font-size:14px;color:var(--text-dim);text-decoration:line-through}
+.impact-cell .arrow{color:var(--muted);font-size:11px}
+.impact-cell .after{font-family:var(--mono);font-size:22px;color:var(--em);font-weight:800;letter-spacing:-.02em}
+.impact-cell .delta{font-family:var(--mono);font-size:11px;color:var(--em);background:rgba(62,207,142,.12);padding:2px 7px;border-radius:10px;display:inline-block;width:fit-content;font-weight:700}
+.impact-cell .d{font-size:11px;color:var(--text-dim);line-height:1.5}
+
+/* Use case cards */
+.usecase{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.uc{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--em);border-radius:10px;padding:16px 18px}
+.uc .uc-tag{font-family:var(--mono);font-size:9.5px;color:var(--em);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:6px}
+.uc .uc-t{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.uc .uc-d{font-size:11.5px;color:var(--text-dim);line-height:1.55}
+.uc .uc-result{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--em);padding-top:8px;border-top:1px dashed var(--border)}
+
+@media(max-width:900px){.step-flow{grid-template-columns:1fr}.step-flow .step{border-radius:0!important;border-left:1px solid var(--border)!important}.step-flow .step::after{display:none}.impact,.usecase{grid-template-columns:1fr}}
+
 @media(max-width:1100px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.kpi-row,.cg-3,.out-grid,.price-grid{grid-template-columns:1fr 1fr}.demo{grid-template-columns:1fr}}
 @media(max-width:640px){.kpi-row,.cg-3,.cg-2,.out-grid,.price-grid{grid-template-columns:1fr}.page{padding:24px 18px 50px}.hero h1{font-size:28px}}
 </style>
@@ -384,6 +430,50 @@ code,kbd{font-family:var(--mono)}
         <div class="card"><div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">추천 인플루언서 TOP 20</span></div><div class="card-d">제품 카테고리 × 인플루언서 콘텐츠 임베딩 일치도 + Pure Score 가중. 5-Tier 균형으로 출력.</div></div>
       </div>
     </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">H</span><h2>How it works · 5 steps</h2></div>
+      <div class="step-flow">
+        <div class="step"><div class="step-n">STEP 01</div><div class="step-t">제품 1줄 입력</div><div class="step-d">카테고리·가격·국가·목표·메이커 이력 6필드. 스토리는 <code>optional</code>.</div></div>
+        <div class="step"><div class="step-n">STEP 02</div><div class="step-t">학습 데이터 매칭</div><div class="step-d">KS 27,986건 + 자체 1,200건에서 12-factor 유사 케이스 검색 (벡터 임베딩).</div></div>
+        <div class="step"><div class="step-n">STEP 03</div><div class="step-t">회귀 모델 추론</div><div class="step-d">XGBoost + Bayesian quantile reg → P10/P50/P90 분포 산출. R² ≥ 0.7.</div></div>
+        <div class="step"><div class="step-n">STEP 04</div><div class="step-t">인플루언서 매칭</div><div class="step-d">제품 임베딩 ↔ 인플 콘텐츠 임베딩 cos sim + Pure Score 가중치.</div></div>
+        <div class="step"><div class="step-n">STEP 05</div><div class="step-t">PDF/JSON 출력</div><div class="step-d">30분 내 자동 생성. 메이커 대시보드 + 이메일 + Slack webhook.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>Why Setoworks only</h2></div>
+      <table class="cmp">
+        <thead><tr><th>역량</th><th>Jellop</th><th>Spray</th><th>KSDB</th><th class="us">Setoworks FOP</th></tr></thead>
+        <tbody>
+          <tr><td>자체 캠페인 결과 데이터</td><td class="bad x">없음</td><td class="bad x">없음</td><td class="bad x">없음</td><td class="us">1,200건 / 520억</td></tr>
+          <tr><td>KS GraphQL 직접 크롤</td><td class="bad x">×</td><td class="bad x">×</td><td class="warn">메타만</td><td class="us">전체 (27,986건)</td></tr>
+          <tr><td>슈퍼백커 댓글 패턴</td><td class="bad x">×</td><td class="bad x">×</td><td class="bad x">×</td><td class="us">13,461명 학습</td></tr>
+          <tr><td>아시아 5개국 데이터</td><td class="warn">미국 위주</td><td class="bad x">×</td><td class="warn">일부</td><td class="us">한·일·대·홍·싱</td></tr>
+          <tr><td>예측 신뢰구간</td><td class="bad x">제공 안 함</td><td class="bad x">×</td><td class="warn">±30%</td><td class="us">±15%</td></tr>
+          <tr><td>리포트 생성 시간</td><td class="warn">3~5일 (사람)</td><td class="bad x">N/A</td><td class="warn">2일</td><td class="us">30분 자동</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Business impact</h2></div>
+      <div class="impact">
+        <div class="impact-cell"><div class="l">매몰비용 (사전 검증 없는 캠페인)</div><div class="row"><span class="before">3,000만+</span><span class="arrow">→</span><span class="after">300만</span></div><span class="delta">-90%</span><div class="d">실패 캠페인 1건 손실 vs FOP 리포트 1건 비용. 의사결정 데이터로 회수.</div></div>
+        <div class="impact-cell"><div class="l">시장 진입 의사결정 시간</div><div class="row"><span class="before">2~3주</span><span class="arrow">→</span><span class="after">30분</span></div><span class="delta">-99%</span><div class="d">시장조사 외주 vs 자동 리포트. 메이커 launch window 단축.</div></div>
+        <div class="impact-cell"><div class="l">예측 정확도 (vs 시장조사 vendor)</div><div class="row"><span class="before">±40%</span><span class="arrow">→</span><span class="after">±15%</span></div><span class="delta">2.7x</span><div class="d">14년 1,200건 ground truth + KS 27,986건 데이터 기반 회귀.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">U</span><h2>Use cases</h2></div>
+      <div class="usecase">
+        <div class="uc"><div class="uc-tag">메이커</div><div class="uc-t">론칭 전 결과 검증</div><div class="uc-d">제품 개발 6개월 후 출시 직전, 가격·국가 결정용 데이터로 사용. 펀딩액 신뢰구간으로 광고비 예산 산정.</div><div class="uc-result">→ 평균 매몰비용 3,000만↓</div></div>
+        <div class="uc"><div class="uc-tag">광고 대행사</div><div class="uc-t">신규 클라이언트 평가</div><div class="uc-d">제안 전 클라이언트 제품 검증. 예측 펀딩액 대비 광고비 산정 → 성과 수수료 모델 가능 여부 판단.</div><div class="uc-result">→ 클라이언트 win rate +35%</div></div>
+        <div class="uc"><div class="uc-tag">투자사·VC</div><div class="uc-t">하드웨어 스타트업 듀딜</div><div class="uc-d">크라우드펀딩 1차 검증을 데이터로 진단. 메이커 history × 카테고리 적합도 객관 평가.</div><div class="uc-result">→ 듀딜 시간 5일↓</div></div>
+      </div>
+    </div>
   </div>
 
   <!-- ============ PAGE: LOOKALIKE ============ -->
@@ -429,6 +519,57 @@ code,kbd{font-family:var(--mono)}
           <div class="demo-output-h">Lookalike Seed<span class="meta">awaiting input...</span></div>
           <div class="empty">Run generator to see seed sample</div>
         </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">?</span><h2>Lookalike Audience란?</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot"></span><span class="card-t">시드 명단을 광고 매니저에 업로드</span></div><div class="card-d">"내가 가진 고객 1만명"을 Meta·Google·TikTok에 등록 → 플랫폼 AI가 해시 매칭으로 자기 사용자 DB(Meta 30억명)에서 동일 인물 찾음.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">"닮은 사람" 자동 확장</span></div><div class="card-d">매칭된 시드와 행동·관심사·소비 패턴이 비슷한 1,000만명을 자동 추출. 광고는 그 그룹에만 노출.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">시드 품질 = 광고 효율</span></div><div class="card-d">좋은 시드 = 정밀 타겟팅 = CPA 낮음 + ROAS 높음. <strong>"실제 결제한 사람" 시드를 가진 자가 이긴다.</strong></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">H</span><h2>How it works · 5 steps</h2></div>
+      <div class="step-flow">
+        <div class="step"><div class="step-n">STEP 01</div><div class="step-t">카테고리·가격 입력</div><div class="step-d">제품 카테고리 + 가격대 + 타겟 국가 + 광고 플랫폼 선택.</div></div>
+        <div class="step"><div class="step-n">STEP 02</div><div class="step-t">시드 풀 필터링</div><div class="step-d">슈퍼백커 13,461명 + 자체 60만 결제자에서 조건 일치자 추출.</div></div>
+        <div class="step"><div class="step-n">STEP 03</div><div class="step-t">PII 해시화</div><div class="step-d">이메일·전화 SHA256 변환. <code>GDPR·CCPA</code> 준수.</div></div>
+        <div class="step"><div class="step-n">STEP 04</div><div class="step-t">CSV/JSON 반환</div><div class="step-d">8K~13K 해시 시드. 5초 내. signed URL (24h).</div></div>
+        <div class="step"><div class="step-n">STEP 05</div><div class="step-t">광고 매니저 업로드</div><div class="step-d">Custom Audience → Lookalike 생성 → 1천만명 자동 확장.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>Why Setoworks only</h2></div>
+      <table class="cmp">
+        <thead><tr><th>경쟁사</th><th>시드 데이터</th><th>카테고리 정밀도</th><th>아시아 백커</th><th>매칭률</th><th>가격</th></tr></thead>
+        <tbody>
+          <tr><td>Meta cold audience (관심사 추정)</td><td class="bad">관심사만 (펀딩 결제자 X)</td><td class="bad">없음</td><td class="warn">제한적</td><td class="warn">N/A</td><td class="warn">CPC 종량</td></tr>
+          <tr><td>광고 대행사 자체 시드</td><td class="warn">자기 클라이언트 한정</td><td class="warn">소수</td><td class="bad">×</td><td class="warn">~60%</td><td class="warn">월 정액 큼</td></tr>
+          <tr><td>SocialBlade·Modash</td><td class="bad">인플 데이터만</td><td class="bad">×</td><td class="bad">×</td><td class="bad">×</td><td class="warn">$99~/월</td></tr>
+          <tr style="background:rgba(62,207,142,.04)"><td class="us"><strong>Setoworks Lookalike API</strong></td><td class="us">슈퍼백커 13,461 + 60만 결제자</td><td class="us">13개 × 가격대 fine-tuned</td><td class="us">한·일·대만·홍·싱 5개국</td><td class="us">78~85%</td><td class="us">$0.05/룩업</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Business impact (메이커 1,000명 백커 모집 시)</h2></div>
+      <div class="impact">
+        <div class="impact-cell"><div class="l">CPA (백커 1명당 광고비)</div><div class="row"><span class="before">$30~50</span><span class="arrow">→</span><span class="after">$15~25</span></div><span class="delta">-40%</span><div class="d">Cold audience vs 룩어라이크 시드. 정밀 타겟팅으로 광고 낭비 차단.</div></div>
+        <div class="impact-cell"><div class="l">백커 전환율</div><div class="row"><span class="before">0.8%</span><span class="arrow">→</span><span class="after">2.1%</span></div><span class="delta">2.6x</span><div class="d">실제 펀딩 결제자 시드 = 결제 의향 높은 사람 자동 매칭.</div></div>
+        <div class="impact-cell"><div class="l">총 광고비 (1,000 백커 모집)</div><div class="row"><span class="before">$40,000</span><span class="arrow">→</span><span class="after">$24,000</span></div><span class="delta">-$16K</span><div class="d">한 캠페인당 절감액 = Setoworks Suite 1년치 비용 회수.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">U</span><h2>Use cases</h2></div>
+      <div class="usecase">
+        <div class="uc"><div class="uc-tag">메이커</div><div class="uc-t">D-7 펀딩 광고 시작</div><div class="uc-d">론칭 직전 Meta·Google·TikTok 광고 캠페인 셋업. 룩어라이크 시드로 첫 24h 백커 200명 확보.</div><div class="uc-result">→ 첫 24h 펀딩액 ~$50K</div></div>
+        <div class="uc"><div class="uc-tag">광고 대행사</div><div class="uc-t">클라이언트 캠페인 운영</div><div class="uc-d">수십 개 메이커 동시 운영. API 자동 호출로 클라이언트별 카테고리 최적화 시드 생성.</div><div class="uc-result">→ 클라이언트 ROAS 평균 4.2x</div></div>
+        <div class="uc"><div class="uc-tag">이커머스</div><div class="uc-t">펀딩 후 자사몰 리타겟팅</div><div class="uc-d">펀딩 종료 후 Shopify·자사몰로 백커 이전. 슈퍼백커 시드로 재구매 캠페인.</div><div class="uc-result">→ LTV 1.8~2.5x</div></div>
       </div>
     </div>
   </div>
@@ -488,6 +629,51 @@ code,kbd{font-family:var(--mono)}
         </tbody>
       </table>
     </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">A</span><h2>5축 가중 알고리즘</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot"></span><span class="card-t">① Upload Frequency · 30점</span></div><div class="card-d">최근 90일 업로드 빈도 + 일관성 (주별 표준편차). 주 2회+ 업로드 + 변동 ±20% 이내 = 만점.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">② Reach (Avg Views) · 25점</span></div><div class="card-d">최근 10개 콘텐츠 평균 조회수 ÷ 팔로워 수 = reach ratio. Tier별 정규화 곡선 적용.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">③ Engagement Rate · 20점</span></div><div class="card-d">(좋아요+댓글+저장) / 조회수. 봇 댓글 NLP 필터로 제외 → 진성 ER 산출.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--purple)"></span><span class="card-t">④ Content Consistency · 15점</span></div><div class="card-d">최근 10개 콘텐츠 토픽 임베딩 cos similarity. 카테고리 일관성 = 메이커 매칭 정밀도.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--pink)"></span><span class="card-t">⑤ Growth Trend · 10점</span></div><div class="card-d">최근 90일 팔로워·조회수 성장률. 정체 또는 하락은 감점. 신규 떠오르는 크리에이터 우선.</div></div>
+        <div class="card" style="background:linear-gradient(135deg,var(--em-dim),transparent);border-color:var(--em-edge)"><div class="card-h"><span class="dot"></span><span class="card-t">⑥ Bot Ratio Penalty</span></div><div class="card-d">팔로워 활동 패턴 분석 (계정 생성일·게시 빈도·프로필 완성도) → 봇 비율 추정. 5% 초과 시 자동 경고.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>Why Setoworks Pure Score</h2></div>
+      <table class="cmp">
+        <thead><tr><th>역량</th><th>SocialBlade</th><th>Modash</th><th>HypeAuditor</th><th class="us">Setoworks Pure Score</th></tr></thead>
+        <tbody>
+          <tr><td>점수 알고리즘 공개</td><td class="bad x">블랙박스</td><td class="warn">일부</td><td class="warn">일부</td><td class="us">5축 공식 공개</td></tr>
+          <tr><td>아시아 인플루언서 커버</td><td class="warn">제한적</td><td class="warn">제한적</td><td class="warn">제한적</td><td class="us">한·일·대만 풀</td></tr>
+          <tr><td>Dcard·LINE·Threads</td><td class="bad x">×</td><td class="bad x">×</td><td class="bad x">×</td><td class="us">자체 크롤</td></tr>
+          <tr><td>봇 비율 자체 검증</td><td class="bad x">×</td><td class="warn">$199/mo+</td><td class="warn">$200/mo+</td><td class="us">기본 포함</td></tr>
+          <tr><td>가격</td><td class="warn">$3.99~$99/mo</td><td class="bad">$199~$799/mo</td><td class="bad">$200~$1.5K/mo</td><td class="us">$0.02/score</td></tr>
+          <tr><td>API 종량제</td><td class="bad x">없음</td><td class="warn">Enterprise만</td><td class="warn">Enterprise만</td><td class="us">기본 모드</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Business impact</h2></div>
+      <div class="impact">
+        <div class="impact-cell"><div class="l">인플루언서 검증 시간</div><div class="row"><span class="before">2시간/명</span><span class="arrow">→</span><span class="after">3초</span></div><span class="delta">-99%</span><div class="d">수작업 검증(콘텐츠 분석·ER 계산·봇 추정) vs API 1콜.</div></div>
+        <div class="impact-cell"><div class="l">월 100명 검증 비용</div><div class="row"><span class="before">$199~799</span><span class="arrow">→</span><span class="after">$2</span></div><span class="delta">-99%</span><div class="d">Modash·HypeAuditor 월정액 vs 종량제 $0.02 × 100.</div></div>
+        <div class="impact-cell"><div class="l">캠페인 ROI 정확도</div><div class="row"><span class="before">±55%</span><span class="arrow">→</span><span class="after">±18%</span></div><span class="delta">3x</span><div class="d">감 매칭 vs Pure Score 매칭. 봇 인플 사전 제외로 광고비 낭비 차단.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">U</span><h2>Use cases</h2></div>
+      <div class="usecase">
+        <div class="uc"><div class="uc-tag">메이커</div><div class="uc-t">시딩 대상 자동 선별</div><div class="uc-d">제품 카테고리 입력 → API 1콜로 100명 일괄 점수화 → 70+ 자동 추천 풀.</div><div class="uc-result">→ 검증 시간 200h↓</div></div>
+        <div class="uc"><div class="uc-tag">광고 대행사</div><div class="uc-t">클라이언트 캠페인 입찰</div><div class="uc-d">제안 단계에서 매칭 인플루언서 풀 객관 점수 첨부. 클라이언트 신뢰 확보.</div><div class="uc-result">→ 제안 win rate +28%</div></div>
+        <div class="uc"><div class="uc-tag">PR 에이전시</div><div class="uc-t">봇 인플 사전 차단</div><div class="uc-d">캠페인 시작 전 봇 비율 5% 초과 인플 자동 제외. 클라이언트 손실 방지.</div><div class="uc-result">→ 봇 노출 사고 0건</div></div>
+      </div>
+    </div>
   </div>
 
   <!-- ============ PAGE: RADAR ============ -->
@@ -537,6 +723,49 @@ code,kbd{font-family:var(--mono)}
       <div class="card-grid cg-2">
         <div class="card" style="border-left:3px solid var(--em)"><div class="card-h"><span class="dot"></span><span class="card-t">🔥 EV Bike Accessories</span></div><div class="card-d">5월 5일 신규 캠페인 23건(전주比 +156%). 평균 펀딩 1.7배 상승. <strong>지금이 진입 타이밍.</strong></div></div>
         <div class="card" style="border-left:3px solid var(--yellow)"><div class="card-h"><span class="dot" style="background:var(--yellow)"></span><span class="card-t">⚠ Smart Watch 카테고리 둔화</span></div><div class="card-d">평균 펀딩 -23% MoM. 시장 포화. <strong>차별화 포인트 없으면 진입 보류.</strong></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">H</span><h2>How it works · 5 steps</h2></div>
+      <div class="step-flow">
+        <div class="step"><div class="step-n">STEP 01</div><div class="step-t">매일 09:00 자동 수집</div><div class="step-d">5개 플랫폼 (KS·Indi·Maku·Wadiz·ZecZec) GraphQL/Apify 병렬.</div></div>
+        <div class="step"><div class="step-n">STEP 02</div><div class="step-t">정제·표준화</div><div class="step-d">통화·환율·카테고리 매핑 (13개 카테고리 × 8개국 표준).</div></div>
+        <div class="step"><div class="step-n">STEP 03</div><div class="step-t">신호 감지</div><div class="step-d">전주比 펀딩액 +30%↑·캠페인 수 +50%↑ 자동 플래그.</div></div>
+        <div class="step"><div class="step-n">STEP 04</div><div class="step-t">대시보드 갱신</div><div class="step-d">차트·랭킹·알림 자동 렌더. <code>TimescaleDB</code> 시계열.</div></div>
+        <div class="step"><div class="step-n">STEP 05</div><div class="step-t">Slack·이메일 푸시</div><div class="step-d">사용자 watchlist 카테고리 알림 자동 발송.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>Why Setoworks Trend Radar</h2></div>
+      <table class="cmp">
+        <thead><tr><th>역량</th><th>Mordor 시장조사</th><th>Statista</th><th>Kicktraq</th><th class="us">Setoworks Radar</th></tr></thead>
+        <tbody>
+          <tr><td>업데이트 주기</td><td class="bad">분기</td><td class="warn">월</td><td class="warn">일</td><td class="us">매일 09:00 자동</td></tr>
+          <tr><td>플랫폼 커버</td><td class="warn">KS만</td><td class="warn">KS·Indi</td><td class="warn">KS만</td><td class="us">5개 플랫폼</td></tr>
+          <tr><td>아시아 (Maku·ZecZec)</td><td class="bad x">×</td><td class="bad x">×</td><td class="bad x">×</td><td class="us">기본 포함</td></tr>
+          <tr><td>실시간 알림</td><td class="bad x">×</td><td class="bad x">×</td><td class="warn">limited</td><td class="us">Slack·Email</td></tr>
+          <tr><td>가격</td><td class="bad">$3,500/리포트</td><td class="bad">$1,500/년</td><td class="warn">$25/mo</td><td class="us">$99/mo</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Business impact</h2></div>
+      <div class="impact">
+        <div class="impact-cell"><div class="l">시장조사 비용</div><div class="row"><span class="before">$3,500/건</span><span class="arrow">→</span><span class="after">$99/월</span></div><span class="delta">-97%</span><div class="d">Mordor·CB Insights 단발 리포트 vs Radar 무제한 액세스.</div></div>
+        <div class="impact-cell"><div class="l">트렌드 발견 시점</div><div class="row"><span class="before">3개월 후</span><span class="arrow">→</span><span class="after">실시간</span></div><span class="delta">90일↓</span><div class="d">분기 보고서 vs 매일 자동 갱신. 진입 타이밍 선점.</div></div>
+        <div class="impact-cell"><div class="l">잘못된 카테고리 진입</div><div class="row"><span class="before">3건/년</span><span class="arrow">→</span><span class="after">0건</span></div><span class="delta">-100%</span><div class="d">Alert로 둔화 카테고리 사전 회피. 매몰비용 차단.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">U</span><h2>Use cases</h2></div>
+      <div class="usecase">
+        <div class="uc"><div class="uc-tag">메이커</div><div class="uc-t">신규 카테고리 발굴</div><div class="uc-d">매주 EV Bike·AI Tools 같은 떠오르는 카테고리 알림. 진입 의사결정 데이터.</div><div class="uc-result">→ 진입 타이밍 90일↑</div></div>
+        <div class="uc"><div class="uc-tag">VC·인큐베이터</div><div class="uc-t">시장 모니터링</div><div class="uc-d">포트폴리오사 카테고리별 시장 사이즈·CAGR 자동 트래킹. 다음 라운드 의사결정용.</div><div class="uc-result">→ 분기 리포트 자동화</div></div>
+        <div class="uc"><div class="uc-tag">미디어·트렌드 리서치</div><div class="uc-t">기사·블로그 컨텐츠 소스</div><div class="uc-d">"이번주 떠오른 펀딩 카테고리" 콘텐츠 자동 생성. 데이터 기반 기사.</div><div class="uc-result">→ 콘텐츠 생산 5x</div></div>
       </div>
     </div>
   </div>
@@ -599,6 +828,51 @@ code,kbd{font-family:var(--mono)}
 <span class="c">// Returns top-K buyers with score ≥ 0.65</span>
 <span class="c">// v1 (Tier 1): factors 1-3 → Precision@30 ≥ 15%</span>
 <span class="c">// v2 (Tier 2): all 5 factors + Apollo enrich → Precision@30 ≥ 50%</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">D</span><h2>5요소 풀이</h2></div>
+      <div class="card-grid cg-3">
+        <div class="card"><div class="card-h"><span class="dot"></span><span class="card-t">① Category Fit · 35%</span></div><div class="card-d">HS 코드 + 13개 카테고리 + 제품 태그 일치도. 가장 큰 가중치 — 잘못된 카테고리 매칭은 0% 응답.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--blue)"></span><span class="card-t">② Country Demand · 25%</span></div><div class="card-d">UN Comtrade 기반 8개 타겟 국가 수입액. 시장 크기 가중치.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--orange)"></span><span class="card-t">③ Recency · 20%</span></div><div class="card-d">ImportYeti 70M BOL에서 최근 12개월 거래 여부. 시간 감쇠 가중. 1개월 = 1.0, 6개월 = 0.5.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--purple)"></span><span class="card-t">④ Deal Size Match · 10%</span></div><div class="card-d">바이어 평균 거래액 vs 메이커 MOQ × 가격. 너무 큰/작은 거래 회피.</div></div>
+        <div class="card"><div class="card-h"><span class="dot" style="background:var(--pink)"></span><span class="card-t">⑤ Platform Overlap · 10%</span></div><div class="card-d">Amazon·Walmart·Target·현지 리테일 겹침. 이미 비슷한 카테고리 취급 검증.</div></div>
+        <div class="card" style="background:linear-gradient(135deg,var(--em-dim),transparent);border-color:var(--em-edge)"><div class="card-h"><span class="dot"></span><span class="card-t">⑥ Tier 1 → Tier 2 진화</span></div><div class="card-d">v1 출시 = 1·2·3 요소만 (Precision@30 ≥ 15%). v2 = 5요소 + Apollo·Hunter enrich (Precision@30 ≥ 50%).</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">M</span><h2>Why Setoworks Buyer Match</h2></div>
+      <table class="cmp">
+        <thead><tr><th>역량</th><th>Apollo.io 단독</th><th>ImportYeti 단독</th><th>RangeMe</th><th class="us">Setoworks Buyer Match</th></tr></thead>
+        <tbody>
+          <tr><td>실거래 데이터 (BOL)</td><td class="bad x">×</td><td class="us">70M</td><td class="bad x">×</td><td class="us">70M + 자체</td></tr>
+          <tr><td>이메일 + LinkedIn</td><td class="us">2.75억</td><td class="bad x">×</td><td class="warn">15K (NA만)</td><td class="us">Apollo + LinkedIn 통합</td></tr>
+          <tr><td>HS 코드 매핑</td><td class="bad x">×</td><td class="warn">제한적</td><td class="bad x">×</td><td class="us">UN Comtrade 자동</td></tr>
+          <tr><td>이메일 검증</td><td class="warn">기본</td><td class="bad x">×</td><td class="bad x">×</td><td class="us">Hunter.io 통합</td></tr>
+          <tr><td>한국 수출 컨텍스트</td><td class="bad x">×</td><td class="bad x">×</td><td class="bad x">×</td><td class="us">전문무역상사 14년</td></tr>
+          <tr><td>가격</td><td class="bad">$49/user/월</td><td class="warn">$29/월</td><td class="warn">$99/년</td><td class="us">$299/리스트</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">$</span><h2>Business impact</h2></div>
+      <div class="impact">
+        <div class="impact-cell"><div class="l">바이어 발굴 시간</div><div class="row"><span class="before">2~3주</span><span class="arrow">→</span><span class="after">25초</span></div><span class="delta">-99%</span><div class="d">KOTRA 무역관 미팅 + 박람회 + LinkedIn 수동 검색 vs API 1콜.</div></div>
+        <div class="impact-cell"><div class="l">콜드 이메일 응답률</div><div class="row"><span class="before">3~5%</span><span class="arrow">→</span><span class="after">15~30%</span></div><span class="delta">5x</span><div class="d">랜덤 발송 vs 카테고리 적합 + 최근 거래 검증된 바이어 타겟팅.</div></div>
+        <div class="impact-cell"><div class="l">계약 성사까지 시간</div><div class="row"><span class="before">6개월</span><span class="arrow">→</span><span class="after">2개월</span></div><span class="delta">-67%</span><div class="d">Verified buyer + Pre-qualified deal size = 협상 단계 직진.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-h"><span class="num">U</span><h2>Use cases</h2></div>
+      <div class="usecase">
+        <div class="uc"><div class="uc-tag">제조사·메이커</div><div class="uc-t">해외 수출 시작</div><div class="uc-d">펀딩 후 양산 시점 → 미국·일본 바이어 30명 한 번에 컨택. KOTRA 박람회 대체.</div><div class="uc-result">→ 첫 수출 계약 2개월</div></div>
+        <div class="uc"><div class="uc-tag">상사·종합무역</div><div class="uc-t">신규 카테고리 진출</div><div class="uc-d">기존 상품군 외 신규 HS 코드 진입 시 바이어 풀 자동 생성. Apollo Sequence로 직발송.</div><div class="uc-result">→ 영업 인력 50%↓</div></div>
+        <div class="uc"><div class="uc-tag">정부·KOTRA</div><div class="uc-t">중소기업 매칭 자동화</div><div class="uc-d">수출지원사업 참여 기업 1,000개 일괄 매칭. 박람회·미팅 사전 준비.</div><div class="uc-result">→ 매칭률 3x</div></div>
+      </div>
     </div>
   </div>
 
