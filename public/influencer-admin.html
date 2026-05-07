@@ -2037,7 +2037,7 @@ function renderBenchmarkCard(inf) {
  html += '<div style="margin-top:6px;font-size:11px;color:#475569;">';
  if (sC > wC) html += ' <strong style="color:#16a34a;">강점 ' + sC + '개</strong> 우세';
  else if (wC > sC) html += ' <strong style="color:#ef4444;">약점 ' + wC + '개</strong> 주의';
- else html += '⚖ 티어 평균 범위 내';
+ else html += '티어 평균 범위 내';
  if (dm.monthlyReach > 0) html += ' · 월간 도달 <strong>' + fmt(Math.round(dm.monthlyReach)) + '</strong>';
  html += '</div>';
 
