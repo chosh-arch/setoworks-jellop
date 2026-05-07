@@ -3045,7 +3045,7 @@ function renderCatChart() {
  }
 
  if (charts.catCompare) charts.catCompare.destroy();
- charts.catCompare = new Chart(document.getElementById('chart-cat-compare'), {
+ var __catCmpEl=document.getElementById('chart-cat-compare'); if(__catCmpEl && __catCmpEl.getBoundingClientRect().width>0) charts.catCompare = new Chart(__catCmpEl, {
  type: 'bar',
  data: { labels: labels, datasets: datasets },
  options: {
@@ -3230,7 +3230,7 @@ function renderCompareCharts() {
  var maxTV = Math.max(...sel.map(i => i.total_views || 0)) || 1;
 
  if (charts.radar) charts.radar.destroy();
- charts.radar = new Chart(document.getElementById('chart-radar'), {
+ var __radarEl=document.getElementById('chart-radar'); if(__radarEl && __radarEl.getBoundingClientRect().width>0) charts.radar = new Chart(__radarEl, {
  type: 'radar',
  data: {
  labels: ['구독자', '참여율(ER)', '콘텐츠 수', '평균 조회수', '총 조회수'],
@@ -3283,7 +3283,7 @@ function renderCompareCharts() {
  var countryMap = {};
  sel.forEach(i => { var c = i.country || '기타'; countryMap[c] = (countryMap[c]||0)+1; });
  if (charts.country) charts.country.destroy();
- charts.country = new Chart(document.getElementById('chart-country'), {
+ var __ctryEl=document.getElementById('chart-country'); if(__ctryEl && __ctryEl.getBoundingClientRect().width>0) charts.country = new Chart(__ctryEl, {
  type: 'doughnut',
  data: {
  labels: Object.keys(countryMap).map(c => COUNTRY_KR[c]||c),
@@ -3348,7 +3348,7 @@ function renderCompareCharts() {
 
  if (charts.contentType) charts.contentType.destroy();
  if (typeLabels.length) {
- charts.contentType = new Chart(document.getElementById('chart-content-type'), {
+ var __ctEl=document.getElementById('chart-content-type'); if(__ctEl && __ctEl.getBoundingClientRect().width>0) charts.contentType = new Chart(__ctEl, {
  type: 'bar',
  data: {
  labels: typeLabels,
