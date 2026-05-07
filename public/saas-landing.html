@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,6 +219,29 @@ h3.title-md.on-dark{color:var(--on-dark)}
 .tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);background:var(--surface-strong);padding:5px 12px;border-radius:100px;letter-spacing:.04em}
 .tag.dark{background:var(--surface-dark-elev);color:var(--on-dark)}
 
+/* Demo lightbox */
+.demo-overlay{position:fixed;inset:0;background:rgba(10,11,13,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100;padding:24px}
+.demo-overlay.open{display:flex}
+.demo-modal{background:var(--surface-dark);border-radius:24px;max-width:960px;width:100%;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.demo-video{aspect-ratio:16/9;background:linear-gradient(135deg,#16181c,#0a0b0d);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;color:var(--on-dark);position:relative}
+.demo-play{width:80px;height:80px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}
+.demo-play:hover{transform:scale(1.08);background:var(--primary-active)}
+.demo-cap{font-family:var(--mono);font-size:13px;color:var(--on-dark-soft);text-transform:uppercase;letter-spacing:.06em}
+.demo-close{position:absolute;top:24px;right:24px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:18px;line-height:1;border:none}
+.demo-close:hover{background:rgba(255,255,255,.16)}
+.demo-info{padding:24px 32px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.06);color:var(--on-dark)}
+.demo-info .t{font-size:16px;font-weight:600}
+.demo-info .s{font-family:var(--mono);font-size:12px;color:var(--on-dark-soft)}
+
+/* Lang toggle */
+.lang-toggle{display:inline-flex;align-items:center;background:transparent;border:1px solid var(--hairline);border-radius:100px;padding:3px;font-family:var(--mono);font-size:12px;font-weight:600;margin-right:8px}
+.lang-toggle button{padding:5px 12px;border-radius:100px;color:var(--muted);transition:all .15s}
+.lang-toggle button.active{background:var(--ink);color:var(--canvas)}
+.lang-toggle button:hover:not(.active){color:var(--ink)}
+[data-i18n-ko],[data-i18n-en]{display:inline}
+html[lang=en] [data-i18n-ko]{display:none}
+html[lang=ko] [data-i18n-en]{display:none}
+
 /* ========= RESPONSIVE ========= */
 @media(max-width:1024px){
   .hero-grid,.why-grid,.case-grid{grid-template-columns:1fr;gap:48px}
@@ -259,15 +282,19 @@ h3.title-md.on-dark{color:var(--on-dark)}
   <div class="nav-inner">
     <a href="/saas-landing.html" class="nav-logo"><span class="triangle"></span>Setoworks</a>
     <div class="nav-menu">
-      <a href="#products">Products</a>
-      <a href="#solutions">Solutions</a>
-      <a href="#pricing">Pricing</a>
-      <a href="/saas-mvp.html">Demo</a>
-      <a href="#docs">Docs</a>
+      <a href="#products"><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></a>
+      <a href="#solutions"><span data-i18n-en>Solutions</span><span data-i18n-ko>솔루션</span></a>
+      <a href="#pricing"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></a>
+      <a href="/saas-mvp.html"><span data-i18n-en>Demo</span><span data-i18n-ko>데모</span></a>
+      <a href="#docs"><span data-i18n-en>Docs</span><span data-i18n-ko>문서</span></a>
     </div>
     <div class="nav-actions">
-      <a href="#" class="btn btn-sm" style="color:var(--ink);font-weight:500">Sign in</a>
-      <a href="#pricing" class="btn btn-md btn-primary">Get API key</a>
+      <div class="lang-toggle" role="group" aria-label="language">
+        <button class="active" onclick="setLang('en')" data-lang="en">EN</button>
+        <button onclick="setLang('ko')" data-lang="ko">KO</button>
+      </div>
+      <a href="#" class="btn btn-sm" style="color:var(--ink);font-weight:500"><span data-i18n-en>Sign in</span><span data-i18n-ko>로그인</span></a>
+      <a href="#pricing" class="btn btn-md btn-primary"><span data-i18n-en>Get API key</span><span data-i18n-ko>API 키 받기</span></a>
     </div>
   </div>
 </nav>
@@ -277,14 +304,27 @@ h3.title-md.on-dark{color:var(--on-dark)}
   <div class="container">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow on-dark">Crowdfunding intelligence suite</span>
-        <h1 class="hero-headline">Predict, target, and validate your campaign — <em>before</em> launch.</h1>
-        <p class="hero-sub">Five AI products built on 14 years of operating data, 27,986 Kickstarter campaigns, and 13,461 verified superbackers. The same intelligence Setoworks uses to run $40M+ in funding campaigns — now available as an API.</p>
+        <span class="eyebrow on-dark"><span data-i18n-en>Crowdfunding intelligence suite</span><span data-i18n-ko>크라우드펀딩 인텔리전스 스위트</span></span>
+        <h1 class="hero-headline">
+          <span data-i18n-en>Predict, target, and validate your campaign — <em>before</em> launch.</span>
+          <span data-i18n-ko>론칭 <em>전에</em> 펀딩을 예측·타겟·검증한다.</span>
+        </h1>
+        <p class="hero-sub">
+          <span data-i18n-en>Five AI products built on 14 years of operating data, 27,986 Kickstarter campaigns, and 13,461 verified superbackers. The same intelligence Setoworks uses to run $40M+ in funding campaigns — now available as an API.</span>
+          <span data-i18n-ko>14년 운영 데이터, 킥스타터 27,986건, 슈퍼백커 13,461명을 학습한 5개 AI 제품. 세토웍스가 520억원+ 캠페인 운영에 사용해 온 인텔리전스를 API로 제공합니다.</span>
+        </p>
         <div class="hero-cta-row">
-          <a href="#pricing" class="btn btn-lg btn-primary">Get started</a>
-          <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark">See live demo</a>
-          <span class="meta">no credit card · 14-day trial</span>
+          <a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Get started</span><span data-i18n-ko>시작하기</span></a>
+          <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>See live demo</span><span data-i18n-ko>라이브 데모</span></a>
+          <span class="meta"><span data-i18n-en>no credit card · 14-day trial</span><span data-i18n-ko>신용카드 불필요 · 14일 무료</span></span>
         </div>
+        <a href="#" onclick="openDemo();return false" style="display:inline-flex;align-items:center;gap:10px;color:#5b86ff;font-size:14px;font-weight:500;font-family:var(--mono);text-decoration:none">
+          <span style="width:36px;height:36px;border-radius:50%;background:rgba(91,134,255,.15);display:inline-flex;align-items:center;justify-content:center">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 1L10 6L2 11V1Z" fill="#5b86ff"/></svg>
+          </span>
+          <span data-i18n-en>Watch 90-second product demo</span><span data-i18n-ko>90초 제품 영상 보기</span>
+          <span style="color:var(--on-dark-soft);font-size:12px">▸ 1:32</span>
+        </a>
       </div>
       <div class="hero-mockup">
         <div class="mockup-card behind">
@@ -328,7 +368,7 @@ h3.title-md.on-dark{color:var(--on-dark)}
 <div class="trust">
   <div class="container">
     <div class="trust-inner">
-      <span class="trust-label">Trusted by makers and partnered with</span>
+      <span class="trust-label"><span data-i18n-en>Trusted by makers and partnered with</span><span data-i18n-ko>메이커들이 신뢰하는 파트너십</span></span>
       <div class="trust-logos">
         <span class="trust-logo">Kickstarter Expert</span>
         <span class="trust-logo">Makuake Partner</span>
@@ -343,28 +383,31 @@ h3.title-md.on-dark{color:var(--on-dark)}
 <!-- ============ STATS BAND ============ -->
 <section class="stats">
   <div class="container">
-    <span class="eyebrow">By the numbers</span>
-    <h2 class="display-md" style="margin-bottom:64px;max-width:760px">14 years of crowdfunding operations, condensed into <em style="color:var(--primary);font-style:normal">one API</em>.</h2>
+    <span class="eyebrow"><span data-i18n-en>By the numbers</span><span data-i18n-ko>숫자로 보는 자산</span></span>
+    <h2 class="display-md" style="margin-bottom:64px;max-width:760px">
+      <span data-i18n-en>14 years of crowdfunding operations, condensed into <em style="color:var(--primary);font-style:normal">one API</em>.</span>
+      <span data-i18n-ko>14년의 크라우드펀딩 운영을 <em style="color:var(--primary);font-style:normal">하나의 API</em>로.</span>
+    </h2>
     <div class="stats-grid">
       <div>
         <div class="stat-num"><em>27,986</em></div>
-        <div class="stat-label">Kickstarter campaigns analyzed</div>
-        <div class="stat-sub">Self-crawled GraphQL · 5 platforms total</div>
+        <div class="stat-label"><span data-i18n-en>Kickstarter campaigns analyzed</span><span data-i18n-ko>킥스타터 캠페인 분석</span></div>
+        <div class="stat-sub"><span data-i18n-en>Self-crawled GraphQL · 5 platforms total</span><span data-i18n-ko>자체 GraphQL 크롤 · 5개 플랫폼</span></div>
       </div>
       <div>
         <div class="stat-num"><em>13,461</em></div>
-        <div class="stat-label">Verified superbackers</div>
-        <div class="stat-sub">≥25 backings · KS official threshold</div>
+        <div class="stat-label"><span data-i18n-en>Verified superbackers</span><span data-i18n-ko>검증된 슈퍼백커</span></div>
+        <div class="stat-sub"><span data-i18n-en>≥25 backings · KS official threshold</span><span data-i18n-ko>≥25 후원 · KS 공식 기준</span></div>
       </div>
       <div>
         <div class="stat-num"><em>1,200+</em></div>
-        <div class="stat-label">Campaigns operated since 2012</div>
-        <div class="stat-sub">$40M+ raised · 5 countries</div>
+        <div class="stat-label"><span data-i18n-en>Campaigns operated since 2012</span><span data-i18n-ko>2012년부터 운영한 캠페인</span></div>
+        <div class="stat-sub"><span data-i18n-en>$40M+ raised · 5 countries</span><span data-i18n-ko>520억+ 펀딩 · 5개국</span></div>
       </div>
       <div>
         <div class="stat-num"><em>±15%</em></div>
-        <div class="stat-label">Prediction confidence interval</div>
-        <div class="stat-sub">P10 / P50 / P90 distribution</div>
+        <div class="stat-label"><span data-i18n-en>Prediction confidence interval</span><span data-i18n-ko>예측 신뢰구간</span></div>
+        <div class="stat-sub"><span data-i18n-en>P10 / P50 / P90 distribution</span><span data-i18n-ko>P10 / P50 / P90 분포</span></div>
       </div>
     </div>
   </div>
@@ -375,10 +418,13 @@ h3.title-md.on-dark{color:var(--on-dark)}
   <div class="container">
     <div class="products-head">
       <div>
-        <span class="eyebrow">Five products · One suite</span>
-        <h2 class="display-lg">Everything you need to run a global crowdfunding campaign — at API speed.</h2>
+        <span class="eyebrow"><span data-i18n-en>Five products · One suite</span><span data-i18n-ko>5개 제품 · 하나의 스위트</span></span>
+        <h2 class="display-lg">
+          <span data-i18n-en>Everything you need to run a global crowdfunding campaign — at API speed.</span>
+          <span data-i18n-ko>글로벌 크라우드펀딩 캠페인에 필요한 모든 것 — API 속도로.</span>
+        </h2>
       </div>
-      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-light" style="white-space:nowrap">View all demos →</a>
+      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-light" style="white-space:nowrap"><span data-i18n-en>View all demos →</span><span data-i18n-ko>전체 데모 보기 →</span></a>
     </div>
     <div class="products-grid">
       <a href="/saas-mvp.html#fop" class="product-card featured">
@@ -432,32 +478,44 @@ h3.title-md.on-dark{color:var(--on-dark)}
   <div class="container">
     <div class="why-grid">
       <div>
-        <span class="eyebrow on-dark">Why Setoworks</span>
-        <h2 class="display-lg on-dark">The data set you can't buy. The team that already used it for 14 years.</h2>
+        <span class="eyebrow on-dark"><span data-i18n-en>Why Setoworks</span><span data-i18n-ko>왜 세토웍스인가</span></span>
+        <h2 class="display-lg on-dark">
+          <span data-i18n-en>The data set you can't buy. The team that already used it for 14 years.</span>
+          <span data-i18n-ko>돈으로 살 수 없는 데이터셋. 14년간 그 데이터로 운영한 팀.</span>
+        </h2>
         <div class="why-list">
           <div class="why-item">
             <div class="why-num">01</div>
             <div>
-              <h3>Data nobody else has.</h3>
-              <p class="body-md on-dark">Self-crawled Kickstarter GraphQL — the first agency to run it directly. 1,200 own campaigns with measured outcomes. 13,461 superbackers with comment behavior tracked. Replicating it takes another agency 5–7 years.</p>
+              <h3><span data-i18n-en>Data nobody else has.</span><span data-i18n-ko>아무도 못 가진 데이터.</span></h3>
+              <p class="body-md on-dark">
+                <span data-i18n-en>Self-crawled Kickstarter GraphQL — the first agency to run it directly. 1,200 own campaigns with measured outcomes. 13,461 superbackers with comment behavior tracked. Replicating it takes another agency 5–7 years.</span>
+                <span data-i18n-ko>킥스타터 GraphQL 직접 크롤 — 업계 최초. 결과까지 측정된 자체 캠페인 1,200건. 댓글 행동 패턴까지 추적된 슈퍼백커 13,461명. 다른 에이전시가 따라잡으려면 5~7년.</span>
+              </p>
             </div>
           </div>
           <div class="why-item">
             <div class="why-num">02</div>
             <div>
-              <h3>Fully automated. Zero people in the loop.</h3>
-              <p class="body-md on-dark">Input → inference → API response. Reports generate in 30 minutes. The only place humans show up is in your final selection — that's why this works as software.</p>
+              <h3><span data-i18n-en>Fully automated. Zero people in the loop.</span><span data-i18n-ko>완전 자동화. 사람 개입 0.</span></h3>
+              <p class="body-md on-dark">
+                <span data-i18n-en>Input → inference → API response. Reports generate in 30 minutes. The only place humans show up is in your final selection — that's why this works as software.</span>
+                <span data-i18n-ko>입력 → 추론 → API 응답. 리포트는 30분 내 생성. 사람이 필요한 영역은 최종 선택뿐 — 그래서 SaaS로 작동합니다.</span>
+              </p>
             </div>
           </div>
           <div class="why-item">
             <div class="why-num">03</div>
             <div>
-              <h3>Asia-native, not retrofitted.</h3>
-              <p class="body-md on-dark">Korean · Japanese · Taiwanese · Hong Kong · Singapore backer pools, with on-ground agents for the last-mile 2%. The channels US-built tools don't see — Dcard, LINE, Threads — are first-class citizens here.</p>
+              <h3><span data-i18n-en>Asia-native, not retrofitted.</span><span data-i18n-ko>아시아 네이티브, 후처리가 아닌.</span></h3>
+              <p class="body-md on-dark">
+                <span data-i18n-en>Korean · Japanese · Taiwanese · Hong Kong · Singapore backer pools, with on-ground agents for the last-mile 2%. The channels US-built tools don't see — Dcard, LINE, Threads — are first-class citizens here.</span>
+                <span data-i18n-ko>한·일·대만·홍콩·싱가포르 백커 풀과 라스트 마일 2%를 책임지는 현지 에이전트. 미국 도구가 못 보는 Dcard·LINE·Threads도 1급 시민으로 다룹니다.</span>
+              </p>
             </div>
           </div>
         </div>
-        <div style="margin-top:48px"><a href="#pricing" class="btn btn-lg btn-primary">Start a 14-day trial</a></div>
+        <div style="margin-top:48px"><a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start a 14-day trial</span><span data-i18n-ko>14일 무료 시작</span></a></div>
       </div>
       <div class="why-mockup">
         <div class="mockup-card behind" style="top:0;right:0;width:380px;transform:rotate(-2deg)">
@@ -522,12 +580,18 @@ h3.title-md.on-dark{color:var(--on-dark)}
 <section style="background:var(--surface-soft)" id="pricing">
   <div class="container">
     <div style="text-align:center;margin-bottom:48px">
-      <span class="eyebrow">Pricing</span>
-      <h2 class="display-lg" style="max-width:740px;margin:0 auto 20px">Simple, predictable pricing. Pay only for what you use.</h2>
-      <p class="lead" style="margin:0 auto 32px">Starts at $499/mo for the full Suite. Each product is also available as a per-call API.</p>
+      <span class="eyebrow"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></span>
+      <h2 class="display-lg" style="max-width:740px;margin:0 auto 20px">
+        <span data-i18n-en>Simple, predictable pricing. Pay only for what you use.</span>
+        <span data-i18n-ko>단순하고 예측 가능한 가격. 사용한 만큼만 결제.</span>
+      </h2>
+      <p class="lead" style="margin:0 auto 32px">
+        <span data-i18n-en>Starts at $499/mo for the full Suite. Each product is also available as a per-call API.</span>
+        <span data-i18n-ko>풀 스위트 월 $499부터. 각 제품은 종량제 API로도 제공.</span>
+      </p>
       <div class="pricing-toggle">
-        <button class="active" onclick="togglePricing(this,'monthly')">Monthly</button>
-        <button onclick="togglePricing(this,'yearly')">Yearly <span class="save">-20%</span></button>
+        <button class="active" onclick="togglePricing(this,'monthly')"><span data-i18n-en>Monthly</span><span data-i18n-ko>월 결제</span></button>
+        <button onclick="togglePricing(this,'yearly')"><span data-i18n-en>Yearly</span><span data-i18n-ko>연 결제</span> <span class="save">-20%</span></button>
       </div>
     </div>
     <div class="pricing-grid">
@@ -598,12 +662,18 @@ h3.title-md.on-dark{color:var(--on-dark)}
 <!-- ============ CTA BAND ============ -->
 <section class="cta-band">
   <div class="container">
-    <span class="eyebrow on-dark">Ready when you are</span>
-    <h2 class="display-lg on-dark" style="max-width:820px;margin:0 auto 24px">Start with a 14-day trial. <em style="color:#5b86ff;font-style:normal">Bring your first campaign live.</em></h2>
-    <p class="lead on-dark">No credit card required. Cancel anytime. Full Suite access during trial.</p>
+    <span class="eyebrow on-dark"><span data-i18n-en>Ready when you are</span><span data-i18n-ko>준비되셨다면</span></span>
+    <h2 class="display-lg on-dark" style="max-width:820px;margin:0 auto 24px">
+      <span data-i18n-en>Start with a 14-day trial. <em style="color:#5b86ff;font-style:normal">Bring your first campaign live.</em></span>
+      <span data-i18n-ko>14일 무료로 시작하세요. <em style="color:#5b86ff;font-style:normal">첫 캠페인을 라이브로.</em></span>
+    </h2>
+    <p class="lead on-dark">
+      <span data-i18n-en>No credit card required. Cancel anytime. Full Suite access during trial.</span>
+      <span data-i18n-ko>신용카드 불필요. 언제든 취소. 무료 기간 동안 풀 스위트 사용.</span>
+    </p>
     <div class="cta-row" style="margin-top:40px">
-      <a href="#pricing" class="btn btn-lg btn-primary">Start free trial</a>
-      <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark">Talk to sales</a>
+      <a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start free trial</span><span data-i18n-ko>무료 체험 시작</span></a>
+      <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>Talk to sales</span><span data-i18n-ko>영업 문의</span></a>
     </div>
   </div>
 </section>
@@ -614,70 +684,122 @@ h3.title-md.on-dark{color:var(--on-dark)}
     <div class="footer-grid">
       <div>
         <div class="footer-brand"><span class="triangle"></span>Setoworks</div>
-        <p class="footer-tag">Crowdfunding intelligence built on 14 years of operational data, served as a global SaaS suite.</p>
+        <p class="footer-tag">
+          <span data-i18n-en>Crowdfunding intelligence built on 14 years of operational data, served as a global SaaS suite.</span>
+          <span data-i18n-ko>14년 운영 데이터 위에 구축된 크라우드펀딩 인텔리전스. 글로벌 SaaS 스위트로 제공합니다.</span>
+        </p>
         <div style="margin-top:24px;display:flex;gap:8px">
           <span class="tag">Kickstarter Expert</span>
           <span class="tag">Makuake Partner</span>
         </div>
       </div>
       <div class="footer-col">
-        <h4>Products</h4>
+        <h4><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></h4>
         <ul>
-          <li><a href="/saas-mvp.html#fop">Funding Predictor</a></li>
-          <li><a href="/saas-mvp.html#lookalike">Backer Lookalike</a></li>
+          <li><a href="/saas-mvp.html#fop"><span data-i18n-en>Funding Predictor</span><span data-i18n-ko>펀딩 예측기</span></a></li>
+          <li><a href="/saas-mvp.html#lookalike"><span data-i18n-en>Backer Lookalike</span><span data-i18n-ko>백커 룩어라이크</span></a></li>
           <li><a href="/saas-mvp.html#purescore">Pure Score</a></li>
-          <li><a href="/saas-mvp.html#radar">Trend Radar</a></li>
-          <li><a href="/saas-mvp.html#buyer">Buyer Match</a></li>
+          <li><a href="/saas-mvp.html#radar"><span data-i18n-en>Trend Radar</span><span data-i18n-ko>트렌드 레이더</span></a></li>
+          <li><a href="/saas-mvp.html#buyer"><span data-i18n-en>Buyer Match</span><span data-i18n-ko>바이어 매치</span></a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h4><span data-i18n-en>Company</span><span data-i18n-ko>회사</span></h4>
         <ul>
-          <li><a href="https://setoworks.com">About</a></li>
-          <li><a href="/deck.html">Strategy deck</a></li>
-          <li><a href="/portal.html">Portal</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
+          <li><a href="https://setoworks.com"><span data-i18n-en>About</span><span data-i18n-ko>소개</span></a></li>
+          <li><a href="/deck.html"><span data-i18n-en>Strategy deck</span><span data-i18n-ko>전략 데크</span></a></li>
+          <li><a href="/portal.html"><span data-i18n-en>Portal</span><span data-i18n-ko>포털</span></a></li>
+          <li><a href="#"><span data-i18n-en>Careers</span><span data-i18n-ko>채용</span></a></li>
+          <li><a href="#"><span data-i18n-en>Press</span><span data-i18n-ko>보도자료</span></a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Resources</h4>
+        <h4><span data-i18n-en>Resources</span><span data-i18n-ko>리소스</span></h4>
         <ul>
-          <li><a href="/saas-mvp.html#api">API documentation</a></li>
-          <li><a href="/kickstarter-insight.html">Insight engine</a></li>
-          <li><a href="/system-guide.html">System guide</a></li>
-          <li><a href="#">Changelog</a></li>
+          <li><a href="/saas-mvp.html#api"><span data-i18n-en>API documentation</span><span data-i18n-ko>API 문서</span></a></li>
+          <li><a href="/kickstarter-insight.html"><span data-i18n-en>Insight engine</span><span data-i18n-ko>인사이트 엔진</span></a></li>
+          <li><a href="/system-guide.html"><span data-i18n-en>System guide</span><span data-i18n-ko>시스템 가이드</span></a></li>
+          <li><a href="#"><span data-i18n-en>Changelog</span><span data-i18n-ko>변경 이력</span></a></li>
           <li><a href="#">Status</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Legal</h4>
+        <h4><span data-i18n-en>Legal</span><span data-i18n-ko>법적 고지</span></h4>
         <ul>
-          <li><a href="#">Terms of service</a></li>
-          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#"><span data-i18n-en>Terms of service</span><span data-i18n-ko>이용약관</span></a></li>
+          <li><a href="#"><span data-i18n-en>Privacy policy</span><span data-i18n-ko>개인정보 처리방침</span></a></li>
           <li><a href="#">DPA</a></li>
-          <li><a href="#">Security</a></li>
-          <li><a href="#">Cookies</a></li>
+          <li><a href="#"><span data-i18n-en>Security</span><span data-i18n-ko>보안</span></a></li>
+          <li><a href="#"><span data-i18n-en>Cookies</span><span data-i18n-ko>쿠키</span></a></li>
         </ul>
       </div>
     </div>
     <div class="legal">
       <span>© 2026 Setoworks Inc. · setoworks.com · 2021 Million Dollar Export Award · 전문무역상사 인증</span>
-      <span><a href="#">English</a> · <a href="#">한국어</a> · <a href="#">日本語</a></span>
+      <span><a onclick="setLang('en')" style="cursor:pointer">English</a> · <a onclick="setLang('ko')" style="cursor:pointer">한국어</a> · <a href="#" style="opacity:.5">日本語 (soon)</a></span>
     </div>
   </div>
 </footer>
 
+<!-- Demo modal -->
+<div class="demo-overlay" id="demo-overlay" onclick="if(event.target===this)closeDemo()">
+  <div class="demo-modal">
+    <div class="demo-video">
+      <button class="demo-close" onclick="closeDemo()" aria-label="close">×</button>
+      <div class="demo-play">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="white"/></svg>
+      </div>
+      <div class="demo-cap"><span data-i18n-en>Product demo · 1:32</span><span data-i18n-ko>제품 데모 · 1분 32초</span></div>
+      <div style="font-size:11px;color:var(--on-dark-soft);font-family:var(--mono);position:absolute;bottom:24px;left:32px">video coming Q3 · interactive demo available now</div>
+    </div>
+    <div class="demo-info">
+      <div>
+        <div class="t"><span data-i18n-en>Setoworks Suite — 5 products in 90 seconds</span><span data-i18n-ko>세토웍스 스위트 — 5개 제품을 90초에</span></div>
+        <div class="s"><span data-i18n-en>FOP · Lookalike · Pure Score · Trend Radar · Buyer Match</span><span data-i18n-ko>FOP · 룩어라이크 · Pure Score · 트렌드 레이더 · 바이어 매치</span></div>
+      </div>
+      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-dark"><span data-i18n-en>Try interactive demo →</span><span data-i18n-ko>인터랙티브 데모 →</span></a>
+    </div>
+  </div>
+</div>
+
 <script>
+function openDemo(){document.getElementById('demo-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeDemo(){document.getElementById('demo-overlay').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDemo()});
+
 function togglePricing(btn, mode){
   document.querySelectorAll('.pricing-toggle button').forEach(b=>b.classList.toggle('active', b===btn));
   document.querySelectorAll('.price-num').forEach(el=>{
     el.textContent = mode==='yearly' ? el.dataset.yearly : el.dataset.monthly;
   });
+  const lang = document.documentElement.lang;
   document.querySelectorAll('.price-period').forEach(el=>{
-    el.textContent = mode==='yearly' ? '/month, billed yearly' : '/month';
+    if(mode==='yearly') el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
+    else el.textContent = lang==='ko' ? '/월' : '/month';
   });
 }
+
+function setLang(lang){
+  document.documentElement.lang = lang;
+  try{ localStorage.setItem('setoworks-lang', lang); }catch(e){}
+  document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+  // re-render pricing period
+  const activeMode = document.querySelector('.pricing-toggle button.active');
+  if(activeMode){
+    const isYearly = activeMode.textContent.includes('Yearly') || activeMode.textContent.includes('연');
+    document.querySelectorAll('.price-period').forEach(el=>{
+      if(isYearly) el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
+      else el.textContent = lang==='ko' ? '/월' : '/month';
+    });
+  }
+}
+
+// Restore preferred lang
+(function(){
+  let saved = 'en';
+  try{ saved = localStorage.getItem('setoworks-lang') || 'en'; }catch(e){}
+  if(saved==='ko') setLang('ko');
+})();
 </script>
 </body>
 </html>
