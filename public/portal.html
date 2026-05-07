@@ -2,407 +2,630 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setoworks · Jellop+α Platform</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Setoworks · Jellop+α 운영 OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --brand-red:#ff003b;
-    --charcoal:#212121;
-    --bg:#0a0e1a;
-    --bg-elevated:#141824;
-    --card-bg:rgba(255,255,255,0.03);
-    --card-border:rgba(255,255,255,0.08);
-    --text-primary:#f0f0f0;
-    --text-secondary:rgba(255,255,255,0.55);
-    --text-tertiary:rgba(255,255,255,0.35);
-    --radius:14px;
-    --L1:#3b82f6; --L2:#a78bfa; --L3:#fb923c; --L4:#10b981; --L0:#94a3b8;
-  }
-  html,body{min-height:100vh}
-  body{
-    font-family:'Noto Sans KR','Poppins',sans-serif;
-    background:var(--bg);
-    color:var(--text-primary);
-    position:relative;
-    padding:32px 24px 48px;
-  }
-  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,0.025) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
-  body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(255,0,59,0.08) 0%,transparent 70%);pointer-events:none;z-index:0}
+:root{
+  --canvas:#ffffff;
+  --surface:#f7f7f5;--surface-soft:#fafaf8;
+  --hairline:#e6e6e6;--hairline-soft:#f0f0f0;--hairline-strong:#d4d4d4;
+  --ink:#191919;--ink-deep:#000;--charcoal:#2c2c2c;
+  --slate:#5b5b5b;--steel:#7a7a7a;--stone:#9a9a9a;--muted:#b5b5b5;
+  --brand-red:#ff003b;--brand-red-pressed:#d10031;--brand-red-soft:rgba(255,0,59,.08);
+  --brand-navy:#0f1226;--brand-navy-deep:#06081a;
+  --link-blue:#0b5fbd;
+  --on-dark:#fff;--on-dark-muted:rgba(255,255,255,.72);--on-dark-soft:rgba(255,255,255,.56);
+  --tint-peach:#ffe4d6;--tint-rose:#fce7eb;--tint-mint:#d4f0e1;
+  --tint-lavender:#ede4ff;--tint-sky:#d6ecff;--tint-yellow:#fff3c4;
+  --tint-yellow-bold:#ffd233;--tint-cream:#faf6ed;--tint-gray:#f4f4f4;
+  --txt-purple:#5b21b6;--txt-orange:#b45309;--txt-green:#0e7c54;--txt-pink:#9d174d;--txt-blue:#1e40af;--txt-yellow:#854d0e;
+  --semantic-success:#05b169;--semantic-warning:#d97706;
+  --sans:'Pretendard','Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+  --shadow-card:0 1px 2px rgba(15,15,15,.04);
+  --shadow-elev:0 4px 12px rgba(15,15,15,.08);
+  --shadow-mockup:0 24px 48px -8px rgba(15,15,15,.20);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img,svg{display:block;max-width:100%}
+code{font-family:var(--mono)}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
 
-  .container{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto}
+/* ===== PROMO BANNER ===== */
+.promo{background:var(--surface);border-bottom:1px solid var(--hairline);padding:10px 24px;font-size:13px;color:var(--ink);text-align:center;font-weight:500}
+.promo a{color:var(--brand-red);text-decoration:underline;text-underline-offset:2px;font-weight:600}
 
-  /* ─── Hero header ─── */
-  .hero{text-align:center;margin-bottom:28px;animation:fadeDown .7s ease-out both}
-  .hero-logo{height:44px;margin-bottom:10px;filter:drop-shadow(0 0 30px rgba(255,0,59,0.3))}
-  .hero-brand{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:6px;color:#fff;margin-bottom:6px}
-  .hero-sub{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:400;font-size:.88rem;color:var(--text-secondary);letter-spacing:1.5px;margin-bottom:10px}
-  .hero-positioning{font-size:13px;color:var(--text-primary);font-weight:500;line-height:1.55;max-width:720px;margin:12px auto 0;padding:10px 18px;background:linear-gradient(135deg,rgba(255,0,59,.06),rgba(255,255,255,.02));border:1px solid rgba(255,0,59,.15);border-radius:10px}
-  .hero-positioning strong{color:var(--brand-red);font-weight:700}
+/* ===== NAV ===== */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-inner{height:64px;display:flex;align-items:center;gap:32px;padding:0 32px;max-width:1280px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+.nav-logo .mark{width:18px;height:18px;background:var(--brand-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800}
+.nav-menu{display:flex;align-items:center;gap:24px;flex:1}
+.nav-menu a{font-size:14px;font-weight:500;color:var(--charcoal);transition:color .15s}
+.nav-menu a:hover{color:var(--brand-red)}
+.nav-actions{display:flex;align-items:center;gap:8px}
 
-  /* ─── NSM Banner ─── */
-  .nsm-banner{background:linear-gradient(135deg,#0a0e1a,#1a0a14);border:1px solid rgba(255,0,59,.2);border-radius:14px;padding:14px 20px;margin-bottom:26px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;position:relative;overflow:hidden;animation:fadeUp .6s .2s ease-out both}
-  .nsm-banner::before{content:'';position:absolute;top:0;right:0;width:300px;height:100%;background:radial-gradient(ellipse at 90% 50%,rgba(255,0,59,.2),transparent 60%);pointer-events:none}
-  .nsm-label{font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(255,255,255,.55);font-weight:700;letter-spacing:.1em}
-  .nsm-metric{font-family:'Poppins',sans-serif;font-weight:800;color:#fff;font-size:15px;line-height:1.3;position:relative}
-  .nsm-metric .red{color:var(--brand-red)}
-  .nsm-stats{display:flex;gap:14px;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text-secondary);position:relative}
-  .nsm-stats b{color:#fff;font-weight:700}
+/* Buttons (8px rectangular — Notion style, NOT pills) */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:500;font-size:14px;line-height:1.3;border-radius:8px;transition:all .15s;font-family:var(--sans);white-space:nowrap;border:1px solid transparent}
+.btn-md{padding:9px 16px;height:38px}
+.btn-lg{padding:14px 24px;height:48px;font-size:15px;font-weight:600}
+.btn-sm{padding:6px 12px;height:30px;font-size:13px}
+.btn-primary{background:var(--brand-red);color:#fff}
+.btn-primary:hover{background:var(--brand-red-pressed)}
+.btn-dark{background:var(--ink-deep);color:#fff}
+.btn-dark:hover{background:#222}
+.btn-secondary{background:transparent;color:var(--ink);border-color:var(--hairline-strong)}
+.btn-secondary:hover{border-color:var(--ink);background:var(--surface)}
+.btn-on-dark{background:#fff;color:var(--ink)}
+.btn-on-dark:hover{background:#f0f0f0}
+.btn-secondary-on-dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-secondary-on-dark:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.btn-ghost{background:transparent;color:var(--charcoal);font-weight:500;font-size:14px}
+.btn-ghost:hover{color:var(--ink)}
 
-  /* ─── Stats row ─── */
-  .stats-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:rgba(255,255,255,.02);border:1px solid var(--card-border);border-radius:12px;padding:10px 14px;margin-bottom:32px;animation:fadeUp .6s .3s ease-out both}
-  .stat{text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,.05)}
-  .stat:last-child{border-right:none}
-  .stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;color:#fff;line-height:1}
-  .stat-num .unit{font-size:11px;color:var(--text-tertiary);font-weight:500}
-  .stat-label{font-size:8.5px;color:var(--text-tertiary);letter-spacing:.08em;margin-top:5px;font-weight:600}
-  .stat.highlight .stat-num{color:var(--brand-red)}
-  .stat.highlight .stat-label{color:var(--brand-red);opacity:.9}
+/* ===== HERO (navy band) ===== */
+.hero{position:relative;background:var(--brand-navy);color:#fff;padding:96px 32px 0;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%, rgba(255,210,51,.04) 0%, transparent 30%),radial-gradient(circle at 80% 70%, rgba(91,134,255,.06) 0%, transparent 35%),radial-gradient(circle at 50% 90%, rgba(255,0,59,.05) 0%, transparent 40%);pointer-events:none}
+.hero-inner{position:relative;max-width:1080px;margin:0 auto;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);padding:6px 14px;border-radius:100px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.04em;margin-bottom:32px;border:1px solid rgba(255,255,255,.08)}
+.hero-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--semantic-success);box-shadow:0 0 8px var(--semantic-success)}
+.hero h1{font-size:72px;font-weight:600;line-height:1.05;letter-spacing:-.025em;margin-bottom:24px}
+.hero h1 em{color:#fff;font-style:normal;background:linear-gradient(120deg,#ff5577,var(--brand-red));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:19px;line-height:1.55;color:rgba(255,255,255,.72);max-width:680px;margin:0 auto 40px}
+.hero-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:64px}
 
-  /* ─── Layer section ─── */
-  .layer-section{margin-bottom:22px;animation:fadeUp .6s ease-out both}
-  .layer-section:nth-child(1){animation-delay:.35s}
-  .layer-section:nth-child(2){animation-delay:.45s}
-  .layer-section:nth-child(3){animation-delay:.55s}
-  .layer-section:nth-child(4){animation-delay:.65s}
-  .layer-section:nth-child(5){animation-delay:.75s}
-  .layer-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:0 4px}
-  .layer-pill{font-family:'Poppins',sans-serif;font-weight:800;font-size:10px;padding:3px 10px;border-radius:8px;letter-spacing:.08em;color:#fff}
-  .layer-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14.5px;color:#fff}
-  .layer-desc{font-size:11.5px;color:var(--text-secondary);margin-left:auto;font-weight:300}
-  .L1 .layer-pill{background:var(--L1)} .L1 .layer-title{color:var(--L1)}
-  .L2 .layer-pill{background:var(--L2)} .L2 .layer-title{color:var(--L2)}
-  .L3 .layer-pill{background:var(--L3)} .L3 .layer-title{color:var(--L3)}
-  .L4 .layer-pill{background:var(--L4)} .L4 .layer-title{color:var(--L4)}
-  .L0 .layer-pill{background:var(--L0);color:#1a1a1a} .L0 .layer-title{color:var(--L0)}
+/* Sticky-note dot deco scattered around */
+.dot-deco{position:absolute;border-radius:50%;opacity:.85;pointer-events:none}
+.dot-deco.d1{top:20%;left:8%;width:10px;height:10px;background:var(--tint-yellow-bold)}
+.dot-deco.d2{top:35%;right:12%;width:14px;height:14px;background:var(--tint-rose)}
+.dot-deco.d3{top:50%;left:14%;width:8px;height:8px;background:var(--tint-mint)}
+.dot-deco.d4{top:18%;right:18%;width:12px;height:12px;background:var(--tint-lavender)}
+.dot-deco.d5{top:60%;left:6%;width:16px;height:16px;background:var(--tint-peach)}
+.dot-deco.d6{top:28%;left:22%;width:6px;height:6px;background:var(--tint-sky)}
+.dot-deco.d7{top:42%;right:6%;width:10px;height:10px;background:var(--tint-yellow-bold);opacity:.6}
 
-  /* ─── Grid ─── */
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .grid-2{grid-template-columns:repeat(2,1fr)}
-  .grid-3{grid-template-columns:repeat(3,1fr)}
-  .grid-1{grid-template-columns:1fr}
+/* Hero workspace mockup — breaks out below hero buttons */
+.hero-mockup{position:relative;max-width:980px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:var(--shadow-mockup);transform:translateY(48px);overflow:hidden}
+.mockup-toolbar{display:flex;align-items:center;gap:8px;padding:12px 18px;background:#fafafa;border-bottom:1px solid var(--hairline-soft)}
+.mockup-toolbar .dot{width:11px;height:11px;border-radius:50%}
+.mockup-toolbar .dot.r{background:#ff5f57}
+.mockup-toolbar .dot.y{background:#febc2e}
+.mockup-toolbar .dot.g{background:#28c840}
+.mockup-toolbar .url{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--steel);background:#fff;padding:4px 12px;border-radius:6px;border:1px solid var(--hairline-soft)}
+.mockup-body{padding:28px 32px;background:#fff;color:var(--ink)}
+.mockup-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:16px}
+.mockup-title{font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.mockup-sub{font-size:13px;color:var(--steel);margin-top:4px}
+.mockup-pills{display:flex;gap:6px;flex-wrap:wrap}
+.mp-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--surface);color:var(--charcoal);border:1px solid var(--hairline)}
+.mp-pill.live{background:rgba(5,177,105,.1);color:var(--semantic-success);border-color:rgba(5,177,105,.2)}
+.mp-pill.live::before{content:"●";margin-right:4px}
+.mockup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mockup-item{padding:14px 16px;border-radius:10px;border:1px solid var(--hairline);background:#fff;display:flex;flex-direction:column;gap:6px}
+.mockup-item .label{font-family:var(--mono);font-size:10px;color:var(--steel);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.mockup-item .num{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-.01em}
+.mockup-item .delta{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--semantic-success);margin-top:2px}
+.mockup-item.peach{background:var(--tint-peach);border-color:transparent}
+.mockup-item.sky{background:var(--tint-sky);border-color:transparent}
+.mockup-item.mint{background:var(--tint-mint);border-color:transparent}
+.mockup-item.lavender{background:var(--tint-lavender);border-color:transparent}
 
-  /* ─── Card ─── */
-  .card{position:relative;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:transform .25s ease,box-shadow .35s ease,border-color .3s ease;cursor:pointer;overflow:hidden;backdrop-filter:blur(6px);min-height:112px}
-  .card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);opacity:0;transition:opacity .35s ease;pointer-events:none}
-  .card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16)}
-  .card:hover::before{opacity:1}
-  .card-top{display:flex;align-items:center;justify-content:space-between}
-  .icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .icon-wrap svg{width:20px;height:20px;stroke-width:1.6}
-  .arrow-icon{color:rgba(255,255,255,.2);transition:transform .25s ease,color .25s ease}
-  .card:hover .arrow-icon{color:rgba(255,255,255,.7);transform:translateX(3px)}
-  .card-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14.5px;color:#fff;line-height:1.3}
-  .card-subtitle{font-size:11.5px;color:var(--text-secondary);line-height:1.55;font-weight:300}
-  .card-meta{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-tertiary);letter-spacing:.04em}
-  .card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2)}
-  .card-dot.live{background:#10b981;animation:pulse 1.8s infinite}
-  .card-dot.hot{background:var(--brand-red);animation:pulse 1.2s infinite}
-  .card-dot.soon{background:#f59e0b}
+/* ===== SECTION ===== */
+section{padding:96px 0}
+.section-h{margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.section-h .l{flex:1;min-width:0}
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--brand-red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.eyebrow.muted{color:var(--steel)}
+h2.h-display{font-size:40px;font-weight:600;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+h2.h-display em{color:var(--brand-red);font-style:normal}
+.section-h .lead{font-size:16px;color:var(--slate);margin-top:10px;max-width:640px}
 
-  /* L1 Inbound - Blue */
-  .card.l1{border-left:3px solid var(--L1)}
-  .card.l1 .icon-wrap{background:rgba(59,130,246,.12)} .card.l1 .icon-wrap svg{color:var(--L1)}
-  .card.l1::before{box-shadow:inset 0 0 40px rgba(59,130,246,.05),0 6px 24px rgba(59,130,246,.1)}
-  /* L2 Intelligence - Purple */
-  .card.l2{border-left:3px solid var(--L2)}
-  .card.l2 .icon-wrap{background:rgba(167,139,250,.12)} .card.l2 .icon-wrap svg{color:var(--L2)}
-  .card.l2::before{box-shadow:inset 0 0 40px rgba(167,139,250,.05),0 6px 24px rgba(167,139,250,.1)}
-  .card.l2.moat{border:2px solid var(--brand-red);background:linear-gradient(135deg,rgba(255,0,59,.08),rgba(255,255,255,.02))}
-  .card.l2.moat .icon-wrap{background:rgba(255,0,59,.14)} .card.l2.moat .icon-wrap svg{color:var(--brand-red)}
-  /* L3 Execution - Orange */
-  .card.l3{border-left:3px solid var(--L3)}
-  .card.l3 .icon-wrap{background:rgba(251,146,60,.12)} .card.l3 .icon-wrap svg{color:var(--L3)}
-  .card.l3::before{box-shadow:inset 0 0 40px rgba(251,146,60,.05),0 6px 24px rgba(251,146,60,.1)}
-  /* L4 Expansion - Green */
-  .card.l4{border-left:3px solid var(--L4);opacity:.75}
-  .card.l4 .icon-wrap{background:rgba(16,185,129,.12)} .card.l4 .icon-wrap svg{color:var(--L4)}
-  /* L0 Operation - Gray */
-  .card.l0{border-left:3px solid var(--L0)}
-  .card.l0 .icon-wrap{background:rgba(148,163,184,.12)} .card.l0 .icon-wrap svg{color:var(--L0)}
+/* ===== STATS BAR (after hero, white) ===== */
+.stats-band{padding:140px 0 64px;background:var(--canvas)}
+.stats{display:grid;grid-template-columns:repeat(7,1fr);gap:24px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:32px 0}
+.stat{text-align:center}
+.stat .num{font-family:var(--mono);font-size:30px;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-.02em}
+.stat .num em{color:var(--brand-red);font-style:normal;font-size:18px;font-weight:500;margin-left:2px}
+.stat .lbl{font-family:var(--mono);font-size:10.5px;color:var(--steel);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:8px}
+.stat.featured .num{color:var(--brand-red)}
 
-  /* Moat badge */
-  .moat-badge{position:absolute;top:-8px;right:14px;background:var(--brand-red);color:#fff;padding:2px 9px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:8.5px;font-weight:800;letter-spacing:.08em}
-  .live-badge{position:absolute;top:-8px;right:14px;background:#10b981;color:#fff;padding:2px 9px;border-radius:9px;font-family:'Poppins',sans-serif;font-size:8.5px;font-weight:800;letter-spacing:.08em}
+/* ===== FEATURE SECTIONS — pastel cards ===== */
+.cards-grid{display:grid;gap:20px}
+.cards-grid.cg-2{grid-template-columns:repeat(2,1fr)}
+.cards-grid.cg-3{grid-template-columns:repeat(3,1fr)}
+.cards-grid.cg-1{grid-template-columns:1fr;max-width:760px;margin:0 auto}
 
-  /* Narrative banner */
-  .narrative-link{display:flex;align-items:center;gap:16px;padding:14px 20px;background:linear-gradient(135deg,#2a0914,#0a0e1a);border:1px solid rgba(255,0,59,.25);border-radius:12px;text-decoration:none;color:inherit;margin-top:20px;transition:border-color .3s,transform .25s;animation:fadeUp .6s .85s ease-out both}
-  .narrative-link:hover{border-color:var(--brand-red);transform:translateY(-2px)}
-  .narrative-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,0,59,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .narrative-icon svg{width:22px;height:22px;color:var(--brand-red);stroke-width:1.8}
-  .narrative-text{flex:1}
-  .narrative-title{font-family:'Poppins','Noto Sans KR',sans-serif;font-weight:700;font-size:14px;color:#fff}
-  .narrative-sub{font-size:11.5px;color:var(--text-secondary);margin-top:2px}
-  .narrative-arrow{color:var(--brand-red);font-size:20px;font-weight:300}
+.card{display:block;border-radius:14px;padding:32px;background:var(--canvas);border:1px solid var(--hairline);color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-elev)}
 
-  /* Footer */
-  .footer{text-align:center;padding:24px 0 0;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px;font-family:'Poppins',sans-serif;animation:fadeUp .6s .95s ease-out both}
-  .footer a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
-  .footer a:hover{color:rgba(255,255,255,.7)}
-  .update-badge{margin-bottom:8px;display:inline-block;background:rgba(255,0,59,.1);border:1px solid rgba(255,0,59,.2);border-radius:8px;padding:3px 12px;font-size:10px;color:rgba(255,255,255,.6)}
+/* Pastel card variants */
+.card.peach{background:var(--tint-peach);border-color:transparent}
+.card.peach .badge{background:#fff;color:var(--txt-orange)}
+.card.rose{background:var(--tint-rose);border-color:transparent}
+.card.rose .badge{background:#fff;color:var(--txt-pink)}
+.card.mint{background:var(--tint-mint);border-color:transparent}
+.card.mint .badge{background:#fff;color:var(--txt-green)}
+.card.lavender{background:var(--tint-lavender);border-color:transparent}
+.card.lavender .badge{background:#fff;color:var(--txt-purple)}
+.card.sky{background:var(--tint-sky);border-color:transparent}
+.card.sky .badge{background:#fff;color:var(--txt-blue)}
+.card.yellow{background:var(--tint-yellow);border-color:transparent}
+.card.cream{background:var(--tint-cream);border-color:transparent}
+.card.gray{background:var(--tint-gray);border-color:transparent}
+.card.featured{background:var(--canvas);border:2px solid var(--brand-red)}
+.card.muted{background:var(--surface-soft);border-color:var(--hairline)}
+.card.muted .card-title,.card.muted .card-sub{opacity:.65}
 
-  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;gap:12px}
+.card-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card.peach .card-icon{background:rgba(255,255,255,.6);color:var(--txt-orange)}
+.card.rose .card-icon{background:rgba(255,255,255,.6);color:var(--txt-pink)}
+.card.mint .card-icon{background:rgba(255,255,255,.6);color:var(--txt-green)}
+.card.lavender .card-icon{background:rgba(255,255,255,.6);color:var(--txt-purple)}
+.card.sky .card-icon{background:rgba(255,255,255,.6);color:var(--txt-blue)}
+.card.yellow .card-icon{background:rgba(255,255,255,.65);color:var(--txt-yellow)}
+.card.gray .card-icon,.card.cream .card-icon,.card.muted .card-icon{background:#fff;color:var(--charcoal)}
+.card.featured .card-icon{background:var(--brand-red-soft);color:var(--brand-red)}
+.card-icon svg{width:22px;height:22px;stroke-width:1.6}
 
-  @media(max-width:760px){
-    .grid,.grid-2,.grid-3{grid-template-columns:1fr}
-    .stats-strip{grid-template-columns:repeat(3,1fr);gap:10px 4px}
-    .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:6px}
-    .nsm-banner{grid-template-columns:1fr;gap:10px}
-    .hero-brand{font-size:1.2rem;letter-spacing:4px}
-  }
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.05em;background:#fff;color:var(--ink)}
+.badge.live{color:var(--semantic-success)}
+.badge.live::before{content:"●"}
+.badge.hot{background:var(--brand-red);color:#fff}
+.badge.hot::before{content:"★ "}
+.badge.soon{background:rgba(0,0,0,.06);color:var(--steel)}
+.badge.doc{background:#fff;color:var(--charcoal);border:1px solid rgba(0,0,0,.08)}
+
+.card-title{font-size:21px;font-weight:600;color:var(--ink);line-height:1.25;letter-spacing:-.012em;margin-bottom:8px}
+.card-sub{font-size:14.5px;color:var(--charcoal);line-height:1.55;margin-bottom:18px}
+.card.gray .card-sub,.card.cream .card-sub{color:var(--slate)}
+.card-meta{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--charcoal);font-weight:500;padding-top:16px;border-top:1px solid rgba(0,0,0,.07)}
+.card.gray .card-meta,.card.cream .card-meta,.card.muted .card-meta{border-top-color:var(--hairline)}
+.card-arrow{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+.card:hover .card-arrow{transform:translateX(3px);background:rgba(0,0,0,.12)}
+.card.featured .card-arrow{background:var(--brand-red);color:#fff}
+.card.featured:hover .card-arrow{background:var(--brand-red-pressed)}
+
+/* ===== YELLOW-BOLD BANNER ===== */
+.yellow-banner{background:var(--tint-yellow-bold);border-radius:16px;padding:56px 56px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;margin:80px 0;color:var(--charcoal)}
+.yellow-banner h3{font-size:36px;font-weight:600;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.yellow-banner h3 strong{color:var(--brand-red);font-weight:700}
+.yellow-banner p{font-size:15.5px;color:var(--charcoal);line-height:1.55;margin-top:14px}
+.yellow-banner .cta-row{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
+.yellow-banner .right{display:flex;flex-direction:column;gap:14px}
+.yb-bullet{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.45);padding:14px 18px;border-radius:10px;font-size:14px;font-weight:500;color:var(--charcoal)}
+.yb-bullet .ico{width:32px;height:32px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand-red);flex-shrink:0;font-family:var(--mono);font-size:13px}
+
+/* ===== CTA BANNER (light surface) ===== */
+.cta-banner{background:var(--surface);border-radius:16px;padding:64px 48px;display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:center;margin:64px 0}
+.cta-banner h3{font-size:32px;font-weight:600;color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin-bottom:10px}
+.cta-banner p{color:var(--slate);font-size:15px}
+.cta-banner .cta-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ===== FOOTER ===== */
+.footer{background:var(--canvas);padding:64px 32px 32px;border-top:1px solid var(--hairline)}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:48px;margin-bottom:48px}
+.footer-brand{font-size:18px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:9px;margin-bottom:14px;letter-spacing:-.01em}
+.footer-brand .mark{width:18px;height:18px;background:var(--brand-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800}
+.footer-tag{font-size:14px;color:var(--slate);max-width:300px;line-height:1.5}
+.footer-col h4{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:14px;text-transform:uppercase;letter-spacing:.04em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-col a{font-size:13.5px;color:var(--steel);transition:color .15s}
+.footer-col a:hover{color:var(--brand-red)}
+.legal{padding-top:24px;border-top:1px solid var(--hairline-soft);display:flex;justify-content:space-between;font-size:12.5px;color:var(--steel);flex-wrap:wrap;gap:16px;font-family:var(--mono)}
+.legal .badge-live{display:inline-flex;align-items:center;gap:6px}
+.legal .badge-live::before{content:"●";color:var(--semantic-success)}
+
+@media(max-width:1024px){
+  .stats{grid-template-columns:repeat(4,1fr);row-gap:32px}
+  .cards-grid.cg-3,.cards-grid.cg-2{grid-template-columns:1fr 1fr}
+  .yellow-banner,.cta-banner{grid-template-columns:1fr;text-align:left}
+  .yellow-banner .right{flex-direction:row;flex-wrap:wrap}
+  .cta-banner .cta-actions{justify-content:flex-start}
+  .mockup-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr 1fr}
+  .hero h1{font-size:56px}
+}
+@media(max-width:640px){
+  section{padding:64px 0}
+  .container{padding:0 20px}
+  .nav-menu{display:none}
+  .hero{padding:64px 20px 0}
+  .hero h1{font-size:40px;letter-spacing:-.02em}
+  .hero-sub{font-size:16px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .cards-grid.cg-3,.cards-grid.cg-2,.cards-grid.cg-1{grid-template-columns:1fr}
+  .yellow-banner,.cta-banner{padding:36px 28px}
+  .yellow-banner h3{font-size:28px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  h2.h-display{font-size:30px}
+  .mockup-body{padding:18px 18px}
+  .mockup-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .dot-deco{display:none}
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- ═══════════ HERO ═══════════ -->
-  <div class="hero">
-    <img src="/setoworks_logo_8x.png" alt="Setoworks" class="hero-logo">
-    <div class="hero-brand">SETOWORKS</div>
-    <div class="hero-sub">Jellop+&alpha; · 예측 기반 글로벌 크라우드펀딩 런칭 OS</div>
-    <div class="hero-positioning">
-      <strong>"같은 제품, 어느 나라가 더 잘 팔릴까"</strong> — 14년 × 520억 × 27,212 KS × 1,705 슈퍼백커 데이터로 답하는 유일한 OS
+<!-- ============ PROMO ============ -->
+<div class="promo">★ NEW · <strong>SaaS Suite 4종 글로벌 랜딩 오픈</strong> · Coinbase 톤 EN/KO — <a href="/saas-landing.html">랜딩 페이지 보기 →</a></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/portal.html" class="nav-logo"><span class="mark">S</span>Setoworks</a>
+    <div class="nav-menu">
+      <a href="#inbound">유입</a>
+      <a href="#intelligence">분석</a>
+      <a href="#execution">실행</a>
+      <a href="#operation">운영</a>
+      <a href="/deck.html">전략 데크</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://setoworks.com" target="_blank" class="btn btn-md btn-ghost">setoworks.com</a>
+      <a href="/saas-landing.html" class="btn btn-md btn-primary">SaaS 보기</a>
     </div>
   </div>
+</nav>
 
-  <!-- ═══════════ NSM BANNER ═══════════ -->
-  <div class="nsm-banner">
-    <div>
-      <div class="nsm-label">★ NORTH STAR METRIC</div>
-      <div class="nsm-metric">메이커 <span class="red">LTV</span> × 예측 <span class="red">정확도</span></div>
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="dot-deco d1"></span><span class="dot-deco d2"></span><span class="dot-deco d3"></span>
+  <span class="dot-deco d4"></span><span class="dot-deco d5"></span><span class="dot-deco d6"></span>
+  <span class="dot-deco d7"></span>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Live · Setoworks Jellop+α 운영 OS</div>
+    <h1>크라우드펀딩의 모든 단계를<br><em>하나의 OS로</em>.</h1>
+    <p class="hero-sub">"같은 제품, 어느 나라가 더 잘 팔릴까" — 14년 운영 데이터 × 520억 누적 펀딩 × 27,212 KS 분석 × 1,705 슈퍼백커 신호로 답하는 유일한 운영 플랫폼.</p>
+    <div class="hero-cta-row">
+      <a href="#intelligence" class="btn btn-lg btn-primary">시스템 둘러보기</a>
+      <a href="/deck.html" class="btn btn-lg btn-secondary-on-dark">📑 전략 데크 (25 슬라이드)</a>
     </div>
-    <div class="nsm-stats">
-      <div>LTV <b>₩1.2억</b></div>
-      <div>Precision@3 <b>78%</b></div>
-      <div>Funnel Depth <b>2.4 layers</b></div>
-    </div>
-    <div style="position:relative;font-size:10.5px;color:var(--text-secondary)">
-      <span style="color:#10b981;">●</span> Live · Updated <span id="nsm-updated">—</span>
-    </div>
-  </div>
 
-  <!-- ═══════════ STATS STRIP ═══════════ -->
-  <div class="stats-strip">
-    <div class="stat"><div class="stat-num">14<span class="unit">년</span></div><div class="stat-label">BUSINESS</div></div>
-    <div class="stat"><div class="stat-num">520<span class="unit">억</span></div><div class="stat-label">FUNDED</div></div>
-    <div class="stat"><div class="stat-num">1,200</div><div class="stat-label">CAMPAIGNS</div></div>
-    <div class="stat"><div class="stat-num">27K</div><div class="stat-label">KS PROJECTS</div></div>
-    <div class="stat"><div class="stat-num">1,705</div><div class="stat-label">SUPERBACKERS</div></div>
-    <div class="stat"><div class="stat-num">9</div><div class="stat-label">STREAMS</div></div>
-    <div class="stat highlight"><div class="stat-num">6</div><div class="stat-label">COUNTRIES</div></div>
-  </div>
-
-  <!-- ═══════════ LAYER 1 · 유입 ═══════════ -->
-  <div class="layer-section L1">
-    <div class="layer-head">
-      <span class="layer-pill">L1</span>
-      <span class="layer-title">유입 · Inbound Funnel</span>
-      <span class="layer-desc">리드 깔때기 Top · 브랜딩 채널</span>
-    </div>
-    <div class="grid grid-2">
-
-      <a href="https://setoworks-affiliate.vercel.app" class="card l1" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+    <!-- Workspace mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-toolbar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="url">setoworks-jellop-seven.vercel.app</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-h">
+          <div>
+            <div class="mockup-title">North Star · 메이커 LTV × 예측 정확도</div>
+            <div class="mockup-sub">Setoworks Jellop+α · 운영 OS 대시보드 미리보기</div>
+          </div>
+          <div class="mockup-pills">
+            <span class="mp-pill live">LIVE</span>
+            <span class="mp-pill">Jellop+α v2.0</span>
+          </div>
         </div>
-        <div class="card-title">Brand Lab · 어필리에이트</div>
-        <div class="card-subtitle">Affundify · Kickfundly · Backerio · Fundspirex · Boostfunding · 5개 브랜드 실시간 펀딩 큐레이션</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · $134.4M · 42.5K backers</div>
-      </a>
-
-      <a href="/kickstarter-live.html" class="card l1">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.63 7.41m5.96 6.96c-1.87.56-3.87.87-5.96.87-2.09 0-4.09-.3-5.95-.87m0 0a6 6 0 0 1-5.84-7.38v-4.8m5.84 12.18a6 6 0 0 0-5.84-7.38v4.8"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        <div class="mockup-grid">
+          <div class="mockup-item peach">
+            <span class="label">메이커 LTV</span>
+            <span class="num">₩1.2억</span>
+            <span class="delta">+18% YoY</span>
+          </div>
+          <div class="mockup-item sky">
+            <span class="label">Precision @3</span>
+            <span class="num">78<small style="font-size:14px;color:var(--steel)">%</small></span>
+            <span class="delta">▲ Top 3 적중</span>
+          </div>
+          <div class="mockup-item mint">
+            <span class="label">Funnel Depth</span>
+            <span class="num">2.4<small style="font-size:13px;color:var(--steel)"> layers</small></span>
+            <span class="delta">+0.3 vs Q1</span>
+          </div>
+          <div class="mockup-item lavender">
+            <span class="label">Active Streams</span>
+            <span class="num">9</span>
+            <span class="delta">9 / 9 healthy</span>
+          </div>
         </div>
-        <div class="card-title">KS 라이브 대시보드</div>
-        <div class="card-subtitle">Kickstarter 실시간 · 2,000+ 프로젝트 트래킹 · 급등 카테고리 탐지</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · Realtime · 2K+</div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- ═══════════ LAYER 2 · 분석·판단 ═══════════ -->
-  <div class="layer-section L2">
-    <div class="layer-head">
-      <span class="layer-pill">L2</span>
-      <span class="layer-title">분석·판단 · Intelligence</span>
-      <span class="layer-desc">AI 예측 + 🌍 6개국 선호도 MOAT + SaaS Suite</span>
-    </div>
-    <div class="grid grid-3">
-
-      <a href="/kickstarter-predict.html" class="card l2 moat">
-        <div class="live-badge">★ 4/28 LIVE</div>
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.091 3.091ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">킥스타터 성공 예측 엔진</div>
-        <div class="card-subtitle">108 팩터 진단 · S/A/B/C/D 등급 · 무료 체험 후 상세 리포트 (3~10만원)</div>
-        <div class="card-meta"><span class="card-dot hot"></span>D-5 오픈 · 등급별 결제 · 27K 학습</div>
-      </a>
-
-      <a href="/kickstarter-insight.html" class="card l2">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">KS Insight Engine</div>
-        <div class="card-subtitle">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 · 예측 엔진의 데이터 근거</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · 27,909 Projects · 7 sections</div>
-      </a>
-
-      <a href="/saas-landing.html" class="card l2 moat">
-        <div class="live-badge">★ NEW · 4종 SaaS</div>
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">신규 SaaS 4종 — 글로벌 랜딩</div>
-        <div class="card-subtitle">Lookalike · Pure Score · Trend Radar · Buyer Match — 14년 데이터 자산을 묶어 B2B SaaS로 (FOP는 좌측 시판 채널 별도 운영)</div>
-        <div class="card-meta"><span class="card-dot hot"></span>EN/KO · Coinbase 톤 · 14-day trial</div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- ═══════════ LAYER 3 · 실행 ═══════════ -->
-  <div class="layer-section L3">
-    <div class="layer-head">
-      <span class="layer-pill">L3</span>
-      <span class="layer-title">실행 · Execution</span>
-      <span class="layer-desc">3 streams · 본업 + 시딩 + 바이어</span>
-    </div>
-    <div class="grid grid-2">
-
-      <a href="/influencer-admin.html" class="card l3">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">인플루언서 시딩 관리</div>
-        <div class="card-subtitle">65명 크리에이터 DB · 3-Tier × 4패키지 · Pure Score 자동 평가 · 매칭 자동화</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · 65 creators · 매일 09:00 자동</div>
-      </a>
-
-      <a href="/index.html" class="card l3">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">캠페인 운영 대시보드</div>
-        <div class="card-subtitle">3,398 제품 · 본업 펀딩 캠페인 실시간 분석 · 한셉트·콕스스페이스·뉴마핏 등</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · 1,200건 · 520억 집행</div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- ═══════════ LAYER 4 · 확장 (coming soon) ═══════════ -->
-  <div class="layer-section L4">
-    <div class="layer-head">
-      <span class="layer-pill">L4</span>
-      <span class="layer-title">확장 · E-commerce 6-Country</span>
-      <span class="layer-desc">Q2-Q3 오픈 예정</span>
-    </div>
-    <div class="grid grid-1">
-      <div class="card l4" style="cursor:default">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg></div>
-          <div style="display:flex;gap:14px;font-size:18px">🇺🇸 🇯🇵 🇰🇷 🇹🇼 🇪🇺 🇨🇳</div>
-        </div>
-        <div class="card-title">6개국 이커머스 확장</div>
-        <div class="card-subtitle">Amazon · Makuake→Rakuten · 쿠팡 · PChome · Otto · Tmall — 국가별 선호도 기반 자동 입점 플로우</div>
-        <div class="card-meta"><span class="card-dot soon"></span>COMING SOON · Tier 2 (D+180)</div>
       </div>
     </div>
   </div>
+</header>
 
-  <!-- ═══════════ LAYER 0 · 관통 운영 ═══════════ -->
-  <div class="layer-section L0">
-    <div class="layer-head">
-      <span class="layer-pill">L0</span>
-      <span class="layer-title">관통 · Operation (Moat 증거)</span>
-      <span class="layer-desc">세토웍스가 모든 Layer를 풀서비스로 대행</span>
-    </div>
-    <div class="grid">
-
-      <a href="/system-guide.html" class="card l0">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">시스템 가이드</div>
-        <div class="card-subtitle">운영 매뉴얼 · 7 섹션 · 전체 시스템 온보딩</div>
-        <div class="card-meta"><span class="card-dot live"></span>DOC · 운영팀 표준</div>
-      </a>
-
-      <a href="/crawl-monitor.html" class="card l0">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">크롤링 모니터</div>
-        <div class="card-subtitle">5 플랫폼 · 162 프록시 자가확장 · 패턴 최적화</div>
-        <div class="card-meta"><span class="card-dot live"></span>LIVE · 일 2K+ 크롤</div>
-      </a>
-
-      <a href="/db-infra.html" class="card l0">
-        <div class="card-top">
-          <div class="icon-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75"/></svg></div>
-          <svg class="arrow-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </div>
-        <div class="card-title">DB 인프라 계획서</div>
-        <div class="card-subtitle">PostgreSQL 70 테이블 · Supabase · AI 연동 · 7.4TB NAS 아카이브</div>
-        <div class="card-meta"><span class="card-dot"></span>DOC · 기술 스택 전체</div>
-      </a>
-
+<!-- ============ STATS ============ -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats">
+      <div class="stat"><div class="num">14<em>년</em></div><div class="lbl">Business</div></div>
+      <div class="stat"><div class="num">520<em>억</em></div><div class="lbl">Funded</div></div>
+      <div class="stat"><div class="num">1,200</div><div class="lbl">Campaigns</div></div>
+      <div class="stat"><div class="num">27<em>K</em></div><div class="lbl">KS Projects</div></div>
+      <div class="stat"><div class="num">1,705</div><div class="lbl">Superbackers</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl">Streams</div></div>
+      <div class="stat featured"><div class="num">6</div><div class="lbl">Countries</div></div>
     </div>
   </div>
+</section>
 
-  <!-- ═══════════ NARRATIVE LINK ═══════════ -->
-  <a href="/deck.html" class="narrative-link">
-    <div class="narrative-icon">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25M8.25 16.5v3.75m7.5-3.75v3.75m-11.25 0h15M12 7.5v5.25m-3-2.25h6"/></svg>
+<!-- ============ L1 INBOUND ============ -->
+<section id="inbound" style="padding-top:0">
+  <div class="container">
+    <div class="section-h">
+      <div class="l">
+        <span class="eyebrow">L1 · Inbound Funnel</span>
+        <h2 class="h-display"><em>유입</em> 채널 — 메이커가 들어오는 첫 접점</h2>
+        <p class="lead">5개 브랜드 어필리에이트 + Kickstarter 라이브 데이터로 펀딩 트래픽을 자체 자산화.</p>
+      </div>
     </div>
-    <div class="narrative-text">
-      <div class="narrative-title">📑 전체 스토리 · Jellop+α 90일 전략 데크</div>
-      <div class="narrative-sub">왜 지금 · 적·약속의 땅·장애물·증거·액션 (Raskin 6-Section 내러티브 · 25 슬라이드)</div>
+    <div class="cards-grid cg-2">
+      <a href="https://setoworks-affiliate.vercel.app" class="card peach" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0-9-9c0 1.49.367 2.892 1.014 4.124L3 21l4.876-1.014A8.957 8.957 0 0 0 12 21z"/></svg></div>
+          <span class="badge live">$134.4M</span>
+        </div>
+        <div class="card-title">Brand Lab · 어필리에이트</div>
+        <div class="card-sub">Affundify · Kickfundly · Backerio · Fundspirex · Boostfunding — 5개 브랜드로 운영하는 실시간 펀딩 큐레이션. 42.5K 백커 트래픽.</div>
+        <div class="card-meta"><span>5 brands · realtime</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/kickstarter-live.html" class="card sky">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
+          <span class="badge live">2K+</span>
+        </div>
+        <div class="card-title">KS 라이브 대시보드</div>
+        <div class="card-sub">Kickstarter 실시간 트래킹 · 2,000+ 프로젝트 · 급등 카테고리 자동 탐지 · 일별 트렌드 갱신.</div>
+        <div class="card-meta"><span>realtime · 2K+</span><span class="card-arrow">→</span></div>
+      </a>
     </div>
-    <div class="narrative-arrow">→</div>
-  </a>
+  </div>
+</section>
 
-</div>
+<!-- ============ L2 INTELLIGENCE ============ -->
+<section id="intelligence" style="background:var(--surface-soft)">
+  <div class="container">
+    <div class="section-h">
+      <div class="l">
+        <span class="eyebrow">L2 · Intelligence</span>
+        <h2 class="h-display">AI 예측 + <em>6개국 선호도 MOAT</em> + SaaS Suite</h2>
+        <p class="lead">제품을 입력하면 결과를 예측, 글로벌 SaaS 4종으로 외부 메이커·대행사·기관에 공급.</p>
+      </div>
+      <a href="/saas-landing.html" class="btn btn-md btn-secondary">SaaS 랜딩 →</a>
+    </div>
+    <div class="cards-grid cg-3">
+      <a href="/kickstarter-predict.html" class="card lavender">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.091 3.091Z"/></svg></div>
+          <span class="badge hot">D-5 LIVE</span>
+        </div>
+        <div class="card-title">킥스타터 성공 예측 엔진 (FOP)</div>
+        <div class="card-sub">108 팩터 진단 · S/A/B/C/D 등급 · 무료 체험 후 상세 리포트 ($30~100). 메이커 직접 진입 채널.</div>
+        <div class="card-meta"><span>27K 학습 · 자체 시판</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/kickstarter-insight.html" class="card mint">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+          <span class="badge live">27,909</span>
+        </div>
+        <div class="card-title">KS Insight Engine</div>
+        <div class="card-sub">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 + FAQ·감정 분석. 예측 엔진의 데이터 근거.</div>
+        <div class="card-meta"><span>7 sections · 14 charts</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/saas-landing.html" class="card featured">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
+          <span class="badge hot">★ 4종 신규</span>
+        </div>
+        <div class="card-title">신규 SaaS 4종 — 글로벌 랜딩</div>
+        <div class="card-sub">Lookalike · Pure Score · Trend Radar · Buyer Match — 14년 데이터 자산을 묶은 B2B API 라인업 (FOP는 좌측 시판 채널 별도 운영).</div>
+        <div class="card-meta"><span>EN/KO · Coinbase 톤</span><span class="card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
 
+<!-- ============ YELLOW BOLD BANNER ============ -->
+<section style="padding:0">
+  <div class="container">
+    <div class="yellow-banner">
+      <div>
+        <h3>예측이 운영을 바꾼다 — <strong>30분 안에</strong> 답을 받는다.</h3>
+        <p>제품 1줄 입력 → ±15% 신뢰구간 + 유사 사례 3건 + 추천 인플루언서 TOP 20 + Tier별 시딩 예산. 사람 개입 0의 자동 리포트.</p>
+        <div class="cta-row">
+          <a href="/kickstarter-predict.html" class="btn btn-lg btn-dark">무료 진단 시작 →</a>
+          <a href="/saas-landing.html" class="btn btn-lg btn-secondary" style="border-color:var(--ink-deep);color:var(--ink-deep)">SaaS 둘러보기</a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="yb-bullet"><span class="ico">①</span><span><strong>입력</strong> · 제품·카테고리·가격·국가·메이커 이력</span></div>
+        <div class="yb-bullet"><span class="ico">②</span><span><strong>매칭</strong> · KS 27,986건 + 자체 1,200건 검색</span></div>
+        <div class="yb-bullet"><span class="ico">③</span><span><strong>추론</strong> · P10/P50/P90 + 인플 매칭</span></div>
+        <div class="yb-bullet"><span class="ico">④</span><span><strong>출력</strong> · 30분 자동 리포트 (PDF·JSON)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ L3 EXECUTION ============ -->
+<section id="execution">
+  <div class="container">
+    <div class="section-h">
+      <div class="l">
+        <span class="eyebrow">L3 · Execution</span>
+        <h2 class="h-display"><em>실행</em> 도구 — 분석을 운영으로 연결</h2>
+        <p class="lead">인플루언서 시딩과 캠페인 실시간 운영을 같은 데이터 위에서.</p>
+      </div>
+    </div>
+    <div class="cards-grid cg-2">
+      <a href="/influencer-admin.html" class="card rose">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="badge live">65명</span>
+        </div>
+        <div class="card-title">인플루언서 시딩 관리</div>
+        <div class="card-sub">65명 크리에이터 DB · 3-Tier × 4 패키지 · Pure Score 자동 평가 · 매칭 자동화 + 매일 09:00 갱신.</div>
+        <div class="card-meta"><span>65 creators · daily 9 AM</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/index.html" class="card cream">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 11l9-4M12 11v10M12 11L3 7"/></svg></div>
+          <span class="badge live">3,398</span>
+        </div>
+        <div class="card-title">캠페인 운영 대시보드</div>
+        <div class="card-sub">3,398 제품 + 6개 본업 펀딩 캠페인 실시간 분석. 한셉트·콕스스페이스·뉴마핏·가돌·큐비오X·닥터서플라이.</div>
+        <div class="card-meta"><span>1,200 운영 · 520억 집행</span><span class="card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ L4 EXPANSION ============ -->
+<section style="padding-top:0">
+  <div class="container">
+    <div class="section-h">
+      <div class="l">
+        <span class="eyebrow muted">L4 · Expansion</span>
+        <h2 class="h-display" style="color:var(--charcoal)">확장 — <em>6개국 이커머스</em> 진입 (Q2-Q3)</h2>
+      </div>
+    </div>
+    <div class="cards-grid cg-1">
+      <div class="card muted">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h18M3 12h18M3 16h18M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
+          <span class="badge soon">Coming Soon</span>
+        </div>
+        <div class="card-title">6개국 이커머스 확장</div>
+        <div class="card-sub">Amazon · Makuake → Rakuten · 쿠팡 · PChome · Otto · Tmall — 국가별 선호도 기반 자동 입점 플로우. Tier 2 (D+180) 로드맵.</div>
+        <div class="card-meta"><span>US · JP · KR · TW · EU · CN</span><span class="card-arrow">→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ L0 OPERATION ============ -->
+<section id="operation" style="background:var(--surface-soft)">
+  <div class="container">
+    <div class="section-h">
+      <div class="l">
+        <span class="eyebrow muted">L0 · Operation</span>
+        <h2 class="h-display">운영 도구 — <em>매뉴얼 · 모니터 · 인프라</em></h2>
+        <p class="lead">내부 운영팀이 매일 사용하는 표준 도구. 표·다이어그램·시계열 모니터링.</p>
+      </div>
+    </div>
+    <div class="cards-grid cg-3">
+      <a href="/system-guide.html" class="card gray">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></div>
+          <span class="badge doc">DOC</span>
+        </div>
+        <div class="card-title">시스템 가이드</div>
+        <div class="card-sub">운영 매뉴얼 · 7 섹션 · 전체 시스템 온보딩. 크리에이터 등급 / 크롤링 / 자동화 스케줄 / DB 스키마.</div>
+        <div class="card-meta"><span>운영팀 표준 · 7 chapters</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/crawl-monitor.html" class="card gray">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25"/></svg></div>
+          <span class="badge live">2K+/일</span>
+        </div>
+        <div class="card-title">크롤링 모니터</div>
+        <div class="card-sub">5 플랫폼 · 162 프록시 자가확장 · 패턴 최적화. 일 2K+ 크롤 + 실시간 헬스체크.</div>
+        <div class="card-meta"><span>5 platforms · 162 proxies</span><span class="card-arrow">→</span></div>
+      </a>
+      <a href="/db-infra.html" class="card gray">
+        <div class="card-top">
+          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75"/></svg></div>
+          <span class="badge doc">DOC</span>
+        </div>
+        <div class="card-title">DB 인프라 계획서</div>
+        <div class="card-sub">PostgreSQL 70 테이블 · Supabase · AI 연동 + 7.4TB NAS 아카이브. 기술 스택 전체 설계.</div>
+        <div class="card-meta"><span>70 tables · 7.4TB · plan</span><span class="card-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section style="padding:0">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h3>전략 데크 — <strong style="color:var(--brand-red)">Jellop+α 90일 로드맵</strong></h3>
+        <p>왜 지금 · 적·약속의 땅·장애물·증거·액션 (Raskin 6-Section · 25 슬라이드). 회사 전략의 단일 출처.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/deck.html" class="btn btn-lg btn-primary">전략 데크 열기 →</a>
+        <a href="/saas-landing.html" class="btn btn-lg btn-secondary">SaaS 랜딩</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
-  <div class="update-badge" id="update-badge">—</div>
-  <div>&copy; 2026 Setoworks · <a href="https://setoworks.com" target="_blank" rel="noopener">setoworks.com</a> · Jellop+α OS v2.0</div>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="mark">S</span>Setoworks</div>
+        <p class="footer-tag">14년 운영 데이터 위에 구축한 크라우드펀딩 인텔리전스. Jellop+α — 예측 기반 글로벌 런칭 OS.</p>
+        <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Kickstarter Expert</span>
+          <span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Makuake Partner</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>유입 · 분석</h4>
+        <ul>
+          <li><a href="https://setoworks-affiliate.vercel.app">Brand Lab</a></li>
+          <li><a href="/kickstarter-live.html">KS 라이브</a></li>
+          <li><a href="/kickstarter-predict.html">FOP 예측</a></li>
+          <li><a href="/kickstarter-insight.html">Insight Engine</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>실행 · 운영</h4>
+        <ul>
+          <li><a href="/influencer-admin.html">인플루언서 관리</a></li>
+          <li><a href="/index.html">캠페인 대시보드</a></li>
+          <li><a href="/system-guide.html">시스템 가이드</a></li>
+          <li><a href="/crawl-monitor.html">크롤링 모니터</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>상품 · 자료</h4>
+        <ul>
+          <li><a href="/saas-landing.html">SaaS Suite</a></li>
+          <li><a href="/saas-mvp.html">Demo Console</a></li>
+          <li><a href="/deck.html">전략 데크</a></li>
+          <li><a href="/db-infra.html">DB 인프라</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>회사</h4>
+        <ul>
+          <li><a href="https://setoworks.com" target="_blank">setoworks.com</a></li>
+          <li><a href="#">2021 100만불 수출의 탑</a></li>
+          <li><a href="#">전문무역상사</a></li>
+          <li><a href="#">채용</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Setoworks · setoworks.com · Jellop+α OS v2.0</span>
+      <span class="badge-live" id="legal-updated">Live · Updated —</span>
+    </div>
+  </div>
 </footer>
 
 <script>
-(function(){
-  var badge = document.getElementById('update-badge');
-  var nsmUpdated = document.getElementById('nsm-updated');
-  fetch(window.location.href, {method:'HEAD'}).then(function(r){
-    var lm = r.headers.get('last-modified');
-    if (lm) {
-      var d = new Date(lm);
-      var dateStr = d.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
-      badge.textContent = '⚡ Last deployed · '+dateStr;
-      if(nsmUpdated) nsmUpdated.textContent = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
-    } else {
-      badge.textContent = '⚡ Jellop+α Platform';
-      if(nsmUpdated) nsmUpdated.textContent = 'today';
-    }
-  }).catch(function(){badge.textContent='Jellop+α Platform'});
-})();
+fetch(window.location.href, {method:'HEAD'}).then(function(r){
+  var lm = r.headers.get('last-modified');
+  if (lm) {
+    var d = new Date(lm);
+    var s = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('legal-updated').textContent = 'Live · Updated ' + s;
+  }
+}).catch(function(){});
 </script>
 </body>
 </html>
