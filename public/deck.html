@@ -161,8 +161,8 @@ body{
 .dir-card-stats .dn{font-family:'DM Mono',monospace;font-size:13.5px;font-weight:800;color:var(--charcoal);line-height:1;}
 .dir-card-stats .dl{font-size:9.5px;color:var(--mu);margin-top:2px;line-height:1.2;}
 
-/* === GAP FIX: collapse cards to content (override stretch + margin-top:auto) === */
-.dir-grid,.val-grid,.diff-grid,.ch-grid,.stage-flow,.risk-grid,.act-grid,.g2,.g3,.g4,.g5,.pipe-detail{align-items:start !important;}
+/* === GAP FIX: collapse cards + grids to content (override stretch + margin-top:auto) === */
+.dir-grid,.val-grid,.diff-grid,.ch-grid,.stage-flow,.risk-grid,.act-grid,.g2,.g3,.g4,.g5,.pipe-detail{align-items:start !important;align-content:start !important;flex:none !important;}
 .dir-card,.val-card,.diff-card,.ch-card,.stage-card,.risk-card,.tier,.pipe-card{align-self:start;height:auto !important;}
 .dir-card-stats,.val-card-stats,.ch-stats,.val-card-roi,.diff-evidence,.ch-meta,.stage-kpi,.inv-rationale,.risk-mit,.tier-pack,.pipe-rev,.pf-src{margin-top:10px !important;}
 
