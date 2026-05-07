@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setoworks · Crowdfunding Intelligence Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+:root{
+  --primary:#0052ff;--primary-active:#003ecc;--primary-disabled:#a8b8cc;
+  --ink:#0a0b0d;--body:#5b616e;--body-strong:#0a0b0d;
+  --muted:#7c828a;--muted-soft:#a8acb3;
+  --hairline:#dee1e6;--hairline-soft:#eef0f3;
+  --canvas:#ffffff;--surface-soft:#f7f7f7;--surface-strong:#eef0f3;
+  --surface-dark:#0a0b0d;--surface-dark-elev:#16181c;
+  --on-primary:#ffffff;--on-dark:#ffffff;--on-dark-soft:#a8acb3;
+  --semantic-up:#05b169;--semantic-down:#cf202f;--accent-yellow:#f4b000;
+  --display:'Inter','Pretendard',-apple-system,system-ui,'Segoe UI',Roboto,sans-serif;
+  --sans:'Inter','Pretendard',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:0}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img,svg{display:block;max-width:100%}
+code,kbd{font-family:var(--mono)}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ========= NAV ========= */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hairline)}
+.nav-inner{height:64px;display:flex;align-items:center;gap:32px;max-width:1200px;margin:0 auto;padding:0 24px}
+.nav-logo{font-family:var(--display);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.nav-logo .triangle{width:14px;height:14px;background:var(--primary);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.nav-menu{display:flex;align-items:center;gap:28px;flex:1}
+.nav-menu a{font-size:14px;font-weight:500;color:var(--ink);transition:color .15s}
+.nav-menu a:hover{color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;line-height:1.15;border-radius:100px;transition:background .15s,color .15s,border-color .15s;font-family:var(--sans);white-space:nowrap}
+.btn-sm{font-size:14px;padding:9px 16px;height:40px}
+.btn-md{padding:12px 20px;height:44px}
+.btn-lg{font-size:16px;padding:16px 32px;height:56px}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-active)}
+.btn-secondary-light{background:var(--surface-strong);color:var(--ink)}
+.btn-secondary-light:hover{background:#e3e6eb}
+.btn-secondary-dark{background:var(--surface-dark-elev);color:var(--on-dark)}
+.btn-secondary-dark:hover{background:#22252b}
+.btn-outline-dark{background:transparent;color:var(--on-dark);border:1px solid rgba(255,255,255,.4)}
+.btn-outline-dark:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.btn-text{background:transparent;color:var(--primary);font-weight:600;font-size:16px}
+.btn-text:hover{text-decoration:underline}
+
+/* ========= SECTION ========= */
+section{padding:96px 0}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;display:inline-block}
+.eyebrow.on-dark{color:#5b86ff}
+
+h1.display-mega{font-family:var(--display);font-size:80px;font-weight:400;line-height:1.0;letter-spacing:-.025em;color:var(--ink)}
+h1.display-mega.on-dark{color:var(--on-dark)}
+h1.display-xl{font-family:var(--display);font-size:64px;font-weight:400;line-height:1.0;letter-spacing:-.025em;color:var(--ink)}
+h1.display-xl.on-dark{color:var(--on-dark)}
+h2.display-lg{font-family:var(--display);font-size:52px;font-weight:400;line-height:1.05;letter-spacing:-.025em;color:var(--ink)}
+h2.display-lg.on-dark{color:var(--on-dark)}
+h2.display-md{font-family:var(--display);font-size:44px;font-weight:400;line-height:1.09;letter-spacing:-.022em;color:var(--ink)}
+h2.display-md.on-dark{color:var(--on-dark)}
+h3.title-lg{font-family:var(--sans);font-size:32px;font-weight:400;line-height:1.13;letter-spacing:-.012em;color:var(--ink)}
+h3.title-md{font-family:var(--sans);font-size:18px;font-weight:600;line-height:1.33;color:var(--ink)}
+h3.title-md.on-dark{color:var(--on-dark)}
+
+.lead{font-family:var(--sans);font-size:20px;font-weight:400;line-height:1.5;color:var(--body);max-width:680px}
+.lead.on-dark{color:var(--on-dark-soft)}
+.body-md{font-size:16px;color:var(--body);line-height:1.5}
+.body-md.on-dark{color:var(--on-dark-soft)}
+.body-sm{font-size:14px;color:var(--body);line-height:1.5}
+.caption{font-size:13px;color:var(--muted);line-height:1.5}
+.mono{font-family:var(--mono);font-weight:500}
+.up{color:var(--semantic-up)}
+.down{color:var(--semantic-down)}
+
+/* ========= HERO (dark) ========= */
+.hero{background:var(--surface-dark);color:var(--on-dark);padding:96px 0 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-headline{font-family:var(--display);font-size:80px;font-weight:400;line-height:1.0;letter-spacing:-.025em;margin-bottom:32px}
+.hero-headline em{color:#5b86ff;font-style:normal}
+.hero-sub{font-size:20px;line-height:1.5;color:var(--on-dark-soft);max-width:520px;margin-bottom:40px}
+.hero-cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:48px}
+.hero-cta-row .meta{font-family:var(--mono);font-size:13px;color:var(--on-dark-soft);margin-left:8px}
+
+.hero-mockup{position:relative;height:540px}
+.mockup-card{position:absolute;background:var(--surface-dark-elev);border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px}
+.mockup-card.main{top:0;right:0;width:440px;z-index:2;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mockup-card.behind{top:48px;right:64px;width:380px;z-index:1;opacity:.86;transform:rotate(-3deg)}
+.mockup-card.below{bottom:0;left:32px;width:320px;z-index:1;transform:rotate(2deg)}
+.mc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.mc-h .label{font-family:var(--mono);font-size:11px;color:var(--on-dark-soft);text-transform:uppercase;letter-spacing:.08em}
+.mc-h .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:600;background:rgba(5,177,105,.12);color:var(--semantic-up);padding:3px 10px;border-radius:100px}
+.mc-h .pill::before{content:"";width:6px;height:6px;background:var(--semantic-up);border-radius:50%}
+.mc-num{font-family:var(--mono);font-size:42px;font-weight:500;letter-spacing:-.02em;color:#fff;line-height:1.0}
+.mc-sub{font-family:var(--mono);font-size:13px;color:var(--on-dark-soft);margin-top:8px}
+.mc-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.mc-row:last-child{border-bottom:none}
+.mc-row .l{display:flex;align-items:center;gap:10px}
+.mc-row .ico{width:28px;height:28px;border-radius:50%;background:#22252b;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:600}
+.mc-row .name{font-size:14px;color:#fff;font-weight:500}
+.mc-row .ticker{font-family:var(--mono);font-size:12px;color:var(--on-dark-soft);margin-left:4px}
+.mc-row .price{font-family:var(--mono);font-size:14px;color:#fff}
+.mc-row .delta{font-family:var(--mono);font-size:12px;font-weight:500}
+.mc-bar{display:flex;align-items:flex-end;gap:6px;height:60px;margin-top:8px}
+.mc-bar div{flex:1;background:linear-gradient(180deg,#5b86ff,#0052ff);border-radius:3px}
+
+/* ========= TRUST STRIP ========= */
+.trust{padding:48px 0;background:var(--canvas);border-bottom:1px solid var(--hairline-soft)}
+.trust-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.trust-label{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.trust-logos{display:flex;align-items:center;gap:48px;flex-wrap:wrap;flex:1;justify-content:flex-end}
+.trust-logo{font-family:var(--display);font-weight:500;font-size:18px;color:var(--ink);letter-spacing:-.01em;opacity:.7}
+
+/* ========= STATS BAND ========= */
+.stats{background:var(--surface-soft)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.stat-num{font-family:var(--display);font-size:64px;font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--ink);margin-bottom:12px}
+.stat-num em{color:var(--primary);font-style:normal}
+.stat-label{font-size:16px;color:var(--body);font-weight:500}
+.stat-sub{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:8px}
+
+/* ========= PRODUCTS ========= */
+.products-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:48px}
+.products-head h2{flex:1}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.product-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:24px;padding:32px;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column;gap:16px;text-decoration:none;color:inherit}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.product-card.featured{background:var(--surface-dark);color:var(--on-dark);border-color:var(--surface-dark)}
+.product-card.featured .pc-num,.product-card.featured h3,.product-card.featured .pc-d{color:var(--on-dark)}
+.product-card.featured .pc-d{color:var(--on-dark-soft)}
+.product-card.featured .pc-meta{border-top-color:rgba(255,255,255,.08)}
+.product-card.featured .pc-meta .k{color:var(--on-dark-soft)}
+.product-card.featured .pc-meta .v{color:#fff}
+.pc-num{font-family:var(--mono);font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em}
+.product-card h3{font-family:var(--sans);font-size:24px;font-weight:600;line-height:1.2;letter-spacing:-.012em;color:var(--ink)}
+.pc-d{font-size:15px;line-height:1.55;color:var(--body)}
+.pc-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:16px;border-top:1px solid var(--hairline)}
+.pc-meta .k{font-size:13px;color:var(--muted)}
+.pc-meta .v{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink)}
+.pc-arrow{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;font-size:14px;margin-top:4px}
+.product-card.featured .pc-arrow{color:#5b86ff}
+
+/* ========= WHY (dark hero with mockups) ========= */
+.why{background:var(--surface-dark);color:var(--on-dark)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.why-list{display:flex;flex-direction:column;gap:32px;margin-top:40px}
+.why-item{display:flex;gap:20px;align-items:flex-start}
+.why-num{font-family:var(--mono);font-size:14px;font-weight:600;color:#5b86ff;flex-shrink:0;width:32px;padding-top:6px}
+.why-item h3{font-family:var(--sans);font-size:22px;font-weight:600;line-height:1.25;color:var(--on-dark);margin-bottom:8px;letter-spacing:-.01em}
+.why-item .body-md{color:var(--on-dark-soft);font-size:16px}
+.why-mockup{position:relative;height:520px}
+
+/* ========= PRICING ========= */
+.pricing-toggle{display:inline-flex;background:var(--surface-strong);border-radius:100px;padding:4px;margin-bottom:48px;font-family:var(--mono);font-size:13px;font-weight:600}
+.pricing-toggle button{padding:8px 18px;border-radius:100px;color:var(--muted)}
+.pricing-toggle button.active{background:var(--canvas);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.pricing-toggle .save{color:var(--semantic-up);font-size:11px;margin-left:6px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tier{background:var(--canvas);border:1px solid var(--hairline);border-radius:24px;padding:40px 32px;display:flex;flex-direction:column;gap:24px}
+.tier.featured{background:var(--surface-dark);color:var(--on-dark);border-color:var(--surface-dark)}
+.tier.featured h3,.tier.featured .price-num{color:var(--on-dark)}
+.tier.featured .body-md,.tier.featured .price-period{color:var(--on-dark-soft)}
+.tier.featured .feat-list li{color:var(--on-dark-soft)}
+.tier.featured .feat-list li::before{color:#5b86ff}
+.tier-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--primary);background:rgba(0,82,255,.1);padding:5px 12px;border-radius:100px;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.tier.featured .tier-badge{background:rgba(91,134,255,.15);color:#5b86ff}
+.tier h3{font-family:var(--sans);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.price-num{font-family:var(--display);font-size:64px;font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--ink)}
+.price-period{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:500;display:inline-block;margin-left:8px}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feat-list li{font-size:15px;color:var(--body);padding-left:28px;position:relative;line-height:1.5}
+.feat-list li::before{content:"✓";position:absolute;left:0;top:0;color:var(--primary);font-weight:600;font-size:16px}
+
+/* ========= CASE STUDY ========= */
+.case-strip{background:var(--canvas)}
+.case-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center}
+.case-quote{font-family:var(--display);font-size:36px;font-weight:400;line-height:1.25;letter-spacing:-.018em;color:var(--ink);margin-bottom:32px}
+.case-author{display:flex;align-items:center;gap:14px}
+.case-avatar{width:48px;height:48px;border-radius:50%;background:var(--surface-strong);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:500;font-size:18px;color:var(--ink)}
+.case-name{font-size:15px;font-weight:600;color:var(--ink)}
+.case-role{font-size:13px;color:var(--muted)}
+.case-numbers{background:var(--surface-soft);border-radius:24px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.case-num{font-family:var(--mono);font-size:32px;font-weight:500;letter-spacing:-.015em;color:var(--ink);line-height:1}
+.case-num .delta{font-size:14px;color:var(--semantic-up);font-weight:500;margin-left:8px}
+.case-l{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* ========= CTA BAND (dark) ========= */
+.cta-band{background:var(--surface-dark);text-align:center;padding:96px 0}
+.cta-band h2{margin-bottom:24px}
+.cta-band .lead{margin:0 auto 40px;color:var(--on-dark-soft)}
+.cta-band .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ========= FOOTER ========= */
+.footer{background:var(--canvas);padding:64px 0 32px;border-top:1px solid var(--hairline)}
+.footer-grid{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:48px;margin-bottom:48px}
+.footer-col h4{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:16px;text-transform:uppercase;letter-spacing:.05em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:14px;color:var(--body);transition:color .15s}
+.footer-col a:hover{color:var(--primary)}
+.footer-brand{font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.footer-brand .triangle{width:16px;height:16px;background:var(--primary);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.footer-tag{font-size:14px;color:var(--body);max-width:280px;line-height:1.5}
+.legal{padding-top:24px;border-top:1px solid var(--hairline-soft);display:flex;justify-content:space-between;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:16px}
+.legal a{color:var(--muted)}
+.legal a:hover{color:var(--ink)}
+
+/* ========= UTIL ========= */
+.full-bleed-pad{padding-left:24px;padding-right:24px}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);background:var(--surface-strong);padding:5px 12px;border-radius:100px;letter-spacing:.04em}
+.tag.dark{background:var(--surface-dark-elev);color:var(--on-dark)}
+
+/* ========= RESPONSIVE ========= */
+@media(max-width:1024px){
+  .hero-grid,.why-grid,.case-grid{grid-template-columns:1fr;gap:48px}
+  .hero-mockup,.why-mockup{height:auto;min-height:400px}
+  .stats-grid,.products-grid,.pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr 1fr}
+  h1.display-mega{font-size:64px}
+  h2.display-lg{font-size:44px}
+  h2.display-md{font-size:36px}
+  .case-quote{font-size:28px}
+}
+@media(max-width:640px){
+  section{padding:64px 0}
+  .container{padding:0 20px}
+  .hero{padding:48px 0 0}
+  .hero-headline{font-size:44px}
+  h1.display-mega{font-size:44px}
+  h2.display-lg{font-size:36px}
+  h2.display-md{font-size:30px}
+  h3.title-lg{font-size:24px}
+  .lead{font-size:17px}
+  .stats-grid,.products-grid,.pricing-grid,.footer-grid{grid-template-columns:1fr}
+  .stat-num,.price-num{font-size:48px}
+  .nav-menu{display:none}
+  .nav-actions .btn-primary{display:none}
+  .case-quote{font-size:24px}
+  .case-numbers{grid-template-columns:1fr}
+  .mockup-card.main{width:100%;position:static}
+  .mockup-card.behind,.mockup-card.below{display:none}
+  .hero-mockup{height:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/saas-landing.html" class="nav-logo"><span class="triangle"></span>Setoworks</a>
+    <div class="nav-menu">
+      <a href="#products">Products</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/saas-mvp.html">Demo</a>
+      <a href="#docs">Docs</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-sm" style="color:var(--ink);font-weight:500">Sign in</a>
+      <a href="#pricing" class="btn btn-md btn-primary">Get API key</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO (dark) ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow on-dark">Crowdfunding intelligence suite</span>
+        <h1 class="hero-headline">Predict, target, and validate your campaign — <em>before</em> launch.</h1>
+        <p class="hero-sub">Five AI products built on 14 years of operating data, 27,986 Kickstarter campaigns, and 13,461 verified superbackers. The same intelligence Setoworks uses to run $40M+ in funding campaigns — now available as an API.</p>
+        <div class="hero-cta-row">
+          <a href="#pricing" class="btn btn-lg btn-primary">Get started</a>
+          <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark">See live demo</a>
+          <span class="meta">no credit card · 14-day trial</span>
+        </div>
+      </div>
+      <div class="hero-mockup">
+        <div class="mockup-card behind">
+          <div class="mc-h"><span class="label">Trend Radar · 24h</span><span class="pill">Live</span></div>
+          <div class="mc-row"><div class="l"><span class="ico">EV</span><div><span class="name">EV Bike Acc.</span></div></div><div class="price">$184K</div><div class="delta up">+38.4%</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">AI</span><div><span class="name">AI Tools</span></div></div><div class="price">$92K</div><div class="delta up">+27.8%</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">FT</span><div><span class="name">Foldable Travel</span></div></div><div class="price">$71K</div><div class="delta up">+19.2%</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">SW</span><div><span class="name">Smart Watches</span></div></div><div class="price">$48K</div><div class="delta down">-23.0%</div></div>
+        </div>
+        <div class="mockup-card main">
+          <div class="mc-h"><span class="label">FOP Prediction</span><span class="pill">±15%</span></div>
+          <div class="mc-num">$87,500</div>
+          <div class="mc-sub">P50 estimate · Pro Foldable Laptop Stand · US</div>
+          <div class="mc-bar">
+            <div style="height:32%"></div><div style="height:48%"></div><div style="height:62%"></div><div style="height:78%"></div><div style="height:88%"></div><div style="height:96%"></div><div style="height:78%"></div><div style="height:64%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
+            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P10</div><div class="mono" style="color:#fff;font-size:14px">$31.2K</div></div>
+            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P50</div><div class="mono" style="color:#5b86ff;font-size:14px">$87.5K</div></div>
+            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P90</div><div class="mono" style="color:#fff;font-size:14px">$142K</div></div>
+          </div>
+        </div>
+        <div class="mockup-card below">
+          <div class="mc-h"><span class="label">Pure Score</span><span class="pill">82/100</span></div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:48px;height:48px;border-radius:50%;background:#22252b;display:flex;align-items:center;justify-content:center;font-family:var(--mono);color:#fff;font-size:13px;font-weight:600">@gr</div>
+            <div>
+              <div style="font-size:14px;color:#fff;font-weight:500">@gadgetreviewer</div>
+              <div class="mono" style="font-size:12px;color:var(--on-dark-soft)">420K · ER 3.8% · Mid-tier</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- spacer to push padding -->
+  <div style="height:96px"></div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<div class="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-label">Trusted by makers and partnered with</span>
+      <div class="trust-logos">
+        <span class="trust-logo">Kickstarter Expert</span>
+        <span class="trust-logo">Makuake Partner</span>
+        <span class="trust-logo">Indiegogo</span>
+        <span class="trust-logo">100만불 수출의 탑</span>
+        <span class="trust-logo">전문무역상사</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS BAND ============ -->
+<section class="stats">
+  <div class="container">
+    <span class="eyebrow">By the numbers</span>
+    <h2 class="display-md" style="margin-bottom:64px;max-width:760px">14 years of crowdfunding operations, condensed into <em style="color:var(--primary);font-style:normal">one API</em>.</h2>
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num"><em>27,986</em></div>
+        <div class="stat-label">Kickstarter campaigns analyzed</div>
+        <div class="stat-sub">Self-crawled GraphQL · 5 platforms total</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>13,461</em></div>
+        <div class="stat-label">Verified superbackers</div>
+        <div class="stat-sub">≥25 backings · KS official threshold</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>1,200+</em></div>
+        <div class="stat-label">Campaigns operated since 2012</div>
+        <div class="stat-sub">$40M+ raised · 5 countries</div>
+      </div>
+      <div>
+        <div class="stat-num"><em>±15%</em></div>
+        <div class="stat-label">Prediction confidence interval</div>
+        <div class="stat-sub">P10 / P50 / P90 distribution</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section id="products">
+  <div class="container">
+    <div class="products-head">
+      <div>
+        <span class="eyebrow">Five products · One suite</span>
+        <h2 class="display-lg">Everything you need to run a global crowdfunding campaign — at API speed.</h2>
+      </div>
+      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-light" style="white-space:nowrap">View all demos →</a>
+    </div>
+    <div class="products-grid">
+      <a href="/saas-mvp.html#fop" class="product-card featured">
+        <span class="pc-num">01 · LIVE</span>
+        <h3>Funding Outcome Predictor</h3>
+        <p class="pc-d">Input a product in one line — get expected funding, ±15% confidence interval, three similar cases, and 20 recommended influencers in 30 minutes.</p>
+        <div class="pc-arrow">Try the predictor →</div>
+        <div class="pc-meta"><span class="k">Per report</span><span class="v">$300</span></div>
+      </a>
+      <a href="/saas-mvp.html#lookalike" class="product-card">
+        <span class="pc-num">02 · API</span>
+        <h3>Backer Lookalike</h3>
+        <p class="pc-d">13,461 verified superbackers as a Meta · Google · TikTok ad seed. CPA -40%, ROAS 2x vs. cold audience.</p>
+        <div class="pc-arrow">Read API docs →</div>
+        <div class="pc-meta"><span class="k">Per lookup</span><span class="v">$0.05</span></div>
+      </a>
+      <a href="/saas-mvp.html#purescore" class="product-card">
+        <span class="pc-num">03 · API</span>
+        <h3>Pure Score</h3>
+        <p class="pc-d">Score any TikTok, YouTube, or Instagram handle on 5 axes — bot ratio detection included. SocialBlade·Modash alternative.</p>
+        <div class="pc-arrow">Score in 3s →</div>
+        <div class="pc-meta"><span class="k">Per score</span><span class="v">$0.02</span></div>
+      </a>
+      <a href="/saas-mvp.html#radar" class="product-card">
+        <span class="pc-num">04 · LIVE</span>
+        <h3>CF Trend Radar</h3>
+        <p class="pc-d">Daily auto-refreshed trend board across 5 platforms. Slack and email alerts the moment a category breaks out — 78% historical accuracy.</p>
+        <div class="pc-arrow">Open dashboard →</div>
+        <div class="pc-meta"><span class="k">Per seat / mo</span><span class="v">$99</span></div>
+      </a>
+      <a href="/saas-mvp.html#buyer" class="product-card">
+        <span class="pc-num">05 · B2B</span>
+        <h3>Global Buyer Match</h3>
+        <p class="pc-d">HS code in, top 30 verified buyers out — with email, LinkedIn, and AI-drafted cold emails in 4 languages.</p>
+        <div class="pc-arrow">See sample list →</div>
+        <div class="pc-meta"><span class="k">Per list</span><span class="v">$299</span></div>
+      </a>
+      <a href="#pricing" class="product-card">
+        <span class="pc-num">★ BUNDLE</span>
+        <h3>Suite Bundle</h3>
+        <p class="pc-d">All five products on a monthly seat. Shared API key, unified billing, multi-tenant. Save 40% vs. individual purchase.</p>
+        <div class="pc-arrow">View pricing →</div>
+        <div class="pc-meta"><span class="k">From</span><span class="v">$499 / mo</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY (dark) ============ -->
+<section class="why" id="solutions">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <span class="eyebrow on-dark">Why Setoworks</span>
+        <h2 class="display-lg on-dark">The data set you can't buy. The team that already used it for 14 years.</h2>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-num">01</div>
+            <div>
+              <h3>Data nobody else has.</h3>
+              <p class="body-md on-dark">Self-crawled Kickstarter GraphQL — the first agency to run it directly. 1,200 own campaigns with measured outcomes. 13,461 superbackers with comment behavior tracked. Replicating it takes another agency 5–7 years.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div>
+              <h3>Fully automated. Zero people in the loop.</h3>
+              <p class="body-md on-dark">Input → inference → API response. Reports generate in 30 minutes. The only place humans show up is in your final selection — that's why this works as software.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div>
+              <h3>Asia-native, not retrofitted.</h3>
+              <p class="body-md on-dark">Korean · Japanese · Taiwanese · Hong Kong · Singapore backer pools, with on-ground agents for the last-mile 2%. The channels US-built tools don't see — Dcard, LINE, Threads — are first-class citizens here.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:48px"><a href="#pricing" class="btn btn-lg btn-primary">Start a 14-day trial</a></div>
+      </div>
+      <div class="why-mockup">
+        <div class="mockup-card behind" style="top:0;right:0;width:380px;transform:rotate(-2deg)">
+          <div class="mc-h"><span class="label">Lookalike Seed</span><span class="pill">Ready</span></div>
+          <div class="mc-num">12,309</div>
+          <div class="mc-sub">records · meta-ready CSV</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
+            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">Match rate</div><div class="mono" style="color:#fff;font-size:16px">82.1%</div></div>
+            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">CPA savings</div><div class="mono up" style="font-size:16px">-38%</div></div>
+          </div>
+        </div>
+        <div class="mockup-card main" style="top:160px;left:32px;width:440px;transform:rotate(1deg)">
+          <div class="mc-h"><span class="label">Buyer Match · TOP 5</span><span class="pill">31.6%</span></div>
+          <div class="mc-row"><div class="l"><span class="ico">M</span><div><span class="name">Mark Chen</span><span class="ticker">BedBath</span></div></div><div class="mono up" style="font-size:13px">0.91</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">S</span><div><span class="name">Sarah Johnson</span><span class="ticker">Wayfair</span></div></div><div class="mono up" style="font-size:13px">0.88</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">D</span><div><span class="name">David Kim</span><span class="ticker">Target</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.83</div></div>
+          <div class="mc-row"><div class="l"><span class="ico">E</span><div><span class="name">Emily Park</span><span class="ticker">Costco</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.78</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE STUDY ============ -->
+<section class="case-strip">
+  <div class="container">
+    <div class="case-grid">
+      <div>
+        <span class="eyebrow">Customer story</span>
+        <h2 class="case-quote">"We launched on Kickstarter with the Lookalike seed already loaded into Meta. First 24 hours: 200 backers. By day 30: $164K, 820% of goal."</h2>
+        <div class="case-author">
+          <div class="case-avatar">한</div>
+          <div>
+            <div class="case-name">Han Concept · Foldable Laptop Stand</div>
+            <div class="case-role">Kickstarter US · 30 days · launched 2026 Q1</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-numbers">
+        <div>
+          <div class="case-num">$164K <span class="delta">820%</span></div>
+          <div class="case-l">Total funded · vs. $20K goal</div>
+        </div>
+        <div>
+          <div class="case-num">1,847</div>
+          <div class="case-l">Backers · CPA $12.1</div>
+        </div>
+        <div>
+          <div class="case-num">7.3<span style="font-family:var(--mono);font-size:18px;color:var(--muted);font-weight:400">x</span></div>
+          <div class="case-l">ROAS · industry avg 2.1x</div>
+        </div>
+        <div>
+          <div class="case-num"><span class="up" style="font-size:32px">-64%</span></div>
+          <div class="case-l">CPA vs. cold audience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section style="background:var(--surface-soft)" id="pricing">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="display-lg" style="max-width:740px;margin:0 auto 20px">Simple, predictable pricing. Pay only for what you use.</h2>
+      <p class="lead" style="margin:0 auto 32px">Starts at $499/mo for the full Suite. Each product is also available as a per-call API.</p>
+      <div class="pricing-toggle">
+        <button class="active" onclick="togglePricing(this,'monthly')">Monthly</button>
+        <button onclick="togglePricing(this,'yearly')">Yearly <span class="save">-20%</span></button>
+      </div>
+    </div>
+    <div class="pricing-grid">
+      <div class="tier">
+        <div>
+          <span class="tier-badge">Startup</span>
+          <h3 style="margin-top:12px">For early-stage makers</h3>
+        </div>
+        <div>
+          <span class="price-num" data-monthly="$499" data-yearly="$399">$499</span><span class="price-period">/month</span>
+        </div>
+        <p class="body-md">Run your first global campaign with predictable cost.</p>
+        <ul class="feat-list">
+          <li>5 FOP reports / month</li>
+          <li>50K Lookalike API lookups</li>
+          <li>10K Pure Score API calls</li>
+          <li>Trend Radar · 1 user</li>
+          <li>2 Buyer Match lists</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Start free 14-day trial</a>
+      </div>
+      <div class="tier featured">
+        <div>
+          <span class="tier-badge">★ Agency · Most popular</span>
+          <h3 style="margin-top:12px">For scaling teams</h3>
+        </div>
+        <div>
+          <span class="price-num" data-monthly="$1,499" data-yearly="$1,199">$1,499</span><span class="price-period">/month</span>
+        </div>
+        <p class="body-md">Run multiple clients in parallel with shared keys and Slack support.</p>
+        <ul class="feat-list">
+          <li>30 FOP reports / month</li>
+          <li>500K Lookalike API lookups</li>
+          <li>100K Pure Score API calls</li>
+          <li>Trend Radar · 5 users</li>
+          <li>10 Buyer Match lists</li>
+          <li>Slack support · 24h SLA</li>
+          <li>Up to 5 API keys</li>
+        </ul>
+        <a href="#" class="btn btn-md btn-primary" style="margin-top:auto">Get started</a>
+      </div>
+      <div class="tier">
+        <div>
+          <span class="tier-badge">Enterprise</span>
+          <h3 style="margin-top:12px">For institutional partners</h3>
+        </div>
+        <div>
+          <span class="price-num" data-monthly="$4,999" data-yearly="$3,999">$4,999</span><span class="price-period">/month</span>
+        </div>
+        <p class="body-md">Unlimited usage, custom training data, dedicated AM.</p>
+        <ul class="feat-list">
+          <li>Unlimited FOP / Lookalike / Score</li>
+          <li>Trend Radar · unlimited seats</li>
+          <li>Unlimited Buyer Match lists</li>
+          <li>Dedicated account manager</li>
+          <li>Custom training data</li>
+          <li>SOC2 / GDPR documentation</li>
+          <li>SSO + audit logs</li>
+        </ul>
+        <a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Contact sales</a>
+      </div>
+    </div>
+    <p class="caption" style="text-align:center;margin-top:32px">All plans include access to all 5 products. Volume discounts available for 200+ usage on per-call APIs.</p>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section class="cta-band">
+  <div class="container">
+    <span class="eyebrow on-dark">Ready when you are</span>
+    <h2 class="display-lg on-dark" style="max-width:820px;margin:0 auto 24px">Start with a 14-day trial. <em style="color:#5b86ff;font-style:normal">Bring your first campaign live.</em></h2>
+    <p class="lead on-dark">No credit card required. Cancel anytime. Full Suite access during trial.</p>
+    <div class="cta-row" style="margin-top:40px">
+      <a href="#pricing" class="btn btn-lg btn-primary">Start free trial</a>
+      <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark">Talk to sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="triangle"></span>Setoworks</div>
+        <p class="footer-tag">Crowdfunding intelligence built on 14 years of operational data, served as a global SaaS suite.</p>
+        <div style="margin-top:24px;display:flex;gap:8px">
+          <span class="tag">Kickstarter Expert</span>
+          <span class="tag">Makuake Partner</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/saas-mvp.html#fop">Funding Predictor</a></li>
+          <li><a href="/saas-mvp.html#lookalike">Backer Lookalike</a></li>
+          <li><a href="/saas-mvp.html#purescore">Pure Score</a></li>
+          <li><a href="/saas-mvp.html#radar">Trend Radar</a></li>
+          <li><a href="/saas-mvp.html#buyer">Buyer Match</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="https://setoworks.com">About</a></li>
+          <li><a href="/deck.html">Strategy deck</a></li>
+          <li><a href="/portal.html">Portal</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/saas-mvp.html#api">API documentation</a></li>
+          <li><a href="/kickstarter-insight.html">Insight engine</a></li>
+          <li><a href="/system-guide.html">System guide</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">DPA</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Setoworks Inc. · setoworks.com · 2021 Million Dollar Export Award · 전문무역상사 인증</span>
+      <span><a href="#">English</a> · <a href="#">한국어</a> · <a href="#">日本語</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function togglePricing(btn, mode){
+  document.querySelectorAll('.pricing-toggle button').forEach(b=>b.classList.toggle('active', b===btn));
+  document.querySelectorAll('.price-num').forEach(el=>{
+    el.textContent = mode==='yearly' ? el.dataset.yearly : el.dataset.monthly;
+  });
+  document.querySelectorAll('.price-period').forEach(el=>{
+    el.textContent = mode==='yearly' ? '/month, billed yearly' : '/month';
+  });
+}
+</script>
+</body>
+</html>
