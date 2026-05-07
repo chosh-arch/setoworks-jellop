@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setoworks GTM Predictor | 30·108 Factor 예측 엔진</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-<style>
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Setoworks GTM Predictor | 30·108 Factor 예측 엔진</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script><style>
 :root {
-  --bg:#fafbfc; --card:#fff; --border:#e5e7eb; --text:#0a0e1a; --muted:#64748b;
-  --green:#10b981; --red:#ef4444; --orange:#f59e0b; --blue:#3b82f6; --purple:#8b5cf6;
-  --cyan:#06b6d4; --pink:#ec4899; --teal:#14b8a6; --indigo:#6366f1;
-  --brand:#ff003b; --brand-600:#e50035; --brand-50:#fff0f3;
-  --ink:#0a0e1a;
-  --shadow:0 1px 2px rgba(10,14,26,.04),0 1px 2px rgba(10,14,26,.02);
-  --shadow-md:0 4px 14px rgba(10,14,26,.06);
-  --shadow-lg:0 12px 32px rgba(10,14,26,.1);
-  --radius:14px;
+ --bg:#fafbfc; --card:#fff; --border:#e5e7eb; --text:#0a0e1a; --muted:#64748b;
+ --green:#10b981; --red:#ef4444; --orange:#f59e0b; --blue:#3b82f6; --purple:#8b5cf6;
+ --cyan:#06b6d4; --pink:#ec4899; --teal:#14b8a6; --indigo:#6366f1;
+ --brand:#ff003b; --brand-600:#e50035; --brand-50:#fff0f3;
+ --ink:#0a0e1a;
+ --shadow:0 1px 2px rgba(10,14,26,.04),0 1px 2px rgba(10,14,26,.02);
+ --shadow-md:0 4px 14px rgba(10,14,26,.06);
+ --shadow-lg:0 12px 32px rgba(10,14,26,.1);
+ --radius:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter','Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);}
@@ -168,505 +160,388 @@ a{color:inherit;text-decoration:none;}
 .loading-screen.hide{opacity:0;pointer-events:none;}
 .spinner{width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:var(--brand);border-radius:50%;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-
-<div class="loading-screen" id="loading">
-  <div class="spinner"></div>
-  <div style="margin-top:16px;color:var(--muted);font-size:13px;">팩터 데이터 로드 중...</div>
-</div>
-
-<div class="topbar">
-  <div>
-    <h1><span class="icon"></span> <span style="color:var(--brand)">Setoworks</span> GTM Predictor</h1>
-    <div class="meta" id="meta-info">27,974 프로젝트 벤치마크 · 30 / 108 factor</div>
-  </div>
-  <div class="nav-links">
-    <a href="/kickstarter-insight.html" class="nav-btn">분석 대시보드</a>
-    <a href="/portal.html" class="nav-btn primary">포털</a>
-  </div>
-</div>
-
-<div class="app">
-  <div class="hero">
-    <div class="title">🎯 글로벌 진출 성공률 예측 엔진</div>
-    <div class="sub">108개 팩터 기반 과학적 스코어링 + 27,974개 실 프로젝트 벤치마크 매칭</div>
-    <div class="pills">
-      <span class="pill">📊 27,974 프로젝트 분석</span>
-      <span class="pill">🧠 XGBoost ML 결합</span>
-      <span class="pill">🌏 25개국 벤치마크</span>
-      <span class="pill">🎁 217K 리워드 티어</span>
-      <span class="pill">💬 64K 슈퍼백커 추적</span>
-    </div>
-  </div>
-
-  <div class="main">
-    <!-- 모드 선택 -->
-    <div class="mode-switch">
-      <div class="mode-btn active" data-mode="30">
-        <div class="mode-icon">30</div>
-        <div class="mode-info">
-          <div class="name">빠른 예측 · GTM 30 Factor</div>
-          <div class="desc">5분 · 한국 기업 글로벌 진출 중심</div>
-        </div>
-      </div>
-      <div class="mode-btn" data-mode="108">
-        <div class="mode-icon">108</div>
-        <div class="mode-info">
-          <div class="name">심층 예측 · 108 Factor</div>
-          <div class="desc">20분 · 마케팅/영상/KOL/커뮤니티 상세</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="banner">
-      💡 <b>파란 박스</b>는 DB 자동 매핑 (카테고리/국가/가격 등), <b>초록 박스</b>는 입력 완료. 카테고리·국가·제품명 입력 시 유사 프로젝트 Top 10이 우측에 표시됩니다.
-    </div>
-
-    <div class="legend">
-      <span class="li manual">수동 입력</span>
-      <span class="li auto">DB 자동</span>
-      <span class="li filled">완료</span>
-    </div>
-
-    <!-- 탭 -->
-    <div class="factor-tabs" id="factor-tabs"></div>
-
-    <!-- 팩터 리스트 -->
-    <div id="factors-container"></div>
-  </div>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="score-card">
-      <div class="label">🎯 예상 성공률</div>
-      <div><span class="value" id="score-val">0</span><span class="suffix">.0%</span></div>
-      <div class="bar"><div class="bar-fill" id="score-bar" style="width:0%;"></div></div>
-      <div class="rank">
-        <b id="score-grade">UNRATED</b> · <span id="score-rank">입력 시작 필요</span>
-      </div>
-      <div class="rank" style="margin-top:4px;opacity:.85;">
-        ML 모델: <span id="ml-prob">—</span>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="title">📋 진행률</div>
-      <div class="progress-ring" style="margin-top:10px;">
-        <span id="progress-text">0/30</span>
-        <div class="bar-bg"><div class="bar-fg" id="progress-bar" style="width:0%;"></div></div>
-        <b id="progress-pct">0%</b>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="title">🔥 핵심 개선 포인트</div>
-      <div class="content" id="improvement-tips">
-        입력을 시작하면 자동으로 약점을 분석해 제안합니다.
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="title">🌟 유사 프로젝트 Top 10</div>
-      <div class="content" id="similar-list">
-        카테고리 + 국가 선택 시 표시됩니다.
-      </div>
-    </div>
-
-    <div class="cta-section">
-      <button class="cta-btn primary" onclick="generateReport()">📄 리포트 PDF</button>
-      <button class="cta-btn secondary" onclick="resetAll()">초기화</button>
-    </div>
-  </aside>
-</div>
-
-<script>
+</style></head><body><div class="loading-screen" id="loading"><div class="spinner"></div><div style="margin-top:16px;color:var(--muted);font-size:13px;">팩터 데이터 로드 중...</div></div><div class="topbar"><div><h1><span class="icon"></span><span style="color:var(--brand)">Setoworks</span> GTM Predictor</h1><div class="meta" id="meta-info">27,974 프로젝트 벤치마크 · 30 / 108 factor</div></div><div class="nav-links"><a href="/kickstarter-insight.html" class="nav-btn">분석 대시보드</a><a href="/portal.html" class="nav-btn primary">포털</a></div></div><div class="app"><div class="hero"><div class="title"> 글로벌 진출 성공률 예측 엔진</div><div class="sub">108개 팩터 기반 과학적 스코어링 + 27,974개 실 프로젝트 벤치마크 매칭</div><div class="pills"><span class="pill"> 27,974 프로젝트 분석</span><span class="pill"> XGBoost ML 결합</span><span class="pill"> 25개국 벤치마크</span><span class="pill"> 217K 리워드 티어</span><span class="pill"> 64K 슈퍼백커 추적</span></div></div><div class="main"><!-- 모드 선택 --><div class="mode-switch"><div class="mode-btn active" data-mode="30"><div class="mode-icon">30</div><div class="mode-info"><div class="name">빠른 예측 · GTM 30 Factor</div><div class="desc">5분 · 한국 기업 글로벌 진출 중심</div></div></div><div class="mode-btn" data-mode="108"><div class="mode-icon">108</div><div class="mode-info"><div class="name">심층 예측 · 108 Factor</div><div class="desc">20분 · 마케팅/영상/KOL/커뮤니티 상세</div></div></div></div><div class="banner"><b>파란 박스</b>는 DB 자동 매핑 (카테고리/국가/가격 등), <b>초록 박스</b>는 입력 완료. 카테고리·국가·제품명 입력 시 유사 프로젝트 Top 10이 우측에 표시됩니다.
+ </div><div class="legend"><span class="li manual">수동 입력</span><span class="li auto">DB 자동</span><span class="li filled">완료</span></div><!-- 탭 --><div class="factor-tabs" id="factor-tabs"></div><!-- 팩터 리스트 --><div id="factors-container"></div></div><!-- SIDEBAR --><aside class="sidebar"><div class="score-card"><div class="label"> 예상 성공률</div><div><span class="value" id="score-val">0</span><span class="suffix">.0%</span></div><div class="bar"><div class="bar-fill" id="score-bar" style="width:0%;"></div></div><div class="rank"><b id="score-grade">UNRATED</b> · <span id="score-rank">입력 시작 필요</span></div><div class="rank" style="margin-top:4px;opacity:.85;">
+ ML 모델: <span id="ml-prob">—</span></div></div><div class="insight-card"><div class="title"> 진행률</div><div class="progress-ring" style="margin-top:10px;"><span id="progress-text">0/30</span><div class="bar-bg"><div class="bar-fg" id="progress-bar" style="width:0%;"></div></div><b id="progress-pct">0%</b></div></div><div class="insight-card"><div class="title"> 핵심 개선 포인트</div><div class="content" id="improvement-tips">
+ 입력을 시작하면 자동으로 약점을 분석해 제안합니다.
+ </div></div><div class="insight-card"><div class="title"> 유사 프로젝트 Top 10</div><div class="content" id="similar-list">
+ 카테고리 + 국가 선택 시 표시됩니다.
+ </div></div><div class="cta-section"><button class="cta-btn primary" onclick="generateReport()"> 리포트 PDF</button><button class="cta-btn secondary" onclick="resetAll()">초기화</button></div></aside></div><script>
 let FACTORS_30=null, FACTORS_108=null, FACTOR_MAP=null, BENCHMARKS=null, COUNTRIES=null, LAUNCH_DAYS=null;
 let currentMode = '30';
 let currentCat = 'all';
-let values = {};  // {factor_id: {value: ..., score: ...}}
+let values = {}; // {factor_id: {value: ..., score: ...}}
 
 async function loadAll(){
-  try{
-    const [f30, f108, fmap, bm, co, ld] = await Promise.all([
-      fetch('/data/factors_30.json').then(r=>r.json()),
-      fetch('/data/factors_108.json').then(r=>r.json()),
-      fetch('/data/factor_map.json').then(r=>r.json()),
-      fetch('/data/category_benchmarks.json').then(r=>r.json()),
-      fetch('/data/country_benchmarks.json').then(r=>r.json()),
-      fetch('/data/launch_day_benchmarks.json').then(r=>r.json())
-    ]);
-    FACTORS_30=f30; FACTORS_108=f108; FACTOR_MAP=fmap;
-    BENCHMARKS=bm; COUNTRIES=co; LAUNCH_DAYS=ld;
-    document.getElementById('meta-info').textContent = `${Object.keys(bm).length}개 카테고리 · ${Object.keys(co).length}국 벤치마크 · 30/108 factor`;
-    setupModeButtons();
-    renderMode();
-    document.getElementById('loading').classList.add('hide');
-  }catch(e){
-    console.error(e);
-    alert('데이터 로드 실패: ' + e.message);
-  }
+ try{
+ const [f30, f108, fmap, bm, co, ld] = await Promise.all([
+ fetch('/data/factors_30.json').then(r=>r.json()),
+ fetch('/data/factors_108.json').then(r=>r.json()),
+ fetch('/data/factor_map.json').then(r=>r.json()),
+ fetch('/data/category_benchmarks.json').then(r=>r.json()),
+ fetch('/data/country_benchmarks.json').then(r=>r.json()),
+ fetch('/data/launch_day_benchmarks.json').then(r=>r.json())
+ ]);
+ FACTORS_30=f30; FACTORS_108=f108; FACTOR_MAP=fmap;
+ BENCHMARKS=bm; COUNTRIES=co; LAUNCH_DAYS=ld;
+ document.getElementById('meta-info').textContent = `${Object.keys(bm).length}개 카테고리 · ${Object.keys(co).length}국 벤치마크 · 30/108 factor`;
+ setupModeButtons();
+ renderMode();
+ document.getElementById('loading').classList.add('hide');
+ }catch(e){
+ console.error(e);
+ alert('데이터 로드 실패: ' + e.message);
+ }
 }
 
 function setupModeButtons(){
-  document.querySelectorAll('.mode-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.dataset.mode;
-      values = {};
-      renderMode();
-    });
-  });
+ document.querySelectorAll('.mode-btn').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+ document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ currentMode = btn.dataset.mode;
+ values = {};
+ renderMode();
+ });
+ });
 }
 
 function getCurrentFactors(){
-  return currentMode === '30' ? FACTORS_30.factors : FACTORS_108.factors;
+ return currentMode === '30' ? FACTORS_30.factors : FACTORS_108.factors;
 }
 function getTotalMax(){
-  return currentMode === '30' ? FACTORS_30.total_max_score : FACTORS_108.total_max_score;
+ return currentMode === '30' ? FACTORS_30.total_max_score : FACTORS_108.total_max_score;
 }
 
 function renderMode(){
-  const factors = getCurrentFactors();
-  // 탭 생성 (카테고리 기준)
-  const cats = ['all', ...new Set(factors.map(f=>currentMode==='30'?f.category:f.cat))];
-  const tabBar = document.getElementById('factor-tabs');
-  tabBar.innerHTML = cats.map(c=>{
-    const label = c==='all' ? '전체' : (currentMode==='108' ? FACTORS_108.categories[c-1] : c);
-    const cnt = c==='all' ? factors.length : factors.filter(f=>(currentMode==='30'?f.category:f.cat)===c).length;
-    return `<div class="factor-tab ${c===currentCat?'active':''}" data-cat="${c}"><span>${label}</span> <span class="count">${cnt}</span></div>`;
-  }).join('');
-  tabBar.querySelectorAll('.factor-tab').forEach(t=>{
-    t.addEventListener('click',()=>{
-      currentCat = t.dataset.cat;
-      renderMode();
-    });
-  });
-  renderFactors();
-  updateScore();
+ const factors = getCurrentFactors();
+ // 탭 생성 (카테고리 기준)
+ const cats = ['all', ...new Set(factors.map(f=>currentMode==='30'?f.category:f.cat))];
+ const tabBar = document.getElementById('factor-tabs');
+ tabBar.innerHTML = cats.map(c=>{
+ const label = c==='all' ? '전체' : (currentMode==='108' ? FACTORS_108.categories[c-1] : c);
+ const cnt = c==='all' ? factors.length : factors.filter(f=>(currentMode==='30'?f.category:f.cat)===c).length;
+ return `<div class="factor-tab ${c===currentCat?'active':''}" data-cat="${c}"><span>${label}</span><span class="count">${cnt}</span></div>`;
+ }).join('');
+ tabBar.querySelectorAll('.factor-tab').forEach(t=>{
+ t.addEventListener('click',()=>{
+ currentCat = t.dataset.cat;
+ renderMode();
+ });
+ });
+ renderFactors();
+ updateScore();
 }
 
 function renderFactors(){
-  const factors = getCurrentFactors();
-  const list = currentCat==='all' ? factors : factors.filter(f=>(currentMode==='30'?f.category:f.cat)==String(currentCat));
-  const cont = document.getElementById('factors-container');
-  cont.innerHTML = list.map(f=>renderFactor(f)).join('');
-  bindFactorInputs();
-  // 자동 매핑 시도
-  autoMapFromContext();
+ const factors = getCurrentFactors();
+ const list = currentCat==='all' ? factors : factors.filter(f=>(currentMode==='30'?f.category:f.cat)==String(currentCat));
+ const cont = document.getElementById('factors-container');
+ cont.innerHTML = list.map(f=>renderFactor(f)).join('');
+ bindFactorInputs();
+ // 자동 매핑 시도
+ autoMapFromContext();
 }
 
 function renderFactor(f){
-  const id = f.id;
-  const v = values[id];
-  const filled = v !== undefined && v !== null;
-  const auto = f.auto_map && filled && v.source === 'auto';
-  const cls = auto ? 'auto-mapped' : (filled ? 'filled' : '');
-  let input = '';
-  const note = f.note ? `<div class="factor-note">${f.note}</div>` : '';
-  const scoreStr = filled ? `<span class="factor-score">+${(v.score||0).toFixed(2)}pt</span>` : '';
-  const maxStr = (f.max||0) > 0 ? `<span class="factor-max">최대 ${f.max}점</span>` : '';
+ const id = f.id;
+ const v = values[id];
+ const filled = v !== undefined && v !== null;
+ const auto = f.auto_map && filled && v.source === 'auto';
+ const cls = auto ? 'auto-mapped' : (filled ? 'filled' : '');
+ let input = '';
+ const note = f.note ? `<div class="factor-note">${f.note}</div>` : '';
+ const scoreStr = filled ? `<span class="factor-score">+${(v.score||0).toFixed(2)}pt</span>` : '';
+ const maxStr = (f.max||0) > 0 ? `<span class="factor-max">최대 ${f.max}점</span>` : '';
 
-  if (f.type === 'text') {
-    input = `<div class="textinput"><input data-fid="${id}" type="text" placeholder="${f.name_en || f.name}" value="${v?.value||''}"/></div>`;
-  } else if (f.type === 'select' || f.type === 'multi_select') {
-    const multi = f.type === 'multi_select';
-    const opts = (f.options||[]).map(o=>{
-      const [lbl, sc] = typeof o === 'string' && o.includes(':') ? o.split(':') : [o, null];
-      const selected = multi ? (v?.value||[]).includes(lbl) : v?.value===lbl;
-      return `<div class="opt ${multi?'opt-multi':''} ${selected?'selected':''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}${sc?' <span style="opacity:.7;font-size:10px;">+'+sc+'pt</span>':''}</div>`;
-    }).join('');
-    input = `<div class="options">${opts}</div>`;
-  } else if (f.type === 'toggle') {
-    const opts = (f.options||['있음:'+f.max,'없음:0']).map(o=>{
-      const [lbl,sc] = typeof o==='string' && o.includes(':') ? o.split(':') : [o,null];
-      const isYes = lbl.includes('있음') || lbl==='Yes';
-      const selected = v?.value===lbl;
-      return `<div class="tog ${selected?'selected '+(isYes?'yes':'no'):''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}</div>`;
-    }).join('');
-    input = `<div class="toggle-row">${opts}</div>`;
-  } else if (f.type === 'stepper') {
-    const scale = f.scale || 5;
-    const stepBtns = [];
-    for (let i=1; i<=scale; i++) {
-      const sel = v?.value===i;
-      stepBtns.push(`<div class="stepper-btn ${sel?'selected':''}" data-fid="${id}" data-val="${i}">${i}</div>`);
-    }
-    input = `<div class="stepper">${stepBtns.join('')}</div>`;
-    if (f.options) {
-      input += `<div class="factor-note" style="margin-top:4px;">${f.options.join(' · ')}</div>`;
-    }
-  } else if (f.type === 'number') {
-    input = `<div class="numinput"><input data-fid="${id}" type="number" placeholder="숫자 입력" value="${v?.value||''}"/></div>`;
-  } else if (f.type === 'range') {
-    const r = f.range || {min:0,max:100,unit:''};
-    const cur = v?.value ?? r.min;
-    input = `<div class="range-wrap"><div class="range-row">
-      <input data-fid="${id}" type="range" min="${r.min}" max="${r.max}" value="${cur}" step="${r.max>1000?10:1}"/>
-      <span class="range-val" id="range-val-${id}">${cur}${r.unit}</span>
-    </div></div>`;
-  }
+ if (f.type === 'text') {
+ input = `<div class="textinput"><input data-fid="${id}" type="text" placeholder="${f.name_en || f.name}" value="${v?.value||''}"/></div>`;
+ } else if (f.type === 'select' || f.type === 'multi_select') {
+ const multi = f.type === 'multi_select';
+ const opts = (f.options||[]).map(o=>{
+ const [lbl, sc] = typeof o === 'string' && o.includes(':') ? o.split(':') : [o, null];
+ const selected = multi ? (v?.value||[]).includes(lbl) : v?.value===lbl;
+ return `<div class="opt ${multi?'opt-multi':''} ${selected?'selected':''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}${sc?' <span style="opacity:.7;font-size:10px;">+'+sc+'pt</span>':''}</div>`;
+ }).join('');
+ input = `<div class="options">${opts}</div>`;
+ } else if (f.type === 'toggle') {
+ const opts = (f.options||['있음:'+f.max,'없음:0']).map(o=>{
+ const [lbl,sc] = typeof o==='string' && o.includes(':') ? o.split(':') : [o,null];
+ const isYes = lbl.includes('있음') || lbl==='Yes';
+ const selected = v?.value===lbl;
+ return `<div class="tog ${selected?'selected '+(isYes?'yes':'no'):''}" data-fid="${id}" data-val="${lbl}" ${sc?'data-score="'+sc+'"':''}>${lbl}</div>`;
+ }).join('');
+ input = `<div class="toggle-row">${opts}</div>`;
+ } else if (f.type === 'stepper') {
+ const scale = f.scale || 5;
+ const stepBtns = [];
+ for (let i=1; i<=scale; i++) {
+ const sel = v?.value===i;
+ stepBtns.push(`<div class="stepper-btn ${sel?'selected':''}" data-fid="${id}" data-val="${i}">${i}</div>`);
+ }
+ input = `<div class="stepper">${stepBtns.join('')}</div>`;
+ if (f.options) {
+ input += `<div class="factor-note" style="margin-top:4px;">${f.options.join(' · ')}</div>`;
+ }
+ } else if (f.type === 'number') {
+ input = `<div class="numinput"><input data-fid="${id}" type="number" placeholder="숫자 입력" value="${v?.value||''}"/></div>`;
+ } else if (f.type === 'range') {
+ const r = f.range || {min:0,max:100,unit:''};
+ const cur = v?.value ?? r.min;
+ input = `<div class="range-wrap"><div class="range-row"><input data-fid="${id}" type="range" min="${r.min}" max="${r.max}" value="${cur}" step="${r.max>1000?10:1}"/><span class="range-val" id="range-val-${id}">${cur}${r.unit}</span></div></div>`;
+ }
 
-  return `<div class="factor ${cls}" id="factor-${id}">
-    <div class="factor-head">
-      <div class="factor-num">${id}</div>
-      <div class="factor-title">${f.name} <span class="name-en">${f.name_en||''}</span></div>
-      ${maxStr}
-      ${scoreStr}
-    </div>
-    ${input}
-    ${note}
-  </div>`;
+ return `<div class="factor ${cls}" id="factor-${id}"><div class="factor-head"><div class="factor-num">${id}</div><div class="factor-title">${f.name} <span class="name-en">${f.name_en||''}</span></div>
+ ${maxStr}
+ ${scoreStr}
+ </div>
+ ${input}
+ ${note}
+ </div>`;
 }
 
 function bindFactorInputs(){
-  // 옵션 클릭
-  document.querySelectorAll('.opt').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.dataset.val;
-      const isMulti = el.classList.contains('opt-multi');
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      if (isMulti) {
-        const cur = (values[fid]?.value)||[];
-        const next = cur.includes(val) ? cur.filter(x=>x!==val) : [...cur, val];
-        values[fid] = computeValue(f, next);
-      } else {
-        values[fid] = computeValue(f, val, el.dataset.score);
-      }
-      renderFactors();
-      updateScore();
-    });
-  });
-  // toggle
-  document.querySelectorAll('.tog').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.dataset.val;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val, el.dataset.score);
-      renderFactors();
-      updateScore();
-    });
-  });
-  // stepper
-  document.querySelectorAll('.stepper-btn').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const fid = +el.dataset.fid;
-      const val = +el.dataset.val;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val);
-      renderFactors();
-      updateScore();
-    });
-  });
-  // text/number/range
-  document.querySelectorAll('.textinput input, .numinput input').forEach(el=>{
-    el.addEventListener('change',()=>{
-      const fid = +el.dataset.fid;
-      const val = el.type==='number' ? +el.value : el.value;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      values[fid] = computeValue(f, val);
-      updateScore();
-      // re-render only changed factor
-      renderFactors();
-    });
-  });
-  document.querySelectorAll('input[type=range]').forEach(el=>{
-    el.addEventListener('input',()=>{
-      const fid = +el.dataset.fid;
-      const val = +el.value;
-      const f = getCurrentFactors().find(x=>x.id===fid);
-      const unit = f.range?.unit || '';
-      document.getElementById(`range-val-${fid}`).textContent = val + unit;
-      values[fid] = computeValue(f, val);
-      updateScore();
-    });
-  });
+ // 옵션 클릭
+ document.querySelectorAll('.opt').forEach(el=>{
+ el.addEventListener('click',()=>{
+ const fid = +el.dataset.fid;
+ const val = el.dataset.val;
+ const isMulti = el.classList.contains('opt-multi');
+ const f = getCurrentFactors().find(x=>x.id===fid);
+ if (isMulti) {
+ const cur = (values[fid]?.value)||[];
+ const next = cur.includes(val) ? cur.filter(x=>x!==val) : [...cur, val];
+ values[fid] = computeValue(f, next);
+ } else {
+ values[fid] = computeValue(f, val, el.dataset.score);
+ }
+ renderFactors();
+ updateScore();
+ });
+ });
+ // toggle
+ document.querySelectorAll('.tog').forEach(el=>{
+ el.addEventListener('click',()=>{
+ const fid = +el.dataset.fid;
+ const val = el.dataset.val;
+ const f = getCurrentFactors().find(x=>x.id===fid);
+ values[fid] = computeValue(f, val, el.dataset.score);
+ renderFactors();
+ updateScore();
+ });
+ });
+ // stepper
+ document.querySelectorAll('.stepper-btn').forEach(el=>{
+ el.addEventListener('click',()=>{
+ const fid = +el.dataset.fid;
+ const val = +el.dataset.val;
+ const f = getCurrentFactors().find(x=>x.id===fid);
+ values[fid] = computeValue(f, val);
+ renderFactors();
+ updateScore();
+ });
+ });
+ // text/number/range
+ document.querySelectorAll('.textinput input, .numinput input').forEach(el=>{
+ el.addEventListener('change',()=>{
+ const fid = +el.dataset.fid;
+ const val = el.type==='number' ? +el.value : el.value;
+ const f = getCurrentFactors().find(x=>x.id===fid);
+ values[fid] = computeValue(f, val);
+ updateScore();
+ // re-render only changed factor
+ renderFactors();
+ });
+ });
+ document.querySelectorAll('input[type=range]').forEach(el=>{
+ el.addEventListener('input',()=>{
+ const fid = +el.dataset.fid;
+ const val = +el.value;
+ const f = getCurrentFactors().find(x=>x.id===fid);
+ const unit = f.range?.unit || '';
+ document.getElementById(`range-val-${fid}`).textContent = val + unit;
+ values[fid] = computeValue(f, val);
+ updateScore();
+ });
+ });
 }
 
 // 값을 factor 스코어로 변환
 function computeValue(f, val, directScore){
-  if (directScore !== undefined && directScore !== null) {
-    return {value: val, score: +directScore};
-  }
-  const max = f.max || 0;
-  let score = 0;
-  if (f.type === 'toggle') {
-    // "있음:max" 파싱 안됐으면 fallback
-    score = val.includes('있음') || val === 'Yes' ? max : 0;
-  } else if (f.type === 'select') {
-    // 옵션에 :점수 없으면 위치 기반
-    const idx = (f.options||[]).findIndex(o=>{
-      const lbl = typeof o==='string' && o.includes(':') ? o.split(':')[0] : o;
-      return lbl === val;
-    });
-    if (idx >= 0) {
-      const o = f.options[idx];
-      if (typeof o==='string' && o.includes(':')) score = +o.split(':')[1];
-      else score = max * (1 - idx/(f.options.length||1));
-    }
-  } else if (f.type === 'multi_select') {
-    const cnt = Array.isArray(val) ? val.length : 0;
-    score = Math.min(max, max * cnt / 3);
-  } else if (f.type === 'stepper') {
-    const scale = f.scale || 5;
-    score = max * (val / scale);
-  } else if (f.type === 'number') {
-    score = val > 0 ? max : 0;
-  } else if (f.type === 'range') {
-    if (f.rules) {
-      for (const r of f.rules) {
-        if (val <= r.max) { score = r.score; break; }
-      }
-    } else {
-      const rng = f.range || {min:0,max:100};
-      score = max * (val - rng.min) / (rng.max - rng.min);
-    }
-  }
-  return {value: val, score: Math.max(0, Math.min(max, score))};
+ if (directScore !== undefined && directScore !== null) {
+ return {value: val, score: +directScore};
+ }
+ const max = f.max || 0;
+ let score = 0;
+ if (f.type === 'toggle') {
+ // "있음:max" 파싱 안됐으면 fallback
+ score = val.includes('있음') || val === 'Yes' ? max : 0;
+ } else if (f.type === 'select') {
+ // 옵션에 :점수 없으면 위치 기반
+ const idx = (f.options||[]).findIndex(o=>{
+ const lbl = typeof o==='string' && o.includes(':') ? o.split(':')[0] : o;
+ return lbl === val;
+ });
+ if (idx >= 0) {
+ const o = f.options[idx];
+ if (typeof o==='string' && o.includes(':')) score = +o.split(':')[1];
+ else score = max * (1 - idx/(f.options.length||1));
+ }
+ } else if (f.type === 'multi_select') {
+ const cnt = Array.isArray(val) ? val.length : 0;
+ score = Math.min(max, max * cnt / 3);
+ } else if (f.type === 'stepper') {
+ const scale = f.scale || 5;
+ score = max * (val / scale);
+ } else if (f.type === 'number') {
+ score = val > 0 ? max : 0;
+ } else if (f.type === 'range') {
+ if (f.rules) {
+ for (const r of f.rules) {
+ if (val <= r.max) { score = r.score; break; }
+ }
+ } else {
+ const rng = f.range || {min:0,max:100};
+ score = max * (val - rng.min) / (rng.max - rng.min);
+ }
+ }
+ return {value: val, score: Math.max(0, Math.min(max, score))};
 }
 
 // 카테고리·국가 기반 자동 매핑
 function autoMapFromContext(){
-  // factor 4 (카테고리) 값으로 benchmark 자동 매칭
-  const catVal = values[4]?.value;
-  if (catVal && BENCHMARKS) {
-    // 한국 카테고리 → KS 카테고리 매핑
-    const mapping = {
-      'IT/전자':'Technology', '게임/소프트웨어':'Games', '패션/액세서리':'Fashion',
-      '소비재':'Design', '라이프스타일/디자인':'Design', '뷰티/코스메틱':'Fashion',
-      '운동기구/헬스':'Design', '의료/바이오':'Technology', '반려동물':'Design',
-      '아웃도어/캠핑':'Design', '로봇':'Technology'
-    };
-    const mapped = Array.isArray(catVal) ? (catVal[0] ? mapping[catVal[0]] : null) : mapping[catVal];
-    if (mapped && BENCHMARKS[mapped]) {
-      window._matchedCategory = mapped;
-    }
-  }
-  renderSimilarProjects();
-  renderImprovementTips();
+ // factor 4 (카테고리) 값으로 benchmark 자동 매칭
+ const catVal = values[4]?.value;
+ if (catVal && BENCHMARKS) {
+ // 한국 카테고리 → KS 카테고리 매핑
+ const mapping = {
+ 'IT/전자':'Technology', '게임/소프트웨어':'Games', '패션/액세서리':'Fashion',
+ '소비재':'Design', '라이프스타일/디자인':'Design', '뷰티/코스메틱':'Fashion',
+ '운동기구/헬스':'Design', '의료/바이오':'Technology', '반려동물':'Design',
+ '아웃도어/캠핑':'Design', '로봇':'Technology'
+ };
+ const mapped = Array.isArray(catVal) ? (catVal[0] ? mapping[catVal[0]] : null) : mapping[catVal];
+ if (mapped && BENCHMARKS[mapped]) {
+ window._matchedCategory = mapped;
+ }
+ }
+ renderSimilarProjects();
+ renderImprovementTips();
 }
 
 function renderSimilarProjects(){
-  const cat = window._matchedCategory;
-  const el = document.getElementById('similar-list');
-  if (!cat) {
-    el.innerHTML = '카테고리 + 국가 선택 시 표시됩니다.';
-    return;
-  }
-  const bm = BENCHMARKS[cat];
-  el.innerHTML = `<div style="margin-bottom:10px;padding:10px;background:#f0f9ff;border-radius:6px;font-size:11px;">
-    <b>${cat}</b> 카테고리 벤치마크<br>
-    총 ${bm.total.toLocaleString()} 프로젝트 · 성공률 ${bm.success_rate}%<br>
-    목표 중앙값 $${bm.median_goal_usd.toLocaleString()}<br>
-    리워드 최저가 중앙값 $${bm.median_min_price}
-  </div>
-  <a href="/kickstarter-insight.html#sec-category" class="nav-btn" style="display:inline-block;font-size:10px;">상세 분석 →</a>`;
+ const cat = window._matchedCategory;
+ const el = document.getElementById('similar-list');
+ if (!cat) {
+ el.innerHTML = '카테고리 + 국가 선택 시 표시됩니다.';
+ return;
+ }
+ const bm = BENCHMARKS[cat];
+ el.innerHTML = `<div style="margin-bottom:10px;padding:10px;background:#f0f9ff;border-radius:6px;font-size:11px;"><b>${cat}</b> 카테고리 벤치마크<br>
+ 총 ${bm.total.toLocaleString()} 프로젝트 · 성공률 ${bm.success_rate}%<br>
+ 목표 중앙값 $${bm.median_goal_usd.toLocaleString()}<br>
+ 리워드 최저가 중앙값 $${bm.median_min_price}
+ </div><a href="/kickstarter-insight.html#sec-category" class="nav-btn" style="display:inline-block;font-size:10px;">상세 분석 →</a>`;
 }
 
 function renderImprovementTips(){
-  const factors = getCurrentFactors();
-  const el = document.getElementById('improvement-tips');
-  const tips = [];
-  // 비어있는 고가점 factor 추천
-  const unfilled = factors
-    .filter(f => !values[f.id] && (f.max||0) >= 5)
-    .sort((a,b)=>(b.max||0)-(a.max||0))
-    .slice(0, 3);
-  unfilled.forEach(f => {
-    tips.push(`<div class="tip warn"><b>${f.name}</b> 입력 시 <b>+${f.max}pt</b> 획득 가능</div>`);
-  });
-  // 점수 낮은 filled factor 개선 제안
-  const lowScore = factors
-    .filter(f => values[f.id] && (f.max||0) > 0 && (values[f.id].score / f.max) < 0.5)
-    .slice(0, 2);
-  lowScore.forEach(f => {
-    tips.push(`<div class="tip info"><b>${f.name}</b> 현재 ${values[f.id].score.toFixed(1)}/${f.max}pt — 개선 시 약 +${(f.max-values[f.id].score).toFixed(1)}pt</div>`);
-  });
-  el.innerHTML = tips.join('') || '충분히 입력되었습니다 👏';
+ const factors = getCurrentFactors();
+ const el = document.getElementById('improvement-tips');
+ const tips = [];
+ // 비어있는 고가점 factor 추천
+ const unfilled = factors
+ .filter(f => !values[f.id] && (f.max||0) >= 5)
+ .sort((a,b)=>(b.max||0)-(a.max||0))
+ .slice(0, 3);
+ unfilled.forEach(f => {
+ tips.push(`<div class="tip warn"><b>${f.name}</b> 입력 시 <b>+${f.max}pt</b> 획득 가능</div>`);
+ });
+ // 점수 낮은 filled factor 개선 제안
+ const lowScore = factors
+ .filter(f => values[f.id] && (f.max||0) > 0 && (values[f.id].score / f.max) < 0.5)
+ .slice(0, 2);
+ lowScore.forEach(f => {
+ tips.push(`<div class="tip info"><b>${f.name}</b> 현재 ${values[f.id].score.toFixed(1)}/${f.max}pt — 개선 시 약 +${(f.max-values[f.id].score).toFixed(1)}pt</div>`);
+ });
+ el.innerHTML = tips.join('') || '충분히 입력되었습니다 ';
 }
 
 function updateScore(){
-  const factors = getCurrentFactors();
-  const totalMax = getTotalMax();
-  let totalScore = 0;
-  let filled = 0;
-  for (const f of factors) {
-    if (values[f.id] !== undefined) {
-      totalScore += values[f.id].score || 0;
-      filled++;
-    }
-  }
-  const pct = (totalScore / totalMax * 100);
-  document.getElementById('score-val').textContent = pct.toFixed(1).split('.')[0];
-  document.getElementById('score-bar').style.width = Math.min(100, pct) + '%';
-  // Grade
-  let grade = 'F', rank = '위험 — 대폭 개선 필요';
-  if (pct >= 80) { grade='A+'; rank='매우 높은 성공 확률'; }
-  else if (pct >= 70) { grade='A'; rank='높은 성공 확률'; }
-  else if (pct >= 60) { grade='B+'; rank='평균 이상'; }
-  else if (pct >= 50) { grade='B'; rank='평균 수준'; }
-  else if (pct >= 40) { grade='C'; rank='개선 필요'; }
-  else if (pct >= 30) { grade='D'; rank='많은 개선 필요'; }
-  document.getElementById('score-grade').textContent = grade;
-  document.getElementById('score-rank').textContent = rank;
+ const factors = getCurrentFactors();
+ const totalMax = getTotalMax();
+ let totalScore = 0;
+ let filled = 0;
+ for (const f of factors) {
+ if (values[f.id] !== undefined) {
+ totalScore += values[f.id].score || 0;
+ filled++;
+ }
+ }
+ const pct = (totalScore / totalMax * 100);
+ document.getElementById('score-val').textContent = pct.toFixed(1).split('.')[0];
+ document.getElementById('score-bar').style.width = Math.min(100, pct) + '%';
+ // Grade
+ let grade = 'F', rank = '위험 — 대폭 개선 필요';
+ if (pct >= 80) { grade='A+'; rank='매우 높은 성공 확률'; }
+ else if (pct >= 70) { grade='A'; rank='높은 성공 확률'; }
+ else if (pct >= 60) { grade='B+'; rank='평균 이상'; }
+ else if (pct >= 50) { grade='B'; rank='평균 수준'; }
+ else if (pct >= 40) { grade='C'; rank='개선 필요'; }
+ else if (pct >= 30) { grade='D'; rank='많은 개선 필요'; }
+ document.getElementById('score-grade').textContent = grade;
+ document.getElementById('score-rank').textContent = rank;
 
-  // ML proxy: 스코어가 높으면 ML 확률도 높게 (simple linear)
-  const mlProb = Math.min(95, Math.max(10, pct * 0.9 + 5)).toFixed(1);
-  document.getElementById('ml-prob').textContent = mlProb + '% (추정)';
+ // ML proxy: 스코어가 높으면 ML 확률도 높게 (simple linear)
+ const mlProb = Math.min(95, Math.max(10, pct * 0.9 + 5)).toFixed(1);
+ document.getElementById('ml-prob').textContent = mlProb + '% (추정)';
 
-  // progress
-  document.getElementById('progress-text').textContent = `${filled}/${factors.length}`;
-  document.getElementById('progress-bar').style.width = (filled/factors.length*100) + '%';
-  document.getElementById('progress-pct').textContent = Math.round(filled/factors.length*100) + '%';
+ // progress
+ document.getElementById('progress-text').textContent = `${filled}/${factors.length}`;
+ document.getElementById('progress-bar').style.width = (filled/factors.length*100) + '%';
+ document.getElementById('progress-pct').textContent = Math.round(filled/factors.length*100) + '%';
 
-  renderImprovementTips();
+ renderImprovementTips();
 }
 
 function resetAll(){
-  if (confirm('모든 입력을 초기화할까요?')) {
-    values = {};
-    window._matchedCategory = null;
-    renderMode();
-  }
+ if (confirm('모든 입력을 초기화할까요?')) {
+ values = {};
+ window._matchedCategory = null;
+ renderMode();
+ }
 }
 
 function generateReport(){
-  const factors = getCurrentFactors();
-  const totalMax = getTotalMax();
-  let totalScore = 0, filled = 0;
-  const rows = [];
-  for (const f of factors) {
-    const v = values[f.id];
-    if (v !== undefined) {
-      totalScore += v.score || 0;
-      filled++;
-      rows.push({factor:f.name, value: Array.isArray(v.value) ? v.value.join(', ') : v.value, score: v.score});
-    }
-  }
-  const pct = (totalScore / totalMax * 100);
-  let txt = `=== Setoworks GTM Predictor 리포트 ===\n\n`;
-  txt += `모드: ${currentMode} Factor\n`;
-  txt += `입력: ${filled}/${factors.length}\n`;
-  txt += `총점: ${totalScore.toFixed(2)} / ${totalMax}\n`;
-  txt += `성공률: ${pct.toFixed(1)}%\n\n`;
-  txt += `--- 입력 항목 ---\n`;
-  rows.forEach(r => {
-    txt += `[${r.factor}] ${r.value} → +${r.score.toFixed(2)}pt\n`;
-  });
-  // 다운로드
-  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `gtm-predictor-${currentMode}f-${new Date().toISOString().split('T')[0]}.txt`;
-  a.click();
+ const factors = getCurrentFactors();
+ const totalMax = getTotalMax();
+ let totalScore = 0, filled = 0;
+ const rows = [];
+ for (const f of factors) {
+ const v = values[f.id];
+ if (v !== undefined) {
+ totalScore += v.score || 0;
+ filled++;
+ rows.push({factor:f.name, value: Array.isArray(v.value) ? v.value.join(', ') : v.value, score: v.score});
+ }
+ }
+ const pct = (totalScore / totalMax * 100);
+ let txt = `=== Setoworks GTM Predictor 리포트 ===\n\n`;
+ txt += `모드: ${currentMode} Factor\n`;
+ txt += `입력: ${filled}/${factors.length}\n`;
+ txt += `총점: ${totalScore.toFixed(2)} / ${totalMax}\n`;
+ txt += `성공률: ${pct.toFixed(1)}%\n\n`;
+ txt += `--- 입력 항목 ---\n`;
+ rows.forEach(r => {
+ txt += `[${r.factor}] ${r.value} → +${r.score.toFixed(2)}pt\n`;
+ });
+ // 다운로드
+ const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+ const url = URL.createObjectURL(blob);
+ const a = document.createElement('a');
+ a.href = url;
+ a.download = `gtm-predictor-${currentMode}f-${new Date().toISOString().split('T')[0]}.txt`;
+ a.click();
 }
 
 loadAll();
-</script>
-</body>
-</html>
+</script></body></html>

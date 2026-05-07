@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>세토웍스 운영 OS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>세토웍스 운영 OS</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
 :root{
-  --canvas:#ffffff;
-  --surface:#f7f7f5;--surface-soft:#fafaf8;
-  --hairline:#e6e6e6;--hairline-soft:#f0f0f0;--hairline-strong:#d4d4d4;
-  --ink:#191919;--ink-deep:#000;--charcoal:#2c2c2c;
-  --slate:#5b5b5b;--steel:#7a7a7a;--stone:#9a9a9a;--muted:#b5b5b5;
-  --brand-red:#ff003b;--brand-red-pressed:#d10031;--brand-red-soft:rgba(255,0,59,.08);
-  --brand-navy:#0f1226;--brand-navy-deep:#06081a;
-  --link-blue:#0b5fbd;
-  --on-dark:#fff;--on-dark-muted:rgba(255,255,255,.72);--on-dark-soft:rgba(255,255,255,.56);
-  --tint-peach:#ffe4d6;--tint-rose:#fce7eb;--tint-mint:#d4f0e1;
-  --tint-lavender:#ede4ff;--tint-sky:#d6ecff;--tint-yellow:#fff3c4;
-  --tint-yellow-bold:#ffd233;--tint-cream:#faf6ed;--tint-gray:#f4f4f4;
-  --txt-purple:#5b21b6;--txt-orange:#b45309;--txt-green:#0e7c54;--txt-pink:#9d174d;--txt-blue:#1e40af;--txt-yellow:#854d0e;
-  --semantic-success:#05b169;--semantic-warning:#d97706;
-  --sans:'Pretendard','Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
-  --shadow-card:0 1px 2px rgba(15,15,15,.04);
-  --shadow-elev:0 4px 12px rgba(15,15,15,.08);
-  --shadow-mockup:0 24px 48px -8px rgba(15,15,15,.20);
+ --canvas:#ffffff;
+ --surface:#f7f7f5;--surface-soft:#fafaf8;
+ --hairline:#e6e6e6;--hairline-soft:#f0f0f0;--hairline-strong:#d4d4d4;
+ --ink:#191919;--ink-deep:#000;--charcoal:#2c2c2c;
+ --slate:#5b5b5b;--steel:#7a7a7a;--stone:#9a9a9a;--muted:#b5b5b5;
+ --brand-red:#ff003b;--brand-red-pressed:#d10031;--brand-red-soft:rgba(255,0,59,.08);
+ --brand-navy:#0f1226;--brand-navy-deep:#06081a;
+ --link-blue:#0b5fbd;
+ --on-dark:#fff;--on-dark-muted:rgba(255,255,255,.72);--on-dark-soft:rgba(255,255,255,.56);
+ --tint-peach:#ffe4d6;--tint-rose:#fce7eb;--tint-mint:#d4f0e1;
+ --tint-lavender:#ede4ff;--tint-sky:#d6ecff;--tint-yellow:#fff3c4;
+ --tint-yellow-bold:#ffd233;--tint-cream:#faf6ed;--tint-gray:#f4f4f4;
+ --txt-purple:#5b21b6;--txt-orange:#b45309;--txt-green:#0e7c54;--txt-pink:#9d174d;--txt-blue:#1e40af;--txt-yellow:#854d0e;
+ --semantic-success:#05b169;--semantic-warning:#d97706;
+ --sans:'Pretendard','Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+ --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+ --shadow-card:0 1px 2px rgba(15,15,15,.04);
+ --shadow-elev:0 4px 12px rgba(15,15,15,.08);
+ --shadow-mockup:0 24px 48px -8px rgba(15,15,15,.20);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;max-width:100vw}
@@ -225,407 +215,39 @@ h2.h-display em{color:var(--brand-red);font-style:normal}
 .legal .badge-live::before{content:"●";color:var(--semantic-success)}
 
 @media(max-width:1024px){
-  .stats{grid-template-columns:repeat(4,1fr);row-gap:32px}
-  .cards-grid.cg-3,.cards-grid.cg-2{grid-template-columns:1fr 1fr}
-  .yellow-banner,.cta-banner{grid-template-columns:1fr;text-align:left}
-  .yellow-banner .right{flex-direction:row;flex-wrap:wrap}
-  .cta-banner .cta-actions{justify-content:flex-start}
-  .mockup-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr 1fr}
-  .hero h1{font-size:56px}
+ .stats{grid-template-columns:repeat(4,1fr);row-gap:32px}
+ .cards-grid.cg-3,.cards-grid.cg-2{grid-template-columns:1fr 1fr}
+ .yellow-banner,.cta-banner{grid-template-columns:1fr;text-align:left}
+ .yellow-banner .right{flex-direction:row;flex-wrap:wrap}
+ .cta-banner .cta-actions{justify-content:flex-start}
+ .mockup-grid{grid-template-columns:repeat(2,1fr)}
+ .footer-grid{grid-template-columns:1fr 1fr 1fr}
+ .hero h1{font-size:56px}
 }
 @media(max-width:640px){
-  section{padding:64px 0}
-  .container{padding:0 20px}
-  .nav-menu{display:none}
-  .hero{padding:64px 20px 0}
-  .hero h1{font-size:40px;letter-spacing:-.02em}
-  .hero-sub{font-size:16px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .cards-grid.cg-3,.cards-grid.cg-2,.cards-grid.cg-1{grid-template-columns:1fr}
-  .yellow-banner,.cta-banner{padding:36px 28px}
-  .yellow-banner h3{font-size:28px}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  h2.h-display{font-size:30px}
-  .mockup-body{padding:18px 18px}
-  .mockup-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .dot-deco{display:none}
+ section{padding:64px 0}
+ .container{padding:0 20px}
+ .nav-menu{display:none}
+ .hero{padding:64px 20px 0}
+ .hero h1{font-size:40px;letter-spacing:-.02em}
+ .hero-sub{font-size:16px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .cards-grid.cg-3,.cards-grid.cg-2,.cards-grid.cg-1{grid-template-columns:1fr}
+ .yellow-banner,.cta-banner{padding:36px 28px}
+ .yellow-banner h3{font-size:28px}
+ .footer-grid{grid-template-columns:1fr 1fr}
+ h2.h-display{font-size:30px}
+ .mockup-body{padding:18px 18px}
+ .mockup-grid{grid-template-columns:1fr 1fr;gap:8px}
+ .dot-deco{display:none}
 }
-</style>
-</head>
-<body>
-
-<!-- ============ PROMO ============ -->
-<div class="promo">★ NEW · <strong>SaaS Suite 4종 글로벌 랜딩 오픈</strong> · Coinbase 톤 EN/KO — <a href="/saas-landing.html">랜딩 페이지 보기 →</a></div>
-
-<!-- ============ NAV ============ -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/portal.html" class="nav-logo"><span class="mark">S</span>Setoworks</a>
-    <div class="nav-menu">
-      <a href="#inbound">유입</a>
-      <a href="#intelligence">분석</a>
-      <a href="#execution">실행</a>
-      <a href="#operation">운영</a>
-      <a href="/deck.html">전략 데크</a>
-    </div>
-    <div class="nav-actions">
-      <a href="https://setoworks.com" target="_blank" class="btn btn-md btn-ghost">setoworks.com</a>
-      <a href="/saas-landing.html" class="btn btn-md btn-primary">SaaS 보기</a>
-    </div>
-  </div>
-</nav>
-
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <span class="dot-deco d1"></span><span class="dot-deco d2"></span><span class="dot-deco d3"></span>
-  <span class="dot-deco d4"></span><span class="dot-deco d5"></span><span class="dot-deco d6"></span>
-  <span class="dot-deco d7"></span>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Live · 세토웍스 운영 OS</div>
-    <h1>크라우드펀딩의 모든 단계를<br><em>하나의 OS로</em>.</h1>
-    <p class="hero-sub">"같은 제품, 어느 나라가 더 잘 팔릴까" — 14년 운영 데이터 × 520억 누적 펀딩 × 27,212 KS 분석 × 1,705 슈퍼백커 신호로 답하는 유일한 운영 플랫폼.</p>
-    <div class="hero-cta-row">
-      <a href="#intelligence" class="btn btn-lg btn-primary">시스템 둘러보기</a>
-      <a href="/deck.html" class="btn btn-lg btn-secondary-on-dark">📑 전략 데크 (12 슬라이드)</a>
-    </div>
-
-    <!-- Workspace mockup -->
-    <div class="hero-mockup">
-      <div class="mockup-toolbar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="url">setoworks-jellop-seven.vercel.app</span>
-      </div>
-      <div class="mockup-body">
-        <div class="mockup-h">
-          <div>
-            <div class="mockup-title">North Star · 메이커 LTV × 예측 정확도</div>
-            <div class="mockup-sub">세토웍스 운영 OS 대시보드 미리보기</div>
-          </div>
-          <div class="mockup-pills">
-            <span class="mp-pill live">LIVE</span>
-            <span class="mp-pill">세토웍스 v2.0</span>
-          </div>
-        </div>
-        <div class="mockup-grid">
-          <div class="mockup-item peach">
-            <span class="label">메이커 LTV</span>
-            <span class="num">₩1.2억</span>
-            <span class="delta">+18% YoY</span>
-          </div>
-          <div class="mockup-item sky">
-            <span class="label">Precision @3</span>
-            <span class="num">78<small style="font-size:14px;color:var(--steel)">%</small></span>
-            <span class="delta">▲ Top 3 적중</span>
-          </div>
-          <div class="mockup-item mint">
-            <span class="label">Funnel Depth</span>
-            <span class="num">2.4<small style="font-size:13px;color:var(--steel)"> layers</small></span>
-            <span class="delta">+0.3 vs Q1</span>
-          </div>
-          <div class="mockup-item lavender">
-            <span class="label">Active Streams</span>
-            <span class="num">9</span>
-            <span class="delta">9 / 9 healthy</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ============ STATS ============ -->
-<section class="stats-band">
-  <div class="container">
-    <div class="stats">
-      <div class="stat"><div class="num">14<em>년</em></div><div class="lbl">Business</div></div>
-      <div class="stat"><div class="num">520<em>억</em></div><div class="lbl">Funded</div></div>
-      <div class="stat"><div class="num">1,200</div><div class="lbl">Campaigns</div></div>
-      <div class="stat"><div class="num">27<em>K</em></div><div class="lbl">KS Projects</div></div>
-      <div class="stat"><div class="num">1,705</div><div class="lbl">Superbackers</div></div>
-      <div class="stat"><div class="num">9</div><div class="lbl">Streams</div></div>
-      <div class="stat featured"><div class="num">6</div><div class="lbl">Countries</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L1 INBOUND ============ -->
-<section id="inbound" style="padding-top:0">
-  <div class="container">
-    <div class="section-h">
-      <div class="l">
-        <span class="eyebrow">L1 · Inbound Funnel</span>
-        <h2 class="h-display"><em>유입</em> 채널 — 메이커가 들어오는 첫 접점</h2>
-        <p class="lead">5개 브랜드 어필리에이트 + Kickstarter 라이브 데이터로 펀딩 트래픽을 자체 자산화.</p>
-      </div>
-    </div>
-    <div class="cards-grid cg-2">
-      <a href="https://setoworks-affiliate.vercel.app" class="card peach" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0-9-9c0 1.49.367 2.892 1.014 4.124L3 21l4.876-1.014A8.957 8.957 0 0 0 12 21z"/></svg></div>
-          <span class="badge live">$134.4M</span>
-        </div>
-        <div class="card-title">Brand Lab · 어필리에이트</div>
-        <div class="card-sub">Affundify · Kickfundly · Backerio · Fundspirex · Boostfunding — 5개 브랜드로 운영하는 실시간 펀딩 큐레이션. 42.5K 백커 트래픽.</div>
-        <div class="card-meta"><span>5 brands · realtime</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/kickstarter-live.html" class="card sky">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
-          <span class="badge live">2K+</span>
-        </div>
-        <div class="card-title">KS 라이브 대시보드</div>
-        <div class="card-sub">Kickstarter 실시간 트래킹 · 2,000+ 프로젝트 · 급등 카테고리 자동 탐지 · 일별 트렌드 갱신.</div>
-        <div class="card-meta"><span>realtime · 2K+</span><span class="card-arrow">→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L2 INTELLIGENCE ============ -->
-<section id="intelligence" style="background:var(--surface-soft)">
-  <div class="container">
-    <div class="section-h">
-      <div class="l">
-        <span class="eyebrow">L2 · Intelligence</span>
-        <h2 class="h-display">AI 예측 + <em>6개국 선호도 MOAT</em> + SaaS Suite</h2>
-        <p class="lead">제품을 입력하면 결과를 예측, 글로벌 SaaS 4종으로 외부 메이커·대행사·기관에 공급.</p>
-      </div>
-      <a href="/saas-landing.html" class="btn btn-md btn-secondary">SaaS 랜딩 →</a>
-    </div>
-    <div class="cards-grid cg-3">
-      <a href="/kickstarter-predict.html" class="card lavender">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.091 3.091Z"/></svg></div>
-          <span class="badge hot">D-5 LIVE</span>
-        </div>
-        <div class="card-title">킥스타터 성공 예측 엔진 (FOP)</div>
-        <div class="card-sub">108 팩터 진단 · S/A/B/C/D 등급 · 무료 체험 후 상세 리포트 ($30~100). 메이커 직접 진입 채널.</div>
-        <div class="card-meta"><span>27K 학습 · 자체 시판</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/kickstarter-insight.html" class="card mint">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
-          <span class="badge live">27,909</span>
-        </div>
-        <div class="card-title">KS Insight Engine</div>
-        <div class="card-sub">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 + FAQ·감정 분석. 예측 엔진의 데이터 근거.</div>
-        <div class="card-meta"><span>7 sections · 14 charts</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/saas-landing.html" class="card featured">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
-          <span class="badge hot">★ 4종 신규</span>
-        </div>
-        <div class="card-title">신규 SaaS 4종 — 글로벌 랜딩</div>
-        <div class="card-sub">Lookalike · Pure Score · Trend Radar · Buyer Match — 14년 데이터 자산을 묶은 B2B API 라인업 (FOP는 좌측 시판 채널 별도 운영).</div>
-        <div class="card-meta"><span>EN/KO · Coinbase 톤</span><span class="card-arrow">→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ YELLOW BOLD BANNER ============ -->
-<section style="padding:0">
-  <div class="container">
-    <div class="yellow-banner">
-      <div>
-        <h3>예측이 운영을 바꾼다 — <strong>30분 안에</strong> 답을 받는다.</h3>
-        <p>제품 1줄 입력 → ±15% 신뢰구간 + 유사 사례 3건 + 추천 인플루언서 TOP 20 + Tier별 시딩 예산. 사람 개입 0의 자동 리포트.</p>
-        <div class="cta-row">
-          <a href="/kickstarter-predict.html" class="btn btn-lg btn-dark">무료 진단 시작 →</a>
-          <a href="/saas-landing.html" class="btn btn-lg btn-secondary" style="border-color:var(--ink-deep);color:var(--ink-deep)">SaaS 둘러보기</a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="yb-bullet"><span class="ico">①</span><span><strong>입력</strong> · 제품·카테고리·가격·국가·메이커 이력</span></div>
-        <div class="yb-bullet"><span class="ico">②</span><span><strong>매칭</strong> · KS 27,986건 + 자체 1,200건 검색</span></div>
-        <div class="yb-bullet"><span class="ico">③</span><span><strong>추론</strong> · P10/P50/P90 + 인플 매칭</span></div>
-        <div class="yb-bullet"><span class="ico">④</span><span><strong>출력</strong> · 30분 자동 리포트 (PDF·JSON)</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L3 EXECUTION ============ -->
-<section id="execution">
-  <div class="container">
-    <div class="section-h">
-      <div class="l">
-        <span class="eyebrow">L3 · Execution</span>
-        <h2 class="h-display"><em>실행</em> 도구 — 분석을 운영으로 연결</h2>
-        <p class="lead">인플루언서 시딩과 캠페인 실시간 운영을 같은 데이터 위에서.</p>
-      </div>
-    </div>
-    <div class="cards-grid cg-2">
-      <a href="/influencer-admin.html" class="card rose">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <span class="badge live">65명</span>
-        </div>
-        <div class="card-title">인플루언서 시딩 관리</div>
-        <div class="card-sub">65명 크리에이터 DB · 3-Tier × 4 패키지 · Pure Score 자동 평가 · 매칭 자동화 + 매일 09:00 갱신.</div>
-        <div class="card-meta"><span>65 creators · daily 9 AM</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/index.html" class="card cream">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 11l9-4M12 11v10M12 11L3 7"/></svg></div>
-          <span class="badge live">3,398</span>
-        </div>
-        <div class="card-title">캠페인 운영 대시보드</div>
-        <div class="card-sub">3,398 제품 + 6개 본업 펀딩 캠페인 실시간 분석. 한셉트·콕스스페이스·뉴마핏·가돌·큐비오X·닥터서플라이.</div>
-        <div class="card-meta"><span>1,200 운영 · 520억 집행</span><span class="card-arrow">→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L4 EXPANSION ============ -->
-<section style="padding-top:0">
-  <div class="container">
-    <div class="section-h">
-      <div class="l">
-        <span class="eyebrow muted">L4 · Expansion</span>
-        <h2 class="h-display" style="color:var(--charcoal)">확장 — <em>6개국 이커머스</em> 진입 (Q2-Q3)</h2>
-      </div>
-    </div>
-    <div class="cards-grid cg-1">
-      <div class="card muted">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h18M3 12h18M3 16h18M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>
-          <span class="badge soon">Coming Soon</span>
-        </div>
-        <div class="card-title">6개국 이커머스 확장</div>
-        <div class="card-sub">Amazon · Makuake → Rakuten · 쿠팡 · PChome · Otto · Tmall — 국가별 선호도 기반 자동 입점 플로우. Tier 2 (D+180) 로드맵.</div>
-        <div class="card-meta"><span>US · JP · KR · TW · EU · CN</span><span class="card-arrow">→</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ L0 OPERATION ============ -->
-<section id="operation" style="background:var(--surface-soft)">
-  <div class="container">
-    <div class="section-h">
-      <div class="l">
-        <span class="eyebrow muted">L0 · Operation</span>
-        <h2 class="h-display">운영 도구 — <em>매뉴얼 · 모니터 · 인프라</em></h2>
-        <p class="lead">내부 운영팀이 매일 사용하는 표준 도구. 표·다이어그램·시계열 모니터링.</p>
-      </div>
-    </div>
-    <div class="cards-grid cg-3">
-      <a href="/system-guide.html" class="card gray">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></div>
-          <span class="badge doc">DOC</span>
-        </div>
-        <div class="card-title">시스템 가이드</div>
-        <div class="card-sub">운영 매뉴얼 · 7 섹션 · 전체 시스템 온보딩. 크리에이터 등급 / 크롤링 / 자동화 스케줄 / DB 스키마.</div>
-        <div class="card-meta"><span>운영팀 표준 · 7 chapters</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/crawl-monitor.html" class="card gray">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25"/></svg></div>
-          <span class="badge live">2K+/일</span>
-        </div>
-        <div class="card-title">크롤링 모니터</div>
-        <div class="card-sub">5 플랫폼 · 162 프록시 자가확장 · 패턴 최적화. 일 2K+ 크롤 + 실시간 헬스체크.</div>
-        <div class="card-meta"><span>5 platforms · 162 proxies</span><span class="card-arrow">→</span></div>
-      </a>
-      <a href="/db-infra.html" class="card gray">
-        <div class="card-top">
-          <div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75"/></svg></div>
-          <span class="badge doc">DOC</span>
-        </div>
-        <div class="card-title">DB 인프라 계획서</div>
-        <div class="card-sub">PostgreSQL 70 테이블 · Supabase · AI 연동 + 7.4TB NAS 아카이브. 기술 스택 전체 설계.</div>
-        <div class="card-meta"><span>70 tables · 7.4TB · plan</span><span class="card-arrow">→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CTA BANNER ============ -->
-<section style="padding:0">
-  <div class="container">
-    <div class="cta-banner">
-      <div>
-        <h3>전략 데크 — <strong style="color:var(--brand-red)">세토웍스 90일 로드맵</strong></h3>
-        <p>회사 전략의 단일 출처 — 12 슬라이드로 정리한 90일 실행 로드맵.</p>
-      </div>
-      <div class="cta-actions">
-        <a href="/deck.html" class="btn btn-lg btn-primary">전략 데크 열기 →</a>
-        <a href="/saas-landing.html" class="btn btn-lg btn-secondary">SaaS 랜딩</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand"><span class="mark">S</span>Setoworks</div>
-        <p class="footer-tag">14년 운영 데이터 위에 구축한 크라우드펀딩 인텔리전스. 예측 기반 글로벌 크라우드펀딩 런칭 OS.</p>
-        <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
-          <span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Kickstarter Expert</span>
-          <span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Makuake Partner</span>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>유입 · 분석</h4>
-        <ul>
-          <li><a href="https://setoworks-affiliate.vercel.app">Brand Lab</a></li>
-          <li><a href="/kickstarter-live.html">KS 라이브</a></li>
-          <li><a href="/kickstarter-predict.html">FOP 예측</a></li>
-          <li><a href="/kickstarter-insight.html">Insight Engine</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>실행 · 운영</h4>
-        <ul>
-          <li><a href="/influencer-admin.html">인플루언서 관리</a></li>
-          <li><a href="/index.html">캠페인 대시보드</a></li>
-          <li><a href="/system-guide.html">시스템 가이드</a></li>
-          <li><a href="/crawl-monitor.html">크롤링 모니터</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>상품 · 자료</h4>
-        <ul>
-          <li><a href="/saas-landing.html">SaaS Suite</a></li>
-          <li><a href="/saas-mvp.html">Demo Console</a></li>
-          <li><a href="/deck.html">전략 데크</a></li>
-          <li><a href="/db-infra.html">DB 인프라</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>회사</h4>
-        <ul>
-          <li><a href="https://setoworks.com" target="_blank">setoworks.com</a></li>
-          <li><a href="#">2021 100만불 수출의 탑</a></li>
-          <li><a href="#">전문무역상사</a></li>
-          <li><a href="#">채용</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="legal">
-      <span>© 2026 Setoworks · setoworks.com · 세토웍스 OS v2.0</span>
-      <span class="badge-live" id="legal-updated">Live · Updated —</span>
-    </div>
-  </div>
-</footer>
-
-<script>
+</style></head><body><!-- ============ PROMO ============ --><div class="promo">★ NEW · <strong>SaaS Suite 4종 글로벌 랜딩 오픈</strong> · Coinbase 톤 EN/KO — <a href="/saas-landing.html">랜딩 페이지 보기 →</a></div><!-- ============ NAV ============ --><nav class="nav"><div class="nav-inner"><a href="/portal.html" class="nav-logo"><span class="mark">S</span>Setoworks</a><div class="nav-menu"><a href="#inbound">유입</a><a href="#intelligence">분석</a><a href="#execution">실행</a><a href="#operation">운영</a><a href="/deck.html">전략 데크</a></div><div class="nav-actions"><a href="https://setoworks.com" target="_blank" class="btn btn-md btn-ghost">setoworks.com</a><a href="/saas-landing.html" class="btn btn-md btn-primary">SaaS 보기</a></div></div></nav><!-- ============ HERO ============ --><header class="hero"><span class="dot-deco d1"></span><span class="dot-deco d2"></span><span class="dot-deco d3"></span><span class="dot-deco d4"></span><span class="dot-deco d5"></span><span class="dot-deco d6"></span><span class="dot-deco d7"></span><div class="hero-inner"><div class="hero-eyebrow">Live · 세토웍스 운영 OS</div><h1>크라우드펀딩의 모든 단계를<br><em>하나의 OS로</em>.</h1><p class="hero-sub">"같은 제품, 어느 나라가 더 잘 팔릴까" — 14년 운영 데이터 × 520억 누적 펀딩 × 27,212 KS 분석 × 1,705 슈퍼백커 신호로 답하는 유일한 운영 플랫폼.</p><div class="hero-cta-row"><a href="#intelligence" class="btn btn-lg btn-primary">시스템 둘러보기</a><a href="/deck.html" class="btn btn-lg btn-secondary-on-dark"> 전략 데크 (12 슬라이드)</a></div><!-- Workspace mockup --><div class="hero-mockup"><div class="mockup-toolbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">setoworks-jellop-seven.vercel.app</span></div><div class="mockup-body"><div class="mockup-h"><div><div class="mockup-title">North Star · 메이커 LTV × 예측 정확도</div><div class="mockup-sub">세토웍스 운영 OS 대시보드 미리보기</div></div><div class="mockup-pills"><span class="mp-pill live">LIVE</span><span class="mp-pill">세토웍스 v2.0</span></div></div><div class="mockup-grid"><div class="mockup-item peach"><span class="label">메이커 LTV</span><span class="num">₩1.2억</span><span class="delta">+18% YoY</span></div><div class="mockup-item sky"><span class="label">Precision @3</span><span class="num">78<small style="font-size:14px;color:var(--steel)">%</small></span><span class="delta">▲ Top 3 적중</span></div><div class="mockup-item mint"><span class="label">Funnel Depth</span><span class="num">2.4<small style="font-size:13px;color:var(--steel)"> layers</small></span><span class="delta">+0.3 vs Q1</span></div><div class="mockup-item lavender"><span class="label">Active Streams</span><span class="num">9</span><span class="delta">9 / 9 healthy</span></div></div></div></div></div></header><!-- ============ STATS ============ --><section class="stats-band"><div class="container"><div class="stats"><div class="stat"><div class="num">14<em>년</em></div><div class="lbl">Business</div></div><div class="stat"><div class="num">520<em>억</em></div><div class="lbl">Funded</div></div><div class="stat"><div class="num">1,200</div><div class="lbl">Campaigns</div></div><div class="stat"><div class="num">27<em>K</em></div><div class="lbl">KS Projects</div></div><div class="stat"><div class="num">1,705</div><div class="lbl">Superbackers</div></div><div class="stat"><div class="num">9</div><div class="lbl">Streams</div></div><div class="stat featured"><div class="num">6</div><div class="lbl">Countries</div></div></div></div></section><!-- ============ L1 INBOUND ============ --><section id="inbound" style="padding-top:0"><div class="container"><div class="section-h"><div class="l"><span class="eyebrow">L1 · Inbound Funnel</span><h2 class="h-display"><em>유입</em> 채널 — 메이커가 들어오는 첫 접점</h2><p class="lead">5개 브랜드 어필리에이트 + Kickstarter 라이브 데이터로 펀딩 트래픽을 자체 자산화.</p></div></div><div class="cards-grid cg-2"><a href="https://setoworks-affiliate.vercel.app" class="card peach" target="_blank" rel="noopener"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0-9-9c0 1.49.367 2.892 1.014 4.124L3 21l4.876-1.014A8.957 8.957 0 0 0 12 21z"/></svg></div><span class="badge live">$134.4M</span></div><div class="card-title">Brand Lab · 어필리에이트</div><div class="card-sub">Affundify · Kickfundly · Backerio · Fundspirex · Boostfunding — 5개 브랜드로 운영하는 실시간 펀딩 큐레이션. 42.5K 백커 트래픽.</div><div class="card-meta"><span>5 brands · realtime</span><span class="card-arrow">→</span></div></a><a href="/kickstarter-live.html" class="card sky"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div><span class="badge live">2K+</span></div><div class="card-title">KS 라이브 대시보드</div><div class="card-sub">Kickstarter 실시간 트래킹 · 2,000+ 프로젝트 · 급등 카테고리 자동 탐지 · 일별 트렌드 갱신.</div><div class="card-meta"><span>realtime · 2K+</span><span class="card-arrow">→</span></div></a></div></div></section><!-- ============ L2 INTELLIGENCE ============ --><section id="intelligence" style="background:var(--surface-soft)"><div class="container"><div class="section-h"><div class="l"><span class="eyebrow">L2 · Intelligence</span><h2 class="h-display">AI 예측 + <em>6개국 선호도 MOAT</em> + SaaS Suite</h2><p class="lead">제품을 입력하면 결과를 예측, 글로벌 SaaS 4종으로 외부 메이커·대행사·기관에 공급.</p></div><a href="/saas-landing.html" class="btn btn-md btn-secondary">SaaS 랜딩 →</a></div><div class="cards-grid cg-3"><a href="/kickstarter-predict.html" class="card lavender"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.091 3.091Z"/></svg></div><span class="badge hot">D-5 LIVE</span></div><div class="card-title">킥스타터 성공 예측 엔진 (FOP)</div><div class="card-sub">108 팩터 진단 · S/A/B/C/D 등급 · 무료 체험 후 상세 리포트 ($30~100). 메이커 직접 진입 채널.</div><div class="card-meta"><span>27K 학습 · 자체 시판</span><span class="card-arrow">→</span></div></a><a href="/kickstarter-insight.html" class="card mint"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div><span class="badge live">27,909</span></div><div class="card-title">KS Insight Engine</div><div class="card-sub">47개 성공 패턴 Bento · 카테고리·가격·타이밍 분석 + FAQ·감정 분석. 예측 엔진의 데이터 근거.</div><div class="card-meta"><span>7 sections · 14 charts</span><span class="card-arrow">→</span></div></a><a href="/saas-landing.html" class="card featured"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div><span class="badge hot">★ 4종 신규</span></div><div class="card-title">신규 SaaS 4종 — 글로벌 랜딩</div><div class="card-sub">Lookalike · Pure Score · Trend Radar · Buyer Match — 14년 데이터 자산을 묶은 B2B API 라인업 (FOP는 좌측 시판 채널 별도 운영).</div><div class="card-meta"><span>EN/KO · Coinbase 톤</span><span class="card-arrow">→</span></div></a></div></div></section><!-- ============ YELLOW BOLD BANNER ============ --><section style="padding:0"><div class="container"><div class="yellow-banner"><div><h3>예측이 운영을 바꾼다 — <strong>30분 안에</strong> 답을 받는다.</h3><p>제품 1줄 입력 → ±15% 신뢰구간 + 유사 사례 3건 + 추천 인플루언서 TOP 20 + Tier별 시딩 예산. 사람 개입 0의 자동 리포트.</p><div class="cta-row"><a href="/kickstarter-predict.html" class="btn btn-lg btn-dark">무료 진단 시작 →</a><a href="/saas-landing.html" class="btn btn-lg btn-secondary" style="border-color:var(--ink-deep);color:var(--ink-deep)">SaaS 둘러보기</a></div></div><div class="right"><div class="yb-bullet"><span class="ico">①</span><span><strong>입력</strong> · 제품·카테고리·가격·국가·메이커 이력</span></div><div class="yb-bullet"><span class="ico">②</span><span><strong>매칭</strong> · KS 27,986건 + 자체 1,200건 검색</span></div><div class="yb-bullet"><span class="ico">③</span><span><strong>추론</strong> · P10/P50/P90 + 인플 매칭</span></div><div class="yb-bullet"><span class="ico">④</span><span><strong>출력</strong> · 30분 자동 리포트 (PDF·JSON)</span></div></div></div></div></section><!-- ============ L3 EXECUTION ============ --><section id="execution"><div class="container"><div class="section-h"><div class="l"><span class="eyebrow">L3 · Execution</span><h2 class="h-display"><em>실행</em> 도구 — 분석을 운영으로 연결</h2><p class="lead">인플루언서 시딩과 캠페인 실시간 운영을 같은 데이터 위에서.</p></div></div><div class="cards-grid cg-2"><a href="/influencer-admin.html" class="card rose"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="badge live">65명</span></div><div class="card-title">인플루언서 시딩 관리</div><div class="card-sub">65명 크리에이터 DB · 3-Tier × 4 패키지 · Pure Score 자동 평가 · 매칭 자동화 + 매일 09:00 갱신.</div><div class="card-meta"><span>65 creators · daily 9 AM</span><span class="card-arrow">→</span></div></a><a href="/index.html" class="card cream"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 11l9-4M12 11v10M12 11L3 7"/></svg></div><span class="badge live">3,398</span></div><div class="card-title">캠페인 운영 대시보드</div><div class="card-sub">3,398 제품 + 6개 본업 펀딩 캠페인 실시간 분석. 한셉트·콕스스페이스·뉴마핏·가돌·큐비오X·닥터서플라이.</div><div class="card-meta"><span>1,200 운영 · 520억 집행</span><span class="card-arrow">→</span></div></a></div></div></section><!-- ============ L4 EXPANSION ============ --><section style="padding-top:0"><div class="container"><div class="section-h"><div class="l"><span class="eyebrow muted">L4 · Expansion</span><h2 class="h-display" style="color:var(--charcoal)">확장 — <em>6개국 이커머스</em> 진입 (Q2-Q3)</h2></div></div><div class="cards-grid cg-1"><div class="card muted"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h18M3 12h18M3 16h18M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div><span class="badge soon">Coming Soon</span></div><div class="card-title">6개국 이커머스 확장</div><div class="card-sub">Amazon · Makuake → Rakuten · 쿠팡 · PChome · Otto · Tmall — 국가별 선호도 기반 자동 입점 플로우. Tier 2 (D+180) 로드맵.</div><div class="card-meta"><span>US · JP · KR · TW · EU · CN</span><span class="card-arrow">→</span></div></div></div></div></section><!-- ============ L0 OPERATION ============ --><section id="operation" style="background:var(--surface-soft)"><div class="container"><div class="section-h"><div class="l"><span class="eyebrow muted">L0 · Operation</span><h2 class="h-display">운영 도구 — <em>매뉴얼 · 모니터 · 인프라</em></h2><p class="lead">내부 운영팀이 매일 사용하는 표준 도구. 표·다이어그램·시계열 모니터링.</p></div></div><div class="cards-grid cg-3"><a href="/system-guide.html" class="card gray"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></div><span class="badge doc">DOC</span></div><div class="card-title">시스템 가이드</div><div class="card-sub">운영 매뉴얼 · 7 섹션 · 전체 시스템 온보딩. 크리에이터 등급 / 크롤링 / 자동화 스케줄 / DB 스키마.</div><div class="card-meta"><span>운영팀 표준 · 7 chapters</span><span class="card-arrow">→</span></div></a><a href="/crawl-monitor.html" class="card gray"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h16.5M3.75 3v0A2.25 2.25 0 0 1 6 .75h12A2.25 2.25 0 0 1 20.25 3v0M20.25 3v11.25A2.25 2.25 0 0 1 18 16.5h-2.25"/></svg></div><span class="badge live">2K+/일</span></div><div class="card-title">크롤링 모니터</div><div class="card-sub">5 플랫폼 · 162 프록시 자가확장 · 패턴 최적화. 일 2K+ 크롤 + 실시간 헬스체크.</div><div class="card-meta"><span>5 platforms · 162 proxies</span><span class="card-arrow">→</span></div></a><a href="/db-infra.html" class="card gray"><div class="card-top"><div class="card-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75"/></svg></div><span class="badge doc">DOC</span></div><div class="card-title">DB 인프라 계획서</div><div class="card-sub">PostgreSQL 70 테이블 · Supabase · AI 연동 + 7.4TB NAS 아카이브. 기술 스택 전체 설계.</div><div class="card-meta"><span>70 tables · 7.4TB · plan</span><span class="card-arrow">→</span></div></a></div></div></section><!-- ============ CTA BANNER ============ --><section style="padding:0"><div class="container"><div class="cta-banner"><div><h3>전략 데크 — <strong style="color:var(--brand-red)">세토웍스 90일 로드맵</strong></h3><p>회사 전략의 단일 출처 — 12 슬라이드로 정리한 90일 실행 로드맵.</p></div><div class="cta-actions"><a href="/deck.html" class="btn btn-lg btn-primary">전략 데크 열기 →</a><a href="/saas-landing.html" class="btn btn-lg btn-secondary">SaaS 랜딩</a></div></div></div></section><!-- ============ FOOTER ============ --><footer class="footer"><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand"><span class="mark">S</span>Setoworks</div><p class="footer-tag">14년 운영 데이터 위에 구축한 크라우드펀딩 인텔리전스. 예측 기반 글로벌 크라우드펀딩 런칭 OS.</p><div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Kickstarter Expert</span><span style="font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--charcoal);padding:5px 10px;border-radius:6px;font-weight:600">Makuake Partner</span></div></div><div class="footer-col"><h4>유입 · 분석</h4><ul><li><a href="https://setoworks-affiliate.vercel.app">Brand Lab</a></li><li><a href="/kickstarter-live.html">KS 라이브</a></li><li><a href="/kickstarter-predict.html">FOP 예측</a></li><li><a href="/kickstarter-insight.html">Insight Engine</a></li></ul></div><div class="footer-col"><h4>실행 · 운영</h4><ul><li><a href="/influencer-admin.html">인플루언서 관리</a></li><li><a href="/index.html">캠페인 대시보드</a></li><li><a href="/system-guide.html">시스템 가이드</a></li><li><a href="/crawl-monitor.html">크롤링 모니터</a></li></ul></div><div class="footer-col"><h4>상품 · 자료</h4><ul><li><a href="/saas-landing.html">SaaS Suite</a></li><li><a href="/saas-mvp.html">Demo Console</a></li><li><a href="/deck.html">전략 데크</a></li><li><a href="/db-infra.html">DB 인프라</a></li></ul></div><div class="footer-col"><h4>회사</h4><ul><li><a href="https://setoworks.com" target="_blank">setoworks.com</a></li><li><a href="#">2021 100만불 수출의 탑</a></li><li><a href="#">전문무역상사</a></li><li><a href="#">채용</a></li></ul></div></div><div class="legal"><span>© 2026 Setoworks · setoworks.com · 세토웍스 OS v2.0</span><span class="badge-live" id="legal-updated">Live · Updated —</span></div></div></footer><script>
 fetch(window.location.href, {method:'HEAD'}).then(function(r){
-  var lm = r.headers.get('last-modified');
-  if (lm) {
-    var d = new Date(lm);
-    var s = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('legal-updated').textContent = 'Live · Updated ' + s;
-  }
+ var lm = r.headers.get('last-modified');
+ if (lm) {
+ var d = new Date(lm);
+ var s = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+ document.getElementById('legal-updated').textContent = 'Live · Updated ' + s;
+ }
 }).catch(function(){});
-</script>
-</body>
-</html>
+</script></body></html>

@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en" id="root">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setoworks · Crowdfunding Intelligence Suite</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
-<style>
+<!DOCTYPE html><html lang="en" id="root"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Setoworks · Crowdfunding Intelligence Suite</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet"><style>
 :root{
-  --primary:#0052ff;--primary-active:#003ecc;--primary-disabled:#a8b8cc;
-  --ink:#0a0b0d;--body:#5b616e;--body-strong:#0a0b0d;
-  --muted:#7c828a;--muted-soft:#a8acb3;
-  --hairline:#dee1e6;--hairline-soft:#eef0f3;
-  --canvas:#ffffff;--surface-soft:#f7f7f7;--surface-strong:#eef0f3;
-  --surface-dark:#0a0b0d;--surface-dark-elev:#16181c;
-  --on-primary:#ffffff;--on-dark:#ffffff;--on-dark-soft:#a8acb3;
-  --semantic-up:#05b169;--semantic-down:#cf202f;--accent-yellow:#f4b000;
-  --display:'Inter','Pretendard',-apple-system,system-ui,'Segoe UI',Roboto,sans-serif;
-  --sans:'Inter','Pretendard',-apple-system,system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+ --primary:#0052ff;--primary-active:#003ecc;--primary-disabled:#a8b8cc;
+ --ink:#0a0b0d;--body:#5b616e;--body-strong:#0a0b0d;
+ --muted:#7c828a;--muted-soft:#a8acb3;
+ --hairline:#dee1e6;--hairline-soft:#eef0f3;
+ --canvas:#ffffff;--surface-soft:#f7f7f7;--surface-strong:#eef0f3;
+ --surface-dark:#0a0b0d;--surface-dark-elev:#16181c;
+ --on-primary:#ffffff;--on-dark:#ffffff;--on-dark-soft:#a8acb3;
+ --semantic-up:#05b169;--semantic-down:#cf202f;--accent-yellow:#f4b000;
+ --display:'Inter','Pretendard',-apple-system,system-ui,'Segoe UI',Roboto,sans-serif;
+ --sans:'Inter','Pretendard',-apple-system,system-ui,sans-serif;
+ --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:0}
@@ -178,7 +168,7 @@ h3.title-md.on-dark{color:var(--on-dark)}
 .price-period{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:500;display:inline-block;margin-left:8px}
 .feat-list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .feat-list li{font-size:15px;color:var(--body);padding-left:28px;position:relative;line-height:1.5}
-.feat-list li::before{content:"✓";position:absolute;left:0;top:0;color:var(--primary);font-weight:600;font-size:16px}
+.feat-list li::before{content:"";position:absolute;left:0;top:0;color:var(--primary);font-weight:600;font-size:16px}
 
 /* ========= CASE STUDY ========= */
 .case-strip{background:var(--canvas)}
@@ -244,569 +234,71 @@ html[lang=ko] [data-i18n-en]{display:none}
 
 /* ========= RESPONSIVE ========= */
 @media(max-width:1024px){
-  .hero-grid,.why-grid,.case-grid{grid-template-columns:1fr;gap:48px}
-  .hero-mockup,.why-mockup{height:auto;min-height:400px}
-  .stats-grid,.products-grid,.pricing-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr 1fr}
-  h1.display-mega{font-size:64px}
-  h2.display-lg{font-size:44px}
-  h2.display-md{font-size:36px}
-  .case-quote{font-size:28px}
+ .hero-grid,.why-grid,.case-grid{grid-template-columns:1fr;gap:48px}
+ .hero-mockup,.why-mockup{height:auto;min-height:400px}
+ .stats-grid,.products-grid,.pricing-grid{grid-template-columns:repeat(2,1fr)}
+ .footer-grid{grid-template-columns:1fr 1fr 1fr}
+ h1.display-mega{font-size:64px}
+ h2.display-lg{font-size:44px}
+ h2.display-md{font-size:36px}
+ .case-quote{font-size:28px}
 }
 @media(max-width:640px){
-  section{padding:64px 0}
-  .container{padding:0 20px}
-  .hero{padding:48px 0 0}
-  .hero-headline{font-size:44px}
-  h1.display-mega{font-size:44px}
-  h2.display-lg{font-size:36px}
-  h2.display-md{font-size:30px}
-  h3.title-lg{font-size:24px}
-  .lead{font-size:17px}
-  .stats-grid,.products-grid,.pricing-grid,.footer-grid{grid-template-columns:1fr}
-  .stat-num,.price-num{font-size:48px}
-  .nav-menu{display:none}
-  .nav-actions .btn-primary{display:none}
-  .case-quote{font-size:24px}
-  .case-numbers{grid-template-columns:1fr}
-  .mockup-card.main{width:100%;position:static}
-  .mockup-card.behind,.mockup-card.below{display:none}
-  .hero-mockup{height:auto}
+ section{padding:64px 0}
+ .container{padding:0 20px}
+ .hero{padding:48px 0 0}
+ .hero-headline{font-size:44px}
+ h1.display-mega{font-size:44px}
+ h2.display-lg{font-size:36px}
+ h2.display-md{font-size:30px}
+ h3.title-lg{font-size:24px}
+ .lead{font-size:17px}
+ .stats-grid,.products-grid,.pricing-grid,.footer-grid{grid-template-columns:1fr}
+ .stat-num,.price-num{font-size:48px}
+ .nav-menu{display:none}
+ .nav-actions .btn-primary{display:none}
+ .case-quote{font-size:24px}
+ .case-numbers{grid-template-columns:1fr}
+ .mockup-card.main{width:100%;position:static}
+ .mockup-card.behind,.mockup-card.below{display:none}
+ .hero-mockup{height:auto}
 }
-</style>
-</head>
-<body>
-
-<!-- ============ NAV ============ -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/saas-landing.html" class="nav-logo"><span class="triangle"></span>Setoworks</a>
-    <div class="nav-menu">
-      <a href="#products"><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></a>
-      <a href="#solutions"><span data-i18n-en>Solutions</span><span data-i18n-ko>솔루션</span></a>
-      <a href="#pricing"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></a>
-      <a href="/saas-mvp.html"><span data-i18n-en>Demo</span><span data-i18n-ko>데모</span></a>
-      <a href="#docs"><span data-i18n-en>Docs</span><span data-i18n-ko>문서</span></a>
-    </div>
-    <div class="nav-actions">
-      <div class="lang-toggle" role="group" aria-label="language">
-        <button class="active" onclick="setLang('en')" data-lang="en">EN</button>
-        <button onclick="setLang('ko')" data-lang="ko">KO</button>
-      </div>
-      <a href="#" class="btn btn-sm" style="color:var(--ink);font-weight:500"><span data-i18n-en>Sign in</span><span data-i18n-ko>로그인</span></a>
-      <a href="#pricing" class="btn btn-md btn-primary"><span data-i18n-en>Get API key</span><span data-i18n-ko>API 키 받기</span></a>
-    </div>
-  </div>
-</nav>
-
-<!-- ============ HERO (dark) ============ -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <span class="eyebrow on-dark"><span data-i18n-en>Crowdfunding intelligence suite</span><span data-i18n-ko>크라우드펀딩 인텔리전스 스위트</span></span>
-        <h1 class="hero-headline">
-          <span data-i18n-en>Predict, target, and validate your campaign — <em>before</em> launch.</span>
-          <span data-i18n-ko>론칭 <em>전에</em> 펀딩을 예측·타겟·검증한다.</span>
-        </h1>
-        <p class="hero-sub">
-          <span data-i18n-en>Four new B2B APIs built on 14 years of operating data, 27,986 Kickstarter campaigns, and 13,461 verified superbackers — Lookalike, Pure Score, Trend Radar, Buyer Match. Plus FOP, our funding predictor already shipping to makers.</span>
-          <span data-i18n-ko>14년 운영 데이터, 킥스타터 27,986건, 슈퍼백커 13,461명을 학습한 신규 B2B API 4종 — Lookalike · Pure Score · Trend Radar · Buyer Match. FOP 펀딩 예측기는 메이커 대상 자체 채널에서 시판 中.</span>
-        </p>
-        <div class="hero-cta-row">
-          <a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Get started</span><span data-i18n-ko>시작하기</span></a>
-          <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>See live demo</span><span data-i18n-ko>라이브 데모</span></a>
-          <span class="meta"><span data-i18n-en>no credit card · 14-day trial</span><span data-i18n-ko>신용카드 불필요 · 14일 무료</span></span>
-        </div>
-        <a href="#" onclick="openDemo();return false" style="display:inline-flex;align-items:center;gap:10px;color:#5b86ff;font-size:14px;font-weight:500;font-family:var(--mono);text-decoration:none">
-          <span style="width:36px;height:36px;border-radius:50%;background:rgba(91,134,255,.15);display:inline-flex;align-items:center;justify-content:center">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 1L10 6L2 11V1Z" fill="#5b86ff"/></svg>
-          </span>
-          <span data-i18n-en>Watch 90-second product demo</span><span data-i18n-ko>90초 제품 영상 보기</span>
-          <span style="color:var(--on-dark-soft);font-size:12px">▸ 1:32</span>
-        </a>
-      </div>
-      <div class="hero-mockup">
-        <div class="mockup-card behind">
-          <div class="mc-h"><span class="label">Trend Radar · 24h</span><span class="pill">Live</span></div>
-          <div class="mc-row"><div class="l"><span class="ico">EV</span><div><span class="name">EV Bike Acc.</span></div></div><div class="price">$184K</div><div class="delta up">+38.4%</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">AI</span><div><span class="name">AI Tools</span></div></div><div class="price">$92K</div><div class="delta up">+27.8%</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">FT</span><div><span class="name">Foldable Travel</span></div></div><div class="price">$71K</div><div class="delta up">+19.2%</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">SW</span><div><span class="name">Smart Watches</span></div></div><div class="price">$48K</div><div class="delta down">-23.0%</div></div>
-        </div>
-        <div class="mockup-card main">
-          <div class="mc-h"><span class="label">FOP Prediction</span><span class="pill">±15%</span></div>
-          <div class="mc-num">$87,500</div>
-          <div class="mc-sub">P50 estimate · Pro Foldable Laptop Stand · US</div>
-          <div class="mc-bar">
-            <div style="height:32%"></div><div style="height:48%"></div><div style="height:62%"></div><div style="height:78%"></div><div style="height:88%"></div><div style="height:96%"></div><div style="height:78%"></div><div style="height:64%"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
-            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P10</div><div class="mono" style="color:#fff;font-size:14px">$31.2K</div></div>
-            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P50</div><div class="mono" style="color:#5b86ff;font-size:14px">$87.5K</div></div>
-            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P90</div><div class="mono" style="color:#fff;font-size:14px">$142K</div></div>
-          </div>
-        </div>
-        <div class="mockup-card below">
-          <div class="mc-h"><span class="label">Pure Score</span><span class="pill">82/100</span></div>
-          <div style="display:flex;align-items:center;gap:14px">
-            <div style="width:48px;height:48px;border-radius:50%;background:#22252b;display:flex;align-items:center;justify-content:center;font-family:var(--mono);color:#fff;font-size:13px;font-weight:600">@gr</div>
-            <div>
-              <div style="font-size:14px;color:#fff;font-weight:500">@gadgetreviewer</div>
-              <div class="mono" style="font-size:12px;color:var(--on-dark-soft)">420K · ER 3.8% · Mid-tier</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- spacer to push padding -->
-  <div style="height:96px"></div>
-</section>
-
-<!-- ============ TRUST STRIP ============ -->
-<div class="trust">
-  <div class="container">
-    <div class="trust-inner">
-      <span class="trust-label"><span data-i18n-en>Trusted by makers and partnered with</span><span data-i18n-ko>메이커들이 신뢰하는 파트너십</span></span>
-      <div class="trust-logos">
-        <span class="trust-logo">Kickstarter Expert</span>
-        <span class="trust-logo">Makuake Partner</span>
-        <span class="trust-logo">Indiegogo</span>
-        <span class="trust-logo">100만불 수출의 탑</span>
-        <span class="trust-logo">전문무역상사</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ STATS BAND ============ -->
-<section class="stats">
-  <div class="container">
-    <span class="eyebrow"><span data-i18n-en>By the numbers</span><span data-i18n-ko>숫자로 보는 자산</span></span>
-    <h2 class="display-md" style="margin-bottom:64px;max-width:760px">
-      <span data-i18n-en>14 years of crowdfunding operations, condensed into <em style="color:var(--primary);font-style:normal">one API</em>.</span>
-      <span data-i18n-ko>14년의 크라우드펀딩 운영을 <em style="color:var(--primary);font-style:normal">하나의 API</em>로.</span>
-    </h2>
-    <div class="stats-grid">
-      <div>
-        <div class="stat-num"><em>27,986</em></div>
-        <div class="stat-label"><span data-i18n-en>Kickstarter campaigns analyzed</span><span data-i18n-ko>킥스타터 캠페인 분석</span></div>
-        <div class="stat-sub"><span data-i18n-en>Self-crawled GraphQL · 5 platforms total</span><span data-i18n-ko>자체 GraphQL 크롤 · 5개 플랫폼</span></div>
-      </div>
-      <div>
-        <div class="stat-num"><em>13,461</em></div>
-        <div class="stat-label"><span data-i18n-en>Verified superbackers</span><span data-i18n-ko>검증된 슈퍼백커</span></div>
-        <div class="stat-sub"><span data-i18n-en>≥25 backings · KS official threshold</span><span data-i18n-ko>≥25 후원 · KS 공식 기준</span></div>
-      </div>
-      <div>
-        <div class="stat-num"><em>1,200+</em></div>
-        <div class="stat-label"><span data-i18n-en>Campaigns operated since 2012</span><span data-i18n-ko>2012년부터 운영한 캠페인</span></div>
-        <div class="stat-sub"><span data-i18n-en>$40M+ raised · 5 countries</span><span data-i18n-ko>520억+ 펀딩 · 5개국</span></div>
-      </div>
-      <div>
-        <div class="stat-num"><em>±15%</em></div>
-        <div class="stat-label"><span data-i18n-en>Prediction confidence interval</span><span data-i18n-ko>예측 신뢰구간</span></div>
-        <div class="stat-sub"><span data-i18n-en>P10 / P50 / P90 distribution</span><span data-i18n-ko>P10 / P50 / P90 분포</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRODUCTS ============ -->
-<section id="products">
-  <div class="container">
-    <div class="products-head">
-      <div>
-        <span class="eyebrow"><span data-i18n-en>1 shipping + 4 new B2B APIs</span><span data-i18n-ko>1종 시판 + 신규 B2B API 4종</span></span>
-        <h2 class="display-lg">
-          <span data-i18n-en>Everything you need to run a global crowdfunding campaign — at API speed.</span>
-          <span data-i18n-ko>글로벌 크라우드펀딩 캠페인에 필요한 모든 것 — API 속도로.</span>
-        </h2>
-        <p class="lead" style="margin-top:16px;font-size:16px;max-width:680px">
-          <span data-i18n-en>FOP is already shipping via our consumer channel. The four new APIs below — Lookalike, Pure Score, Trend Radar, Buyer Match — are what's new for partners and agencies.</span>
-          <span data-i18n-ko>FOP는 자체 소비자 채널에서 이미 시판 중. 아래 신규 4종 API (Lookalike · Pure Score · Trend Radar · Buyer Match) 가 파트너·대행사 대상 신규 라인업입니다.</span>
-        </p>
-      </div>
-      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-light" style="white-space:nowrap"><span data-i18n-en>View all demos →</span><span data-i18n-ko>전체 데모 보기 →</span></a>
-    </div>
-    <div class="products-grid">
-      <a href="/kickstarter-predict.html" class="product-card featured">
-        <span class="pc-num" style="display:flex;justify-content:space-between;align-items:center"><span>01 · ALREADY SHIPPING</span><span style="font-family:var(--mono);font-size:10px;font-weight:700;background:rgba(91,134,255,.2);color:#5b86ff;padding:3px 8px;border-radius:100px;letter-spacing:.06em">D-5 LIVE</span></span>
-        <h3><span data-i18n-en>Funding Outcome Predictor</span><span data-i18n-ko>펀딩 결과 예측기</span></h3>
-        <p class="pc-d">
-          <span data-i18n-en>Already in market through our direct channel — 108 factors, S/A/B/C/D grading, free trial then $30~100 detailed report. <strong style="color:#fff">For the new 4 B2B SaaS products, see below.</strong></span>
-          <span data-i18n-ko>자체 시판 채널에서 운영 중 — 108 팩터 진단, S/A/B/C/D 등급, 무료 체험 후 3~10만원 리포트. <strong style="color:#fff">신규 B2B SaaS 4종은 아래 카드 참고.</strong></span>
-        </p>
-        <div class="pc-arrow"><span data-i18n-en>Open consumer site →</span><span data-i18n-ko>소비자 사이트로 →</span></div>
-        <div class="pc-meta"><span class="k"><span data-i18n-en>Per report</span><span data-i18n-ko>건당</span></span><span class="v">$30~100</span></div>
-      </a>
-      <a href="/saas-mvp.html#lookalike" class="product-card">
-        <span class="pc-num">02 · API</span>
-        <h3>Backer Lookalike</h3>
-        <p class="pc-d">13,461 verified superbackers as a Meta · Google · TikTok ad seed. CPA -40%, ROAS 2x vs. cold audience.</p>
-        <div class="pc-arrow">Read API docs →</div>
-        <div class="pc-meta"><span class="k">Per lookup</span><span class="v">$0.05</span></div>
-      </a>
-      <a href="/saas-mvp.html#purescore" class="product-card">
-        <span class="pc-num">03 · API</span>
-        <h3>Pure Score</h3>
-        <p class="pc-d">Score any TikTok, YouTube, or Instagram handle on 5 axes — bot ratio detection included. SocialBlade·Modash alternative.</p>
-        <div class="pc-arrow">Score in 3s →</div>
-        <div class="pc-meta"><span class="k">Per score</span><span class="v">$0.02</span></div>
-      </a>
-      <a href="/saas-mvp.html#radar" class="product-card">
-        <span class="pc-num">04 · LIVE</span>
-        <h3>CF Trend Radar</h3>
-        <p class="pc-d">Daily auto-refreshed trend board across 5 platforms. Slack and email alerts the moment a category breaks out — 78% historical accuracy.</p>
-        <div class="pc-arrow">Open dashboard →</div>
-        <div class="pc-meta"><span class="k">Per seat / mo</span><span class="v">$99</span></div>
-      </a>
-      <a href="/saas-mvp.html#buyer" class="product-card">
-        <span class="pc-num">05 · B2B</span>
-        <h3>Global Buyer Match</h3>
-        <p class="pc-d">HS code in, top 30 verified buyers out — with email, LinkedIn, and AI-drafted cold emails in 4 languages.</p>
-        <div class="pc-arrow">See sample list →</div>
-        <div class="pc-meta"><span class="k">Per list</span><span class="v">$299</span></div>
-      </a>
-      <a href="#pricing" class="product-card">
-        <span class="pc-num">★ BUNDLE</span>
-        <h3>Suite Bundle</h3>
-        <p class="pc-d">All five products on a monthly seat. Shared API key, unified billing, multi-tenant. Save 40% vs. individual purchase.</p>
-        <div class="pc-arrow">View pricing →</div>
-        <div class="pc-meta"><span class="k">From</span><span class="v">$499 / mo</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ WHY (dark) ============ -->
-<section class="why" id="solutions">
-  <div class="container">
-    <div class="why-grid">
-      <div>
-        <span class="eyebrow on-dark"><span data-i18n-en>Why Setoworks</span><span data-i18n-ko>왜 세토웍스인가</span></span>
-        <h2 class="display-lg on-dark">
-          <span data-i18n-en>The data set you can't buy. The team that already used it for 14 years.</span>
-          <span data-i18n-ko>돈으로 살 수 없는 데이터셋. 14년간 그 데이터로 운영한 팀.</span>
-        </h2>
-        <div class="why-list">
-          <div class="why-item">
-            <div class="why-num">01</div>
-            <div>
-              <h3><span data-i18n-en>Data nobody else has.</span><span data-i18n-ko>아무도 못 가진 데이터.</span></h3>
-              <p class="body-md on-dark">
-                <span data-i18n-en>Self-crawled Kickstarter GraphQL — the first agency to run it directly. 1,200 own campaigns with measured outcomes. 13,461 superbackers with comment behavior tracked. Replicating it takes another agency 5–7 years.</span>
-                <span data-i18n-ko>킥스타터 GraphQL 직접 크롤 — 업계 최초. 결과까지 측정된 자체 캠페인 1,200건. 댓글 행동 패턴까지 추적된 슈퍼백커 13,461명. 다른 에이전시가 따라잡으려면 5~7년.</span>
-              </p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">02</div>
-            <div>
-              <h3><span data-i18n-en>Fully automated. Zero people in the loop.</span><span data-i18n-ko>완전 자동화. 사람 개입 0.</span></h3>
-              <p class="body-md on-dark">
-                <span data-i18n-en>Input → inference → API response. Reports generate in 30 minutes. The only place humans show up is in your final selection — that's why this works as software.</span>
-                <span data-i18n-ko>입력 → 추론 → API 응답. 리포트는 30분 내 생성. 사람이 필요한 영역은 최종 선택뿐 — 그래서 SaaS로 작동합니다.</span>
-              </p>
-            </div>
-          </div>
-          <div class="why-item">
-            <div class="why-num">03</div>
-            <div>
-              <h3><span data-i18n-en>Asia-native, not retrofitted.</span><span data-i18n-ko>아시아 네이티브, 후처리가 아닌.</span></h3>
-              <p class="body-md on-dark">
-                <span data-i18n-en>Korean · Japanese · Taiwanese · Hong Kong · Singapore backer pools, with on-ground agents for the last-mile 2%. The channels US-built tools don't see — Dcard, LINE, Threads — are first-class citizens here.</span>
-                <span data-i18n-ko>한·일·대만·홍콩·싱가포르 백커 풀과 라스트 마일 2%를 책임지는 현지 에이전트. 미국 도구가 못 보는 Dcard·LINE·Threads도 1급 시민으로 다룹니다.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:48px"><a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start a 14-day trial</span><span data-i18n-ko>14일 무료 시작</span></a></div>
-      </div>
-      <div class="why-mockup">
-        <div class="mockup-card behind" style="top:0;right:0;width:380px;transform:rotate(-2deg)">
-          <div class="mc-h"><span class="label">Lookalike Seed</span><span class="pill">Ready</span></div>
-          <div class="mc-num">12,309</div>
-          <div class="mc-sub">records · meta-ready CSV</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
-            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">Match rate</div><div class="mono" style="color:#fff;font-size:16px">82.1%</div></div>
-            <div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">CPA savings</div><div class="mono up" style="font-size:16px">-38%</div></div>
-          </div>
-        </div>
-        <div class="mockup-card main" style="top:160px;left:32px;width:440px;transform:rotate(1deg)">
-          <div class="mc-h"><span class="label">Buyer Match · TOP 5</span><span class="pill">31.6%</span></div>
-          <div class="mc-row"><div class="l"><span class="ico">M</span><div><span class="name">Mark Chen</span><span class="ticker">BedBath</span></div></div><div class="mono up" style="font-size:13px">0.91</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">S</span><div><span class="name">Sarah Johnson</span><span class="ticker">Wayfair</span></div></div><div class="mono up" style="font-size:13px">0.88</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">D</span><div><span class="name">David Kim</span><span class="ticker">Target</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.83</div></div>
-          <div class="mc-row"><div class="l"><span class="ico">E</span><div><span class="name">Emily Park</span><span class="ticker">Costco</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.78</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CASE STUDY ============ -->
-<section class="case-strip">
-  <div class="container">
-    <div class="case-grid">
-      <div>
-        <span class="eyebrow">Customer story</span>
-        <h2 class="case-quote">"We launched on Kickstarter with the Lookalike seed already loaded into Meta. First 24 hours: 200 backers. By day 30: $164K, 820% of goal."</h2>
-        <div class="case-author">
-          <div class="case-avatar">한</div>
-          <div>
-            <div class="case-name">Han Concept · Foldable Laptop Stand</div>
-            <div class="case-role">Kickstarter US · 30 days · launched 2026 Q1</div>
-          </div>
-        </div>
-      </div>
-      <div class="case-numbers">
-        <div>
-          <div class="case-num">$164K <span class="delta">820%</span></div>
-          <div class="case-l">Total funded · vs. $20K goal</div>
-        </div>
-        <div>
-          <div class="case-num">1,847</div>
-          <div class="case-l">Backers · CPA $12.1</div>
-        </div>
-        <div>
-          <div class="case-num">7.3<span style="font-family:var(--mono);font-size:18px;color:var(--muted);font-weight:400">x</span></div>
-          <div class="case-l">ROAS · industry avg 2.1x</div>
-        </div>
-        <div>
-          <div class="case-num"><span class="up" style="font-size:32px">-64%</span></div>
-          <div class="case-l">CPA vs. cold audience</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRICING ============ -->
-<section style="background:var(--surface-soft)" id="pricing">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:48px">
-      <span class="eyebrow"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></span>
-      <h2 class="display-lg" style="max-width:740px;margin:0 auto 20px">
-        <span data-i18n-en>Simple, predictable pricing. Pay only for what you use.</span>
-        <span data-i18n-ko>단순하고 예측 가능한 가격. 사용한 만큼만 결제.</span>
-      </h2>
-      <p class="lead" style="margin:0 auto 32px">
-        <span data-i18n-en>Starts at $499/mo for the full Suite. Each product is also available as a per-call API.</span>
-        <span data-i18n-ko>풀 스위트 월 $499부터. 각 제품은 종량제 API로도 제공.</span>
-      </p>
-      <div class="pricing-toggle">
-        <button class="active" onclick="togglePricing(this,'monthly')"><span data-i18n-en>Monthly</span><span data-i18n-ko>월 결제</span></button>
-        <button onclick="togglePricing(this,'yearly')"><span data-i18n-en>Yearly</span><span data-i18n-ko>연 결제</span> <span class="save">-20%</span></button>
-      </div>
-    </div>
-    <div class="pricing-grid">
-      <div class="tier">
-        <div>
-          <span class="tier-badge">Startup</span>
-          <h3 style="margin-top:12px">For early-stage makers</h3>
-        </div>
-        <div>
-          <span class="price-num" data-monthly="$499" data-yearly="$399">$499</span><span class="price-period">/month</span>
-        </div>
-        <p class="body-md">Run your first global campaign with predictable cost.</p>
-        <ul class="feat-list">
-          <li>5 FOP reports / month</li>
-          <li>50K Lookalike API lookups</li>
-          <li>10K Pure Score API calls</li>
-          <li>Trend Radar · 1 user</li>
-          <li>2 Buyer Match lists</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Start free 14-day trial</a>
-      </div>
-      <div class="tier featured">
-        <div>
-          <span class="tier-badge">★ Agency · Most popular</span>
-          <h3 style="margin-top:12px">For scaling teams</h3>
-        </div>
-        <div>
-          <span class="price-num" data-monthly="$1,499" data-yearly="$1,199">$1,499</span><span class="price-period">/month</span>
-        </div>
-        <p class="body-md">Run multiple clients in parallel with shared keys and Slack support.</p>
-        <ul class="feat-list">
-          <li>30 FOP reports / month</li>
-          <li>500K Lookalike API lookups</li>
-          <li>100K Pure Score API calls</li>
-          <li>Trend Radar · 5 users</li>
-          <li>10 Buyer Match lists</li>
-          <li>Slack support · 24h SLA</li>
-          <li>Up to 5 API keys</li>
-        </ul>
-        <a href="#" class="btn btn-md btn-primary" style="margin-top:auto">Get started</a>
-      </div>
-      <div class="tier">
-        <div>
-          <span class="tier-badge">Enterprise</span>
-          <h3 style="margin-top:12px">For institutional partners</h3>
-        </div>
-        <div>
-          <span class="price-num" data-monthly="$4,999" data-yearly="$3,999">$4,999</span><span class="price-period">/month</span>
-        </div>
-        <p class="body-md">Unlimited usage, custom training data, dedicated AM.</p>
-        <ul class="feat-list">
-          <li>Unlimited FOP / Lookalike / Score</li>
-          <li>Trend Radar · unlimited seats</li>
-          <li>Unlimited Buyer Match lists</li>
-          <li>Dedicated account manager</li>
-          <li>Custom training data</li>
-          <li>SOC2 / GDPR documentation</li>
-          <li>SSO + audit logs</li>
-        </ul>
-        <a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Contact sales</a>
-      </div>
-    </div>
-    <p class="caption" style="text-align:center;margin-top:32px">All plans include access to all 5 products. Volume discounts available for 200+ usage on per-call APIs.</p>
-  </div>
-</section>
-
-<!-- ============ CTA BAND ============ -->
-<section class="cta-band">
-  <div class="container">
-    <span class="eyebrow on-dark"><span data-i18n-en>Ready when you are</span><span data-i18n-ko>준비되셨다면</span></span>
-    <h2 class="display-lg on-dark" style="max-width:820px;margin:0 auto 24px">
-      <span data-i18n-en>Start with a 14-day trial. <em style="color:#5b86ff;font-style:normal">Bring your first campaign live.</em></span>
-      <span data-i18n-ko>14일 무료로 시작하세요. <em style="color:#5b86ff;font-style:normal">첫 캠페인을 라이브로.</em></span>
-    </h2>
-    <p class="lead on-dark">
-      <span data-i18n-en>No credit card required. Cancel anytime. Full Suite access during trial.</span>
-      <span data-i18n-ko>신용카드 불필요. 언제든 취소. 무료 기간 동안 풀 스위트 사용.</span>
-    </p>
-    <div class="cta-row" style="margin-top:40px">
-      <a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start free trial</span><span data-i18n-ko>무료 체험 시작</span></a>
-      <a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>Talk to sales</span><span data-i18n-ko>영업 문의</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand"><span class="triangle"></span>Setoworks</div>
-        <p class="footer-tag">
-          <span data-i18n-en>Crowdfunding intelligence built on 14 years of operational data, served as a global SaaS suite.</span>
-          <span data-i18n-ko>14년 운영 데이터 위에 구축된 크라우드펀딩 인텔리전스. 글로벌 SaaS 스위트로 제공합니다.</span>
-        </p>
-        <div style="margin-top:24px;display:flex;gap:8px">
-          <span class="tag">Kickstarter Expert</span>
-          <span class="tag">Makuake Partner</span>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></h4>
-        <ul>
-          <li><a href="/saas-mvp.html#fop"><span data-i18n-en>Funding Predictor</span><span data-i18n-ko>펀딩 예측기</span></a></li>
-          <li><a href="/saas-mvp.html#lookalike"><span data-i18n-en>Backer Lookalike</span><span data-i18n-ko>백커 룩어라이크</span></a></li>
-          <li><a href="/saas-mvp.html#purescore">Pure Score</a></li>
-          <li><a href="/saas-mvp.html#radar"><span data-i18n-en>Trend Radar</span><span data-i18n-ko>트렌드 레이더</span></a></li>
-          <li><a href="/saas-mvp.html#buyer"><span data-i18n-en>Buyer Match</span><span data-i18n-ko>바이어 매치</span></a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4><span data-i18n-en>Company</span><span data-i18n-ko>회사</span></h4>
-        <ul>
-          <li><a href="https://setoworks.com"><span data-i18n-en>About</span><span data-i18n-ko>소개</span></a></li>
-          <li><a href="/deck.html"><span data-i18n-en>Strategy deck</span><span data-i18n-ko>전략 데크</span></a></li>
-          <li><a href="/portal.html"><span data-i18n-en>Portal</span><span data-i18n-ko>포털</span></a></li>
-          <li><a href="#"><span data-i18n-en>Careers</span><span data-i18n-ko>채용</span></a></li>
-          <li><a href="#"><span data-i18n-en>Press</span><span data-i18n-ko>보도자료</span></a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4><span data-i18n-en>Resources</span><span data-i18n-ko>리소스</span></h4>
-        <ul>
-          <li><a href="/saas-mvp.html#api"><span data-i18n-en>API documentation</span><span data-i18n-ko>API 문서</span></a></li>
-          <li><a href="/kickstarter-insight.html"><span data-i18n-en>Insight engine</span><span data-i18n-ko>인사이트 엔진</span></a></li>
-          <li><a href="/system-guide.html"><span data-i18n-en>System guide</span><span data-i18n-ko>시스템 가이드</span></a></li>
-          <li><a href="#"><span data-i18n-en>Changelog</span><span data-i18n-ko>변경 이력</span></a></li>
-          <li><a href="#">Status</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4><span data-i18n-en>Legal</span><span data-i18n-ko>법적 고지</span></h4>
-        <ul>
-          <li><a href="#"><span data-i18n-en>Terms of service</span><span data-i18n-ko>이용약관</span></a></li>
-          <li><a href="#"><span data-i18n-en>Privacy policy</span><span data-i18n-ko>개인정보 처리방침</span></a></li>
-          <li><a href="#">DPA</a></li>
-          <li><a href="#"><span data-i18n-en>Security</span><span data-i18n-ko>보안</span></a></li>
-          <li><a href="#"><span data-i18n-en>Cookies</span><span data-i18n-ko>쿠키</span></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="legal">
-      <span>© 2026 Setoworks Inc. · setoworks.com · 2021 Million Dollar Export Award · 전문무역상사 인증</span>
-      <span><a onclick="setLang('en')" style="cursor:pointer">English</a> · <a onclick="setLang('ko')" style="cursor:pointer">한국어</a> · <a href="#" style="opacity:.5">日本語 (soon)</a></span>
-    </div>
-  </div>
-</footer>
-
-<!-- Demo modal -->
-<div class="demo-overlay" id="demo-overlay" onclick="if(event.target===this)closeDemo()">
-  <div class="demo-modal">
-    <div class="demo-video">
-      <button class="demo-close" onclick="closeDemo()" aria-label="close">×</button>
-      <div class="demo-play">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="white"/></svg>
-      </div>
-      <div class="demo-cap"><span data-i18n-en>Product demo · 1:32</span><span data-i18n-ko>제품 데모 · 1분 32초</span></div>
-      <div style="font-size:11px;color:var(--on-dark-soft);font-family:var(--mono);position:absolute;bottom:24px;left:32px">video coming Q3 · interactive demo available now</div>
-    </div>
-    <div class="demo-info">
-      <div>
-        <div class="t"><span data-i18n-en>Setoworks Suite — 5 products in 90 seconds</span><span data-i18n-ko>세토웍스 스위트 — 5개 제품을 90초에</span></div>
-        <div class="s"><span data-i18n-en>FOP · Lookalike · Pure Score · Trend Radar · Buyer Match</span><span data-i18n-ko>FOP · 룩어라이크 · Pure Score · 트렌드 레이더 · 바이어 매치</span></div>
-      </div>
-      <a href="/saas-mvp.html" class="btn btn-md btn-secondary-dark"><span data-i18n-en>Try interactive demo →</span><span data-i18n-ko>인터랙티브 데모 →</span></a>
-    </div>
-  </div>
-</div>
-
-<script>
+</style></head><body><!-- ============ NAV ============ --><nav class="nav"><div class="nav-inner"><a href="/saas-landing.html" class="nav-logo"><span class="triangle"></span>Setoworks</a><div class="nav-menu"><a href="#products"><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></a><a href="#solutions"><span data-i18n-en>Solutions</span><span data-i18n-ko>솔루션</span></a><a href="#pricing"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></a><a href="/saas-mvp.html"><span data-i18n-en>Demo</span><span data-i18n-ko>데모</span></a><a href="#docs"><span data-i18n-en>Docs</span><span data-i18n-ko>문서</span></a></div><div class="nav-actions"><div class="lang-toggle" role="group" aria-label="language"><button class="active" onclick="setLang('en')" data-lang="en">EN</button><button onclick="setLang('ko')" data-lang="ko">KO</button></div><a href="#" class="btn btn-sm" style="color:var(--ink);font-weight:500"><span data-i18n-en>Sign in</span><span data-i18n-ko>로그인</span></a><a href="#pricing" class="btn btn-md btn-primary"><span data-i18n-en>Get API key</span><span data-i18n-ko>API 키 받기</span></a></div></div></nav><!-- ============ HERO (dark) ============ --><section class="hero"><div class="container"><div class="hero-grid"><div><span class="eyebrow on-dark"><span data-i18n-en>Crowdfunding intelligence suite</span><span data-i18n-ko>크라우드펀딩 인텔리전스 스위트</span></span><h1 class="hero-headline"><span data-i18n-en>Predict, target, and validate your campaign — <em>before</em> launch.</span><span data-i18n-ko>론칭 <em>전에</em> 펀딩을 예측·타겟·검증한다.</span></h1><p class="hero-sub"><span data-i18n-en>Four new B2B APIs built on 14 years of operating data, 27,986 Kickstarter campaigns, and 13,461 verified superbackers — Lookalike, Pure Score, Trend Radar, Buyer Match. Plus FOP, our funding predictor already shipping to makers.</span><span data-i18n-ko>14년 운영 데이터, 킥스타터 27,986건, 슈퍼백커 13,461명을 학습한 신규 B2B API 4종 — Lookalike · Pure Score · Trend Radar · Buyer Match. FOP 펀딩 예측기는 메이커 대상 자체 채널에서 시판 中.</span></p><div class="hero-cta-row"><a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Get started</span><span data-i18n-ko>시작하기</span></a><a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>See live demo</span><span data-i18n-ko>라이브 데모</span></a><span class="meta"><span data-i18n-en>no credit card · 14-day trial</span><span data-i18n-ko>신용카드 불필요 · 14일 무료</span></span></div><a href="#" onclick="openDemo();return false" style="display:inline-flex;align-items:center;gap:10px;color:#5b86ff;font-size:14px;font-weight:500;font-family:var(--mono);text-decoration:none"><span style="width:36px;height:36px;border-radius:50%;background:rgba(91,134,255,.15);display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 1L10 6L2 11V1Z" fill="#5b86ff"/></svg></span><span data-i18n-en>Watch 90-second product demo</span><span data-i18n-ko>90초 제품 영상 보기</span><span style="color:var(--on-dark-soft);font-size:12px">▸ 1:32</span></a></div><div class="hero-mockup"><div class="mockup-card behind"><div class="mc-h"><span class="label">Trend Radar · 24h</span><span class="pill">Live</span></div><div class="mc-row"><div class="l"><span class="ico">EV</span><div><span class="name">EV Bike Acc.</span></div></div><div class="price">$184K</div><div class="delta up">+38.4%</div></div><div class="mc-row"><div class="l"><span class="ico">AI</span><div><span class="name">AI Tools</span></div></div><div class="price">$92K</div><div class="delta up">+27.8%</div></div><div class="mc-row"><div class="l"><span class="ico">FT</span><div><span class="name">Foldable Travel</span></div></div><div class="price">$71K</div><div class="delta up">+19.2%</div></div><div class="mc-row"><div class="l"><span class="ico">SW</span><div><span class="name">Smart Watches</span></div></div><div class="price">$48K</div><div class="delta down">-23.0%</div></div></div><div class="mockup-card main"><div class="mc-h"><span class="label">FOP Prediction</span><span class="pill">±15%</span></div><div class="mc-num">$87,500</div><div class="mc-sub">P50 estimate · Pro Foldable Laptop Stand · US</div><div class="mc-bar"><div style="height:32%"></div><div style="height:48%"></div><div style="height:62%"></div><div style="height:78%"></div><div style="height:88%"></div><div style="height:96%"></div><div style="height:78%"></div><div style="height:64%"></div></div><div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)"><div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P10</div><div class="mono" style="color:#fff;font-size:14px">$31.2K</div></div><div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P50</div><div class="mono" style="color:#5b86ff;font-size:14px">$87.5K</div></div><div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">P90</div><div class="mono" style="color:#fff;font-size:14px">$142K</div></div></div></div><div class="mockup-card below"><div class="mc-h"><span class="label">Pure Score</span><span class="pill">82/100</span></div><div style="display:flex;align-items:center;gap:14px"><div style="width:48px;height:48px;border-radius:50%;background:#22252b;display:flex;align-items:center;justify-content:center;font-family:var(--mono);color:#fff;font-size:13px;font-weight:600">@gr</div><div><div style="font-size:14px;color:#fff;font-weight:500">@gadgetreviewer</div><div class="mono" style="font-size:12px;color:var(--on-dark-soft)">420K · ER 3.8% · Mid-tier</div></div></div></div></div></div></div><!-- spacer to push padding --><div style="height:96px"></div></section><!-- ============ TRUST STRIP ============ --><div class="trust"><div class="container"><div class="trust-inner"><span class="trust-label"><span data-i18n-en>Trusted by makers and partnered with</span><span data-i18n-ko>메이커들이 신뢰하는 파트너십</span></span><div class="trust-logos"><span class="trust-logo">Kickstarter Expert</span><span class="trust-logo">Makuake Partner</span><span class="trust-logo">Indiegogo</span><span class="trust-logo">100만불 수출의 탑</span><span class="trust-logo">전문무역상사</span></div></div></div></div><!-- ============ STATS BAND ============ --><section class="stats"><div class="container"><span class="eyebrow"><span data-i18n-en>By the numbers</span><span data-i18n-ko>숫자로 보는 자산</span></span><h2 class="display-md" style="margin-bottom:64px;max-width:760px"><span data-i18n-en>14 years of crowdfunding operations, condensed into <em style="color:var(--primary);font-style:normal">one API</em>.</span><span data-i18n-ko>14년의 크라우드펀딩 운영을 <em style="color:var(--primary);font-style:normal">하나의 API</em>로.</span></h2><div class="stats-grid"><div><div class="stat-num"><em>27,986</em></div><div class="stat-label"><span data-i18n-en>Kickstarter campaigns analyzed</span><span data-i18n-ko>킥스타터 캠페인 분석</span></div><div class="stat-sub"><span data-i18n-en>Self-crawled GraphQL · 5 platforms total</span><span data-i18n-ko>자체 GraphQL 크롤 · 5개 플랫폼</span></div></div><div><div class="stat-num"><em>13,461</em></div><div class="stat-label"><span data-i18n-en>Verified superbackers</span><span data-i18n-ko>검증된 슈퍼백커</span></div><div class="stat-sub"><span data-i18n-en>≥25 backings · KS official threshold</span><span data-i18n-ko>≥25 후원 · KS 공식 기준</span></div></div><div><div class="stat-num"><em>1,200+</em></div><div class="stat-label"><span data-i18n-en>Campaigns operated since 2012</span><span data-i18n-ko>2012년부터 운영한 캠페인</span></div><div class="stat-sub"><span data-i18n-en>$40M+ raised · 5 countries</span><span data-i18n-ko>520억+ 펀딩 · 5개국</span></div></div><div><div class="stat-num"><em>±15%</em></div><div class="stat-label"><span data-i18n-en>Prediction confidence interval</span><span data-i18n-ko>예측 신뢰구간</span></div><div class="stat-sub"><span data-i18n-en>P10 / P50 / P90 distribution</span><span data-i18n-ko>P10 / P50 / P90 분포</span></div></div></div></div></section><!-- ============ PRODUCTS ============ --><section id="products"><div class="container"><div class="products-head"><div><span class="eyebrow"><span data-i18n-en>1 shipping + 4 new B2B APIs</span><span data-i18n-ko>1종 시판 + 신규 B2B API 4종</span></span><h2 class="display-lg"><span data-i18n-en>Everything you need to run a global crowdfunding campaign — at API speed.</span><span data-i18n-ko>글로벌 크라우드펀딩 캠페인에 필요한 모든 것 — API 속도로.</span></h2><p class="lead" style="margin-top:16px;font-size:16px;max-width:680px"><span data-i18n-en>FOP is already shipping via our consumer channel. The four new APIs below — Lookalike, Pure Score, Trend Radar, Buyer Match — are what's new for partners and agencies.</span><span data-i18n-ko>FOP는 자체 소비자 채널에서 이미 시판 중. 아래 신규 4종 API (Lookalike · Pure Score · Trend Radar · Buyer Match) 가 파트너·대행사 대상 신규 라인업입니다.</span></p></div><a href="/saas-mvp.html" class="btn btn-md btn-secondary-light" style="white-space:nowrap"><span data-i18n-en>View all demos →</span><span data-i18n-ko>전체 데모 보기 →</span></a></div><div class="products-grid"><a href="/kickstarter-predict.html" class="product-card featured"><span class="pc-num" style="display:flex;justify-content:space-between;align-items:center"><span>01 · ALREADY SHIPPING</span><span style="font-family:var(--mono);font-size:10px;font-weight:700;background:rgba(91,134,255,.2);color:#5b86ff;padding:3px 8px;border-radius:100px;letter-spacing:.06em">D-5 LIVE</span></span><h3><span data-i18n-en>Funding Outcome Predictor</span><span data-i18n-ko>펀딩 결과 예측기</span></h3><p class="pc-d"><span data-i18n-en>Already in market through our direct channel — 108 factors, S/A/B/C/D grading, free trial then $30~100 detailed report. <strong style="color:#fff">For the new 4 B2B SaaS products, see below.</strong></span><span data-i18n-ko>자체 시판 채널에서 운영 중 — 108 팩터 진단, S/A/B/C/D 등급, 무료 체험 후 3~10만원 리포트. <strong style="color:#fff">신규 B2B SaaS 4종은 아래 카드 참고.</strong></span></p><div class="pc-arrow"><span data-i18n-en>Open consumer site →</span><span data-i18n-ko>소비자 사이트로 →</span></div><div class="pc-meta"><span class="k"><span data-i18n-en>Per report</span><span data-i18n-ko>건당</span></span><span class="v">$30~100</span></div></a><a href="/saas-mvp.html#lookalike" class="product-card"><span class="pc-num">02 · API</span><h3>Backer Lookalike</h3><p class="pc-d">13,461 verified superbackers as a Meta · Google · TikTok ad seed. CPA -40%, ROAS 2x vs. cold audience.</p><div class="pc-arrow">Read API docs →</div><div class="pc-meta"><span class="k">Per lookup</span><span class="v">$0.05</span></div></a><a href="/saas-mvp.html#purescore" class="product-card"><span class="pc-num">03 · API</span><h3>Pure Score</h3><p class="pc-d">Score any TikTok, YouTube, or Instagram handle on 5 axes — bot ratio detection included. SocialBlade·Modash alternative.</p><div class="pc-arrow">Score in 3s →</div><div class="pc-meta"><span class="k">Per score</span><span class="v">$0.02</span></div></a><a href="/saas-mvp.html#radar" class="product-card"><span class="pc-num">04 · LIVE</span><h3>CF Trend Radar</h3><p class="pc-d">Daily auto-refreshed trend board across 5 platforms. Slack and email alerts the moment a category breaks out — 78% historical accuracy.</p><div class="pc-arrow">Open dashboard →</div><div class="pc-meta"><span class="k">Per seat / mo</span><span class="v">$99</span></div></a><a href="/saas-mvp.html#buyer" class="product-card"><span class="pc-num">05 · B2B</span><h3>Global Buyer Match</h3><p class="pc-d">HS code in, top 30 verified buyers out — with email, LinkedIn, and AI-drafted cold emails in 4 languages.</p><div class="pc-arrow">See sample list →</div><div class="pc-meta"><span class="k">Per list</span><span class="v">$299</span></div></a><a href="#pricing" class="product-card"><span class="pc-num">★ BUNDLE</span><h3>Suite Bundle</h3><p class="pc-d">All five products on a monthly seat. Shared API key, unified billing, multi-tenant. Save 40% vs. individual purchase.</p><div class="pc-arrow">View pricing →</div><div class="pc-meta"><span class="k">From</span><span class="v">$499 / mo</span></div></a></div></div></section><!-- ============ WHY (dark) ============ --><section class="why" id="solutions"><div class="container"><div class="why-grid"><div><span class="eyebrow on-dark"><span data-i18n-en>Why Setoworks</span><span data-i18n-ko>왜 세토웍스인가</span></span><h2 class="display-lg on-dark"><span data-i18n-en>The data set you can't buy. The team that already used it for 14 years.</span><span data-i18n-ko>돈으로 살 수 없는 데이터셋. 14년간 그 데이터로 운영한 팀.</span></h2><div class="why-list"><div class="why-item"><div class="why-num">01</div><div><h3><span data-i18n-en>Data nobody else has.</span><span data-i18n-ko>아무도 못 가진 데이터.</span></h3><p class="body-md on-dark"><span data-i18n-en>Self-crawled Kickstarter GraphQL — the first agency to run it directly. 1,200 own campaigns with measured outcomes. 13,461 superbackers with comment behavior tracked. Replicating it takes another agency 5–7 years.</span><span data-i18n-ko>킥스타터 GraphQL 직접 크롤 — 업계 최초. 결과까지 측정된 자체 캠페인 1,200건. 댓글 행동 패턴까지 추적된 슈퍼백커 13,461명. 다른 에이전시가 따라잡으려면 5~7년.</span></p></div></div><div class="why-item"><div class="why-num">02</div><div><h3><span data-i18n-en>Fully automated. Zero people in the loop.</span><span data-i18n-ko>완전 자동화. 사람 개입 0.</span></h3><p class="body-md on-dark"><span data-i18n-en>Input → inference → API response. Reports generate in 30 minutes. The only place humans show up is in your final selection — that's why this works as software.</span><span data-i18n-ko>입력 → 추론 → API 응답. 리포트는 30분 내 생성. 사람이 필요한 영역은 최종 선택뿐 — 그래서 SaaS로 작동합니다.</span></p></div></div><div class="why-item"><div class="why-num">03</div><div><h3><span data-i18n-en>Asia-native, not retrofitted.</span><span data-i18n-ko>아시아 네이티브, 후처리가 아닌.</span></h3><p class="body-md on-dark"><span data-i18n-en>Korean · Japanese · Taiwanese · Hong Kong · Singapore backer pools, with on-ground agents for the last-mile 2%. The channels US-built tools don't see — Dcard, LINE, Threads — are first-class citizens here.</span><span data-i18n-ko>한·일·대만·홍콩·싱가포르 백커 풀과 라스트 마일 2%를 책임지는 현지 에이전트. 미국 도구가 못 보는 Dcard·LINE·Threads도 1급 시민으로 다룹니다.</span></p></div></div></div><div style="margin-top:48px"><a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start a 14-day trial</span><span data-i18n-ko>14일 무료 시작</span></a></div></div><div class="why-mockup"><div class="mockup-card behind" style="top:0;right:0;width:380px;transform:rotate(-2deg)"><div class="mc-h"><span class="label">Lookalike Seed</span><span class="pill">Ready</span></div><div class="mc-num">12,309</div><div class="mc-sub">records · meta-ready CSV</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)"><div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">Match rate</div><div class="mono" style="color:#fff;font-size:16px">82.1%</div></div><div><div class="caption" style="color:var(--on-dark-soft);font-size:11px">CPA savings</div><div class="mono up" style="font-size:16px">-38%</div></div></div></div><div class="mockup-card main" style="top:160px;left:32px;width:440px;transform:rotate(1deg)"><div class="mc-h"><span class="label">Buyer Match · TOP 5</span><span class="pill">31.6%</span></div><div class="mc-row"><div class="l"><span class="ico">M</span><div><span class="name">Mark Chen</span><span class="ticker">BedBath</span></div></div><div class="mono up" style="font-size:13px">0.91</div></div><div class="mc-row"><div class="l"><span class="ico">S</span><div><span class="name">Sarah Johnson</span><span class="ticker">Wayfair</span></div></div><div class="mono up" style="font-size:13px">0.88</div></div><div class="mc-row"><div class="l"><span class="ico">D</span><div><span class="name">David Kim</span><span class="ticker">Target</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.83</div></div><div class="mc-row"><div class="l"><span class="ico">E</span><div><span class="name">Emily Park</span><span class="ticker">Costco</span></div></div><div class="mono" style="font-size:13px;color:#fff">0.78</div></div></div></div></div></div></section><!-- ============ CASE STUDY ============ --><section class="case-strip"><div class="container"><div class="case-grid"><div><span class="eyebrow">Customer story</span><h2 class="case-quote">"We launched on Kickstarter with the Lookalike seed already loaded into Meta. First 24 hours: 200 backers. By day 30: $164K, 820% of goal."</h2><div class="case-author"><div class="case-avatar">한</div><div><div class="case-name">Han Concept · Foldable Laptop Stand</div><div class="case-role">Kickstarter US · 30 days · launched 2026 Q1</div></div></div></div><div class="case-numbers"><div><div class="case-num">$164K <span class="delta">820%</span></div><div class="case-l">Total funded · vs. $20K goal</div></div><div><div class="case-num">1,847</div><div class="case-l">Backers · CPA $12.1</div></div><div><div class="case-num">7.3<span style="font-family:var(--mono);font-size:18px;color:var(--muted);font-weight:400">x</span></div><div class="case-l">ROAS · industry avg 2.1x</div></div><div><div class="case-num"><span class="up" style="font-size:32px">-64%</span></div><div class="case-l">CPA vs. cold audience</div></div></div></div></div></section><!-- ============ PRICING ============ --><section style="background:var(--surface-soft)" id="pricing"><div class="container"><div style="text-align:center;margin-bottom:48px"><span class="eyebrow"><span data-i18n-en>Pricing</span><span data-i18n-ko>가격</span></span><h2 class="display-lg" style="max-width:740px;margin:0 auto 20px"><span data-i18n-en>Simple, predictable pricing. Pay only for what you use.</span><span data-i18n-ko>단순하고 예측 가능한 가격. 사용한 만큼만 결제.</span></h2><p class="lead" style="margin:0 auto 32px"><span data-i18n-en>Starts at $499/mo for the full Suite. Each product is also available as a per-call API.</span><span data-i18n-ko>풀 스위트 월 $499부터. 각 제품은 종량제 API로도 제공.</span></p><div class="pricing-toggle"><button class="active" onclick="togglePricing(this,'monthly')"><span data-i18n-en>Monthly</span><span data-i18n-ko>월 결제</span></button><button onclick="togglePricing(this,'yearly')"><span data-i18n-en>Yearly</span><span data-i18n-ko>연 결제</span><span class="save">-20%</span></button></div></div><div class="pricing-grid"><div class="tier"><div><span class="tier-badge">Startup</span><h3 style="margin-top:12px">For early-stage makers</h3></div><div><span class="price-num" data-monthly="$499" data-yearly="$399">$499</span><span class="price-period">/month</span></div><p class="body-md">Run your first global campaign with predictable cost.</p><ul class="feat-list"><li>5 FOP reports / month</li><li>50K Lookalike API lookups</li><li>10K Pure Score API calls</li><li>Trend Radar · 1 user</li><li>2 Buyer Match lists</li><li>Email support</li></ul><a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Start free 14-day trial</a></div><div class="tier featured"><div><span class="tier-badge">★ Agency · Most popular</span><h3 style="margin-top:12px">For scaling teams</h3></div><div><span class="price-num" data-monthly="$1,499" data-yearly="$1,199">$1,499</span><span class="price-period">/month</span></div><p class="body-md">Run multiple clients in parallel with shared keys and Slack support.</p><ul class="feat-list"><li>30 FOP reports / month</li><li>500K Lookalike API lookups</li><li>100K Pure Score API calls</li><li>Trend Radar · 5 users</li><li>10 Buyer Match lists</li><li>Slack support · 24h SLA</li><li>Up to 5 API keys</li></ul><a href="#" class="btn btn-md btn-primary" style="margin-top:auto">Get started</a></div><div class="tier"><div><span class="tier-badge">Enterprise</span><h3 style="margin-top:12px">For institutional partners</h3></div><div><span class="price-num" data-monthly="$4,999" data-yearly="$3,999">$4,999</span><span class="price-period">/month</span></div><p class="body-md">Unlimited usage, custom training data, dedicated AM.</p><ul class="feat-list"><li>Unlimited FOP / Lookalike / Score</li><li>Trend Radar · unlimited seats</li><li>Unlimited Buyer Match lists</li><li>Dedicated account manager</li><li>Custom training data</li><li>SOC2 / GDPR documentation</li><li>SSO + audit logs</li></ul><a href="#" class="btn btn-md btn-secondary-light" style="margin-top:auto">Contact sales</a></div></div><p class="caption" style="text-align:center;margin-top:32px">All plans include access to all 5 products. Volume discounts available for 200+ usage on per-call APIs.</p></div></section><!-- ============ CTA BAND ============ --><section class="cta-band"><div class="container"><span class="eyebrow on-dark"><span data-i18n-en>Ready when you are</span><span data-i18n-ko>준비되셨다면</span></span><h2 class="display-lg on-dark" style="max-width:820px;margin:0 auto 24px"><span data-i18n-en>Start with a 14-day trial. <em style="color:#5b86ff;font-style:normal">Bring your first campaign live.</em></span><span data-i18n-ko>14일 무료로 시작하세요. <em style="color:#5b86ff;font-style:normal">첫 캠페인을 라이브로.</em></span></h2><p class="lead on-dark"><span data-i18n-en>No credit card required. Cancel anytime. Full Suite access during trial.</span><span data-i18n-ko>신용카드 불필요. 언제든 취소. 무료 기간 동안 풀 스위트 사용.</span></p><div class="cta-row" style="margin-top:40px"><a href="#pricing" class="btn btn-lg btn-primary"><span data-i18n-en>Start free trial</span><span data-i18n-ko>무료 체험 시작</span></a><a href="/saas-mvp.html" class="btn btn-lg btn-outline-dark"><span data-i18n-en>Talk to sales</span><span data-i18n-ko>영업 문의</span></a></div></div></section><!-- ============ FOOTER ============ --><footer class="footer"><div class="container"><div class="footer-grid"><div><div class="footer-brand"><span class="triangle"></span>Setoworks</div><p class="footer-tag"><span data-i18n-en>Crowdfunding intelligence built on 14 years of operational data, served as a global SaaS suite.</span><span data-i18n-ko>14년 운영 데이터 위에 구축된 크라우드펀딩 인텔리전스. 글로벌 SaaS 스위트로 제공합니다.</span></p><div style="margin-top:24px;display:flex;gap:8px"><span class="tag">Kickstarter Expert</span><span class="tag">Makuake Partner</span></div></div><div class="footer-col"><h4><span data-i18n-en>Products</span><span data-i18n-ko>제품</span></h4><ul><li><a href="/saas-mvp.html#fop"><span data-i18n-en>Funding Predictor</span><span data-i18n-ko>펀딩 예측기</span></a></li><li><a href="/saas-mvp.html#lookalike"><span data-i18n-en>Backer Lookalike</span><span data-i18n-ko>백커 룩어라이크</span></a></li><li><a href="/saas-mvp.html#purescore">Pure Score</a></li><li><a href="/saas-mvp.html#radar"><span data-i18n-en>Trend Radar</span><span data-i18n-ko>트렌드 레이더</span></a></li><li><a href="/saas-mvp.html#buyer"><span data-i18n-en>Buyer Match</span><span data-i18n-ko>바이어 매치</span></a></li></ul></div><div class="footer-col"><h4><span data-i18n-en>Company</span><span data-i18n-ko>회사</span></h4><ul><li><a href="https://setoworks.com"><span data-i18n-en>About</span><span data-i18n-ko>소개</span></a></li><li><a href="/deck.html"><span data-i18n-en>Strategy deck</span><span data-i18n-ko>전략 데크</span></a></li><li><a href="/portal.html"><span data-i18n-en>Portal</span><span data-i18n-ko>포털</span></a></li><li><a href="#"><span data-i18n-en>Careers</span><span data-i18n-ko>채용</span></a></li><li><a href="#"><span data-i18n-en>Press</span><span data-i18n-ko>보도자료</span></a></li></ul></div><div class="footer-col"><h4><span data-i18n-en>Resources</span><span data-i18n-ko>리소스</span></h4><ul><li><a href="/saas-mvp.html#api"><span data-i18n-en>API documentation</span><span data-i18n-ko>API 문서</span></a></li><li><a href="/kickstarter-insight.html"><span data-i18n-en>Insight engine</span><span data-i18n-ko>인사이트 엔진</span></a></li><li><a href="/system-guide.html"><span data-i18n-en>System guide</span><span data-i18n-ko>시스템 가이드</span></a></li><li><a href="#"><span data-i18n-en>Changelog</span><span data-i18n-ko>변경 이력</span></a></li><li><a href="#">Status</a></li></ul></div><div class="footer-col"><h4><span data-i18n-en>Legal</span><span data-i18n-ko>법적 고지</span></h4><ul><li><a href="#"><span data-i18n-en>Terms of service</span><span data-i18n-ko>이용약관</span></a></li><li><a href="#"><span data-i18n-en>Privacy policy</span><span data-i18n-ko>개인정보 처리방침</span></a></li><li><a href="#">DPA</a></li><li><a href="#"><span data-i18n-en>Security</span><span data-i18n-ko>보안</span></a></li><li><a href="#"><span data-i18n-en>Cookies</span><span data-i18n-ko>쿠키</span></a></li></ul></div></div><div class="legal"><span>© 2026 Setoworks Inc. · setoworks.com · 2021 Million Dollar Export Award · 전문무역상사 인증</span><span><a onclick="setLang('en')" style="cursor:pointer">English</a> · <a onclick="setLang('ko')" style="cursor:pointer">한국어</a> · <a href="#" style="opacity:.5">日本語 (soon)</a></span></div></div></footer><!-- Demo modal --><div class="demo-overlay" id="demo-overlay" onclick="if(event.target===this)closeDemo()"><div class="demo-modal"><div class="demo-video"><button class="demo-close" onclick="closeDemo()" aria-label="close">×</button><div class="demo-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="white"/></svg></div><div class="demo-cap"><span data-i18n-en>Product demo · 1:32</span><span data-i18n-ko>제품 데모 · 1분 32초</span></div><div style="font-size:11px;color:var(--on-dark-soft);font-family:var(--mono);position:absolute;bottom:24px;left:32px">video coming Q3 · interactive demo available now</div></div><div class="demo-info"><div><div class="t"><span data-i18n-en>Setoworks Suite — 5 products in 90 seconds</span><span data-i18n-ko>세토웍스 스위트 — 5개 제품을 90초에</span></div><div class="s"><span data-i18n-en>FOP · Lookalike · Pure Score · Trend Radar · Buyer Match</span><span data-i18n-ko>FOP · 룩어라이크 · Pure Score · 트렌드 레이더 · 바이어 매치</span></div></div><a href="/saas-mvp.html" class="btn btn-md btn-secondary-dark"><span data-i18n-en>Try interactive demo →</span><span data-i18n-ko>인터랙티브 데모 →</span></a></div></div></div><script>
 function openDemo(){document.getElementById('demo-overlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeDemo(){document.getElementById('demo-overlay').classList.remove('open');document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDemo()});
 
 function togglePricing(btn, mode){
-  document.querySelectorAll('.pricing-toggle button').forEach(b=>b.classList.toggle('active', b===btn));
-  document.querySelectorAll('.price-num').forEach(el=>{
-    el.textContent = mode==='yearly' ? el.dataset.yearly : el.dataset.monthly;
-  });
-  const lang = document.documentElement.lang;
-  document.querySelectorAll('.price-period').forEach(el=>{
-    if(mode==='yearly') el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
-    else el.textContent = lang==='ko' ? '/월' : '/month';
-  });
+ document.querySelectorAll('.pricing-toggle button').forEach(b=>b.classList.toggle('active', b===btn));
+ document.querySelectorAll('.price-num').forEach(el=>{
+ el.textContent = mode==='yearly' ? el.dataset.yearly : el.dataset.monthly;
+ });
+ const lang = document.documentElement.lang;
+ document.querySelectorAll('.price-period').forEach(el=>{
+ if(mode==='yearly') el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
+ else el.textContent = lang==='ko' ? '/월' : '/month';
+ });
 }
 
 function setLang(lang){
-  document.documentElement.lang = lang;
-  try{ localStorage.setItem('setoworks-lang', lang); }catch(e){}
-  document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
-  // re-render pricing period
-  const activeMode = document.querySelector('.pricing-toggle button.active');
-  if(activeMode){
-    const isYearly = activeMode.textContent.includes('Yearly') || activeMode.textContent.includes('연');
-    document.querySelectorAll('.price-period').forEach(el=>{
-      if(isYearly) el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
-      else el.textContent = lang==='ko' ? '/월' : '/month';
-    });
-  }
+ document.documentElement.lang = lang;
+ try{ localStorage.setItem('setoworks-lang', lang); }catch(e){}
+ document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+ // re-render pricing period
+ const activeMode = document.querySelector('.pricing-toggle button.active');
+ if(activeMode){
+ const isYearly = activeMode.textContent.includes('Yearly') || activeMode.textContent.includes('연');
+ document.querySelectorAll('.price-period').forEach(el=>{
+ if(isYearly) el.textContent = lang==='ko' ? '/월, 연 단위 청구' : '/month, billed yearly';
+ else el.textContent = lang==='ko' ? '/월' : '/month';
+ });
+ }
 }
 
 // Restore preferred lang
 (function(){
-  let saved = 'en';
-  try{ saved = localStorage.getItem('setoworks-lang') || 'en'; }catch(e){}
-  if(saved==='ko') setLang('ko');
+ let saved = 'en';
+ try{ saved = localStorage.getItem('setoworks-lang') || 'en'; }catch(e){}
+ if(saved==='ko') setLang('ko');
 })();
-</script>
-</body>
-</html>
+</script></body></html>
