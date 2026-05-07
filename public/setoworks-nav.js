@@ -5,7 +5,7 @@
  * 사용법: <script src="/setoworks-nav.js" defer></script>
  *
  * 각 페이지는 아래 NAV_CONFIG 테이블에서 자동 매핑됨.
- * Raskin 6-Section 내러티브에서 각 페이지가 어떤 역할인지 명시.
+ * 각 페이지가 어떤 역할인지 명시.
  */
 (function(){
   'use strict';
@@ -48,7 +48,7 @@
     },
     'deck.html': {
       layer: '📑', layerName: 'Strategic Narrative', color: '#ff003b',
-      role: '90일 로드맵 · Raskin 6-Section 25 슬라이드',
+      role: '90일 로드맵 · 12 슬라이드',
       nextText: '포털 →', nextHref: '/portal.html'
     },
     'deck-v5.html': {
