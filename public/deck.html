@@ -2155,7 +2155,7 @@ function openLb(src,alt){const lb=document.getElementById('lb');document.getElem
 function closeLb(){document.getElementById('lb').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 
-const TOTAL=11;let cur=0;
+const TOTAL=12;let cur=0;
 const slides=document.querySelectorAll('.slide');
 function render(){
   slides.forEach((s,i)=>{s.classList.remove('active','exit-left');if(i===cur)s.classList.add('active');else if(i<cur)s.classList.add('exit-left');});
