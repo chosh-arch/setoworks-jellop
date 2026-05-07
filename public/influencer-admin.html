@@ -5,208 +5,844 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Setoworks - 인플루언서 관리 시스템</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
+/* ============================================
+   NOTION-TONE DESIGN TOKENS (Setoworks fusion)
+   ============================================ */
 :root, [data-bs-theme="light"] {
-  --tblr-primary: #3b5bdb;
-  --tblr-primary-rgb: 59, 91, 219;
-  --tblr-font-sans-serif: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Notion canvas + ink palette */
+  --canvas:#ffffff;
+  --surface:#f7f7f5;
+  --surface-soft:#fafaf8;
+  --hairline:#e6e6e6;
+  --hairline-soft:#f0f0f0;
+  --hairline-strong:#d4d4d4;
+  --ink:#191919;
+  --ink-deep:#000;
+  --charcoal:#2c2c2c;
+  --slate:#5b5b5b;
+  --steel:#7a7a7a;
+  --stone:#9a9a9a;
+  --muted:#b5b5b5;
+  --brand-red:#ff003b;
+  --brand-red-pressed:#d10031;
+  --brand-red-soft:rgba(255,0,59,.08);
+  --brand-navy:#0f1226;
+  /* Pastel tints */
+  --tint-peach:#ffe4d6;
+  --tint-rose:#fce7eb;
+  --tint-mint:#d4f0e1;
+  --tint-lavender:#ede4ff;
+  --tint-sky:#d6ecff;
+  --tint-yellow:#fff3c4;
+  --tint-yellow-bold:#ffd233;
+  --tint-cream:#faf6ed;
+  --tint-gray:#f4f4f4;
+  /* Pastel text colors */
+  --txt-purple:#5b21b6;
+  --txt-orange:#b45309;
+  --txt-green:#0e7c54;
+  --txt-pink:#9d174d;
+  --txt-blue:#1e40af;
+  --txt-yellow:#854d0e;
+  /* Semantic */
+  --semantic-success:#05b169;
+  --semantic-warning:#d97706;
+  /* Tier colors (preserved from CLAUDE.md) */
   --tier-nano: #10b981;
   --tier-micro: #14b8a6;
   --tier-mid: #3b82f6;
   --tier-macro: #f59e0b;
   --tier-mega: #ef4444;
-  --plane-bg: #f8f9fa;
-  --plane-card: #ffffff;
-  --plane-border: #e5e7eb;
-  --plane-text: #1f2937;
-  --plane-muted: #6b7280;
-  --plane-sidebar: #1e1e2e;
-  --plane-hover: #f3f4ff;
+  /* Tabler bridges (so all generated Bootstrap markup adopts our tone) */
+  --tblr-primary: #ff003b;
+  --tblr-primary-rgb: 255, 0, 59;
+  --tblr-link-color: var(--ink);
+  --tblr-body-color: var(--ink);
+  --tblr-body-bg: var(--canvas);
+  --tblr-border-color: var(--hairline);
+  --tblr-font-sans-serif: 'Pretendard','Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  /* Geometry */
+  --r-btn:8px;
+  --r-card:12px;
+  --r-card-lg:14px;
+  --pill:100px;
+  --sidebar-w:260px;
+  --content-max:1400px;
+  /* Shadows */
+  --shadow-card:0 1px 2px rgba(15,15,15,.04);
+  --shadow-elev:0 4px 12px rgba(15,15,15,.08);
+  /* Mono */
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
 }
 
-/* Tier badges — consistent colors across views */
+/* Reset + base */
+body {
+  font-family: 'Pretendard','Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01","cv01";
+}
+
+/* ============================================
+   STICKY TOP NAV (white, hairline)
+   ============================================ */
+.notion-topnav {
+  position: sticky; top: 0; left: 0; right: 0; z-index: 90;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--hairline);
+}
+.notion-topnav-inner {
+  max-width: var(--content-max); margin: 0 auto;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 28px; height: 56px;
+}
+.notion-topnav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+  font-weight: 700; letter-spacing: -.01em; font-size: 14px;
+}
+.notion-topnav-brand .logo-mark {
+  width: 18px; height: 18px;
+  background: var(--brand-red);
+  clip-path: polygon(50% 6%,98% 92%,2% 92%);
+  flex-shrink: 0;
+}
+.notion-topnav-brand .logo-word {
+  font-size: 13px; letter-spacing: .06em; font-weight: 700;
+}
+.notion-topnav-brand .logo-word em { color: var(--brand-red); font-style: normal; }
+.notion-breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--slate); font-weight: 500;
+}
+.notion-breadcrumb .sep { color: var(--hairline-strong); font-weight: 400; }
+.notion-breadcrumb .crumb-now { color: var(--ink); font-weight: 600; }
+.notion-topnav-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.notion-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: var(--r-btn);
+  background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--hairline);
+  font-size: 13px; font-weight: 600; font-family: inherit;
+  text-decoration: none; cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  height: 36px; line-height: 1;
+}
+.notion-btn:hover { background: var(--surface); border-color: var(--steel); color: var(--ink); }
+.notion-btn-primary {
+  background: var(--brand-red); color: #fff; border-color: var(--brand-red);
+}
+.notion-btn-primary:hover {
+  background: var(--brand-red-pressed); border-color: var(--brand-red-pressed); color: #fff;
+}
+.notion-btn-ghost { background: transparent; border-color: transparent; color: var(--slate); }
+.notion-btn-ghost:hover { background: var(--surface); color: var(--ink); border-color: transparent; }
+
+/* ============================================
+   SIDEBAR (Notion light) — overlays Tabler
+   ============================================ */
+.navbar-vertical {
+  background: var(--surface-soft) !important;
+  border-right: 1px solid var(--hairline) !important;
+  width: var(--sidebar-w) !important;
+  padding: 0 !important;
+}
+.navbar-vertical .container-fluid { padding: 16px 16px 24px; }
+.navbar-vertical .navbar-brand,
+.navbar-vertical .navbar-brand-autodark {
+  font-family: 'Inter','Pretendard',sans-serif;
+  font-weight: 700; letter-spacing: .04em;
+  color: var(--ink) !important; font-size: 14px;
+  padding: 8px 4px 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.navbar-vertical .navbar-brand .brand-red { color: var(--brand-red); }
+.navbar-vertical .navbar-brand::before {
+  content: ""; width: 16px; height: 16px; background: var(--brand-red);
+  clip-path: polygon(50% 6%,98% 92%,2% 92%); display: inline-block;
+}
+.navbar-vertical .nav-link {
+  color: var(--slate) !important;
+  font-size: 13.5px; font-weight: 500;
+  border-radius: 0 6px 6px 0;
+  margin: 1px 0; padding: 8px 12px 8px 13px;
+  border-left: 3px solid transparent;
+  transition: color .12s, background .12s, border-color .12s;
+}
+.navbar-vertical .nav-link:hover {
+  background: rgba(0,0,0,.03); color: var(--ink) !important;
+}
+.navbar-vertical .nav-link.active {
+  color: var(--brand-red) !important;
+  background: rgba(255,0,59,.04) !important;
+  border-left: 3px solid var(--brand-red) !important;
+  font-weight: 600;
+}
+.navbar-vertical .nav-link-icon {
+  font-size: 14px; opacity: .85; margin-right: 2px;
+  filter: grayscale(.2);
+}
+
+/* Sidebar global search */
+#sidebar-search {
+  background: var(--canvas) !important;
+  border: 1px solid var(--hairline) !important;
+  color: var(--ink) !important;
+  border-radius: var(--r-btn) !important;
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+  height: 36px;
+}
+#sidebar-search::placeholder { color: var(--steel); }
+#sidebar-search:focus {
+  border-color: var(--brand-red) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--brand-red-soft) !important;
+}
+#global-search-results {
+  background: var(--canvas) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-elev) !important;
+  color: var(--ink) !important;
+}
+#global-search-results .search-result-item:hover {
+  background: var(--surface) !important;
+}
+
+.sidebar-footer-link {
+  color: var(--slate) !important;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+}
+.sidebar-footer-link:hover { color: var(--brand-red) !important; }
+.shortcut-hint {
+  color: var(--steel); font-size: 11px; padding: 8px 0 0;
+  line-height: 1.6; font-family: var(--mono);
+  border-top: 1px solid var(--hairline-soft); margin-top: 12px;
+}
+.navbar-vertical .border-top.border-secondary {
+  border-color: var(--hairline-soft) !important;
+}
+
+/* ============================================
+   PAGE WRAPPER + page-body + page-header
+   ============================================ */
+.page { background: var(--canvas); }
+.page-wrapper { background: var(--canvas) !important; }
+.page-body { background: var(--canvas) !important; padding: 0 !important; }
+.page-header {
+  background: var(--canvas);
+  padding: 32px 0 24px !important;
+  border-bottom: 1px solid var(--hairline-soft);
+  margin-bottom: 24px !important;
+}
+.container-xl { max-width: var(--content-max) !important; padding: 0 28px !important; }
+.page-header .container-xl { padding: 0 28px !important; }
+.page-pretitle {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  color: var(--brand-red);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.page-title {
+  font-size: 32px; font-weight: 600;
+  color: var(--ink); letter-spacing: -.02em;
+  line-height: 1.2; margin-top: 6px;
+}
+
+/* View visibility */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ============================================
+   CARDS (Notion white / pastel variants)
+   ============================================ */
+.card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow .2s, transform .2s, border-color .2s;
+}
+.card:hover { box-shadow: var(--shadow-elev); }
+.card-header {
+  border-bottom: 1px solid var(--hairline-soft);
+  background: transparent;
+  padding: 14px 18px;
+}
+.card-title {
+  font-size: 14px; font-weight: 600;
+  color: var(--ink); letter-spacing: -.01em;
+}
+.card-body { padding: 18px; }
+
+/* KPI cards (top-of-dashboard accent strip) */
+.card-accent {
+  border-top: 1px solid var(--hairline) !important;
+  position: relative;
+}
+.card-accent::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--brand-red);
+  border-radius: var(--r-card) var(--r-card) 0 0;
+}
+
+/* KPI number style */
+.kpi-number {
+  font-family: 'Inter','Pretendard',sans-serif;
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-sub { font-size: 12px; color: var(--steel); }
+.subheader {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  color: var(--steel); letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   BUTTONS (Notion 8px rectangular)
+   ============================================ */
+.btn {
+  border-radius: var(--r-btn) !important;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all .15s;
+}
+.btn-primary {
+  background: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: var(--brand-red-pressed) !important;
+  border-color: var(--brand-red-pressed) !important;
+  color: #fff !important;
+}
+.btn-outline-primary {
+  color: var(--brand-red) !important;
+  border-color: var(--hairline-strong) !important;
+  background: transparent !important;
+}
+.btn-outline-primary:hover {
+  background: var(--brand-red-soft) !important;
+  border-color: var(--brand-red) !important;
+  color: var(--brand-red) !important;
+}
+.btn-outline-secondary {
+  color: var(--slate) !important;
+  border-color: var(--hairline-strong) !important;
+  background: transparent !important;
+}
+.btn-outline-secondary:hover {
+  background: var(--surface) !important;
+  border-color: var(--steel) !important;
+  color: var(--ink) !important;
+}
+.btn-outline-danger {
+  color: var(--brand-red) !important;
+  border-color: var(--hairline-strong) !important;
+  background: transparent !important;
+}
+.btn-outline-danger:hover {
+  background: var(--brand-red-soft) !important;
+  border-color: var(--brand-red) !important;
+  color: var(--brand-red) !important;
+}
+.btn-outline-warning {
+  color: var(--txt-orange) !important;
+  border-color: var(--hairline-strong) !important;
+  background: transparent !important;
+}
+.btn-outline-warning:hover {
+  background: rgba(245,158,11,.08) !important;
+  border-color: var(--txt-orange) !important;
+}
+.btn-warning {
+  background: var(--tint-yellow-bold) !important;
+  border-color: var(--tint-yellow-bold) !important;
+  color: var(--ink) !important;
+}
+.btn-ghost-secondary, .btn-ghost-danger {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--slate) !important;
+}
+.btn-ghost-secondary:hover, .btn-ghost-danger:hover {
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+}
+
+/* ============================================
+   FORM ELEMENTS (inputs, selects)
+   ============================================ */
+.form-control, .form-select {
+  border: 1px solid var(--hairline) !important;
+  border-radius: var(--r-btn) !important;
+  font-family: inherit;
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+  font-size: 13px !important;
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--brand-red) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--brand-red-soft) !important;
+}
+.form-label {
+  color: var(--slate);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .01em;
+}
+.form-check-input:checked {
+  background-color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+}
+
+/* ============================================
+   TIER BADGES (pill — exception per spec)
+   ============================================ */
 .tier-badge {
-  display: inline-block; padding: 3px 10px; border-radius: 6px;
-  font-size: 11px; font-weight: 600; line-height: 1.5;
-  font-family: 'Inter', sans-serif; letter-spacing: 0.01em;
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--pill);
+  font-size: 10.5px; font-weight: 700;
+  line-height: 1.5;
+  font-family: var(--mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
 }
-.tier-badge.tier-nano { background: rgba(16,185,129,.12); color: var(--tier-nano); }
+.tier-badge.tier-nano  { background: rgba(16,185,129,.12); color: var(--tier-nano); }
 .tier-badge.tier-micro { background: rgba(20,184,166,.12); color: var(--tier-micro); }
-.tier-badge.tier-mid { background: rgba(59,130,246,.12); color: var(--tier-mid); }
+.tier-badge.tier-mid   { background: rgba(59,130,246,.12); color: var(--tier-mid); }
 .tier-badge.tier-macro { background: rgba(245,158,11,.14); color: var(--tier-macro); }
-.tier-badge.tier-mega { background: rgba(239,68,68,.12); color: var(--tier-mega); }
-.tier-badge.tier-unset { background: #e2e8f0; color: #64748b; }
+.tier-badge.tier-mega  { background: rgba(239,68,68,.12); color: var(--tier-mega); }
+.tier-badge.tier-unset { background: var(--tint-gray); color: var(--steel); }
 
-/* Favorite star button */
+/* ============================================
+   GRADE BADGES
+   ============================================ */
+.grade-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  font-family: 'Inter',sans-serif;
+  font-weight: 700; font-size: 12px;
+  line-height: 1;
+}
+.grade-S { background: var(--tint-yellow); color: var(--txt-yellow); border: 1px solid var(--tint-yellow-bold); }
+.grade-A { background: var(--tint-sky); color: var(--txt-blue); border: 1px solid #93c5fd; }
+.grade-B { background: var(--tint-gray); color: var(--steel); border: 1px solid var(--hairline); }
+.grade-C { background: var(--tint-rose); color: var(--brand-red); border: 1px solid #fecaca; }
+
+/* ============================================
+   PLATFORM BADGES (Bootstrap badge-overrides)
+   ============================================ */
+.badge {
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: .02em;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+  font-size: 10.5px !important;
+}
+.badge-youtube   { background: var(--tint-rose) !important;     color: var(--brand-red) !important; }
+.badge-instagram { background: var(--tint-lavender) !important; color: var(--txt-purple) !important; }
+.badge-facebook  { background: var(--tint-sky) !important;      color: var(--txt-blue) !important; }
+.bg-primary-lt   { background: var(--brand-red-soft) !important; color: var(--brand-red) !important; }
+.bg-success-lt   { background: rgba(5,177,105,.10) !important;   color: var(--semantic-success) !important; }
+.bg-warning-lt   { background: rgba(245,158,11,.12) !important;  color: var(--txt-orange) !important; }
+.bg-danger-lt    { background: var(--tint-rose) !important;      color: var(--brand-red) !important; }
+.bg-secondary-lt { background: var(--tint-gray) !important;      color: var(--slate) !important; }
+.bg-success      { background: var(--semantic-success) !important; }
+.bg-secondary    { background: var(--steel) !important; }
+.bg-warning      { background: var(--tint-yellow-bold) !important; color: var(--ink) !important; }
+.bg-danger       { background: var(--brand-red) !important; }
+
+/* ============================================
+   FAVORITE STAR
+   ============================================ */
 .fav-btn {
   background: none; border: none; padding: 2px 4px; cursor: pointer;
-  color: #cbd5e1; transition: color .15s, transform .15s;
+  color: var(--muted); transition: color .15s, transform .15s;
   display: inline-flex; align-items: center; justify-content: center;
 }
 .fav-btn:hover { color: #fbbf24; transform: scale(1.1); }
 .fav-btn.active { color: #fbbf24; }
 .fav-btn svg { display: block; }
 
-/* Focus styles for accessibility */
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
 button:focus-visible,
 .form-select:focus-visible,
 .form-control:focus-visible,
 a:focus-visible,
 .compare-chip:focus-visible,
 .cat-card:focus-visible {
-  outline: 2px solid var(--tblr-primary);
+  outline: 2px solid var(--brand-red);
   outline-offset: 2px;
 }
 
-/* Keyboard shortcut hint */
-.shortcut-hint {
-  color: #64748b; font-size: 11px; padding: 6px 8px 0; line-height: 1.5;
-  border-top: 1px solid rgba(255,255,255,.08); margin-top: 8px;
-}
-body { font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--plane-bg); color: var(--plane-text); }
-.navbar-vertical { background: var(--plane-sidebar) !important; border-right: 1px solid rgba(255,255,255,.06); }
-.navbar-vertical .navbar-brand {
-  font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.04em;
-  color: #fff !important; font-size: 1.1rem;
-}
-.navbar-vertical .navbar-brand .brand-red { color: #818cf8; }
-.navbar-vertical .nav-link { color: #9ca3af !important; font-size: 13.5px; font-weight: 500; border-radius: 8px; margin: 2px 8px; transition: all .15s; }
-.navbar-vertical .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.06); }
-.navbar-vertical .nav-link.active { color: #fff !important; background: rgba(99,102,241,.15) !important; border-left: 3px solid #818cf8; }
-.navbar-vertical .nav-link .nav-link-icon { font-size: 16px; opacity: .8; }
-.sidebar-footer-link { color: #9ca3af !important; text-decoration: none; font-size: 13px; }
-.sidebar-footer-link:hover { color: #fff !important; }
-
-/* Plane-style global card overrides */
-.card { border: 1px solid var(--plane-border); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: box-shadow .2s, transform .2s; }
-.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.06); }
-.card-header { border-bottom: 1px solid var(--plane-border); background: transparent; }
-.page-body { background: var(--plane-bg); }
-
-.view { display: none; }
-.view.active { display: block; }
-
-/* KPI number style */
-.kpi-number { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
-.kpi-sub { font-size: 12px; }
-
-/* Score bar */
+/* ============================================
+   SCORE / PROGRESS
+   ============================================ */
 .score-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.score-num { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
-
-/* Grade badges */
-.grade-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 8px;
-  font-family: 'Inter', sans-serif; font-weight: 800; font-size: 13px;
+.score-num {
+  font-family: 'Inter','Pretendard',sans-serif;
+  font-size: 12px; font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
-.grade-S { background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; }
-.grade-A { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
-.grade-B { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
-.grade-C { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-
-/* Expand row */
-.expandable { cursor: pointer; }
-.expandable:hover { background: var(--plane-hover) !important; }
-.expanded { background: #eef2ff !important; }
-.expand-row td { padding: 0 !important; background: #fafbfd; }
-.expand-content { padding: 20px 24px; }
-
-/* Profile image */
-.profile-img-lg {
-  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
-  border: 2px solid #e2e8f0;
+.progress {
+  background: var(--hairline-soft) !important;
+  border-radius: 100px !important;
 }
+.progress-bar { border-radius: 100px !important; }
 
 /* Pure score display */
 .pure-score-number {
-  font-family: 'Inter', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.03em;
+  font-family: 'Inter','Pretendard',sans-serif;
+  font-size: 32px; font-weight: 800;
+  letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Memo system */
-.memo-item { position: relative; }
-.memo-item .memo-time { font-size: 10px; font-family: 'Inter', sans-serif; }
-.memo-item .memo-text { font-size: 12px; white-space: pre-wrap; line-height: 1.5; }
-.memo-item .memo-actions { position: absolute; top: 8px; right: 8px; }
+/* ============================================
+   TABLES
+   ============================================ */
+.table {
+  color: var(--ink) !important;
+  border-color: var(--hairline-soft) !important;
+}
+.table thead tr th {
+  background: var(--surface-soft) !important;
+  border-bottom: 1px solid var(--hairline) !important;
+  border-top: 1px solid var(--hairline-soft) !important;
+  color: var(--slate) !important;
+  font-family: var(--mono);
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 10px 12px !important;
+}
+.table tbody tr td {
+  border-bottom: 1px solid var(--hairline-soft) !important;
+  border-top: none !important;
+  padding: 10px 12px !important;
+  font-size: 13px;
+  vertical-align: middle;
+}
+.table-hover tbody tr:hover {
+  background: var(--surface-soft) !important;
+}
+.table th.sortable { cursor: pointer; user-select: none; }
+.table th.sortable:hover { background: var(--surface) !important; color: var(--ink) !important; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: .6; }
+th.sort-asc .sort-arrow::after { content: '\25B2'; color: var(--brand-red); opacity: 1; }
+th.sort-desc .sort-arrow::after { content: '\25BC'; color: var(--brand-red); opacity: 1; }
+.num {
+  text-align: right;
+  font-family: 'Inter','Pretendard',sans-serif;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 
-/* Category cards */
-.cat-card { cursor: pointer; transition: all .2s; position: relative; overflow: hidden; border-radius: 12px; }
-.cat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59,91,219,.1); }
-.cat-card .cat-border { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+/* Inner tables (Performance Statement, Efficiency Ratios) */
+.inner-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+.inner-table th {
+  background: var(--surface-soft) !important;
+  font-size: 11px; padding: 8px 10px;
+  font-weight: 600; color: var(--slate);
+  border-bottom: 1px solid var(--hairline);
+}
+.inner-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--hairline-soft);
+  color: var(--charcoal);
+}
 
-/* Compare chips */
+/* ============================================
+   EXPAND / DETAIL ROW
+   ============================================ */
+.expandable { cursor: pointer; }
+.expandable:hover { background: var(--surface-soft) !important; }
+.expanded { background: var(--brand-red-soft) !important; }
+.expand-row td { padding: 0 !important; background: var(--surface-soft); }
+.expand-content { padding: 24px 28px; }
+
+/* Profile image */
+.profile-img-lg {
+  width: 64px; height: 64px;
+  border-radius: 50%; object-fit: cover;
+  border: 1px solid var(--hairline);
+}
+
+/* ============================================
+   CATEGORY CARDS (pastel hover lift)
+   ============================================ */
+.cat-card {
+  cursor: pointer; transition: all .2s;
+  position: relative; overflow: hidden;
+  border-radius: var(--r-card-lg);
+}
+.cat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elev);
+  border-color: var(--brand-red);
+}
+.cat-card .cat-border {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+
+/* ============================================
+   COMPARE CHIPS (Notion subtle pills, brand-red selected)
+   ============================================ */
 .compare-chip {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border: 1.5px solid var(--tblr-border-color, #e2e8f0); border-radius: 20px;
-  font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
-  background: var(--tblr-bg-surface, #fff); color: var(--tblr-body-color, #1a1a2e);
+  padding: 6px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--pill);
+  font-size: 12.5px; font-weight: 500;
+  cursor: pointer; transition: all .15s;
+  background: var(--canvas);
+  color: var(--ink);
 }
-.compare-chip:hover { border-color: var(--tblr-primary); color: var(--tblr-primary); }
-.compare-chip.selected { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); font-weight: 600; }
+.compare-chip:hover {
+  border-color: var(--brand-red);
+  color: var(--brand-red);
+  background: var(--brand-red-soft);
+}
+.compare-chip.selected {
+  background: var(--brand-red);
+  color: #fff;
+  border-color: var(--brand-red);
+  font-weight: 600;
+}
+.compare-chip.selected .grade-badge {
+  background: rgba(255,255,255,.18);
+  color: #fff;
+  border-color: rgba(255,255,255,.3);
+}
 
-/* Sort arrow */
-th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: .6; }
-th.sort-asc .sort-arrow::after { content: '\25B2'; }
-th.sort-desc .sort-arrow::after { content: '\25BC'; }
+/* ============================================
+   MEMOS
+   ============================================ */
+.memo-item { position: relative; }
+.memo-item .memo-time {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--steel);
+}
+.memo-item .memo-text {
+  font-size: 13px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+.memo-item .memo-actions { position: absolute; top: 8px; right: 8px; }
 
-/* Tabular nums in tables */
-.num { text-align: right; font-family: 'Inter', sans-serif; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.search-result-item:hover { background: var(--plane-hover); }
-.table th.sortable { cursor: pointer; user-select: none; }
-.table th.sortable:hover { background: rgba(0,0,0,.05); }
-
-/* Tooltip */
+/* ============================================
+   SCORE TOOLTIP
+   ============================================ */
 .score-tooltip { position: relative; cursor: help; }
 .score-tooltip .tooltip-content {
   display: none; position: absolute; bottom: 100%; left: 50%;
-  transform: translateX(-50%); background: #1e1e2e; color: #fff;
-  padding: 10px 14px; border-radius: 8px; font-size: 11px;
-  white-space: nowrap; z-index: 50; margin-bottom: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  transform: translateX(-50%);
+  background: var(--ink-deep); color: #fff;
+  padding: 12px 14px; border-radius: 10px;
+  font-size: 11px; white-space: nowrap;
+  z-index: 50; margin-bottom: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  font-family: var(--mono);
 }
 .score-tooltip .tooltip-content::after {
   content: ''; position: absolute; top: 100%; left: 50%;
-  transform: translateX(-50%); border: 6px solid transparent;
-  border-top-color: #1e1e2e;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ink-deep);
 }
 .score-tooltip:hover .tooltip-content { display: block; }
 
-/* inner table styling */
-.inner-table { width: 100%; font-size: 12px; }
-.inner-table th { background: #f1f5f9; font-size: 11px; padding: 8px 10px; font-weight: 600; }
-.inner-table td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; }
-
-/* btn-more */
+/* ============================================
+   MORE BUTTON
+   ============================================ */
 .btn-more {
-  display: block; width: 100%; padding: 10px; margin-top: 8px;
-  background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
-  font-size: 12px; font-family: 'Noto Sans KR', sans-serif;
-  cursor: pointer; text-align: center; transition: all .15s; color: #64748b;
+  display: block; width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-btn);
+  font-size: 12px;
+  font-family: 'Pretendard','Inter',sans-serif;
+  cursor: pointer; text-align: center;
+  transition: all .15s;
+  color: var(--slate);
 }
-.btn-more:hover { border-color: var(--tblr-primary); color: var(--tblr-primary); }
+.btn-more:hover {
+  border-color: var(--brand-red);
+  color: var(--brand-red);
+  background: var(--brand-red-soft);
+}
 
-/* Chart canvas fix */
+/* ============================================
+   ACTIVE CATEGORY FILTER BANNER
+   ============================================ */
+.active-cat-filter {
+  background: var(--brand-red-soft);
+  border: 1px dashed var(--brand-red);
+  border-radius: var(--r-btn);
+  padding: 8px 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+.loading-spinner {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 80px 0; min-height: 400px;
+}
+.spinner-border.text-primary { color: var(--brand-red) !important; }
+
+/* ============================================
+   MODAL (auto-match) — Notion polish
+   ============================================ */
+.modal-content {
+  border: 1px solid var(--hairline) !important;
+  border-radius: var(--r-card-lg) !important;
+  box-shadow: 0 24px 48px -8px rgba(15,15,15,.20);
+}
+.modal-header {
+  border-bottom: 1px solid var(--hairline-soft) !important;
+  padding: 16px 20px !important;
+}
+.modal-title {
+  font-size: 16px !important; font-weight: 600;
+  color: var(--ink);
+}
+.modal-body { padding: 20px !important; }
+.list-group-item {
+  border-color: var(--hairline-soft) !important;
+  padding: 14px !important;
+}
+.list-group-item:first-child { border-top-left-radius: var(--r-card); border-top-right-radius: var(--r-card); }
+.list-group-item:last-child { border-bottom-left-radius: var(--r-card); border-bottom-right-radius: var(--r-card); }
+
+/* ============================================
+   ALERTS
+   ============================================ */
+.alert {
+  border-radius: var(--r-card) !important;
+  border: 1px solid transparent;
+  font-size: 13px;
+}
+.alert-info {
+  background: var(--tint-sky) !important;
+  color: var(--txt-blue) !important;
+  border-color: rgba(30,64,175,.12) !important;
+}
+.alert-warning {
+  background: var(--tint-yellow) !important;
+  color: var(--txt-yellow) !important;
+  border-color: rgba(133,77,14,.12) !important;
+}
+.alert-danger {
+  background: var(--tint-rose) !important;
+  color: var(--brand-red) !important;
+  border-color: rgba(255,0,59,.15) !important;
+}
+
+/* ============================================
+   AVATAR
+   ============================================ */
+.avatar {
+  border-radius: 50%;
+  background-color: var(--surface);
+  background-position: center;
+  background-size: cover;
+}
+
+/* ============================================
+   CHART CANVAS FIX
+   ============================================ */
 .chart-wrap canvas { width: 100% !important; }
 
-/* Card top accent */
-.card-accent { border-top: 3px solid var(--tblr-primary); }
+/* ============================================
+   TEXT UTILITIES (Bootstrap overrides)
+   ============================================ */
+.text-muted { color: var(--steel) !important; }
+.text-primary { color: var(--brand-red) !important; }
+.text-success { color: var(--semantic-success) !important; }
+.text-danger { color: var(--brand-red) !important; }
+.text-dark { color: var(--ink) !important; }
 
-/* Badge overrides for platforms */
-.badge-youtube { background: #fee2e2 !important; color: #dc2626 !important; }
-.badge-instagram { background: #f3e8ff !important; color: #7c3aed !important; }
-.badge-facebook { background: #dbeafe !important; color: #2563eb !important; }
+/* ============================================
+   FOOTER (light, hairline)
+   ============================================ */
+.notion-foot {
+  margin-top: 64px;
+  padding: 32px 28px;
+  border-top: 1px solid var(--hairline);
+  background: var(--canvas);
+  font-size: 12px;
+  color: var(--steel);
+  font-family: var(--mono);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.notion-foot .live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.notion-foot .live-badge::before {
+  content: ""; width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--semantic-success);
+  box-shadow: 0 0 6px var(--semantic-success);
+}
 
-/* Active category filter indicator */
-.active-cat-filter { background: #eef2ff; border: 1px dashed var(--tblr-primary); border-radius: 8px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
-
-/* Loading spinner */
-.loading-spinner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; }
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+  .navbar-vertical {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--hairline) !important;
+  }
+  .container-xl { padding: 0 20px !important; }
+  .notion-topnav-inner { padding: 12px 20px; }
+  .notion-breadcrumb { display: none; }
+  .page-header { padding: 24px 0 16px !important; }
+  .page-title { font-size: 26px; }
+}
+@media (max-width: 640px) {
+  .container-xl { padding: 0 16px !important; }
+  .page-title { font-size: 22px; }
+  .kpi-number { font-size: 22px; }
+  .notion-topnav-actions .notion-btn { padding: 6px 10px; font-size: 12px; }
+}
 
 @media print {
-  .navbar-vertical, .page-header .btn, .btn-group, .form-control { display: none !important; }
+  .notion-topnav, .navbar-vertical, .page-header .btn, .btn-group, .form-control { display: none !important; }
   .page-wrapper { margin: 0 !important; }
   .card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
 }
@@ -221,9 +857,29 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
   if (savedTheme) document.documentElement.setAttribute('data-bs-theme', savedTheme);
 })();
 </script>
+<!-- ============ NOTION TOP NAV ============ -->
+<nav class="notion-topnav" aria-label="상단 네비게이션">
+  <div class="notion-topnav-inner">
+    <a href="/portal.html" class="notion-topnav-brand">
+      <span class="logo-mark"></span>
+      <span class="logo-word">SETOWORKS</span>
+    </a>
+    <span class="notion-breadcrumb" aria-hidden="true">
+      <span class="sep">/</span>
+      <span>운영 도구</span>
+      <span class="sep">/</span>
+      <span class="crumb-now">인플루언서 관리</span>
+    </span>
+    <div class="notion-topnav-actions">
+      <a href="/portal.html" class="notion-btn notion-btn-ghost" aria-label="포털로 돌아가기">← 포털</a>
+      <button type="button" class="notion-btn notion-btn-primary" onclick="openAutoMatchModal()" aria-label="자동 매칭 실행">+ 매칭 실행</button>
+    </div>
+  </div>
+</nav>
+
 <div class="page">
-  <!-- Sidebar -->
-  <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark" style="width:240px;">
+  <!-- Sidebar (Notion light tone) -->
+  <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="light" style="width:260px;">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
         <span class="navbar-toggler-icon"></span>
@@ -234,8 +890,8 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
       <div class="collapse navbar-collapse" id="sidebar-menu">
         <!-- Global search with results dropdown -->
         <div class="my-2 px-1" style="position:relative">
-          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색 (인플루언서/콘텐츠/카테고리)" aria-label="통합 검색" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" autocomplete="off">
-          <div id="global-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);max-height:400px;overflow-y:auto;z-index:1100;color:#1a1a2e;font-size:13px"></div>
+          <input type="text" id="sidebar-search" class="form-control form-control-sm" placeholder="통합 검색 (인플루언서/콘텐츠/카테고리)" aria-label="통합 검색" autocomplete="off">
+          <div id="global-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;max-height:400px;overflow-y:auto;z-index:1100;font-size:13px"></div>
         </div>
         <ul class="navbar-nav flex-column pt-2" aria-label="네비게이션">
           <li class="nav-item">
@@ -263,12 +919,12 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; }
             </a>
           </li>
         </ul>
-        <div class="mt-auto pt-3 border-top border-secondary">
+        <div class="mt-auto pt-3" style="border-top:1px solid var(--hairline-soft);">
           <div class="d-flex align-items-center justify-content-between">
-            <a href="/" class="sidebar-footer-link">&larr; 메인으로</a>
+            <a href="/portal.html" class="sidebar-footer-link">&larr; 포털</a>
             <button class="btn btn-sm btn-ghost-secondary" onclick="toggleDark()" title="다크모드" aria-label="다크모드 전환">&#127769;</button>
           </div>
-          <div class="shortcut-hint">단축키: / 검색 &middot; 1~4 뷰 전환 &middot; ESC 닫기</div>
+          <div class="shortcut-hint">단축키: / 검색 · 1~4 뷰 · ESC 닫기</div>
         </div>
       </div>
     </div>
@@ -3340,6 +3996,20 @@ function autoMatchSelect(id) {
   renderCompareCharts();
 }
 
+// ─── Toast (defensive — used by setInfluencerStatus / resetCompare) ───
+function toast(msg) {
+  if (!msg) return;
+  var existing = document.getElementById('notion-toast');
+  if (existing) existing.remove();
+  var t = document.createElement('div');
+  t.id = 'notion-toast';
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#191919;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.25);font-family:Pretendard,Inter,sans-serif;';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; t.style.transition='opacity .3s'; }, 2200);
+  setTimeout(function(){ t.remove(); }, 2600);
+}
+
 // ─── CSV Export ───
 function exportCSV() {
   var filteredChannels = getFilteredInfluencers();
@@ -3363,10 +4033,29 @@ function toggleDark() {
   var isDark = html.getAttribute('data-bs-theme') === 'dark';
   html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
   localStorage.setItem('theme', isDark ? 'light' : 'dark');
-  // Sidebar should always stay dark
+  // Sidebar follows the theme (Notion light by default)
   var sidebar = document.querySelector('.navbar-vertical');
-  if (sidebar) sidebar.setAttribute('data-bs-theme', 'dark');
+  if (sidebar) sidebar.setAttribute('data-bs-theme', isDark ? 'light' : 'light');
 }
+</script>
+
+<!-- ============ NOTION FOOTER ============ -->
+<footer class="notion-foot" role="contentinfo">
+  <span>© 2026 Setoworks · 운영 OS · 인플루언서 관리</span>
+  <span class="live-badge" id="legal-updated">Live · 65 creators · daily 09:00 KST</span>
+</footer>
+<script>
+(function(){
+  fetch(window.location.href, {method:'HEAD'}).then(function(r){
+    var lm = r.headers.get('last-modified');
+    if (lm) {
+      var d = new Date(lm);
+      var s = d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+      var el = document.getElementById('legal-updated');
+      if (el) el.textContent = 'Live · Updated ' + s;
+    }
+  }).catch(function(){});
+})();
 </script>
 </body>
 </html>
