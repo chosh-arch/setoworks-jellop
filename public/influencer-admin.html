@@ -836,9 +836,9 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; color: var(--brand-red); opa
 }
 
 @media (max-width:768px){
-  table.table,.tbl,table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;}
-  .card-table,.table-responsive{overflow-x:auto;max-width:100%;}
-  body{overflow-x:hidden;max-width:100vw;}
+ table.table,.tbl,table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;}
+ .card-table,.table-responsive{overflow-x:auto;max-width:100%;}
+ body{overflow-x:hidden;max-width:100vw;}
 }
 </style><script src="/setoworks-nav.js" defer></script></head><body><script>
 // Dark mode: restore saved theme on load
@@ -1421,7 +1421,7 @@ function renderNoteworthyChannels() {
  return (i.pure_score || 0) >= 60 && (i.content_count || 0) >= 10 && (i.followers || 0) >= 10000 && (i.followers || 0) < 500000;
  }).sort(function(a, b) { return (b.pure_score || 0) - (a.pure_score || 0); }).slice(0, 3);
 
- // ⭐ 검증된 우수 채널 (Pure Score 75+, 구독자 50만+)
+ // 검증된 우수 채널 (Pure Score 75+, 구독자 50만+)
  var verified = infs.filter(function(i) {
  return (i.pure_score || 0) >= 75 && (i.followers || 0) >= 500000;
  }).sort(function(a, b) { return (b.pure_score || 0) - (a.pure_score || 0); }).slice(0, 3);
@@ -1457,7 +1457,7 @@ function renderNoteworthyChannels() {
  html += renderCategory(' 잠재력 높은 채널', '작은 채널이지만 성과 좋음', { bg: 'rgba(16,185,129,.06)', border: '#10b981' }, potential, function(i) {
  return 'Score ' + (i.pure_score || 0).toFixed(1) + ' · 구독자 ' + fmt(i.followers) + ' · 콘텐츠 ' + i.content_count;
  });
- html += renderCategory('⭐ 검증된 우수 채널', '큰 채널 중 최고 성과', { bg: 'rgba(245,158,11,.06)', border: '#f59e0b' }, verified, function(i) {
+ html += renderCategory(' 검증된 우수 채널', '큰 채널 중 최고 성과', { bg: 'rgba(245,158,11,.06)', border: '#f59e0b' }, verified, function(i) {
  return 'Score ' + (i.pure_score || 0).toFixed(1) + ' · 구독자 ' + fmt(i.followers);
  });
  html += renderCategory(' 주의 필요 채널', '규모 대비 참여율 저조', { bg: 'rgba(239,68,68,.06)', border: '#ef4444' }, warn, function(i) {
@@ -3401,14 +3401,14 @@ function renderGroupSimulation(sel) {
  // cost=0 → S (free seeding optimal)
  // reach/cost > 500 → S; >200 → A; >50 → B; else C
  var grade = 'C';
- var stars = '⭐⭐';
- if (totalCost === 0) { grade = 'S'; stars = '⭐⭐⭐⭐⭐'; }
+ var stars = '';
+ if (totalCost === 0) { grade = 'S'; stars = ''; }
  else {
  var ratio = totalReach / totalCost;
- if (ratio > 500) { grade = 'S'; stars = '⭐⭐⭐⭐⭐'; }
- else if (ratio > 200) { grade = 'A'; stars = '⭐⭐⭐⭐'; }
- else if (ratio > 50) { grade = 'B'; stars = '⭐⭐⭐'; }
- else { grade = 'C'; stars = '⭐⭐'; }
+ if (ratio > 500) { grade = 'S'; stars = ''; }
+ else if (ratio > 200) { grade = 'A'; stars = ''; }
+ else if (ratio > 50) { grade = 'B'; stars = ''; }
+ else { grade = 'C'; stars = ''; }
  }
 
  // Recommendation text
