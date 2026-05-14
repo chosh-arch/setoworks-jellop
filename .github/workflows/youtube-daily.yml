@@ -1,0 +1,61 @@
+name: YouTube Daily Update + Discover
+
+on:
+  schedule:
+    # 매일 KST 09:00 = UTC 00:00
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Mode: update or discover'
+        required: false
+        default: 'update'
+
+env:
+  SB_URL: https://skcdrvzcwemhjtchfdtt.supabase.co
+  SB_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+jobs:
+  update-existing:
+    name: Update existing YouTube channels (Supabase)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Call youtube-collector (update mode)
+        run: |
+          KEY="${SB_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU}"
+          echo "::group::Update existing channels (limit=50)"
+          curl -sS --max-time 600 \
+            "$SB_URL/functions/v1/youtube-collector?limit=50" \
+            -H "Authorization: Bearer $KEY" \
+            -H "Content-Type: application/json" \
+            -o response.json -w "\nHTTP %{http_code} · %{time_total}s\n"
+          cat response.json | head -c 2000
+          echo "::endgroup::"
+
+      - name: Verify quota
+        run: |
+          KEY="${SB_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU}"
+          QUOTA=$(jq -r '.quota_used // "N/A"' response.json)
+          echo "API quota used in this run: $QUOTA"
+
+  discover-new:
+    name: Discover new YouTube channels (JP/TW × top categories)
+    runs-on: ubuntu-latest
+    needs: update-existing
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        country: [JP, TW]
+        category: [fashion, lifestyle, fitness, food, tech_unboxing, gaming, education, travel]
+      fail-fast: false
+      max-parallel: 2
+    steps:
+      - name: Discover for ${{ matrix.country }}/${{ matrix.category }}
+        run: |
+          KEY="${SB_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrY2Rydnpjd2VtaGp0Y2hmZHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNTY3MzUsImV4cCI6MjA5MTczMjczNX0.ULkKqm_9FlXvq5h3CGcI82-d-ePO2cTEjfnjQDFn6BU}"
+          curl -sS --max-time 120 \
+            "$SB_URL/functions/v1/youtube-collector?mode=discover&category=${{ matrix.category }}&country=${{ matrix.country }}&limit=3&min_subs=5000" \
+            -H "Authorization: Bearer $KEY" \
+            -w "\nHTTP %{http_code}\n" \
+            | head -c 1500
