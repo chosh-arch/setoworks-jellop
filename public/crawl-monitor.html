@@ -1043,8 +1043,8 @@ async function loadAutoSchedules(){
  var schedules=await sbGet('auto_schedules','&order=id');
  var el=document.getElementById('auto-schedules');
  if(!el)return;
- var labels={'daily_update':' 채널 업데이트','daily_discover':' 신규 발굴','monthly_c_review':' C등급 리뷰','quarterly_archive_review':' 아카이브 리뷰'};
- var cycles={'daily_update':'매일 09:00','daily_discover':'매일 09:30','monthly_c_review':'30일','quarterly_archive_review':'90일'};
+ var labels={'daily_update':'채널 업데이트','daily_discover':'신규 발굴','monthly_c_review':'C등급 리뷰','quarterly_archive_review':'아카이브 리뷰','gha_youtube_daily':'GHA Cron · Supabase 채널 최신화','win_task_local_daily':'Windows Task · 로컬 SQLite 최신화'};
+ var cycles={'daily_update':'매일 09:00','daily_discover':'매일 09:30','monthly_c_review':'30일','quarterly_archive_review':'90일','gha_youtube_daily':'매일 09:00 KST (UTC 00:00)','win_task_local_daily':'매일 09:00 KST'};
 
  var html='';
  schedules.forEach(function(s){
