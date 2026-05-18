@@ -183,7 +183,11 @@ except Exception as e:
 print('\n[8c] DATA INTEGRITY')
 try:
     infs=sb('influencers','&is_active=eq.true&select=id,display_name,content_count,avg_views,avg_likes,avg_comments,monthly_uploads,category,pure_score,grade,tier')
-    valid_cats={'fitness','fashion','beauty','lifestyle','food','tech_unboxing','camping_outdoor','motorcycle','pet','parenting','gaming','education','travel'}
+    # category_taxonomy.json 동기화 — 25개 소분류
+    valid_cats={'lifestyle','interior','diy','handmade','fashion','beauty','food',
+                'fitness','sports','camping_outdoor','tech_unboxing','motorcycle','automotive',
+                'gaming','music','comedy','anime','drama','asmr','education','finance',
+                'parenting','kids','pet','travel'}
     bad_cat=[i for i in infs if i.get('category') and i['category'] not in valid_cats]
     check('INTEGRITY',f'모든 카테고리 유효 (invalid: {[i["display_name"] for i in bad_cat[:3]]})',len(bad_cat)==0)
     no_comments=[i for i in infs if i.get('avg_comments') is None or i.get('avg_comments')==0]

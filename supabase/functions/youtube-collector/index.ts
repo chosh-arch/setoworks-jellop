@@ -70,8 +70,18 @@ function validateInfluencer(data: Record<string, any>, videos: any[]): Validatio
     warnings.push('avg_views=0 but total_views=' + data.total_views);
   }
 
-  // 6. 카테고리 검증 (유효한 카테고리인지)
-  const VALID_CATS = ['fitness','fashion','beauty','lifestyle','food','tech_unboxing','camping_outdoor','motorcycle','pet','parenting','gaming','education','travel'];
+  // 6. 카테고리 검증 (유효한 소분류인지 — category_taxonomy.json 기준 25개)
+  const VALID_CATS = [
+    'lifestyle','interior','diy','handmade',
+    'fashion','beauty',
+    'food',
+    'fitness','sports','camping_outdoor',
+    'tech_unboxing','motorcycle','automotive',
+    'gaming','music','comedy','anime','drama','asmr',
+    'education','finance',
+    'parenting','kids','pet',
+    'travel'
+  ];
   if (data.category && !VALID_CATS.includes(data.category)) {
     warnings.push('알 수 없는 카테고리: ' + data.category);
   }
@@ -252,6 +262,19 @@ function detectCategoryFromContent(bio: string, videos: any[]): string | null {
     travel: ["旅行", "travel", "여행", "旅遊", "trip", "観光", "backpack", "hotel"],
     education: ["勉強", "study", "tutorial", "教育", "공부", "learning", "how to", "解説"],
     lifestyle: ["vlog", "日常", "暮らし", "ライフ", "lifestyle", "라이프", "일상", "daily", "routine"],
+    // 확장 소분류 (category_taxonomy.json)
+    interior: ["interior", "ルームツアー", "인테리어", "室內設計", "home decor", "room tour"],
+    diy: ["diy", "手作り", "셀프인테리어", "woodworking", "목공", "リメイク"],
+    handmade: ["handmade", "crochet", "핸드메이드", "ハンドメイド", "knitting", "뜨개", "刺繍"],
+    sports: ["sports", "スポーツ", "스포츠", "野球", "soccer", "축구", "テニス"],
+    automotive: ["car review", "自動車", "자동차", "車載", "試乗", "drive"],
+    music: ["music", "音楽", "음악", "cover", "playlist", "歌ってみた", "弾いてみた"],
+    comedy: ["comedy", "コント", "코미디", "搞笑", "funny", "ネタ", "개그"],
+    anime: ["anime", "アニメ", "애니메이션", "動畫", "声優", "manga"],
+    drama: ["drama review", "ドラマ考察", "드라마", "影評", "movie review", "映画考察"],
+    asmr: ["asmr", "에이에스엠알", "助眠", "囁き", "tapping", "whisper"],
+    finance: ["finance", "投資", "재테크", "理財", "stock", "주식", "節約"],
+    kids: ["kids", "키즈", "子供向け", "兒童", "おもちゃ", "장난감"],
   };
 
   // Count keyword matches per category
@@ -363,20 +386,32 @@ serve(async (req) => {
       const country = url.searchParams.get("country") || "ALL";
       const minSubs = parseInt(url.searchParams.get("min_subs") || "1000");
 
-      // 13개 카테고리 전체 + 다국어 검색어
+      // 25개 소분류 전체 + 다국어 검색어 (category_taxonomy.json 동기화)
       const SEARCH_QUERIES: Record<string, string[]> = {
-        fitness: ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン", "fitness challenge"],
+        lifestyle: ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG", "day in my life"],
+        interior: ["interior design", "ルームツアー", "인테리어", "室內設計", "home makeover"],
+        diy: ["diy project", "DIY", "셀프인테리어", "手作り", "woodworking"],
+        handmade: ["handmade", "crochet", "핸드메이드", "ハンドメイド", "knitting"],
         fashion: ["fashion haul", "outfit of the day", "패션 하울", "コーデ紹介", "fashion lookbook"],
         beauty: ["makeup tutorial", "skincare routine", "뷰티 루틴", "メイク", "beauty review"],
-        lifestyle: ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG", "day in my life"],
         food: ["cooking vlog", "먹방", "料理VLOG", "美食", "what i eat in a day", "recipe"],
-        tech_unboxing: ["tech review", "unboxing", "언박싱", "開封レビュー", "gadget review"],
+        fitness: ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン", "fitness challenge"],
+        sports: ["sports highlight", "スポーツ", "스포츠", "運動", "training drills"],
         camping_outdoor: ["camping vlog", "캠핑", "キャンプ", "露營", "outdoor adventure"],
+        tech_unboxing: ["tech review", "unboxing", "언박싱", "開封レビュー", "gadget review"],
         motorcycle: ["motovlog", "バイク", "오토바이", "motorcycle tour", "riding vlog"],
-        pet: ["pet vlog", "반려동물", "ペット", "寵物", "cute dog", "cat vlog"],
-        parenting: ["parenting vlog", "육아", "子育て", "育兒", "family vlog", "mom vlog"],
+        automotive: ["car review", "自動車", "자동차 리뷰", "車載", "car vlog"],
         gaming: ["gaming", "게임", "ゲーム", "let's play", "game review"],
+        music: ["music cover", "音楽", "음악", "playlist", "original song"],
+        comedy: ["comedy sketch", "コント", "코미디", "搞笑", "funny video"],
+        anime: ["anime review", "アニメ", "애니메이션", "動畫", "anime reaction"],
+        drama: ["drama review", "ドラマ考察", "드라마 리뷰", "影評", "movie review"],
+        asmr: ["asmr", "ASMR 音", "에이에스엠알", "助眠", "relaxing asmr"],
         education: ["study vlog", "공부", "勉強", "tutorial", "learning", "how to"],
+        finance: ["personal finance", "投資", "재테크", "理財", "money tips"],
+        parenting: ["parenting vlog", "육아", "子育て", "育兒", "family vlog", "mom vlog"],
+        kids: ["kids channel", "키즈", "子供向け", "兒童", "kids learning"],
+        pet: ["pet vlog", "반려동물", "ペット", "寵物", "cute dog", "cat vlog"],
         travel: ["travel vlog", "여행", "旅行", "旅遊", "backpacking", "travel guide"],
       };
 

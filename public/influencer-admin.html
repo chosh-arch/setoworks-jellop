@@ -852,11 +852,47 @@ th.sort-desc .sort-arrow::after { content: '\25BC'; color: var(--brand-red); opa
  의미 있는 비교를 위해 2명 이상 선택하세요
  </div></div></div></div><div class="col-lg-6"><div class="card"><div class="card-header"><h3 class="card-title">국가별 인플루언서 분포</h3></div><div class="card-body"><div class="chart-wrap" style="max-width:320px;margin:0 auto"><canvas id="chart-country" height="320"></canvas></div></div></div></div></div><div class="row mt-3"><div class="col-12"><div class="card"><div class="card-header"><h3 class="card-title">상세 비교표</h3></div><div class="card-body p-0" id="compare-table-wrap"></div></div></div></div><!-- Feature 5: 그룹 효과 시뮬레이션 --><div class="row mt-3"><div class="col-12"><div class="card" style="border-top:3px solid #6d28d9"><div class="card-header"><h3 class="card-title"> 그룹 효과 시뮬레이션 <span class="text-muted small fw-normal ms-2">(합산 예상 효과)</span></h3></div><div class="card-body" id="group-simulation-wrap"></div></div></div></div><div class="row mt-3"><div class="col-12"><div class="card"><div class="card-header"><h3 class="card-title">콘텐츠 유형 분포</h3></div><div class="card-body"><div class="chart-wrap" style="max-width:500px"><canvas id="chart-content-type" height="260"></canvas></div></div></div></div></div></div></div></section><!-- View 5: Channel Detail --><section id="view-detail" class="view"><div class="page-header d-print-none"><div class="container-xl"><div class="d-flex align-items-center"><button class="btn btn-sm btn-primary me-3" onclick="switchToView('channels')" style="padding:4px 14px;border-radius:8px;font-weight:600;">목록으로</button><div><div class="page-pretitle">크리에이터 상세</div><h2 class="page-title" id="detail-title">-</h2></div></div></div></div><div class="page-body"><div class="container-xl" id="detail-content"><div class="text-center text-muted py-5">채널을 선택하세요</div></div></div></section></div></div><!-- Feature 2: Auto Match Modal --><div class="modal modal-blur fade" id="auto-match-modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"> 자동 매칭 추천</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="row g-3"><div class="col-md-6"><label class="form-label text-muted small">카테고리</label><select class="form-select form-select-sm" id="am-category"><option value="all">전체 카테고리</option></select></div><div class="col-md-6"><label class="form-label text-muted small">국가</label><select class="form-select form-select-sm" id="am-country"><option value="all">전체</option><option value="JP">일본 </option><option value="TW">대만 </option></select></div><div class="col-md-6"><label class="form-label text-muted small">예산</label><select class="form-select form-select-sm" id="am-budget"><option value="free">무료 시딩 (나노/마이크로 4인 이하)</option><option value="small">소규모 (~50만원, 미드)</option><option value="mid">중간 (~500만원, 매크로)</option><option value="large">대형 (1000만+, 메가)</option></select></div><div class="col-md-6"><label class="form-label text-muted small">우선순위</label><select class="form-select form-select-sm" id="am-priority"><option value="engagement">참여율 우선</option><option value="scale">규모 우선</option><option value="balanced" selected>균형</option></select></div></div><div class="mt-3 text-end"><button type="button" class="btn btn-primary" onclick="runAutoMatch()">추천 받기</button></div><div id="am-results" class="mt-3"></div></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script><script>
 const PALETTE = ['#3b5bdb','#f59e0b','#0d7c5f','#e11d48','#6d28d9','#0ea5e9','#14b8a6','#be185d','#8b5cf6','#ef4444','#84cc16','#f97316','#06b6d4','#a855f7','#ec4899','#22c55e'];
+// 2-level category taxonomy (category_taxonomy.json 동기화) — 9 대분류 / 25 소분류
 const CAT_KR = {
- 'fashion': '패션', 'lifestyle': '라이프스타일', 'fitness': '피트니스',
- 'beauty': '뷰티', 'camping_outdoor': '캠핑/아웃도어', 'food': '푸드/요리',
- 'motorcycle': '모터사이클', 'tech_unboxing': '테크/언박싱'
+ 'lifestyle':'일상·브이로그','interior':'인테리어','diy':'DIY·홈공방','handmade':'핸드메이드·수공예',
+ 'fashion':'패션','beauty':'뷰티',
+ 'food':'푸드·요리',
+ 'fitness':'피트니스','sports':'스포츠','camping_outdoor':'캠핑·아웃도어',
+ 'tech_unboxing':'테크·언박싱','motorcycle':'모터사이클','automotive':'자동차',
+ 'gaming':'게임','music':'음악','comedy':'코미디','anime':'애니메이션','drama':'드라마·리뷰','asmr':'ASMR',
+ 'education':'교육·학습','finance':'금융·재테크',
+ 'parenting':'육아·패밀리','kids':'키즈','pet':'반려동물',
+ 'travel':'여행'
 };
+const CAT_GROUPS = [
+ { name:'라이프스타일', subs:['lifestyle','interior','diy','handmade'] },
+ { name:'패션·뷰티', subs:['fashion','beauty'] },
+ { name:'푸드', subs:['food'] },
+ { name:'건강·피트니스', subs:['fitness','sports','camping_outdoor'] },
+ { name:'테크·모빌리티', subs:['tech_unboxing','motorcycle','automotive'] },
+ { name:'엔터테인먼트', subs:['gaming','music','comedy','anime','drama','asmr'] },
+ { name:'지식·금융', subs:['education','finance'] },
+ { name:'가족·반려', subs:['parenting','kids','pet'] },
+ { name:'여행', subs:['travel'] }
+];
+// 대분류 ID 역참조 (소분류 → 대분류명)
+const CAT_PARENT = (function(){ var m={}; CAT_GROUPS.forEach(function(g){ g.subs.forEach(function(s){ m[s]=g.name; }); }); return m; })();
+// allCats(데이터에 존재하는 소분류) 를 대분류 optgroup 으로 묶어 <option> HTML 생성
+function catOptgroups(allCats, selected){
+ var present={}; allCats.forEach(function(c){ present[c]=true; });
+ var html=''; var used={};
+ CAT_GROUPS.forEach(function(g){
+  var subs=g.subs.filter(function(s){ return present[s]; });
+  if(!subs.length) return;
+  html+='<optgroup label="'+g.name+'">';
+  subs.forEach(function(c){ used[c]=true; html+='<option value="'+c+'"'+(selected===c?' selected':'')+'>'+(CAT_KR[c]||c)+'</option>'; });
+  html+='</optgroup>';
+ });
+ // 분류표에 없는 카테고리는 '기타' 그룹으로
+ var etc=allCats.filter(function(c){ return !used[c]; });
+ if(etc.length){ html+='<optgroup label="기타">'; etc.forEach(function(c){ html+='<option value="'+c+'"'+(selected===c?' selected':'')+'>'+(CAT_KR[c]||c)+'</option>'; }); html+='</optgroup>'; }
+ return html;
+}
 const COUNTRY_KR = { 'JP': '일본 \u{1F1EF}\u{1F1F5}', 'TW': '대만 \u{1F1F9}\u{1F1FC}', 'KR': '한국 \u{1F1F0}\u{1F1F7}', 'GB': '영국 \u{1F1EC}\u{1F1E7}', 'SG': '싱가포르 \u{1F1F8}\u{1F1EC}', 'TH': '태국 \u{1F1F9}\u{1F1ED}' };
 
 let DATA = null;
@@ -1530,9 +1566,7 @@ function renderChannelFilters() {
  html += '<div><label class="form-label mb-1 text-muted small">카테고리</label>';
  html += '<select class="form-select form-select-sm" aria-label="카테고리 필터" style="min-width:130px" onchange="setChFilter(\'category\',this.value)">';
  html += '<option value="all"' + (chFilters.category==='all'?' selected':'') + '>전체</option>';
- allCats.forEach(c => {
- html += '<option value="' + c + '"' + (chFilters.category===c?' selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
- });
+ html += catOptgroups(allCats, chFilters.category);
  html += '</select></div>';
 
  // Score range
@@ -3117,10 +3151,8 @@ function renderCompareFilterBar() {
  });
  html += '</select></div>';
  html += '<div><label class="form-label mb-1 text-muted small">카테고리</label><select class="form-select form-select-sm" style="min-width:140px" onchange="setCompareFilter(\'category\',this.value)">';
- html += '<option value="all">전체</option>';
- allCats.forEach(c => {
- html += '<option value="' + c + '" ' + (compareFilters.category===c?'selected':'') + '>' + (CAT_KR[c]||c) + '</option>';
- });
+ html += '<option value="all"' + (compareFilters.category==='all'?' selected':'') + '>전체</option>';
+ html += catOptgroups(allCats, compareFilters.category);
  html += '</select></div>';
  html += '<div style="margin-left:auto;"><button class="btn btn-sm btn-outline-danger" onclick="resetCompare()">선택 초기화</button></div>';
  html += '</div>';
@@ -3527,14 +3559,9 @@ function openAutoMatchModal() {
  // Populate category dropdown
  var catSel = document.getElementById('am-category');
  if (catSel && catSel.children.length <= 1) {
- var seen = {};
- DATA.influencers.forEach(function(i) { if (i.category && !seen[i.category]) { seen[i.category] = true; } });
- Object.keys(seen).forEach(function(c) {
- var opt = document.createElement('option');
- opt.value = c;
- opt.textContent = CAT_KR[c] || c;
- catSel.appendChild(opt);
- });
+ var seen = {}, amCats = [];
+ DATA.influencers.forEach(function(i) { if (i.category && !seen[i.category]) { seen[i.category] = true; amCats.push(i.category); } });
+ catSel.insertAdjacentHTML('beforeend', catOptgroups(amCats, null));
  }
  document.getElementById('am-results').innerHTML = '';
  var modalEl = document.getElementById('auto-match-modal');

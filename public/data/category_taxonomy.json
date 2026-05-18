@@ -1,0 +1,42 @@
+{
+  "version": "2026-05-15",
+  "note": "Setoworks 크리에이터 카테고리 2단계 분류 — 단일 소스. 대분류(group) 9개 / 소분류(sub) 25개. influencers.category 는 소분류 ID 를 저장하고, 대분류는 이 파일로 파생한다.",
+  "groups": [
+    { "id": "lifestyle_g", "name": "라이프스타일", "name_en": "Lifestyle", "color": "#10b981", "subs": ["lifestyle", "interior", "diy", "handmade"] },
+    { "id": "fashion_g", "name": "패션·뷰티", "name_en": "Fashion & Beauty", "color": "#ec4899", "subs": ["fashion", "beauty"] },
+    { "id": "food_g", "name": "푸드", "name_en": "Food", "color": "#f59e0b", "subs": ["food"] },
+    { "id": "health_g", "name": "건강·피트니스", "name_en": "Health & Fitness", "color": "#14b8a6", "subs": ["fitness", "sports", "camping_outdoor"] },
+    { "id": "tech_g", "name": "테크·모빌리티", "name_en": "Tech & Mobility", "color": "#3b82f6", "subs": ["tech_unboxing", "motorcycle", "automotive"] },
+    { "id": "ent_g", "name": "엔터테인먼트", "name_en": "Entertainment", "color": "#8b5cf6", "subs": ["gaming", "music", "comedy", "anime", "drama", "asmr"] },
+    { "id": "knowledge_g", "name": "지식·금융", "name_en": "Knowledge & Finance", "color": "#0ea5e9", "subs": ["education", "finance"] },
+    { "id": "family_g", "name": "가족·반려", "name_en": "Family & Pet", "color": "#f97316", "subs": ["parenting", "kids", "pet"] },
+    { "id": "travel_g", "name": "여행", "name_en": "Travel", "color": "#06b6d4", "subs": ["travel"] }
+  ],
+  "subs": {
+    "lifestyle":      { "name": "일상·브이로그", "name_en": "Lifestyle",  "group": "lifestyle_g", "queries": ["daily vlog", "一人暮らし", "라이프스타일", "生活VLOG", "day in my life"] },
+    "interior":       { "name": "인테리어",      "name_en": "Interior",   "group": "lifestyle_g", "queries": ["interior design", "ルームツアー", "인테리어", "室內設計", "home makeover"] },
+    "diy":            { "name": "DIY·홈공방",    "name_en": "DIY",        "group": "lifestyle_g", "queries": ["diy project", "DIY", "셀프인테리어", "手作り", "woodworking"] },
+    "handmade":       { "name": "핸드메이드·수공예", "name_en": "Handmade", "group": "lifestyle_g", "queries": ["handmade", "crochet", "핸드메이드", "ハンドメイド", "knitting"] },
+    "fashion":        { "name": "패션",          "name_en": "Fashion",    "group": "fashion_g",   "queries": ["fashion haul", "outfit of the day", "패션 하울", "コーデ紹介", "fashion lookbook"] },
+    "beauty":         { "name": "뷰티",          "name_en": "Beauty",     "group": "fashion_g",   "queries": ["makeup tutorial", "skincare routine", "뷰티 루틴", "メイク", "beauty review"] },
+    "food":           { "name": "푸드·요리",      "name_en": "Food",       "group": "food_g",      "queries": ["cooking vlog", "먹방", "料理VLOG", "美食", "what i eat in a day", "recipe"] },
+    "fitness":        { "name": "피트니스",       "name_en": "Fitness",    "group": "health_g",    "queries": ["fitness routine", "workout vlog", "홈트레이닝", "筋トレ ルーティン", "fitness challenge"] },
+    "sports":         { "name": "스포츠",        "name_en": "Sports",     "group": "health_g",    "queries": ["sports highlight", "スポーツ", "스포츠", "運動", "training drills"] },
+    "camping_outdoor":{ "name": "캠핑·아웃도어",  "name_en": "Camping & Outdoor", "group": "health_g", "queries": ["camping vlog", "캠핑", "キャンプ", "露營", "outdoor adventure"] },
+    "tech_unboxing":  { "name": "테크·언박싱",    "name_en": "Tech & Unboxing", "group": "tech_g", "queries": ["tech review", "unboxing", "언박싱", "開封レビュー", "gadget review"] },
+    "motorcycle":     { "name": "모터사이클",     "name_en": "Motorcycle", "group": "tech_g",      "queries": ["motovlog", "バイク", "오토바이", "motorcycle tour", "riding vlog"] },
+    "automotive":     { "name": "자동차",        "name_en": "Automotive", "group": "tech_g",      "queries": ["car review", "自動車", "자동차 리뷰", "車載", "car vlog"] },
+    "gaming":         { "name": "게임",          "name_en": "Gaming",     "group": "ent_g",       "queries": ["gaming", "게임", "ゲーム", "let's play", "game review"] },
+    "music":          { "name": "음악",          "name_en": "Music",      "group": "ent_g",       "queries": ["music cover", "音楽", "음악", "playlist", "original song"] },
+    "comedy":         { "name": "코미디",        "name_en": "Comedy",     "group": "ent_g",       "queries": ["comedy sketch", "コント", "코미디", "搞笑", "funny video"] },
+    "anime":          { "name": "애니메이션",     "name_en": "Anime",      "group": "ent_g",       "queries": ["anime review", "アニメ", "애니메이션", "動畫", "anime reaction"] },
+    "drama":          { "name": "드라마·리뷰",    "name_en": "Drama & Review", "group": "ent_g",   "queries": ["drama review", "ドラマ考察", "드라마 리뷰", "影評", "movie review"] },
+    "asmr":           { "name": "ASMR",          "name_en": "ASMR",       "group": "ent_g",       "queries": ["asmr", "ASMR 音", "에이에스엠알", "助眠", "relaxing asmr"] },
+    "education":      { "name": "교육·학습",      "name_en": "Education",  "group": "knowledge_g", "queries": ["study vlog", "공부", "勉強", "tutorial", "learning", "how to"] },
+    "finance":        { "name": "금융·재테크",    "name_en": "Finance",    "group": "knowledge_g", "queries": ["personal finance", "投資", "재테크", "理財", "money tips"] },
+    "parenting":      { "name": "육아·패밀리",    "name_en": "Parenting",  "group": "family_g",    "queries": ["parenting vlog", "육아", "子育て", "育兒", "family vlog", "mom vlog"] },
+    "kids":           { "name": "키즈",          "name_en": "Kids",       "group": "family_g",    "queries": ["kids channel", "키즈", "子供向け", "兒童", "kids learning"] },
+    "pet":            { "name": "반려동물",       "name_en": "Pet",        "group": "family_g",    "queries": ["pet vlog", "반려동물", "ペット", "寵物", "cute dog", "cat vlog"] },
+    "travel":         { "name": "여행",          "name_en": "Travel",     "group": "travel_g",    "queries": ["travel vlog", "여행", "旅行", "旅遊", "backpacking", "travel guide"] }
+  }
+}
