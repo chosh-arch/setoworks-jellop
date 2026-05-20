@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>와디즈 테크·가전 진행중 · Setoworks 임시 뷰</title>
+<meta name="description" content="와디즈 A0010 테크·가전 카테고리 진행중 펀딩 전수 리스트 — Setoworks 크롤링">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root{
+ --canvas:#ffffff;
+ --ink:#191919;
+ --charcoal:#2c2c2c;
+ --slate:#5b5b5b;
+ --steel:#7a7a7a;
+ --hairline:#e6e6e6;
+ --hairline-soft:#f0f0f0;
+ --surface:#f7f7f5;
+ --surface-soft:#fafaf8;
+ --brand-red:#ff003b;
+ --brand-red-pressed:#d10031;
+ --semantic-up:#05b169;
+ --semantic-down:#cf202f;
+ --peach:#ffe4d6;
+ --mint:#d4f0e1;
+ --sky:#d6ecff;
+ --yellow:#fff3c4;
+ --lavender:#ede4ff;
+ --r-btn:8px;
+ --r-card:12px;
+ --r-panel:16px;
+ --shadow-card:0 1px 2px rgba(15,15,15,.04),0 4px 12px rgba(15,15,15,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--canvas);color:var(--charcoal);font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"ss01","cv11";line-height:1.55;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+
+/* Top nav */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--hairline);}
+.topnav-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:24px;}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);font-size:15px;letter-spacing:-.3px;}
+.brand-mark{width:18px;height:18px;background:var(--brand-red);clip-path:polygon(50% 0%,0% 100%,100% 100%);}
+.brand em{color:var(--brand-red);font-style:normal;}
+.crumb{font-size:13px;color:var(--steel);}
+.crumb .sep{margin:0 8px;color:var(--hairline);}
+.crumb .now{color:var(--ink);font-weight:600;}
+.nav-cta{margin-left:auto;display:flex;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--hairline);border-radius:var(--r-btn);font-size:13px;font-weight:500;color:var(--charcoal);background:#fff;transition:all .15s;}
+.btn:hover{border-color:var(--ink);}
+.btn-primary{background:var(--brand-red);color:#fff;border-color:var(--brand-red);}
+.btn-primary:hover{background:var(--brand-red-pressed);border-color:var(--brand-red-pressed);}
+
+/* Hero */
+.hero{max-width:1280px;margin:0 auto;padding:40px 28px 24px;}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-red);margin-bottom:14px;padding:5px 10px;background:var(--surface);border-radius:6px;}
+.eyebrow::before{content:"";width:6px;height:6px;background:var(--brand-red);border-radius:50%;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.hero h1{font-size:clamp(28px,4vw,40px);font-weight:600;line-height:1.18;letter-spacing:-.5px;color:var(--ink);margin-bottom:12px;}
+.hero p{font-size:15px;color:var(--slate);max-width:720px;line-height:1.55;}
+.hero h1 em{color:var(--brand-red);font-style:normal;}
+
+/* KPI strip */
+.kpis{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+@media(max-width:768px){.kpis{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);padding:18px 20px;}
+.kpi-lbl{font-size:11.5px;font-weight:600;color:var(--steel);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;}
+.kpi-val{font-size:26px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.5px;}
+.kpi-val em{font-style:normal;color:var(--brand-red);}
+.kpi-sub{font-size:11px;color:var(--steel);margin-top:4px;}
+.kpi.peach{background:var(--peach);border-color:transparent;}
+.kpi.mint{background:var(--mint);border-color:transparent;}
+.kpi.sky{background:var(--sky);border-color:transparent;}
+.kpi.yellow{background:var(--yellow);border-color:transparent;}
+
+/* Toolbar */
+.toolbar{max-width:1280px;margin:28px auto 18px;padding:0 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-search{flex:1;min-width:240px;display:flex;align-items:center;gap:8px;border:1px solid var(--hairline);border-radius:var(--r-btn);padding:8px 14px;background:#fff;transition:border-color .15s;}
+.tb-search:focus-within{border-color:var(--ink);}
+.tb-search input{flex:1;border:none;outline:none;font-size:14px;color:var(--ink);background:transparent;font-family:inherit;}
+.tb-search input::placeholder{color:var(--steel);}
+.tb-sort{display:flex;gap:4px;background:var(--surface);padding:4px;border-radius:var(--r-btn);}
+.tb-sort button{padding:7px 12px;font-size:12.5px;font-weight:500;color:var(--slate);background:transparent;border:none;border-radius:6px;transition:all .15s;}
+.tb-sort button.active{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06);}
+.tb-filter{display:flex;gap:6px;}
+.tb-chip{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-size:12px;font-weight:500;color:var(--slate);background:#fff;border:1px solid var(--hairline);border-radius:999px;transition:all .15s;}
+.tb-chip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.result-meta{max-width:1280px;margin:0 auto 16px;padding:0 28px;font-size:13px;color:var(--steel);}
+.result-meta b{color:var(--ink);font-weight:600;}
+
+/* Card grid */
+.grid{max-width:1280px;margin:0 auto 80px;padding:0 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;}
+.card{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s;display:flex;flex-direction:column;}
+.card:hover{transform:translateY(-2px);border-color:var(--steel);box-shadow:var(--shadow-card);}
+.card-img{aspect-ratio:4/3;background:var(--surface);position:relative;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.card-img-skel{position:absolute;inset:0;background:linear-gradient(90deg,var(--surface),var(--hairline-soft),var(--surface));background-size:200% 100%;animation:shim 1.4s linear infinite;}
+@keyframes shim{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.card-pad{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:4px;letter-spacing:.02em;}
+.tag-sub{background:var(--surface);color:var(--slate);}
+.tag-ad{background:var(--yellow);color:#7a5e00;}
+.tag-gold{background:linear-gradient(135deg,#fff8d6,#ffd233);color:#7a5e00;}
+.tag-global{background:var(--sky);color:#1f5b8e;}
+.tag-end-soon{background:#ffe4e4;color:var(--brand-red);}
+.card-title{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-maker{font-size:12px;color:var(--steel);}
+.card-stats{display:flex;gap:14px;padding-top:10px;border-top:1px solid var(--hairline-soft);font-variant-numeric:tabular-nums;}
+.stat{display:flex;flex-direction:column;gap:1px;}
+.stat-val{font-size:14px;font-weight:700;color:var(--ink);}
+.stat-val em{font-style:normal;color:var(--brand-red);}
+.stat-lbl{font-size:10px;color:var(--steel);letter-spacing:.02em;}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(2px);}
+.overlay.show{display:flex;}
+.modal{background:#fff;border-radius:var(--r-panel);max-width:780px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.20);}
+.modal-head{padding:18px 28px;border-bottom:1px solid var(--hairline);display:flex;align-items:center;gap:14px;}
+.modal-head .ttl{font-size:13px;font-weight:600;color:var(--steel);letter-spacing:.04em;text-transform:uppercase;flex:1;}
+.modal-close{width:32px;height:32px;border:none;background:var(--surface);border-radius:8px;font-size:18px;color:var(--steel);display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:var(--hairline);color:var(--ink);}
+.modal-body{overflow-y:auto;}
+.m-hero{position:relative;}
+.m-hero img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--surface);}
+.m-info{padding:24px 28px;display:flex;flex-direction:column;gap:14px;}
+.m-info h2{font-size:22px;font-weight:600;line-height:1.30;color:var(--ink);letter-spacing:-.3px;}
+.m-info .desc{font-size:14px;color:var(--charcoal);line-height:1.65;white-space:pre-wrap;}
+.m-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:8px 0;border-top:1px solid var(--hairline-soft);border-bottom:1px solid var(--hairline-soft);}
+@media(max-width:600px){.m-grid{grid-template-columns:repeat(2,1fr);}}
+.m-grid .c{padding:10px 6px;}
+.m-grid .c .l{font-size:10.5px;color:var(--steel);letter-spacing:.04em;text-transform:uppercase;font-weight:600;}
+.m-grid .c .v{font-size:18px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;margin-top:4px;}
+.m-grid .c .v em{font-style:normal;color:var(--brand-red);}
+.m-meta{font-size:12.5px;color:var(--slate);line-height:1.7;}
+.m-meta b{color:var(--ink);font-weight:600;}
+.m-cta{display:flex;gap:10px;margin-top:8px;}
+.m-cta a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 18px;font-size:14px;font-weight:600;border-radius:var(--r-btn);transition:all .15s;}
+.m-cta .primary{background:var(--brand-red);color:#fff;}
+.m-cta .primary:hover{background:var(--brand-red-pressed);}
+.m-cta .ghost{background:var(--surface);color:var(--ink);}
+.m-cta .ghost:hover{background:var(--hairline);}
+
+.no-result{max-width:1280px;margin:60px auto;padding:0 28px;text-align:center;color:var(--steel);font-size:14px;}
+
+/* Disclaimer banner */
+.disclaim{max-width:1280px;margin:0 auto 24px;padding:14px 28px;background:var(--surface);border-left:3px solid var(--brand-red);font-size:12.5px;color:var(--slate);line-height:1.55;border-radius:0 8px 8px 0;}
+.disclaim b{color:var(--ink);font-weight:600;}
+</style>
+</head>
+<body>
+<nav class="topnav">
+ <div class="topnav-inner">
+  <a href="/portal.html" class="brand"><span class="brand-mark"></span>SETO<em>WORKS</em></a>
+  <div class="crumb">운영 도구<span class="sep">/</span>크롤링 결과<span class="sep">/</span><span class="now">와디즈 테크·가전</span></div>
+  <div class="nav-cta">
+   <a href="/portal.html" class="btn">← 포털</a>
+   <a href="/crawl-monitor.html" class="btn">크롤링 모니터</a>
+  </div>
+ </div>
+</nav>
+
+<section class="hero">
+ <span class="eyebrow">LIVE · A0010 진행중</span>
+ <h1>와디즈 <em>테크·가전</em> 진행중 펀딩 전수</h1>
+ <p>2026-05-18 기준 와디즈 A0010 (테크·가전) 카테고리에서 진행중인 모든 펀딩 캠페인. 검색 API를 통해 종료된 캠페인은 제외하고 정리했습니다. 카드를 클릭하면 상세 정보가 표시됩니다.</p>
+</section>
+
+<div class="disclaim">
+ <b>임시 뷰</b> · 본 페이지는 와디즈 공개 검색 API를 통해 수집한 진행중 캠페인 리스트입니다. 데이터 갱신은 수동이며, 정식 자동화 전 검토용 임시 페이지입니다.
+</div>
+
+<div class="kpis">
+ <div class="kpi peach"><div class="kpi-lbl">진행중</div><div class="kpi-val" id="kpi-total">—</div><div class="kpi-sub">A0010 테크·가전</div></div>
+ <div class="kpi mint"><div class="kpi-lbl">총 모금액</div><div class="kpi-val" id="kpi-amount">—</div><div class="kpi-sub">진행중 합계</div></div>
+ <div class="kpi sky"><div class="kpi-lbl">총 백커</div><div class="kpi-val" id="kpi-backers">—</div><div class="kpi-sub">중복 미제거</div></div>
+ <div class="kpi yellow"><div class="kpi-lbl">평균 달성률</div><div class="kpi-val" id="kpi-rate">—</div><div class="kpi-sub">전체 진행중</div></div>
+ <div class="kpi"><div class="kpi-lbl">수집일</div><div class="kpi-val" id="kpi-date" style="font-size:18px;">—</div><div class="kpi-sub">UTC 기준</div></div>
+</div>
+
+<div class="toolbar">
+ <div class="tb-search"><input type="search" id="search" placeholder="제품명 · 메이커 검색" autocomplete="off"></div>
+ <div class="tb-sort" id="sort-bar">
+  <button data-sort="amount" class="active">응원금액</button>
+  <button data-sort="rate">달성률</button>
+  <button data-sort="backers">백커수</button>
+  <button data-sort="d_left">마감임박</button>
+  <button data-sort="new">신상품</button>
+ </div>
+ <div class="tb-filter">
+  <button class="tb-chip" data-filter="grade">슈퍼메이커</button>
+  <button class="tb-chip" data-filter="ad">광고</button>
+  <button class="tb-chip" data-filter="end_soon">D-7 이내</button>
+ </div>
+</div>
+
+<div class="result-meta">
+ <span id="result-count">로딩 중...</span> · <span id="result-filter-info"></span>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="no-result" id="no-result" style="display:none;">조건에 맞는 캠페인이 없습니다.</div>
+
+<div class="overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+ <div class="modal">
+  <div class="modal-head">
+   <span class="ttl">캠페인 상세</span>
+   <button class="modal-close" onclick="closeModal()" aria-label="닫기">×</button>
+  </div>
+  <div class="modal-body" id="modal-body"></div>
+ </div>
+</div>
+
+<script>
+let DATA=null, FILTERED=[], CURRENT_SORT='amount', FILTERS={grade:false,ad:false,end_soon:false};
+
+async function load(){
+ try{
+  const r=await fetch('/data/wadiz_a0010_ongoing.json');
+  DATA=await r.json();
+  renderMeta();
+  applyFilters();
+ }catch(e){
+  document.getElementById('grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--steel);">데이터 로드 실패: '+e.message+'</div>';
+ }
+}
+
+function renderMeta(){
+ document.getElementById('kpi-total').textContent=DATA.total_ongoing.toLocaleString();
+ const amount=DATA.items.reduce((s,p)=>s+(p.amount||0),0);
+ document.getElementById('kpi-amount').innerHTML='<em>'+formatKRW(amount)+'</em>';
+ const backers=DATA.items.reduce((s,p)=>s+(p.backers||0),0);
+ document.getElementById('kpi-backers').textContent=backers.toLocaleString();
+ const avgRate=DATA.items.reduce((s,p)=>s+(p.rate||0),0)/DATA.items.length;
+ document.getElementById('kpi-rate').textContent=Math.round(avgRate).toLocaleString()+'%';
+ document.getElementById('kpi-date').textContent=DATA.crawled_at.split('T')[0];
+}
+
+function applyFilters(){
+ const q=document.getElementById('search').value.trim().toLowerCase();
+ FILTERED=DATA.items.filter(p=>{
+  if(q && !(p.title||'').toLowerCase().includes(q) && !(p.maker||'').toLowerCase().includes(q)) return false;
+  if(FILTERS.grade && !p.grade) return false;
+  if(FILTERS.ad && !p.ad) return false;
+  if(FILTERS.end_soon && (p.d_left===null || p.d_left>7)) return false;
+  return true;
+ });
+ sortList();
+ renderGrid();
+}
+
+function sortList(){
+ const s=CURRENT_SORT;
+ if(s==='amount') FILTERED.sort((a,b)=>(b.amount||0)-(a.amount||0));
+ else if(s==='rate') FILTERED.sort((a,b)=>(b.rate||0)-(a.rate||0));
+ else if(s==='backers') FILTERED.sort((a,b)=>(b.backers||0)-(a.backers||0));
+ else if(s==='d_left') FILTERED.sort((a,b)=>(a.d_left===null?999:a.d_left)-(b.d_left===null?999:b.d_left));
+ else if(s==='new') FILTERED.sort((a,b)=>(b.open_at||'').localeCompare(a.open_at||''));
+}
+
+function renderGrid(){
+ const grid=document.getElementById('grid'), noR=document.getElementById('no-result');
+ document.getElementById('result-count').innerHTML='총 <b>'+FILTERED.length.toLocaleString()+'</b>건 / '+DATA.total_ongoing+'건 중';
+ const fl=[]; if(FILTERS.grade)fl.push('슈퍼메이커'); if(FILTERS.ad)fl.push('광고'); if(FILTERS.end_soon)fl.push('D-7 이내');
+ document.getElementById('result-filter-info').textContent=fl.length?'필터: '+fl.join(', '):'정렬: '+sortLabel(CURRENT_SORT);
+ if(FILTERED.length===0){grid.style.display='none';noR.style.display='';return;}
+ grid.style.display='';noR.style.display='none';
+ grid.innerHTML=FILTERED.map(cardHtml).join('');
+ grid.querySelectorAll('.card').forEach(el=>el.addEventListener('click',()=>openModal(+el.dataset.id)));
+}
+
+function sortLabel(s){return {amount:'응원금액',rate:'달성률',backers:'백커수',d_left:'마감임박',new:'신상품'}[s]||s;}
+
+function cardHtml(p){
+ const tags=[];
+ if(p.sub) tags.push('<span class="tag tag-sub">'+escapeHtml(p.sub)+'</span>');
+ if(p.grade==='GOLD'||p.grade==='SILVER'||p.grade==='PLATINUM'||p.grade==='DIAMOND') tags.push('<span class="tag tag-gold">'+p.grade+'</span>');
+ if(p.ad) tags.push('<span class="tag tag-ad">광고</span>');
+ if(p.global_ship) tags.push('<span class="tag tag-global">글로벌</span>');
+ if(p.d_left!==null && p.d_left<=3) tags.push('<span class="tag tag-end-soon">D-'+p.d_left+' 마감임박</span>');
+ const img=p.photo?'<img src="'+escapeHtml(p.photo)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'<div class="card-img-skel"></div>';
+ return `<div class="card" data-id="${p.id}">
+  <div class="card-img">${img}</div>
+  <div class="card-pad">
+   <div class="card-tags">${tags.join('')}</div>
+   <div class="card-title">${escapeHtml(p.title||'')}</div>
+   <div class="card-maker">${escapeHtml(p.maker||'-')}</div>
+   <div class="card-stats">
+    <div class="stat"><div class="stat-val"><em>${Math.round(p.rate||0).toLocaleString()}%</em></div><div class="stat-lbl">달성률</div></div>
+    <div class="stat"><div class="stat-val">${formatKRW(p.amount||0)}</div><div class="stat-lbl">모금액</div></div>
+    <div class="stat"><div class="stat-val">${(p.backers||0).toLocaleString()}</div><div class="stat-lbl">백커</div></div>
+    <div class="stat"><div class="stat-val">D-${p.d_left??'-'}</div><div class="stat-lbl">남음</div></div>
+   </div>
+  </div>
+ </div>`;
+}
+
+function openModal(id){
+ const p=DATA.items.find(x=>x.id===id); if(!p) return;
+ const tags=[];
+ if(p.sub) tags.push('<span class="tag tag-sub">'+escapeHtml(p.sub)+'</span>');
+ if(p.grade) tags.push('<span class="tag tag-gold">슈퍼메이커 '+p.grade+'</span>');
+ if(p.ad) tags.push('<span class="tag tag-ad">광고 캠페인</span>');
+ if(p.global_ship) tags.push('<span class="tag tag-global">글로벌 배송</span>');
+ if(p.coupon) tags.push('<span class="tag tag-sub">쿠폰 있음</span>');
+ const img=p.photo?'<img src="'+escapeHtml(p.photo)+'" alt="" onerror="this.style.display=\'none\'">':'';
+ document.getElementById('modal-body').innerHTML=`
+  <div class="m-hero">${img}</div>
+  <div class="m-info">
+   <div class="m-tags">${tags.join('')}</div>
+   <h2>${escapeHtml(p.title||'')}</h2>
+   <div class="desc">${escapeHtml(p.desc||'(설명 없음)')}</div>
+   <div class="m-grid">
+    <div class="c"><div class="l">달성률</div><div class="v"><em>${Math.round(p.rate||0).toLocaleString()}%</em></div></div>
+    <div class="c"><div class="l">모금액</div><div class="v">${formatKRW(p.amount||0)}</div></div>
+    <div class="c"><div class="l">백커</div><div class="v">${(p.backers||0).toLocaleString()}</div></div>
+    <div class="c"><div class="l">남은 일수</div><div class="v">D-${p.d_left??'-'}</div></div>
+   </div>
+   <div class="m-meta">
+    <b>메이커</b> ${escapeHtml(p.maker||'-')}<br>
+    <b>카테고리</b> ${escapeHtml(p.category||'-')} · ${escapeHtml(p.sub||'-')}<br>
+    <b>오픈일</b> ${p.open_at?new Date(p.open_at).toLocaleString('ko-KR'):'-'}<br>
+    <b>국내배송</b> ${p.domestic_ship?'O':'X'} · <b>글로벌배송</b> ${p.global_ship?'O':'X'} · <b>쿠폰</b> ${p.coupon?'O':'X'}<br>
+    <b>응원 점수</b> ${(p.likes||0).toLocaleString()}<br>
+    <b>캠페인 ID</b> ${p.id}
+   </div>
+   <div class="m-cta">
+    <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener" class="primary">와디즈에서 자세히 보기 →</a>
+    <a href="javascript:void(0)" onclick="closeModal()" class="ghost">닫기</a>
+   </div>
+  </div>`;
+ document.getElementById('modal-overlay').classList.add('show');
+ document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+ document.getElementById('modal-overlay').classList.remove('show');
+ document.body.style.overflow='';
+}
+
+function formatKRW(n){
+ if(n>=100000000) return '₩'+(n/100000000).toFixed(1)+'억';
+ if(n>=10000) return '₩'+(n/10000).toFixed(0)+'만';
+ return '₩'+n.toLocaleString();
+}
+
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
+
+document.getElementById('sort-bar').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-sort]'); if(!b) return;
+ document.querySelectorAll('#sort-bar button').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');
+ CURRENT_SORT=b.dataset.sort;
+ applyFilters();
+});
+
+document.querySelectorAll('.tb-chip').forEach(b=>b.addEventListener('click',()=>{
+ const k=b.dataset.filter;
+ FILTERS[k]=!FILTERS[k];
+ b.classList.toggle('on',FILTERS[k]);
+ applyFilters();
+}));
+
+document.getElementById('search').addEventListener('input',applyFilters);
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+load();
+</script>
+</body>
+</html>
