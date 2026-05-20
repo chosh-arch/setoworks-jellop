@@ -102,15 +102,21 @@
       ],
       "user_id": "349245",
       "maker_info": {
-        "corp_name": "삼성인터내셔날",
-        "main_products": null,
-        "homepage": null,
-        "phone": "031 492 6116",
-        "biz_no": "1348632226",
-        "rep_name": null,
-        "industry": "시설/기타 지원",
-        "public": true,
-        "_legacy": true
+        "corp_name": "부라더상사",
+        "main_products": "미싱(가정용, 산업용), 복합기 외",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "17",
+        "rep_info": "홍민표",
+        "founded": "1970.11.10",
+        "address": "서울 강남구 신사동 588-21번지",
+        "homepage": "//www.brother.co.kr",
+        "phone": "0234446653",
+        "patents": "상표권, 의장권",
+        "biz_no": "2188119905",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -207,9 +213,20 @@
       ],
       "user_id": "2719333",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "모온세일즈",
+        "main_products": "무선 핸디 선풍기",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "6",
+        "rep_info": "문재화",
+        "founded": "2020.03.24",
+        "address": "서울 성동구 성수2가3동 280-6번지 성수더블유센터데시앙플렉스 714호",
+        "homepage": "//kivit.co.kr",
+        "phone": "025379855",
+        "biz_no": "5818801812",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -276,9 +293,21 @@
       ],
       "user_id": "2569297",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "와디즈",
+        "main_products": "종속회사 등의 업무를 지원하기 위한 위탁 업무, 브랜드 및 상표권 등 지적재산권의 관리 외",
+        "industry": "금융",
+        "corp_scale": "중견기업",
+        "corp_type": "주식회사",
+        "employees": "233",
+        "rep_info": "신혜성",
+        "founded": "2019.04.23",
+        "address": "경기 성남시 분당구 삼평동 624번지 판교디지털센터 A동 402호",
+        "homepage": "//www.wadiz.kr",
+        "phone": "16619056",
+        "venture_cert": "있음",
+        "patents": "상표권, 특허권, 의장권",
+        "biz_no": "2588701370",
+        "public": true
       }
     },
     {
@@ -659,9 +688,20 @@
       ],
       "user_id": "3203447",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "코린트",
+        "main_products": "소형가전,생활용품",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "7",
+        "rep_info": "이두환",
+        "founded": "2020.08.03",
+        "address": "경기 김포시 통진읍 귀전리 55-18번지",
+        "homepage": "https://pradera.kr/about.html",
+        "phone": "0269564120",
+        "biz_no": "8358801664",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1399,9 +1439,18 @@
       "badges": [],
       "user_id": "3234662",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "디아몬드",
+        "main_products": "무선충전기 등",
+        "industry": "제조",
+        "corp_type": "주식회사",
+        "rep_info": "장재호",
+        "address": "부산 연제구 거제동 1490-2번지 협성프라자빌딩 204-9호",
+        "homepage": "https://ssouse.com",
+        "phone": "07080288779",
+        "patents": "의장권",
+        "biz_no": "8238101828",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1778,9 +1827,21 @@
       ],
       "user_id": "3187086",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "칙스",
+        "main_products": "생활가전 / 리빙 / 생활편의용품",
+        "industry": "연구・기술・전문서비스",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "13",
+        "rep_info": "김형모",
+        "founded": "2020.06.26",
+        "address": "서울 금천구 가산동 327-30번지 와이피피아르센타워 401, 402, 403, 404, 405, 406, 407, 408호",
+        "homepage": "https://chicss.co.kr/",
+        "phone": "18332273",
+        "venture_cert": "있음",
+        "biz_no": "1658802040",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2166,9 +2227,20 @@
       ],
       "user_id": "3435674",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "소매드테크놀로지",
+        "main_products": "전자제품",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "우성재",
+        "founded": "2020.07.17",
+        "address": "충북 충주시 대소원면 검단리 123번지 한국교통대학교 더블유(아이비아이)동 403호",
+        "homepage": "https://smartstore.naver.com/somadtech",
+        "phone": "0317571470",
+        "biz_no": "1608801954",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2389,9 +2461,19 @@
       ],
       "user_id": "2646478",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "시즌템",
+        "main_products": "IT &amp; 반려용품",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "정규성",
+        "founded": "2016.01.05",
+        "address": "서울 종로구 창신3동 23-76번지 브라운스톤창신아파트 2층 212호",
+        "homepage": "//www.seasontem.com",
+        "phone": "0261400624",
+        "biz_no": "3672200211",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2418,9 +2500,19 @@
       "badges": [],
       "user_id": "2646478",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "시즌템",
+        "main_products": "IT &amp; 반려용품",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "정규성",
+        "founded": "2016.01.05",
+        "address": "서울 종로구 창신3동 23-76번지 브라운스톤창신아파트 2층 212호",
+        "homepage": "//www.seasontem.com",
+        "phone": "0261400624",
+        "biz_no": "3672200211",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2447,9 +2539,19 @@
       "badges": [],
       "user_id": "2695143",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "굿플러스",
+        "main_products": "열전반도체를 이용한 냉풍시트",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "이상훈",
+        "founded": "2020.01.09",
+        "address": "경기 수원시 팔달구 우만1동 300-5번지 우만공단 702호",
+        "phone": "01033125908",
+        "biz_no": "4448101552",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2784,9 +2886,19 @@
       ],
       "user_id": "2646478",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "시즌템",
+        "main_products": "IT &amp; 반려용품",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "정규성",
+        "founded": "2016.01.05",
+        "address": "서울 종로구 창신3동 23-76번지 브라운스톤창신아파트 2층 212호",
+        "homepage": "//www.seasontem.com",
+        "phone": "0261400624",
+        "biz_no": "3672200211",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3405,8 +3517,19 @@
       ],
       "user_id": "2646478",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "시즌템",
+        "main_products": "IT &amp; 반려용품",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "정규성",
+        "founded": "2016.01.05",
+        "address": "서울 종로구 창신3동 23-76번지 브라운스톤창신아파트 2층 212호",
+        "homepage": "//www.seasontem.com",
+        "phone": "0261400624",
+        "biz_no": "3672200211",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3645,8 +3768,20 @@
       ],
       "user_id": "3435674",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "소매드테크놀로지",
+        "main_products": "전자제품",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "우성재",
+        "founded": "2020.07.17",
+        "address": "충북 충주시 대소원면 검단리 123번지 한국교통대학교 더블유(아이비아이)동 403호",
+        "homepage": "https://smartstore.naver.com/somadtech",
+        "phone": "0317571470",
+        "biz_no": "1608801954",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3746,8 +3881,19 @@
       ],
       "user_id": "2646478",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "시즌템",
+        "main_products": "IT &amp; 반려용품",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "정규성",
+        "founded": "2016.01.05",
+        "address": "서울 종로구 창신3동 23-76번지 브라운스톤창신아파트 2층 212호",
+        "homepage": "//www.seasontem.com",
+        "phone": "0261400624",
+        "biz_no": "3672200211",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3838,9 +3984,17 @@
       "badges": [],
       "user_id": "3396409",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "민트탭스",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "8",
+        "rep_info": "하승목",
+        "founded": "2020.11.04",
+        "address": "서울 강남구 도곡1동 950-8번지 4층",
+        "biz_no": "8818801901",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -4091,14 +4245,14 @@
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 52,
+  "maker_info_public_count": 66,
   "maker_info_private_count": 97,
   "unique_makers": 91,
   "unique_makers_public": 14,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T08:12:30.032094Z",
+  "last_partial_update": "2026-05-20T08:17:24.923956Z",
   "phase_b_in_progress": true,
-  "maker_info_count": 35
+  "maker_info_count": 45
 }
