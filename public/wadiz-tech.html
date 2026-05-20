@@ -192,7 +192,7 @@ button{font-family:inherit;cursor:pointer;}
 <section class="hero">
  <span class="eyebrow">LIVE · A0010 진행중</span>
  <h1>와디즈 <em>테크·가전</em> 진행중 펀딩 전수</h1>
- <p>2026-05-18 기준 와디즈 A0010 (테크·가전) 카테고리에서 진행중인 모든 펀딩 캠페인. 검색 API를 통해 종료된 캠페인은 제외하고 정리했습니다. 카드를 클릭하면 상세 정보가 표시됩니다.</p>
+ <p>2026-05-18 기준 와디즈 A0010 (테크·가전) 카테고리에서 진행중인 모든 펀딩 캠페인 120건. 검색 API + 메이커 페이지 크롤링으로 캠페인 메타 + 법인 정보를 결합했습니다. <b>14개 메이커 (23개 캠페인)</b>가 사업자 등록 정보를 공개했으며 카드의 <b>「법인」</b> 배지로 표시됩니다. 카드를 클릭하면 상세 정보 + 추천 점수 분해가 표시됩니다.</p>
 </section>
 
 <div class="disclaim">
@@ -243,6 +243,7 @@ button{font-family:inherit;cursor:pointer;}
  </div>
  <div class="tb-filter">
   <button class="tb-chip" data-filter="grade">슈퍼메이커</button>
+  <button class="tb-chip" data-filter="corp">법인 공개</button>
   <button class="tb-chip" data-filter="ad">광고</button>
   <button class="tb-chip" data-filter="end_soon">D-7 이내</button>
  </div>
@@ -266,7 +267,7 @@ button{font-family:inherit;cursor:pointer;}
 </div>
 
 <script>
-let DATA=null, FILTERED=[], CURRENT_SORT='reco', FILTERS={grade:false,ad:false,end_soon:false};
+let DATA=null, FILTERED=[], CURRENT_SORT='reco', FILTERS={grade:false,corp:false,ad:false,end_soon:false};
 
 async function load(){
  try{
@@ -279,6 +280,35 @@ async function load(){
  }catch(e){
   document.getElementById('grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--steel);">데이터 로드 실패: '+e.message+'</div>';
  }
+}
+
+function makerInfoHtml(p){
+ const mi=p.maker_info||{};
+ if(!mi.public){
+  return `<div style="background:var(--surface);padding:14px 16px;border-radius:8px;border:1px solid var(--hairline-soft);margin-top:6px;">
+   <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--steel);text-transform:uppercase;margin-bottom:6px;">메이커 법인 정보</div>
+   <div style="font-size:13px;color:var(--steel);line-height:1.55;"><b style="color:var(--ink);">${escapeHtml(mi.note||'메이커 정보 비공개')}</b><br><span style="font-size:11.5px;">와디즈 메이커 페이지가 비공개 상태이거나 개인 메이커입니다. 사업자 등록 정보는 확인되지 않습니다.</span></div>
+   ${p.user_id?`<a href="https://www.wadiz.kr/web/maker/detail/${p.user_id}/makerInfo" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:11.5px;color:var(--brand-red);font-weight:600;">와디즈 메이커 페이지 →</a>`:''}
+  </div>`;
+ }
+ const rows=[
+  ['상호 / 법인명', mi.corp_name],
+  ['주요 제품', mi.main_products],
+  ['홈페이지', mi.homepage ? `<a href="${escapeHtml(mi.homepage)}" target="_blank" rel="noopener" style="color:var(--brand-red);font-weight:600;">${escapeHtml(mi.homepage)} ↗</a>` : null],
+  ['대표 전화', mi.phone],
+  ['사업자등록번호', mi.biz_no],
+  ['대표자명', mi.rep_name],
+  ['업종', mi.industry],
+ ].filter(r=>r[1]);
+ const rowsHtml=rows.map(r=>`<div style="display:flex;font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--hairline-soft);"><span style="color:var(--steel);min-width:108px;font-weight:600;">${r[0]}</span><span style="color:var(--ink);flex:1;">${r[0]==='홈페이지'?r[1]:escapeHtml(r[1])}</span></div>`).join('');
+ return `<div style="background:linear-gradient(180deg,#fffbf0,#fff);padding:14px 16px;border-radius:8px;border:1px solid #ffd233;margin-top:6px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+   <span style="font-size:11px;font-weight:700;letter-spacing:.04em;color:#7a5e00;text-transform:uppercase;">★ 메이커 법인 정보</span>
+   <span style="background:linear-gradient(135deg,#fff8d6,#ffd233);color:#7a5e00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.02em;">공개 메이커</span>
+  </div>
+  ${rowsHtml}
+  ${p.user_id?`<a href="https://www.wadiz.kr/web/maker/detail/${p.user_id}/makerInfo" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:11.5px;color:var(--brand-red);font-weight:600;">와디즈 메이커 페이지 →</a>`:''}
+ </div>`;
 }
 
 function recoBreakdown(p){
@@ -388,8 +418,12 @@ function renderMeta(){
 function applyFilters(){
  const q=document.getElementById('search').value.trim().toLowerCase();
  FILTERED=DATA.items.filter(p=>{
-  if(q && !(p.title||'').toLowerCase().includes(q) && !(p.maker||'').toLowerCase().includes(q)) return false;
+  if(q){
+   const corp=(p.maker_info&&p.maker_info.corp_name)||'';
+   if(!(p.title||'').toLowerCase().includes(q) && !(p.maker||'').toLowerCase().includes(q) && !corp.toLowerCase().includes(q)) return false;
+  }
   if(FILTERS.grade && !p.grade) return false;
+  if(FILTERS.corp && !(p.maker_info&&p.maker_info.public)) return false;
   if(FILTERS.ad && !p.ad) return false;
   if(FILTERS.end_soon && (p.d_left===null || p.d_left>7)) return false;
   return true;
@@ -411,7 +445,7 @@ function sortList(){
 function renderGrid(){
  const grid=document.getElementById('grid'), noR=document.getElementById('no-result');
  document.getElementById('result-count').innerHTML='총 <b>'+FILTERED.length.toLocaleString()+'</b>건 / '+DATA.total_ongoing+'건 중';
- const fl=[]; if(FILTERS.grade)fl.push('슈퍼메이커'); if(FILTERS.ad)fl.push('광고'); if(FILTERS.end_soon)fl.push('D-7 이내');
+ const fl=[]; if(FILTERS.grade)fl.push('슈퍼메이커'); if(FILTERS.corp)fl.push('법인 공개'); if(FILTERS.ad)fl.push('광고'); if(FILTERS.end_soon)fl.push('D-7 이내');
  document.getElementById('result-filter-info').textContent=fl.length?'필터: '+fl.join(', '):'정렬: '+sortLabel(CURRENT_SORT);
  if(FILTERED.length===0){grid.style.display='none';noR.style.display='';return;}
  grid.style.display='';noR.style.display='none';
@@ -427,6 +461,7 @@ function cardHtml(p){
  if(p.grade==='GOLD'||p.grade==='SILVER'||p.grade==='PLATINUM'||p.grade==='DIAMOND') tags.push('<span class="tag tag-gold">'+p.grade+'</span>');
  if(p.ad) tags.push('<span class="tag tag-ad">광고</span>');
  if(p.global_ship) tags.push('<span class="tag tag-global">글로벌</span>');
+ if(p.maker_info && p.maker_info.public) tags.push('<span class="tag tag-gold" title="사업자 법인 정보 공개">법인</span>');
  if(p.d_left!==null && p.d_left<=3) tags.push('<span class="tag tag-end-soon">D-'+p.d_left+' 마감임박</span>');
  const img=p.photo?'<img src="'+escapeHtml(p.photo)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'<div class="card-img-skel"></div>';
  return `<div class="card" data-id="${p.id}">
@@ -474,6 +509,7 @@ function openModal(id){
     <b>응원 점수</b> ${(p.likes||0).toLocaleString()}<br>
     <b>캠페인 ID</b> ${p.id}
    </div>
+   ${makerInfoHtml(p)}
    ${recoBreakdownHtml(p)}
    <div class="m-cta">
     <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener" class="primary">와디즈에서 자세히 보기 →</a>
