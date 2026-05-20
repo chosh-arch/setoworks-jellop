@@ -284,6 +284,13 @@ async function load(){
 
 function makerInfoHtml(p){
  const mi=p.maker_info||{};
+ if(mi._pending){
+  return `<div style="background:linear-gradient(180deg,#f0f7ff,#fff);padding:14px 16px;border-radius:8px;border:1px solid #b8d4f0;margin-top:6px;">
+   <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;color:#1f5b8e;text-transform:uppercase;margin-bottom:6px;">메이커 법인 정보 · 수집 중</div>
+   <div style="font-size:13px;color:var(--charcoal);line-height:1.55;"><b style="color:var(--ink);">메이커 정보를 수집 중입니다.</b><br><span style="font-size:11.5px;color:var(--steel);">백그라운드에서 사람 패턴으로 안전하게 수집 중. 페이지 새로고침 시 점진적으로 채워집니다.</span></div>
+   ${p.user_id?`<a href="https://www.wadiz.kr/web/maker/detail/${p.user_id}/makerInfo" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:11.5px;color:var(--brand-red);font-weight:600;">와디즈 메이커 페이지 →</a>`:''}
+  </div>`;
+ }
  if(!mi.public){
   return `<div style="background:var(--surface);padding:14px 16px;border-radius:8px;border:1px solid var(--hairline-soft);margin-top:6px;">
    <div style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--steel);text-transform:uppercase;margin-bottom:6px;">메이커 법인 정보</div>

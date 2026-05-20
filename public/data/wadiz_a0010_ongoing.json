@@ -32,10 +32,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8626185,
+      "user_id": "7828993",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -62,7 +63,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6148394,
+      "user_id": "4577883",
       "maker_info": {
         "corp_name": "대웅금속",
         "main_products": "볼트,너트",
@@ -71,7 +72,8 @@
         "biz_no": "6228122273",
         "rep_name": null,
         "industry": "제조",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -98,7 +100,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6329039,
+      "user_id": "349245",
       "maker_info": {
         "corp_name": "삼성인터내셔날",
         "main_products": null,
@@ -107,7 +109,8 @@
         "biz_no": "1348632226",
         "rep_name": null,
         "industry": "시설/기타 지원",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -134,10 +137,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8662626,
+      "user_id": "7793257",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -164,7 +168,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 2608364,
+      "user_id": "1864069",
       "maker_info": {
         "corp_name": "대남",
         "main_products": null,
@@ -173,7 +177,8 @@
         "biz_no": "1398601320",
         "rep_name": null,
         "industry": "부동산",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -200,10 +205,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8641616,
+      "user_id": "2719333",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -230,7 +236,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4486985,
+      "user_id": "1788115",
       "maker_info": {
         "corp_name": "신흥토건",
         "main_products": null,
@@ -239,7 +245,8 @@
         "biz_no": "6108120855",
         "rep_name": null,
         "industry": "건설",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -266,10 +273,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7995641,
+      "user_id": "2569297",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -296,10 +304,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7944591,
+      "user_id": "2389363",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -326,7 +335,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6555357,
+      "user_id": "2349813",
       "maker_info": {
         "corp_name": "천지부동산",
         "main_products": null,
@@ -335,7 +344,8 @@
         "biz_no": "3618800693",
         "rep_name": null,
         "industry": "광물 에너지",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -362,10 +372,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 837115,
+      "user_id": "765620",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -392,10 +403,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8053121,
+      "user_id": "6715777",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -422,10 +434,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7034526,
+      "user_id": "2461140",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -452,10 +465,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6023432,
+      "user_id": "809263",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -480,10 +494,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4289467,
+      "user_id": "3601676",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -510,7 +525,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6595167,
+      "user_id": "5305526",
       "maker_info": {
         "corp_name": "영주참살이문화협동조합",
         "main_products": null,
@@ -519,7 +534,8 @@
         "biz_no": "4048210123",
         "rep_name": null,
         "industry": "단체/기타서비스",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -544,10 +560,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 1764506,
+      "user_id": "645866",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -574,7 +591,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 3332846,
+      "user_id": "2362621",
       "maker_info": {
         "corp_name": "제이케이솔루션",
         "main_products": null,
@@ -583,7 +600,8 @@
         "biz_no": "2348700230",
         "rep_name": null,
         "industry": "미디어/정보통신",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -610,10 +628,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8398714,
+      "user_id": "3203447",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -640,10 +659,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4572994,
+      "user_id": "3308740",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -670,10 +690,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7178756,
+      "user_id": "1365063",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -700,10 +721,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7951316,
+      "user_id": "1124138",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -730,10 +752,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4641305,
+      "user_id": "3584908",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -760,10 +783,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 3983498,
+      "user_id": "3688790",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -790,7 +814,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 627199,
+      "user_id": "2462822",
       "maker_info": {
         "corp_name": "아이씨테크",
         "main_products": null,
@@ -799,7 +823,8 @@
         "biz_no": "1138679340",
         "rep_name": null,
         "industry": "제조",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -826,10 +851,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8641418,
+      "user_id": "6749998",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -856,10 +882,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8140724,
+      "user_id": "6320796",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -886,10 +913,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 3648855,
+      "user_id": "1493320",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -916,10 +944,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5530743,
+      "user_id": "6666499",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -946,10 +975,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 1957835,
+      "user_id": "2013323",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -976,10 +1006,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4411155,
+      "user_id": "2314615",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1006,10 +1037,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8619437,
+      "user_id": "463457",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1036,10 +1068,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7974910,
+      "user_id": "7485688",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1066,10 +1099,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 1232966,
+      "user_id": "425291",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1096,10 +1130,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7740991,
+      "user_id": "2030691",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1124,10 +1159,11 @@
       "global_ship": false,
       "coupon": true,
       "badges": [],
-      "user_id": 8681880,
+      "user_id": "7833142",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1152,10 +1188,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8531396,
+      "user_id": "7833180",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1182,7 +1219,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 490485,
+      "user_id": "574180",
       "maker_info": {
         "corp_name": "다래비젼",
         "main_products": "전자부품. 시스템솔루션 외",
@@ -1191,7 +1228,8 @@
         "biz_no": "1388153664",
         "rep_name": null,
         "industry": "제조",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -1218,7 +1256,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 2667274,
+      "user_id": "3775715",
       "maker_info": {
         "corp_name": "디씨티글로벌",
         "main_products": null,
@@ -1227,7 +1265,8 @@
         "biz_no": "1288709713",
         "rep_name": null,
         "industry": "도소매",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -1252,10 +1291,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7031168,
+      "user_id": "3234662",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1282,10 +1322,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4117646,
+      "user_id": "1996263",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1310,10 +1351,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7949993,
+      "user_id": "12833",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1340,10 +1382,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7186830,
+      "user_id": "5593405",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1370,10 +1413,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7824387,
+      "user_id": "5833320",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1400,10 +1444,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5530743,
+      "user_id": "6666499",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1430,10 +1475,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8587138,
+      "user_id": "124629",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1460,10 +1506,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 1190341,
+      "user_id": "2294103",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1488,10 +1535,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7742084,
+      "user_id": "7422417",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1518,10 +1566,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 2502798,
+      "user_id": "860668",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1546,10 +1595,11 @@
       "global_ship": true,
       "coupon": false,
       "badges": [],
-      "user_id": 3837592,
+      "user_id": "5867415",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1576,10 +1626,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8199081,
+      "user_id": "3187086",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1604,10 +1655,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8593544,
+      "user_id": "5959709",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1634,10 +1686,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 2502798,
+      "user_id": "860668",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1662,10 +1715,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4555837,
+      "user_id": "1743935",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1692,10 +1746,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5631446,
+      "user_id": "1744937",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1722,10 +1777,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8679196,
+      "user_id": "2212573",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1752,10 +1808,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8167937,
+      "user_id": "5744514",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1782,10 +1839,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 684149,
+      "user_id": "7833018",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1812,10 +1870,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4643881,
+      "user_id": "1619874",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1842,10 +1901,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7538828,
+      "user_id": "3758558",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1872,10 +1932,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6859137,
+      "user_id": "1589028",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1902,10 +1963,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4582530,
+      "user_id": "3435674",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1932,10 +1994,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8639038,
+      "user_id": "1503694",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1962,10 +2025,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7350986,
+      "user_id": "476515",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -1992,10 +2056,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5920684,
+      "user_id": "5590192",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2022,10 +2087,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8663139,
+      "user_id": "1890268",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2052,7 +2118,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5326151,
+      "user_id": "1306062",
       "maker_info": {
         "corp_name": "농업회사법인  백년배",
         "main_products": null,
@@ -2061,7 +2127,8 @@
         "biz_no": "1238702433",
         "rep_name": null,
         "industry": "농・축・수산",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -2088,10 +2155,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 404932,
+      "user_id": "2646478",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2116,10 +2184,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 404932,
+      "user_id": "2646478",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2144,10 +2213,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4693812,
+      "user_id": "2695143",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2172,7 +2242,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6555808,
+      "user_id": "5061179",
       "maker_info": {
         "corp_name": "세종솔루션",
         "main_products": null,
@@ -2181,7 +2251,8 @@
         "biz_no": "1678700982",
         "rep_name": null,
         "industry": "시설/기타 지원",
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -2206,10 +2277,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7470303,
+      "user_id": "5976703",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2234,10 +2306,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4842079,
+      "user_id": "1142011",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2264,10 +2337,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 3648855,
+      "user_id": "6742126",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2294,10 +2368,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7443087,
+      "user_id": "5649462",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2322,10 +2397,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8254750,
+      "user_id": "7506181",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2350,10 +2426,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4842079,
+      "user_id": "1142011",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2380,10 +2457,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 5894001,
+      "user_id": "1247723",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2408,10 +2486,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7470303,
+      "user_id": "5976703",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2438,10 +2517,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 404932,
+      "user_id": "2646478",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2494,10 +2574,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 1909293,
+      "user_id": "3574383",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2550,10 +2631,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4842079,
+      "user_id": "1142011",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2608,10 +2690,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6888878,
+      "user_id": "5666814",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2638,10 +2721,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6888878,
+      "user_id": "5666814",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2726,7 +2810,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -2735,7 +2819,8 @@
         "biz_no": "1398138064",
         "rep_name": null,
         "industry": null,
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -2760,10 +2845,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7417674,
+      "user_id": "5737334",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2858,10 +2944,11 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 6888878,
+      "user_id": "5666814",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -2886,7 +2973,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -2895,7 +2982,8 @@
         "biz_no": "1398138064",
         "rep_name": null,
         "industry": null,
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -2948,7 +3036,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -2957,7 +3045,8 @@
         "biz_no": "1398138064",
         "rep_name": null,
         "industry": null,
-        "public": true
+        "public": true,
+        "_legacy": true
       }
     },
     {
@@ -3040,10 +3129,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8640122,
+      "user_id": "5324660",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -3158,10 +3248,11 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4842079,
+      "user_id": "1142011",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -3400,10 +3491,11 @@
       "global_ship": false,
       "coupon": true,
       "badges": [],
-      "user_id": 8721635,
+      "user_id": "3396409",
       "maker_info": {
         "public": false,
-        "note": "메이커 정보 비공개"
+        "note": "메이커 정보 수집 대기 중",
+        "_pending": true
       }
     },
     {
@@ -3653,5 +3745,9 @@
   "maker_info_public_count": 23,
   "maker_info_private_count": 97,
   "unique_makers": 91,
-  "unique_makers_public": 14
+  "unique_makers_public": 14,
+  "phase_a_in_progress": true,
+  "phase_a_resolved": 92,
+  "phase_a_total": 120,
+  "last_partial_update": "2026-05-20T07:44:32.349826Z"
 }
