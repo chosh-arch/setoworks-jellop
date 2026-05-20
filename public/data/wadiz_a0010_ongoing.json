@@ -307,9 +307,19 @@
       ],
       "user_id": "2389363",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "조인메디칼",
+        "main_products": "네블라이저, 콧물흡입기",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "rep_info": "변박연",
+        "founded": "2000.10.21",
+        "address": "서울 강동구 성내동 452-3번지 신호파크뷰 3층 302호",
+        "homepage": "https://brand.naver.com/gooding",
+        "phone": "024853747",
+        "biz_no": "2158199410",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -338,15 +348,18 @@
       ],
       "user_id": "2349813",
       "maker_info": {
-        "corp_name": "천지부동산",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "3618800693",
-        "rep_name": null,
-        "industry": "광물 에너지",
-        "public": true,
-        "_legacy": true
+        "corp_name": "현두상사",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "강순연",
+        "founded": "1998.12.29",
+        "address": "서울 영등포구 신길동 225-12번지 기계회관 1층",
+        "phone": "02  842 1044",
+        "biz_no": "2088126786",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -437,9 +450,20 @@
       ],
       "user_id": "2461140",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "큐버",
+        "main_products": "안드로이드 사이니지 셋탑박스, 태블릿",
+        "industry": "제조",
+        "corp_type": "주식회사",
+        "rep_info": "이장희",
+        "founded": "2015.06.01",
+        "address": "경기 성남시 분당구 삼평동 618번지 우림더블유시티 A동 302호",
+        "homepage": "//www.quber.net",
+        "phone": "07041127902",
+        "venture_cert": "있음",
+        "patents": "상표권, 특허권, 의장권",
+        "biz_no": "3498600122",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -594,15 +618,19 @@
       ],
       "user_id": "2362621",
       "maker_info": {
-        "corp_name": "제이케이솔루션",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "2348700230",
-        "rep_name": null,
-        "industry": "미디어/정보통신",
-        "public": true,
-        "_legacy": true
+        "corp_name": "처음교육",
+        "industry": "교육",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "9",
+        "rep_info": "조은미",
+        "founded": "2015.06.18",
+        "address": "경기 의정부시 고산동 996-1번지 고산듀클래스 A동 305호, 306호",
+        "homepage": "https://chumkids.com/",
+        "phone": "0318214482",
+        "biz_no": "8888100108",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -846,15 +874,22 @@
       ],
       "user_id": "2462822",
       "maker_info": {
-        "corp_name": "아이씨테크",
-        "main_products": null,
-        "homepage": "//www.ictech.co.kr",
-        "phone": "02  20811200",
-        "biz_no": "1138679340",
-        "rep_name": null,
+        "corp_name": "맥파이테크",
+        "main_products": "레이저 거리측정기",
         "industry": "제조",
-        "public": true,
-        "_legacy": true
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "22",
+        "rep_info": "신웅철",
+        "founded": "2018.02.07",
+        "address": "서울 마포구 공덕동 242-4번지 202호",
+        "homepage": "//magpie.kr",
+        "phone": "0269513144",
+        "venture_cert": "있음",
+        "patents": "특허권, 상표권, 의장권",
+        "biz_no": "6888101002",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1057,9 +1092,20 @@
       ],
       "user_id": "2314615",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "바이브라이프",
+        "main_products": "무딕스 바이브폴PRO",
+        "industry": "연구・기술・전문서비스",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "employees": "1",
+        "rep_info": "배성규",
+        "founded": "2016.08.17",
+        "address": "서울 마포구 성산1동 240-25번지 1층",
+        "homepage": "//www.mudix.co.kr",
+        "phone": "07088770918",
+        "biz_no": "2103873063",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1600,9 +1646,21 @@
       ],
       "user_id": "2294103",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "에스티",
+        "main_products": "완구, 생활용품 및 헬스기구",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "19",
+        "rep_info": "박순석",
+        "founded": "2016.03.24",
+        "address": "경기 광주시 도척면 궁평리 268-1번지",
+        "homepage": "//funny9.co.kr",
+        "phone": "031 797 4422",
+        "patents": "특허권, 상표권, 의장권, 실용신안권",
+        "biz_no": "6748600353",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1891,9 +1949,18 @@
       ],
       "user_id": "2212573",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "아이보우코리아",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "개인기업",
+        "employees": "1",
+        "rep_info": "김지영",
+        "founded": "2017.05.01",
+        "address": "서울 강남구 역삼1동 832-7번지 1108호",
+        "phone": "02  568 1188",
+        "biz_no": "3731300441",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3032,15 +3099,16 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
-        "public": true,
-        "_legacy": true
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3104,13 +3172,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3138,13 +3208,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3203,15 +3275,16 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
-        "public": true,
-        "_legacy": true
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3266,15 +3339,16 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
-        "public": true,
-        "_legacy": true
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3428,13 +3502,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3531,13 +3607,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3597,8 +3675,21 @@
       ],
       "user_id": "2492717",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "제이컴정보통신",
+        "main_products": "저장장치(USB 등), 모니터 및 핸드폰용 기능성 필름 등",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "20",
+        "rep_info": "김경종",
+        "founded": "2000.03.06",
+        "address": "경기 파주시 조리읍 대원리 324-2번지",
+        "homepage": "//www.jcominfo.co.kr",
+        "phone": "07077115477",
+        "patents": "상표권, 의장권, 특허권",
+        "biz_no": "1068186848",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3711,13 +3802,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3808,13 +3901,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3954,13 +4049,15 @@
       "badges": [],
       "user_id": "2457884",
       "maker_info": {
-        "corp_name": "세원정밀",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398138064",
-        "rep_name": null,
-        "industry": null,
+        "corp_name": "에스앰에스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "주경자",
+        "founded": "2016.04.19",
+        "address": "서울 금천구 가산동 481-10번지 벽산디지털밸리2차 7층 722호",
+        "biz_no": "3588100403",
+        "재무정보": "(단위 : 백만 원)",
         "public": true
       }
     },
@@ -3994,14 +4091,14 @@
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 46,
+  "maker_info_public_count": 52,
   "maker_info_private_count": 97,
   "unique_makers": 91,
   "unique_makers_public": 14,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T08:07:50.317754Z",
+  "last_partial_update": "2026-05-20T08:12:30.032094Z",
   "phase_b_in_progress": true,
-  "maker_info_count": 25
+  "maker_info_count": 35
 }
