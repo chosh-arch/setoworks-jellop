@@ -170,15 +170,15 @@
       ],
       "user_id": "1864069",
       "maker_info": {
-        "corp_name": "대남",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1398601320",
-        "rep_name": null,
-        "industry": "부동산",
-        "public": true,
-        "_legacy": true
+        "corp_name": "블루게이트",
+        "main_products": "시계",
+        "industry": "제조",
+        "corp_type": "개인기업",
+        "founded": "2015.01.15",
+        "homepage": "http://www.bleugate.com",
+        "phone": "15445604",
+        "patents": "특허권, 상표권",
+        "public": true
       }
     },
     {
@@ -238,15 +238,16 @@
       ],
       "user_id": "1788115",
       "maker_info": {
-        "corp_name": "신흥토건",
-        "main_products": null,
-        "homepage": null,
-        "phone": "052 260 7798",
-        "biz_no": "6108120855",
-        "rep_name": null,
-        "industry": "건설",
-        "public": true,
-        "_legacy": true
+        "corp_name": "올음",
+        "main_products": "주방,계절,생활가전 / 주방,생활용품",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "founded": "2006.06.21",
+        "homepage": "https://smartstore.naver.com/syc326",
+        "phone": "07043276017",
+        "biz_no": "6068197826",
+        "public": true
       }
     },
     {
@@ -1017,9 +1018,17 @@
       ],
       "user_id": "2013323",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "쿼럼바이오헬스케어",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "6",
+        "rep_info": "심재현",
+        "founded": "2018.08.28",
+        "address": "서울 마포구 서교동 378-10번지 H스퀘어 4층 409호",
+        "biz_no": "5948601226",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1172,9 +1181,18 @@
       ],
       "user_id": "2030691",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "무한에이아이",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "10",
+        "rep_info": "권오광",
+        "founded": "2018.08.31",
+        "address": "서울 성동구 성수동2가 325-2번지 서울숲한라시그마벨리 406호",
+        "patents": "상표권, 특허권, 의장권",
+        "biz_no": "6258101151",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1366,9 +1384,18 @@
       ],
       "user_id": "1996263",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "모모스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "5",
+        "rep_info": "김복희",
+        "founded": "2018.07.09",
+        "address": "서울 마포구 서교동 352-26번지 인쇄문화회관 302호",
+        "phone": "027068564",
+        "biz_no": "2678701035",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1782,9 +1809,22 @@
       "badges": [],
       "user_id": "1743935",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "휴렉",
+        "main_products": "가전제품 외",
+        "industry": "제조",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "41",
+        "rep_info": "정대성",
+        "founded": "2015.07.14",
+        "address": "서울 금천구 가산동 459-24번지 10층 1001호",
+        "homepage": "//www.hulec.co.kr",
+        "phone": "15447738",
+        "venture_cert": "있음",
+        "patents": "의장권, 특허권, 상표권",
+        "biz_no": "7108100106",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1944,9 +1984,20 @@
       ],
       "user_id": "1619874",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "큐월드",
+        "main_products": "슬렌더톤,스피드인턴,NSD스피너 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "5",
+        "rep_info": "김성원",
+        "founded": "2015.03.26",
+        "address": "경기 부천시 소사구 괴안동 254-5번지 양지빌딩 503호",
+        "homepage": "//www.qworld.co.kr",
+        "phone": "15888799",
+        "biz_no": "6858600033",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2184,9 +2235,21 @@
       ],
       "user_id": "1890268",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "루컴즈생활",
+        "main_products": "LED 모니터 및 복합제품 외",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "21",
+        "rep_info": "강평수",
+        "founded": "2017.12.05",
+        "address": "서울 서초구 방배동 952-4번지",
+        "homepage": "https://lucomslife.com/",
+        "phone": "16005488",
+        "patents": "상표권, 의장권, 특허권",
+        "biz_no": "4938100929",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3325,8 +3388,20 @@
       "badges": [],
       "user_id": "1853141",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "오진양행",
+        "main_products": "영업용 커피머신, 업소용 주방설비 외",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "110",
+        "rep_info": "도영훈",
+        "founded": "1992.05.01",
+        "address": "서울 강남구 개포동 1164-18번지",
+        "homepage": "//www.ohjin.co.kr",
+        "phone": "07082097127",
+        "biz_no": "2148141045",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3919,14 +3994,14 @@
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 39,
+  "maker_info_public_count": 46,
   "maker_info_private_count": 97,
   "unique_makers": 91,
   "unique_makers_public": 14,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T08:03:53.295167Z",
+  "last_partial_update": "2026-05-20T08:07:50.317754Z",
   "phase_b_in_progress": true,
-  "maker_info_count": 16
+  "maker_info_count": 25
 }
