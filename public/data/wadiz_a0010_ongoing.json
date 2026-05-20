@@ -448,9 +448,12 @@
       ],
       "user_id": "6715777",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "디와이앤티",
+        "main_products": "삼면 구조의 원터치 높이조절 싱크대 물막이. 싱크코트",
+        "industry": "제조",
+        "corp_type": "개인기업",
+        "phone": "07080959252",
+        "public": true
       }
     },
     {
@@ -550,9 +553,15 @@
       "badges": [],
       "user_id": "3601676",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "어라운드엑스",
+        "main_products": "소형가전, 리빙, 기구, IT 제품",
+        "industry": "도소매",
+        "corp_type": "주식회사",
+        "founded": "2020.12.16",
+        "homepage": "//www.aroundx.kr",
+        "phone": "029219729",
+        "biz_no": "1928601923",
+        "public": true
       }
     },
     {
@@ -581,15 +590,19 @@
       ],
       "user_id": "5305526",
       "maker_info": {
-        "corp_name": "영주참살이문화협동조합",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "4048210123",
-        "rep_name": null,
-        "industry": "단체/기타서비스",
-        "public": true,
-        "_legacy": true
+        "corp_name": "케이디아",
+        "main_products": "디지털,가전",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "배성현",
+        "founded": "2022.09.15",
+        "address": "경기 성남시 수정구 고등동 603번지 반도아이비밸리 1층 129호",
+        "phone": "01057459559",
+        "biz_no": "4468102839",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -616,9 +629,19 @@
       "badges": [],
       "user_id": "645866",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "산티아고앤",
+        "main_products": "와플&amp;샌드위치메이커, 농도조절 티텀블러, 모바일 노트북 거치대",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "윤진수",
+        "founded": "2016.04.08",
+        "address": "서울 영등포구 양평동5가 18번지 선유도우림라이온스밸리 B동 409호",
+        "homepage": "//www.santiago-n.com",
+        "phone": "07078743282",
+        "biz_no": "4018600395",
+        "public": true
       }
     },
     {
@@ -852,9 +875,17 @@
       ],
       "user_id": "3584908",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "대림바스(주)",
+        "industry": "도소매",
+        "corp_scale": "중견기업",
+        "corp_type": "주식회사",
+        "employees": "740",
+        "rep_info": "강태식",
+        "founded": "1978.01.10",
+        "address": "서울 영등포구 버드나루로 84 제일빌딩",
+        "phone": "15884360",
+        "biz_no": "1028500695",
+        "public": true
       }
     },
     {
@@ -883,9 +914,17 @@
       ],
       "user_id": "3688790",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "원스",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "7",
+        "rep_info": "이원우",
+        "founded": "2021.07.22",
+        "address": "경기 성남시 수정구 신흥3동 4191번지 2층",
+        "biz_no": "7638602404",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -958,9 +997,15 @@
       ],
       "user_id": "6749998",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "진성모아",
+        "main_products": "소형 주방 및 계절가전",
+        "industry": "도소매",
+        "corp_type": "주식회사",
+        "founded": "2025.04.23",
+        "address": "경기 구리시 갈매동 545번지 휴밸나인지식산업센터 제1동 제10층 제디동 10072호",
+        "phone": "07052270653",
+        "biz_no": "3988103806",
+        "public": true
       }
     },
     {
@@ -989,9 +1034,19 @@
       ],
       "user_id": "6320796",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "리아보",
+        "main_products": "소형가전,필터 등",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "이동건",
+        "founded": "2024.09.24",
+        "address": "경기 양주시 백석읍 연곡리 163-3번지",
+        "homepage": "https://liavo.co.kr/23",
+        "phone": "15443231",
+        "biz_no": "6318803357",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1062,9 +1117,16 @@
       ],
       "user_id": "6666499",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "리디아",
+        "main_products": "Roastico Classic",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "founded": "2024.02.05",
+        "address": "경기 용인시 기흥구 동백동 694번지 용인동백두산위브더제니스 106동 2102호",
+        "homepage": "https://www.roastico.co.kr",
+        "phone": "07076177320",
+        "biz_no": "6960402942",
+        "public": true
       }
     },
     {
@@ -1174,9 +1236,18 @@
       ],
       "user_id": "463457",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "비스비바",
+        "main_products": "휴지통",
+        "industry": "제조",
+        "corp_type": "주식회사",
+        "founded": "2008.11.20",
+        "address": "경기 이천시 마장면 목리 41-3번지",
+        "homepage": "//visviva-int.com",
+        "phone": "15888164",
+        "patents": "의장권, 특허권, 상표권",
+        "biz_no": "2158720574",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1236,9 +1307,18 @@
       ],
       "user_id": "425291",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "아이비케어",
+        "main_products": "눈운동기, 눈마사지기, 눈찜질기, 고글형 망원경, 휴대용 LED돋보기",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "이경숙",
+        "founded": "2002.03.02",
+        "address": "경기 용인시 기흥구 구갈동 398-3번지 성림빌딩 201-2호",
+        "homepage": "//www.ibcare.kr",
+        "phone": "0312847289",
+        "biz_no": "2140513166",
+        "public": true
       }
     },
     {
@@ -1365,15 +1445,20 @@
       ],
       "user_id": "574180",
       "maker_info": {
-        "corp_name": "다래비젼",
-        "main_products": "전자부품. 시스템솔루션 외",
-        "homepage": "//www.dareavision.co.kr",
-        "phone": "070 75983507",
-        "biz_no": "1388153664",
-        "rep_name": null,
-        "industry": "제조",
-        "public": true,
-        "_legacy": true
+        "corp_name": "티엠커머스",
+        "main_products": "소형가전",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "문성환",
+        "founded": "2013.02.18",
+        "address": "경기 고양시 일산서구 대화동 2307-12번지 일산디엠시티스카이뷰 사무동 5층 512호",
+        "homepage": "//www.inki.co.kr",
+        "phone": "0319419641",
+        "biz_no": "1288685577",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1560,9 +1645,19 @@
       ],
       "user_id": "5593405",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "니트니",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "김영규",
+        "founded": "2022.10.13",
+        "address": "경기 수원시 권선구 호매실동 1402-1번지 와이제이프라자 510호",
+        "homepage": "https://smartstore.naver.com/nitni",
+        "phone": "0313606500",
+        "biz_no": "8518702504",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1591,9 +1686,17 @@
       ],
       "user_id": "5833320",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "모나스랩",
+        "main_products": "어메이징미 포어펙트 원더스틱",
+        "industry": "도소매",
+        "corp_type": "주식회사",
+        "rep_info": "서정모",
+        "founded": "2023.11.27",
+        "address": "서울 서초구 서초4동 1695-20번지 302호",
+        "homepage": "https://amazingme.kr/",
+        "phone": "01055499930",
+        "biz_no": "8038802759",
+        "public": true
       }
     },
     {
@@ -1622,9 +1725,16 @@
       ],
       "user_id": "6666499",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "리디아",
+        "main_products": "Roastico Classic",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "founded": "2024.02.05",
+        "address": "경기 용인시 기흥구 동백동 694번지 용인동백두산위브더제니스 106동 2102호",
+        "homepage": "https://www.roastico.co.kr",
+        "phone": "07076177320",
+        "biz_no": "6960402942",
+        "public": true
       }
     },
     {
@@ -1736,9 +1846,10 @@
       "badges": [],
       "user_id": "7422417",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "알고리즘",
+        "phone": "01076267599",
+        "biz_no": "3634601174",
+        "public": true
       }
     },
     {
@@ -1796,9 +1907,18 @@
       "badges": [],
       "user_id": "5867415",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "이기자인터내셔널",
+        "main_products": "디지드로우(Digidraw) 펜 디스플레이 타블렛, 아트엑스(Arrtx) 마카펜",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "강성국",
+        "founded": "2023.12.27",
+        "address": "경기 파주시 와동동 1484번지 운정한강듀클래스 3층 317호",
+        "homepage": "//www.igiza.kr",
+        "phone": "07041259000",
+        "biz_no": "6758603372",
+        "public": true
       }
     },
     {
@@ -1868,9 +1988,20 @@
       "badges": [],
       "user_id": "5959709",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "레전드글로벌",
+        "main_products": "자율 주행 로봇, 스마트 가전, 이미용 생활 가전",
+        "industry": "연구・기술・전문서비스",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "rep_info": "윤영진",
+        "founded": "2024.05.28",
+        "address": "서울 영등포구 문래동3가 55-20번지 에이스하이테크시티 3동 3-302호",
+        "homepage": "https://legendglobal.co.kr/",
+        "phone": "01087070210",
+        "venture_cert": "있음",
+        "biz_no": "6318603519",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2050,9 +2181,21 @@
       ],
       "user_id": "5744514",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "발코니팜",
+        "main_products": "발코니팜 팟",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "김성우",
+        "founded": "2023.11.10",
+        "address": "서울 강남구 일원1동 670-6번지 1층",
+        "homepage": "https://balconyfarm.net/product",
+        "phone": "024590209",
+        "venture_cert": "있음",
+        "biz_no": "5898802789",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2154,9 +2297,21 @@
       ],
       "user_id": "3758558",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "한티앤에스",
+        "main_products": "스팀 청소기 / 스팀 다리미 / 두유 죽 제조기 / 선풍기 등",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "24",
+        "rep_info": "박제우",
+        "founded": "2021.08.09",
+        "address": "경기 안산시 단원구 원시동 735-2번지",
+        "homepage": "//www.haan.com",
+        "phone": "15444918",
+        "venture_cert": "있음",
+        "biz_no": "6968102434",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2312,9 +2467,20 @@
       ],
       "user_id": "476515",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "하츠",
+        "main_products": "렌지후드, 빌트인기기, 환기시스템 설치 외",
+        "industry": "제조",
+        "corp_type": "주식회사",
+        "employees": "247",
+        "rep_info": "김성식",
+        "founded": "1988.10.10",
+        "address": "경기 평택시 진위면 청호리 344번지",
+        "homepage": "//www.haatz.co.kr",
+        "phone": "02  34386764",
+        "patents": "의장권, 특허권, 상표권, 실용신안권",
+        "biz_no": "1288106145",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2343,9 +2509,18 @@
       ],
       "user_id": "5590192",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "에소테",
+        "main_products": "데스크매트",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "개인기업",
+        "rep_info": "주상진",
+        "founded": "2023.06.19",
+        "address": "서울 마포구 동교동 190-1번지 서울디자인창업센터 플랫폼D동 4층 15호",
+        "homepage": "https://www.instagram.com/esote.official/",
+        "phone": "07079544256",
+        "biz_no": "5210402667",
+        "public": true
       }
     },
     {
@@ -2578,15 +2753,16 @@
       "badges": [],
       "user_id": "5061179",
       "maker_info": {
-        "corp_name": "세종솔루션",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1678700982",
-        "rep_name": null,
-        "industry": "시설/기타 지원",
-        "public": true,
-        "_legacy": true
+        "corp_name": "엠텍",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "개인기업",
+        "founded": "2015.04.01",
+        "address": "서울 용산구 한강로3가 16-20번지 원효전자상가 109호",
+        "phone": "02  32750724",
+        "biz_no": "7050200093",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2613,9 +2789,17 @@
       "badges": [],
       "user_id": "5976703",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "비앤티",
+        "main_products": "PC/모바일 주변기기, 생활용품 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "조윤숙",
+        "founded": "2024.07.12",
+        "address": "서울 동대문구 장안1동 415-12번지 삼지빌딩 9층 902호",
+        "phone": "0222167463",
+        "biz_no": "3438703259",
+        "public": true
       }
     },
     {
@@ -2685,9 +2869,17 @@
       ],
       "user_id": "6742126",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "티나인랩",
+        "main_products": "보풀제거기, 헤어드라이기, 뷰티디바이스, 캠핑용품 등",
+        "industry": "도소매",
+        "corp_type": "주식회사",
+        "rep_info": "정중훈",
+        "founded": "2025.04.02",
+        "address": "경기 광명시 소하1동 1345번지 광명테크노파크 B동 1407호",
+        "homepage": "https://www.tninelab.com",
+        "phone": "07086118833",
+        "biz_no": "6438703479",
+        "public": true
       }
     },
     {
@@ -2716,9 +2908,18 @@
       ],
       "user_id": "5649462",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "릴라이블",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "5",
+        "rep_info": "곽명화",
+        "founded": "2023.03.23",
+        "address": "인천 연수구 송도동 172-5번지 송도에이티지식산업센터 1201호",
+        "venture_cert": "있음",
+        "biz_no": "6278602831",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2855,9 +3056,17 @@
       "badges": [],
       "user_id": "5976703",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "비앤티",
+        "main_products": "PC/모바일 주변기기, 생활용품 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "조윤숙",
+        "founded": "2024.07.12",
+        "address": "서울 동대문구 장안1동 415-12번지 삼지빌딩 9층 902호",
+        "phone": "0222167463",
+        "biz_no": "3438703259",
+        "public": true
       }
     },
     {
@@ -2925,8 +3134,17 @@
       "badges": [],
       "user_id": "6373359",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "제이엔씨(J&amp;C)",
+        "main_products": "Twin Slim Sliding Stand, Twin Slim Folding Stand",
+        "industry": "제조",
+        "corp_type": "개인기업",
+        "rep_info": "이찬호",
+        "founded": "2024.06.11",
+        "address": "경기 군포시 산본로432번길 7 3층 1호",
+        "homepage": "//www.twinslim.co.kr",
+        "phone": "0313993783",
+        "biz_no": "7193001508",
+        "public": true
       }
     },
     {
@@ -2953,9 +3171,19 @@
       "badges": [],
       "user_id": "3574383",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "애드나인",
+        "main_products": "큐브쿠션/런큐브라이트/큐브쿠션180/울트라드라이/플리츠드라이/플리츠플러스/스킨드라이/울트라히트쿠션/NSF",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "개인기업",
+        "rep_info": "홍혜리",
+        "founded": "2019.12.17",
+        "address": "경기 시흥시 배곧동 122번지 배곧타운2차 2층 215호",
+        "homepage": "https://addninesports.modoo.at",
+        "phone": "01041157659",
+        "biz_no": "6344300547",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3051,8 +3279,17 @@
       "badges": [],
       "user_id": "5976703",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "비앤티",
+        "main_products": "PC/모바일 주변기기, 생활용품 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "조윤숙",
+        "founded": "2024.07.12",
+        "address": "서울 동대문구 장안1동 415-12번지 삼지빌딩 9층 902호",
+        "phone": "0222167463",
+        "biz_no": "3438703259",
+        "public": true
       }
     },
     {
@@ -3081,9 +3318,18 @@
       ],
       "user_id": "5666814",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "보배코퍼레이션(Bobecorperation)",
+        "main_products": "BOBE 보조배터리",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "employees": "2",
+        "rep_info": "이서원",
+        "founded": "2023.11.20",
+        "address": "경기 양주시 옥정동로 190 203",
+        "phone": "050701770044",
+        "biz_no": "8051702212",
+        "public": true
       }
     },
     {
@@ -3112,9 +3358,18 @@
       ],
       "user_id": "5666814",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "보배코퍼레이션(Bobecorperation)",
+        "main_products": "BOBE 보조배터리",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "employees": "2",
+        "rep_info": "이서원",
+        "founded": "2023.11.20",
+        "address": "경기 양주시 옥정동로 190 203",
+        "phone": "050701770044",
+        "biz_no": "8051702212",
+        "public": true
       }
     },
     {
@@ -3183,8 +3438,18 @@
       ],
       "user_id": "3757155",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "제이엠코퍼레이션",
+        "main_products": "모모캔버스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "박준명",
+        "founded": "2021.08.20",
+        "address": "경기 수원시 권선구 권선동 1013번지 지오베르크 509호",
+        "homepage": "//www.momocanvas.com",
+        "phone": "050713110171",
+        "biz_no": "1028702246",
+        "public": true
       }
     },
     {
@@ -3358,9 +3623,18 @@
       ],
       "user_id": "5666814",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "보배코퍼레이션(Bobecorperation)",
+        "main_products": "BOBE 보조배터리",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "employees": "2",
+        "rep_info": "이서원",
+        "founded": "2023.11.20",
+        "address": "경기 양주시 옥정동로 190 203",
+        "phone": "050701770044",
+        "biz_no": "8051702212",
+        "public": true
       }
     },
     {
@@ -3556,9 +3830,17 @@
       "badges": [],
       "user_id": "5324660",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "제이에스엘홀딩스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "8",
+        "rep_info": "이종출",
+        "founded": "2022.02.03",
+        "address": "경기 하남시 풍산동 490-2번지 하우스디스마트밸리 F동 6층 606호",
+        "biz_no": "1908702597",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3661,8 +3943,21 @@
       "badges": [],
       "user_id": "5551153",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "필로텍",
+        "main_products": "안심양말",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "3",
+        "rep_info": "이영민",
+        "founded": "2022.06.24",
+        "address": "대전 유성구 관평동 1337번지 배재대학교 대덕산학협력관 N동 517호",
+        "homepage": "https://smartstore.naver.com/ansim_shop",
+        "phone": "15441925",
+        "venture_cert": "있음",
+        "biz_no": "2748602511",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3851,8 +4146,17 @@
       "badges": [],
       "user_id": "5324660",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "제이에스엘홀딩스",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "8",
+        "rep_info": "이종출",
+        "founded": "2022.02.03",
+        "address": "경기 하남시 풍산동 490-2번지 하우스디스마트밸리 F동 6층 606호",
+        "biz_no": "1908702597",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -4021,13 +4325,8 @@
       "badges": [],
       "user_id": "3587267",
       "maker_info": {
-        "corp_name": "창문",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "3068138271",
-        "rep_name": null,
-        "industry": "연구・기술・전문서비스",
+        "corp_name": "아크텍 (ARC TEC)",
+        "biz_no": "5630801656",
         "public": true
       }
     },
@@ -4119,8 +4418,17 @@
       "badges": [],
       "user_id": "5976703",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "비앤티",
+        "main_products": "PC/모바일 주변기기, 생활용품 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "조윤숙",
+        "founded": "2024.07.12",
+        "address": "서울 동대문구 장안1동 415-12번지 삼지빌딩 9층 902호",
+        "phone": "0222167463",
+        "biz_no": "3438703259",
+        "public": true
       }
     },
     {
@@ -4147,8 +4455,17 @@
       "badges": [],
       "user_id": "5976703",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "비앤티",
+        "main_products": "PC/모바일 주변기기, 생활용품 등",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "조윤숙",
+        "founded": "2024.07.12",
+        "address": "서울 동대문구 장안1동 415-12번지 삼지빌딩 9층 902호",
+        "phone": "0222167463",
+        "biz_no": "3438703259",
+        "public": true
       }
     },
     {
@@ -4245,14 +4562,14 @@
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 66,
+  "maker_info_public_count": 102,
   "maker_info_private_count": 97,
   "unique_makers": 91,
   "unique_makers_public": 14,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T08:17:24.923956Z",
+  "last_partial_update": "2026-05-20T08:32:10.256738Z",
   "phase_b_in_progress": true,
-  "maker_info_count": 45
+  "maker_info_count": 77
 }
