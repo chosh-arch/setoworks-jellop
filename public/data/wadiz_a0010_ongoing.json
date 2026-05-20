@@ -65,15 +65,15 @@
       ],
       "user_id": "4577883",
       "maker_info": {
-        "corp_name": "대웅금속",
-        "main_products": "볼트,너트",
-        "homepage": null,
-        "phone": "055 329 0055",
-        "biz_no": "6228122273",
-        "rep_name": null,
-        "industry": "제조",
-        "public": true,
-        "_legacy": true
+        "corp_name": "스카이로켓",
+        "main_products": "웰핀 더 퓨어 가열식 가습기",
+        "homepage": "//www.welfin.co.kr",
+        "phone": "07077620716",
+        "biz_no": "4453300929",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "founded": "2020.08.13",
+        "public": true
       }
     },
     {
@@ -661,9 +661,17 @@
       ],
       "user_id": "3308740",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "딜팩토리",
+        "main_products": "골전도 이어폰, 발마사지기, 러닝 용품",
+        "homepage": "https://soundbone.co.kr/",
+        "phone": "0269250623",
+        "biz_no": "8138601700",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "employees": "14",
+        "founded": "2020.04.28",
+        "address": "서울 마포구 상암동 1601번지 케이지아이티센터 1031호",
+        "public": true
       }
     },
     {
@@ -692,9 +700,20 @@
       ],
       "user_id": "1365063",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "에이티코리아",
+        "main_products": "미국 헤어케어 브랜드 럭스 전제품외 수입 계절가전 소형가전",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "장동욱",
+        "founded": "2016.06.20",
+        "address": "경기 부천시 소사구 괴안동 4-11번지 우학빌딩 가동 1층",
+        "homepage": "https://luxxstore.com/",
+        "phone": "0323485032",
+        "biz_no": "2588700459",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -723,9 +742,19 @@
       ],
       "user_id": "1124138",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "이스트코퍼레이션",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "12",
+        "rep_info": "현승록",
+        "founded": "2014.12.16",
+        "address": "경기 고양시 덕양구 원흥동 705번지 원흥한일윈스타 1103호, 1104호",
+        "homepage": "https://www.eastcorporation.co.kr/company",
+        "phone": "0319233674",
+        "biz_no": "1138693487",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -915,9 +944,20 @@
       ],
       "user_id": "1493320",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "트루비온",
+        "main_products": "IC, 전자부품 등",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "11",
+        "founded": "2007.01.23",
+        "address": "경기 광명시 소하동 1345번지 광명테크노파크 비동 제14층 비1406호,비1407호,디동 제9층 디905호,디906호",
+        "homepage": "http://www.tninelab.com/",
+        "phone": "07086118833",
+        "patents": "의장권, 상표권",
+        "biz_no": "1238608857",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1258,15 +1298,17 @@
       ],
       "user_id": "3775715",
       "maker_info": {
-        "corp_name": "디씨티글로벌",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1288709713",
-        "rep_name": null,
+        "corp_name": "스웨그키",
+        "main_products": "트랜지션 라이트, Eave65, Smurve80, QK80MK2, QK65MK3 등",
+        "homepage": "https://www.swagkey.kr/?redirect=no",
+        "phone": "01030120420",
+        "biz_no": "2556900330",
         "industry": "도소매",
-        "public": true,
-        "_legacy": true
+        "corp_scale": "소기업",
+        "employees": "8",
+        "founded": "2020.07.16",
+        "address": "경기 부천시 원미구 춘의동 75-8 네스필러 타워 2층 일부 201호, 3층 전체",
+        "public": true
       }
     },
     {
@@ -1353,9 +1395,21 @@
       "badges": [],
       "user_id": "12833",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "마이프랜드",
+        "main_products": "선풍기, 다리미, 전기밥솥 외",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "5",
+        "rep_info": "김수민",
+        "founded": "1996.08.21",
+        "address": "경기 고양시 일산서구 대화동 1926-152번지",
+        "homepage": "//www.imyfriend.co.kr",
+        "phone": "031 922 4307",
+        "patents": "의장권, 상표권",
+        "biz_no": "1118127045",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1477,9 +1531,20 @@
       ],
       "user_id": "124629",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "홍진테크",
+        "main_products": "가전제품",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "20",
+        "rep_info": "김태성",
+        "founded": "2003.07.30",
+        "address": "경기 시흥시 대야동 123-10번지",
+        "phone": "0313186043",
+        "patents": "의장권, 상표권",
+        "biz_no": "1138185911",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1748,9 +1813,16 @@
       ],
       "user_id": "1744937",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "이노템",
+        "main_products": "CADDYX multi golf stand",
+        "homepage": "https://caddyx.carrd.co/",
+        "phone": "01096929652",
+        "biz_no": "1588700125",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "founded": "2015.06.19",
+        "address": "경기 김포시 양촌읍 대포리 40번지 모아종합유통상가 마동 2층 208호",
+        "public": true
       }
     },
     {
@@ -1934,9 +2006,20 @@
       ],
       "user_id": "1589028",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "청연엠엔에스",
+        "main_products": "스마트 충전기기, 사무용 디지털 기기, 가정용 소형 가전",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "7",
+        "rep_info": "이성훈",
+        "founded": "2012.03.23",
+        "address": "서울 용산구 한강로2가 14-18번지 넥서스밸리 3층 304호",
+        "homepage": "http://www.navee.co.kr",
+        "phone": "07088500200",
+        "biz_no": "1068685238",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1996,9 +2079,21 @@
       ],
       "user_id": "1503694",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "우영커뮤니케이션",
+        "main_products": "컴퓨터 및 주변장치",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "5",
+        "rep_info": "최춘영",
+        "founded": "2008.08.22",
+        "address": "인천 남동구 고잔동 246-110번지",
+        "homepage": "//anyclear.co.kr",
+        "phone": "07043231574",
+        "patents": "상표권, 특허권",
+        "biz_no": "1068660450",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2120,15 +2215,22 @@
       ],
       "user_id": "1306062",
       "maker_info": {
-        "corp_name": "농업회사법인  백년배",
-        "main_products": null,
-        "homepage": null,
-        "phone": null,
-        "biz_no": "1238702433",
-        "rep_name": null,
-        "industry": "농・축・수산",
-        "public": true,
-        "_legacy": true
+        "corp_name": "애플젠",
+        "main_products": "비데",
+        "industry": "도소매",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "45",
+        "rep_info": "송희영",
+        "founded": "2006.10.31",
+        "address": "서울 영등포구 문래동3가 55-20번지 에이스하이테크시티 4동 5층 505호",
+        "homepage": "//www.applebidet.co.kr",
+        "phone": "15777166",
+        "venture_cert": "있음",
+        "patents": "의장권, 특허권, 상표권",
+        "biz_no": "1208707424",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2308,9 +2410,21 @@
       "badges": [],
       "user_id": "1142011",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "두이즈",
+        "main_products": "휴대폰 충전기, 휴대폰 악세사리",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "강현욱",
+        "founded": "2014.06.02",
+        "address": "서울 금천구 가산동 345-50번지 아이티프리미어타워 8층 805호, 806호",
+        "homepage": "https://smartstore.naver.com/dois",
+        "phone": "07048004799",
+        "patents": "특허권, 의장권, 상표권",
+        "biz_no": "1198688833",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2428,9 +2542,21 @@
       "badges": [],
       "user_id": "1142011",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "두이즈",
+        "main_products": "휴대폰 충전기, 휴대폰 악세사리",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "강현욱",
+        "founded": "2014.06.02",
+        "address": "서울 금천구 가산동 345-50번지 아이티프리미어타워 8층 805호, 806호",
+        "homepage": "https://smartstore.naver.com/dois",
+        "phone": "07048004799",
+        "patents": "특허권, 의장권, 상표권",
+        "biz_no": "1198688833",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2459,9 +2585,18 @@
       ],
       "user_id": "1247723",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "원오원",
+        "main_products": "식물재배기",
+        "industry": "도소매",
+        "corp_scale": "소상공인",
+        "corp_type": "개인기업",
+        "rep_info": "이종문",
+        "founded": "2015.05.05",
+        "address": "경기 안양시 동안구 갈산동 1083-1번지 호성빌딩 4층 지하1층",
+        "homepage": "https://www.planty101.com",
+        "phone": "07088308883",
+        "biz_no": "5010884154",
+        "public": true
       }
     },
     {
@@ -2546,7 +2681,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 4023990,
+      "user_id": "6373359",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -2603,7 +2738,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8115388,
+      "user_id": "7773987",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -2633,9 +2768,21 @@
       "badges": [],
       "user_id": "1142011",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "두이즈",
+        "main_products": "휴대폰 충전기, 휴대폰 악세사리",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "강현욱",
+        "founded": "2014.06.02",
+        "address": "서울 금천구 가산동 345-50번지 아이티프리미어타워 8층 805호, 806호",
+        "homepage": "https://smartstore.naver.com/dois",
+        "phone": "07048004799",
+        "patents": "특허권, 의장권, 상표권",
+        "biz_no": "1198688833",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2660,7 +2807,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7470303,
+      "user_id": "5976703",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -2752,10 +2899,20 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4874007,
+      "user_id": "1238005",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "데이윅",
+        "main_products": "모바일웨어러블",
+        "industry": "교육",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "함효범",
+        "founded": "2017.03.20",
+        "address": "경기 의정부시 용현동 554-10번지 경희빌딩 3층 3148호",
+        "phone": "01072428208",
+        "biz_no": "8788100585",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2782,7 +2939,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 8687088,
+      "user_id": "3757155",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -2847,9 +3004,17 @@
       "badges": [],
       "user_id": "5737334",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "코나에코홈",
+        "main_products": "비데,드라이기,서큘레이터,커피머신",
+        "homepage": "https://www.instagram.com/vesko___",
+        "phone": "07088880353",
+        "biz_no": "2388802713",
+        "industry": "제조",
+        "corp_scale": "소상공인",
+        "employees": "4",
+        "founded": "2023.09.06",
+        "address": "충남 아산시 둔포면 신항리 102-15번지 에이동,비동",
+        "public": true
       }
     },
     {
@@ -2874,7 +3039,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -2908,7 +3073,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3008,7 +3173,7 @@
       "global_ship": false,
       "coupon": true,
       "badges": [],
-      "user_id": 8681880,
+      "user_id": "7833142",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3071,7 +3236,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8139758,
+      "user_id": "7649013",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3101,7 +3266,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 404932,
+      "user_id": "2646478",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3158,7 +3323,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8091464,
+      "user_id": "1853141",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3186,7 +3351,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3220,7 +3385,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8617566,
+      "user_id": "5551153",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3250,9 +3415,21 @@
       "badges": [],
       "user_id": "1142011",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "두이즈",
+        "main_products": "휴대폰 충전기, 휴대폰 악세사리",
+        "industry": "제조",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "employees": "4",
+        "rep_info": "강현욱",
+        "founded": "2014.06.02",
+        "address": "서울 금천구 가산동 345-50번지 아이티프리미어타워 8층 805호, 806호",
+        "homepage": "https://smartstore.naver.com/dois",
+        "phone": "07048004799",
+        "patents": "특허권, 의장권, 상표권",
+        "biz_no": "1198688833",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -3277,7 +3454,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3313,7 +3490,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 4582530,
+      "user_id": "3435674",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3343,7 +3520,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 7186750,
+      "user_id": "2492717",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3371,7 +3548,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8640122,
+      "user_id": "5324660",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3401,7 +3578,7 @@
       "badges": [
         "https://cdn4.wadiz.kr/collection/646/a8f80e82-17e2-48dd-97a2-d64e04cdd7d2.png"
       ],
-      "user_id": 404932,
+      "user_id": "2646478",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3429,7 +3606,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 8587267,
+      "user_id": "7830528",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3457,7 +3634,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3520,7 +3697,7 @@
       "global_ship": true,
       "coupon": false,
       "badges": [],
-      "user_id": 3408665,
+      "user_id": "3587267",
       "maker_info": {
         "corp_name": "창문",
         "main_products": null,
@@ -3554,7 +3731,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3588,7 +3765,7 @@
       "global_ship": true,
       "coupon": false,
       "badges": [],
-      "user_id": 8645763,
+      "user_id": "7808181",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3616,7 +3793,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7470303,
+      "user_id": "5976703",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3644,7 +3821,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 7470303,
+      "user_id": "5976703",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3700,7 +3877,7 @@
       "global_ship": false,
       "coupon": false,
       "badges": [],
-      "user_id": 6484949,
+      "user_id": "2457884",
       "maker_info": {
         "corp_name": "세원정밀",
         "main_products": null,
@@ -3734,7 +3911,7 @@
       "global_ship": true,
       "coupon": false,
       "badges": [],
-      "user_id": 8645763,
+      "user_id": "7808181",
       "maker_info": {
         "public": false,
         "note": "메이커 정보 비공개"
@@ -3742,12 +3919,14 @@
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 23,
+  "maker_info_public_count": 39,
   "maker_info_private_count": 97,
   "unique_makers": 91,
   "unique_makers_public": 14,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T07:44:32.349826Z"
+  "last_partial_update": "2026-05-20T08:03:53.295167Z",
+  "phase_b_in_progress": true,
+  "maker_info_count": 16
 }
