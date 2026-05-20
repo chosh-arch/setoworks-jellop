@@ -34,9 +34,12 @@
       ],
       "user_id": "7828993",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "아스트라호라이즌 유한회사",
+        "main_products": "MoGo4, HORIZON 20 시리즈, Nova",
+        "homepage": "https://kr.xgimi.com",
+        "phone": "07080589764",
+        "biz_no": "5768103901",
+        "public": true
       }
     },
     {
@@ -145,9 +148,14 @@
       ],
       "user_id": "7793257",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "리빙플러스",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "founded": "2024.12.30",
+        "address": "경기 용인시 수지구 동천동 180-12번지 2층 202B호",
+        "phone": "01059366543",
+        "biz_no": "6350803129",
+        "public": true
       }
     },
     {
@@ -417,9 +425,18 @@
       ],
       "user_id": "765620",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "레드빈",
+        "main_products": "스마트디바이스 주변기기 및 데스크테리어 용품",
+        "industry": "제조",
+        "corp_type": "주식회사",
+        "rep_info": "박성민",
+        "founded": "2017.06.09",
+        "address": "서울 금천구 가산동 219-5번지 가산테라타워 511호",
+        "homepage": "https://rdb.one/kr",
+        "phone": "028610601",
+        "biz_no": "7748100852",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -524,9 +541,20 @@
       ],
       "user_id": "809263",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "신일전자",
+        "main_products": "선풍기, 제습기, 믹서, 공기청정기 등",
+        "industry": "도소매",
+        "corp_type": "주식회사",
+        "employees": "125",
+        "rep_info": "김영",
+        "founded": "1959.07.14",
+        "address": "충남 천안시 서북구 입장면 가산리 149-1번지",
+        "homepage": "//www.shinil.co.kr",
+        "phone": "02  63097807",
+        "patents": "상표권, 의장권, 특허권, 실용신안권",
+        "biz_no": "1348125389",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -1276,9 +1304,15 @@
       ],
       "user_id": "7485688",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "몽비오스",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "founded": "2024.08.01",
+        "address": "광주 광산구 신창동 1087-27번지 1층",
+        "homepage": "https://smartstore.naver.com/monbeaos",
+        "phone": "01085110769",
+        "biz_no": "2410702990",
+        "public": true
       }
     },
     {
@@ -1385,9 +1419,9 @@
       "badges": [],
       "user_id": "7833142",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "주식회사 헬프올테크",
+        "biz_no": "6788803282",
+        "public": true
       }
     },
     {
@@ -1414,9 +1448,10 @@
       "badges": [],
       "user_id": "7833180",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "제이에이치 더 모먼트 (JH The Moment)",
+        "phone": "07089836486",
+        "biz_no": "7213601712",
+        "public": true
       }
     },
     {
@@ -1878,9 +1913,22 @@
       ],
       "user_id": "860668",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "피티코퍼레이션",
+        "main_products": "라벨, 스티커 외",
+        "industry": "제조",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "62",
+        "rep_info": "강민구",
+        "founded": "2016.01.06",
+        "address": "대구 달서구 갈산동 100-23번지",
+        "homepage": "//www.printec.co.kr",
+        "phone": "053 720 1762",
+        "venture_cert": "있음",
+        "patents": "상표권, 의장권, 특허권, 실용신안권",
+        "biz_no": "1138700933",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2030,9 +2078,22 @@
       ],
       "user_id": "860668",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "피티코퍼레이션",
+        "main_products": "라벨, 스티커 외",
+        "industry": "제조",
+        "corp_scale": "중기업",
+        "corp_type": "주식회사",
+        "employees": "62",
+        "rep_info": "강민구",
+        "founded": "2016.01.06",
+        "address": "대구 달서구 갈산동 100-23번지",
+        "homepage": "//www.printec.co.kr",
+        "phone": "053 720 1762",
+        "venture_cert": "있음",
+        "patents": "상표권, 의장권, 특허권, 실용신안권",
+        "biz_no": "1138700933",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -2224,9 +2285,15 @@
       ],
       "user_id": "7833018",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "물렛(MULLE-T)",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "rep_info": "박지원",
+        "founded": "2026.04.16",
+        "address": "경기 양주시 화합로1710번길 35 양주 옥정 이노테라타워 3층 312호",
+        "phone": "01096050539",
+        "biz_no": "4232302613",
+        "public": true
       }
     },
     {
@@ -2946,9 +3013,12 @@
       "badges": [],
       "user_id": "7506181",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 수집 대기 중",
-        "_pending": true
+        "corp_name": "이루미센트",
+        "main_products": "꼽고 뒤집어서 사용하는 특허받은 안전한 어퍼써 4구 멀티탭",
+        "industry": "도소매",
+        "corp_type": "개인기업",
+        "phone": "01057544902",
+        "public": true
       }
     },
     {
@@ -3210,8 +3280,9 @@
       "badges": [],
       "user_id": "7773987",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "제트앤루나",
+        "biz_no": "8357400386",
+        "public": true
       }
     },
     {
@@ -3697,8 +3768,9 @@
       "badges": [],
       "user_id": "7833142",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "주식회사 헬프올테크",
+        "biz_no": "6788803282",
+        "public": true
       }
     },
     {
@@ -3761,8 +3833,11 @@
       "badges": [],
       "user_id": "7649013",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "로보큐브",
+        "main_products": "소형 스피커, 액자형 디스플레이 등",
+        "phone": "01088128150",
+        "biz_no": "6750603142",
+        "public": true
       }
     },
     {
@@ -4224,8 +4299,17 @@
       "badges": [],
       "user_id": "7830528",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "브레바",
+        "industry": "도소매",
+        "corp_scale": "소기업",
+        "corp_type": "주식회사",
+        "rep_info": "윤정한",
+        "founded": "2025.11.17",
+        "address": "경기 화성시 동탄구 반송동 91-2번지 로하스애비뉴 4층 401-타15호",
+        "phone": "07079548791",
+        "biz_no": "2888803420",
+        "재무정보": "(단위 : 백만 원)",
+        "public": true
       }
     },
     {
@@ -4390,8 +4474,9 @@
       "badges": [],
       "user_id": "7808181",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "온라인추모",
+        "biz_no": "5960104033",
+        "public": true
       }
     },
     {
@@ -4556,20 +4641,22 @@
       "badges": [],
       "user_id": "7808181",
       "maker_info": {
-        "public": false,
-        "note": "메이커 정보 비공개"
+        "corp_name": "온라인추모",
+        "biz_no": "5960104033",
+        "public": true
       }
     }
   ],
   "maker_info_crawled_at": "2026-05-20T06:23:04.936331Z",
-  "maker_info_public_count": 102,
+  "maker_info_public_count": 119,
   "maker_info_private_count": 97,
   "unique_makers": 91,
-  "unique_makers_public": 14,
+  "unique_makers_public": 91,
   "phase_a_in_progress": true,
   "phase_a_resolved": 92,
   "phase_a_total": 120,
-  "last_partial_update": "2026-05-20T08:32:10.256738Z",
-  "phase_b_in_progress": true,
-  "maker_info_count": 77
+  "last_partial_update": "2026-05-20T08:38:50.133765Z",
+  "phase_b_in_progress": false,
+  "maker_info_count": 91,
+  "phase_b_complete": true
 }
