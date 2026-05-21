@@ -499,17 +499,21 @@ serve(async (req) => {
           const chCountry = details.country || "";
           const langRe = LANG_PATTERN[selectedCountry];
           let mismatch = false; let mismatchReason = "";
-          if (chCountry && !allowed.includes(chCountry)) {
-            // 국가 불일치 — 언어로 한 번 더 확인 (다국어 콘텐츠 구제)
+          // 시딩 정확성 정책: country 가 명시되면 반드시 그룹에 속해야 함 (언어로 우회 불가).
+          // country 가 없는 경우만 언어 기반 보정 적용.
+          if (chCountry) {
+            if (!allowed.includes(chCountry)) {
+              mismatch = true; mismatchReason = `채널 country=${chCountry} (타겟 그룹 [${allowed.join(',')}] 외)`;
+            }
+          } else {
+            // country 미정 — 언어로 추정. 타겟 언어 8% 미만이면 SKIP
             if (langRe) {
               const sample = (details.bio || ch.snippet.description || "") + " " + videos.slice(0,5).map((v:any)=>v.title||"").join(" ");
               const hits = (sample.match(langRe) || []).length;
               const ratio = sample.length > 0 ? hits / sample.length : 0;
-              if (ratio < 0.08) { mismatch = true; mismatchReason = `채널 country=${chCountry}, 타겟언어=${(ratio*100).toFixed(1)}% (<8%)`; }
-            } else {
-              // 영어권 검색: 영어권 그룹 외 국가면 SKIP
-              mismatch = true; mismatchReason = `채널 country=${chCountry} (영어권 그룹 외)`;
+              if (ratio < 0.08) { mismatch = true; mismatchReason = `채널 country 미정, 타겟언어=${(ratio*100).toFixed(1)}% (<8%)`; }
             }
+            // 영어권 검색은 country 없는 경우 PASS (영어 디폴트 가정)
           }
           if (mismatch) {
             log.push(`${ch.snippet.channelTitle}: SKIP (국가 검증 실패: ${mismatchReason})`);
