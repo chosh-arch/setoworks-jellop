@@ -195,8 +195,17 @@ button{font-family:inherit;cursor:pointer;}
  <p>2026-05-18 기준 와디즈 A0010 (테크·가전) 카테고리에서 진행중인 모든 펀딩 캠페인 120건. 검색 API + 메이커 페이지 크롤링으로 캠페인 메타 + 법인 정보를 결합했습니다. <b>14개 메이커 (23개 캠페인)</b>가 사업자 등록 정보를 공개했으며 카드의 <b>「법인」</b> 배지로 표시됩니다. 카드를 클릭하면 상세 정보 + 추천 점수 분해가 표시됩니다.</p>
 </section>
 
-<div class="disclaim" style="border-left-color:#05b169;background:#f0f9f4;">
- <b style="color:#05b169;">🤖 자동 갱신 활성화</b> · 매주 <b>토요일 08:00-09:00 (KST)</b> 사이 랜덤 시간에 사람형 패턴으로 자동 크롤이 실행됩니다. 검색 API → 캠페인 메타 → 메이커 정보 (14개 필드) → 이메일 보강 → JSON + 엑셀 자동 갱신 → Vercel 자동 배포 (60-90분 소요). 상단 「📊 엑셀 다운로드 (최신)」 버튼은 항상 최신 결과를 제공합니다.
+<div class="disclaim" style="border-left-color:#05b169;background:#f0f9f4;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+ <div style="flex:1;min-width:260px;">
+  <b style="color:#05b169;">🤖 자동 갱신 활성화</b> · 매주 <b>토요일 08:00-09:00 (KST)</b> 랜덤 시작, 약 60-90분 후 라이브 자동 반영. 검색 API → 캠페인 → 메이커 14필드 → 이메일 보강 → 엑셀 자동 생성.
+ </div>
+ <a href="/downloads/wadiz_a0010_tech_latest.xlsx" download id="excel-download-btn" style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;background:var(--brand-red);color:#fff;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 4px 12px rgba(255,0,59,.25);transition:all .2s;white-space:nowrap;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 16px rgba(255,0,59,.35)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 12px rgba(255,0,59,.25)'">
+  <span style="font-size:18px;">📊</span>
+  <span>
+   <span style="display:block;line-height:1.2;">엑셀 다운로드</span>
+   <span id="excel-date-label" style="display:block;font-size:11px;font-weight:500;opacity:.85;letter-spacing:.02em;">— 갱신일 로딩 중 —</span>
+  </span>
+ </a>
 </div>
 
 <div class="kpis">
@@ -248,7 +257,6 @@ button{font-family:inherit;cursor:pointer;}
   <button class="tb-chip" data-filter="ad">광고</button>
   <button class="tb-chip" data-filter="end_soon">D-7 이내</button>
  </div>
- <a href="/downloads/wadiz_a0010_tech_latest.xlsx" download class="btn btn-primary" style="background:var(--brand-red);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;" title="매주 토요일 08-09시 자동 갱신">📊 엑셀 다운로드 (최신)</a>
 </div>
 
 <div class="result-meta">
@@ -425,6 +433,19 @@ function recoCardHtml(p,rank){
 }
 
 function renderMeta(){
+ // Excel download button date label
+ var dateLabel = document.getElementById('excel-date-label');
+ if(dateLabel){
+  var updated = DATA.last_partial_update || DATA.crawled_at || '';
+  if(updated){
+   var d = new Date(updated);
+   var y = d.getFullYear(); var m = String(d.getMonth()+1).padStart(2,'0'); var dy = String(d.getDate()).padStart(2,'0');
+   var hh = String(d.getHours()).padStart(2,'0'); var mm = String(d.getMinutes()).padStart(2,'0');
+   dateLabel.textContent = '갱신: ' + y + '.' + m + '.' + dy + ' ' + hh + ':' + mm;
+  } else {
+   dateLabel.textContent = '갱신일 미상';
+  }
+ }
  document.getElementById('kpi-total').textContent=DATA.total_ongoing.toLocaleString();
  const amount=DATA.items.reduce((s,p)=>s+(p.amount||0),0);
  document.getElementById('kpi-amount').innerHTML='<em>'+formatKRW(amount)+'</em>';
