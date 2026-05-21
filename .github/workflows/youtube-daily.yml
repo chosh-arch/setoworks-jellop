@@ -40,16 +40,26 @@ jobs:
           echo "API quota used in this run: $QUOTA"
 
   discover-new:
-    name: Discover new YouTube channels (JP/TW × top categories)
+    name: Discover new YouTube channels (JP-primary, +US +TW × 12 categories)
     runs-on: ubuntu-latest
     needs: update-existing
-    timeout-minutes: 15
+    timeout-minutes: 20
+    # 타겟 3국: JP(중심) + US + TW
+    # JP 는 모든 12개 카테고리 + 신규 소분류 6개(interior/music/asmr/finance/beauty/motorcycle) = 14개 슬롯
+    # US/TW 는 메인 8개 카테고리만
     strategy:
       matrix:
-        country: [JP, TW]
+        country: [JP, US, TW]
         category: [fashion, lifestyle, fitness, food, tech_unboxing, gaming, education, travel]
+        include:
+          - { country: JP, category: interior }
+          - { country: JP, category: music }
+          - { country: JP, category: asmr }
+          - { country: JP, category: finance }
+          - { country: JP, category: beauty }
+          - { country: JP, category: motorcycle }
       fail-fast: false
-      max-parallel: 2
+      max-parallel: 3
     steps:
       - name: Discover for ${{ matrix.country }}/${{ matrix.category }}
         run: |

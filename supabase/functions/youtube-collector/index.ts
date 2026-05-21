@@ -341,6 +341,19 @@ function calcMonthlyUploads(videos: any[]): number {
   return months > 0 ? Math.round(dates.length / months * 10) / 10 : dates.length;
 }
 
+// 영상 제목·설명에서 주 언어 추정 (저장용)
+function detectLanguage(text: string): string {
+  if (!text) return "";
+  const jp = (text.match(/[぀-ゟ゠-ヿ]/g) || []).length;
+  const ko = (text.match(/[가-힯]/g) || []).length;
+  const zh = (text.match(/[一-鿿]/g) || []).length;
+  const max = Math.max(jp, ko, zh);
+  if (max < 3) return "en"; // 한·중·일 문자 거의 없음 → 영어 가정
+  if (jp === max) return "ja";
+  if (ko === max) return "ko";
+  return "zh";
+}
+
 function detectCountry(text: string): string {
   if (!text) return "";
   const t = text.toLowerCase();
@@ -467,6 +480,43 @@ serve(async (req) => {
         // Get videos + score
         const videos = await getRecentVideos(chId);
         quotaUsed += 2;
+
+        // ═══ 국가/언어 검증: 검색 국가와 채널 실제 국가/언어 일치 여부 ═══
+        // selectedCountry=JP 인데 채널이 인도인이면 SKIP. 영어권은 그룹 내 허용.
+        if (selectedCountry !== "ALL") {
+          const COUNTRY_GROUPS: Record<string, string[]> = {
+            JP: ["JP"], KR: ["KR"], TW: ["TW","HK"], CN: ["CN","HK","TW"],
+            US: ["US","GB","CA","AU","IE","NZ"], GB: ["GB","US","CA","AU","IE","NZ"],
+            DE: ["DE","AT","CH"], FR: ["FR","BE","CH","CA"]
+          };
+          const LANG_PATTERN: Record<string, RegExp> = {
+            JP: /[぀-ゟ゠-ヿ]/g, // 히라가나/카타카나
+            KR: /[가-힯]/g,              // 한글
+            TW: /[一-鿿]/g,              // 한자
+            CN: /[一-鿿]/g,
+          };
+          const allowed = COUNTRY_GROUPS[selectedCountry] || [selectedCountry];
+          const chCountry = details.country || "";
+          const langRe = LANG_PATTERN[selectedCountry];
+          let mismatch = false; let mismatchReason = "";
+          if (chCountry && !allowed.includes(chCountry)) {
+            // 국가 불일치 — 언어로 한 번 더 확인 (다국어 콘텐츠 구제)
+            if (langRe) {
+              const sample = (details.bio || ch.snippet.description || "") + " " + videos.slice(0,5).map((v:any)=>v.title||"").join(" ");
+              const hits = (sample.match(langRe) || []).length;
+              const ratio = sample.length > 0 ? hits / sample.length : 0;
+              if (ratio < 0.08) { mismatch = true; mismatchReason = `채널 country=${chCountry}, 타겟언어=${(ratio*100).toFixed(1)}% (<8%)`; }
+            } else {
+              // 영어권 검색: 영어권 그룹 외 국가면 SKIP
+              mismatch = true; mismatchReason = `채널 country=${chCountry} (영어권 그룹 외)`;
+            }
+          }
+          if (mismatch) {
+            log.push(`${ch.snippet.channelTitle}: SKIP (국가 검증 실패: ${mismatchReason})`);
+            continue;
+          }
+        }
+
         const pureScore = calcPureScore({ ...details }, videos);
         const grade = assignGrade(pureScore);
         const tier = assignTier(details.followers);
@@ -508,6 +558,7 @@ serve(async (req) => {
           category: actualCategory,
           tier,
           country: details.country || detectCountry(ch.snippet.defaultLanguage || ch.snippet.title || "") || selectedCountry,
+          language: detectLanguage((details.bio || ch.snippet.description || "") + " " + videos.slice(0,5).map((v:any)=>v.title||"").join(" ")),
           avg_views: avgViews,
           avg_likes: avgLikes,
           avg_comments: avgComments,
@@ -620,6 +671,7 @@ serve(async (req) => {
           platform: "YouTube",
           username: inf.username,
           category: finalCategory,
+          language: detectLanguage((details.bio || inf.bio || "") + " " + videos.slice(0,5).map((v:any)=>v.title||"").join(" ")) || inf.language,
           pure_score: pureScore,
           grade: grade || "C",
           prev_grade: prevGrade,
